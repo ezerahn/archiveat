@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--cream:#FAF5EC;--surface:#FFFDF8;--ink:#241F1B;--muted:#8C857A;--line:#E7DCC8;--coral:#FF5019;--taupe:#C2B190;--sage:#5E9087;--brick:#9A3F26;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
+.wrap{max-width:880px;margin:0 auto;padding:22px 20px 56px}
+/* top */
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--muted);text-decoration:none;padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:var(--surface);transition:.15s}
+.back:hover{color:var(--ink);border-color:var(--taupe)}
+.brandmark{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--muted)}
+/* hero */
+.hero{margin-bottom:30px}
+.eyebrow{display:inline-block;font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.18em;color:var(--coral);margin-bottom:9px}
+.hero h1{font-family:Hahmlet,"Apple SD Gothic Neo","Malgun Gothic",serif;font-weight:700;font-size:38px;letter-spacing:-.01em;line-height:1.1}
+.hero .meta{font-family:"DM Mono",monospace;font-size:12px;color:var(--taupe);margin-top:9px;letter-spacing:.04em}
+.hero p{margin-top:12px;font-size:14.5px;color:var(--muted);max-width:540px}
+/* section label */
+.slabel{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.14em;color:var(--muted);margin:28px 0 13px;text-transform:uppercase}
+/* cards */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+@media(max-width:620px){.cards{grid-template-columns:1fr}.hero h1{font-size:30px}.wrap{padding:18px 14px 44px}}
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:21px 21px 17px;text-decoration:none;color:inherit;transition:.16s;position:relative;min-height:128px}
+.card.on:hover{transform:translateY(-3px);border-color:var(--coral);box-shadow:0 10px 26px -14px rgba(36,31,27,.26)}
+.card .era{align-self:flex-start;font-size:11px;font-weight:700;letter-spacing:.03em;padding:4px 10px;border-radius:999px;margin-bottom:13px}
+.era.fix{background:rgba(94,144,135,.15);color:#4d7d74}
+.era.live{background:rgba(255,80,25,.13);color:var(--coral)}
+.era.soon{background:rgba(194,177,144,.2);color:#8a7d5c}
+.card h3{font-family:Hahmlet,"Apple SD Gothic Neo","Malgun Gothic",serif;font-size:20px;font-weight:700;margin-bottom:6px}
+.card .desc{font-size:13px;color:#5b5447;line-height:1.6;flex:1}
+.card .go{margin-top:14px;display:inline-flex;align-items:center;gap:5px;font-size:13.5px;font-weight:600;color:var(--coral)}
+.card .go .ar{transition:.16s}.card.on:hover .go .ar{transform:translateX(4px)}
+.card.prep{border-style:dashed;opacity:.68}.card.prep .go{color:var(--taupe)}
+/* footer */
+.foot{margin-top:38px;padding-top:18px;border-top:1px solid var(--line);text-align:center;font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted);letter-spacing:.03em}
+.note{margin-top:14px;font-size:12px;color:var(--muted);line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <a class="back" href="index.html">← 공공의주방 홈</a>
+    <span class="brandmark">ARCHIVEAT · FINANCE</span>
+  </div>
+
+  <div class="hero">
+    <span class="eyebrow">테마홈 · 재무·세무</span>
+    <h1>재무·세무 홈</h1>
+    <div class="meta">2026.06 · v1</div>
+    <p>매출·매입, 분기 신고자료 추출·검증, 결산까지. 데이터는 마스터에 두고, 여기서는 보기·이동만 합니다.</p>
+  </div>
+
+  <div class="slabel">대시보드</div>
+  <div class="cards">
+
+    <a class="card on" href="finance-2026.html">
+      <span class="era live">진행중</span>
+      <h3>2026 현황</h3>
+      <div class="desc">올해 분기 가결산 — 손익 흐름, 표준 8그룹 판관비, 매출·매입 리스트, 부가세.</div>
+      <span class="go">열기 <span class="ar">→</span></span>
+    </a>
+
+    <a class="card on" href="finance-2025.html">
+      <span class="era fix">확정</span>
+      <h3>2025 이전</h3>
+      <div class="desc">2019–2025 확정 재무 — 손익·자본 추이, 비용구조, 재무상태 증감, 자금 변동.</div>
+      <span class="go">열기 <span class="ar">→</span></span>
+    </a>
+
+  </div>
+
+  <div class="slabel">도구 (준비 중)</div>
+  <div class="cards">
+
+    <div class="card prep">
+      <span class="era soon">준비 중</span>
+      <h3>분기 신고자료</h3>
+      <div class="desc">매출·매입 추출 → 검증 → 삼화 제출본 대조. 분기 부가세 신고 준비.</div>
+      <span class="go">준비 중</span>
+    </div>
+
+    <div class="card prep">
+      <span class="era soon">준비 중</span>
+      <h3>결산</h3>
+      <div class="desc">연말 결산 정리 — 가결산 4분기 합산 → 재무제표.</div>
+      <span class="go">준비 중</span>
+    </div>
+
+  </div>
+
+  <p class="note">※ 홈은 <b>이동만</b> 합니다. 데이터를 고칠 땐 마스터 엑셀에서, 볼 땐 대시보드에서. 모든 파일을 <b>같은 폴더</b>에 두면 링크가 작동합니다.</p>
+
+  <div class="foot">finance · v1 · 주식회사 공공의주방 · archiveat.kr · 2026</div>
+
+</div>
+</body>
+</html>

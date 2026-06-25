@@ -1,0 +1,529 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>finance-2025</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--cream:#FBF6EC;--surface:#FFFDF8;--ink:#2B2622;--muted:#8C857A;--line:#E9E1D3;--coral:#FF5019;--coralsoft:rgba(255,80,25,.10);--taupe:#C2B190;--sage:#5E9087;--brick:#9A3F26;--ncash:#6E9C94;}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Pretendard,-apple-system,system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:1080px;margin:0 auto;padding:32px 22px 64px}
+.eyebrow{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin:0 0 6px}
+header{border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:18px}
+h1{font-family:Hahmlet,serif;font-weight:700;font-size:30px;margin:0;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:13px;margin-top:6px}
+.tabs{display:flex;gap:2px;flex-wrap:wrap;margin-bottom:26px;border-bottom:1px solid var(--line)}
+.tab{font-family:Pretendard;font-size:13.5px;font-weight:600;color:var(--muted);background:none;border:none;padding:11px 15px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab:hover{color:var(--ink)}.tab.on{color:var(--coral);border-bottom-color:var(--coral)}
+.panel{display:none;animation:fade .25s ease}.panel.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.kpi .lab{font-size:12px;color:var(--muted);margin-bottom:8px}
+.kpi .val{font-family:"DM Mono",monospace;font-size:24px;font-weight:500;letter-spacing:-.02em}
+.kpi .unit{font-size:13px;color:var(--muted);margin-left:3px}
+.kpi .cap{font-family:"DM Mono",monospace;font-size:11px;color:var(--muted);margin-top:7px}
+.kpi.neg .val{color:var(--brick)}.kpi.pos .val{color:var(--coral)}
+section.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 22px 18px;margin-bottom:22px}
+.h2{font-family:Hahmlet,serif;font-weight:500;font-size:18px;margin:0 0 2px}
+.subh{font-size:12.5px;font-weight:600;color:var(--muted);margin:0 0 8px}
+.note{font-size:12px;color:var(--muted);margin:2px 0 16px}
+.tag{display:inline-block;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.06em;color:var(--coral);border:1px solid var(--coral);border-radius:999px;padding:2px 8px;margin-left:8px;vertical-align:middle}
+.tag.ok{color:var(--ncash);border-color:var(--ncash)}
+.ysel{font-family:"DM Mono",monospace;font-size:15px;color:var(--ink);background:var(--surface);border:1.5px solid var(--coral);border-radius:9px;padding:6px 12px;cursor:pointer}
+.chartbox{position:relative;height:300px}
+.smgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.sm{border:1px solid var(--line);border-radius:11px;padding:10px 10px 6px;background:#FCFAF4}
+.sm .smt{font-size:11.5px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.sm .smc{position:relative;height:96px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px}.grid2 .chartbox{height:260px}
+table.t{width:100%;border-collapse:collapse;font-size:12.5px}
+table.t th,table.t td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:right}
+table.t th{color:var(--muted);font-weight:600;font-size:11px;background:#F6F2E8}
+table.t td:first-child,table.t th:first-child{text-align:left}
+table.t td.num{font-family:"DM Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.tc{font-size:10px}
+table.tc th,table.tc td{padding:4px 5px}
+.rev .tot{background:rgba(255,80,25,.09)}
+.rev th.tot{background:rgba(255,80,25,.17);color:var(--coral)}
+.rev .totrow td{background:#FAE9E1}
+.rev .totrow .tot{background:rgba(255,80,25,.24)}
+.exp .tot{background:rgba(94,144,135,.13)}
+.exp th.tot{background:rgba(94,144,135,.24);color:#4d7d74}
+.exp .totrow td{background:#E2EDEA}
+.exp .totrow .tot{background:rgba(94,144,135,.32)}
+.chiprow{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+.chip{font-size:11.5px;font-weight:600;color:var(--muted);background:#F2ECE0;border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer}
+.chip.on{background:var(--coral);color:#fff;border-color:var(--coral)}
+.drilldetail{background:#F8F6EF;border:1px solid var(--line);border-left:3px solid var(--sage);border-radius:10px;padding:14px 14px 8px;margin-top:6px}
+.drilldetail .tot{background:rgba(94,144,135,.06)}
+.drilldetail th.tot{background:rgba(94,144,135,.13);color:#6b9389}
+.drilldetail .totrow td{background:#EEF3F1}
+.drilldetail .totrow .tot{background:rgba(94,144,135,.17)}
+.neg{color:var(--brick)}.pos{color:var(--coral)}
+.um{display:none}
+.vgroup{margin-bottom:14px}
+.vgt{font-size:12.5px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--line);padding:0 0 5px;margin-bottom:6px}
+.vgt b{font-family:"DM Mono",monospace;color:var(--coral);font-weight:500}
+.vrow{display:flex;justify-content:space-between;gap:10px;font-size:12px;padding:3px 0;border-bottom:1px solid #F2ECE0}
+.vrow .vc{color:var(--muted)}.vrow .va{font-family:"DM Mono",monospace;white-space:nowrap}
+.vgroup table.t{margin-top:6px}
+.vcell{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.flow{display:flex;flex-direction:column;gap:9px;margin-top:6px}
+.frow{display:grid;grid-template-columns:110px 1fr 130px;align-items:center;gap:12px}
+.frow .fl{font-size:13px}.frow .fb{height:22px;border-radius:5px;background:var(--coralsoft);position:relative;overflow:hidden}
+.frow .fb i{position:absolute;top:0;bottom:0;display:block;border-radius:5px}
+.frow .fv{font-family:"DM Mono",monospace;font-size:13px;text-align:right}
+.frow.tot{border-top:1px dashed var(--line);padding-top:9px}.frow.tot .fl{font-weight:700}
+.wfwrap{max-width:560px;margin:6px auto 2px}
+.fsgrp{border-bottom:1px solid var(--line)}
+.fshead{display:grid;grid-template-columns:18px 1fr auto;align-items:center;gap:8px;padding:11px 6px;font-size:14px}
+.fshead.exp{cursor:pointer}.fshead.exp:hover{background:#FCFAF4}
+.fsx{font-size:11px;color:var(--coral);transition:transform .15s;text-align:center}
+.fsx:not(:empty),.rfx{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:6px;background:rgba(255,80,25,.13);color:var(--coral);font-size:10px;line-height:1;transition:transform .15s}
+.fshead.exp:hover .fsx,.rfrow.exp:hover .rfx{background:rgba(255,80,25,.24)}
+.drilltt{font-size:12px;color:var(--muted);margin:0 0 8px}
+.drilltt b{color:var(--ink);font-weight:600}.drilltt .neg{color:var(--brick)}.drilltt .pos{color:var(--sage)}
+.fsgrp.open .fsx{transform:rotate(90deg)}
+.fsl{font-weight:600}.fsv{font-family:"DM Mono",monospace;font-size:14px}
+.fsgrp.lvl1 .fshead{background:#F8F6EF}.fsgrp.lvl1 .fsl{font-weight:700}
+.fsgrp.sub .fsv{color:var(--sage)}
+.fsgrp.tot{border-top:2px solid var(--ink);border-bottom:none}
+.fsgrp.tot .fsv{color:var(--brick);font-size:15px;font-weight:700}
+.fsdet{display:none;padding:2px 6px 12px 30px}.fsgrp.open .fsdet{display:block}
+.fst2{width:100%;border-collapse:collapse}
+.fst2 td{padding:5px 8px;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+.fst2 td.num{font-family:"DM Mono",monospace;text-align:right;color:var(--ink)}
+.fst2 tr:last-child td{border-bottom:none}
+.fst2 .fsnt td{font-size:11px;color:var(--muted);font-style:italic;border:none;padding-top:6px}
+.fst2 .midsub td{font-weight:700;color:var(--ink);background:#F4F1E9}
+.fst2 td.lvl2{padding-left:22px;color:var(--muted)}
+.concept{background:#FCFAF4;border:1px solid var(--line);border-left:3px solid var(--sage);border-radius:10px;padding:12px 15px;margin:0 0 18px}
+.concept .ctt{font-size:12.5px;font-weight:700;color:var(--ink);margin:0 0 8px}
+.ceq{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:12.5px;padding:5px 0;border-top:1px dashed var(--line)}
+.concept .ceq:first-of-type{border-top:none}
+.ceq .cl{color:var(--muted)}
+.ceq .cr{font-family:"DM Mono",monospace;color:var(--ink);text-align:right}
+.ceq .cr b.neg{color:var(--brick)}
+.cnote{font-size:12px;color:var(--muted);margin:10px 0 0;padding-top:9px;border-top:1px dashed var(--line);line-height:1.6}
+.cnote b{color:var(--ink)}
+.reacc .fsdet{padding:2px 6px 6px 30px}
+.fsdetin{padding-top:4px}
+.lg .src{color:var(--muted);font-size:11px}
+.lk{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;border-radius:999px;background:rgba(255,80,25,.12);color:var(--coral);margin-right:5px}
+.lk.fund{background:rgba(94,144,135,.14);color:var(--sage)}
+.lk.nochg{background:#EDE7DB;color:var(--muted)}
+.rf .grp td{background:#F1EFE8;font-weight:700;color:var(--ink);text-align:left}
+.rf th.cause{text-align:left}
+.rf .causec{text-align:left;font-size:11px;color:var(--muted);white-space:normal;min-width:200px}
+.rf .num.pos{color:var(--sage)}.rf .num.neg{color:var(--brick)}
+.rfrow.exp{cursor:pointer}.rfrow.exp:hover{background:#FCFAF4}
+.rfx{margin-right:6px;vertical-align:middle}
+.rfrow.open .rfx{transform:rotate(90deg)}
+.rfd{display:none}.rfd.open{display:table-row}
+.rfd>td{padding:0 0 8px!important;background:transparent!important;border:none!important}
+.lg{width:100%;margin:0}.lg .opr td{color:var(--muted);font-style:italic}
+.lg .num.pos{color:var(--sage)}.lg .num.neg{color:var(--brick)}
+.cards4{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.c4{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#FCFAF4}
+.c4 .t{font-family:Hahmlet,serif;font-size:14px;margin:0 0 5px}.c4 .d{font-size:12.5px;color:var(--muted);line-height:1.55}
+.badges{display:flex;gap:10px;flex-wrap:wrap}
+.badge{border:1px solid var(--ncash);background:rgba(110,156,148,.08);border-radius:10px;padding:9px 13px;font-size:12.5px}
+.badge b{font-family:"DM Mono",monospace;color:var(--ncash)}
+.memo{background:#FCFAF4;border:1px solid var(--line);border-left:3px solid var(--coral);border-radius:8px;padding:11px 14px;font-size:13px;margin-bottom:18px}
+footer{margin-top:24px;font-size:11.5px;color:var(--muted);line-height:1.7;border-top:1px solid var(--line);padding-top:16px}
+footer .gen{font-family:"DM Mono",monospace}
+@media(max-width:760px){
+ .wrap{padding:20px 13px 48px}
+ h1{font-size:23px}
+ .kpis{grid-template-columns:repeat(2,1fr);gap:10px}
+ .kpi{padding:13px}.kpi .val{font-size:20px}.kpi .cap{font-size:10px}
+ .grid2{grid-template-columns:1fr}
+ .smgrid{grid-template-columns:repeat(2,1fr)}
+ .cards4{grid-template-columns:1fr}
+ .tabs{flex-wrap:nowrap;overflow-x:auto;gap:0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+ .tabs::-webkit-scrollbar{display:none}
+ .tab{padding:10px 12px;font-size:13px;white-space:nowrap}
+ section.card{padding:16px 14px 14px}
+ table.t{font-size:11px}
+ table.t th,table.t td{padding:5px 7px}
+ .uw{display:none}.um{display:inline}
+ table.t td:first-child,table.t th:first-child{position:sticky;left:0;z-index:2}
+ table.t th:first-child{background:#F6F2E8}
+ table.t td:first-child{background:var(--surface)}
+ .frow{grid-template-columns:66px 1fr 112px;gap:8px}
+ .frow .fl{font-size:12px}.frow .fv{font-size:11px}
+}
+</style></head>
+<body><div class="wrap">
+<div style="margin-bottom:16px"><a href="finance.html" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#8C857A;text-decoration:none;padding:7px 13px;border:1px solid #E7DCC8;border-radius:999px;background:#FFFDF8">← 재무·세무 홈</a></div>
+<header><p class="eyebrow">주식회사 공공의주방 · 경영기획</p><h1>경영기획 대시보드</h1>
+<p class="sub">2018–2025 · 매출·손익은 재무제표/부가세 신고 기준으로 검증된 수치</p></header>
+<nav class="tabs">
+ <button class="tab on" data-t="t1">요약</button>
+ <button class="tab" data-t="t2">손익 추이</button>
+ <button class="tab" data-t="tc">비용 구조</button>
+ <button class="tab" data-t="t3">재무상태</button>
+ <button class="tab" data-t="t4">연도별 상세</button>
+ <button class="tab" data-t="t5">검증·결산구조</button>
+</nav>
+
+<div id="t1" class="panel on">
+ <div class="kpis" id="kpis"></div>
+ <section class="card"><p class="eyebrow">개요</p><h2 class="h2">연도별 재무 추이 (2018–2025)</h2>
+  <p class="note">매출·판관비는 막대, 당기순손익·자본총계는 선 · 단위 백만원</p>
+  <div class="chartbox"><canvas id="cYear"></canvas></div></section>
+</div>
+
+<div id="t2" class="panel">
+ <section class="card"><p class="eyebrow">손익</p><h2 class="h2">손익계산서 추이</h2>
+  <p class="note">영업수익(매출)이 영업비용(판관비)을 넘은 해가 없음 · 단위 원</p>
+  <div style="overflow-x:auto"><table class="t" id="pnlTable"></table></div></section>
+</div>
+
+<div id="tc" class="panel">
+ <section class="card"><p class="eyebrow">비용 구조 · 추세</p><h2 class="h2">판관비 항목별 추이 (2019–2025)</h2>
+  <p class="note">각 항목을 따로 봐서 추세가 또렷이 — 무형상각은 커지고, 급여는 솟았다 꺾임 · 단위 백만원</p>
+  <div class="smgrid" id="smgrid"></div></section>
+ <section class="card"><p class="eyebrow">비용 구조 · 매트릭스</p><h2 class="h2">항목 × 연도 비교표</h2>
+  <p class="note">정확한 금액 · 칸 색이 짙을수록 그 항목 안에서 큰 해 · 단위 백만원 (강사료는 지급수수료 포함)</p>
+  <div style="overflow-x:auto"><table class="t" id="matrix"></table></div></section>
+</div>
+
+<div id="t3" class="panel">
+ <section class="card"><p class="eyebrow">재무상태</p><h2 class="h2">자산·부채·자본 추이<span class="tag">자본잠식</span></h2>
+  <p class="note">자본총계가 2024년 마이너스 전환(완전자본잠식 재진입), 2025년 −472백만 · 단위 백만원</p>
+  <div class="chartbox"><canvas id="cBS"></canvas></div></section>
+ <section class="card"><p class="eyebrow">상세</p><h2 class="h2">연도별 자산·부채·자본 (원)</h2>
+  <div style="overflow-x:auto"><table class="t" id="bsTable"></table></div></section>
+</div>
+
+<div id="t4" class="panel">
+ <section class="card">
+  <div style="display:flex;align-items:center;gap:12px;margin:0 0 14px"><p class="eyebrow" style="margin:0">연도별 상세</p><select id="yearSel" class="ysel"></select></div>
+  <div class="memo" id="ydMemo"></div>
+  <p class="subh">① 손익 한눈에 · 재무제표 구조</p>
+  <div class="kpis" id="ydKpis"></div>
+  <div class="wfwrap"><div class="chartbox" style="height:300px"><canvas id="cWaterfall"></canvas></div></div>
+  <p class="note" id="wfNote" style="text-align:center;margin:4px 0 18px"></p>
+  <p class="subh">재무제표 항목을 누르면 내역으로 펼쳐집니다</p>
+  <div id="fsStruct"></div>
+ </section>
+ <section class="card">
+  <p class="eyebrow">② 매출</p><h2 class="h2" id="salesH"></h2><p class="note" id="salesNote"></p>
+  <div id="salesChartWrap" style="max-width:460px;margin:0 auto 20px"><div class="chartbox" style="height:230px"><canvas id="cCat"></canvas></div></div>
+  <div style="overflow-x:auto"><table class="t tc rev" id="msTable"></table></div>
+ </section>
+ <section class="card">
+  <p class="eyebrow">③ 지출 · 판관비</p><h2 class="h2" id="sgaH">판관비</h2><p class="note" id="sgaNote"></p>
+  <div id="sgaChartWrap" style="max-width:460px;margin:0 auto 20px"><div class="chartbox" style="height:230px"><canvas id="cYD"></canvas></div></div>
+  <div style="overflow-x:auto"><table class="t tc exp" id="mgTable"></table></div>
+  <div id="jsuDetail" style="margin-top:26px;border-top:1px dashed var(--line);padding-top:18px">
+   <p class="subh">항목 상세 — 누르면 그 항목을 계정·월별로 풀어봅니다</p>
+   <div class="chiprow" id="chipRow"></div>
+   <div class="drilldetail" id="drillBox">
+    <p class="note" id="drillNote"></p>
+    <div style="overflow-x:auto"><table class="t tc" id="drillTbl"></table></div>
+    <div id="jsuVendWrap"></div>
+   </div>
+  </div>
+ </section>
+ <section class="card">
+  <p class="subh">④ 재무상태 한눈에 · 자산 = 부채 + 자본</p>
+  <div class="wfwrap"><div class="chartbox" style="height:300px"><canvas id="cBSW"></canvas></div></div>
+  <p class="note" id="bswNote" style="text-align:center;margin:4px 0 18px"></p>
+  <div class="concept" id="bsConcept"></div>
+  <p class="subh">자산·부채·자본을 누르면 구성으로 펼쳐집니다 (스냅샷 · 해당 연도 12/31 현재)</p>
+  <div id="bsStruct"></div>
+  <div class="fsgrp reacc" style="margin-top:14px;border-top:1px dashed var(--line);border-bottom:none;padding-top:12px">
+   <div class="fshead exp" id="reHead"><span class="fsx">▸</span><span class="fsl">이익잉여금(결손금)은 어떻게 이 금액이 됐나 — 매년 당기순손익의 누적</span><span class="fsv neg" id="reEnd"></span></div>
+   <div class="fsdet" id="reDet"></div>
+  </div>
+  <div id="bsRFwrap" style="margin-top:26px;border-top:1px dashed var(--line);padding-top:18px">
+   <p class="subh">증감분석 — 전기말 + 당기 변동 = 당기말 · 변동이 손익계산서면 🔗손익 표시</p>
+   <p class="note" style="margin:-2px 0 12px">자금·영업 항목 왼쪽 <span class="rfx" style="margin:0">▸</span> 아이콘을 누르면 그 <b>당기 변동</b>이 어떤 거래·월별 흐름으로 이뤄졌는지 펼쳐집니다.</p>
+   <div style="overflow-x:auto" id="bsRF"></div>
+  </div>
+ </section>
+</div>
+
+<div id="t5" class="panel">
+ <section class="card"><p class="eyebrow">검증</p><h2 class="h2">검증 결과<span class="tag ok">계정별원장 ↔ 재무제표</span></h2>
+  <p class="note">계정별원장·부가세·급여대장을 재무제표와 원 단위로 대조한 결과</p>
+  <div class="badges"><div class="badge">매출 ↔ 부가세 <b>8년 일치</b></div><div class="badge">직원급여 <b>6년 일치</b></div><div class="badge">판관비 ↔ FS <b>6년 일치</b></div></div>
+  <div style="overflow-x:auto;margin-top:14px"><table class="t" id="vTable"></table></div></section>
+ <section class="card"><p class="eyebrow">결산구조</p><h2 class="h2">영업손실 중 비현금 비중</h2>
+  <p class="note">감가상각·무형자산상각·퇴직급여충당 = 현금이 나가지 않는 비용. 2025년은 영업손실의 63%가 비현금.</p>
+  <div class="chartbox"><canvas id="cNC"></canvas></div></section>
+ <section class="card"><p class="eyebrow">결산조정</p><h2 class="h2">가결산(원장) → 확정(재무제표) 4가지 조정</h2>
+  <p class="note">왜 원장과 재무제표 판관비가 다른가</p>
+  <div class="cards4">
+   <div class="c4"><p class="t">① 개발비 자본화</p><p class="d">R&D성 비용(용역·경상개발)을 판관비에서 빼 무형자산으로. 2020년 25.8M.</p></div>
+   <div class="c4"><p class="t">② 감가·무형 상각</p><p class="d">유형·무형자산을 매년 비현금으로 상각해 판관비에 계상. 무형상각 큼(2024 106M).</p></div>
+   <div class="c4"><p class="t">③ 퇴직급여 충당</p><p class="d">실제 지급액과 별개로 충당부채 전입액을 비용 계상. 2022년 +80M.</p></div>
+   <div class="c4"><p class="t">④ 계정 재분류</p><p class="d">소액 항목을 확정 시 재분류(예: 복리후생↔세금과공과). 2019년.</p></div>
+  </div></section>
+</div>
+
+<footer>출처 · 매출: 부가세 과세표준증명원=재무제표 매출 / 판관비: 연도별 계정별원장+확정 결산조정 / 연도별: 표준재무제표증명원(2018–2025 확정).<br>
+ 매출 카테고리·연도메모 맥락은 내부 경영용이며 신고에는 사용되지 않음. <span class="gen">· 생성 2026-06-19 · 원본 경영기획_마스터_v13.xlsx</span></footer>
+</div>
+<script>
+const DATA={"yearly": {"labels": ["2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"], "rev": [3.6, 58.4, 58.5, 80.4, 66.1, 118.6, 104.2, 48.4], "sga": [33.3, 274.3, 286.2, 538.6, 985.5, 787.7, 448.5, 229.8], "op": [-29.6, -216.0, -227.7, -458.2, -919.4, -669.1, -344.3, -181.4], "ni": [-32.0, -197.7, -38.8, -313.2, -912.6, -661.6, -375.9, -219.7], "asset": [210.5, 207.8, 289.4, 1739.3, 1203.2, 643.0, 439.8, 151.8], "liab": [66.2, 261.3, 279.0, 341.6, 418.0, 519.4, 692.0, 623.8], "eq": [144.2, -53.5, 10.4, 1397.7, 785.3, 123.6, -252.3, -472.0], "raw": {"rev": [3635000, 58362773, 58517130, 80389969, 66130283, 118571871, 104208758, 48398286], "sga": [33282756, 274334157, 286196616, 538588768, 985518492, 787667037, 448494542, 229753520], "op": [-29647756, -215971384, -227679486, -458198799, -919388209, -669095166, -344285784, -181355234], "oi": [247678, 21136224, 193827557, 151850120, 17742925, 23105606, 2473853, 28377], "oe": [2575545, 2856993, 4907503, 6871220, 10938222, 15654980, 34094201, 38376639], "ni": [-31975623, -197692153, -38759432, -313219899, -912583506, -661644540, -375906132, -219703496], "asset": [210458120, 207772810, 289388796, 1739291359, 1203218571, 643044256, 439751208, 151828949], "liab": [66245440, 261252283, 278968001, 341610463, 417961181, 519431406, 692044490, 623825727], "eq": [144212680, -53479473, 10420795, 1397680896, 785257390, 123612850, -252293282, -471996778]}}, "byyear": {"2018": {"rev": 3635000, "sga": 33282756, "op": -29647756, "oi": 247678, "oe": 2575545, "ni": -31975623, "asset": 210458120, "liab": 66245440, "eq": 144212680}, "2019": {"rev": 58362773, "sga": 274334157, "op": -215971384, "oi": 21136224, "oe": 2856993, "ni": -197692153, "asset": 207772810, "liab": 261252283, "eq": -53479473}, "2020": {"rev": 58517130, "sga": 286196616, "op": -227679486, "oi": 193827557, "oe": 4907503, "ni": -38759432, "asset": 289388796, "liab": 278968001, "eq": 10420795}, "2021": {"rev": 80389969, "sga": 538588768, "op": -458198799, "oi": 151850120, "oe": 6871220, "ni": -313219899, "asset": 1739291359, "liab": 341610463, "eq": 1397680896}, "2022": {"rev": 66130283, "sga": 985518492, "op": -919388209, "oi": 17742925, "oe": 10938222, "ni": -912583506, "asset": 1203218571, "liab": 417961181, "eq": 785257390}, "2023": {"rev": 118571871, "sga": 787667037, "op": -669095166, "oi": 23105606, "oe": 15654980, "ni": -661644540, "asset": 643044256, "liab": 519431406, "eq": 123612850}, "2024": {"rev": 104208758, "sga": 448494542, "op": -344285784, "oi": 2473853, "oe": 34094201, "ni": -375906132, "asset": 439751208, "liab": 692044490, "eq": -252293282}, "2025": {"rev": 48398286, "sga": 229753520, "op": -181355234, "oi": 28377, "oe": 38376639, "ni": -219703496, "asset": 151828949, "liab": 623825727, "eq": -471996778}}, "memo": {"2018": {"fact": "영업 개시 전 · 판관비 33M (설립·준비기)", "ctx": ""}, "2019": {"fact": "서비스 시작 · 판관비 274M · 급여 116M", "ctx": ""}, "2020": {"fact": "직원 7명 · 판관비 286M · 개발비 자본화 26M", "ctx": ""}, "2021": {"fact": "직원 6명 · 경상개발비 126M(R&D 집중) · 무형상각 50M 시작", "ctx": ""}, "2022": {"fact": "직원 11명(피크) · 판관비 985M(최대) · 퇴직급여충당 101M", "ctx": ""}, "2023": {"fact": "직원 10명 · 판관비 788M · 무형상각 97M", "ctx": ""}, "2024": {"fact": "직원 3명(축소) · 무형상각 106M", "ctx": ""}, "2025": {"fact": "직원 2명 · 무형상각 106M · 영업손실의 63%가 비현금", "ctx": ""}}, "salesCat": {"labels": ["클래스", "레시피", "쿠킹박스", "케이터링", "기타"], "values": [32279070, 38186, 604210, 13476820, 2000000], "total": 48398286}, "salesMonth": {"labels": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"], "values": [2009819, 796728, 2918867, 432819, 6817274, 1025257, 0, 5973101, 4010091, 8713365, 6653691, 9047274]}, "pnl": {"매출": 48398286, "판관비": -229753520, "영업손익": -181355234, "영업외수익": 28377, "영업외비용": -38376639, "당기순손익": -219703496, "자본총계": -471996778}, "verify": [{"y": "2019", "led": 273995419, "adj": 338738, "fs": 274334157, "typ": "계정 재분류"}, {"y": "2020", "led": 312001728, "adj": -25805112, "fs": 286196616, "typ": "개발비 자본화"}, {"y": "2021", "led": 482054907, "adj": 56533861, "fs": 538588768, "typ": "감가+무형 상각"}, {"y": "2022", "led": 905129604, "adj": 80388888, "fs": 985518492, "typ": "퇴직급여 충당"}, {"y": "2024", "led": 443469437, "adj": 5025106, "fs": 448494542, "typ": "퇴직급여"}, {"y": "2025", "led": 227998723, "adj": 1754797, "fs": 229753520, "typ": "퇴직급여"}], "noncash": [{"y": "2018", "sum": 0, "op": -29647756, "pct": 0}, {"y": "2019", "sum": 0, "op": -215971384, "pct": 0}, {"y": "2020", "sum": 4327559, "op": -227679486, "pct": 1.9}, {"y": "2021", "sum": 56533861, "op": -458198799, "pct": 12.3}, {"y": "2022", "sum": 267930868, "op": -919388209, "pct": 29.1}, {"y": "2023", "sum": 178173726, "op": -669095166, "pct": 26.6}, {"y": "2024", "sum": 154485008, "op": -344285784, "pct": 44.9}, {"y": "2025", "sum": 114893602, "op": -181355234, "pct": 63.4}], "monthly": {"2022": {"sales": [0, 0, 2075909, 400000, 4035000, 14297092, 0, 0, 39091, 21699250, 14366081, 9217860], "sga": [40055238, 47169650, 63804790, 154576068, 53408659, 113546577, 52419347, 46218399, 92068544, 58501663, 95911954, 87448715]}, "2024": {"sales": [6805637, 4895264, 11897310, 5942274, 4767310, 12313584, 13829273, 3638364, 7995274, 8191956, 16998819, 6933693], "sga": [36203988, 42522764, 64967892, 25220435, 20397606, 59600123, 18611705, 16782036, 62721481, 17584741, 23452400, 55404266]}, "2025": {"sales": [2009819, 796728, 2918867, 517183, 6817274, 940893, 0, 5973101, 4010091, 8713365, 6653691, 9047274], "sga": [21978024, 6820490, 37540003, 9342776, 6125466, 37667397, 4659593, 5251588, 38779097, 5706312, 11489293, 42638684]}}, "sgaGrp": {"2022": {"급여": [23711667, 23711667, 23711667, 21336667, 24186667, 28350808, 26083334, 26083334, 26083334, 28805108, 28333334, 27963173], "지급수수료": [702737, 1721539, 6638932, 7063681, 12788030, 1558553, 10812057, 4247794, 4346115, 10977504, 19306143, 10888384], "임차료": [11609523, 11609523, 11609523, 11609523, 11609523, 11609523, 11609523, 11616021, 11662402, 11311994, 11311994, 11311994], "무형자산상각비": [0, 0, 12534389, 0, 0, 12659807, 0, 0, 12910644, 0, 8607098, 4303547], "감가상각비": [0, 0, 0, 0, 0, 50016253, 0, 0, 32296093, 0, 21972694, 11040029], "경상개발비": [0, 0, 0, 107480000, 0, 0, 0, 0, 0, 0, 0, 0], "퇴직급여": [0, 0, 0, 3155795, 0, 2122800, 0, 0, 0, 0, 0, 15922831], "기타": [4031311, 10126921, 9310279, 3930402, 4824439, 7228833, 3914433, 4271250, 4769956, 7407057, 6380691, 6018757]}, "2024": {"급여": [6066667, 6066667, 6066667, 3993507, 1326840, 1326840, 1326840, 1326840, 1326840, 1326840, 1326840, 1326840], "지급수수료": [19587838, 12673140, 13383582, 12171481, 11645248, 13282870, 9547838, 7742549, 16483114, 9051179, 14401794, 9339103], "임차료": [5881994, 5881994, 5881994, 5881994, 5931994, 5931994, 5931994, 5931994, 5931994, 5931994, 5901994, 5901994], "무형자산상각비": [0, 0, 26520644, 0, 0, 26520644, 0, 0, 26520644, 0, 0, 26520644], "감가상각비": [0, 0, 10892524, 0, 0, 10892524, 0, 0, 10892524, 0, 0, 10699755], "경상개발비": [2345690, 15703032, 665103, 704391, 703671, 721453, 709925, 731146, 714330, 0, 0, 0], "퇴직급여": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "기타": [2321799, 2197931, 1557378, 2469062, 789853, 923798, 1095108, 1049507, 852035, 1274728, 1821772, 1615930]}, "2025": {"급여": [1342820, 1342820, 1342820, 1342820, 1342820, 1342820, 1342820, 1342820, 1342820, 1342820, 1342820, 1342820], "지급수수료": [9835900, 2268915, 5013614, 5037314, 2302295, 5771272, 1007298, 1193465, 7118743, 1850796, 7275976, 10167968], "임차료": [961994, 761994, 0, 1400000, 1400000, 1400000, 1400000, 1400000, 1400000, 1400000, 1400000, 1400000], "무형자산상각비": [0, 0, 26519894, 0, 0, 26519894, 0, 0, 26519894, 0, 0, 26519895], "감가상각비": [835586, 0, 1765612, 0, 0, 1765612, 0, 0, 1404615, 0, 0, 1287803], "경상개발비": [1082996, 1723947, 1520837, 185000, 185000, 185000, 185000, 185000, 185000, 185000, 185000, 185000], "퇴직급여": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "기타": [7918728, 722814, 1377226, 1377642, 895351, 682799, 724475, 1130303, 808025, 927696, 1285497, 1735198]}}, "salesMonthCat": {"클래스": [0, 790364, 2912320, 423000, 6810910, 545656, 0, 5916364, 1160091, 2563364, 6586546, 4570455], "레시피": [9819, 6364, 2910, 9819, 6364, 2910, 0, 0, 0, 0, 0, 0], "쿠킹박스": [0, 0, 3637, 0, 0, 476691, 0, 56737, 0, 0, 67145, 0], "케이터링": [0, 0, 0, 0, 0, 0, 0, 0, 2850000, 6150001, 0, 4476819], "기타": [2000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}, "salesCatMonth": {"2025": {"클래스": [0, 790364, 2912320, 423000, 6810910, 545656, 0, 5916364, 1160091, 2563364, 6586546, 4570455], "레시피": [9819, 6364, 2910, 9819, 6364, 2910, 0, 0, 0, 0, 0, 0], "쿠킹박스": [0, 0, 3637, 0, 0, 476691, 0, 56737, 0, 0, 67145, 0], "케이터링": [0, 0, 0, 0, 0, 0, 0, 0, 2850000, 6150001, 0, 4476819], "기타": [2000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}, "2024": {"클래스": [6801637, 4887264, 7870037, 5934274, 4723855, 7151038, 10821273, 3634364, 4461546, 8140501, 12708819, 6917693], "레시피": [4000, 8000, 727273, 8000, 43455, 362546, 8000, 4000, 48728, 51455, 0, 16000], "쿠킹박스": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "케이터링": [0, 0, 3300000, 0, 0, 4800000, 3000000, 0, 3485000, 0, 4290000, 0], "기타": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}}, "jsuMonth": {"2022": {"일반지급수수료": [611827, 1539719, 5588602, 4235171, 8917230, 1558553, 2336057, 1975066, 3164024, 4977503, 7187572, 3736602], "강사료(인적용역)": [90910, 181820, 959420, 1932510, 0, 0, 7900000, 2181818, 1182091, 1200000, 2859480, 3923600], "외주용역": [0, 0, 90910, 896000, 3870800, 0, 576000, 90910, 0, 4800001, 9259091, 3228182]}, "2024": {"일반지급수수료": [4076473, 3010354, 4538098, 4748842, 4734533, 2231070, 2510727, 1364376, 1638083, 3475792, 6466740, 2603444], "강사료(인적용역)": [7111727, 6931762, 4511110, 4205365, 4910282, 4500890, 3921201, 4053172, 7140711, 4654932, 3684835, 3253659], "외주용역": [8399638, 2731024, 4334374, 3217274, 2000433, 6550910, 3115910, 2325001, 7704320, 920455, 4250219, 3482000]}, "2025": {"일반지급수수료": [1960898, 1968915, 2754977, 3618223, 849795, 786726, 907298, 793465, 835106, 771705, 803249, 922513], "강사료(인적용역)": [6443183, 300000, 2105227, 1419091, 1452500, 3042727, 100000, 400000, 3956364, 1079091, 1512727, 2113182], "외주용역": [1431819, 0, 153410, 0, 0, 1941819, 0, 0, 2327273, 0, 4960000, 7132273]}}, "jsuVend": {"2022": {"일반지급수수료": [["엔에이치엔한국사이버결제 주식회사", [159216, 159216, 163043, 204837, 662389, 871239, 945914, 905184, 1949088, 992814, 901668, 1030100]], ["나이스페이먼츠 주식회사 (NICE P", [33000, 42000, 41864, 41728, 42000, 170710, 171255, 261487, 162800, 162800, 4926200, 968000]], ["삼화회계법인", [250000, 250000, 3693000, 250000, 250000, 250000, 250000, 250000, 250000, 250000, 250000, 250000]], ["주식회사 원티드랩", [0, 0, 0, 1995000, 3815000, 0, 0, 0, 0, 0, 0, 0]], ["(주)에스원 강남", [0, 585000, 210000, 210000, 210000, 210000, 210000, 210000, 210000, 210000, 210000, 210000]], ["기술보증기금", [0, 0, 0, 0, 2129150, 0, 0, 0, 0, 0, 0, 0]], ["드롭박스", [0, 0, 0, 128880, 1585537, -301328, 0, 0, 0, 470114, 0, 0]], ["법무법인(유한)주원", [0, 0, 0, 0, 0, 0, 0, 0, 0, 1363636, 300000, 0]], ["한국여성경제인협회", [0, 0, 0, 1160000, 0, 0, 300000, 0, 0, 0, 0, 0]], ["(주)케이지이니시스", [35673, 267171, 52786, 65895, 52252, 46590, 36293, 36833, 136293, 226573, 55773, 183566]], ["주식회사 케이지모빌리언스", [0, 0, 800000, 0, 0, 0, 0, 0, 0, 0, 82728, 0]], ["에스지시스템", [0, 50000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000]], ["기타 38건", [133938, 186332, 547909, 98831, 90902, 231342, 342595, 231562, 375843, 1221566, 381203, 1014936]]], "강사료(인적용역)": [["사업소득", [0, 0, 0, 0, 0, 0, 7900000, 2181818, 1182091, 1200000, 2859480, 3923600]], ["우미선", [0, 0, 90910, 921600, 0, 0, 0, 0, 0, 0, 0, 0]], ["조파미", [0, 0, 90910, 920000, 0, 0, 0, 0, 0, 0, 0, 0]], ["김수연", [0, 0, 777600, 0, 0, 0, 0, 0, 0, 0, 0, 0]], ["민지영", [90910, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], ["최진", [0, 90910, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], ["임혜정", [0, 90910, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], ["김희경", [0, 0, 0, 90910, 0, 0, 0, 0, 0, 0, 0, 0]]], "외주용역": [["제이스하우스（Jay，s haus）", [0, 0, 90910, 896000, 2978000, 0, 0, 0, 0, 0, 3309091, 480000]], ["주식회사 스튜디오가지", [0, 0, 0, 0, 892800, 0, 0, 0, 0, 2218182, 1090909, 0]], ["박소진푸드앤컴퍼니제이블루문", [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3459091, 0]], ["아뜰리에 105 (Atelier 10", [0, 0, 0, 0, 0, 0, 0, 0, 0, 2581819, 0, 0]], ["파티본", [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1930000]], ["주식회사 비넥트 (VINECT Co.", [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1400000, 0]], ["라밀", [0, 0, 0, 0, 0, 0, 576000, 0, 0, 0, 0, 818182]], ["주식회사 잘 먹는 교육 연구소", [0, 0, 0, 0, 0, 0, 0, 90910, 0, 0, 0, 0]]]}, "2024": {"일반지급수수료": [["나이스페이먼츠 주식회사 (NICE P", [1523400, 1314900, 85500, 0, 0, 495000, 50000, 0, 44000, 493000, 4735000, 0]], ["삼화회계법인", [300000, 300000, 2925000, 300000, 300000, 300000, 300000, 300000, 300000, 300000, 300000, 300000]], ["한화갤러리아(주) 광교점", [0, 0, 840000, 1100000, 460000, 0, 1265000, 264000, 300000, 982000, 0, 415000]], ["드롭박스", [0, 0, 0, 0, 3215530, 0, 0, 0, 0, 0, 0, 0]], ["기술보증기금", [0, 0, 0, 2547990, 0, 0, 0, 0, 0, 0, 0, 0]], ["메가존클라우드 주식회사", [0, 0, 0, 0, 0, 0, 0, 0, 0, 684108, 730196, 717031]], ["(주)에스원 강남", [120000, 140000, 140000, 140000, 140000, 140000, 140000, 140000, 140000, 140000, 140000, 140000]], ["에이플 노무법인", [100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000]], ["엔에이치엔한국사이버결제 주식회사", [149000, 56000, 56000, 107000, 107000, 107000, 107000, 107000, 107000, 107000, 0, 0]], ["(주)케이지이니시스", [4697, 201520, 25077, 8770, 7520, 55138, 8236, 60841, 201396, 67672, 59271, 293305]], ["에스지시스템", [80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000]], ["투비 (TOBE)", [41000, 58000, 58000, 0, 76000, 76000, 76000, 76000, 76000, 76000, 76000, 0]], ["기타 30건", [1758376, 759934, 228521, 365082, 248483, 877932, 384491, 236535, 289687, 446012, 246273, 558108]]], "강사료(인적용역)": [["사업소득", [7111727, 6931762, 4511110, 4205365, 4910282, 4500890, 3921201, 4053172, 7140711, 4654932, 3684835, 3253659]]], "외주용역": [["박소진푸드앤컴퍼니제이블루문", [6192728, 1397728, 1825910, 2197274, 1715455, 2590910, 715910, 2181819, 1943182, 920455, 906819, 2250000]], ["파티본", [0, 0, 2220000, 480000, 0, 1020000, 0, 0, 4000000, 0, 3343400, 0]], ["크라운힐", [0, 0, 0, 0, 0, 2940000, 0, 0, 1433865, 0, 0, 0]], ["제이스하우스（Jay，s haus）", [816364, 170455, 150000, 540000, 151455, 0, 0, 0, 0, 0, 0, 1232000]], ["어느 스튜디오(a.neu studio", [704000, 1162841, 138464, 0, 133523, 0, 0, 143182, 327273, 0, 0, 0]], ["남산포레 주식회사 (namsan fo", [0, 0, 0, 0, 0, 0, 2400000, 0, 0, 0, 0, 0]], ["아뜰리에 105 (Atelier 10", [686546, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]]}, "2025": {"일반지급수수료": [["삼화회계법인", [300000, 300000, 1800000, 150000, 150000, 150000, 150000, 150000, 150000, 150000, 150000, 150000]], ["드롭박스", [0, 0, 0, 0, 350016, 337818, 333200, 343309, 341973, 343941, 350599, 368343]], ["기술보증기금", [0, 0, 0, 2547990, 0, 0, 0, 0, 0, 0, 0, 0]], ["한화갤러리아(주) 광교점", [0, 966000, 468000, 517000, 0, 0, 0, 0, 0, 0, 0, 0]], ["광교우미뉴브 공인중개사사무소", [1078000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], ["에스지시스템", [80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000]], ["셔터스톡", [47780, 47862, 47519, 47788, 46470, 44854, 44241, 45584, 45402, 45667, 46551, 47842]], ["(주) 가비아", [44400, 44400, 44400, 44400, 44400, 52500, 52500, 52500, 52500, 52500, 52500, 0]], ["(주)리아모어소프트", [127273, 0, 0, 127273, 0, 0, 127273, 0, 0, 127273, 0, 0]], ["(주)유니드컴즈", [0, 0, 0, 0, 49900, 49900, 49900, 49900, 49900, 49900, 49900, 49900]], ["(주)자비스앤빌런즈", [33000, 33000, 33000, 33000, 33000, 33000, 33000, 33000, 33000, 33000, 33000, 0]], ["특허청", [0, 334000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], ["기타 27건", [250445, 163653, 282058, 70772, 96009, 38654, 37184, 39172, 82331, -110576, 40699, 226428]]], "강사료(인적용역)": [["사업소득", [6443183, 300000, 2105227, 1419091, 1452500, 3042727, 100000, 400000, 3956364, 914091, 1182727, 1123182]], ["예쿡 쿠킹 클래스", [0, 0, 0, 0, 0, 0, 0, 0, 0, 165000, 330000, 990000]]], "외주용역": [["파티본", [0, 0, 0, 0, 0, 0, 0, 0, 2327273, 0, 4960000, 4861818]], ["박소진푸드앤컴퍼니제이블루문", [1431819, 0, 153410, 0, 0, 1941819, 0, 0, 0, 0, 0, 2270455]]]}}, "sgaAcc": {"2022": {"급여": [["직원급여", [23711667, 23711667, 23711667, 21336667, 24186667, 28350808, 26083334, 26083334, 26083334, 28805108, 28333334, 27963173]]], "지급수수료": [["일반지급수수료", [611827, 1539719, 5588602, 4235171, 8917230, 1558553, 2336057, 1975066, 3164024, 4977503, 7187572, 3736602]], ["외주용역", [0, 0, 90910, 896000, 3870800, 0, 576000, 90910, 0, 4800001, 9259091, 3228182]], ["강사료(인적용역)", [90910, 181820, 959420, 1932510, 0, 0, 7900000, 2181818, 1182091, 1200000, 2859480, 3923600]]], "임차료": [["지급임차료", [10550000, 10550000, 10550000, 10550000, 10550000, 10550000, 10550000, 10550000, 10550000, 10550000, 10550000, 10550000]], ["차량임차료", [1059523, 1059523, 1059523, 1059523, 1059523, 1059523, 1059523, 1066021, 1112402, 761994, 761994, 761994]]], "무형자산상각비": [["무형고정자산상각", [0, 0, 12534389, 0, 0, 12659807, 0, 0, 12910644, 0, 8607098, 4303547]]], "감가상각비": [["감가상각비", [0, 0, 0, 0, 0, 50016253, 0, 0, 32296093, 0, 21972694, 11040029]]], "경상개발비": [["경상개발비", [0, 0, 0, 107480000, 0, 0, 0, 0, 0, 0, 0, 0]]], "퇴직급여": [["퇴직급여", [0, 0, 0, 3155795, 0, 2122800, 0, 0, 0, 0, 0, 15922831]]], "기타": [["소모품비", [891473, 6636022, 4878335, 1004593, 1383418, 3937041, 689093, 573755, 1325051, 3882339, 2294096, 1353085]], ["복리후생비", [1107202, 1225398, 1089048, 991528, 1348343, 1336990, 1199616, 1237605, 1266377, 1333739, 1484872, 1224734]], ["세금과공과금", [490290, 512790, 796090, 471660, 572400, 592900, 735210, 915210, 831690, 735210, 831960, 754560]], ["차량유지비", [380900, 242600, 422545, 164940, 349225, 408395, 274610, 403762, 183748, 436615, 203045, 424167]], ["접대비", [46500, 130900, 207200, 264800, 217000, 312400, 42600, 240400, 374280, 354400, 817500, 490100]], ["전력비", [0, 325607, 413258, 265260, 249704, 256713, 331220, 334633, 350171, 250181, 248310, 326911]], ["광고선전비", [592664, 377923, 583525, 378027, 304615, 0, 0, 0, 0, 9091, 27273, 1009091]], ["보험료", [177560, 177560, 177560, 152610, 185620, 234180, 185360, 190830, 190830, 221960, 304050, 215310]], ["통신비", [6750, 85355, 151834, 138661, 134569, 130214, 134224, 133345, 129582, 133595, 131585, 137694]], ["운반비", [302000, 70000, 0, 11000, 0, 0, 302500, 0, 0, 9900, 18000, 0]], ["수도광열비", [0, 273366, 261184, 67323, 0, 0, 0, 0, 0, 0, 0, 16886]], ["도서인쇄비", [20000, 20000, 111100, 20000, 42500, 20000, 20000, 218000, 20000, 20000, 20000, 20000]], ["기타 3건", [15972, 49400, 218600, 0, 37045, 0, 0, 23710, 98227, 20027, 0, 46219]]]}, "2024": {"급여": [["직원급여", [6066667, 6066667, 6066667, 3993507, 1326840, 1326840, 1326840, 1326840, 1326840, 1326840, 1326840, 1326840]]], "지급수수료": [["강사료(인적용역)", [7111727, 6931762, 4511110, 4205365, 4910282, 4500890, 3921201, 4053172, 7140711, 4654932, 3684835, 3253659]], ["외주용역", [8399638, 2731024, 4334374, 3217274, 2000433, 6550910, 3115910, 2325001, 7704320, 920455, 4250219, 3482000]], ["일반지급수수료", [4076473, 3010354, 4538098, 4748842, 4734533, 2231070, 2510727, 1364376, 1638083, 3475792, 6466740, 2603444]]], "임차료": [["지급임차료", [5120000, 5120000, 5120000, 5120000, 5170000, 5170000, 5170000, 5170000, 5170000, 5170000, 5140000, 5140000]], ["차량임차료", [761994, 761994, 761994, 761994, 761994, 761994, 761994, 761994, 761994, 761994, 761994, 761994]]], "무형자산상각비": [["무형고정자산상각", [0, 0, 26520644, 0, 0, 26520644, 0, 0, 26520644, 0, 0, 26520644]]], "감가상각비": [["감가상각비", [0, 0, 10892524, 0, 0, 10892524, 0, 0, 10892524, 0, 0, 10699755]]], "경상개발비": [["경상개발비", [2345690, 15703032, 665103, 704391, 703671, 721453, 709925, 731146, 714330, 0, 0, 0]]], "기타": [["소모품비", [436163, 324318, 400646, 1394288, 120546, 287257, 103662, 26000, 284830, 422518, 1056487, 640943]], ["전력비", [383752, 350826, 326957, 251346, 206202, 201304, 226627, 236721, 248959, 211264, 199245, 218227]], ["차량유지비", [133173, 224634, 128301, 103828, 129001, 176156, 309582, 242019, 113865, 202551, 236009, 223183]], ["세금과공과금", [309590, 260590, 260590, 164560, 50670, 50670, 292270, 223170, 50670, 50670, 50670, 50670]], ["복리후생비", [424427, 317790, 226880, 140260, 45100, 45100, 45100, 45100, 45100, 45100, 45100, 45100]], ["통신비", [110157, 114348, 114084, 107902, 102424, 101363, 103344, 102271, 102801, 106455, 101311, 101337]], ["운반비", [21500, 14800, 14800, 203600, 129800, 40700, 8273, 0, 0, 230200, 51800, 331100]], ["광고선전비", [361654, 34825, 1020, 32058, 880, 16018, 1020, 168996, 580, 740, 900, 140]], ["도서인쇄비", [20000, 480000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], ["보험료", [75800, 75800, 75800, 37020, 5230, 5230, 5230, 5230, 5230, 5230, 58850, 5230]], ["교육훈련비", [0, 0, 0, 20000, 0, 0, 0, 0, 0, 0, 20000, 0]], ["기업업무추진비", [34400, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], ["기타 2건", [11183, 0, 8300, 14200, 0, 0, 0, 0, 0, 0, 1400, 0]]]}, "2025": {"급여": [["직원급여", [1342820, 1342820, 1342820, 1342820, 1342820, 1342820, 1342820, 1342820, 1342820, 1342820, 1342820, 1342820]]], "지급수수료": [["강사료(인적용역)", [6443183, 300000, 2105227, 1419091, 1452500, 3042727, 100000, 400000, 3956364, 1079091, 1512727, 2113182]], ["외주용역", [1431819, 0, 153410, 0, 0, 1941819, 0, 0, 2327273, 0, 4960000, 7132273]], ["일반지급수수료", [1960898, 1968915, 2754977, 3618223, 849795, 786726, 907298, 793465, 835106, 771705, 803249, 922513]]], "임차료": [["지급임차료", [200000, 0, 0, 1400000, 1400000, 1400000, 1400000, 1400000, 1400000, 1400000, 1400000, 1400000]], ["차량임차료", [761994, 761994, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]], "무형자산상각비": [["무형고정자산상각", [0, 0, 26519894, 0, 0, 26519894, 0, 0, 26519894, 0, 0, 26519895]]], "감가상각비": [["감가상각비", [835586, 0, 1765612, 0, 0, 1765612, 0, 0, 1404615, 0, 0, 1287803]]], "경상개발비": [["경상개발비", [1082996, 1723947, 1520837, 185000, 185000, 185000, 185000, 185000, 185000, 185000, 185000, 185000]]], "기타": [["운반비", [2900000, 0, 114700, 18500, 129500, 3700, 0, 125800, 4000, 114700, 188700, 278600]], ["건물관리비", [0, 225330, 402400, 390110, 351540, 332990, 354030, 384410, 406760, 345150, 318390, 335980]], ["수선비", [3760000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], ["소모품비", [243331, 0, 397709, 654619, 167798, 0, 120656, 319160, 170000, 222681, 449007, 882265]], ["통신비", [114738, 151544, 101527, 117148, 108503, 99696, 99279, 99363, 88095, 99155, 99168, 99483]], ["세금과공과금", [379390, 50670, 98910, 50670, 50670, 50670, 50080, 112580, 50080, 50080, 50080, 50080]], ["복리후생비", [45740, 45740, 45740, 44780, 45740, 45740, 45740, 45740, 45740, 45740, 45740, 45740]], ["여비교통비", [0, 106000, 40000, 92000, 36000, 36000, 36000, 36000, 36000, 36000, 36000, 36000]], ["전력비", [244859, 0, 125260, 0, 0, 0, 0, 0, 0, 0, 0, 0]], ["차량유지비", [182290, 138010, 45300, 0, 0, 0, 0, 0, 0, 0, 0, 0]], ["보험료", [5340, 5340, 5340, 5340, 5340, 6510, 7050, 7050, 7050, 13870, 60670, 7050]], ["도서인쇄비", [0, 0, 0, 0, 0, 87273, 11500, 0, 0, 0, 0, 0]], ["기타 4건", [43040, 180, 340, 4475, 260, 20220, 140, 200, 300, 320, 37742, 0]]]}}, "nonOp": {"2024": {"수익": [["이자수익", 8633], ["정부보조금", 1600000], ["기타잡이익", 865220]], "비용": [["이자비용", 15626918], ["유형자산처분손실", 18465750], ["기타잡손실", 1533]]}, "2025": {"수익": [["이자수익", 4814], ["기타잡이익", 23563]], "비용": [["이자비용", 14181588], ["유형자산처분손실", 24176618], ["기타잡손실", 18433]]}}, "bsData": {"2024": {"자산": {"유동자산": [["현금및현금성자산", 36106620], ["매출채권", 495102], ["미수금", 1099755], ["선급금", 281195]], "비유동자산": [["유형자산", 37266609], ["개발비", 218754358], ["특허권", 10870934], ["상표권", 4026635], ["임차보증금", 121900000], ["기타보증금", 8950000]]}, "부채": {"유동부채": [["단기차입금(주주·임원)", 371300000], ["미지급금", 42494546], ["예수금", 141530]], "비유동부채": [["장기차입금", 272480000], ["퇴직급여충당부채", 5628414]]}, "자본": {"자본": [["자본금", 7030500], ["주식발행초과금", 2301469200], ["이익잉여금(결손금)", -2560792982]]}}, "2025": {"자산": {"유동자산": [["현금및현금성자산", 3605489], ["선급금", 320347]], "비유동자산": [["유형자산", 6030763], ["개발비", 117956334], ["특허권", 7297621], ["상표권", 2318395], ["임차보증금", 14000000], ["기타보증금", 300000]]}, "부채": {"유동부채": [["단기차입금(주주·임원)", 314800000], ["미지급금", 41571236], ["예수금", 71280]], "비유동부채": [["장기차입금", 260000000], ["퇴직급여충당부채", 7383211]]}, "자본": {"자본": [["자본금", 7030500], ["주식발행초과금", 2301469200], ["이익잉여금(결손금)", -2780496478]]}}}, "bsRF": {"2024": {"자산": [{"항목": "현금및현금성자산", "전기": 19260225, "변동": 16846395, "당기": 36106620, "구분": "자금", "원인": "영업적자·차입상환 등 현금 유출"}, {"항목": "매출채권", "전기": 16797243, "변동": -16302141, "당기": 495102, "구분": "자금", "원인": "외상매출 회수/소멸"}, {"항목": "미수금", "전기": 3583827, "변동": -2484072, "당기": 1099755, "구분": "자금", "원인": "미수금 회수/소멸"}, {"항목": "선급법인세", "전기": 23130, "변동": -23130, "당기": 0, "구분": "자금", "원인": "선급법인세 정산"}, {"항목": "선급금", "전기": 285643, "변동": -4448, "당기": 281195, "구분": "자금", "원인": "선급 정산"}, {"항목": "유형자산", "전기": 99109686, "변동": -61843077, "당기": 37266609, "구분": "손익", "원인": "감가상각비 −43,377,327 + 유형자산처분손실 −18,465,750"}, {"항목": "개발비", "전기": 319555380, "변동": -100801022, "당기": 218754358, "구분": "손익", "원인": "무형자산상각비(개발비분)"}, {"항목": "특허권", "전기": 14444247, "변동": -3573313, "당기": 10870934, "구분": "손익", "원인": "무형자산상각비(특허분)"}, {"항목": "상표권", "전기": 5734875, "변동": -1708240, "당기": 4026635, "구분": "손익", "원인": "무형자산상각비(상표분)"}, {"항목": "임차보증금", "전기": 155300000, "변동": -33400000, "당기": 121900000, "구분": "자금", "원인": "임차보증금 변동"}, {"항목": "기타보증금", "전기": 8950000, "변동": 0, "당기": 8950000, "구분": "무변동", "원인": "변동 없음"}], "부채": [{"항목": "단기차입금(주주·임원)", "전기": 465280000, "변동": -93980000, "당기": 371300000, "구분": "자금", "원인": "차입/상환"}, {"항목": "미지급금", "전기": 24103587, "변동": 18390959, "당기": 42494546, "구분": "자금", "원인": "미지급 정산"}, {"항목": "예수금", "전기": 258930, "변동": -117400, "당기": 141530, "구분": "자금", "원인": "원천세 등 예수·납부"}, {"항목": "장기차입금", "전기": 0, "변동": 272480000, "당기": 272480000, "구분": "자금", "원인": "차입/상환"}, {"항목": "퇴직급여충당부채", "전기": 29788889, "변동": -24160475, "당기": 5628414, "구분": "자금", "원인": "퇴직급여 설정 +5,025,106(손익) − 퇴직금 지급 −29,185,581(자금)"}], "자본": [{"항목": "자본금", "전기": 7030500, "변동": 0, "당기": 7030500, "구분": "무변동", "원인": "변동 없음"}, {"항목": "주식발행초과금", "전기": 2301469200, "변동": 0, "당기": 2301469200, "구분": "무변동", "원인": "변동 없음"}, {"항목": "이익잉여금(결손금)", "전기": -2184886850, "변동": -375906132, "당기": -2560792982, "구분": "손익", "원인": "당기순손익 −375,906,132"}]}, "2025": {"자산": [{"항목": "현금및현금성자산", "전기": 36106620, "변동": -32501131, "당기": 3605489, "구분": "자금", "원인": "영업적자·차입상환 등 현금 유출"}, {"항목": "매출채권", "전기": 495102, "변동": -495102, "당기": 0, "구분": "자금", "원인": "외상매출 회수/소멸"}, {"항목": "미수금", "전기": 1099755, "변동": -1099755, "당기": 0, "구분": "자금", "원인": "미수금 회수/소멸"}, {"항목": "선급금", "전기": 281195, "변동": 39152, "당기": 320347, "구분": "자금", "원인": "선급 정산"}, {"항목": "유형자산", "전기": 37266609, "변동": -31235846, "당기": 6030763, "구분": "손익", "원인": "감가상각비 −7,059,228 + 유형자산처분손실 −24,176,618"}, {"항목": "개발비", "전기": 218754358, "변동": -100798024, "당기": 117956334, "구분": "손익", "원인": "무형자산상각비(개발비분)"}, {"항목": "특허권", "전기": 10870934, "변동": -3573313, "당기": 7297621, "구분": "손익", "원인": "무형자산상각비(특허분)"}, {"항목": "상표권", "전기": 4026635, "변동": -1708240, "당기": 2318395, "구분": "손익", "원인": "무형자산상각비(상표분)"}, {"항목": "임차보증금", "전기": 121900000, "변동": -107900000, "당기": 14000000, "구분": "자금", "원인": "임차보증금 변동"}, {"항목": "기타보증금", "전기": 8950000, "변동": -8650000, "당기": 300000, "구분": "자금", "원인": "보증금 변동"}], "부채": [{"항목": "단기차입금(주주·임원)", "전기": 371300000, "변동": -56500000, "당기": 314800000, "구분": "자금", "원인": "차입/상환"}, {"항목": "미지급금", "전기": 42494546, "변동": -923310, "당기": 41571236, "구분": "자금", "원인": "미지급 정산"}, {"항목": "예수금", "전기": 141530, "변동": -70250, "당기": 71280, "구분": "자금", "원인": "원천세 등 예수·납부"}, {"항목": "장기차입금", "전기": 272480000, "변동": -12480000, "당기": 260000000, "구분": "자금", "원인": "차입/상환"}, {"항목": "퇴직급여충당부채", "전기": 5628414, "변동": 1754797, "당기": 7383211, "구분": "손익", "원인": "퇴직급여 +1,754,797"}], "자본": [{"항목": "자본금", "전기": 7030500, "변동": 0, "당기": 7030500, "구분": "무변동", "원인": "변동 없음"}, {"항목": "주식발행초과금", "전기": 2301469200, "변동": 0, "당기": 2301469200, "구분": "무변동", "원인": "변동 없음"}, {"항목": "이익잉여금(결손금)", "전기": -2560792982, "변동": -219703496, "당기": -2780496478, "구분": "손익", "원인": "당기순손익 −219,703,496"}]}}, "ledgerDrill": {"2024": {"현금및현금성자산": {"op": 19260225, "cls": "자산", "mode": "month", "rows": [["1월", 36732210, 44920310, 11072125], ["2월", 29588191, 34117109, 6543207], ["3월", 27107975, 28556373, 5094809], ["4월", 46230345, 50163188, 1161966], ["5월", 37281765, 34749174, 3694557], ["6월", 27158369, 23491214, 7361712], ["7월", 25300981, 29546486, 3116207], ["8월", 22846738, 20311195, 5651750], ["9월", 28535813, 27188839, 6998724], ["10월", 20970495, 24301992, 3667227], ["11월", 21726508, 18540167, 6853568], ["12월", 64810694, 35557643, 36106619], ["결산조정", 1, 0, 36106620]]}, "매출채권": {"op": 16797243, "cls": "자산", "mode": "month", "rows": [["1월", 7486200, 17056410, 7227033], ["2월", 5384790, 8406771, 4205052], ["3월", 16057040, 11737304, 8524788], ["4월", 6536500, 8830655, 6230633], ["5월", 5425410, 7287383, 4368660], ["6월", 13764940, 10899581, 7234019], ["7월", 15212200, 10803381, 11642838], ["8월", 4045691, 12207238, 3481291], ["9월", 8794800, 8340612, 3935479], ["10월", 9894950, 6464413, 7366016], ["11월", 18698700, 13226508, 12838208], ["12월", 7627060, 19970166, 495102]]}, "미수금": {"op": 3583827, "cls": "자산", "mode": "tx", "rows": [["02-15", "23'2기확정 환급", -3583827, 0], ["06-30", "24'1기확정환급", 3340706, 3340706], ["08-07", "24'1기확정 환급", -3340706, 0], ["12-31", "예수금대체", 7280, 7280], ["12-31", "24'2기확정", 1092475, 1099755]]}, "선급법인세": {"op": 23130, "cls": "자산", "mode": "tx", "rows": [["04-11", "2023 법인세환급", -21030, 2100], ["05-28", "2023 법인지방소득세 환급", -2100, 0]]}, "선급금": {"op": 285643, "cls": "자산", "mode": "tx", "rows": [["01-01", "23.11.24 카카오 충전", 9091, 294734], ["01-01", "알리고 문자", -769, 293965], ["01-31", "1월 카카오톡 채널 메시지광고(월렛id:186586)", -1012, 292953], ["02-01", "알리고 문자", -969, 291984], ["02-29", "2월 카카오톡 채널 메시지광고(월렛id:186586)", -946, 291038], ["03-01", "알리고 문자", -1082, 289956], ["03-31", "3월 카카오톡 채널 메시지광고(월렛id:186586)", -1122, 288834], ["04-01", "알리고 문자", -2336, 286498], ["04-30", "4월 카카오톡 채널 메시지광고(월렛id:186586)", -1056, 285442], ["05-01", "알리고 문자", -1310, 284132], ["05-31", "5월 카카오톡 채널 메시지광고(월렛id:186586)", -968, 283164], ["06-01", "알리고 문자", -399, 282765], ["06-30", "6월 카카오톡 채널 메시지광고(월렛id:186586)", -836, 281929], ["07-01", "알리고 문자", -1966, 279963], ["07-31", "7월 카카오톡 채널 메시지광고(월렛id:186586)", -1122, 278841], ["08-01", "알리고 문자", -1025, 277816], ["08-31", "8월 카카오톡 채널 메시지광고(월렛id:186586)", -770, 277046], ["08-31", "네이버 성과형 디스플레이 광고", 1305, 278351], ["09-01", "알리고 문자", -1738, 276613], ["09-30", "9월 카카오톡 채널 메시지광고(월렛id:186586)", -638, 275975], ["10-01", "알리고 문자", -2109, 273866], ["10-01", "알리고 문자", 48640, 322506], ["10-01", "알리고 문자", -48640, 273866], ["10-10", "카카오톡알림톡충전", 10000, 283866], ["10-31", "10월 카카오톡 채널 메시지광고(월렛id:186586)", -814, 283052], ["11-01", "알리고 문자", -342, 282710], ["11-30", "11월 카카오톡 채널 메시지광고(월렛id:186586)", -990, 281720], ["12-01", "알리고 문자", -371, 281349], ["12-31", "12월 카카오톡 채널 메시지광고(월렛id:186586)", -154, 281195]]}, "임차보증금": {"op": 155300000, "cls": "자산", "mode": "tx", "rows": [["05-26", "5월임대료/ 보증금과 상계", -600000, 154700000], ["06-26", "6월임대료/ 보증금과상계", -600000, 154100000], ["07-26", "7월임대료/ 보증금과상계", -600000, 153500000], ["08-26", "8월임대료/ 보증금과상계", -600000, 152900000], ["09-26", "9월임대료/ 보증금과상계", -600000, 152300000], ["10-26", "10월임대료/보증금상계", -600000, 151700000], ["11-26", "11월임대료/보증금과상계", -600000, 151100000], ["12-20", "사무실임차보증금 지급", 500000, 151600000], ["12-24", "사무실임차보증금 지급", 900000, 152500000], ["12-26", "12월임대료/보증금과상계", -600000, 151900000], ["12-31", "김한준(L.U.XV", -30000000, 121900000]]}, "단기차입금(주주·임원)": {"op": 465280000, "cls": "부채", "mode": "month", "rows": [["1월", 19000000, 293280000, 191000000], ["2월", 17000000, 0, 208000000], ["3월", 10000000, 0, 218000000], ["4월", 35300000, 0, 253300000], ["5월", 30000000, 0, 283300000], ["6월", 15000000, 0, 298300000], ["7월", 13000000, 0, 311300000], ["8월", 7000000, 0, 318300000], ["9월", 20000000, 0, 338300000], ["10월", 13000000, 0, 351300000], ["11월", 8000000, 0, 359300000], ["12월", 12000000, 0, 371300000]]}, "미지급금": {"op": 24103587, "cls": "부채", "mode": "month", "rows": [["1월", 37685899, 38951457, 22838029], ["2월", 51751368, 32077169, 42512228], ["3월", 28413635, 26282551, 44643312], ["4월", 52488672, 40282970, 56849014], ["5월", 20788341, 33157338, 44480017], ["6월", 23031460, 21013923, 46497554], ["7월", 19155404, 22872070, 42780888], ["8월", 17122713, 18655300, 41248301], ["9월", 26198181, 21595500, 45850982], ["10월", 18070319, 20786837, 43134464], ["11월", 26336335, 19159349, 50311450], ["12월", 18841614, 26655933, 42497131], ["결산조정", 0, 2585, 42494546]]}, "예수금": {"op": 258930, "cls": "부채", "mode": "month", "rows": [["1월", 902790, 793800, 367920], ["2월", 897840, 9673280, -8407520], ["3월", 8492130, 569100, -484490], ["4월", 1574480, 771150, 318840], ["5월", 298290, 437600, 179530], ["6월", 284810, 296980, 167360], ["7월", 507270, 525100, 149530], ["8월", 270020, 264360, 155190], ["9월", 371900, 268710, 258380], ["10월", 289890, 370590, 177680], ["11월", 257870, 288580, 146970], ["12월", 251120, 256560, 141530]]}, "장기차입금": {"op": 0, "cls": "부채", "mode": "tx", "rows": [["01-01", "단기차입금에서 대체", 33280000, 33280000], ["01-01", "단기차입금에서 대체", 50000000, 83280000], ["01-01", "단기차입금에서 대체", 150000000, 233280000], ["01-01", "단기차입금에서 대체", 60000000, 293280000], ["01-02", "차입금반제시 보통인출", -4160000, 289120000], ["04-01", "351002950631", -4160000, 284960000], ["07-01", "차입금반제시 보통인출", -4160000, 280800000], ["09-30", "차입금반제시 보통인출", -4160000, 276640000], ["12-31", "351002950631", -4160000, 272480000]]}, "퇴직급여충당부채": {"op": 29788889, "cls": "부채", "mode": "tx", "rows": [["04-30", "최주애 퇴직금중간정산 지급", -16078863, 13710026], ["04-30", "허다은 퇴직금지급", -13106718, 603308], ["결산", "결산조정(설정·조정)", 5025106, 5628414]]}}, "2025": {"현금및현금성자산": {"op": 36106620, "cls": "자산", "mode": "month", "rows": [["1월", 155685634, 187579553, 4212701], ["2월", 6940086, 8162427, 2990360], ["3월", 12927233, 13980637, 1936956], ["4월", 12210720, 12063234, 2084442], ["5월", 10730875, 11380620, 1434697], ["6월", 15633078, 15006669, 2061106], ["7월", 6009900, 5996685, 2074321], ["8월", 6191677, 6048095, 2217903], ["9월", 16686372, 14690697, 4213578], ["10월", 13885010, 9728623, 8369965], ["11월", 6774517, 13256581, 1887901], ["12월", 23157803, 21440215, 3605489]]}, "매출채권": {"op": 495102, "cls": "자산", "mode": "month", "rows": [["1월", 4422834, 4916796, 1140], ["2월", 876400, 947616, -70076], ["3월", 4560750, 2729421, 1761253], ["4월", 568900, 2492761, -162608], ["5월", 7499000, 730875, 6605517], ["6월", 1034980, 7639869, 628], ["7월", 0, 9900, -9272], ["8월", 6570410, 62410, 6498728], ["9월", 4411100, 9686371, 1223457], ["10월", 9584700, 7614600, 3193557], ["11월", 7356752, 3276060, 7274249], ["12월", 9963680, 17237929, 0]]}, "미수금": {"op": 1099755, "cls": "자산", "mode": "tx", "rows": [["01-01", "24년도 예수금/미수금 대체", -7280, 1092475], ["02-17", "24'2기확정", -1092475, 0], ["03-04", "이니시스 정산대금", 0, 0], ["06-30", "25'1기확정 환급", 1630574, 1630574], ["08-07", "25'1기확정 환급", -1630574, 0]]}, "선급금": {"op": 281195, "cls": "자산", "mode": "tx", "rows": [["01-01", "알리고 문자", -4274, 276921], ["01-31", "1월 카카오톡 채널 메시지광고(월렛id:186586)", -44, 276877], ["02-01", "알리고 문자", -598, 276279], ["02-19", "(주)알리는사람", 55000, 331279], ["02-28", "2월 카카오톡 채널 메시지광고(월렛id:186586)", -198, 331081], ["03-01", "알리고 문자", -2507, 328574], ["03-31", "3월 카카오톡 채널 메시지광고(월렛id:186586)", -374, 328200], ["04-01", "알리고 문자", -588, 327612], ["04-30", "카카오톡채널", -440, 327172], ["05-01", "알리고 문자", -2478, 324694], ["05-31", "카카오톡채널", -286, 324408], ["06-01", "알리고 문자", -598, 323810], ["06-30", "카카오톡채널", -242, 323568], ["07-01", "알리고 문자", -256, 323312], ["07-31", "카카오톡채널", -154, 323158], ["08-01", "알리고 문자", -399, 322759], ["08-31", "카카오톡채널", -220, 322539], ["09-01", "알리고 문자", -379, 322160], ["09-30", "카카오톡채널", -330, 321830], ["10-01", "알리고 문자", -171, 321659], ["10-31", "카카오톡채널", -352, 321307], ["11-01", "알리고 문자", -143, 321164], ["11-30", "카카오톡채널", -286, 320878], ["12-01", "알리고 문자", -531, 320347]]}, "임차보증금": {"op": 121900000, "cls": "자산", "mode": "tx", "rows": [["01-13", "사무실임차보증금 지급", 12600000, 134500000], ["01-15", "김한준(L.U.XV", -120000000, 14500000], ["01-24", "하우비즈여주점", -300000, 14200000], ["01-26", "1월임대료/보증금상계", -200000, 14000000]]}, "기타보증금": {"op": 8950000, "cls": "자산", "mode": "tx", "rows": [["01-20", "미지급금/보증금대체", -210000, 8740000], ["03-14", "법인차승계및인수 카니발보증금입금/25.3.5해지", -8440000, 300000]]}, "단기차입금(주주·임원)": {"op": 371300000, "cls": "부채", "mode": "tx", "rows": [["01-02", "안상미", -30000000, 341300000], ["01-09", "안상미", 16000000, 357300000], ["01-12", "안상미", 6000000, 363300000], ["01-12", "안상미", 3000000, 366300000], ["01-15", "안상미", 7000000, 373300000], ["01-15", "안상미", -120000000, 253300000], ["02-05", "안상미", 4000000, 257300000], ["03-25", "안상미", 3000000, 260300000], ["04-09", "안상미", 8000000, 268300000], ["04-24", "안상미", 500000, 268800000], ["05-09", "안상미", 3000000, 271800000], ["05-14", "안상미", 7000000, 278800000], ["06-24", "안상미", 2000000, 280800000], ["06-24", "안상미", 2000000, 282800000], ["06-24", "안상미", 2000000, 284800000], ["06-24", "안상미", 2000000, 286800000], ["07-10", "안상미", 2000000, 288800000], ["07-10", "안상미", 2000000, 290800000], ["07-10", "안상미", 2000000, 292800000], ["08-11", "안상미", 4500000, 297300000], ["09-05", "안상미", 7000000, 304300000], ["10-11", "안상미", 6000000, 310300000], ["11-11", "안상미", 3500000, 313800000], ["12-22", "안상미", 1000000, 314800000]]}, "미지급금": {"op": 42494546, "cls": "부채", "mode": "month", "rows": [["1월", 22004981, 23220185, 41279342], ["2월", 7603685, 6006979, 42876048], ["3월", 9844529, 8818824, 43901753], ["4월", 10026859, 10061911, 43866701], ["5월", 6537105, 9986048, 40417758], ["6월", 9963620, 10240551, 40140827], ["7월", 5114569, 4959624, 40295772], ["8월", 5678564, 5042558, 40931778], ["9월", 13728940, 11850258, 42810460], ["10월", 6329551, 8564515, 40575496], ["11월", 16014966, 15809572, 40780890], ["12월", 16338106, 15547760, 41571236]]}, "예수금": {"op": 141530, "cls": "부채", "mode": "month", "rows": [["1월", 349860, 250450, 240940], ["2월", 147220, 535960, -147800], ["3월", 206780, 101750, -42770], ["4월", 184140, 101750, 39620], ["5월", 185240, 143180, 81680], ["6월", 237720, 184770, 134630], ["7월", 140030, 237130, 37530], ["8월", 149930, 140030, 47430], ["9월", 267280, 149930, 164780], ["10월", 166890, 267280, 64390], ["11월", 175740, 166890, 73240], ["12월", 173780, 175740, 71280]]}, "장기차입금": {"op": 272480000, "cls": "부채", "mode": "tx", "rows": [["03-31", "351002950631", -4160000, 268320000], ["06-30", "351002950631", -4160000, 264160000], ["09-30", "차입금반제시 보통인출", -4160000, 260000000]]}}}, "reAccum": {"open": -29011697, "rows": [["2018", -31975623, -60987320, "역산"], ["2019", -197692153, -258679473, "역산"], ["2020", -38759432, -297438905, "재무제표"], ["2021", -313219899, -610658804, "재무제표"], ["2022", -912583506, -1523242310, "재무제표"], ["2023", -661644540, -2184886850, "재무제표"], ["2024", -375906132, -2560792982, "재무제표"], ["2025", -219703496, -2780496478, "재무제표"]]}, "costtrend": {"years": ["2019", "2020", "2021", "2022", "2023", "2024", "2025"], "cats": {"급여": [115.8, 155.8, 210.8, 308.4, 211.4, 32.8, 16.1], "지급수수료": [66.3, 63.7, 85.5, 91.1, 181.6, 147.2, 58.8], "임차료": [6.1, 14.7, 14.4, 138.5, 139.0, 70.9, 14.3], "무형자산상각비": [0.0, 0.0, 50.0, 51.0, 97.0, 106.1, 106.1], "감가상각비": [0.0, 0.0, 6.6, 115.3, 81.2, 43.4, 7.1], "경상개발비": [29.8, 6.0, 125.6, 107.5, 48.9, 25.1, 6.0], "퇴직급여": [0.0, 4.3, 0.0, 101.6, 0.0, 5.0, 1.8], "기타": [56.3, 41.6, 45.8, 72.2, 28.7, 18.0, 19.6]}, "raw": {"급여": [115826950, 155840000, 210760000, 308360760, 211376050, 32808228, 16113840], "지급수수료": [66275932, 63748834, 85536001, 91051469, 181603337, 147178401, 58843556], "임차료": [6105373, 14712556, 14364276, 138481066, 138963928, 70923928, 14323988], "무형자산상각비": [0, 0, 49951270, 51015485, 97009241, 106082575, 106079577], "감가상각비": [0, 0, 6582591, 115325069, 81164485, 43377327, 7059228], "경상개발비": [29792000, 6000000, 125631837, 107480000, 48896557, 25130076, 5992780], "퇴직급여": [0, 4327559, 0, 101590314, 0, 5025106, 1754797], "기타": [56333902, 41567667, 45762793, 72214329, 28653439, 17968901, 19585754]}, "keys": ["급여", "지급수수료", "임차료", "무형자산상각비", "감가상각비", "경상개발비", "퇴직급여", "기타"]}};
+const C={coral:'#FF5019',taupe:'#C2B190',sage:'#5E9087',brick:'#9A3F26',ink:'#2B2622',muted:'#8C857A',line:'#E9E1D3',ncash:'#6E9C94'};
+const won=n=>(n<0?'−':'')+Math.abs(Math.round(n)).toLocaleString('ko-KR')+'원';
+const mil=n=>(n<0?'−':'')+Math.abs(Math.round(n)).toLocaleString('ko-KR');
+Chart.defaults.font.family="'DM Mono','Pretendard',monospace";Chart.defaults.color=C.muted;Chart.defaults.font.size=11;
+const gridcol={color:C.line},noborder={display:false},charts={};
+const CTCOL=['#FF5019','#5E9087','#C2B190','#6E9C94','#B9651F','#8FB0A8','#9A3F26','#D8CBB2'];
+const CATCOL={'클래스':'#FF5019','레시피':'#5E9087','쿠킹박스':'#C2B190','케이터링':'#B9651F','기타':'#D8CBB2'};
+
+const p=DATA.pnl;
+document.getElementById('kpis').innerHTML=[
+ {lab:'매출 (2025)',v:p['매출'],cls:'pos',cap:won(p['매출'])},
+ {lab:'영업손익 (2025)',v:p['영업손익'],cls:'neg',cap:won(p['영업손익'])},
+ {lab:'당기순손익 (2025)',v:p['당기순손익'],cls:'neg',cap:won(p['당기순손익'])},
+ {lab:'자본총계 (2025)',v:p['자본총계'],cls:'neg',cap:'2024년 완전자본잠식 재진입'},
+].map(k=>`<div class="kpi ${k.cls}"><div class="lab">${k.lab}</div><div class="val">${mil(k.v/1e6)}<span class="unit">백만원</span></div><div class="cap">${k.cap}</div></div>`).join('');
+
+function buildWaterfall(d){
+ if(charts.wf){charts.wf.destroy();charts.wf=null;}
+ const rev=d.rev,sga=d.sga,op=d.op,ni=d.ni,noNet=d.ni-d.op;
+ const bars=[[0,rev],[op,rev],[Math.min(0,op),Math.max(0,op)],[Math.min(op,ni),Math.max(op,ni)],[Math.min(0,ni),Math.max(0,ni)]];
+ const cols=[C.coral,C.sage,C.taupe,'#8FB3AC',C.brick];
+ const deltas=[rev,-Math.abs(sga),op,noNet,ni];
+ charts.wf=new Chart(cWaterfall,{type:'bar',data:{labels:['매출','판관비','영업손익','영업외','당기순'],datasets:[{data:bars,backgroundColor:cols,borderRadius:3,barPercentage:.64}]},
+  options:{maintainAspectRatio:false,plugins:{legend:{display:false},
+   tooltip:{callbacks:{title:c=>c[0].label,label:c=>{const v=deltas[c.dataIndex],sub=(c.dataIndex===2||c.dataIndex===4);return (sub?'= ':(v>=0?'+ ':'− '))+won(Math.abs(v))+(sub?' (소계)':'');}}}},
+   scales:{y:{grid:gridcol,ticks:{callback:v=>mil(v)}},x:{grid:noborder,ticks:{font:{size:12}}}}}});
+ document.getElementById('wfNote').innerHTML='매출 '+won(rev)+' 에서 판관비·영업외 차감 → 당기순 <b class="neg">'+won(ni)+'</b>';
+}
+function fsStructHTML(yr,d,idx){
+ const scm=DATA.salesCatMonth[yr];let salesItems=null;
+ if(scm){salesItems=Object.keys(scm).map(c=>[c,scm[c].reduce((a,b)=>a+b,0)]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]);}
+ let sgaItems=null;
+ if(idx>=0){const keys=DATA.costtrend.keys;sgaItems=keys.map(k=>[k,DATA.costtrend.raw[k][idx]]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]);}
+ const no=DATA.nonOp[yr],oiItems=no?no['수익']:null,oeItems=no?no['비용']:null;
+ function grp(lab,val,cls,items,note){
+  const has=items&&items.length;
+  const det=has?`<div class="fsdet"><table class="fst2">${items.map(x=>`<tr><td>${x[0]}</td><td class="num">${won(x[1])}</td></tr>`).join('')}${note?`<tr class="fsnt"><td colspan="2">${note}</td></tr>`:''}</table></div>`:'';
+  return `<div class="fsgrp ${cls}"><div class="fshead ${has?'exp':''}"><span class="fsx">${has?'▸':''}</span><span class="fsl">${lab}</span><span class="fsv ${val<0?'neg':''}">${won(val)}</span></div>${det}</div>`;
+ }
+ let h='';
+ h+=grp('매출액',d.rev,'lvl0',salesItems,salesItems?null:'종류별 분해는 2024·2025만 제공');
+ h+=grp('(−) 판매비와관리비',-Math.abs(d.sga),'lvl0',sgaItems,'재무제표 확정 기준 · 8개 그룹 (월별·거래처는 아래 ③에서)');
+ h+=grp('= 영업손익',d.op,'lvl1 sub',null,null);
+ h+=grp('(+) 영업외수익',d.oi,'lvl0',oiItems,null);
+ h+=grp('(−) 영업외비용',-Math.abs(d.oe),'lvl0',oeItems,null);
+ h+=grp('= 당기순손익',d.ni,'lvl1 tot',null,null);
+ return h;
+}
+function buildBSWaterfall(d){
+ if(charts.bsw){charts.bsw.destroy();charts.bsw=null;}
+ const a=d.asset,l=d.liab,e=d.eq;
+ const bars=[[0,a],[Math.min(a,e),Math.max(a,e)],[Math.min(0,e),Math.max(0,e)]];
+ const cols=[C.coral,C.sage,C.brick],deltas=[a,-Math.abs(l),e];
+ charts.bsw=new Chart(cBSW,{type:'bar',data:{labels:['자산','부채','자본'],datasets:[{data:bars,backgroundColor:cols,borderRadius:3,barPercentage:.6}]},
+  options:{maintainAspectRatio:false,plugins:{legend:{display:false},
+   tooltip:{callbacks:{title:c=>c[0].label,label:c=>{const v=deltas[c.dataIndex],sub=(c.dataIndex===2);return (sub?'= ':(v>=0?'+ ':'− '))+won(Math.abs(v))+(sub?' (순자산)':'');}}}},
+   scales:{y:{grid:gridcol,ticks:{callback:v=>mil(v)}},x:{grid:noborder,ticks:{font:{size:12}}}}}});
+ document.getElementById('bswNote').innerHTML='자산 '+won(a)+' − 부채 '+won(l)+' = 자본 <b class="neg">'+won(e)+'</b>'+(e<0?' · 완전자본잠식':'');
+}
+function bsStructHTML(yr,d){
+ const bd=DATA.bsData[yr];
+ function grp(lab,val,cls,groups,note){
+  const keys=groups?Object.keys(groups):[];
+  const has=keys.length>0;
+  let det='';
+  if(has){
+   const multi=keys.length>1;let body='';
+   keys.forEach(mid=>{const items=groups[mid];const sub=items.reduce((a,x)=>a+x[1],0);
+    if(multi) body+=`<tr class="midsub"><td>${mid}</td><td class="num">${won(sub)}</td></tr>`;
+    items.forEach(x=>{body+=`<tr><td class="${multi?'lvl2':''}">${x[0]}</td><td class="num">${won(x[1])}</td></tr>`;});});
+   det=`<div class="fsdet"><table class="fst2">${body}${note?`<tr class="fsnt"><td colspan="2">${note}</td></tr>`:''}</table></div>`;
+  }
+  return `<div class="fsgrp ${cls}"><div class="fshead ${has?'exp':''}"><span class="fsx">${has?'▸':''}</span><span class="fsl">${lab}</span><span class="fsv ${val<0?'neg':''}">${won(val)}</span></div>${det}</div>`;
+ }
+ const note=bd?'':'항목 구성은 2024·2025만 제공(그 외 총액만)';
+ let h=bd?'':`<p class="note">${note}</p>`;
+ h+=grp('자산총계',d.asset,'lvl0',bd&&bd['자산'],'운용 — 돈이 어디에 가 있나 · 유동(1년내) / 비유동');
+ h+=grp('(−) 부채총계',-Math.abs(d.liab),'lvl0',bd&&bd['부채'],'남의 돈(차입 등) · 유동(1년내) / 비유동');
+ h+=grp('= 자본총계 (= 순자산)',d.eq,'lvl1 tot',bd&&bd['자본'],'내 몫 — 투자금 − 누적손실');
+ return h;
+}
+function bsConceptHTML(yr,d){
+ const bd=DATA.bsData[yr];
+ let h='<p class="ctt">자본총계 = 순자산 — 같은 값을 두 가지 방법으로 본 것입니다</p>';
+ h+=`<div class="ceq"><span class="cl">① 순자산 = 자산 − 부채</span><span class="cr">${won(d.asset)} − ${won(d.liab)} = <b class="${d.eq<0?'neg':''}">${won(d.eq)}</b></span></div>`;
+ if(bd&&bd['자본']&&bd['자본']['자본']){
+  const items=bd['자본']['자본'];
+  const parts=items.map(x=>x[1]<0?`(${won(x[1])})`:won(x[1])).join(' + ');
+  h+=`<div class="ceq"><span class="cl">② 자본총계 = 자본금 + 주식발행초과금 + 이익잉여금</span><span class="cr">${parts} = <b class="${d.eq<0?'neg':''}">${won(d.eq)}</b></span></div>`;
+  const re=items.find(x=>x[0].indexOf('이익잉여금')>=0);
+  if(re) h+=`<p class="cnote">③ <b>이익잉여금(결손금) ${won(re[1])}</b> = 설립 이후 매년 <b>당기순손익을 누적</b>한 것입니다 (배당이 없어 순수 누적). 아래 "이익잉여금은 어떻게…"를 누르면 연도별로 어떻게 쌓였는지 보입니다.</p>`;
+ }
+ return h;
+}
+function reAccumHTML(yr){
+ const A=DATA.reAccum,Y=parseInt(yr);
+ let body=`<tr class="opr"><td>2017말 이전 누적</td><td class="num">·</td><td class="num tot">${won(A.open)}</td><td>역산</td></tr>`;
+ let end=A.open;
+ A.rows.forEach(r=>{const y=r[0],ni=r[1],cum=r[2],src=r[3];if(parseInt(y)>Y)return;end=cum;
+  body+=`<tr><td>${y}</td><td class="num ${ni<0?'neg':'pos'}">${(ni<0?'−':'+')+won(Math.abs(ni))}</td><td class="num tot">${won(cum)}</td><td class="src">${src}</td></tr>`;});
+ const tbl=`<table class="t tc lg"><tr><th>연도</th><th>당기순손익</th><th class="tot">누적 이익잉여금</th><th>출처</th></tr>${body}</table><p class="note" style="margin:6px 2px 0">매년 당기순손익을 더한 누적 · 2020~ 누적은 재무제표 이익잉여금과 원 단위 일치 · 2019 이전은 재무제표가 이미지본이라 당기순 기준 역산</p>`;
+ return {tbl:tbl,end:end};
+}
+function drillSub(yr,it){
+ const d=DATA.ledgerDrill[yr]&&DATA.ledgerDrill[yr][it];if(!d)return '';
+ let net,end;
+ if(d.mode==='tx'){net=d.rows.reduce((a,r)=>a+r[2],0);end=d.rows.length?d.rows[d.rows.length-1][3]:d.op;}
+ else{net=d.rows.reduce((a,r)=>a+r[1]-r[2],0);end=d.rows.length?d.rows[d.rows.length-1][3]:d.op;}
+ let h=`<div class="drilldetail"><p class="drilltt">「${it}」 <b>당기 변동 <span class="${net<0?'neg':'pos'}">${(net<0?'−':'+')+won(Math.abs(net))}</span></b> 의 내역 — 25년 계정별원장</p><table class="t tc lg">`;
+ if(d.mode==='tx'){
+  h+='<tr><th>날짜</th><th>적요</th><th>증감</th><th class="tot">잔액</th></tr>';
+  h+=`<tr class="opr"><td>기초(전기말)</td><td>전기이월</td><td class="num">·</td><td class="num tot">${won(d.op)}</td></tr>`;
+  d.rows.forEach(r=>{const c=r[2];h+=`<tr><td>${r[0]}</td><td class="vcell">${r[1]}</td><td class="num ${c<0?'neg':c>0?'pos':''}">${c?((c>0?'+':'−')+won(Math.abs(c))):'·'}</td><td class="num tot">${won(r[3])}</td></tr>`;});
+  h+='</table><p class="note" style="margin:6px 2px 0">+ 는 늘어난 거래, − 는 줄어든 거래 · 「결산조정」 행은 결산 시 반영분(퇴직급여 설정·단수 등) · 기초 + 증감을 쌓으면 <b>기말 = 재무제표와 일치</b></p></div>';
+ }else{
+  h+='<tr><th>월</th><th>증가(+)</th><th>감소(−)</th><th>순변동</th><th class="tot">월말잔액</th></tr>';
+  h+=`<tr class="opr"><td>기초(전기말)</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num tot">${won(d.op)}</td></tr>`;
+  d.rows.forEach(r=>{const nt=r[1]-r[2];h+=`<tr><td>${r[0]}</td><td class="num pos">${r[1]?'+'+won(r[1]):'·'}</td><td class="num neg">${r[2]?'−'+won(r[2]):'·'}</td><td class="num ${nt<0?'neg':nt>0?'pos':''}">${nt?((nt>0?'+':'−')+won(Math.abs(nt))):'·'}</td><td class="num tot">${won(r[3])}</td></tr>`;});
+  h+='</table><p class="note" style="margin:6px 2px 0"><b>증가</b> = 그 달 통장에 들어온 돈 합계 · <b>감소</b> = 나간 돈 합계 · <b>순변동</b> = 증가 − 감소 · <b>월말잔액 = 전월말 + 순변동</b> · 「결산조정」은 결산 반영분 · 최종 잔액 = 재무제표와 일치</p></div>';
+ }
+ return h;
+}
+function bsRFHTML(yr){
+ const RF=DATA.bsRF[yr],LD=DATA.ledgerDrill[yr]||{};
+ if(!RF) return '<p class="note">전기말→당기말 증감분석은 2024·2025만 제공합니다(전기 재무제표·계정별원장이 있는 해).</p>';
+ const prev=(parseInt(yr)-1);
+ const sign=v=>(v>0?'+':v<0?'−':'')+won(Math.abs(v));
+ const badge=g=>g==='손익'?'<span class="lk">🔗 손익</span>':g==='무변동'?'<span class="lk nochg">그대로</span>':'<span class="lk fund">자금·영업</span>';
+ let h=`<table class="t tc rf"><tr><th>항목</th><th class="tot">${prev}말</th><th>당기 변동</th><th class="tot">${yr}말</th><th class="cause">변동 원인</th></tr>`;
+ ['자산','부채','자본'].forEach(g=>{let sp=0,sd=0,sc=0;
+  h+=`<tr class="grp"><td colspan="5">${g}</td></tr>`;
+  RF[g].forEach(r=>{sp+=r['전기'];sd+=r['변동'];sc+=r['당기'];const hasD=!!LD[r['항목']];
+   const lab=hasD?`<span class="rfx">▸</span>${r['항목']}`:r['항목'];
+   h+=`<tr class="rfrow ${hasD?'exp':''}"><td class="vcell">${lab}</td><td class="num">${won(r['전기'])}</td><td class="num ${r['변동']<0?'neg':r['변동']>0?'pos':''}">${r['변동']?sign(r['변동']):'·'}</td><td class="num">${won(r['당기'])}</td><td class="causec">${badge(r['구분'])}${r['원인']}</td></tr>`;
+   if(hasD) h+=`<tr class="rfd"><td colspan="5">${drillSub(yr,r['항목'])}</td></tr>`;});
+  h+=`<tr class="totrow"><td>${g} 합계</td><td class="num">${won(sp)}</td><td class="num ${sd<0?'neg':'pos'}">${sign(sd)}</td><td class="num">${won(sc)}</td><td></td></tr>`;});
+ h+='</table>';return h;
+}
+
+function monthMatrix(cols){const labels=Object.keys(cols);
+ const uv=v=>v?`<span class="uw">${won(v)}</span><span class="um">${(v/1e6).toFixed(1)}</span>`:'·';
+ const ct=labels.map(()=>0),rowT=[];let gt=0;
+ for(let mo=0;mo<12;mo++){let rt=0;labels.forEach((l,ci)=>{const v=(cols[l]&&cols[l][mo])||0;ct[ci]+=v;rt+=v;});rowT.push(rt);gt+=rt;}
+ let h='<tr><th>월</th><th class="tot">합계</th>'+labels.map(l=>`<th>${l}</th>`).join('')+'</tr>';
+ for(let mo=0;mo<12;mo++){h+=`<tr><td>${mo+1}월</td><td class="num tot">${uv(rowT[mo])}</td>`+labels.map(l=>{const v=(cols[l]&&cols[l][mo])||0;return `<td class="num">${uv(v)}</td>`;}).join('')+'</tr>';}
+ h+='<tr class="totrow"><td>합계</td><td class="num tot">'+uv(gt)+'</td>'+ct.map(v=>`<td class="num">${uv(v)}</td>`).join('')+'</tr>';return h;}
+function rowMatrix(rows){const uv=v=>v?`<span class="uw">${won(v)}</span><span class="um">${(v/1e6).toFixed(1)}</span>`:'·';
+ const ct=Array(12).fill(0),rowT=[];let gt=0;
+ rows.forEach(([l,a])=>{let rt=0;a.forEach((v,i)=>{ct[i]+=v;rt+=v;});rowT.push(rt);gt+=rt;});
+ let h='<tr><th>거래처</th><th class="tot">합계</th>'+Array.from({length:12},(_,i)=>`<th>${i+1}월</th>`).join('')+'</tr>';
+ rows.forEach(([l,a],ri)=>{h+=`<tr><td class="vcell" title="${l}">${l}</td><td class="num tot">${uv(rowT[ri])}</td>`+a.map(v=>`<td class="num">${uv(v)}</td>`).join('')+'</tr>';});
+ h+='<tr class="totrow"><td>합계</td><td class="num tot">'+uv(gt)+'</td>'+ct.map(v=>`<td class="num">${uv(v)}</td>`).join('')+'</tr>';return h;}
+const initers={
+ t1(){charts.y=new Chart(cYear,{data:{labels:DATA.yearly.labels,datasets:[
+   {type:'bar',label:'매출',data:DATA.yearly.rev,backgroundColor:C.coral,barPercentage:.7,categoryPercentage:.7,order:3},
+   {type:'bar',label:'판관비',data:DATA.yearly.sga,backgroundColor:C.taupe,barPercentage:.7,categoryPercentage:.7,order:3},
+   {type:'line',label:'당기순손익',data:DATA.yearly.ni,borderColor:C.brick,backgroundColor:C.brick,tension:.25,borderWidth:2,pointRadius:2,order:1},
+   {type:'line',label:'자본총계',data:DATA.yearly.eq,borderColor:C.sage,backgroundColor:C.sage,tension:.25,borderWidth:2,pointRadius:2,borderDash:[5,3],order:1}]},
+   options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},scales:{y:{grid:gridcol,ticks:{callback:v=>mil(v)}},x:{grid:noborder}},
+   plugins:{legend:{position:'bottom',labels:{boxWidth:12,boxHeight:12,usePointStyle:true,padding:14}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+mil(c.parsed.y)+'백만원'}}}}});},
+ t2(){const R=DATA.yearly.raw,L=DATA.yearly.labels;let h='<tr><th>연도</th><th>매출</th><th>판관비</th><th>영업손익</th><th>영업외</th><th>당기순손익</th></tr>';
+   for(let i=0;i<L.length;i++){const ono=R.oi[i]-R.oe[i];
+    h+=`<tr><td>${L[i]}</td><td class="num">${mil(R.rev[i])}</td><td class="num">${mil(R.sga[i])}</td><td class="num neg">${won(R.op[i])}</td><td class="num">${(ono<0?'−':'')+mil(Math.abs(ono))}</td><td class="num neg">${won(R.ni[i])}</td></tr>`;}
+   pnlTable.innerHTML=h;},
+ tc(){const CT=DATA.costtrend,Y=CT.years,keys=CT.keys;
+   smgrid.innerHTML=keys.map((k,i)=>`<div class="sm"><div class="smt">${k}</div><div class="smc"><canvas id="sm${i}"></canvas></div></div>`).join('');
+   keys.forEach((k,i)=>{charts['sm'+i]=new Chart(document.getElementById('sm'+i),{type:'bar',data:{labels:Y,datasets:[{data:CT.cats[k],backgroundColor:C.coral,borderRadius:3,barPercentage:.78}]},
+     options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:c=>c[0].label,label:c=>mil(c.parsed.y)+'백만원'}}},scales:{y:{grid:gridcol,ticks:{font:{size:9},maxTicksLimit:4,callback:v=>mil(v)}},x:{grid:noborder,ticks:{font:{size:9}}}}}});});
+   let h='<tr><th>항목</th>'+Y.map(y=>`<th>${y}</th>`).join('')+'</tr>';
+   keys.forEach(k=>{const row=CT.raw[k],mx=Math.max.apply(null,row.concat([1]));
+     h+=`<tr><td>${k}</td>`+row.map(v=>{const o=(v/mx*0.5).toFixed(2);return `<td class="num" style="background:rgba(255,80,25,${o})">${v?mil(v/1e6):'·'}</td>`;}).join('')+'</tr>';});
+   matrix.innerHTML=h;},
+ t3(){const Y=DATA.yearly;charts.bs=new Chart(cBS,{data:{labels:Y.labels,datasets:[
+   {type:'bar',label:'자산총계',data:Y.asset,backgroundColor:C.taupe,barPercentage:.66,categoryPercentage:.7},
+   {type:'bar',label:'부채총계',data:Y.liab,backgroundColor:C.brick,barPercentage:.66,categoryPercentage:.7},
+   {type:'line',label:'자본총계',data:Y.eq,borderColor:C.coral,backgroundColor:C.coral,tension:.2,borderWidth:2.5,pointRadius:3}]},
+   options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},scales:{y:{grid:gridcol,ticks:{callback:v=>mil(v)}},x:{grid:noborder}},
+   plugins:{legend:{position:'bottom',labels:{boxWidth:12,boxHeight:12,usePointStyle:true,padding:14}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+mil(c.parsed.y)+'백만원'}}}}});
+   const R=Y.raw;let h='<tr><th>연도</th><th>자산총계</th><th>부채총계</th><th>자본총계</th></tr>';
+   for(let i=0;i<Y.labels.length;i++)h+=`<tr><td>${Y.labels[i]}</td><td class="num">${won(R.asset[i])}</td><td class="num">${won(R.liab[i])}</td><td class="num ${R.eq[i]<0?'neg':'pos'}">${won(R.eq[i])}</td></tr>`;
+   bsTable.innerHTML=h;},
+ t4(){const sel=document.getElementById('yearSel');const years=DATA.costtrend.years.slice().reverse();
+   sel.innerHTML=years.map(y=>`<option value="${y}">${y}년</option>`).join('');
+   const $=id=>document.getElementById(id);let selItem='지급수수료';
+   function render(yr){const d=DATA.byyear[yr]||{};const idx=DATA.costtrend.years.indexOf(yr);
+    const m=DATA.memo[yr]||{};$('ydMemo').innerHTML=(m.fact||'')+(m.ctx?' &nbsp;·&nbsp; <b style="color:var(--ink)">'+m.ctx+'</b>':'');
+    const kp=[['매출',d.rev,'pos'],['판관비',d.sga,''],['영업손익',d.op,'neg'],['당기순손익',d.ni,'neg']];
+    $('ydKpis').innerHTML=kp.map(x=>`<div class="kpi ${x[2]}"><div class="lab">${x[0]}</div><div class="val">${mil(x[1]/1e6)}<span class="unit">백만원</span></div><div class="cap">${won(x[1])}</div></div>`).join('');
+    buildWaterfall(d);
+    $('fsStruct').innerHTML=fsStructHTML(yr,d,idx);
+    $('fsStruct').querySelectorAll('.fshead.exp').forEach(hd=>hd.onclick=()=>hd.parentElement.classList.toggle('open'));
+    $('salesH').textContent=yr+'년 매출 · '+won(d.rev);
+    const scw=$('salesChartWrap');
+    if(charts.cat){charts.cat.destroy();charts.cat=null;}
+    const scm=DATA.salesCatMonth[yr];
+    if(scm){scw.style.display='';$('salesNote').textContent='종류별 · 단위 원 (모바일은 백만원) · 건별 매출장 분류';
+     const cats=Object.keys(scm).filter(c=>scm[c].reduce((a,b)=>a+b,0)>0);
+     const tot=cats.map(c=>scm[c].reduce((a,b)=>a+b,0)),gt=tot.reduce((a,b)=>a+b,0);
+     charts.cat=new Chart(cCat,{type:'doughnut',data:{labels:cats,datasets:[{data:tot,backgroundColor:cats.map(c=>CATCOL[c]||'#D8CBB2'),borderColor:'#FFFDF8',borderWidth:2}]},
+      options:{maintainAspectRatio:false,cutout:'58%',plugins:{legend:{position:'right',labels:{boxWidth:11,boxHeight:11,usePointStyle:true,padding:8,font:{size:11}}},tooltip:{callbacks:{label:c=>c.label+': '+won(c.parsed)+' ('+(c.parsed/gt*100).toFixed(1)+'%)'}}}}});
+     const tbl={};cats.forEach(c=>tbl[c]=scm[c]);$('msTable').innerHTML=monthMatrix(tbl);}
+    else if(DATA.monthly[yr]){scw.style.display='none';$('salesNote').textContent='단위 원 (모바일은 백만원) · 종류별 분해는 2024·2025만(그 외 총액)';
+     $('msTable').innerHTML=monthMatrix({'매출':DATA.monthly[yr].sales});}
+    else{scw.style.display='none';$('salesNote').textContent='이 연도는 월별 매출 자료가 없습니다.';$('msTable').innerHTML='';}
+    const gcw=$('sgaChartWrap');
+    if(charts.yd){charts.yd.destroy();charts.yd=null;}
+    if(idx>=0){gcw.style.display='';const keys=DATA.costtrend.keys,vals=keys.map(k=>DATA.costtrend.raw[k][idx]);
+     charts.yd=new Chart(cYD,{type:'doughnut',data:{labels:keys,datasets:[{data:vals,backgroundColor:CTCOL,borderColor:'#FFFDF8',borderWidth:2}]},
+      options:{maintainAspectRatio:false,cutout:'56%',plugins:{legend:{position:'right',labels:{boxWidth:10,boxHeight:10,usePointStyle:true,padding:7,font:{size:10}}},tooltip:{callbacks:{label:c=>c.label+': '+won(c.parsed)+' ('+(c.parsed/d.sga*100).toFixed(1)+'%)'}}}}});}
+    else{gcw.style.display='none';}
+    if(DATA.sgaGrp[yr]){$('sgaNote').textContent='항목별 월별 · 단위 원 (모바일은 백만원) · 거래 기준(연말 상각·충당 일부, 급여 등 균등계상) · 도넛은 재무제표 기준 연간';
+     $('mgTable').innerHTML=monthMatrix(DATA.sgaGrp[yr]);}
+    else{$('sgaNote').textContent='도넛은 재무제표 기준 연간 구성 · 월별 표는 2022·2024·2025만(원장 형식).';$('mgTable').innerHTML='';}
+    renderDrill(yr);
+    buildBSWaterfall(d);
+    $('bsConcept').innerHTML=bsConceptHTML(yr,d);
+    $('bsStruct').innerHTML=bsStructHTML(yr,d);
+    $('bsStruct').querySelectorAll('.fshead.exp').forEach(hd=>hd.onclick=()=>hd.parentElement.classList.toggle('open'));
+    const ra=reAccumHTML(yr);$('reDet').innerHTML='<div class="fsdetin">'+ra.tbl+'</div>';$('reEnd').textContent=won(ra.end);
+    $('reHead').onclick=()=>$('reHead').parentElement.classList.toggle('open');
+    $('bsRF').innerHTML=bsRFHTML(yr);
+    $('bsRF').querySelectorAll('.rfrow.exp').forEach(tr=>tr.onclick=()=>{const nx=tr.nextElementSibling;if(nx&&nx.classList.contains('rfd'))nx.classList.toggle('open');tr.classList.toggle('open');});
+    setTimeout(()=>Object.values(charts).forEach(c=>{try{c&&c.resize();}catch(e){}}),20);}
+   function renderDrill(yr){const acc=DATA.sgaAcc[yr],jd=$('jsuDetail');
+    if(!acc){jd.style.display='none';return;} jd.style.display='';
+    const items=Object.keys(acc); if(!items.includes(selItem)) selItem=items.includes('지급수수료')?'지급수수료':items[0];
+    $('chipRow').innerHTML=items.map(it=>`<button class="chip ${it===selItem?'on':''}" data-it="${it}">${it}</button>`).join('');
+    $('chipRow').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{selItem=b.dataset.it;renderDrill(yr);});
+    const rows=acc[selItem]||[];const sub=rows.reduce((a,r)=>a+r[1].reduce((x,y)=>x+y,0),0);
+    $('drillNote').textContent='"'+selItem+'" '+won(sub)+' — 위 판관비 표의 '+selItem+' 칸을 계정·월별로 풀어낸 것 · 단위 원(모바일 백만원)';
+    $('drillTbl').innerHTML=rowMatrix(rows);
+    if(selItem==='지급수수료'&&DATA.jsuVend[yr]){const jv=DATA.jsuVend[yr];let vh='<p class="subh" style="margin-top:16px">거래처 × 월 (지급수수료 근거)</p>';
+     for(const s2 of Object.keys(jv)){vh+=`<div class="vgroup"><div class="vgt">${s2}</div><div style="overflow-x:auto"><table class="t tc">${rowMatrix(jv[s2])}</table></div></div>`;}
+     vh+='<p class="note">※ 강사료는 사업소득 — 개인별 명세는 원천세 자료에서 확인.</p>';$('jsuVendWrap').innerHTML=vh;}
+    else $('jsuVendWrap').innerHTML='';}
+   sel.onchange=()=>render(sel.value);render('2025');},
+ t5(){const NC=DATA.noncash;
+   charts.nc=new Chart(cNC,{data:{labels:NC.map(d=>d.y),datasets:[
+     {type:'bar',label:'비현금 비용',data:NC.map(d=>Math.round(d.sum/1e6)),backgroundColor:C.ncash,stack:'s',barPercentage:.7,categoryPercentage:.72},
+     {type:'bar',label:'현금성 영업손실',data:NC.map(d=>Math.max(0,Math.round((Math.abs(d.op)-d.sum)/1e6))),backgroundColor:C.coral,stack:'s',barPercentage:.7,categoryPercentage:.72},
+     {type:'line',label:'비현금 비중(%)',data:NC.map(d=>d.pct),yAxisID:'y2',borderColor:C.brick,backgroundColor:C.brick,tension:.25,borderWidth:2,pointRadius:3}]},
+    options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+     scales:{y:{stacked:true,grid:gridcol,ticks:{callback:v=>mil(v)}},y2:{position:'right',min:0,max:100,grid:noborder,ticks:{callback:v=>v+'%'}},x:{stacked:true,grid:noborder}},
+     plugins:{legend:{position:'bottom',labels:{boxWidth:12,boxHeight:12,usePointStyle:true,padding:12}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+(c.dataset.yAxisID==='y2'?c.parsed.y+'%':mil(c.parsed.y)+'백만원')}}}}});
+   let h='<tr><th>연도</th><th>원장/시산표</th><th>결산조정</th><th>재무제표 판관비</th><th>조정 유형</th></tr>';
+   DATA.verify.forEach(v=>{h+=`<tr><td>${v.y}</td><td class="num">${won(v.led)}</td><td class="num">${(v.adj<0?'−':'+')+mil(Math.abs(v.adj))}</td><td class="num">${won(v.fs)}</td><td style="text-align:left">${v.typ}</td></tr>`;});
+   vTable.innerHTML=h;},
+};
+function show(id){document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('on',x.id===id));
+ document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x.dataset.t===id));
+ if(initers[id]){initers[id]();delete initers[id];}
+ setTimeout(()=>Object.values(charts).forEach(c=>{try{c&&c.resize();}catch(e){}}),40);}
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>show(t.dataset.t)));
+initers.t1();delete initers.t1;
+</script></body></html>

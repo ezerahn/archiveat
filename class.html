@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>클래스 홈</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF5EC;--ink:#241F1B;--coral:#FF5019;--line:#E7DCC8;
+--online:#2C7BB6;--offline:#C2570E;--open:#2E7D32;--short:#E2611B;--wait:#9A8F7C;--card:#FFF;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line)}
+.home-link{color:var(--ink);text-decoration:none;font-size:14px;opacity:.7}
+.home-link:hover{opacity:1;color:var(--coral)}
+.meta-r{font-family:"DM Mono",monospace;font-size:12px;color:var(--wait)}
+.hero{padding:38px 0 10px}
+.hero h1{font-family:Hahmlet,"Apple SD Gothic Neo",serif;font-weight:700;font-size:40px;letter-spacing:-.02em}
+.hero .lead{margin-top:6px;color:#6b6155;font-size:15px}
+.summary{display:flex;flex-wrap:wrap;margin:22px 0 8px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+.s-item{flex:1;min-width:120px;padding:16px 18px;border-right:1px solid var(--line)}
+.s-item:last-child{border-right:0}
+.s-num{font-family:"DM Mono",monospace;font-size:26px;font-weight:500;line-height:1}
+.s-lab{font-size:12px;color:var(--wait);margin-top:6px}
+.s-open .s-num{color:var(--open)}.s-short .s-num{color:var(--short)}
+.block{margin-top:34px}
+.b-head{display:flex;align-items:baseline;gap:10px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--ink)}
+.b-head h2{font-family:Hahmlet,serif;font-size:21px;font-weight:700}
+.b-sub{font-size:12px;color:var(--wait)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;border-top:3px solid var(--line);transition:transform .12s,box-shadow .12s}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(36,31,27,.08)}
+.card.k-online{border-top-color:var(--online)}
+.card.k-offline{border-top-color:var(--offline)}
+.card.past{opacity:.5}
+.c-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.orderer{font-size:12px;color:var(--wait);font-weight:500}
+.badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;font-family:"DM Mono",monospace}
+.b-open{background:#E6F4E6;color:var(--open)}.b-short{background:#FCE8DD;color:var(--short)}
+.b-wait{background:#EEE9DD;color:var(--wait)}
+.c-date{font-family:"DM Mono",monospace;font-size:13px;color:var(--coral);font-weight:500}
+.c-name{font-family:Hahmlet,serif;font-size:19px;font-weight:700;margin:2px 0 6px;letter-spacing:-.01em}
+.c-meta{font-size:12.5px;color:#6b6155;margin-bottom:12px}
+.gauge{position:relative;height:8px;background:#EEE9DD;border-radius:5px;margin-top:16px}
+.gfill{position:absolute;left:0;top:0;bottom:0;background:var(--online);border-radius:5px}
+.k-offline .gfill{background:var(--offline)}
+.minmark{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);border-radius:2px}
+.minmark::after{content:"최소";position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--ink);white-space:nowrap;font-family:"DM Mono",monospace}
+.gnum{display:flex;justify-content:space-between;margin-top:8px;font-family:"DM Mono",monospace;font-size:11.5px}
+.appl{font-weight:500}.lim{color:var(--wait)}
+.c-foot{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+.c-foot span{font-size:11px;padding:3px 8px;border-radius:6px;background:#F4EFE3}
+.settle{color:var(--ink);font-family:"DM Mono",monospace}
+.state{color:var(--online)}
+.empty{padding:30px;text-align:center;color:var(--wait);font-size:14px;background:var(--card);border:1px dashed var(--line);border-radius:12px}
+.tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.tool{position:relative;display:flex;flex-direction:column;gap:4px;padding:18px;background:var(--card);border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink);transition:.12s}
+.tool:hover{border-color:var(--coral);transform:translateY(-2px)}
+.tool.soon{opacity:.55;pointer-events:none}
+.t-name{font-weight:700;font-size:15px}.t-desc{font-size:12px;color:var(--wait)}
+.tag{position:absolute;top:12px;right:12px;font-size:10px;background:#EEE9DD;color:var(--wait);padding:2px 7px;border-radius:10px;font-family:"DM Mono",monospace}
+.foot{margin-top:46px;padding-top:16px;border-top:1px solid var(--line);font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
+@media(max-width:520px){.hero h1{font-size:30px}.s-item{min-width:50%;flex:none}}
+</style></head><body><div class="wrap">
+<div class="topbar"><a class="home-link" href="index.html">← 공공의주방 홈</a><span class="meta-r">2026.06.24 · v1</span></div>
+<div class="hero"><h1>클래스 홈</h1><p class="lead">온라인·오프라인 수업의 개폐강과 정산을 한 곳에서</p></div>
+<div class="summary">
+<div class="s-item"><div class="s-num">3</div><div class="s-lab">다가오는 수업</div></div>
+<div class="s-item s-open"><div class="s-num">3</div><div class="s-lab">개강</div></div>
+<div class="s-item s-short"><div class="s-num">1</div><div class="s-lab">미달</div></div>
+<div class="s-item"><div class="s-num">59</div><div class="s-lab">전체 수강생</div></div>
+</div>
+<section class="block"><div class="b-head"><h2>온라인 클래스</h2><span class="b-sub">배송형 · 인당 정산 1만원</span></div><div class="grid"><article class="card k-online">
+<header class="c-head"><span class="orderer">경기도지식</span><span class="badge b-open">개강</span></header>
+<div class="c-date">7/23(목) · 10:00</div>
+<div class="c-name">꽃게탕</div><div class="c-meta">선생님 이영미 · 온라인 줌+배송</div>
+<div class="gauge"><div class="gfill" style="width:80%"></div><span class="minmark" style="left:67%"></span></div>
+<div class="gnum"><span class="appl">신청 24</span><span class="lim">최소 20 · 최대 30</span></div>
+<div class="c-foot"><span class="settle">정산 240,000원</span><span class="state">확정</span></div></article><article class="card k-online">
+<header class="c-head"><span class="orderer">경기도지식</span><span class="badge b-short">미달</span></header>
+<div class="c-date">8/7(금) · 10:00</div>
+<div class="c-name">스지전골</div><div class="c-meta">선생님 이영미 · 온라인 줌+배송</div>
+<div class="gauge"><div class="gfill" style="width:40%"></div><span class="minmark" style="left:67%"></span></div>
+<div class="gnum"><span class="appl">신청 12</span><span class="lim">최소 20 · 최대 30</span></div>
+<div class="c-foot"><span class="settle">정산 120,000원</span><span class="state">확정</span></div></article></div></section>
+<section class="block"><div class="b-head"><h2>오프라인 클래스</h2><span class="b-sub">현장 수업 · 정산율 적용</span></div><div class="grid"><article class="card k-offline">
+<header class="c-head"><span class="orderer">갤러리아광교</span><span class="badge b-open">개강</span></header>
+<div class="c-date">7/6(월) · 14:00</div>
+<div class="c-name">여름 파스타</div><div class="c-meta">선생님 김셰프 · 정산율 60% · 갤러리아 광교 5F</div>
+<div class="gauge"><div class="gfill" style="width:67%"></div><span class="minmark" style="left:33%"></span></div>
+<div class="gnum"><span class="appl">신청 8</span><span class="lim">최소 4 · 최대 12</span></div>
+<div class="c-foot"><span class="settle">정산 264,000원</span><span class="state">확정</span><span class="memo">재료 사전준비</span></div></article><article class="card k-offline past">
+<header class="c-head"><span class="orderer">수원시청</span><span class="badge b-open">개강</span></header>
+<div class="c-date">6/21(일) · 11:00</div>
+<div class="c-name">건강 도시락</div><div class="c-meta">선생님 박셰프 · 정산율 55% · 수원시청 강당</div>
+<div class="gauge"><div class="gfill" style="width:75%"></div><span class="minmark" style="left:30%"></span></div>
+<div class="gnum"><span class="appl">신청 15</span><span class="lim">최소 6 · 최대 20</span></div>
+<div class="c-foot"><span class="settle">정산 412,500원</span><span class="state">수업완료</span></div></article></div></section>
+<section class="block"><div class="b-head"><h2>도구</h2><span class="b-sub">하나씩 채워집니다</span></div>
+<div class="tools"><a class="tool soon" href="#"><span class="tag">준비 중</span><span class="t-name">클래스 일정</span><span class="t-desc">월별 전체 수업 한눈에</span></a><a class="tool soon" href="#"><span class="tag">준비 중</span><span class="t-name">정산 계산기</span><span class="t-desc">인원·정산율로 자동 산출</span></a><a class="tool soon" href="#"><span class="tag">준비 중</span><span class="t-name">컬리 송장 변환</span><span class="t-desc">경기도지식 명단 → 컬리 양식</span></a><a class="tool soon" href="#"><span class="tag">준비 중</span><span class="t-name">클래스 견적서</span><span class="t-desc">경기도지식·지자체 견적</span></a><a class="tool soon" href="#"><span class="tag">준비 중</span><span class="t-name">메뉴 레퍼런스</span><span class="t-desc">수업별 메뉴·레시피</span></a></div></section>
+<div class="foot">클래스 홈 · v1 · 마스터에서 자동 생성 (gen_class.py)</div>
+</div></body></html>

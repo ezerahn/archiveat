@@ -1,0 +1,206 @@
+<!--
+  공공의주방 메인 홈 (런처) — v2.5
+  · 카드 본체 클릭 → 테마홈(worklog.html 등) 이동
+  · 💬 아이콘 클릭 → 그 영역 클로드 대화창(새 탭) 이동
+  · 연결 파일명(영어): worklog / finance / cookingbox / class / catering / marketing .html
+  · 대화창은 4개 영역만 연결(업무일지·재무세무·쿠킹박스·케이터링), 클래스·마케팅은 추후 추가
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공공의주방 홈</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --paper:#FAF5EC; --paper-2:#F2E9D8; --card:#FFFDF9;
+    --ink:#241F1B; --ink-soft:#6B6256; --muted:#A89C8A; --line:#E7DCC8;
+    --coral:#FF5019; --coral-deep:#D8400F; --coral-wash:#FCEDE5; --coral-line:#F0D3C4;
+    --serif:"Hahmlet","Gowun Batang","Noto Serif KR",serif;
+    --sans:"Pretendard",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    --mono:"DM Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--sans); background:var(--paper); color:var(--ink);
+    line-height:1.5; min-height:100vh; letter-spacing:-.01em; -webkit-font-smoothing:antialiased;
+    padding:clamp(22px,4vw,46px) clamp(18px,5vw,40px); display:flex; justify-content:center;
+  }
+  ::selection{background:var(--coral-wash)}
+  .wrap{width:100%; max-width:780px}
+
+  @keyframes rise{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+  @media (prefers-reduced-motion:no-preference){
+    .wrap>*{opacity:0; animation:rise .55s cubic-bezier(.2,.7,.2,1) forwards}
+    .wrap>header{animation-delay:.02s}
+    .wrap>.tier:nth-of-type(2){animation-delay:.1s}
+    .wrap>.tier:nth-of-type(3){animation-delay:.18s}
+    .wrap>.tier:nth-of-type(4){animation-delay:.26s}
+    .wrap>footer{animation-delay:.34s}
+  }
+
+  .top{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+  .eyebrow{font-family:var(--mono); font-size:.7rem; font-weight:500; letter-spacing:.2em; color:var(--coral); text-transform:uppercase; display:flex; align-items:center; gap:9px}
+  .eyebrow::before{content:""; width:20px; height:1.5px; background:var(--coral)}
+  .today{font-family:var(--mono); font-size:.72rem; color:var(--muted)}
+  .wordmark{font-family:var(--serif); font-weight:600; font-size:clamp(1.85rem,5vw,2.7rem); letter-spacing:-.025em; line-height:1; margin-top:.3em}
+  .lede{margin-top:.55em; color:var(--ink-soft); font-size:clamp(.9rem,2.2vw,.98rem); line-height:1.5; max-width:46ch}
+
+  .tier{margin-top:clamp(20px,3.5vw,30px)}
+  .tier-label{font-family:var(--mono); font-size:.66rem; font-weight:500; letter-spacing:.14em; color:var(--coral); text-transform:uppercase; display:flex; align-items:center; gap:10px; margin-bottom:11px}
+  .tier-label::after{content:""; flex:1; height:1px; background:var(--line)}
+  .tier-label .sub{color:var(--muted); letter-spacing:.04em}
+  .row{display:grid; gap:11px}
+  .row.two{grid-template-columns:1fr 1fr}
+  .row.three{grid-template-columns:repeat(3,1fr)}
+
+  /* 탭 카드 (div 컨테이너 + 내부 스트레치 링크) */
+  .tab{
+    position:relative; display:flex; align-items:center; gap:13px;
+    background:var(--card); border:1px solid var(--line); border-radius:15px;
+    padding:15px 16px;
+    transition:transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+  }
+  .tab:hover, .tab:focus-within{transform:translateY(-2px); border-color:var(--coral); box-shadow:0 7px 18px rgba(255,80,25,.12)}
+  /* 카드 전체를 덮는 메인 링크 (→ 테마홈) */
+  .tab-main{position:absolute; inset:0; z-index:1; border-radius:inherit; text-decoration:none}
+  .tab-main:focus-visible{outline:2px solid var(--coral); outline-offset:2px}
+
+  .tab-ic{flex:0 0 auto; font-size:1.4rem; line-height:1; width:1.5em; text-align:center}
+  .tab-body{flex:1 1 auto; min-width:0}
+  .tab-name{font-size:1.08rem; font-weight:700; letter-spacing:-.02em; display:flex; align-items:center; gap:6px; color:var(--ink)}
+  .tab-name .star{color:var(--coral); font-size:.8rem}
+  .tab-desc{font-size:.78rem; color:var(--ink-soft); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .tab-end{flex:0 0 auto; display:flex; align-items:center; gap:9px}
+  .tab-status{font-family:var(--mono); font-size:.56rem; letter-spacing:.04em; padding:3px 8px; border-radius:100px; background:var(--paper-2); color:var(--muted); white-space:nowrap}
+  .tab-arrow{font-size:1rem; color:var(--muted); transition:transform .16s ease, color .16s ease}
+  .tab:hover .tab-arrow, .tab:focus-within .tab-arrow{transform:translateX(3px)}
+
+  /* 💬 대화창 링크 (메인 링크 위에 떠 있음) */
+  .tab-chat{
+    position:relative; z-index:2;
+    display:inline-flex; align-items:center; justify-content:center;
+    width:31px; height:31px; border-radius:9px; flex:0 0 auto;
+    font-size:.92rem; text-decoration:none; line-height:1;
+    background:var(--paper-2); border:1px solid var(--line);
+    transition:background .15s ease, border-color .15s ease, transform .15s ease;
+  }
+  .tab-chat:hover{background:var(--coral-wash); border-color:var(--coral-line); transform:translateY(-1px)}
+  .tab-chat:focus-visible{outline:2px solid var(--coral); outline-offset:2px}
+
+  /* 경영층 강조 */
+  .tab.big{background:var(--coral-wash); border-color:var(--coral-line); padding:17px 18px}
+  .tab.big .tab-name{font-size:1.16rem}
+  .tab.big .tab-ic{font-size:1.55rem}
+  .tab.big .tab-chat{background:var(--card)}
+
+  /* 활성 상태 */
+  .tab[data-status="active"] .tab-status{background:var(--coral); color:#fff}
+  .tab[data-status="active"] .tab-arrow{color:var(--coral)}
+
+  footer{margin-top:clamp(24px,4vw,38px); padding-top:16px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap}
+  footer p{font-size:.76rem; color:var(--muted); max-width:52ch; line-height:1.6}
+  footer .ver{font-family:var(--mono); font-size:.7rem; color:var(--muted)}
+
+  @media (max-width:560px){
+    .row.two, .row.three{grid-template-columns:1fr}
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="top">
+      <div class="eyebrow">메인 홈</div>
+      <div class="today" id="today"></div>
+    </div>
+    <h1 class="wordmark">공공의주방</h1>
+    <p class="lede">카드를 누르면 영역 홈으로, 💬를 누르면 작업 대화창으로 이동합니다.</p>
+  </header>
+
+  <!-- 경영층 -->
+  <section class="tier">
+    <div class="tier-label">경영 <span class="sub">· 매일 보는 곳</span></div>
+    <div class="row two">
+      <div class="tab big" data-status="active">
+        <a class="tab-main" href="worklog.html" aria-label="업무일지 홈 열기"></a>
+        <span class="tab-ic">📋</span>
+        <span class="tab-body"><span class="tab-name">업무일지</span><span class="tab-desc">오늘·주간·월간·연간 할 일</span></span>
+        <span class="tab-end">
+          <a class="tab-chat" href="https://claude.ai/chat/b3f5b3fd-15a2-48f8-8c7d-0fd33ca7b0a4" target="_blank" rel="noopener" title="업무일지 대화창 열기">💬</a>
+          <span class="tab-status">열기</span><span class="tab-arrow">→</span>
+        </span>
+      </div>
+      <div class="tab big" data-status="active">
+        <a class="tab-main" href="finance.html" aria-label="재무·세무 홈 열기"></a>
+        <span class="tab-ic">💰</span>
+        <span class="tab-body"><span class="tab-name">재무·세무</span><span class="tab-desc">매출·매입 · 분기신고 자료</span></span>
+        <span class="tab-end">
+          <a class="tab-chat" href="https://claude.ai/chat/11d546ed-dc5c-446d-86b6-cb00cca1fea8" target="_blank" rel="noopener" title="재무·세무 대화창 열기">💬</a>
+          <span class="tab-status">열기</span><span class="tab-arrow">→</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 수익축 -->
+  <section class="tier">
+    <div class="tier-label">수익 <span class="sub">· 사업</span></div>
+    <div class="row three">
+      <div class="tab" data-status="active">
+        <a class="tab-main" href="cookingbox.html" aria-label="쿠킹박스 홈 열기"></a>
+        <span class="tab-ic">📦</span>
+        <span class="tab-body"><span class="tab-name">쿠킹박스 <span class="star">★</span></span><span class="tab-desc">4개 마스터 · 발주</span></span>
+        <span class="tab-end">
+          <a class="tab-chat" href="https://claude.ai/chat/b2af5db1-b467-45ff-83c1-f2e717f63cdd" target="_blank" rel="noopener" title="쿠킹박스 대화창 열기">💬</a>
+          <span class="tab-status">열기</span><span class="tab-arrow">→</span>
+        </span>
+      </div>
+      <div class="tab" data-status="active">
+        <a class="tab-main" href="class.html" aria-label="클래스 홈 열기"></a>
+        <span class="tab-ic">🍳</span>
+        <span class="tab-body"><span class="tab-name">클래스</span><span class="tab-desc">온라인·오프라인 수업</span></span>
+        <span class="tab-end">
+          <a class="tab-chat" href="https://claude.ai/chat/8b7feedc-e7f4-429f-a546-0320d4116fbb" target="_blank" rel="noopener" title="클래스 대화창 열기">💬</a>
+          <span class="tab-status">열기</span><span class="tab-arrow">→</span>
+        </span>
+      </div>
+      <div class="tab" data-status="active">
+        <a class="tab-main" href="catering.html" aria-label="케이터링 홈 열기"></a>
+        <span class="tab-ic">🍽</span>
+        <span class="tab-body"><span class="tab-name">케이터링</span><span class="tab-desc">견적·메뉴·행사</span></span>
+        <span class="tab-end">
+          <a class="tab-chat" href="https://claude.ai/chat/5a5ac0e0-a953-4d9d-859e-9a64fdbfdcd3" target="_blank" rel="noopener" title="케이터링 대화창 열기">💬</a>
+          <span class="tab-status">열기</span><span class="tab-arrow">→</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 홍보·제휴축 -->
+  <section class="tier">
+    <div class="tier-label">홍보·제휴</div>
+    <div class="row three">
+      <div class="tab" data-status="active">
+        <a class="tab-main" href="marketing.html" aria-label="마케팅 홈 열기"></a>
+        <span class="tab-ic">📣</span>
+        <span class="tab-body"><span class="tab-name">마케팅</span><span class="tab-desc">유튜브 · 제휴</span></span>
+        <span class="tab-end"><span class="tab-status">열기</span><span class="tab-arrow">→</span></span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>카드 = 영역 홈 이동 · 💬 = 작업 대화창. 마케팅 대화창은 추후 연결.</p>
+    <span class="ver">v2.6</span>
+  </footer>
+</div>
+
+<script>
+  (function(){
+    var d=new Date(), w=['일','월','화','수','목','금','토'];
+    var p=function(n){return String(n).padStart(2,'0')};
+    document.getElementById('today').textContent=d.getFullYear()+'. '+p(d.getMonth()+1)+'. '+p(d.getDate())+' ('+w[d.getDay()]+')';
+  })();
+</script>
