@@ -102,8 +102,11 @@
       <li><a href="#e"><span class="n">E</span>원본 다운로드</a></li>
       <li><a href="#f"><span class="n">F</span>운영 안내</a></li>
       <li><a href="#g"><span class="n">G</span>톤앤매너</a></li>
-      <li><a href="#h"><span class="n">H</span>기술 원칙</a></li>
-      <li><a href="#i"><span class="n">I</span>충돌 시 확인</a></li>
+      <li><a href="#h"><span class="n">H</span>기술 원칙·데이터 유형</a></li>
+      <li><a href="#i"><span class="n">I</span>엑셀 백업 필수</a></li>
+      <li><a href="#j"><span class="n">J</span>마스터 정의·확인 질문</a></li>
+      <li><a href="#k"><span class="n">K</span>파일명 규칙</a></li>
+      <li><a href="#l"><span class="n">L</span>충돌 시 확인</a></li>
     </ul>
   </nav>
 
@@ -142,6 +145,12 @@
     <div class="box warn">
       <div class="box-title">⭐ 가장 중요 · 반드시 먼저 이해할 것</div>
       <p style="margin:0"><strong>채팅창(작업 대화창)이 최신 원본의 기준점이다.</strong> github은 보기·이동용 서버일 뿐, 데이터 저장소가 아니다. (github에서 최신본을 가져온다고 생각하지 말 것)</p>
+    </div>
+    <div class="box warn">
+      <div class="box-title">github에 올리는 것 / 안 올리는 것 (헷갈리지 말 것)</div>
+      <p style="margin-bottom:6px"><strong>올리는 것:</strong> html만 (메인홈에서 보고 이동하는 용도)</p>
+      <p style="margin-bottom:6px"><strong>안 올리는 것:</strong> 엑셀 마스터·데이터 원본·개인정보 → 대표가 드롭박스에 보관</p>
+      <p style="margin:0">따라서 "엑셀을 github에 올려 링크로 받기"는 안 한다. 엑셀 받기는 <strong>화면에서 즉석 변환</strong>으로 한다.</p>
     </div>
     <p>데이터는 두 곳에서 바뀝니다:</p>
     <ul class="list">
@@ -187,13 +196,28 @@
   <!-- E -->
   <section id="e">
     <h2><span class="n">E</span> 원본 다운로드 구역 "📦 원본 파일"</h2>
-    <p>목적: 테마홈에 문제가 생겼을 때 원본으로 기준을 다시 잡고, 화면에서 바꾼 데이터를 채팅창에 전달(동기화)하기 위함.</p>
-    <h3>버튼 2개 (둘 다 화면에서 직접 다운로드)</h3>
+    <p>목적: 매번 채팅창에 "파일 줘" 하지 않고, 테마홈 하단에서 버튼 한 번으로 최신 html·엑셀을 받아 드롭박스에 백업 보관하기 위함. (문제 생겼을 때 원본으로 기준을 다시 잡는 용도이기도 함)</p>
+    <h3>버튼 2개 — 모든 테마홈 공통 (둘 다 넣는다)</h3>
+    <div class="codeblock">📦 원본 파일
+ 📄 이 화면 HTML 받기      ← 모든 홈
+ 📊 엑셀 마스터 받기        ← 모든 홈
+ (선택) 💬 대화창에서 받기   ← 전체 일괄 요청용</div>
     <ul class="list">
-      <li><strong>📄 이 화면 HTML 받기</strong> — 현재 화면(입력 데이터 포함)을 통째로 다운로드. 현재 document 전체를 Blob으로 만들어 받는 자기 자신 저장 방식. 파일명 <code>○○.html</code></li>
-      <li><strong>📊 엑셀 마스터 받기</strong> — 현재 화면의 데이터를 .xlsx로 다운로드. 입력형 홈은 즉석 변환, 마스터 있는 홈은 그 마스터를 받기. (github에서 끌어오는 게 아님)</li>
+      <li><strong>📄 이 화면 HTML 받기</strong> — 현재 화면을 통째로 다운로드 (document 전체를 Blob으로, 자기 자신 저장). 파일명 <code>○○.html</code></li>
+      <li><strong>📊 엑셀 마스터 받기</strong> — 화면에 심어둔 데이터를 그 자리에서 .xlsx로 만들어 다운로드(즉석 변환). github에 엑셀을 올려 링크로 받는 게 아님. 받은 건 드롭박스에 보관.</li>
     </ul>
-    <p>받은 파일은 사용자가 드롭박스에 보관 + 채팅창에 전달해 최신 동기화합니다.</p>
+    <div class="box warn">
+      <div class="box-title">★★ 버튼 작동 원리 (반드시 이해할 것) ★★</div>
+      <p style="margin-bottom:8px">html 다운로드 버튼은 <strong>"html 파일 안에 들어있는 데이터"만</strong> 줄 수 있다.</p>
+      <p style="margin-bottom:8px">브라우저 보안상, html 혼자서 PC·드롭박스 등 외부 파일을 가져올 수 없다.</p>
+      <p style="margin:0">→ 엑셀 받기 버튼이 작동하려면, 그 데이터가 html 안에 심어져 있어야 한다. (B형도 화면 구울 때 데이터를 html에 심어두면 버튼으로 받힘)</p>
+    </div>
+    <div class="box warn">
+      <div class="box-title">★★ 화면 표시 ≠ 파일 내용 (개인정보 핵심) ★★</div>
+      <p style="margin-bottom:8px">html은 봉투, 데이터는 그 안의 편지. <strong>화면에 안 보이게 해도, 파일을 뜯으면 데이터가 다 보인다.</strong></p>
+      <p style="margin-bottom:8px"><span class="imp">공개(public) github에선 html에 담긴 모든 게 노출된다.</span> (화면에 안 찍어도 파일 안에 있으면 노출)</p>
+      <p style="margin:0">→ 개인정보(연락처·주소·이름)는 html에 아예 담지 않는다. (I-2 참조)</p>
+    </div>
     <div class="box warn">
       <div class="box-title">★★ 화면에서 직접 입력하는 홈(localStorage)의 필수 주의 ★★</div>
       <p style="margin-bottom:8px"><strong>localStorage</strong> = 사용자가 화면에서 입력한 데이터를 브라우저에 저장하는 방식 (케이터링 등).</p>
@@ -245,26 +269,133 @@
 
   <!-- H -->
   <section id="h">
-    <h2><span class="n">H</span> 기술 원칙 (필수)</h2>
+    <h2><span class="n">H</span> 기술 원칙 · 데이터 유형</h2>
     <ul class="list">
       <li>단일 HTML 파일. 외부 의존 최소화 (폰트 못 불러와도 시스템 글꼴로 작동).</li>
-      <li>파일명 <code>○○.html</code> 고정 (영어). 버전은 푸터에만.</li>
       <li>맨 위 복귀 링크: <code>&lt;a href="index.html"&gt;← 공공의주방 홈&lt;/a&gt;</code></li>
       <li>모든 파일 같은 폴더, 링크는 상대경로만.</li>
     </ul>
-    <h3>localStorage 사용 원칙</h3>
-    <ul class="list">
-      <li>원칙적으로 사용하지 않는다 (데이터는 파일·마스터에 둠).</li>
-      <li>단, <strong>케이터링처럼 화면에서 직접 입력·수정하는 홈은 예외로 허용</strong>. → 이 경우 E의 "다운로드 시 localStorage 데이터 포함" 규칙을 반드시 지킨다.</li>
-    </ul>
+    <h3>데이터 입력 방식 — 홈 성격에 따라 둘 중 선택 (우열 아님)</h3>
+    <p>테마홈은 데이터를 다루는 방식이 두 가지로 나뉩니다. 새 테마홈을 만들 땐 <strong>"이 홈에서 데이터를 어떻게 바꾸는가?"</strong>를 먼저 정하고 그에 맞게 설계합니다. 어느 쪽이 더 낫고가 아니라, 그 홈에서 일하는 방식에 맞는 쪽을 고르는 거예요.</p>
+    <div class="box">
+      <div class="box-title">유형 A — html 마스터 (화면에서 직접 입력)</div>
+      <ul class="list" style="margin:0">
+        <li>예: <strong>케이터링</strong> (행사 등록, 상태 변경)</li>
+        <li>localStorage <strong>사용 O</strong> (화면 입력을 담기 위해)</li>
+        <li>데이터가 html 안에 담김 → 바뀌면 <strong>html</strong>을 채팅창에 줌</li>
+        <li>보통 단일 파일 (html 하나에 데이터·화면·도구 다 들어감)</li>
+        <li>필수: 다운로드 버튼이 localStorage 데이터까지 담아야 함 (E 참조)</li>
+      </ul>
+    </div>
+    <div class="box">
+      <div class="box-title">유형 B — 엑셀 마스터 (채팅창에서 정리)</div>
+      <ul class="list" style="margin:0">
+        <li>예: <strong>업무일지·재무세무</strong> (채팅에서 엑셀 수정 후 재생성)</li>
+        <li>localStorage <strong>사용 X</strong> (데이터는 엑셀에)</li>
+        <li>html은 엑셀에서 구워낸 읽기전용 표시본 → 바뀌면 <strong>엑셀</strong>을 줌 (디자인 변경 시 html도)</li>
+        <li>보통 여러 파일 (html + 엑셀 + 생성기 등 분리)</li>
+      </ul>
+    </div>
+    <p style="margin-top:14px"><strong>판단 기준:</strong> "화면에서 직접 입력하느냐" → 잦으면 A(html), 채팅으로 정리하면 B(엑셀).</p>
   </section>
 
   <!-- I -->
   <section id="i">
-    <h2><span class="n">I</span> 충돌 시 · 적용 전 확인</h2>
+    <h2><span class="n">I</span> 엑셀 백업 + 개인정보 원칙</h2>
+    <h3>I-1. 엑셀 백업 필수</h3>
+    <div class="box warn">
+      <div class="box-title">★ 모든 테마홈은 하단 📦에서 html·엑셀을 둘 다 받을 수 있어야 한다</div>
+      <p style="margin-bottom:8px">(대표가 드롭박스에 보관 + 필요시 채팅창 전달용)</p>
+      <p style="margin-bottom:8px"><strong>원본이 html인 홈(유형 A)도 엑셀 백업을 별도로 챙긴다.</strong></p>
+      <p style="margin:0">즉 "html 하나면 충분"이 아니라 → <strong>원본 html + 백업 엑셀, 둘 다 챙긴다.</strong></p>
+    </div>
+    <ul class="list">
+      <li><span class="imp">★ 기술적으로 html 하나에 데이터가 다 들어있어 보여도, 백업 원칙을 우선한다.</span> (엑셀 백업을 안 챙겨도 되는 것처럼 넘어가지 말 것)</li>
+      <li>엑셀 백업을 못 받는 홈이 있으면 → 그냥 넘어가지 말고, 반드시 사용자에게 <strong>"이 홈은 엑셀 백업이 없습니다. 만들까요?"</strong> 확인한다.</li>
+    </ul>
+    <h4 style="margin:14px 0 6px;font-size:.95rem;color:var(--ink)">원본 ≠ 백업</h4>
+    <table>
+      <tr><th>구분</th><th>무엇</th><th>어디에</th></tr>
+      <tr><td>평소 최신 동기화</td><td>원본 (A형=html / B형=엑셀)</td><td>채팅·github</td></tr>
+      <tr><td>안전 백업</td><td>엑셀</td><td>드롭박스</td></tr>
+    </table>
+    <h3>I-2. 개인정보 처리 <span style="font-weight:400;color:var(--muted);font-size:.85rem">(개인정보 있는 홈 — 예: 클래스)</span></h3>
+    <div class="box warn">
+      <p style="margin-bottom:8px"><strong>개인정보(연락처·주소·이름 등)는 html에 아예 담지 않는다.</strong></p>
+      <p style="margin-bottom:8px">이유: 화면에서 가려도 파일을 뜯으면 데이터가 남아있고, 공개 github에선 그게 노출된다. (E의 '화면 표시 ≠ 파일 내용' 참조)</p>
+      <p style="margin-bottom:8px"><strong>처리:</strong> html·하단 버튼 = 개인정보 뺀 현황만(인원수·회차·정산). 완전한 원본 = <strong>드롭박스에만 보관</strong> (github·html 어디에도 안 올림).</p>
+      <p style="margin:0">완전판을 화면에서 받아야 하면 → 그때 github 비공개 전환 등 별도 의논. 기본은 "개인정보 빼고 안전하게".</p>
+    </div>
+  </section>
+
+  <!-- J -->
+  <section id="j">
+    <h2><span class="n">J</span> 테마홈 데이터 구조 <span style="font-weight:400;color:var(--muted);font-size:.85rem">(마스터 정의 + 확인 질문)</span></h2>
+    <h3>J-1. 마스터 정의 표 <span style="font-weight:400;color:var(--muted);font-size:.85rem">(조사 결과 · 계속 채워나감)</span></h3>
+    <table>
+      <tr><th>홈</th><th>마스터</th><th>유형</th><th>localStorage</th><th>보관파일</th><th>최신화</th></tr>
+      <tr><td>케이터링</td><td>html</td><td>A·화면입력</td><td>O</td><td>html+엑셀</td><td>화면고침→html</td></tr>
+      <tr><td>업무일지</td><td>엑셀</td><td>B·채팅정리</td><td>X</td><td>5개</td><td>채팅에 엑셀</td></tr>
+      <tr><td>재무·세무</td><td>엑셀</td><td>B·읽기전용</td><td>X</td><td>5개</td><td>채팅에 엑셀</td></tr>
+      <tr><td>클래스</td><td>엑셀</td><td>B·읽기전용</td><td>X</td><td>3개</td><td>채팅에 엑셀</td></tr>
+      <tr><td>쿠킹박스</td><td colspan="5" style="color:var(--muted)">조사 중</td></tr>
+      <tr><td>마케팅</td><td colspan="5" style="color:var(--muted)">조사 중</td></tr>
+    </table>
+    <h3>각 홈 구체 설명</h3>
+    <ul class="list">
+      <li><strong>케이터링</strong> = catering.html 하나에 데이터·화면·도구가 다 들어있는 단일 파일. 화면에서 행사를 직접 등록·수정하므로 html이 원본. 바뀌면 html을 채팅에 줌. + 백업용 엑셀도 챙김(I 원칙).</li>
+      <li><strong>업무일지</strong> = 엑셀 마스터가 원본. 생성기(gen_report.py)가 엑셀을 읽어 worklog.html을 굽는다. 화면 직접입력 없음. 바뀌면 엑셀을 줌. 작동 필수 5개(worklog.html·업무마스터.xlsx·생성기·참고 html 2개).</li>
+      <li><strong>재무·세무</strong> = 엑셀 마스터(경영기획)가 원본. html은 읽기전용 보기창(대시보드). 바뀌면 엑셀(또는 새 원본자료)을 줌.</li>
+      <li><strong>클래스</strong> = 엑셀 마스터(class-master)가 원본. 생성기(gen_class.py)가 굽는다. 바뀌면 엑셀을 줌. 필수 3개. <span class="imp">★ 개인정보(수강생 연락처·주소·이름)는 html에 안 담음 — 화면·하단 엑셀은 현황(인원수·회차·정산)만, 완전판은 드롭박스에만. (I-2)</span></li>
+    </ul>
+    <h3>J-2. 새 테마홈 구조 확인 질문 <span style="font-weight:400;color:var(--muted);font-size:.85rem">(새 홈 생기면 그 방에 복사해 던진다)</span></h3>
+    <div class="codeblock">[이 테마홈 데이터 구조 확인 질문]
+
+1. 이 홈의 "데이터 마스터(원본)"는 무엇인가요?
+   → html 자체 / 별도 엑셀 / 구글시트 / 기타 (정확히)
+2. 데이터를 주로 어디서 입력·수정하나요?
+   → 화면에서 직접 / 채팅창에서 받아 반영 / 둘 다
+3. localStorage(브라우저 저장)를 사용하나요? (예/아니오)
+4. 데이터가 바뀌면 채팅창에 무엇을 줘야 최신이 전달되나요?
+   → html / 엑셀 / 둘 다 (이유와 함께)
+5. 이 홈에서 다운로드 가능한 파일은? 입력 데이터까지 담기나요?
+   → 특히 "엑셀로 백업받기"가 가능한지 꼭 확인
+6. 이 테마홈 관련 전체 파일을 빠짐없이 나열해주세요.
+   (작동 필수 파일 / 백업 히스토리를 나눠서. 총 몇 개인지)
+
+한 줄 요약:
+"이 홈은 [마스터]가 원본이고, 바뀌면 [html/엑셀]을 주면 된다. 필수 N개."</div>
+  </section>
+
+  <!-- K -->
+  <section id="k">
+    <h2><span class="n">K</span> 파일명 규칙 <span style="font-weight:400;color:var(--muted);font-size:.85rem">(영어 통일 · 백업 구분용)</span></h2>
+    <ul class="list">
+      <li>모든 파일은 <strong>영어</strong>로. (한글은 404·번역 깨짐 위험)</li>
+      <li>형식: <code>[영역영문]-[무엇]-[버전].확장자</code></li>
+      <li><strong>영역 이름을 앞에 붙여</strong> 백업 폴더에서 구분되게 한다.</li>
+      <li>구분자는 하이픈(<code>-</code>). 띄어쓰기·점(·) 금지.</li>
+    </ul>
+    <table>
+      <tr><th>종류</th><th>예시</th></tr>
+      <tr><td>html (보는 화면, 고정)</td><td><code>worklog.html</code> · <code>finance.html</code> · <code>catering.html</code></td></tr>
+      <tr><td>마스터·데이터 엑셀</td><td><code>finance-master-2026.xlsx</code> · <code>worklog-master-v118.xlsx</code></td></tr>
+      <tr><td>참고 html</td><td><code>handover.html</code> · <code>catering-summary.html</code></td></tr>
+    </table>
+    <div class="box warn">
+      <p style="margin:0"><span class="imp">❌ 금지:</span> <code>master-2026.xlsx</code> 처럼 영역명 없이 두면 어느 홈 건지 백업 폴더에서 구분 안 됨.</p>
+    </div>
+    <p><strong>영역 영문명:</strong> 업무일지 worklog · 재무세무 finance · 쿠킹박스 cookingbox · 클래스 class · 케이터링 catering · 마케팅 marketing</p>
+    <p style="color:var(--ink-soft);font-size:.9rem">※ 적용 순서: 새로 만드는 파일부터 적용. 기존 파일은 각 방 작업할 때 천천히 바꾼다 (한 번에 안 바꿔도 됨).</p>
+  </section>
+
+  <!-- L -->
+  <section id="l">
+    <h2><span class="n">L</span> 충돌 시 · 적용 전 확인</h2>
     <div class="box warn">
       <p style="margin-bottom:8px">이 지침을 적용하기 전에, 각 테마홈의 기존 구조·기능과 맞지 않는 부분이 있는지 먼저 점검한다.</p>
       <p style="margin-bottom:8px">충돌하거나 이 홈에 맞지 않는 부분이 있으면 → <strong>기계적으로 적용하지 말고, 먼저 사용자에게 알리고 대화한 뒤 작업한다.</strong></p>
+      <p style="margin-bottom:8px">특히 <strong>"엑셀 백업이 없는 홈"</strong>이면 그냥 넘어가지 말고 반드시 확인한다 (I 참조).</p>
       <p style="margin:0">단, 아래 필수는 예외 없이 맞춘다: <strong>영어 파일명 · 메인홈 복귀 링크 · 헤더 순서(C의 1~5줄).</strong></p>
     </div>
   </section>
