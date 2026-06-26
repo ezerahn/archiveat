@@ -43,6 +43,13 @@ body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Ne
 /* footer */
 .foot{margin-top:38px;padding-top:18px;border-top:1px solid var(--line);text-align:center;font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted);letter-spacing:.03em}
 .note{margin-top:14px;font-size:12px;color:var(--muted);line-height:1.6}
+.files{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px 16px;margin-top:2px}
+.files .fl{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 2px;border-bottom:1px solid var(--line)}
+.files .fl:last-child{border-bottom:none}
+.files .fn{font-size:13.5px}.files .fn b{font-weight:600}
+.files .fn span{display:block;font-family:"DM Mono",monospace;font-size:11px;color:var(--muted);margin-top:3px}
+.dl{font-size:12.5px;color:var(--sage);text-decoration:none;font-weight:600;white-space:nowrap;padding:8px 16px;border:1px solid var(--line);border-radius:999px;background:var(--surface);cursor:pointer;font-family:inherit;transition:.15s}
+.dl:hover{border-color:var(--sage);background:rgba(94,144,135,.08)}
 </style>
 </head>
 <body>
@@ -98,10 +105,30 @@ body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Ne
 
   </div>
 
+  <div class="slabel">📦 원본 파일 받기 (백업)</div>
+  <div class="files">
+    <div class="fl"><div class="fn"><b>2026 마스터</b> · 데이터 원본(DB)<span>master-2026.xlsx</span></div><a class="dl" href="master-2026.xlsx" download>받기</a></div>
+    <div class="fl"><div class="fn"><b>과거 마스터</b> · 데이터 원본(DB)<span>master-2025.xlsx</span></div><a class="dl" href="master-2025.xlsx" download>받기</a></div>
+    <div class="fl"><div class="fn"><b>이 화면(재무·세무 홈)</b><span>finance.html · 항상 받아짐</span></div><button class="dl" onclick="saveThisPage()">받기</button></div>
+  </div>
+  <p class="note">📊 <b>엑셀 받기</b>는 같은 폴더에 <b>master-2026.xlsx · master-2025.xlsx</b>가 있어야 작동합니다(영어 고정 이름). 버전 보관용 사본(v1, v2…)은 따로 두세요. &nbsp;📄 <b>이 화면 받기</b>는 파일이 없어도 항상 작동합니다.</p>
+
   <p class="note">※ 홈은 <b>이동만</b> 합니다. 데이터를 고칠 땐 마스터 엑셀에서, 볼 땐 대시보드에서. 모든 파일을 <b>같은 폴더</b>에 두면 링크가 작동합니다.</p>
 
   <div class="foot">finance · v1 · 주식회사 공공의주방 · archiveat.kr · 2026</div>
 
 </div>
+<script>
+function saveThisPage(){
+  try{
+    var html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+    var blob=new Blob([html],{type:'text/html'});
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob); a.download='finance.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(a.href);},1500);
+  }catch(e){alert('저장 실패: '+e.message);}
+}
+</script>
 </body>
 </html>

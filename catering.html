@@ -499,12 +499,12 @@
         <thead><tr><th>구분</th><th>파티본단가</th><th>제안단가</th><th>견적단가</th><th>수량</th><th>견적금액</th><th>마진율</th><th>회사수익</th><th></th></tr></thead><tbody id="rows"></tbody>
         <tfoot><tr style="border-top:2px solid var(--line2);font-weight:700;"><td style="font-size:10.5px;line-height:1.25;color:var(--muted);">소계(공급가)</td><td class="num" id="t-paysum">–</td><td></td><td></td><td></td><td class="num" id="t-sum">–</td><td></td><td class="num" id="t-prof">–</td><td></td></tr><tr style="font-size:11.5px;color:var(--muted);"><td colspan="5" style="text-align:right;padding-right:8px;">+ 부가세 10% → 총액(VAT포함)</td><td class="num" id="t-tot" style="color:var(--coral-dk);font-weight:700;">–</td><td colspan="3"></td></tr></tfoot></table>
       <button id="addRow" style="margin-top:10px;font-size:12.5px;">+ 행 추가</button>
-      <div class="actions" style="margin-top:18px;"><button class="btn-primary" id="btnSave">저장</button><button id="btnCopyXls" style="display:none;">마스터로 보내기</button><button id="btnNew">새 행사</button><button class="btn-danger" id="btnDelete">삭제</button></div><div class="send-hint">💾 <b>저장</b>으로 이 행사가 브라우저에 저장돼요. 작업이 끝나면 행사 목록의 <b>📤 내보내기</b>로 파일에 담아 github에 올리면 영구 저장됩니다.</div>
+      <div class="actions" style="margin-top:18px;"><button class="btn-primary" id="btnSave">저장</button><button id="btnCopyXls" style="display:none;">마스터로 보내기</button><button id="btnNew">새 행사</button><button class="btn-danger" id="btnDelete">삭제</button></div><div class="send-hint">💾 <b>저장</b>으로 이 행사가 화면에 반영돼요. 작업이 끝나면 <b>📤 내보내기</b>로 파일을 받아 <b>①github(보기용) ②채팅(작업·백업)</b> 두 곳에 올리면 동기화됩니다.</div>
     </div>
     <div id="q-hist" class="hidden">
       <div id="csv-diag" class="diag">행사 불러오는 중…</div>
       <div id="pending-bar" class="hidden"></div>
-      <div class="mload"><button class="loadbtn" onclick="exportFile()" style="background:#780A0A;color:#fff;border-color:#780A0A;">📤 내보내기 (저장)</button><span class="sheet-link" style="cursor:default;color:#8a857c;">← 편집 후 눌러 파일로 저장 · github에 올리면 끝</span></div>
+      <div class="mload"><button class="loadbtn" onclick="exportFile()" style="background:#780A0A;color:#fff;border-color:#780A0A;">📤 내보내기 (저장)</button><span class="sheet-link" style="cursor:default;color:#8a857c;">← 편집 후 눌러 파일 받기 · 받은 파일을 <b>①github ②채팅</b> 두 곳에 올리기</span></div>
       <div class="stabs"><button class="stab on" data-st="">전체</button><button class="stab" data-st="견적중">📝 견적 중</button><button class="stab" data-st="진행중">🔧 진행 중</button><button class="stab" data-st="종료">🏁 종료</button><button class="stab mini" data-st="무산">✖️ 무산</button></div>
       <div class="filters"><select id="f-year"><option value="">연도 전체</option></select><select id="f-type"><option value="">유형 전체</option><option>핑거푸드</option><option>케이터링</option><option>박스케이터링</option><option>도시락</option><option>와인·주류</option><option>기타</option></select><select id="f-status" style="display:none"><option value="">전체 보기</option><option value="__active">진행 중 (견적중+확정)</option><option value="견적중">견적중 (미확정)</option><option value="진행중">진행중 (확정)</option><option value="종료">종료</option><option value="무산">무산</option></select><input id="f-host" type="text" placeholder="회사명 검색" style="flex:1;min-width:140px;"></div>
       <div class="hlist" id="hlist"></div>
@@ -642,7 +642,7 @@
   </div>
 
 </div>
-<div class="app-footer">catering.html · v15 · 2026.06</div>
+<div class="app-footer">catering.html · v16 · 2026.06</div>
 <script id="photolib" type="application/json">{"mood":{},"menu":{}}</script>
 <div class="toast" id="toast"></div>
 
@@ -963,7 +963,7 @@ async function exportFile(){
   try{const resp=await fetch(location.href,{cache:'no-store'});html=await resp.text();}catch(e){html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;}
   if(!/id="cat-seed"/.test(html)){toast('내보내기 틀을 찾지 못했어요');return;}
   html=html.replace(/(<script id="cat-seed"[^>]*>)[\s\S]*?(<\/script>)/, function(m,a,b){return a+json+b;});
-  try{const blob=new Blob([html],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='catering.html';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);toast('📤 내보냈어요 · catering.html 다운로드됨 → github에 올리면 저장 완료');}catch(e){toast('내보내기 오류');}
+  try{const blob=new Blob([html],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='catering.html';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);toast('📤 내보냈어요 · catering.html 받음 → ①github ②채팅 두 곳에 올리면 동기화');}catch(e){toast('내보내기 오류');}
 }
 window.exportFile=exportFile;
 function masterInfo(){window.open("https://docs.google.com/spreadsheets/d/1D9EVYyGiwu11iJqDnrGCYPmLDHHdUL5hpAsIEpgbm8M/edit","_blank");toast("옛 구글시트 열기 (참고용)");}
@@ -1189,6 +1189,6 @@ load();
 
 showView('home');
 </script>
-<script>(function(){try{var d=new Date();var p=function(n){return String(n).padStart(2,'0');};var s=d.getFullYear()+'.'+p(d.getMonth()+1)+'.'+p(d.getDate());var el=document.getElementById('hdr-date');if(el)el.textContent=s+" \u00b7 v15";}catch(e){}})();</script>
+<script>(function(){try{var d=new Date();var p=function(n){return String(n).padStart(2,'0');};var s=d.getFullYear()+'.'+p(d.getMonth()+1)+'.'+p(d.getDate());var el=document.getElementById('hdr-date');if(el)el.textContent=s+" \u00b7 v16";}catch(e){}})();</script>
 </body>
 </html>
