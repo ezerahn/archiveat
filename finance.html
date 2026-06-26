@@ -17,6 +17,7 @@ body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Ne
 .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px}
 .back{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--muted);text-decoration:none;padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:var(--surface);transition:.15s}
 .back:hover{color:var(--ink);border-color:var(--taupe)}
+.navleft{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .brandmark{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--muted)}
 /* hero */
 .hero{margin-bottom:30px}
@@ -56,7 +57,10 @@ body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Ne
 <div class="wrap">
 
   <div class="top">
-    <a class="back" href="index.html">← 공공의주방 홈</a>
+    <div class="navleft">
+      <a class="back" href="index.html">← 공공의주방 홈</a>
+      <a class="back" href="https://claude.ai/chat/11d546ed-dc5c-446d-86b6-cb00cca1fea8" target="_blank" rel="noopener">작업 대화 ↗</a>
+    </div>
     <span class="brandmark">ARCHIVEAT · FINANCE</span>
   </div>
 
@@ -107,11 +111,11 @@ body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Ne
 
   <div class="slabel">📦 원본 파일 받기 (백업)</div>
   <div class="files">
-    <div class="fl"><div class="fn"><b>2026 마스터</b> · 데이터 원본(DB)<span>master-2026.xlsx</span></div><a class="dl" href="master-2026.xlsx" download>받기</a></div>
-    <div class="fl"><div class="fn"><b>과거 마스터</b> · 데이터 원본(DB)<span>master-2025.xlsx</span></div><a class="dl" href="master-2025.xlsx" download>받기</a></div>
+    <div class="fl"><div class="fn"><b>2026 마스터</b> · 데이터 원본(DB)<span>finance-master-2026.xlsx</span></div><a class="dl" href="finance-master-2026.xlsx" download>받기</a></div>
+    <div class="fl"><div class="fn"><b>과거 마스터</b> · 데이터 원본(DB)<span>finance-master-2025.xlsx</span></div><a class="dl" href="finance-master-2025.xlsx" download>받기</a></div>
     <div class="fl"><div class="fn"><b>이 화면(재무·세무 홈)</b><span>finance.html · 항상 받아짐</span></div><button class="dl" onclick="saveThisPage()">받기</button></div>
   </div>
-  <p class="note">📊 <b>엑셀 받기</b>는 같은 폴더에 <b>master-2026.xlsx · master-2025.xlsx</b>가 있어야 작동합니다(영어 고정 이름). 버전 보관용 사본(v1, v2…)은 따로 두세요. &nbsp;📄 <b>이 화면 받기</b>는 파일이 없어도 항상 작동합니다.</p>
+  <p class="note">📊 <b>엑셀 받기</b>는 같은 폴더에 <b>finance-master-2026.xlsx · finance-master-2025.xlsx</b>가 있어야 작동합니다(영어 고정 이름). 버전 보관용 사본(v1, v2…)은 따로 두세요. &nbsp;📄 <b>이 화면 받기</b>는 파일이 없어도 항상 작동합니다.</p>
 
   <p class="note">※ 홈은 <b>이동만</b> 합니다. 데이터를 고칠 땐 마스터 엑셀에서, 볼 땐 대시보드에서. 모든 파일을 <b>같은 폴더</b>에 두면 링크가 작동합니다.</p>
 
