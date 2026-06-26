@@ -69,14 +69,17 @@ body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,
 .backup-row{display:flex;flex-wrap:wrap;gap:10px}
 .bk-btn{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-family:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;cursor:pointer;transition:.12s;text-decoration:none}
 .bk-btn:hover{border-color:var(--point);color:var(--point);transform:translateY(-1px)}
-.backup-note{margin-top:10px;font-size:12px;color:var(--wait)}
+.backup-note{margin-top:12px;font-size:12.5px;color:var(--sub);line-height:1.9}
+.backup-note code{font-family:"DM Mono",monospace;font-size:11.5px;background:#F4EFE3;padding:2px 7px;border-radius:5px;color:var(--ink)}
+.backup-note a{color:var(--point);text-decoration:none;border-bottom:1px solid var(--point)}
+.bk-tag{font-family:"DM Mono",monospace;font-size:10px;background:#EEE9DD;color:var(--wait);padding:2px 7px;border-radius:10px;margin-left:2px}
 .ops-note{margin-top:34px;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:12px;font-size:12.5px;color:var(--sub);line-height:1.9}
 .ops-note b{color:var(--ink)}
 .foot{margin-top:30px;padding-top:16px;border-top:1px solid var(--line);font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
 @media(max-width:520px){.hero h1{font-size:30px}.s-item{min-width:50%;flex:none}}
 </style></head><body><div class="wrap">
 <div class="topbar"><div class="tb-left"><a class="home-link" href="index.html">← 공공의주방 홈</a><a class="chat-link" href="https://claude.ai/chat/8b7feedc-e7f4-429f-a546-0320d4116fbb" target="_blank" rel="noopener">작업 대화 <span class="ar">↗</span></a></div><span class="brand">ARCHIVEAT · CLASS</span></div>
-<header class="hero"><div class="theme-label">테마 홈 · 클래스</div><h1>클래스 홈</h1><div class="hero-date">2026.06.26 · v3</div><p class="lead">수업 등록부터 명단·개폐강·정산까지 관리합니다.</p></header>
+<header class="hero"><div class="theme-label">테마 홈 · 클래스</div><h1>클래스 홈</h1><div class="hero-date">2026.06.26 · v4</div><p class="lead">수업 등록부터 명단·개폐강·정산까지 관리합니다.</p></header>
 <div class="summary">
 <div class="s-item"><div class="s-num">3</div><div class="s-lab">다가오는 수업</div></div>
 <div class="s-item s-open"><div class="s-num">3</div><div class="s-lab">개강</div></div>
@@ -114,13 +117,12 @@ body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,
 <section class="block"><div class="b-head"><h2>📦 원본 파일</h2><span class="b-sub">백업·동기화용</span></div>
 <div class="backup-row">
 <button class="bk-btn" onclick="saveHTML()">📄 이 화면 HTML 받기</button>
-<button class="bk-btn" onclick="saveXLSX()">📊 엑셀 마스터 받기</button>
-<a class="bk-btn" href="https://claude.ai/chat/8b7feedc-e7f4-429f-a546-0320d4116fbb" target="_blank" rel="noopener">💬 채팅창에서 전체 받기</a>
+<button class="bk-btn" onclick="saveXLSX()">📊 엑셀 마스터 파일 받기 <span class="bk-tag">개인정보 뺀 공개용</span></button>
 </div>
-<p class="backup-note">엑셀은 개인정보(연락처·우편번호·주소)를 뺀 <b>회차·인원 정보</b>입니다. 연락처·주소가 포함된 전체 마스터는 채팅창에서 받으세요.</p>
+<p class="backup-note">위 엑셀은 개인정보(연락처·우편번호·주소·수강생 이름)를 뺀 <b>회차·인원 정보(공개용)</b>입니다. &nbsp;→ <code>class-master-open_날짜.xlsx</code><br>※ <b>완전판</b>(연락처·주소·수식까지 다 있는 원본)은 <a href="https://claude.ai/chat/8b7feedc-e7f4-429f-a546-0320d4116fbb" target="_blank" rel="noopener">채팅창</a>에서 받으실 수 있습니다. &nbsp;→ <code>class-master-all-v1.xlsx</code></p>
 </section>
 <div class="ops-note">※ <b>홈은 보기·이동만 합니다.</b><br>· 데이터를 고칠 땐 → 마스터(엑셀/대화창)에서<br>· 볼 땐 → 이 홈에서<br>· 모든 파일은 같은 폴더(github)에 두어야 링크가 작동합니다.</div>
-<div class="foot">클래스 홈 · v3 · 마스터에서 자동 생성 (gen_class.py)</div>
+<div class="foot">클래스 홈 · v4 · 마스터에서 자동 생성 (gen_class.py)</div>
 </div>
 <script>window.CLASS_ROWS=[{"회차ID": "GAL-07", "수업명": "여름 파스타", "발주처": "갤러리아광교", "구분": "오프라인", "수업일": "2026-07-08", "시각": "14:00", "장소/배송": "갤러리아 광교 5F", "최소인원": 4, "최대인원": 12, "신청인원": 8, "개폐강": "개강", "수업료(인당)": 55000, "정산율": 0.6, "정산금액": 264000, "선생님": "김셰프", "상태": "확정", "비고": "재료 사전준비"}, {"회차ID": "GS-2607", "수업명": "꽃게탕", "발주처": "경기도지식", "구분": "온라인", "수업일": "2026-07-25", "시각": "10:00", "장소/배송": "온라인 줌+배송", "최소인원": 20, "최대인원": 30, "신청인원": 24, "개폐강": "개강", "수업료(인당)": "", "정산율": "", "정산금액": 240000, "선생님": "이영미", "상태": "확정", "비고": ""}, {"회차ID": "GS-2608", "수업명": "스지전골", "발주처": "경기도지식", "구분": "온라인", "수업일": "2026-08-09", "시각": "10:00", "장소/배송": "온라인 줌+배송", "최소인원": 20, "최대인원": 30, "신청인원": 12, "개폐강": "미달", "수업료(인당)": "", "정산율": "", "정산금액": 120000, "선생님": "이영미", "상태": "확정", "비고": ""}, {"회차ID": "SUWON-01", "수업명": "건강 도시락", "발주처": "수원시청", "구분": "오프라인", "수업일": "2026-06-23", "시각": "11:00", "장소/배송": "수원시청 강당", "최소인원": 6, "최대인원": 20, "신청인원": 15, "개폐강": "개강", "수업료(인당)": 50000, "정산율": 0.55, "정산금액": 412500, "선생님": "박셰프", "상태": "수업완료", "비고": ""}];</script>
 <script>
@@ -139,7 +141,7 @@ function saveXLSX(){var rows=window.CLASS_ROWS||[];
 if(!rows.length){alert('내보낼 회차 데이터가 없습니다.');return;}
 if(typeof XLSX!=='undefined'){try{var ws=XLSX.utils.json_to_sheet(rows);
 var wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'회차');
-XLSX.writeFile(wb,tsName('class-master-backup','xlsx'));return;}catch(e){}}
-dl(new Blob([toCSV(rows)],{type:'text/csv;charset=utf-8'}),tsName('class-master-backup','csv'));}
+XLSX.writeFile(wb,tsName('class-master-open','xlsx'));return;}catch(e){}}
+dl(new Blob([toCSV(rows)],{type:'text/csv;charset=utf-8'}),tsName('class-master-open','csv'));}
 </script>
 </body></html>
