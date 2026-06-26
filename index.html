@@ -106,6 +106,8 @@
   footer{margin-top:clamp(24px,4vw,38px); padding-top:16px; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap}
   footer p{font-size:.76rem; color:var(--muted); max-width:52ch; line-height:1.6}
   footer .ver{font-family:var(--mono); font-size:.7rem; color:var(--muted)}
+  .guide-link{color:var(--ink-soft); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:1px; transition:color .15s ease, border-color .15s ease}
+  .guide-link:hover{color:var(--coral-deep); border-color:var(--coral-line)}
 
   @media (max-width:560px){
     .row.two, .row.three{grid-template-columns:1fr}
@@ -198,8 +200,8 @@
   </section>
 
   <footer>
-    <p>카드 = 영역 홈 이동 · 💬 = 작업 대화창.</p>
-    <span class="ver">v2.8</span>
+    <p>카드 = 영역 홈 이동 · 💬 = 작업 대화창. · <a class="guide-link" href="guide.html">📋 제작 지침</a></p>
+    <span class="ver">v2.9</span>
   </footer>
 </div>
 
