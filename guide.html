@@ -293,11 +293,18 @@
     <div class="box">
       <div class="box-title">유형 B — 엑셀 마스터 (채팅창에서 정리)</div>
       <ul class="list" style="margin:0">
-        <li>예: <strong>업무일지·재무세무</strong> (채팅에서 엑셀 수정 후 재생성)</li>
+        <li>예: <strong>업무일지·재무세무·클래스</strong> (채팅에서 엑셀 수정 후 재생성)</li>
         <li>localStorage <strong>사용 X</strong> (데이터는 엑셀에)</li>
         <li>html은 엑셀에서 구워낸 읽기전용 표시본 → 바뀌면 <strong>엑셀</strong>을 줌 (디자인 변경 시 html도)</li>
         <li>보통 여러 파일 (html + 엑셀 + 생성기 등 분리)</li>
       </ul>
+    </div>
+    <div class="box warn">
+      <div class="box-title">★ B형의 "변환기(생성기)" 파일 — 꼭 챙길 것</div>
+      <p style="margin-bottom:8px">B형 홈은 <strong>"엑셀 → html 변환기"</strong>가 있다. (예: 업무일지 <code>gen_report.py</code>, 클래스 <code>gen_class.py</code>)</p>
+      <p style="margin-bottom:8px">역할: 엑셀 데이터를 읽어 html 화면으로 구워냄. <em>엑셀(반죽) → 변환기(틀) → html(붕어빵)</em></p>
+      <p style="margin-bottom:8px"><span class="imp">⚠️ 이 변환기는 하단 📦 버튼(html·엑셀)으로 안 받아진다. 채팅창에서 따로 받아야 한다.</span></p>
+      <p style="margin:0">새 대화창에서 B형 홈 복원하려면 3개 다 필요: <strong>① 엑셀 ② html ③ 변환기.py</strong>. 변환기가 빠지기 쉬우니 새 창 시작 시 꼭 챙긴다.</p>
     </div>
     <p style="margin-top:14px"><strong>판단 기준:</strong> "화면에서 직접 입력하느냐" → 잦으면 A(html), 채팅으로 정리하면 B(엑셀).</p>
   </section>
@@ -371,8 +378,8 @@
     <h3>J-3. 영역별 작업 대화창 주소 <span style="font-weight:400;color:var(--muted);font-size:.85rem">(헤더 [작업 대화 ↗] 연결용)</span></h3>
     <table>
       <tr><th>영역</th><th>작업 대화창 주소</th></tr>
-      <tr><td>업무일지</td><td><code>claude.ai/chat/b3f5b3fd-15a2-48f8-8c7d-0fd33ca7b0a4</code></td></tr>
-      <tr><td>재무·세무</td><td><code>claude.ai/chat/11d546ed-dc5c-446d-86b6-cb00cca1fea8</code></td></tr>
+      <tr><td>업무일지</td><td><code>claude.ai/chat/94d51b86-1072-496c-9f91-83bf795487d4</code></td></tr>
+      <tr><td>재무·세무</td><td><code>claude.ai/chat/024598dc-4a12-4010-b257-5d655f771d15</code></td></tr>
       <tr><td>쿠킹박스</td><td><code>claude.ai/chat/b2af5db1-b467-45ff-83c1-f2e717f63cdd</code></td></tr>
       <tr><td>클래스</td><td><code>claude.ai/chat/8b7feedc-e7f4-429f-a546-0320d4116fbb</code></td></tr>
       <tr><td>케이터링</td><td><code>claude.ai/chat/9864bebf-cdcd-4be6-8ab3-dd8e42e47cf9</code></td></tr>
