@@ -154,6 +154,9 @@
   /* 콘텐츠 */
   h2{font-family:var(--serif); font-size:1.45rem; font-weight:600; margin-bottom:6px}
   .sub{font-family:var(--mono); font-size:.74rem; color:var(--muted); margin-bottom:18px}
+  .phead{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:16px}
+  .phead h2{margin:0}
+  .phead .sub{margin:0}
   h3{font-size:1rem; font-weight:600; margin:20px 0 8px; color:var(--ink)}
   p{color:var(--ink-soft); margin-bottom:10px}
 
@@ -254,8 +257,7 @@
 
       <!-- 1 개요 -->
       <section id="p1" class="panel">
-        <h2>개요</h2>
-        <div class="sub">한눈에 보기 · 팩트 기반</div>
+        <div class="phead"><h2>개요</h2><span class="sub">한눈에 보기</span></div>
         <div class="card">
           <dl class="kv">
             <dt>회사명</dt><dd>주식회사 공공의주방 <span style="color:var(--muted)">(Public Kitchen Co., Ltd.)</span></dd>
@@ -283,8 +285,7 @@
 
       <!-- 9 아카이빗 -->
             <section id="p9" class="panel">
-        <h2>서비스</h2>
-        <div class="sub">실제 서비스 라인업과 실행 기록 · 브랜드별로 봅니다</div>
+        <div class="phead"><h2>서비스</h2><span class="sub">파는 것 · 브랜드별</span></div>
 
         <div class="svc">
           <input class="svc-brand" type="radio" name="brand" id="b-av" checked>
@@ -389,8 +390,7 @@
 
       <!-- 2 대표·회사 -->
       <section id="p2" class="panel">
-        <h2>대표 · 회사</h2>
-        <div class="sub">안상미 대표 · 주식회사 공공의주방</div>
+        <div class="phead"><h2>대표 · 회사</h2><span class="sub">안상미 대표</span></div>
         <div class="profile">
           <img src="data:image/jpeg;base64,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" alt="안상미 대표">
           <div class="cap">안상미 대표<br>주식회사 공공의주방 · 아카이빗<br><span style="color:var(--ink-soft)">사진: 공공의주방 제공</span></div>
@@ -431,8 +431,7 @@
 
       <!-- 3 연혁 -->
       <section id="p3" class="panel">
-        <h2>연혁</h2>
-        <div class="sub">설립 → 아카이빗 확장</div>
+        <div class="phead"><h2>연혁</h2><span class="sub">설립 → 확장</span></div>
         <div class="card" style="padding:8px 14px">
           <table>
             <tr><th style="width:96px">시기</th><th>사건</th><th>비고</th></tr>
@@ -449,8 +448,7 @@
 
       <!-- 4 사업구조 -->
       <section id="p4" class="panel">
-        <h2>사업 구조</h2>
-        <div class="sub">5개 사업 영역</div>
+        <div class="phead"><h2>사업 구조</h2><span class="sub">사업 영역 개념도</span></div>
         <div class="card"><h3 style="margin-top:0">1) 아카이빗 쿠킹박스</h3>
           <p style="margin:0">제철 식재료+소스 구성으로 집에서 쉽게 요리. 핵심: 장보기 없이 · 준비된 재료로 · 10~15분 안에 · 신선·균형 한 끼. <strong>차별화</strong> — '밀키트 아님'을 직접 부정하기보다, 밀키트처럼 편리하되 신선 식재료·소스·직접 조리의 감성을 담은 쿠킹박스로 설명.</p></div>
         <div class="card"><h3 style="margin-top:0">2) 공식몰 운영</h3>
@@ -465,8 +463,7 @@
 
       <!-- 5 보유자산 -->
             <section id="p5" class="panel">
-        <h2>보유 자산</h2>
-        <div class="sub">브랜드 · 콘텐츠 · 인적 · 운영 · 배송물류 · 고객데이터 · 매출정산</div>
+        <div class="phead"><h2>보유 자산</h2><span class="sub">회사를 떠받치는 밑천</span></div>
         <div class="assetwrap">
           <input class="subpick" type="radio" name="asset" id="as1" checked>
           <input class="subpick" type="radio" name="asset" id="as2">
@@ -494,7 +491,7 @@
             <dt>인스타그램</dt><dd>@archiveat.kr</dd>
           </dl>
         </div>
-        <h3>브랜드 (네이밍·컬러·의미)</h3></div>
+        <h3>브랜드 (네이밍·컬러·의미)</h3>
         <div class="card">
           <dl class="kv">
             <dt>네이밍</dt><dd>Archive(기록보관소) + Eat(먹다) = <strong>ARCHIVEAT</strong></dd>
@@ -599,8 +596,7 @@
 
       <!-- 7 프로젝트 -->
       <section id="p7" class="panel">
-        <h2>주요 프로젝트 · 레퍼런스</h2>
-        <div class="sub">공식몰·SNS·상품·클래스·B2B/B2G·케이터링</div>
+        <div class="phead"><h2>주요 프로젝트</h2><span class="sub">실행 레퍼런스</span></div>
         <div class="card"><h3 style="margin-top:0">공식몰</h3>
           <p style="margin:0">2025.04 오픈. 신메뉴 등록·상세페이지·쿠킹박스 판매·회원혜택. 매일 신메뉴 1~2개 등록 전략. 공식몰 상품–SNS 콘텐츠 연결.</p></div>
         <div class="card"><h3 style="margin-top:0">SNS · 콘텐츠</h3>
@@ -630,8 +626,7 @@
 
       <!-- 10 보도·기사 -->
       <section id="p10" class="panel">
-        <h2>보도 · 기사</h2>
-        <div class="sub">언론 보도 이력 · 누르면 원문 새 탭 · 🕐 = 당시 앱/구독 시절 기사(현재 모델과 다름)</div>
+        <div class="phead"><h2>보도 · 기사</h2><span class="sub">언론 보도 이력 · 🕐 = 앱 시절 기사</span></div>
         <div class="news">
 
           <div class="news-item">
@@ -911,8 +906,7 @@
 
       <!-- 8 확인필요 -->
       <section id="p8" class="panel">
-        <h2>아직 확인이 필요한 항목</h2>
-        <div class="sub">회사소개서·투자자료 반영 전 재확인</div>
+        <div class="phead"><h2>확인 필요</h2><span class="sub">반영 전 재확인 항목</span></div>
         <div class="card">
           <ul class="list">
             <li>현재 정확한 회원 수</li>
