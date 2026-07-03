@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="version" content="v2">
+<meta name="updated" content="2026.07.03 16:28">
 <title>finance</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,11 +16,14 @@
 body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
 .wrap{max-width:880px;margin:0 auto;padding:22px 20px 56px}
 /* top */
-.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px}
-.back{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--muted);text-decoration:none;padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:var(--surface);transition:.15s}
-.back:hover{color:var(--ink);border-color:var(--taupe)}
+.top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;gap:12px;flex-wrap:wrap}
 .navleft{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.brandmark{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--muted)}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#a8552f;text-decoration:none;padding:5px 13px;border:1px solid rgba(255,80,25,.22);border-radius:20px;background:rgba(255,80,25,.07);transition:.15s}
+.back:hover{background:rgba(255,80,25,.13);border-color:rgba(255,80,25,.4);color:var(--coral)}
+.metaline{margin-left:auto;text-align:right;font-size:12px;color:var(--muted);line-height:1.65}
+.metaline .bar{color:var(--line);margin:0 7px}
+.metaline .upd{font-family:"DM Mono",monospace;letter-spacing:.02em}
+@media(max-width:620px){.metaline{width:100%}.metaline .bar{display:none}.metaline .crumb,.metaline .upd{display:block}}
 /* hero */
 .hero{margin-bottom:30px}
 .eyebrow{display:inline-block;font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.18em;color:var(--coral);margin-bottom:9px}
@@ -59,16 +64,18 @@ body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Ne
   <div class="top">
     <div class="navleft">
       <a class="back" href="index.html">← 공공의주방 홈</a>
-      <a class="back" href="https://claude.ai/chat/024598dc-4a12-4010-b257-5d655f771d15" target="_blank" rel="noopener">작업 대화 ↗</a>
+      <a class="back" href="https://claude.ai/chat/024598dc-4a12-4010-b257-5d655f771d15" target="_blank" rel="noopener">💬 작업 대화</a>
     </div>
-    <span class="brandmark">ARCHIVEAT · FINANCE</span>
+    <div class="metaline">
+      <span class="crumb">AI 워크스페이스 › 정산·신고</span>
+      <span class="bar">|</span>
+      <span class="upd">업데이트 <span id="updstamp"></span></span>
+    </div>
   </div>
 
   <div class="hero">
-    <span class="eyebrow">테마홈 · 재무·세무</span>
-    <h1>재무·세무 홈</h1>
-    <div class="meta">2026.06 · v1</div>
-    <p>매출·매입, 분기 신고자료 추출·검증, 결산까지. 데이터는 마스터에 두고, 여기서는 보기·이동만 합니다.</p>
+    <h1>정산·신고 홈</h1>
+    <p>정산·신고·결산 자료를 관리합니다.</p>
   </div>
 
   <div class="slabel">대시보드</div>
@@ -119,10 +126,19 @@ body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Ne
 
   <p class="note">※ 홈은 <b>이동만</b> 합니다. 데이터를 고칠 땐 마스터 엑셀에서, 볼 땐 대시보드에서. 모든 파일을 <b>같은 폴더</b>에 두면 링크가 작동합니다.</p>
 
-  <div class="foot">finance · v1 · 주식회사 공공의주방 · archiveat.kr · 2026</div>
+  <div class="foot">finance · <span id="footver">v2</span> · 주식회사 공공의주방 · archiveat.kr · 2026</div>
 
 </div>
 <script>
+(function(){
+  var mv=document.querySelector('meta[name="version"]');
+  var mu=document.querySelector('meta[name="updated"]');
+  var ver=mv?mv.content:''; var upd=mu?mu.content:'';
+  var s=document.getElementById('updstamp');
+  if(s) s.textContent=upd+(ver?' · '+ver:'');
+  var fv=document.getElementById('footver');
+  if(fv&&ver) fv.textContent=ver;
+})();
 function saveThisPage(){
   try{
     var html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;

@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>회사정보 · 공공의주방</title>
+<meta name="version" content="v3">
+<meta name="updated" content="2026.07.03 16:45">
+<title>회사 정보 홈</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap">
 <style>
@@ -20,9 +22,11 @@
   .wrap{max-width:880px; margin:0 auto; padding:36px 22px 70px}
 
   /* 헤더 */
-  .top{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:26px}
+  .top{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:24px}
   .top-left{display:flex; gap:8px; flex-wrap:wrap}
-  .pill{display:inline-block; font-family:var(--mono); font-size:.72rem; color:var(--ink-soft); text-decoration:none; padding:7px 14px; border-radius:100px; background:var(--card); border:1px solid var(--line); transition:.15s}
+  .top-right{font-family:var(--mono); font-size:12px; color:var(--muted); text-align:right; line-height:1.7; margin-left:auto}
+  .top-right .sep{color:var(--line); margin:0 6px}
+  .pill{display:inline-block; font-family:var(--mono); font-size:.72rem; color:var(--ink-soft); text-decoration:none; padding:5px 13px; border-radius:20px; background:var(--card); border:1px solid var(--line); transition:.15s}
   .pill:hover{background:var(--pt-wash); border-color:var(--pt-line); color:var(--pt-deep)}
   .brand{font-family:var(--mono); font-size:.7rem; letter-spacing:.08em; color:var(--muted)}
   .eyebrow{font-family:var(--mono); font-size:.72rem; letter-spacing:.05em; color:var(--pt); margin-bottom:6px}
@@ -242,18 +246,15 @@
   <!-- C. 헤더 -->
   <div class="top">
     <div class="top-left">
-      <a class="pill" href="https://ezerahn.github.io/archiveat/index.html">← 공공의주방 홈</a>
-      <a class="pill" href="https://claude.ai/chat/2687d340-0034-41f4-a6ec-a126caafabd0" target="_blank" rel="noopener">작업 대화 ↗</a>
+      <a class="pill" href="index.html">← 공공의주방 홈</a>
+      <a class="pill" href="https://claude.ai/chat/2687d340-0034-41f4-a6ec-a126caafabd0" target="_blank" rel="noopener">💬 작업 대화</a>
     </div>
-    <span class="brand">ARCHIVEAT · COMPANY</span>
+    <div class="top-right"><span class="crumb">AI 워크스페이스 › 회사 정보</span><span class="sep">|</span><span id="upd">업데이트 2026.07.03 16:45 · v3</span></div>
   </div>
 
   <header>
-    <div class="eyebrow">테마 홈 · 회사정보</div>
-    <h1>회사정보 홈</h1>
-    <div class="meta" id="today"></div>
-    <p class="lede">대표·회사 기본정보와 아카이빗 브랜드(서비스·BX·메뉴·패킹·제휴)부터
-      연혁·사업구조·보유자산·재무·프로젝트·확인필요까지, 공공의주방과 아카이빗의 팩트를 한곳에서 봅니다.</p>
+    <h1>회사 정보 홈</h1>
+    <p class="lede">회사 연혁·자산·실적과 소개 자료를 정리합니다.</p>
   </header>
 
   <!-- 탭 -->
@@ -1083,9 +1084,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
 (function(){
-  var d=new Date(), days=['일','월','화','수','목','금','토'];
-  var s=d.getFullYear()+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+String(d.getDate()).padStart(2,'0')+' ('+days[d.getDay()]+')';
-  var t=document.getElementById('today'); if(t) t.textContent=s+' · v2';
+  // 버전·업데이트는 <head> 메타 한 곳에서 관리
+  var mv=document.querySelector('meta[name="version"]');
+  var mu=document.querySelector('meta[name="updated"]');
+  var ver=mv?mv.content:'v3', upd=mu?mu.content:'';
+  var u=document.getElementById('upd'); if(u) u.textContent='업데이트 '+upd+' · '+ver;
+  var d=new Date();
   var v=document.getElementById('ver'); if(v) v.textContent='company · 주식회사 공공의주방 · archiveat.kr · '+d.getFullYear();
 })();
 
