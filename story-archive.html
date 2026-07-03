@@ -11,6 +11,10 @@ body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-heigh
 .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
 header{padding:60px 0 18px}
 .eyebrow{font-size:13px;letter-spacing:.18em;color:var(--teal);font-weight:600;margin:0 0 14px}
+.toprow{margin:0 0 14px}
+.chat-tab{display:inline-flex;align-items:center;gap:6px;background:var(--teal-tint);color:var(--teal-deep);border:1px solid #cfe0dc;border-radius:999px;padding:8px 15px;font-size:13.5px;font-weight:600;text-decoration:none;transition:.15s;-webkit-tap-highlight-color:transparent}
+.chat-tab:hover{background:var(--teal);border-color:var(--teal);color:#fff}
+.chat-tab .arr{font-size:12px;opacity:.85}
 h1{font-family:var(--serif);font-weight:800;font-size:clamp(24px,6vw,50px);line-height:1.12;margin:0;letter-spacing:-.02em}
 h1 .dot{color:var(--clay)}
 .lede{font-family:var(--serif);font-size:clamp(15px,2.4vw,20px);color:var(--ink-soft);margin:16px 0 0;max-width:46ch}
@@ -82,11 +86,12 @@ footer b{color:var(--ink);font-weight:600}
 #lb.on{display:flex}#lb img{max-width:100%;max-height:82vh;border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,.4)}
 #lb .cap{position:absolute;bottom:24px;left:0;right:0;text-align:center;color:#F4ECDD;font-family:var(--serif);font-size:15px;padding:0 20px}
 #lb .x{position:absolute;top:16px;right:18px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;border:0;font-size:20px;cursor:pointer}
-@media (max-width:640px){.wrap{padding:0 15px}header{padding:16px 0 4px}.eyebrow{margin:0 0 7px;font-size:11.5px;letter-spacing:.12em}h1{font-size:24px}.lede{display:none}.stats{margin-top:10px;gap:5px}.stat{font-size:11px;padding:4px 9px}.controls{padding:7px 0 5px}.search{padding:9px 12px;border-radius:11px}.search input{font-size:16px}.count{font-size:12px}.filters{gap:5px}.fgroup{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}.fgroup::-webkit-scrollbar{display:none}.flabel{min-width:32px;font-size:11px}.chip{padding:6px 11px;font-size:12.5px}.grid{grid-template-columns:1fr;gap:14px;padding:13px 0 48px}h3{font-size:17.5px}.then{font-size:14.5px}}
+@media (max-width:640px){.wrap{padding:0 15px}header{padding:16px 0 4px}.toprow{margin:0 0 10px}.chat-tab{padding:7px 13px;font-size:13px}.eyebrow{margin:0 0 7px;font-size:11.5px;letter-spacing:.12em}h1{font-size:24px}.lede{display:none}.stats{margin-top:10px;gap:5px}.stat{font-size:11px;padding:4px 9px}.controls{padding:7px 0 5px}.search{padding:9px 12px;border-radius:11px}.search input{font-size:16px}.count{font-size:12px}.filters{gap:5px}.fgroup{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}.fgroup::-webkit-scrollbar{display:none}.flabel{min-width:32px;font-size:11px}.chip{padding:6px 11px;font-size:12.5px}.grid{grid-template-columns:1fr;gap:14px;padding:13px 0 48px}h3{font-size:17.5px}.then{font-size:14.5px}}
 @media (max-width:380px){.flabel{display:none}}
 </style></head><body>
 <div class="wrap">
 <header>
+<div class="toprow"><a class="chat-tab" href="https://claude.ai/chat/b2c22265-da53-4a15-b4b3-b15ef0c13d27" target="_blank" rel="noopener">작업 대화 <span class="arr">↗</span></a></div>
 <p class="eyebrow">기록 보관소 · 자료 대시보드</p>
 <h1>공공의주방 <span class="dot">·</span> 아카이빗</h1>
 <p class="lede">앞치마를 두르고 살아온 시간. 그때의 사진과 마음, 그리고 지금 돌아보니 알게 된 것들.</p>
