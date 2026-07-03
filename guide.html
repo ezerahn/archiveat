@@ -116,22 +116,35 @@
     <p>먼저 읽고 내 위치를 파악합니다.</p>
     <h3>3단 구조</h3>
     <ul class="list">
-      <li><strong>메인홈</strong> = "공공의주방 홈". 전 영역의 최상위 입구. (파일명 <code>index.html</code>)</li>
-      <li><strong>테마홈</strong> = 영역별 홈. 7대 영역.</li>
+      <li><strong>메인홈</strong> = 전 영역의 최상위 입구. (파일명 <code>index.html</code>) — 화면 표기: 라벨 "AI 워크스페이스" · 대제목 "공공의주방" · 탭/홈화면 이름 "공공의주방AI홈".</li>
+      <li><strong>테마홈</strong> = 영역별 홈. 아래 파일명 표의 각 영역. (실제 메인홈은 5개 구역: 경영 · 수익 · 홍보·제휴 · 회사·기록 · 개인)</li>
       <li><strong>도구</strong> = 각 테마홈 안의 카드 (예: 케이터링 → 견적산출기·메뉴선택기).</li>
       <li>이동 흐름: 메인홈 → 테마홈 → 도구.</li>
     </ul>
-    <h3>7대 영역 + 파일명 <span style="font-weight:400;color:var(--muted);font-size:.85rem">(영어 고정 · 한글이면 404)</span></h3>
+    <h3>영역 + 파일명 <span style="font-weight:400;color:var(--muted);font-size:.85rem">(영어 고정 · 한글이면 404)</span></h3>
     <table>
-      <tr><th>영역</th><th>파일명</th></tr>
-      <tr><td>메인홈</td><td><code>index.html</code></td></tr>
-      <tr><td>업무일지</td><td><code>worklog.html</code></td></tr>
+      <tr><th>구역</th><th>영역</th><th>파일명</th></tr>
+      <tr><td>—</td><td>메인홈</td><td><code>index.html</code></td></tr>
+      <tr><td rowspan="2">경영</td><td>업무일지</td><td><code>worklog.html</code></td></tr>
       <tr><td>재무·세무</td><td><code>finance.html</code></td></tr>
-      <tr><td>쿠킹박스</td><td><code>cookingbox.html</code></td></tr>
+      <tr><td rowspan="3">수익·사업</td><td>쿠킹박스</td><td><code>cookingbox.html</code></td></tr>
       <tr><td>클래스</td><td><code>class.html</code></td></tr>
       <tr><td>케이터링</td><td><code>catering.html</code></td></tr>
-      <tr><td>마케팅</td><td><code>marketing.html</code></td></tr>
+      <tr><td>홍보·제휴</td><td>마케팅</td><td><code>marketing.html</code></td></tr>
+      <tr><td rowspan="2">회사·기록</td><td>회사 정보</td><td><code>company.html</code></td></tr>
+      <tr><td>스토리</td><td><code>story-archive.html</code></td></tr>
+      <tr><td>개인</td><td>집 설계</td><td><code>home-design.html</code> <span style="color:var(--muted);font-size:.8rem">(별도 저장소 <code>home/</code> · 절대주소 링크)</span></td></tr>
     </table>
+    <h3>메인홈 규격 <span style="font-weight:400;color:var(--muted);font-size:.85rem">(테마홈 5줄 헤더 규격과 별개)</span></h3>
+    <ul class="list">
+      <li><strong>헤더</strong>: (작은 라벨) "AI 워크스페이스" → (대제목) "공공의주방"(Hahmlet) → (설명 한 줄) "AI로 운영하는 통합 워크스페이스 · 카드를 누르면 각 영역으로 이동합니다". 우상단에 <strong>[💬 메인홈 편집]</strong> 알약 버튼 + 오늘 날짜(DM Mono).</li>
+      <li><strong>탭·홈화면 이름</strong> (<code>&lt;title&gt;</code>) = "공공의주방AI홈".</li>
+      <li><strong>앱 아이콘</strong>: <code>&lt;head&gt;</code>에 <code>&lt;link rel="apple-touch-icon" href="app-icon.png"&gt;</code> (+favicon). <code>app-icon.png</code>(코랄 배경·ARCHIVEAT)을 같은 폴더에 둠 → 아이폰 "홈 화면에 추가" 시 아이콘 표시.</li>
+      <li><strong>카드별 💬</strong>: 각 영역 카드 우측에 💬(그 영역 작업 대화창, 새 탭). 카드 본체 클릭 = 테마홈 이동.</li>
+      <li>메인홈은 테마홈의 "테마 홈 · ○○" 5줄 헤더 · "📦 원본 파일" · "※ 운영 안내" 규격을 <strong>따르지 않는다</strong>.</li>
+      <li>테마홈 상단 복귀 버튼 글자는 <strong>"← 공공의주방 홈"으로 유지</strong>(링크는 <code>index.html</code>). → 메인홈 자체 표기("공공의주방AI홈")와 복귀 버튼 글자는 서로 다를 수 있음.</li>
+    </ul>
+
     <h3>용어 구분</h3>
     <ul class="list">
       <li><strong>홈</strong> = 도구로 가는 입구(이동). "런처"라고도 함.</li>
@@ -384,8 +397,11 @@
       <tr><td>클래스</td><td><code>claude.ai/chat/8b7feedc-e7f4-429f-a546-0320d4116fbb</code></td></tr>
       <tr><td>케이터링</td><td><code>claude.ai/chat/9864bebf-cdcd-4be6-8ab3-dd8e42e47cf9</code></td></tr>
       <tr><td>마케팅</td><td style="color:var(--muted)">아직 없음 (생기면 추가)</td></tr>
+      <tr><td>회사 정보</td><td><code>claude.ai/chat/2687d340-0034-41f4-a6ec-a126caafabd0</code></td></tr>
+      <tr><td>스토리</td><td><code>claude.ai/chat/b2c22265-da53-4a15-b4b3-b15ef0c13d27</code></td></tr>
+      <tr><td>집 설계</td><td><code>claude.ai/chat/5990b7a9-066d-49fe-bbe1-f889e08a700f</code></td></tr>
     </table>
-    <p style="color:var(--ink-soft);font-size:.9rem">※ 메인홈 편집 대화창: <code>claude.ai/chat/5740e381-eba8-490b-8262-0af107135ead</code> (메인홈 헤더 "💬 메인홈 편집" 연결)</p>
+    <p style="color:var(--ink-soft);font-size:.9rem">※ 메인홈 편집 대화창: <code>claude.ai/chat/68fab8e0-b1a7-46ec-9ca4-f7608c313453</code> (메인홈 헤더 "💬 메인홈 편집" 연결)</p>
   </section>
 
   <!-- K -->
@@ -436,7 +452,7 @@
             String(d.getMonth()+1).padStart(2,'0') + '.' +
             String(d.getDate()).padStart(2,'0') +
             ' (' + days[d.getDay()] + ')';
-    document.getElementById('today').textContent = s + ' · v1';
+    document.getElementById('today').textContent = s + ' · v2';
   })();
 </script>
 </body>
