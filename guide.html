@@ -126,7 +126,7 @@
       <tr><th>구역</th><th>영역</th><th>파일명</th></tr>
       <tr><td>—</td><td>메인홈</td><td><code>index.html</code></td></tr>
       <tr><td rowspan="2">경영</td><td>업무일지</td><td><code>worklog.html</code></td></tr>
-      <tr><td>재무·세무</td><td><code>finance.html</code></td></tr>
+      <tr><td>재무·세무 <span style="color:var(--muted);font-size:.8rem">(메인홈 표시: 정산·신고)</span></td><td><code>finance.html</code></td></tr>
       <tr><td rowspan="3">수익·사업</td><td>쿠킹박스</td><td><code>cookingbox.html</code></td></tr>
       <tr><td>클래스</td><td><code>class.html</code></td></tr>
       <tr><td>케이터링</td><td><code>catering.html</code></td></tr>
@@ -135,7 +135,7 @@
       <tr><td>스토리</td><td><code>story-archive.html</code></td></tr>
       <tr><td>개인</td><td>집 설계</td><td><code>home-design.html</code> <span style="color:var(--muted);font-size:.8rem">(별도 저장소 <code>home/</code> · 절대주소 링크)</span></td></tr>
     </table>
-    <h3>메인홈 규격 <span style="font-weight:400;color:var(--muted);font-size:.85rem">(테마홈 5줄 헤더 규격과 별개)</span></h3>
+    <p style="color:var(--ink-soft);font-size:.88rem;margin-top:8px">※ <strong>표시명</strong>은 메인홈 카드에 보이는 이름(관심도 조정 등 목적). 영역·파일 <strong>본명은 그대로</strong> 둔다 — 예: 재무·세무 영역은 파일 <code>finance.html</code> 유지, 메인홈 카드만 "정산·신고"로 표시.</p>
     <ul class="list">
       <li><strong>헤더</strong>: (작은 라벨) "AI 워크스페이스" → (대제목) "공공의주방"(Hahmlet) → (설명 한 줄) "AI로 운영하는 통합 워크스페이스 · 카드를 누르면 각 영역으로 이동합니다". 우상단에 <strong>[💬 메인홈 편집]</strong> 알약 버튼 + 오늘 날짜(DM Mono).</li>
       <li><strong>탭·홈화면 이름</strong> (<code>&lt;title&gt;</code>) = "공공의주방AI홈".</li>
@@ -452,7 +452,7 @@
             String(d.getMonth()+1).padStart(2,'0') + '.' +
             String(d.getDate()).padStart(2,'0') +
             ' (' + days[d.getDay()] + ')';
-    document.getElementById('today').textContent = s + ' · v2';
+    document.getElementById('today').textContent = s + ' · v3';
   })();
 </script>
 </body>

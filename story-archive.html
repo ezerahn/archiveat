@@ -2,10 +2,10 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>기록 — 공공의주방 · 아카이빗</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
-:root{--paper:#FAF5EC;--paper-2:#F4ECDD;--card:#FFFDF8;--ink:#2B2722;--ink-soft:#7A7066;--line:#E3D9C8;--teal:#2F5D62;--teal-deep:#234A4E;--teal-tint:#E6EEEC;--clay:#B5654A;--clay-tint:#F3E4DD;--gold:#A07A1F;--gold-tint:#F2E9D0;--shadow:0 1px 2px rgba(43,39,34,.04),0 8px 24px rgba(43,39,34,.06);--serif:'Nanum Myeongjo','Apple SD Gothic Neo','Malgun Gothic',serif;--sans:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
+:root{--paper:#FAF5EC;--paper-2:#F4ECDD;--card:#FFFDF8;--ink:#2B2722;--ink-soft:#7A7066;--line:#E3D9C8;--teal:#2F5D62;--teal-deep:#234A4E;--teal-tint:#E6EEEC;--clay:#B5654A;--clay-tint:#F3E4DD;--gold:#A07A1F;--gold-tint:#F2E9D0;--shadow:0 1px 2px rgba(43,39,34,.04),0 8px 24px rgba(43,39,34,.06);--serif:'Noto Serif KR','Apple SD Gothic Neo','Malgun Gothic',serif;--sans:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;}
 *{box-sizing:border-box}html,body{margin:0}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.62;-webkit-font-smoothing:antialiased;letter-spacing:-.01em;-webkit-text-size-adjust:100%}
 .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
@@ -57,9 +57,13 @@ h1 .dot{color:var(--clay)}
 .badges{display:flex;gap:6px;flex-wrap:wrap}
 .badge{font-size:10.5px;letter-spacing:.03em;padding:3px 8px;border-radius:6px;font-weight:600}
 .badge.back{background:#EDE7DB;color:#6b5d44}.badge.faith{background:var(--gold-tint);color:var(--gold)}
-.meta{font-size:12px;color:var(--ink-soft);display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.meta{font-size:12px;color:var(--ink-soft);display:flex;gap:6px;align-items:center;flex-wrap:wrap;line-height:1.3}
+.meta1{font-weight:500}
+.meta2{margin-top:-4px;font-size:11.5px}
+.meta .sep{color:#cabfa9}
 .meta .src{font-weight:600;color:var(--teal)}.yr{font-variant-numeric:tabular-nums}
-h3{font-family:var(--serif);font-size:18.5px;line-height:1.34;margin:0;font-weight:700;letter-spacing:-.01em}
+h3{font-family:var(--serif);font-size:18px;line-height:1.4;margin:0;font-weight:600;letter-spacing:-.01em}
+h3 .subtitle{display:block;margin-top:3px;font-size:15px;font-weight:400;color:var(--ink-soft)}
 .then{font-size:14.5px;color:#473f37;margin:0}
 .invbox{margin:2px 0 0}.inv-label{font-size:11.5px;color:var(--ink-soft);margin:0 0 7px}.inv-label b{color:var(--teal-deep);font-weight:700}.noimg{font-size:12px;color:#b6ac9d}
 .inv{display:flex;flex-wrap:wrap;gap:7px}
@@ -158,8 +162,8 @@ function card(d){
   const emo=d.emo.map(e=>`<span class="t emo">${e}</span>`).join("");
   const ele=d.ele.map(e=>`<span class="t ele">${e}</span>`).join("");
   return `<article class="card"><div class="body">${badges?`<div class="badges">${badges}</div>`:""}
-    <div class="meta"><span class="src">내 글</span><span>·</span><span class="yr">${d.year}</span><span>·</span><span>${d.period}</span><span>·</span><span>${d.src}</span></div>
-    <h3>${d.title}</h3><p class="then">“${d.then}”</p>${inv}${nowBlock}<div class="tags">${emo}${ele}</div>
+    <div class="meta meta1"><span class="src">내 글</span><span class="sep">·</span><span class="yr">${d.year}</span></div><div class="meta meta2"><span>${d.period}</span><span class="sep">·</span><span>${d.src}</span></div>
+    <h3>${(function(){var t=d.title,i=t.indexOf(" — ");return i>-1?`${t.slice(0,i)}<span class="subtitle">— ${t.slice(i+3).replace(/^[—-]\s*/,"")}</span>`:t;})()}</h3><p class="then">“${d.then}”</p>${inv}${nowBlock}<div class="tags">${emo}${ele}</div>
     <div class="cfoot"><span>${d.event} · ${d.asset}</span><span class="ch">${d.chapter}</span></div></div></article>`;
 }
 function render(){
