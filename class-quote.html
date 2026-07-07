@@ -1,0 +1,465 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="version" content="v3">
+<meta name="updated" content="2026.07.07 00:25">
+<title>클래스 견적 계산기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;
+--point:#B4A032;--online:#2C7BB6;--offline:#C2570E;--open:#2E7D32;--short:#E2611B;--wait:#9A8F7C;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
+.tb-left{display:flex;align-items:center;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:13px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 13px;transition:.12s}
+.pill:hover{border-color:var(--point);color:var(--point)}
+.tb-right{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--wait);text-align:right}
+.crumb{color:var(--wait)}.tb-sep{color:#CFC5B2}
+.updated{font-family:"DM Mono",monospace;font-size:12px;color:var(--wait)}
+.hero{padding:28px 0 6px}
+.hero h1{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:700;font-size:38px;letter-spacing:-.02em}
+.hero .lead{margin-top:7px;color:var(--sub);font-size:15px}
+h2{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-size:19px;font-weight:700;margin:0}
+.block{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px;margin-top:18px}
+.bh{display:flex;align-items:baseline;gap:9px;margin-bottom:14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.bh .n{font-family:"DM Mono",monospace;font-size:12px;color:var(--point);font-weight:500}
+.bh .s{font-size:12px;color:var(--wait);margin-left:auto}
+/* 선택부 */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.f{display:flex;flex-direction:column;gap:5px}
+.f label{font-size:12px;color:var(--sub);font-weight:500}
+.f input,.f select{font-family:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+.f input:focus,.f select:focus{outline:none;border-color:var(--point)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+.seg button{font-family:inherit;font-size:13px;padding:8px 16px;border:none;background:none;cursor:pointer;color:var(--sub);transition:.12s}
+.seg button.on{color:#fff;font-weight:600}
+.seg.mode button.on{background:var(--online)}
+.seg.mode button.on.off{background:var(--offline)}
+.seg.vat button.on{background:var(--point)}
+/* 재료 표 */
+.tbl-wrap{overflow-x:auto;margin:0 -4px}
+table{border-collapse:collapse;width:100%;min-width:940px;font-size:12.5px}
+th,td{border:1px solid var(--line);padding:4px 5px;text-align:center;white-space:nowrap}
+th{background:#F4EFE3;font-size:11px;font-weight:700;color:var(--sub);position:sticky;top:0}
+th.grp{background:#EFE7D4}
+td input{width:100%;font-family:inherit;font-size:12.5px;border:none;background:none;text-align:center;color:var(--ink);padding:3px 2px}
+td input:focus{outline:1px solid var(--point);border-radius:3px;background:#fff}
+td.auto{background:#F3F7FA;font-family:"DM Mono",monospace;color:var(--online);font-weight:500}
+td.per{background:#EAF3FA;font-family:"DM Mono",monospace;font-weight:700;color:var(--ink)}
+td.txt input{text-align:left}
+.lk{color:var(--point);text-decoration:none;font-size:13px}
+.rowdel{color:var(--wait);cursor:pointer;font-size:14px;background:none;border:none;padding:0 2px}
+.rowdel:hover{color:var(--short)}
+.addrow{margin-top:10px;font-family:inherit;font-size:13px;color:var(--point);background:none;border:1px dashed var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;transition:.12s}
+.addrow:hover{border-color:var(--point);background:#FBF8EF}
+.matsum{margin-top:12px;text-align:right;font-family:"DM Mono",monospace;font-size:14px}
+.matsum b{font-size:18px;color:var(--online)}
+/* 수익률 */
+.result{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.result{grid-template-columns:1fr}}
+.rrow{display:flex;justify-content:space-between;font-size:13.5px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.rrow .v{font-family:"DM Mono",monospace}
+.rrow.big{border-bottom:none;padding-top:10px}
+.rrow.big .k{font-weight:700}.rrow.big .v{font-size:17px;font-weight:700}
+.verdict{display:flex;flex-direction:column;justify-content:center;align-items:center;border-radius:12px;padding:18px;text-align:center}
+.verdict.ok{background:#E9F4E9;border:1px solid #CBE5CB}
+.verdict.no{background:#FBEAE0;border:1px solid #F0D2C0}
+.verdict .rate{font-family:"DM Mono",monospace;font-size:44px;font-weight:700;line-height:1}
+.verdict.ok .rate{color:var(--open)}.verdict.no .rate{color:var(--short)}
+.verdict .lbl{font-size:13px;margin-top:6px;font-weight:600}
+.verdict.ok .lbl{color:var(--open)}.verdict.no .lbl{color:var(--short)}
+.gauge{width:100%;height:9px;background:#EEE9DD;border-radius:5px;position:relative;margin-top:14px}
+.gfill{position:absolute;left:0;top:0;bottom:0;border-radius:5px;transition:width .3s}
+.verdict.ok .gfill{background:var(--open)}.verdict.no .gfill{background:var(--short)}
+.gmark{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
+.gmark::after{content:"20%";position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:9px;font-family:"DM Mono",monospace;color:var(--ink)}
+.fixed{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:4px}
+.hide{display:none}
+/* ④ 콘텐츠 */
+details.content{padding:0}
+details.content summary{list-style:none;padding:18px;cursor:pointer;display:flex;align-items:baseline;gap:9px}
+details.content summary::-webkit-details-marker{display:none}
+details.content summary::before{content:"▶";font-size:10px;color:var(--point);transition:.2s;position:relative;top:-1px}
+details.content[open] summary::before{transform:rotate(90deg)}
+details.content summary .n{font-family:"DM Mono",monospace;font-size:12px;color:var(--point);font-weight:500}
+details.content summary h2{display:inline;font-size:19px}
+details.content summary .s{font-size:12px;color:var(--wait);margin-left:auto;font-weight:400}
+.cbody{padding:2px 18px 18px}
+.cgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.cf{display:flex;flex-direction:column;gap:5px}
+.cf.full{grid-column:1/-1}
+.cf label{font-size:12px;color:var(--sub);font-weight:500}
+.cf input,.cf textarea{font-family:inherit;font-size:13.5px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);resize:vertical}
+.cf textarea{min-height:58px;line-height:1.5}
+.cf input:focus,.cf textarea:focus{outline:none;border-color:var(--point)}
+@media(max-width:640px){.cgrid{grid-template-columns:1fr}}
+#loadArea{width:100%;min-height:70px;font-family:"DM Mono",monospace;font-size:12px;padding:10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);resize:vertical}
+#loadArea:focus{outline:none;border-color:var(--point)}
+/* 복사 */
+.copybar{position:fixed;bottom:0;left:0;right:0;background:rgba(250,245,236,.96);border-top:1px solid var(--line);padding:12px 20px;backdrop-filter:blur(6px)}
+.copybar .inner{max-width:1080px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:flex-end}
+.copybar .hint{font-size:12px;color:var(--wait);margin-right:auto}
+.btn{font-family:inherit;font-size:14px;font-weight:600;padding:11px 22px;border-radius:10px;border:none;cursor:pointer;transition:.12s}
+.btn.copy{background:var(--point);color:#fff}
+.btn.copy:hover{filter:brightness(1.06)}
+.btn.load{background:var(--online);color:#fff}
+.btn.load:hover{filter:brightness(1.06)}
+.btn.ghost{background:var(--card);border:1px solid var(--line);color:var(--ink)}
+.foot{margin-top:28px;font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
+.note{font-size:12px;color:var(--wait);margin-top:8px}
+@media(max-width:520px){.hero h1{font-size:29px}.topbar{align-items:flex-start}.tb-right{flex-direction:column;align-items:flex-end;gap:2px}.tb-sep{display:none}}
+</style></head><body><div class="wrap">
+
+<div class="topbar">
+<div class="tb-left">
+<a class="pill" href="class.html">← 클래스 홈</a>
+<a class="pill" href="https://claude.ai/chat/8b7feedc-e7f4-429f-a546-0320d4116fbb" target="_blank" rel="noopener">💬 작업 대화</a>
+</div>
+<div class="tb-right"><span class="crumb">AI 워크스페이스 › 클래스 › 견적 계산기</span><span class="tb-sep">|</span><span class="updated" id="upd"></span></div>
+</div>
+
+<header class="hero"><h1>클래스 견적 계산기</h1><p class="lead">재료비와 수익률을 계산해 진행 여부를 판단하고, 확정 내용을 복사해 등록합니다.</p></header>
+
+<!-- 불러오기 (수정용) -->
+<details class="block content" id="loadBlock">
+<summary><span class="n">↻</span><h2>불러오기 · 수정</h2><span class="s">이미 등록한 클래스를 화면에서 고칠 때</span></summary>
+<div class="cbody">
+<p class="note" style="margin-top:0;margin-bottom:8px">⚠ 옛날 복사본이 아니라 <b>채팅창에서 방금 받은 최신본</b>을 붙여넣으세요. 그래야 그 사이 수정한 내용까지 반영돼 안 꼬입니다.</p>
+<textarea id="loadArea" placeholder="채팅창에서 받은 내용(맨 아래 복원코드 포함)을 여기 붙여넣고 [불러오기]를 누르세요"></textarea>
+<div style="display:flex;gap:8px;margin-top:8px;align-items:center">
+<button class="btn load" onclick="loadIn()">↻ 불러오기</button>
+<span class="note" id="loadMsg"></span>
+</div>
+</div>
+</details>
+
+<!-- ① 선택부 -->
+<section class="block">
+<div class="bh"><span class="n">①</span><h2>기본 정보</h2><span class="s">계산 방식을 정합니다</span></div>
+<div class="grid">
+<div class="f"><label>클래스명</label><input id="title" placeholder="예: 냉이 꽃게탕"></div>
+<div class="f"><label>발주처</label><input id="orderer" placeholder="예: 경기도지식"></div>
+<div class="f"><label>형태</label>
+<div class="seg mode" id="mode"><button data-m="online" class="on">온라인</button><button data-m="offline" class="off">오프라인</button></div>
+</div>
+<div class="f"><label>판매가(인당, 원)</label><input id="price" type="number" inputmode="numeric" value="50000" oninput="calc()"></div>
+<div class="f"><label>부가세</label>
+<div class="seg vat" id="vat"><button data-v="excl" class="on">별도</button><button data-v="incl">포함</button></div>
+</div>
+<div class="f"><label>인원</label><input id="pax" type="number" inputmode="numeric" value="30" oninput="calc()"></div>
+</div>
+</section>
+
+<!-- ②-A 온라인: 재료비 표 -->
+<section class="block" id="matBlock">
+<div class="bh"><span class="n">②</span><h2>재료비 (1인 기준)</h2><span class="s">구매처 링크는 클릭 시 새 탭 · 주문단위만 직접 입력</span></div>
+<div class="tbl-wrap">
+<table id="mat">
+<thead>
+<tr>
+<th rowspan="2">구분</th><th rowspan="2">구성품</th><th rowspan="2">레시피<br>기준량</th><th rowspan="2">구매처</th>
+<th class="grp" colspan="2">1인 기준</th>
+<th class="grp" colspan="3">판매 기준단위</th>
+<th rowspan="2">총<br>필요량</th><th rowspan="2">주문<br>단위</th><th rowspan="2">주문<br>총량</th><th rowspan="2">총금액</th><th rowspan="2">1인<br>금액</th><th rowspan="2"></th>
+</tr>
+<tr><th>용량</th><th>단위</th><th>용량</th><th>단위</th><th>금액</th></tr>
+</thead>
+<tbody id="matBody"></tbody>
+</table>
+</div>
+<button class="addrow" onclick="addRow()">+ 행 추가</button>
+<div class="matsum">재료비 합계(1인) &nbsp; <b id="matTotal">0</b> 원</div>
+</section>
+
+<!-- ②-B 오프라인: 수수료 -->
+<section class="block hide" id="feeBlock">
+<div class="bh"><span class="n">②</span><h2>정산 (오프라인 · 수수료 방식)</h2><span class="s">선생님이 재료 준비 → 우리는 수수료만</span></div>
+<div class="grid">
+<div class="f"><label>우리 수수료율 (%)</label><input id="feeRate" type="number" inputmode="numeric" value="20" oninput="calc()"></div>
+</div>
+<p class="note">기본 20%. 발주처·조건에 따라 수정하세요. 오프라인은 재료비를 선생님이 부담하므로 우리 원가에서 제외됩니다.</p>
+</section>
+
+<!-- ③ 수익률 -->
+<section class="block">
+<div class="bh"><span class="n">③</span><h2>수익 판정</h2><span class="s">부가세 제외가 기준 · 20% 이상이면 진행</span></div>
+
+<div id="fixedWrap">
+<p class="note" style="margin-top:0;margin-bottom:8px">고정비 (온라인 · 기본값, 수정 가능)</p>
+<div class="fixed">
+<div class="f"><label>패킹운영비</label><input id="pack" type="number" value="5000" oninput="calc()"></div>
+<div class="f"><label>배송비</label><input id="ship" type="number" value="5000" oninput="calc()"></div>
+<div class="f"><label>강사비(인당)</label><input id="teach" type="number" value="10000" oninput="calc()"></div>
+</div>
+</div>
+
+<div class="result" style="margin-top:16px">
+<div>
+<div class="rrow"><span class="k">판매가(인당)</span><span class="v" id="rPrice">0</span></div>
+<div class="rrow"><span class="k">부가세 제외가</span><span class="v" id="rNet">0</span></div>
+<div class="rrow" id="rMatRow"><span class="k">− 재료비</span><span class="v" id="rMat">0</span></div>
+<div class="rrow" id="rPackRow"><span class="k">− 패킹운영비</span><span class="v" id="rPack">0</span></div>
+<div class="rrow" id="rShipRow"><span class="k">− 배송비</span><span class="v" id="rShip">0</span></div>
+<div class="rrow" id="rTeachRow"><span class="k">− 강사비</span><span class="v" id="rTeach">0</span></div>
+<div class="rrow" id="rFeeRow" style="display:none"><span class="k">우리 몫(수수료)</span><span class="v" id="rFee">0</span></div>
+<div class="rrow big"><span class="k" id="rProfitK">수익(인당)</span><span class="v" id="rProfit">0</span></div>
+</div>
+<div class="verdict ok" id="verdict">
+<div class="rate" id="vRate">0%</div>
+<div class="lbl" id="vLbl">—</div>
+<div class="gauge"><div class="gfill" id="vFill" style="width:0%"></div><div class="gmark" style="left:20%"></div></div>
+</div>
+</div>
+</section>
+
+<!-- ④ 클래스 콘텐츠 -->
+<details class="block content" id="contentBlock">
+<summary><span class="n">④</span><h2>클래스 콘텐츠</h2><span class="s">등록 확정 시 작성 · GSEEK·몰·플랫폼으로 나가는 내용 (접으면 계산만)</span></summary>
+<div class="cbody">
+<div class="cgrid">
+<div class="cf full"><label>강의명 (감성 제목)</label><input id="c_title2" placeholder="예: 봄향기 가득, 시원하고 깊은 맛의 '냉이 꽃게탕'"></div>
+<div class="cf full"><label>클래스 소개문 (짧게)</label><textarea id="c_intro" placeholder="제주감귤이 들어가 상큼 시원한 백김치를 함께 만들어요"></textarea></div>
+<div class="cf full"><label>강의내용 상세</label><textarea id="c_detail" placeholder="봄 제철 냉이를 활용해 집에서도 전문점처럼 깊은 국물 맛을…"></textarea></div>
+<div class="cf"><label>대상</label><input id="c_target" value="성인"></div>
+<div class="cf"><label>선발방식</label><input id="c_select" placeholder="선발 / 선착순"></div>
+<div class="cf"><label>소요시간</label><input id="c_time" placeholder="약 1시간 30분"></div>
+<div class="cf full"><label>키트 구성품</label><textarea id="c_kit" placeholder="손질 꽃게 1마리(약300g), 두부, 애호박, 청양고추, 대파, 냉이, 특제 양념…"></textarea></div>
+<div class="cf full"><label>개별 준비물</label><textarea id="c_prep" placeholder="냄비(중간 이상), 국자, 계량컵, 도마, 칼, 키친타월, 비닐장갑, 앞치마…"></textarea></div>
+<div class="cf"><label>강사명</label><input id="c_teacher" placeholder="김은영"></div>
+<div class="cf full"><label>강사 이력</label><textarea id="c_career" placeholder="스타필드 고양점 출강, 이마트 컬처클럽 출강…"></textarea></div>
+<div class="cf full"><label>해시태그</label><input id="c_tag" placeholder="#백김치 #온라인 #제철"></div>
+<div class="cf full c-online"><label>배송 안내 (온라인)</label><textarea id="c_ship" placeholder="쿠킹박스는 입력하신 주소로 클래스 3일 전 발송됩니다"></textarea></div>
+<div class="cf full c-online"><label>참여 안내 (온라인)</label><textarea id="c_join" placeholder="클래스 하루 전, 참여 링크를 문자로 보내드립니다"></textarea></div>
+<div class="cf full c-offline hide"><label>장소 (오프라인)</label><input id="c_place" placeholder="스타필드 고양점 지하1층 (상세주소는 예약 시 공개)"></div>
+<div class="cf full c-offline hide"><label>동반인 규정 (오프라인)</label><textarea id="c_guest" placeholder="동반인 1인까지, 만 7세부터 참여 가능…"></textarea></div>
+</div>
+<p class="note">고정 문구(수강신청 확인사항·GSEEK 참여안내·촬영동의)는 채널로 낼 때 자동으로 붙습니다. 여기선 안 적어도 됩니다.</p>
+</div>
+</details>
+
+<div class="foot">클래스 견적 계산기 · v3 · 계산 → 복사 → 채팅창 → 마스터 기록</div>
+</div>
+
+<div class="copybar"><div class="inner">
+<span class="hint">계산이 끝나면 복사해서 작업 대화창에 붙여넣으세요</span>
+<button class="btn ghost" onclick="resetAll()">초기화</button>
+<button class="btn copy" onclick="copyOut()">📋 확정 내용 복사</button>
+</div></div>
+
+<script>
+var MODE="online", VAT="excl";
+var COLS=[["구분","txt","예: 구성품"],["구성품","txt","냉이"],["기준량","txt","50g"],["link","link",""],
+["1인용량","num",""],["1인단위","unit","g"],["판매용량","num",""],["판매단위","unit","g"],["판매금액","num",""],["주문단위","num2",""]];
+
+function num(v){v=parseFloat((v+"").replace(/,/g,''));return isNaN(v)?0:v;}
+function won(n){return Math.round(n).toLocaleString();}
+
+function rowHtml(){
+  var pax=num(document.getElementById('pax').value)||1;
+  return '<tr>'+
+   '<td class="txt"><input placeholder="소스"></td>'+
+   '<td class="txt"><input placeholder="냉이"></td>'+
+   '<td class="txt"><input placeholder="50g"></td>'+
+   '<td><input placeholder="URL" class="lkin" oninput="lkUpd(this)"><a class="lk" target="_blank" style="display:none">↗</a></td>'+
+   '<td><input type="number" class="c-1인용량" oninput="calc()"></td>'+
+   '<td><input class="c-1인단위" value="g" style="width:34px"></td>'+
+   '<td><input type="number" class="c-판매용량" oninput="calc()"></td>'+
+   '<td><input class="c-판매단위" value="g" style="width:34px"></td>'+
+   '<td><input type="number" class="c-판매금액" oninput="calc()"></td>'+
+   '<td class="auto c-총필요">0</td>'+
+   '<td><input type="number" class="c-주문단위" oninput="calc()"></td>'+
+   '<td class="auto c-주문총량">0</td>'+
+   '<td class="auto c-총금액">0</td>'+
+   '<td class="per c-1인금액">0</td>'+
+   '<td><button class="rowdel" onclick="delRow(this)">✕</button></td>'+
+   '</tr>';
+}
+function addRow(n){n=n||1;var b=document.getElementById('matBody');for(var i=0;i<n;i++)b.insertAdjacentHTML('beforeend',rowHtml());calc();}
+function delRow(el){el.closest('tr').remove();calc();}
+function lkUpd(inp){var a=inp.parentNode.querySelector('a');if(inp.value.trim()){a.href=inp.value.trim();a.style.display='inline';}else{a.style.display='none';}}
+
+function calc(){
+  var pax=num(document.getElementById('pax').value)||1;
+  var price=num(document.getElementById('price').value);
+  // 재료비 표
+  var matTotal=0;
+  document.querySelectorAll('#matBody tr').forEach(function(tr){
+    var v1=num(tr.querySelector('.c-1인용량').value);
+    var pv=num(tr.querySelector('.c-판매용량').value);
+    var pm=num(tr.querySelector('.c-판매금액').value);
+    var ou=num(tr.querySelector('.c-주문단위').value);
+    var need=v1*pax;                 // 총필요량 = 1인용량 × 인원
+    var ordTot=ou*pv;                // 주문총량 = 주문단위 × 판매용량
+    var total=pm*ou;                 // 총금액 = 판매금액 × 주문단위
+    var per=(pax>0&&ordTot>0)?total/pax*(need/ordTot):0;  // 1인금액
+    tr.querySelector('.c-총필요').textContent=won(need);
+    tr.querySelector('.c-주문총량').textContent=won(ordTot);
+    tr.querySelector('.c-총금액').textContent=won(total);
+    tr.querySelector('.c-1인금액').textContent=won(per);
+    matTotal+=per;
+  });
+  document.getElementById('matTotal').textContent=won(matTotal);
+  // 부가세 제외가
+  var net=(VAT==='incl')?price/1.1:price;
+  document.getElementById('rPrice').textContent=won(price);
+  document.getElementById('rNet').textContent=won(net);
+
+  if(MODE==='online'){
+    var pack=num(document.getElementById('pack').value);
+    var ship=num(document.getElementById('ship').value);
+    var teach=num(document.getElementById('teach').value);
+    var cost=matTotal+pack+ship+teach;
+    var profit=net-cost;
+    var rate=net>0?profit/net*100:0;
+    document.getElementById('rMat').textContent=won(matTotal);
+    document.getElementById('rPack').textContent=won(pack);
+    document.getElementById('rShip').textContent=won(ship);
+    document.getElementById('rTeach').textContent=won(teach);
+    document.getElementById('rProfitK').textContent='수익(인당)';
+    document.getElementById('rProfit').textContent=won(profit);
+    setVerdict(rate);
+  } else {
+    var feeRate=num(document.getElementById('feeRate').value);
+    var our=net*feeRate/100;
+    document.getElementById('rFee').textContent=won(our);
+    document.getElementById('rProfitK').textContent='우리 몫(인당)';
+    document.getElementById('rProfit').textContent=won(our);
+    setVerdict(feeRate);  // 오프라인은 수수료율 자체를 판정선에 표시
+  }
+}
+function setVerdict(rate){
+  var v=document.getElementById('verdict'),f=document.getElementById('vFill');
+  document.getElementById('vRate').textContent=(Math.round(rate*10)/10)+'%';
+  var ok=rate>=20;
+  v.className='verdict '+(ok?'ok':'no');
+  document.getElementById('vLbl').textContent=ok?'진행 가능 (20% 이상)':'기준 미달 (20% 미만)';
+  f.style.width=Math.max(0,Math.min(100,rate))+'%';
+}
+
+// 모드 전환
+function setMode(m){
+  MODE=m;
+  document.querySelectorAll('#mode button').forEach(function(b){b.classList.toggle('on',b.dataset.m===MODE);});
+  var on=MODE==='online';
+  document.getElementById('matBlock').classList.toggle('hide',!on);
+  document.getElementById('feeBlock').classList.toggle('hide',on);
+  document.getElementById('fixedWrap').style.display=on?'block':'none';
+  ['rMatRow','rPackRow','rShipRow','rTeachRow'].forEach(function(id){document.getElementById(id).style.display=on?'flex':'none';});
+  document.getElementById('rFeeRow').style.display=on?'none':'flex';
+  document.querySelectorAll('.c-online').forEach(function(e){e.classList.toggle('hide',!on);});
+  document.querySelectorAll('.c-offline').forEach(function(e){e.classList.toggle('hide',on);});
+  calc();
+}
+document.getElementById('mode').addEventListener('click',function(e){if(e.target.tagName==='BUTTON')setMode(e.target.dataset.m);});
+function setVat(v){
+  VAT=v;
+  document.querySelectorAll('#vat button').forEach(function(b){b.classList.toggle('on',b.dataset.v===VAT);});
+  calc();
+}
+document.getElementById('vat').addEventListener('click',function(e){if(e.target.tagName==='BUTTON')setVat(e.target.dataset.v);});
+
+function copyOut(){
+  var g=function(id){return document.getElementById(id).value||'';};
+  var pax=g('pax'),price=g('price');
+  var lines=[];
+  lines.push('[클래스 등록]');
+  lines.push('클래스명: '+(g('title')||'(미입력)'));
+  lines.push('발주처: '+(g('orderer')||'(미입력)')+' / '+(MODE==='online'?'온라인':'오프라인'));
+  lines.push('판매가(인당): '+won(num(price))+'원 (부가세 '+(VAT==='incl'?'포함':'별도')+')');
+  lines.push('인원: '+pax+'명');
+  if(MODE==='online'){
+    lines.push('');
+    lines.push('[재료 구성]');
+    document.querySelectorAll('#matBody tr').forEach(function(tr){
+      var nm=tr.children[1].querySelector('input').value;
+      if(!nm)return;
+      var per=tr.querySelector('.c-1인금액').textContent;
+      var lk=tr.querySelector('.lkin').value;
+      lines.push('· '+nm+' — 1인 '+per+'원'+(lk?' ['+lk+']':''));
+    });
+    lines.push('재료비 합계(1인): '+document.getElementById('matTotal').textContent+'원');
+    lines.push('고정비: 패킹 '+won(num(g('pack')))+' / 배송 '+won(num(g('ship')))+' / 강사 '+won(num(g('teach'))));
+  } else {
+    lines.push('정산: 수수료 '+g('feeRate')+'% 방식 (선생님 재료 준비)');
+  }
+  lines.push('');
+  lines.push('[판정] 수익률 '+document.getElementById('vRate').textContent+' — '+document.getElementById('vLbl').textContent);
+  lines.push('수익/우리몫(인당): '+document.getElementById('rProfit').textContent+'원');
+  // ④ 콘텐츠 (입력된 것만)
+  var cmap=[['c_title2','강의명'],['c_intro','소개문'],['c_detail','강의내용'],['c_target','대상'],['c_select','선발방식'],['c_time','소요시간'],['c_kit','키트 구성품'],['c_prep','개별 준비물'],['c_teacher','강사명'],['c_career','강사 이력'],['c_tag','해시태그']];
+  if(MODE==='online'){cmap.push(['c_ship','배송 안내'],['c_join','참여 안내']);}
+  else{cmap.push(['c_place','장소'],['c_guest','동반인 규정']);}
+  var clines=[];
+  cmap.forEach(function(p){var el=document.getElementById(p[0]);if(el&&el.value.trim())clines.push('· '+p[1]+': '+el.value.trim());});
+  if(clines.length){lines.push('');lines.push('[클래스 콘텐츠]');lines=lines.concat(clines);}
+  // 복원코드 (수정용) — 사람이 읽는 요약과 별개로 표 전체를 담음
+  var data={mode:MODE,vat:VAT,title:g('title'),orderer:g('orderer'),price:g('price'),pax:g('pax'),
+    pack:g('pack'),ship:g('ship'),teach:g('teach'),feeRate:g('feeRate'),rows:[],content:{}};
+  document.querySelectorAll('#matBody tr').forEach(function(tr){
+    var q=function(s){return tr.querySelector(s)?tr.querySelector(s).value:'';};
+    data.rows.push({gu:tr.children[0].querySelector('input').value,nm:tr.children[1].querySelector('input').value,
+      ba:tr.children[2].querySelector('input').value,lk:q('.lkin'),
+      v1:q('.c-1인용량'),u1:q('.c-1인단위'),pv:q('.c-판매용량'),pu:q('.c-판매단위'),pm:q('.c-판매금액'),ou:q('.c-주문단위')});
+  });
+  ['c_title2','c_intro','c_detail','c_target','c_select','c_time','c_kit','c_prep','c_teacher','c_career','c_tag','c_ship','c_join','c_place','c_guest'].forEach(function(id){var e=document.getElementById(id);if(e)data.content[id]=e.value;});
+  var code=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+  lines.push('');
+  lines.push('---(수정용 복원코드 · 이 줄은 지우지 마세요)---');
+  lines.push('QDATA:'+code);
+  var txt=lines.join('\n');
+  navigator.clipboard.writeText(txt).then(function(){
+    var b=document.querySelector('.btn.copy');var o=b.textContent;b.textContent='✓ 복사됨';setTimeout(function(){b.textContent=o;},1500);
+  },function(){
+    var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();
+    var b=document.querySelector('.btn.copy');var o=b.textContent;b.textContent='✓ 복사됨';setTimeout(function(){b.textContent=o;},1500);
+  });
+}
+function resetAll(){if(confirm('입력을 모두 지울까요?'))location.reload();}
+
+function loadIn(){
+  var t=document.getElementById('loadArea').value;
+  var msg=document.getElementById('loadMsg');
+  var m=t.match(/QDATA:([A-Za-z0-9+/=]+)/);
+  if(!m){msg.style.color='var(--short)';msg.textContent='복원코드(QDATA:)를 찾을 수 없습니다.';return;}
+  var data;
+  try{data=JSON.parse(decodeURIComponent(escape(atob(m[1]))));}
+  catch(e){msg.style.color='var(--short)';msg.textContent='복원 실패 — 코드가 손상됐습니다.';return;}
+  var sv=function(id,v){var e=document.getElementById(id);if(e)e.value=(v==null?'':v);};
+  sv('title',data.title);sv('orderer',data.orderer);sv('price',data.price);sv('pax',data.pax);
+  sv('pack',data.pack);sv('ship',data.ship);sv('teach',data.teach);sv('feeRate',data.feeRate);
+  // 콘텐츠
+  if(data.content)Object.keys(data.content).forEach(function(k){sv(k,data.content[k]);});
+  // 재료 행 복원
+  var body=document.getElementById('matBody');body.innerHTML='';
+  (data.rows&&data.rows.length?data.rows:[]).forEach(function(r){
+    body.insertAdjacentHTML('beforeend',rowHtml());
+    var tr=body.lastElementChild;
+    tr.children[0].querySelector('input').value=r.gu||'';
+    tr.children[1].querySelector('input').value=r.nm||'';
+    tr.children[2].querySelector('input').value=r.ba||'';
+    var lk=tr.querySelector('.lkin');lk.value=r.lk||'';lkUpd(lk);
+    tr.querySelector('.c-1인용량').value=r.v1||'';tr.querySelector('.c-1인단위').value=r.u1||'g';
+    tr.querySelector('.c-판매용량').value=r.pv||'';tr.querySelector('.c-판매단위').value=r.pu||'g';
+    tr.querySelector('.c-판매금액').value=r.pm||'';tr.querySelector('.c-주문단위').value=r.ou||'';
+  });
+  if(!document.querySelectorAll('#matBody tr').length)addRow(3);
+  // 모드·부가세 (표시 토글 포함)
+  setVat(data.vat||'excl');
+  setMode(data.mode||'online');
+  // 콘텐츠 블록 펼치기(내용 있으면)
+  if(data.content&&Object.keys(data.content).some(function(k){return data.content[k];}))document.getElementById('contentBlock').open=true;
+  calc();
+  msg.style.color='var(--open)';msg.textContent='✓ 복원됐습니다. 화면에서 수정 후 다시 복사하세요.';
+}
+
+// 초기화
+(function(){
+  var u=document.querySelector('meta[name=updated]'),v=document.querySelector('meta[name=version]');
+  var el=document.getElementById('upd');if(el)el.textContent='업데이트 '+((u&&u.content)||'')+' · '+((v&&v.content)||'');
+  addRow(15);
+})();
+</script>
+</body></html>

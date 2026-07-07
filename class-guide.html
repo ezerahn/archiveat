@@ -1,0 +1,308 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="version" content="v1">
+<meta name="updated" content="2026.07.06 23:30">
+<title>클래스 설계 가이드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;
+--point:#B4A032;--online:#2C7BB6;--offline:#C2570E;--open:#2E7D32;--short:#E2611B;--wait:#9A8F7C;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
+.tb-left{display:flex;align-items:center;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:13px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 13px;transition:.12s}
+.pill:hover{border-color:var(--point);color:var(--point)}
+.tb-right{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--wait);text-align:right}
+.crumb{color:var(--wait)}.tb-sep{color:#CFC5B2}
+.updated{font-family:"DM Mono",monospace;font-size:12px;color:var(--wait)}
+.hero{padding:30px 0 8px}
+.hero h1{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:700;font-size:40px;letter-spacing:-.02em}
+.hero .lead{margin-top:8px;color:var(--sub);font-size:15px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin:26px 0 22px;border-bottom:1px solid var(--line);padding-bottom:0}
+.tab{font-family:inherit;font-size:14px;color:var(--sub);background:none;border:none;border-bottom:2px solid transparent;padding:9px 14px;cursor:pointer;transition:.12s;margin-bottom:-1px}
+.tab:hover{color:var(--ink)}
+.tab.on{color:var(--point);border-bottom-color:var(--point);font-weight:700}
+.panel{display:none;animation:fade .2s}
+.panel.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+h2{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-size:22px;font-weight:700;margin:6px 0 4px}
+h3{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-size:17px;font-weight:600;margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.sub{color:var(--sub);font-size:13.5px;margin-bottom:8px}
+p{font-size:14px;margin:8px 0;color:#3a342e}
+ul{margin:8px 0 8px 4px;list-style:none}
+li{font-size:14px;margin:5px 0;padding-left:16px;position:relative;color:#3a342e}
+li::before{content:"·";position:absolute;left:4px;color:var(--point);font-weight:700}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#F4EFE3;font-weight:700;font-size:12.5px}
+tr:last-child td{border-bottom:none}
+code{font-family:"DM Mono",monospace;font-size:12.5px;background:#F4EFE3;padding:2px 6px;border-radius:5px;color:var(--ink)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.box.flow{font-family:"DM Mono",monospace;font-size:13px;line-height:1.9;color:var(--ink);white-space:pre-wrap;overflow-x:auto}
+.tag{display:inline-block;font-family:"DM Mono",monospace;font-size:11px;padding:2px 8px;border-radius:10px;margin-right:4px}
+.t-on{background:#E8F1F8;color:var(--online)}.t-off{background:#FaeCE0;color:var(--offline)}
+.t-ok{background:#E6F4E6;color:var(--open)}.t-wait{background:#EEE9DD;color:var(--wait)}
+.hl{background:linear-gradient(transparent 55%,#EDE6C6 55%);font-weight:700}
+.foot{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
+.note{font-size:12.5px;color:var(--wait);margin-top:6px}
+@media(max-width:520px){.hero h1{font-size:30px}.topbar{align-items:flex-start}.tb-right{flex-direction:column;align-items:flex-end;gap:2px}.tb-sep{display:none}}
+</style></head><body><div class="wrap">
+
+<div class="topbar">
+<div class="tb-left">
+<a class="pill" href="index.html">← 공공의주방 홈</a>
+<a class="pill" href="class.html">클래스 홈</a>
+</div>
+<div class="tb-right"><span class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드</span><span class="tb-sep">|</span><span class="updated" id="upd"></span></div>
+</div>
+
+<header class="hero"><h1>클래스 설계 가이드</h1><p class="lead">클래스 홈의 구조·정산·콘텐츠 설계를 한 곳에 모았습니다.</p></header>
+
+<nav class="tabs" id="tabs">
+<button class="tab on" data-p="p1">개요</button>
+<button class="tab" data-p="p2">화면 구성</button>
+<button class="tab" data-p="p3">정산</button>
+<button class="tab" data-p="p4">콘텐츠</button>
+<button class="tab" data-p="p5">모집·약관</button>
+<button class="tab" data-p="p6">견적 계산기</button>
+<button class="tab" data-p="p7">원칙</button>
+</nav>
+
+<!-- 1 개요 -->
+<section class="panel on" id="p1">
+<h2>개요</h2>
+<p class="sub">클래스는 <b>보기형(B·박제형)</b>입니다. 데이터는 엑셀 마스터가 원본이고, 화면은 보기 전용입니다.</p>
+<h3>기본 성격</h3>
+<table>
+<tr><th>항목</th><th>내용</th></tr>
+<tr><td>유형</td><td>B (보기형·박제형). 케이터링(입력형)과 다름</td></tr>
+<tr><td>데이터 원본</td><td><code>class-master-all-v1.xlsx</code> (회차·수강생 2시트)</td></tr>
+<tr><td>화면 입력</td><td>없음. 입력·수정은 채팅창 → 마스터 → gen으로 굽기</td></tr>
+<tr><td>생성기</td><td><code>gen_class.py</code> (마스터 → class.html)</td></tr>
+<tr><td>구역</td><td>수익·사업</td></tr>
+</table>
+<h3>핵심 흐름</h3>
+<div class="box flow">계산·검토(화면 도구) → 복사 → 채팅창 → 마스터 기록 → gen으로 굽기 → 보기 화면에 등장</div>
+<h3>상태 7단계</h3>
+<div class="box flow">검토중 → 개요서 → 확정 → 모집중 → 개강/미달 → 수업완료 → 정산완료</div>
+<p class="note">마스터에 데이터가 들어온 순간(1층 카드 등장)부터 상태 관리 시작. A형(경기도지식)은 모집중 단계 없이 바로 확정.</p>
+</section>
+
+<!-- 2 화면 구성 -->
+<section class="panel" id="p2">
+<h2>화면 구성</h2>
+<p class="sub">케이터링과 동일한 <b>3층 구조</b>. 카드에서 자세히 보기를 누르면 6탭이 열립니다.</p>
+<h3>3층 구조</h3>
+<table>
+<tr><th>층</th><th>구역</th><th>내용</th></tr>
+<tr><td>1층</td><td>진행 중인 클래스</td><td>회차가 상태별 카드로 표시(온/오프 구분). 개폐강·정산·상태 요약</td></tr>
+<tr><td>2층</td><td>주요 기능</td><td>전체 클래스 목록 · 정산 리포트</td></tr>
+<tr><td>3층</td><td>도구</td><td>클래스 계산기(핵심) · 메뉴 레퍼런스 · 설계 가이드 · (컬리 변환·사진 관리 추후)</td></tr>
+</table>
+<div class="box"><b>중요 판단(확정):</b> 케이터링은 "등록(저장)"과 "빠른견적(계산만)"을 나눴지만, 클래스는 뭘 하든 마지막이 "복사 → 채팅창"으로 같으므로 <span class="hl">계산기 하나로 통합</span>. 복사하느냐 마느냐가 "등록이냐 테스트냐"를 가름.</div>
+<h3>자세히 보기 — 6탭</h3>
+<table>
+<tr><th>탭</th><th>이름</th><th>내용</th></tr>
+<tr><td>①</td><td>클래스 정보</td><td>클래스명·설명·발주처·온/오프·선생님·일시·장소(배송)·상태</td></tr>
+<tr><td>②</td><td>과정개요서</td><td>경기도지식 제출 문서 항목 (콘텐츠 탭 참고)</td></tr>
+<tr><td>③</td><td>레시피·재료</td><td>구성품·소스·집준비물·레시피·팁 + 재료비 계산(1인·링크)</td></tr>
+<tr><td>④</td><td>가격·정산조건</td><td>판매가·부가세·정산구조·정산방식·수익률</td></tr>
+<tr><td>⑤</td><td>모집·개폐강</td><td>최소/최대/신청·개폐강 (A형/B형 다르게)</td></tr>
+<tr><td>⑥</td><td>정산</td><td>주최측·선생님·우리 몫 + 세금계산서·지급주체·지급시기</td></tr>
+</table>
+<p class="note">상단에 [클래스 수정] 버튼 → 채팅창 연결. ⑤ 배송 명단(연락처·주소)은 화면에 안 굽고 집계만 표시.</p>
+</section>
+
+<!-- 3 정산 -->
+<section class="panel" id="p3">
+<h2>정산</h2>
+<p class="sub">클래스는 3자 구조(고객·주최·우리·선생님). 부가세 항상 발생. 온/오프 원가 구조가 다름.</p>
+<h3>3자 구조 — 3개 숫자로 쪼갬</h3>
+<ul>
+<li>총 수업료 = 기본가격(인당) × 인원</li>
+<li>주최 수수료 = %나 금액 (주최가 떼거나 / 우리가 줌)</li>
+<li>선생님 정산액 = 인당 1만원 / 수수료%</li>
+<li><b>우리 몫 = 총수업료 − 주최수수료 − 선생님정산액</b> (자동 계산)</li>
+</ul>
+<h3>온라인 vs 오프라인 — 원가 구조가 다름</h3>
+<table>
+<tr><th></th><th>온라인</th><th>오프라인</th></tr>
+<tr><td>재료</td><td>우리가 준비·배송</td><td>선생님이 준비</td></tr>
+<tr><td>패킹·배송비</td><td>있음 (고정)</td><td>없음</td></tr>
+<tr><td>정산 방식</td><td>인당 1만원(강사비)</td><td>수수료 % (기본 20%, 수정 가능)</td></tr>
+<tr><td>계산식</td><td>재료비+패킹+배송+강사비 → 수익률 판정</td><td>판매가 × 수수료율 → 우리 몫</td></tr>
+</table>
+<h3>부가세</h3>
+<p>상품(용역 공급)이라 항상 발생. 인당 가격에 <b>별도</b>이기도, <b>포함</b>이기도 함 → 선택 칸 필요.</p>
+<p class="note">예: 판매가 50,000 → 부가세 제외 45,455 (÷1.1)</p>
+<h3>경기도지식 정산 (실물 확정)</h3>
+<div class="box flow">경기도지식(휴넷) → 우리: 키트비 150만원 (30명×5만, 강사료 포함)
+  · 150만 전액 우리 매출 · 휴넷 앞 세금계산서 발행
+  · 지급: 휴넷 명의 · 수업월 익월 말일
+
+우리 → 선생님: 인당 1만 × 30명 = 30만원
+  · 원천세 3.3%(9,900원) 원천징수 → 실지급 290,100원
+
+우리 몫 = 150만 − 재료비 − 패킹 − 배송 − 선생님 30만</div>
+<h3>선생님 정산 방식 (원천세 / 세금계산서)</h3>
+<table>
+<tr><th>방식</th><th>대상</th><th>처리</th></tr>
+<tr><td>원천세 (대다수)</td><td>프리랜서·개인</td><td>정산액에서 3.3% 원천징수 후 실지급. 뗀 세금 우리가 신고·납부</td></tr>
+<tr><td>세금계산서 (간혹)</td><td>사업자 선생님</td><td>선생님이 계산서 발행 → 우리가 그 금액 입금 (원천징수 없음)</td></tr>
+</table>
+<p class="note">마스터에 회차별 선생님 유형(개인/사업자) 칸 필요.</p>
+</section>
+
+<!-- 4 콘텐츠 -->
+<section class="panel" id="p4">
+<h2>콘텐츠 — 하나의 데이터, 여러 채널</h2>
+<p class="sub">내용(물)은 같고 그릇(양식)만 다름. 마스터에 공통 항목을 저장 → 채널별 양식에 꺼내 씀.</p>
+<h3>3채널</h3>
+<table>
+<tr><th>채널</th><th>성격</th><th>예시</th></tr>
+<tr><td>GSEEK 과정개요서</td><td>기관 제출용 문서</td><td>냉이 꽃게탕</td></tr>
+<tr><td>아카이빗몰</td><td>우리 몰 판매 페이지(감성·FAQ)</td><td>우리동네반찬날</td></tr>
+<tr><td>공공의주방 플랫폼</td><td>플랫폼 판매(해시태그·달력)</td><td>제주감귤 백김치</td></tr>
+</table>
+<h3>공통 항목 (마스터 기초 데이터)</h3>
+<ul>
+<li>식별: 수업명(짧은)·감성 부제·메뉴 구성</li>
+<li>소개: 클래스 소개문·강의내용 상세·메뉴별 설명</li>
+<li>선생님: 강사명·한줄 소개·이력/프로필</li>
+<li>운영: 진행방식(양방향 ZOOM)·소요시간·모집 최소/최대·가격</li>
+<li>구성·준비: 키트/쿠킹박스 구성재료·개별 준비물</li>
+<li>배송·참여: 배송 안내(O일 전)·참여 안내(하루 전 링크)</li>
+<li>고정 안내문: 환불 안내(확정 후 불가)·주의사항(와이파이·촬영동의)</li>
+</ul>
+<h3>온라인 / 오프라인 차이</h3>
+<table>
+<tr><th>온라인 전용</th><th>오프라인 전용</th></tr>
+<tr><td>쿠킹박스 배송(O일 전)</td><td>장소(상세주소는 예약 시 공개)</td></tr>
+<tr><td>ZOOM 참여 링크(하루 전)</td><td>현장 전문가(강사)</td></tr>
+<tr><td>배송지 입력</td><td>참가비=재료비 포함</td></tr>
+<tr><td>와이파이·기기 안내</td><td>동반인 규정(연령 제한)</td></tr>
+<tr><td>—</td><td>리뷰 · 취소·환불 규정 · 여러 회차 달력</td></tr>
+</table>
+<p class="note">정원: 온라인 30~50명 / 오프라인 소수(예: 12명).</p>
+<h3>과정개요서 항목 처리 (등록 시)</h3>
+<table>
+<tr><th>종류</th><th>항목</th><th>처리</th></tr>
+<tr><td>고정 문구</td><td>수강신청 확인사항·GSEEK 참여안내</td><td>자동으로 채움</td></tr>
+<tr><td>레시피 연동</td><td>키트 구성품·개별 준비물</td><td>선생님 레시피에서 가져옴</td></tr>
+<tr><td>창작 필요</td><td>강의명·강의내용 설명</td><td>초안 제안 → 대표님 확정 (효능표현 주의)</td></tr>
+<tr><td>회차 입력</td><td>강사명·대상·일시·정원·선발·이력</td><td>대표님 입력</td></tr>
+</table>
+</section>
+
+<!-- 5 모집·약관 -->
+<section class="panel" id="p5">
+<h2>모집·약관</h2>
+<p class="sub">모집은 2형태(A 사전확정 / B 모집확정). 환불은 발주처마다 다를 수 있어 하드코딩하지 않음.</p>
+<h3>모집 2형태</h3>
+<table>
+<tr><th></th><th><span class="tag t-on">A형</span> 경기도지식</th><th><span class="tag t-off">B형</span> 개별(갤러리아·직접)</th></tr>
+<tr><td>인원</td><td>사전 확정(예 30명)</td><td>신청 쌓임 → 4일 전 자정 확정</td></tr>
+<tr><td>개폐강</td><td>없음(고정)</td><td>최소인원 판정</td></tr>
+<tr><td>환불</td><td>개념 없음</td><td>1일 전까지 가능 → 개시 후 불가</td></tr>
+<tr><td>화면</td><td>"○명 확정" 표시</td><td>게이지 + 확정 D-4 + 환불 D-1</td></tr>
+<tr><td>정산 인원</td><td>고정 인원</td><td>환불 반영 후 굳은 인원</td></tr>
+</table>
+<p class="note">B형은 신청 인원 ≠ 정산 기준 인원 (환불 마감 후 확정).</p>
+<h3>환불 규정 — 발주처마다 다름 (회차별 입력값)</h3>
+<table>
+<tr><th>형태</th><th>규칙 출처</th><th>비고</th></tr>
+<tr><td>경기도지식(A)</td><td>없음(사전확정)</td><td>환불 개념 없음</td></tr>
+<tr><td>개별·직접(B)</td><td>공공의주방 클래스 약관</td><td>개시 전 취소·개시 후 불가</td></tr>
+<tr><td>갤러리아(B)</td><td>갤러리아 규칙</td><td>대동소이하나 세부 다를 수 있음</td></tr>
+<tr><td>기타 협업(B)</td><td>그곳 규칙</td><td>협업 시 확인</td></tr>
+</table>
+<h3>약관 근거 (정산 로직의 뿌리)</h3>
+<ul>
+<li><b>제11조</b>: 개시 전 취소 가능, 환불 비율은 클래스별 합의값</li>
+<li><b>제12조</b>: 개시 후 취소·환불 불가 → 수업 시작 시점에 인원 확정 → 정산 기준</li>
+<li><b>제13조</b>: 에스크로(우리가 대금 보관 후 수수료 떼고 선생님 정산) = 정산구조 B의 실체</li>
+</ul>
+<p class="note">아카이빗몰 약관(쿠킹박스·공식몰) / 공공의주방 클래스 약관(개별 B형) / 경기도지식 자체 규정(A형) — 셋은 별개.</p>
+</section>
+
+<!-- 6 계산기 -->
+<section class="panel" id="p6">
+<h2>견적 계산기</h2>
+<p class="sub">3층 핵심 도구. 등록·견적·테스트 겸용. 계산 → 복사 → 채팅창 → 마스터 기록.</p>
+<h3>구성</h3>
+<ul>
+<li><b>선택부</b>: 발주처 · 온/오프라인 · 정산구조(A/B) · 정산방식(수수료%/인당1만) · 부가세(별도/포함)</li>
+<li><b>재료비 표</b>: 빈 줄 15개 + "+행 추가". 구매처 링크(클릭 시 새 탭). 주문단위 수동 입력</li>
+<li><b>수익률 판정</b>: 판매가·부가세·재료비·패킹·배송·강사비 → 수익률% + <span class="hl">20% 판정</span></li>
+<li><b>복사 버튼 📋</b>: 결과를 텍스트로 클립보드 복사 → 채팅창 붙여넣기</li>
+</ul>
+<h3>1인 금액 자동 수식 (핵심)</h3>
+<div class="box flow">1인금액 = (총금액 ÷ 인원) × (총필요량 ÷ 주문총량)</div>
+<p>1000g 샀는데 500g만 쓰면 남은 500g은 원가 아님. 산 것 중 실제 쓴 비율만 인원으로 나눠야 정확 (소스류에서 차이 큼). 원본 시트 수식 <code>=T5/$I$4*(O5/Q5)</code></p>
+<h3>수익률 판정 예 (경기도지식)</h3>
+<table>
+<tr><th>항목</th><th>금액</th></tr>
+<tr><td>판매가</td><td>50,000</td></tr>
+<tr><td>부가세 제외</td><td>45,455 (÷1.1)</td></tr>
+<tr><td>원가 합</td><td>35,539 (재료 15,539 + 패킹 5,000 + 배송 5,000 + 강사 10,000)</td></tr>
+<tr><td>수익</td><td>9,916</td></tr>
+<tr><td>수익률</td><td><span class="tag t-ok">22% → 진행 가능</span> (기준 20% 이상)</td></tr>
+</table>
+<p class="note">복사 버튼이 채팅창에 자동 입력하는 건 브라우저 보안상 불가 → 복사 후 붙여넣기가 최선.</p>
+</section>
+
+<!-- 7 원칙 -->
+<section class="panel" id="p7">
+<h2>원칙</h2>
+<h3>개인정보</h3>
+<ul>
+<li>html(github)에 안 넣는 것: 수강생 연락처·우편번호·주소·이름</li>
+<li>html에 넣는 것: 회차 정보 + 인원 집계(숫자만)</li>
+<li>화면 "엑셀 마스터 받기" = 개인정보 뺀 공개용 <code>class-master-open_날짜.xlsx</code></li>
+<li>완전판(연락처·주소·수식) = 채팅창에서 <code>class-master-all-v1.xlsx</code></li>
+</ul>
+<h3>사진</h3>
+<ul>
+<li>방식: 내장(base64) 금지 → 링크 방식(<code>images/class/</code> 하위 폴더)</li>
+<li>파일명: <code>class-[발주처영어]-[YYYYMMDD]-[종류].jpg</code> (한글 금지·영어 소문자)</li>
+<li>예: <code>images/class/class-gseek-20260622-main.jpg</code></li>
+<li>당장은 대표사진 1장. 후기는 초상권 보류.</li>
+</ul>
+<h3>지침 반영</h3>
+<ul>
+<li>제목 "클래스 홈" / 설명 "온라인·오프라인 수업 일정과 정산을 관리합니다."</li>
+<li>헤더 3단(알약 2개 / 브레드크럼·업데이트 / 제목 / 설명), meta 한 곳 관리</li>
+<li>대제목 명조 폴백 <code>Hahmlet, "Gowun Batang", "Noto Serif KR", serif</code> (고딕 제거 ✓)</li>
+<li>서브컬러 올리브 유지 · ※ 운영 안내 · 📦 원본 파일 3버튼</li>
+</ul>
+<h3>아직 필요한 자료</h3>
+<table>
+<tr><th>항목</th><th>상태</th></tr>
+<tr><td>경기도지식 과정개요서 양식</td><td><span class="tag t-ok">해결</span> GSEEK 화상학습 양식 확보</td></tr>
+<tr><td>고정비 고정 여부</td><td><span class="tag t-ok">해결</span> 온라인=패킹+배송+강사 / 오프라인=수수료 20%</td></tr>
+<tr><td>B형 환불 비율</td><td><span class="tag t-wait">변동</span> 발주처 규칙 — 회차별 입력칸</td></tr>
+</table>
+</section>
+
+<div class="foot">클래스 설계 가이드 · v1 · 클래스 홈 도구</div>
+</div>
+<script>
+(function(){
+  var u=document.querySelector('meta[name=updated]'),v=document.querySelector('meta[name=version]');
+  var el=document.getElementById('upd');
+  if(el)el.textContent='업데이트 '+((u&&u.content)||'')+' · '+((v&&v.content)||'');
+  var tabs=document.querySelectorAll('.tab');
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    tabs.forEach(function(x){x.classList.remove('on')});
+    document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on')});
+    t.classList.add('on');
+    document.getElementById(t.dataset.p).classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  })});
+})();
+</script>
+</body></html>

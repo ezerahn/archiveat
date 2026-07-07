@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="version" content="v1">
+<meta name="updated" content="2026.07.07 11:30">
+<title>finance-manual-04</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--cream:#FAF5EC;--surface:#FFFDF8;--ink:#241F1B;--muted:#8C857A;--line:#E7DCC8;--coral:#FF5019;--taupe:#C2B190;--sage:#5E9087;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Malgun Gothic",system-ui,sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
+.wrap{max-width:880px;margin:0 auto;padding:22px 20px 56px}
+/* top */
+.top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;gap:12px;flex-wrap:wrap}
+.navleft{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#a8552f;text-decoration:none;padding:5px 13px;border:1px solid rgba(255,80,25,.22);border-radius:20px;background:rgba(255,80,25,.07);transition:.15s}
+.back:hover{background:rgba(255,80,25,.13);border-color:rgba(255,80,25,.4);color:var(--coral)}
+.metaline{margin-left:auto;text-align:right;font-size:12px;color:var(--muted);line-height:1.65}
+.metaline .bar{color:var(--line);margin:0 7px}
+.metaline .upd{font-family:"DM Mono",monospace;letter-spacing:.02em}
+@media(max-width:620px){.metaline{width:100%}.metaline .bar{display:none}.metaline .crumb,.metaline .upd{display:block}}
+/* hero */
+.hero{margin-bottom:26px}
+.hero h1{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:700;font-size:40px;letter-spacing:-.02em;line-height:1.12}
+.hero p{margin-top:12px;font-size:15px;color:var(--muted);max-width:560px}
+@media(max-width:620px){.hero h1{font-size:30px}.wrap{padding:18px 14px 44px}}
+/* intro */
+.intro{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px;font-size:13.5px;color:#5b5447;line-height:1.7}
+.intro b{color:var(--ink)}
+.lnk{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:var(--sage);text-decoration:none;padding:6px 13px;border:1px solid var(--line);border-radius:999px;background:var(--surface);transition:.15s;margin-top:4px}
+.lnk:hover{border-color:var(--sage);background:rgba(94,144,135,.08)}
+.warn{background:rgba(255,80,25,.06);border:1px solid rgba(255,80,25,.2);border-radius:12px;padding:12px 15px;margin-bottom:22px;font-size:13px;color:#8a3d1e;line-height:1.6}
+.warn b{color:var(--coral)}
+/* 분기 월 안내 */
+.qbox{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 24px}
+.qbox .q{font-size:12.5px;font-family:"DM Mono",monospace;color:#5b5447;padding:7px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.qbox .q b{color:var(--coral);font-weight:500}
+/* steps */
+.step{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:15px}
+.step-head{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+.step-head .n{width:26px;height:26px;border-radius:50%;background:var(--coral);color:#fff;font-family:"DM Mono",monospace;font-size:13px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-head h3{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-size:18px;font-weight:700;letter-spacing:-.01em}
+.step-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:20px;align-items:start}
+@media(max-width:680px){.step-grid{grid-template-columns:1fr}}
+.step-text p{font-size:14px;color:#5b5447;line-height:1.7;margin-bottom:9px}
+.step-text .path{font-size:12.5px;color:var(--ink);background:rgba(194,177,144,.14);border-radius:8px;padding:8px 11px;line-height:1.7;margin:2px 0 9px}
+.step-text .path b{color:var(--coral);font-weight:600}
+.step-text .note{font-size:12px;color:var(--muted);line-height:1.6;margin-top:4px}
+.shot .ph{border:2px dashed var(--taupe);border-radius:12px;min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--muted);font-size:13px;background:rgba(194,177,144,.06);padding:18px;line-height:1.6}
+.shot .ph b{color:#8a7d5c;font-size:13.5px;margin-bottom:4px}
+.shot .cap{width:100%;border:1px solid var(--line);border-radius:12px;display:block}
+/* done */
+.done{background:rgba(94,144,135,.08);border:1px solid rgba(94,144,135,.28);border-radius:16px;padding:20px 22px;margin-top:22px}
+.done h3{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-size:18px;font-weight:700;margin-bottom:8px;color:#3f6b62}
+.done p{font-size:14px;color:#4a5a54;line-height:1.7}
+.done b{color:#2f5750}
+/* 운영 안내 + footer */
+.opnote{margin-top:26px;font-size:12px;color:var(--muted);line-height:1.7}
+.foot{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);text-align:center;font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted);letter-spacing:.03em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="navleft">
+      <a class="back" href="finance.html">← 정산·신고 홈</a>
+      <a class="back" href="https://claude.ai/chat/024598dc-4a12-4010-b257-5d655f771d15" target="_blank" rel="noopener">💬 작업 대화</a>
+    </div>
+    <div class="metaline">
+      <span class="crumb">AI 워크스페이스 › 정산·신고 › 매뉴얼</span>
+      <span class="bar">|</span>
+      <span class="upd">업데이트 <span id="updstamp"></span></span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>이니시스 자료 확인</h1>
+    <p>부가세 신고용 매출·매입·가상계좌 입출금 내역을 이니시스에서 내려받아 삼화에 전달하는 순서입니다.</p>
+  </div>
+
+  <div class="intro">
+    <b>접속</b> &nbsp;이니시스 가맹점관리자에 로그인합니다.
+    <br><a class="lnk" href="https://iniweb.inicis.com/security/login.do" target="_blank" rel="noopener">iniweb.inicis.com 접속 ↗</a>
+  </div>
+  <div class="warn"><b>로그인 정보(ID·PW)는 이 문서에 두지 않습니다.</b> 비밀번호 관리앱(또는 안전한 개인 메모)에서 확인하세요.</div>
+
+  <div class="qbox">
+    <span class="q"><b>1분기</b> 1~3월</span>
+    <span class="q"><b>2분기</b> 4~6월</span>
+    <span class="q"><b>3분기</b> 7~9월</span>
+    <span class="q"><b>4분기</b> 10~12월</span>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="step-head"><span class="n">1</span><h3>이니시스 관리자 로그인</h3></div>
+    <div class="step-grid">
+      <div class="step-text">
+        <p>접속 후 GID/MID · Sub ID · Password를 입력하고 언어는 Korean 확인, <b>[로그인]</b>을 누릅니다.</p>
+        <a class="lnk" href="https://iniweb.inicis.com/security/login.do" target="_blank" rel="noopener">로그인 페이지 ↗</a>
+        <div class="note">로그인 정보는 비밀번호 관리앱 참조</div>
+      </div>
+      <div class="shot"><div class="ph" id="shot1"><b>화면 ①</b>로그인 화면<br>캡쳐 대기</div></div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <div class="step-head"><span class="n">2</span><h3>이메일 추가 인증</h3></div>
+    <div class="step-grid">
+      <div class="step-text">
+        <p>등록된 이메일로 인증번호가 발송됩니다. 이메일에 접속해 <b>인증번호를 복사</b>한 뒤, 인증번호란에 입력하고 <b>[확인]</b>을 누릅니다.</p>
+        <div class="note">5분 내 미수신 시 다른 이메일로 재발송</div>
+      </div>
+      <div class="shot"><div class="ph" id="shot2"><b>화면 ②</b>이메일 인증<br>캡쳐 대기</div></div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="step-head"><span class="n">3</span><h3>메뉴 이동 — 세무신고조회</h3></div>
+    <div class="step-grid">
+      <div class="step-text">
+        <p>로그인 후 첫 화면에서 매출·매입 자료를 뽑을 메뉴로 이동합니다.</p>
+        <div class="path">상단 메뉴 <b>정산/세금계산서</b> → <b>세무신고조회</b></div>
+        <div class="note">가상계좌(가상계좌 입출금)는 STEP 6에서 별도 메뉴로 이동</div>
+      </div>
+      <div class="shot"><div class="ph" id="shot3"><b>화면 ③</b>로그인 후 메뉴<br>캡쳐 대기</div></div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <div class="step-head"><span class="n">4</span><h3>매출 조회 & 엑셀 다운로드</h3></div>
+    <div class="step-grid">
+      <div class="step-text">
+        <p>세무신고조회 화면에서 조회 조건을 맞춥니다.</p>
+        <div class="path">상점 확인 → 승인월 <b>해당 분기</b>(예: 4~6월) → <b>매출</b> 선택 → <b>[내역조회]</b> → <b>[엑셀다운로드]</b></div>
+        <div class="note">다운받은 엑셀은 파일명에 "매출"을 붙여 보관</div>
+      </div>
+      <div class="shot"><div class="ph" id="shot4"><b>화면 ④</b>매출 조회·다운로드<br>캡쳐 대기</div></div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step">
+    <div class="step-head"><span class="n">5</span><h3>매입 조회 & 엑셀 다운로드</h3></div>
+    <div class="step-grid">
+      <div class="step-text">
+        <p>같은 세무신고조회 화면에서 구분만 바꿉니다.</p>
+        <div class="path">승인월 <b>해당 분기</b> → <b>매입</b> 선택 → <b>[내역조회]</b> → <b>[엑셀다운로드]</b></div>
+        <div class="note">다운받은 엑셀은 파일명에 "매입"을 붙여 보관</div>
+      </div>
+      <div class="shot"><div class="ph" id="shot5"><b>화면 ⑤</b>매입 조회·다운로드<br>캡쳐 대기</div></div>
+    </div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="step">
+    <div class="step-head"><span class="n">6</span><h3>가상계좌 입출금 내역 & 엑셀 다운로드</h3></div>
+    <div class="step-grid">
+      <div class="step-text">
+        <p>가상계좌 입출금은 다른 메뉴에서 확인합니다.</p>
+        <div class="path">상단 메뉴 <b>부가서비스</b> → <b>지급대행서비스</b> → <b>자금현황</b> → 거래일자 <b>해당 분기</b> → <b>[내역조회]</b> → <b>[엑셀다운로드]</b></div>
+        <div class="note">다운받은 엑셀은 파일명에 "가상계좌"를 붙여 보관</div>
+      </div>
+      <div class="shot"><div class="ph" id="shot6"><b>화면 ⑥</b>가상계좌 자금현황<br>캡쳐 대기</div></div>
+    </div>
+  </div>
+
+  <!-- DONE -->
+  <div class="done">
+    <h3>✅ 마무리 — 삼화에 전달</h3>
+    <p>내려받은 <b>엑셀 3개(매출 · 매입 · 가상계좌)</b>를 삼화회계법인에 전달하면 이니시스 자료 준비 완료입니다. 세금계산서 매출·매입 내역은 홈택스에 자동 연동되므로, 이니시스 자료는 <b>결제(카드·가상계좌) 거래분 확인용</b>입니다.</p>
+  </div>
+
+  <p class="opnote">※ 이 매뉴얼은 <b>따라 하는 절차서</b>입니다. 기준·원리가 궁금할 땐 <b>정산·신고 홈 → 세무 가이드</b>를 보세요. 화면은 실제 금액·계좌·사업자번호가 가려진 상태로만 넣습니다.</p>
+
+  <div class="foot">finance-manual-04 · <span id="footver">v1</span> · 주식회사 공공의주방 · archiveat.kr · 2026</div>
+
+</div>
+<script>
+(function(){
+  var mv=document.querySelector('meta[name="version"]');
+  var mu=document.querySelector('meta[name="updated"]');
+  var ver=mv?mv.content:''; var upd=mu?mu.content:'';
+  var s=document.getElementById('updstamp'); if(s) s.textContent=upd+(ver?' · '+ver:'');
+  var fv=document.getElementById('footver'); if(fv&&ver) fv.textContent=ver;
+})();
+</script>
+</body>
+</html>

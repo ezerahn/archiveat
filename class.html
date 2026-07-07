@@ -1,7 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v5">
-<meta name="updated" content="2026.07.03 16:37">
+<meta name="version" content="v6"><meta name="updated" content="2026.07.07 12:55">
 <title>클래스 홈</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,133 +10,230 @@
 :root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;
 --point:#B4A032;--online:#2C7BB6;--offline:#C2570E;--open:#2E7D32;--short:#E2611B;--wait:#9A8F7C;}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:60px}
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
 .topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
 .tb-left{display:flex;align-items:center;gap:8px}
-.home-link,.chat-link{display:inline-flex;align-items:center;gap:4px;font-size:13px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 13px;transition:.12s}
-.home-link:hover,.chat-link:hover{border-color:var(--point);color:var(--point)}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:13px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 13px;transition:.12s}
+.pill:hover{border-color:var(--point);color:var(--point)}
 .tb-right{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--wait);text-align:right}
-.crumb{font-size:12px;color:var(--wait)}
-.tb-sep{color:#CFC5B2}
-.updated{font-family:"DM Mono",monospace;font-size:12px;color:var(--wait)}
+.crumb{color:var(--wait)}.tb-sep{color:#CFC5B2}.updated{font-family:"DM Mono",monospace;font-size:12px;color:var(--wait)}
 .hero{padding:30px 0 8px}
-.hero h1{font-family:Hahmlet,"Apple SD Gothic Neo",serif;font-weight:700;font-size:40px;letter-spacing:-.02em}
+.hero h1{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:700;font-size:40px;letter-spacing:-.02em}
 .hero .lead{margin-top:8px;color:var(--sub);font-size:15px}
-.summary{display:flex;flex-wrap:wrap;margin:22px 0 8px;border:1px solid var(--line);border-radius:15px;overflow:hidden;background:var(--card)}
-.s-item{flex:1;min-width:120px;padding:16px 18px;border-right:1px solid var(--line)}
+.summary{display:flex;flex-wrap:wrap;margin:22px 0 6px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card)}
+.s-item{flex:1;min-width:120px;padding:15px 18px;border-right:1px solid var(--line)}
 .s-item:last-child{border-right:0}
-.s-num{font-family:"DM Mono",monospace;font-size:26px;font-weight:500;line-height:1}
+.s-num{font-family:"DM Mono",monospace;font-size:25px;font-weight:500;line-height:1}
 .s-lab{font-size:12px;color:var(--wait);margin-top:6px}
 .s-open .s-num{color:var(--open)}.s-short .s-num{color:var(--short)}
-.block{margin-top:34px}
-.b-head{display:flex;align-items:baseline;gap:10px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--ink)}
-.b-head h2{font-family:Hahmlet,serif;font-size:21px;font-weight:700}
-.b-sub{font-size:12px;color:var(--wait)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:16px;border-top:3px solid var(--line);transition:transform .12s,box-shadow .12s}
-.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(36,31,27,.08)}
-.card.k-online{border-top-color:var(--online)}
-.card.k-offline{border-top-color:var(--offline)}
-.card.past{opacity:.5}
-.c-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.layer{margin-top:34px}
+.layer-h{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.layer-h h2{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-size:22px;font-weight:700}
+.layer-h .ls{font-size:12px;color:var(--wait)}
+.layer-h .bar{flex:1;height:2px;background:var(--ink);align-self:center;margin-left:6px;opacity:.85}
+.grp{margin-top:16px}
+.grp-h{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+.grp-h h3{font-size:15px;font-weight:700}.grp-h span{font-size:12px;color:var(--wait)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;border-top:3px solid var(--line);transition:.12s;cursor:pointer}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(36,31,27,.08)}
+.card.k-online{border-top-color:var(--online)}.card.k-offline{border-top-color:var(--offline)}
+.c-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
 .orderer{font-size:12px;color:var(--wait);font-weight:500}
 .badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;font-family:"DM Mono",monospace}
-.b-open{background:#E6F4E6;color:var(--open)}.b-short{background:#FCE8DD;color:var(--short)}
-.b-wait{background:#EEE9DD;color:var(--wait)}
+.b-open{background:#E6F4E6;color:var(--open)}.b-short{background:#FCE8DD;color:var(--short)}.b-wait{background:#EEE9DD;color:var(--wait)}
 .c-date{font-family:"DM Mono",monospace;font-size:13px;color:var(--point);font-weight:500}
-.c-name{font-family:Hahmlet,serif;font-size:19px;font-weight:700;margin:2px 0 6px;letter-spacing:-.01em}
-.c-meta{font-size:12.5px;color:var(--sub);margin-bottom:12px}
-.gauge{position:relative;height:8px;background:#EEE9DD;border-radius:5px;margin-top:16px}
+.c-name{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-size:19px;font-weight:700;margin:2px 0 6px}
+.c-meta{font-size:12.5px;color:var(--sub);margin-bottom:11px}
+.c-fix{font-family:"DM Mono",monospace;font-size:14px;margin-top:10px;color:var(--ink)}
+.c-fix .ft{font-size:10px;background:#EEE9DD;color:var(--wait);padding:2px 7px;border-radius:10px;margin-left:4px}
+.gauge{position:relative;height:8px;background:#EEE9DD;border-radius:5px;margin-top:15px}
 .gfill{position:absolute;left:0;top:0;bottom:0;background:var(--online);border-radius:5px}
 .k-offline .gfill{background:var(--offline)}
 .minmark{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);border-radius:2px}
-.minmark::after{content:"최소";position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--ink);white-space:nowrap;font-family:"DM Mono",monospace}
+.minmark::after{content:"최소";position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:9px;font-family:"DM Mono",monospace;color:var(--ink)}
 .gnum{display:flex;justify-content:space-between;margin-top:8px;font-family:"DM Mono",monospace;font-size:11.5px}
-.appl{font-weight:500}.lim{color:var(--wait)}
-.c-foot{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+.gnum .lim{color:var(--wait)}
+.c-foot{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px;padding-top:9px;border-top:1px solid var(--line)}
 .c-foot span{font-size:11px;padding:3px 8px;border-radius:6px;background:#F4EFE3}
-.settle{color:var(--ink);font-family:"DM Mono",monospace}
-.state{color:var(--online)}
-.empty{padding:30px;text-align:center;color:var(--wait);font-size:14px;background:var(--card);border:1px dashed var(--line);border-radius:15px}
-.tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.tool{position:relative;display:flex;flex-direction:column;gap:4px;padding:18px;background:var(--card);border:1px solid var(--line);border-radius:15px;text-decoration:none;color:var(--ink);transition:.12s}
+.settle{font-family:"DM Mono",monospace}.state{color:var(--online)}
+.empty{padding:26px;text-align:center;color:var(--wait);font-size:13.5px;background:var(--card);border:1px dashed var(--line);border-radius:12px}
+.feats{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:14px}
+.feat{position:relative;display:block;padding:18px;background:var(--card);border:1px solid var(--line);border-radius:14px;text-decoration:none;color:var(--ink);transition:.12s}
+.feat:hover{border-color:var(--point);transform:translateY(-2px)}
+.feat.soon{opacity:.55;pointer-events:none}
+.ft-t{font-weight:700;font-size:16px}.ft-d{font-size:12.5px;color:var(--wait);margin-top:3px}.ft-go{font-size:12px;color:var(--point);margin-top:8px}
+.tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:14px}
+.tool{position:relative;display:flex;flex-direction:column;gap:4px;padding:17px;background:var(--card);border:1px solid var(--line);border-radius:14px;text-decoration:none;color:var(--ink);transition:.12s}
 .tool:hover{border-color:var(--point);transform:translateY(-2px)}
 .tool.soon{opacity:.55;pointer-events:none}
 .t-name{font-weight:700;font-size:15px}.t-desc{font-size:12px;color:var(--wait)}
 .tag{position:absolute;top:12px;right:12px;font-size:10px;background:#EEE9DD;color:var(--wait);padding:2px 7px;border-radius:10px;font-family:"DM Mono",monospace}
-.backup-row{display:flex;flex-wrap:wrap;gap:10px}
+.listwrap{margin-top:14px;overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+table.list{width:100%;border-collapse:collapse;font-size:13px;min-width:600px}
+table.list th,table.list td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left}
+table.list th{background:#F4EFE3;font-size:12px;color:var(--sub);font-weight:700}
+table.list tr:last-child td{border-bottom:none}
+table.list .ln{font-weight:600}.table .rt,.list .rt{text-align:center;font-family:"DM Mono",monospace}
+table.list .st{color:var(--online);font-size:12px}
+.badge2{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:10px;font-family:"DM Mono",monospace}
+.badge2.b-open{background:#E6F4E6;color:var(--open)}.badge2.b-short{background:#FCE8DD;color:var(--short)}.badge2.b-wait{background:#EEE9DD;color:var(--wait)}
+.backup-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
 .bk-btn{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-family:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;cursor:pointer;transition:.12s;text-decoration:none}
-.bk-btn:hover{border-color:var(--point);color:var(--point);transform:translateY(-1px)}
-.backup-note{margin-top:12px;font-size:12.5px;color:var(--sub);line-height:1.9}
-.backup-note code{font-family:"DM Mono",monospace;font-size:11.5px;background:#F4EFE3;padding:2px 7px;border-radius:5px;color:var(--ink)}
-.backup-note a{color:var(--point);text-decoration:none;border-bottom:1px solid var(--point)}
+.bk-btn:hover{border-color:var(--point);color:var(--point)}
 .bk-tag{font-family:"DM Mono",monospace;font-size:10px;background:#EEE9DD;color:var(--wait);padding:2px 7px;border-radius:10px;margin-left:2px}
-.ops-note{margin-top:34px;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:12px;font-size:12.5px;color:var(--sub);line-height:1.9}
+.backup-note{margin-top:11px;font-size:12.5px;color:var(--sub);line-height:1.9}
+.backup-note code{font-family:"DM Mono",monospace;font-size:11.5px;background:#F4EFE3;padding:2px 7px;border-radius:5px}
+.backup-note a{color:var(--point);text-decoration:none;border-bottom:1px solid var(--point)}
+.ops-note{margin-top:30px;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:12px;font-size:12.5px;color:var(--sub);line-height:1.9}
 .ops-note b{color:var(--ink)}
-.foot{margin-top:30px;padding-top:16px;border-top:1px solid var(--line);font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
-@media(max-width:520px){.hero h1{font-size:30px}.s-item{min-width:50%;flex:none}
-.topbar{align-items:flex-start}.tb-right{flex-direction:column;align-items:flex-end;gap:2px}.tb-sep{display:none}}
+.foot{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
+@media(max-width:520px){.hero h1{font-size:30px}.s-item{min-width:50%;flex:none}.topbar{align-items:flex-start}.tb-right{flex-direction:column;align-items:flex-end;gap:2px}.tb-sep{display:none}}
+/* 자세히보기 모달 */
+.modal{position:fixed;inset:0;z-index:50;display:none}
+.modal.on{display:block}
+.modal-bg{position:absolute;inset:0;background:rgba(36,31,27,.42);backdrop-filter:blur(2px)}
+.modal-panel{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(720px,94vw);max-height:90vh;background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 60px rgba(36,31,27,.28);display:flex;flex-direction:column;overflow:hidden}
+.modal-head{display:flex;justify-content:space-between;align-items:flex-start;padding:20px 22px 14px;border-bottom:1px solid var(--line)}
+.m-orderer{font-size:12px;color:var(--wait);font-weight:500}
+.modal-head h2{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-size:23px;font-weight:700;margin-top:3px}
+.m-actions{display:flex;gap:8px;align-items:center;flex-shrink:0}
+.m-edit{font-size:13px;text-decoration:none;color:#fff;background:var(--point);border-radius:8px;padding:7px 13px;white-space:nowrap}
+.m-edit:hover{filter:brightness(1.06)}
+.m-close{border:none;background:var(--card);border:1px solid var(--line);border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:14px;color:var(--sub)}
+.m-close:hover{border-color:var(--point);color:var(--point)}
+.modal-tabs{display:flex;gap:2px;padding:0 22px;border-bottom:1px solid var(--line);overflow-x:auto}
+.mtab{font-family:inherit;font-size:13px;color:var(--sub);background:none;border:none;border-bottom:2px solid transparent;padding:11px 12px;cursor:pointer;white-space:nowrap;margin-bottom:-1px}
+.mtab:hover{color:var(--ink)}
+.mtab.on{color:var(--point);border-bottom-color:var(--point);font-weight:700}
+.modal-body{padding:18px 22px 24px;overflow-y:auto}
+.mpanel{display:none}.mpanel.on{display:block}
+.drow{display:flex;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.drow:last-child{border-bottom:none}
+.drow .k{color:var(--sub);min-width:96px;flex-shrink:0}
+.drow .v{color:var(--ink);font-weight:500;white-space:pre-wrap}
+.drow .v.mono{font-family:"DM Mono",monospace}
+.dsub{font-size:12px;color:var(--point);font-weight:700;margin:14px 0 4px}
+.dsub:first-child{margin-top:0}
+.dempty{color:var(--wait);font-size:13px;padding:10px 0}
+.dnote{margin-top:14px;font-size:12px;color:var(--wait);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
 </style></head><body><div class="wrap">
-<div class="topbar"><div class="tb-left"><a class="home-link" href="index.html">← 공공의주방 홈</a><a class="chat-link" href="https://claude.ai/chat/8b7feedc-e7f4-429f-a546-0320d4116fbb" target="_blank" rel="noopener">💬 작업 대화</a></div><div class="tb-right"><span class="crumb">AI 워크스페이스 › 클래스</span><span class="tb-sep">|</span><span class="updated" id="upd"></span></div></div>
+<div class="topbar"><div class="tb-left"><a class="pill" href="index.html">← 공공의주방 홈</a><a class="pill" href="https://claude.ai/chat/8b7feedc-e7f4-429f-a546-0320d4116fbb" target="_blank" rel="noopener">💬 작업 대화</a></div>
+<div class="tb-right"><span class="crumb">AI 워크스페이스 › 클래스</span><span class="tb-sep">|</span><span class="updated" id="upd"></span></div></div>
 <header class="hero"><h1>클래스 홈</h1><p class="lead">온라인·오프라인 수업 일정과 정산을 관리합니다.</p></header>
 <div class="summary">
 <div class="s-item"><div class="s-num">3</div><div class="s-lab">다가오는 수업</div></div>
-<div class="s-item s-open"><div class="s-num">2</div><div class="s-lab">개강</div></div>
-<div class="s-item s-short"><div class="s-num">1</div><div class="s-lab">미달</div></div>
-<div class="s-item"><div class="s-num">44</div><div class="s-lab">전체 수강생</div></div>
+<div class="s-item s-open"><div class="s-num">3</div><div class="s-lab">개강·확정</div></div>
+<div class="s-item s-short"><div class="s-num">0</div><div class="s-lab">미달</div></div>
+<div class="s-item"><div class="s-num">38</div><div class="s-lab">전체 수강생</div></div>
 </div>
-<section class="block"><div class="b-head"><h2>온라인 클래스</h2><span class="b-sub">배송형 · 인당 정산 1만원</span></div><div class="grid"><article class="card k-online">
-<header class="c-head"><span class="orderer">경기도지식</span><span class="badge b-open">개강</span></header>
-<div class="c-date">8/1(토) · 10:00</div>
-<div class="c-name">꽃게탕</div><div class="c-meta">선생님 이영미 · 온라인 줌+배송</div>
-<div class="gauge"><div class="gfill" style="width:80%"></div><span class="minmark" style="left:67%"></span></div>
-<div class="gnum"><span class="appl">신청 24</span><span class="lim">최소 20 · 최대 30</span></div>
-<div class="c-foot"><span class="settle">정산 240,000원</span><span class="state">확정</span></div></article><article class="card k-online">
-<header class="c-head"><span class="orderer">경기도지식</span><span class="badge b-short">미달</span></header>
-<div class="c-date">8/16(일) · 10:00</div>
-<div class="c-name">스지전골</div><div class="c-meta">선생님 이영미 · 온라인 줌+배송</div>
-<div class="gauge"><div class="gfill" style="width:40%"></div><span class="minmark" style="left:67%"></span></div>
-<div class="gnum"><span class="appl">신청 12</span><span class="lim">최소 20 · 최대 30</span></div>
-<div class="c-foot"><span class="settle">정산 120,000원</span><span class="state">확정</span></div></article></div></section>
-<section class="block"><div class="b-head"><h2>오프라인 클래스</h2><span class="b-sub">현장 수업 · 정산율 적용</span></div><div class="grid"><article class="card k-offline">
-<header class="c-head"><span class="orderer">갤러리아광교</span><span class="badge b-open">개강</span></header>
-<div class="c-date">7/15(수) · 14:00</div>
-<div class="c-name">여름 파스타</div><div class="c-meta">선생님 김셰프 · 정산율 60% · 갤러리아 광교 5F</div>
-<div class="gauge"><div class="gfill" style="width:67%"></div><span class="minmark" style="left:33%"></span></div>
-<div class="gnum"><span class="appl">신청 8</span><span class="lim">최소 4 · 최대 12</span></div>
-<div class="c-foot"><span class="settle">정산 264,000원</span><span class="state">확정</span><span class="memo">재료 사전준비</span></div></article></div></section>
-<section class="block"><div class="b-head"><h2>도구</h2><span class="b-sub">하나씩 채워집니다</span></div>
-<div class="tools"><a class="tool soon" href="#"><span class="tag">준비 중</span><span class="t-name">클래스 일정</span><span class="t-desc">월별 전체 수업 한눈에</span></a><a class="tool soon" href="#"><span class="tag">준비 중</span><span class="t-name">정산 계산기</span><span class="t-desc">인원·정산율로 자동 산출</span></a><a class="tool soon" href="#"><span class="tag">준비 중</span><span class="t-name">컬리 송장 변환</span><span class="t-desc">경기도지식 명단 → 컬리 양식</span></a><a class="tool soon" href="#"><span class="tag">준비 중</span><span class="t-name">클래스 견적서</span><span class="t-desc">경기도지식·지자체 견적</span></a><a class="tool soon" href="#"><span class="tag">준비 중</span><span class="t-name">메뉴 레퍼런스</span><span class="t-desc">수업별 메뉴·레시피</span></a></div></section>
-<section class="block"><div class="b-head"><h2>📦 원본 파일</h2><span class="b-sub">백업·동기화용</span></div>
+
+<section class="layer"><div class="layer-h"><h2>진행 중인 클래스</h2><span class="ls">검토중·확정·모집·개강</span><span class="bar"></span></div>
+<div class="grp"><div class="grp-h"><h3>온라인</h3><span>배송형 · 인당 정산 1만원</span></div><div class="grid"><article class="card k-online" onclick="openDetail('GS-2607')"><header class="c-head"><span class="orderer">경기도지식</span><span class="badge b-open">확정</span></header><div class="c-date">7/27(월) · 16:00</div><div class="c-name">냉이 꽃게탕</div><div class="c-meta">선생님 김은영 · 온라인 줌+배송</div><div class="c-fix">👥 30명 확정 <span class="ft">사전확정</span></div><div class="c-foot"><span class="settle">수익 9,916원 (21.8%)</span><span class="state">확정</span></div></article><article class="card k-online" onclick="openDetail('GS-2610')"><header class="c-head"><span class="orderer">경기도지식</span><span class="badge b-open">확정</span></header><div class="c-date">8/11(화)</div><div class="c-name">스지전골</div><div class="c-meta">선생님 이영미</div><div class="c-fix">👥 30명 확정 <span class="ft">사전확정</span></div><div class="c-foot"><span class="state">검토중</span></div></article></div></div>
+<div class="grp"><div class="grp-h"><h3>오프라인</h3><span>현장 수업 · 수수료 정산</span></div><div class="grid"><article class="card k-offline" onclick="openDetail('GAL-07')"><header class="c-head"><span class="orderer">갤러리아</span><span class="badge b-open">개강</span></header><div class="c-date">7/19(일) · 14:00</div><div class="c-name">여름 파스타</div><div class="c-meta">선생님 장재우 · 정산율 60% · 갤러리아 광교 5F</div><div class="gauge"><div class="gfill" style="width:67%"></div><span class="minmark" style="left:33%"></span></div><div class="gnum"><span>신청 8</span><span class="lim">최소 4 · 최대 12</span></div><div class="c-foot"><span class="state">확정</span></div></article></div></div>
+</section>
+
+<section class="layer"><div class="layer-h"><h2>주요 기능</h2><span class="ls">목록·리포트</span><span class="bar"></span></div>
+<div class="feats"><a class="feat" href="#list"><div class="ft-t">전체 클래스 목록</div><div class="ft-d">3건 · 상태별 전체</div><div class="ft-go">아래로 ↓</div></a><a class="feat soon" href="#"><div class="ft-t">정산 리포트</div><div class="ft-d">받을 돈·줄 돈·지급 예정</div><span class="tag">준비 중</span></a></div></section>
+
+<section class="layer"><div class="layer-h"><h2>도구</h2><span class="ls">계산·가이드</span><span class="bar"></span></div>
+<div class="tools"><a class="tool" href="class-quote.html" ><span class="t-name">재료비·수익률 계산기</span><span class="t-desc">등록·견적·수정 겸용</span></a><a class="tool" href="class-guide.html" ><span class="t-name">설계 가이드</span><span class="t-desc">클래스 구조·정산·콘텐츠</span></a><a class="tool soon" href="#"><span class="tag">준비 중</span><span class="t-name">컬리 송장 변환</span><span class="t-desc">경기도지식 명단 → 컬리</span></a><a class="tool soon" href="#"><span class="tag">준비 중</span><span class="t-name">메뉴 레퍼런스</span><span class="t-desc">수업별 메뉴·레시피</span></a><a class="tool soon" href="#"><span class="tag">준비 중</span><span class="t-name">사진 관리</span><span class="t-desc">대표·후기 사진</span></a></div></section>
+
+<section class="layer" id="list"><div class="layer-h"><h2>전체 클래스 목록</h2><span class="ls">3건</span><span class="bar"></span></div>
+<div class="listwrap"><table class="list"><thead><tr><th>수업일</th><th>발주처</th><th>수업명</th><th>구분</th><th>개폐강</th><th>신청</th><th>상태</th></tr></thead>
+<tbody><tr><td>7/19(일)</td><td>갤러리아</td><td class="ln">여름 파스타</td><td>오프라인</td><td><span class="badge2 b-open">개강</span></td><td class="rt">8</td><td class="st">확정</td></tr><tr><td>7/27(월)</td><td>경기도지식</td><td class="ln">냉이 꽃게탕</td><td>온라인</td><td><span class="badge2 b-open">확정</span></td><td class="rt">30</td><td class="st">확정</td></tr><tr><td>8/11(화)</td><td>경기도지식</td><td class="ln">스지전골</td><td>온라인</td><td><span class="badge2 b-open">확정</span></td><td class="rt">0</td><td class="st">검토중</td></tr></tbody></table></div></section>
+
+<section class="layer"><div class="layer-h"><h2>📦 원본 파일</h2><span class="ls">백업·동기화</span><span class="bar"></span></div>
 <div class="backup-row">
 <button class="bk-btn" onclick="saveHTML()">📄 이 화면 HTML 받기</button>
 <button class="bk-btn" onclick="saveXLSX()">📊 엑셀 마스터 파일 받기 <span class="bk-tag">개인정보 뺀 공개용</span></button>
 </div>
-<p class="backup-note">위 엑셀은 개인정보(연락처·우편번호·주소·수강생 이름)를 뺀 <b>회차·인원 정보(공개용)</b>입니다. &nbsp;→ <code>class-master-open_날짜.xlsx</code><br>※ <b>완전판</b>(연락처·주소·수식까지 다 있는 원본)은 <a href="https://claude.ai/chat/8b7feedc-e7f4-429f-a546-0320d4116fbb" target="_blank" rel="noopener">채팅창</a>에서 받으실 수 있습니다. &nbsp;→ <code>class-master-all-v1.xlsx</code></p>
-</section>
+<p class="backup-note">위 엑셀은 개인정보(연락처·주소·수강생 이름)를 뺀 <b>회차·인원 정보(공개용)</b>입니다. → <code>class-master-open_날짜.xlsx</code><br>※ <b>완전판</b>(연락처·주소 포함 원본)은 <a href="https://claude.ai/chat/8b7feedc-e7f4-429f-a546-0320d4116fbb" target="_blank" rel="noopener">채팅창</a>에서 받으세요. → <code>class-master-all-v2.xlsx</code></p></section>
+
 <div class="ops-note">※ <b>홈은 보기·이동만 합니다.</b><br>· 데이터를 고칠 땐 → 마스터(엑셀/대화창)에서<br>· 볼 땐 → 이 홈에서<br>· 모든 파일은 같은 폴더(github)에 두어야 링크가 작동합니다.</div>
-<div class="foot">클래스 홈 · v5 · 마스터에서 자동 생성 (gen_class.py)</div>
+<div class="foot">클래스 홈 · v6 · 마스터에서 자동 생성 (gen_class.py)</div>
 </div>
-<script>window.CLASS_ROWS=[{"회차ID": "GAL-07", "수업명": "여름 파스타", "발주처": "갤러리아광교", "구분": "오프라인", "수업일": "2026-07-15", "시각": "14:00", "장소/배송": "갤러리아 광교 5F", "최소인원": 4, "최대인원": 12, "신청인원": 8, "개폐강": "개강", "수업료(인당)": 55000, "정산율": 0.6, "정산금액": 264000, "선생님": "김셰프", "상태": "확정", "비고": "재료 사전준비"}, {"회차ID": "GS-2607", "수업명": "꽃게탕", "발주처": "경기도지식", "구분": "온라인", "수업일": "2026-08-01", "시각": "10:00", "장소/배송": "온라인 줌+배송", "최소인원": 20, "최대인원": 30, "신청인원": 24, "개폐강": "개강", "수업료(인당)": "", "정산율": "", "정산금액": 240000, "선생님": "이영미", "상태": "확정", "비고": ""}, {"회차ID": "GS-2608", "수업명": "스지전골", "발주처": "경기도지식", "구분": "온라인", "수업일": "2026-08-16", "시각": "10:00", "장소/배송": "온라인 줌+배송", "최소인원": 20, "최대인원": 30, "신청인원": 12, "개폐강": "미달", "수업료(인당)": "", "정산율": "", "정산금액": 120000, "선생님": "이영미", "상태": "확정", "비고": ""}];</script>
+
+<div class="modal" id="modal"><div class="modal-bg" onclick="closeDetail()"></div>
+<div class="modal-panel">
+<div class="modal-head"><div><span class="m-orderer" id="mOrderer"></span><h2 id="mName"></h2></div>
+<div class="m-actions"><a class="m-edit" id="mEdit" href="https://claude.ai/chat/8b7feedc-e7f4-429f-a546-0320d4116fbb" target="_blank" rel="noopener">✏ 클래스 수정</a><button class="m-close" onclick="closeDetail()">✕</button></div></div>
+<div class="modal-tabs">
+<button class="mtab on" data-t="d1">정보</button><button class="mtab" data-t="d2">과정개요서</button>
+<button class="mtab" data-t="d3">레시피·재료</button><button class="mtab" data-t="d4">가격·정산</button>
+<button class="mtab" data-t="d5">모집</button><button class="mtab" data-t="d6">정산</button></div>
+<div class="modal-body">
+<div class="mpanel on" id="d1"></div><div class="mpanel" id="d2"></div><div class="mpanel" id="d3"></div>
+<div class="mpanel" id="d4"></div><div class="mpanel" id="d5"></div><div class="mpanel" id="d6"></div>
+</div></div></div>
+
+<script>window.CLASS_ROWS=[{"회차ID": "GAL-07", "수업명": "여름 파스타", "발주처": "갤러리아", "구분": "오프라인", "수업일": "2026-07-19", "모집유형": "B", "최소": 4, "최대": 12, "신청": 8, "개폐강": "개강", "판매가": 79000.0, "재료비": "", "수익": "", "수익률": 0.6, "선생님": "장재우", "상태": "확정"}, {"회차ID": "GS-2607", "수업명": "냉이 꽃게탕", "발주처": "경기도지식", "구분": "온라인", "수업일": "2026-07-27", "모집유형": "A", "최소": 30, "최대": 30, "신청": 30, "개폐강": "확정", "판매가": 50000.0, "재료비": 15539.0, "수익": 9916.0, "수익률": 0.218, "선생님": "김은영", "상태": "확정"}, {"회차ID": "GS-2610", "수업명": "스지전골", "발주처": "경기도지식", "구분": "온라인", "수업일": "2026-08-11", "모집유형": "A", "최소": 30, "최대": 30, "신청": 0, "개폐강": "확정", "판매가": 50000.0, "재료비": "", "수익": "", "수익률": "", "선생님": "이영미", "상태": "검토중"}];window.CLASS_DETAIL={"GAL-07": {"name": "여름 파스타", "orderer": "갤러리아", "kind": "오프라인", "mtype": "B", "date": "7/19(일)", "time": "14:00", "place": "갤러리아 광교 5F", "state": "확정", "mn": 4, "mx": 12, "applied": 8, "openst": "개강", "confirmday": "-", "refundday": "7/18(토)", "refundsrc": "갤러리아 규정", "price": 79000.0, "vat": "포함", "struct": "B", "mat": null, "pack": null, "ship": null, "teach": null, "profit": null, "rate": 0.6, "teacher": "장재우", "ttype": "사업자", "feeway": "수수료%", "feerate": 0.6, "settle": null, "taxto": "", "payer": "", "paywhen": "", "paydate": "", "content": {}}, "GS-2607": {"name": "냉이 꽃게탕", "orderer": "경기도지식", "kind": "온라인", "mtype": "A", "date": "7/27(월)", "time": "16:00", "place": "온라인 줌+배송", "state": "확정", "mn": 30, "mx": 30, "applied": 30, "openst": "확정", "confirmday": "7/23(목)", "refundday": "-", "refundsrc": "", "price": 50000.0, "vat": "포함", "struct": "A", "mat": 15539.0, "pack": 5000.0, "ship": 5000.0, "teach": 10000.0, "profit": 9916.0, "rate": 0.218, "teacher": "김은영", "ttype": "개인", "feeway": "인당1만", "feerate": null, "settle": 300000.0, "taxto": "휴넷", "payer": "휴넷", "paywhen": "익월말일", "paydate": "2026-08-26", "content": {"강의명": "봄향기 가득, 시원하고 깊은 맛의 '냉이 꽃게탕'", "소개문": "집에서 전문점처럼 깊은 국물맛을 내는 꽃게탕", "강의내용": "봄 제철 냉이를 활용해\n집에서도 전문점처럼 깊은 국물 맛을 내는 꽃게탕 조리법을 배웁니다.", "대상": "성인", "선발방식": "선발", "소요시간": "약 1시간 30분", "키트구성품": "손질 꽃게 300g, 두부, 애호박, 청양고추, 대파, 냉이, 특제양념", "개별준비물": "냄비, 국자, 계량컵, 도마, 칼, 앞치마", "강사이력": "스타필드 고양점 출강, 이마트 컬처클럽 출강", "해시태그": "#냉이 #꽃게탕 #봄제철 #온라인", "배송안내": "", "참여안내": "", "장소상세": "", "동반인규정": ""}}, "GS-2610": {"name": "스지전골", "orderer": "경기도지식", "kind": "온라인", "mtype": "A", "date": "8/11(화)", "time": "", "place": "", "state": "검토중", "mn": 30, "mx": 30, "applied": 0, "openst": "확정", "confirmday": "-", "refundday": "-", "refundsrc": "", "price": 50000.0, "vat": "포함", "struct": "A", "mat": null, "pack": null, "ship": null, "teach": null, "profit": null, "rate": null, "teacher": "이영미", "ttype": "", "feeway": "", "feerate": null, "settle": null, "taxto": "", "payer": "", "paywhen": "", "paydate": "", "content": {}}};</script>
 <script>
-function tsName(base,ext){var n=new Date(),p=function(x){return(x<10?'0':'')+x};
-return base+'_'+n.getFullYear()+p(n.getMonth()+1)+p(n.getDate())+'.'+ext;}
-function dl(blob,fname){var u=URL.createObjectURL(blob),a=document.createElement('a');
-a.href=u;a.download=fname;document.body.appendChild(a);a.click();
-setTimeout(function(){URL.revokeObjectURL(u);a.remove();},100);}
-function saveHTML(){var html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
-dl(new Blob([html],{type:'text/html;charset=utf-8'}),'class.html');}
-function toCSV(rows){if(!rows.length)return'';var keys=Object.keys(rows[0]);
-var esc=function(v){v=(v==null?'':''+v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
-var out=keys.join(',')+'\n';rows.forEach(function(r){out+=keys.map(function(k){return esc(r[k]);}).join(',')+'\n';});
-return '\ufeff'+out;}
-function saveXLSX(){var rows=window.CLASS_ROWS||[];
-if(!rows.length){alert('내보낼 회차 데이터가 없습니다.');return;}
-if(typeof XLSX!=='undefined'){try{var ws=XLSX.utils.json_to_sheet(rows);
-var wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'회차');
-XLSX.writeFile(wb,tsName('class-master-open','xlsx'));return;}catch(e){}}
-dl(new Blob([toCSV(rows)],{type:'text/csv;charset=utf-8'}),tsName('class-master-open','csv'));}
-(function(){var v=document.querySelector('meta[name=version]');var u=document.querySelector('meta[name=updated]');var el=document.getElementById('upd');if(el){el.textContent='업데이트 '+((u&&u.content)||'')+' · '+((v&&v.content)||'');}})();
+function tsN(base,ext){var n=new Date(),p=function(x){return(x<10?'0':'')+x};return base+'_'+n.getFullYear()+p(n.getMonth()+1)+p(n.getDate())+'.'+ext;}
+function dl(bl,f){var u=URL.createObjectURL(bl),a=document.createElement('a');a.href=u;a.download=f;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(u);a.remove();},100);}
+function saveHTML(){dl(new Blob(['<!DOCTYPE html>\n'+document.documentElement.outerHTML],{type:'text/html;charset=utf-8'}),'class.html');}
+function toCSV(rows){if(!rows.length)return'';var k=Object.keys(rows[0]);var e=function(v){v=(v==null?'':''+v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};var o=k.join(',')+'\n';rows.forEach(function(r){o+=k.map(function(x){return e(r[x]);}).join(',')+'\n';});return '\ufeff'+o;}
+function saveXLSX(){var rows=window.CLASS_ROWS||[];if(!rows.length){alert('내보낼 데이터가 없습니다.');return;}
+if(typeof XLSX!=='undefined'){try{var ws=XLSX.utils.json_to_sheet(rows);var wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'회차');XLSX.writeFile(wb,tsN('class-master-open','xlsx'));return;}catch(e){}}
+dl(new Blob([toCSV(rows)],{type:'text/csv;charset=utf-8'}),tsN('class-master-open','csv'));}
+(function(){var u=document.querySelector('meta[name=updated]'),v=document.querySelector('meta[name=version]');var el=document.getElementById('upd');if(el)el.textContent='업데이트 '+((u&&u.content)||'')+' · '+((v&&v.content)||'');})();
+
+var D=window.CLASS_DETAIL||{};
+function won(n){if(n==null||n==='')return '';return Number(n).toLocaleString()+'원';}
+function pct(n){if(n==null||n==='')return '';return (Math.round(n*1000)/10)+'%';}
+function row(k,v,mono){if(v==null||v==='')return '';return '<div class="drow"><span class="k">'+k+'</span><span class="v'+(mono?' mono':'')+'">'+String(v).replace(/</g,'&lt;')+'</span></div>';}
+function esc2(v){return v==null?'':String(v).replace(/</g,'&lt;');}
+function openDetail(cid){
+  var d=D[cid];if(!d)return;
+  document.getElementById('mOrderer').textContent=(d.orderer||'')+' · '+(d.kind||'');
+  document.getElementById('mName').textContent=d.name||'';
+  var c=d.content||{};
+  // ① 정보
+  document.getElementById('d1').innerHTML=
+    row('수업명',d.name)+row('강의명',c.강의명)+row('발주처',d.orderer)+row('구분',d.kind)
+    +row('수업일',d.date)+row('시각',d.time)+row('장소/배송',d.place)
+    +row('대상',c.대상)+row('선발방식',c.선발방식)+row('소요시간',c.소요시간)+row('상태',d.state);
+  // ② 과정개요서
+  var d2='<div class="dsub">강의내용</div>'+(c.강의내용?('<div class="v" style="white-space:pre-wrap;font-size:13.5px">'+esc2(c.강의내용)+'</div>'):'<div class="dempty">미입력</div>')
+    +'<div class="dsub">키트 구성품</div>'+(c.키트구성품?('<div class="v" style="white-space:pre-wrap;font-size:13.5px">'+esc2(c.키트구성품)+'</div>'):'<div class="dempty">미입력</div>')
+    +'<div class="dsub">개별 준비물</div>'+(c.개별준비물?('<div class="v" style="white-space:pre-wrap;font-size:13.5px">'+esc2(c.개별준비물)+'</div>'):'<div class="dempty">미입력</div>')
+    +row('강사 이력',c.강사이력)+row('해시태그',c.해시태그)
+    +'<div class="dnote">수강신청 확인사항·GSEEK 참여안내 등 고정 문구는 채널로 낼 때 자동으로 붙습니다.</div>';
+  document.getElementById('d2').innerHTML=d2;
+  // ③ 레시피·재료
+  document.getElementById('d3').innerHTML=
+    row('재료비(1인)',won(d.mat),1)
+    +'<div class="dnote">재료 상세(구성품·단가·링크)는 재료비·수익률 계산기에서 관리합니다. 수정하려면 [클래스 수정]으로 최신본을 받아 계산기에 불러오세요.</div>';
+  // ④ 가격·정산
+  document.getElementById('d4').innerHTML=
+    row('판매가(인당)',won(d.price),1)+row('부가세',d.vat)+row('정산구조',d.struct==='A'?'A · 주최수금':(d.struct==='B'?'B · 우리수금':''))
+    +row('재료비(1인)',won(d.mat),1)+row('패킹비',won(d.pack),1)+row('배송비',won(d.ship),1)+row('강사비',won(d.teach),1)
+    +row('수익(1인)',won(d.profit),1)+row('수익률',pct(d.rate),1);
+  // ⑤ 모집
+  var mtype=d.mtype==='A'?'A · 사전확정':(d.mtype==='B'?'B · 모집확정':'');
+  document.getElementById('d5').innerHTML=
+    row('모집유형',mtype)+row('최소인원',d.mn)+row('최대인원',d.mx)+row('신청인원',d.applied,1)+row('개폐강',d.openst)
+    +row('확정기준일',d.confirmday)+row('환불마감일',d.refundday)+row('환불규칙',d.refundsrc)
+    +'<div class="dnote">수강생 명단(연락처·주소)은 개인정보라 화면에 표시하지 않습니다. 완전판은 마스터에 있습니다.</div>';
+  // ⑥ 정산
+  var fw=d.feeway==='인당1만'?'인당 1만원':(d.feeway==='수수료%'?('수수료 '+(d.feerate?pct(d.feerate):'')):'');
+  document.getElementById('d6').innerHTML=
+    row('선생님',d.teacher)+row('선생님 유형',d.ttype==='개인'?'개인 (원천세 3.3%)':(d.ttype==='사업자'?'사업자 (세금계산서)':''))
+    +row('정산방식',fw)+row('선생님 정산액',won(d.settle),1)
+    +row('세금계산서 발행처',d.taxto)+row('지급주체',d.payer)+row('지급시기',d.paywhen)+row('정산예정일',d.paydate);
+  // 탭 초기화
+  document.querySelectorAll('.mtab').forEach(function(t,i){t.classList.toggle('on',i===0);});
+  document.querySelectorAll('.mpanel').forEach(function(p,i){p.classList.toggle('on',i===0);});
+  document.getElementById('modal').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeDetail(){document.getElementById('modal').classList.remove('on');document.body.style.overflow='';}
+document.querySelectorAll('.mtab').forEach(function(t){t.addEventListener('click',function(){
+  document.querySelectorAll('.mtab').forEach(function(x){x.classList.remove('on')});
+  document.querySelectorAll('.mpanel').forEach(function(p){p.classList.remove('on')});
+  t.classList.add('on');document.getElementById(t.dataset.t).classList.add('on');
+});});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDetail();});
 </script>
 </body></html>

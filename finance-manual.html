@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="version" content="v2">
+<meta name="updated" content="2026.07.07 13:19">
+<title>finance-manual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--cream:#FAF5EC;--surface:#FFFDF8;--ink:#241F1B;--muted:#8C857A;--line:#E7DCC8;--coral:#FF5019;--taupe:#C2B190;--sage:#5E9087;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Malgun Gothic",system-ui,sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
+.wrap{max-width:880px;margin:0 auto;padding:22px 20px 56px}
+/* top */
+.top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px;gap:12px;flex-wrap:wrap}
+.navleft{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#a8552f;text-decoration:none;padding:5px 13px;border:1px solid rgba(255,80,25,.22);border-radius:20px;background:rgba(255,80,25,.07);transition:.15s}
+.back:hover{background:rgba(255,80,25,.13);border-color:rgba(255,80,25,.4);color:var(--coral)}
+.metaline{margin-left:auto;text-align:right;font-size:12px;color:var(--muted);line-height:1.65}
+.metaline .bar{color:var(--line);margin:0 7px}
+.metaline .upd{font-family:"DM Mono",monospace;letter-spacing:.02em}
+@media(max-width:620px){.metaline{width:100%}.metaline .bar{display:none}.metaline .crumb,.metaline .upd{display:block}}
+/* hero */
+.hero{margin-bottom:26px}
+.hero h1{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:700;font-size:40px;letter-spacing:-.02em;line-height:1.12}
+.hero p{margin-top:12px;font-size:15px;color:var(--muted);max-width:560px}
+@media(max-width:620px){.hero h1{font-size:30px}.wrap{padding:18px 14px 44px}}
+/* progress */
+.prog{display:inline-flex;align-items:center;gap:8px;font-family:"DM Mono",monospace;font-size:12px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;margin-bottom:6px}
+.prog b{color:var(--coral)}
+/* group */
+.grp{margin:30px 0 12px}
+.grp .gh{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:700;font-size:19px;letter-spacing:-.01em;display:flex;align-items:baseline;gap:8px}
+.grp .gc{font-family:"DM Mono",monospace;font-size:12px;color:var(--muted)}
+.grp .gline{height:2px;background:linear-gradient(90deg,var(--coral),transparent);margin-top:9px;border-radius:2px}
+/* rows */
+.mlist{display:flex;flex-direction:column;gap:8px;margin-top:13px}
+.mrow{display:flex;align-items:center;gap:13px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 16px;text-decoration:none;color:inherit;transition:.15s}
+.mrow.done:hover{border-color:var(--coral);transform:translateX(3px);box-shadow:0 6px 18px -12px rgba(36,31,27,.25)}
+.mno{font-family:"DM Mono",monospace;font-size:13px;color:var(--muted);min-width:22px;text-align:center}
+.mrow.done .mno{color:var(--coral)}
+.mtitle{flex:1;font-size:14.5px;font-weight:600;line-height:1.4}
+.mtitle .msub{display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px}
+.mstat{font-size:12.5px;font-weight:600;white-space:nowrap}
+.mstat.ok{color:var(--coral)}
+.mrow.prep{opacity:.62;border-style:dashed}
+.mrow.prep .mstat{color:var(--taupe);font-weight:500}
+/* note + footer */
+.opnote{margin-top:28px;font-size:12px;color:var(--muted);line-height:1.7}
+.foot{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);text-align:center;font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted);letter-spacing:.03em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="navleft">
+      <a class="back" href="finance.html">← 정산·신고 홈</a>
+      <a class="back" href="https://claude.ai/chat/024598dc-4a12-4010-b257-5d655f771d15" target="_blank" rel="noopener">💬 작업 대화</a>
+    </div>
+    <div class="metaline">
+      <span class="crumb">AI 워크스페이스 › 정산·신고 › 매뉴얼</span>
+      <span class="bar">|</span>
+      <span class="upd">업데이트 <span id="updstamp"></span></span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>실무 매뉴얼</h1>
+    <p>부가세 신고부터 정기 납부·조회까지, 그대로 따라 하는 실무 절차서입니다. 각 매뉴얼은 화면과 함께 단계별로 안내합니다.</p>
+  </div>
+
+  <div class="prog">완료 <b id="doneCount">2</b> / 22</div>
+
+  <!-- 그룹 1: 부가세 신고 자료 -->
+  <div class="grp">
+    <div class="gh">📁 부가세 신고 자료 <span class="gc">04–10 · 7건</span></div>
+    <div class="gline"></div>
+  </div>
+  <div class="mlist">
+    <a class="mrow done" href="finance-manual-04.html">
+      <span class="mno">04</span>
+      <span class="mtitle">이니시스 자료 확인 <span class="msub">매출 · 매입 · 가상계좌 입출금</span></span>
+      <span class="mstat ok">완료 →</span>
+    </a>
+    <a class="mrow done" href="finance-manual-05.html"><span class="mno">05</span><span class="mtitle">토스 자료 확인 <span class="msub">매출 · 매입</span></span><span class="mstat ok">완료 →</span></a>
+    <div class="mrow prep"><span class="mno">06</span><span class="mtitle">법인통장 입출금 내역 조회</span><span class="mstat">준비 중</span></div>
+    <div class="mrow prep"><span class="mno">07</span><span class="mtitle">법인카드 매입세액공제 확인·수정</span><span class="mstat">준비 중</span></div>
+    <div class="mrow prep"><span class="mno">08</span><span class="mtitle">부가세 자료 출력·우편 발송</span><span class="mstat">준비 중</span></div>
+    <div class="mrow prep"><span class="mno">09</span><span class="mtitle">법인카드 영수증 출력</span><span class="mstat">준비 중</span></div>
+    <div class="mrow prep"><span class="mno">10</span><span class="mtitle">법인통장 자동이체·송금증 출력</span><span class="mstat">준비 중</span></div>
+  </div>
+
+  <!-- 그룹 2: 정기 신고·납부 -->
+  <div class="grp">
+    <div class="gh">📁 정기 신고·납부 <span class="gc">6건</span></div>
+    <div class="gline"></div>
+  </div>
+  <div class="mlist">
+    <div class="mrow prep"><span class="mno">01</span><span class="mtitle">급여대장 작성</span><span class="mstat">준비 중</span></div>
+    <div class="mrow prep"><span class="mno">02</span><span class="mtitle">원천세 신고 내역 전달</span><span class="mstat">준비 중</span></div>
+    <div class="mrow prep"><span class="mno">03</span><span class="mtitle">세금계산서 관련</span><span class="mstat">준비 중</span></div>
+    <div class="mrow prep"><span class="mno">11</span><span class="mtitle">보험료·원천세 납부</span><span class="mstat">준비 중</span></div>
+    <div class="mrow prep"><span class="mno">17</span><span class="mtitle">4대 보험 가입·상실신고</span><span class="mstat">준비 중</span></div>
+    <div class="mrow prep"><span class="mno">22</span><span class="mtitle">보수월액변경신고</span><span class="mstat">준비 중</span></div>
+  </div>
+
+  <!-- 그룹 3: 조회·관리 -->
+  <div class="grp">
+    <div class="gh">📁 조회·관리 <span class="gc">6건</span></div>
+    <div class="gline"></div>
+  </div>
+  <div class="mlist">
+    <div class="mrow prep"><span class="mno">12</span><span class="mtitle">시그니처 광교 관리비 고지서 확인</span><span class="mstat">준비 중</span></div>
+    <div class="mrow prep"><span class="mno">13</span><span class="mtitle">자비스 관련</span><span class="mstat">준비 중</span></div>
+    <div class="mrow prep"><span class="mno">14</span><span class="mtitle">카페24·망고보드 연장</span><span class="mstat">준비 중</span></div>
+    <div class="mrow prep"><span class="mno">15</span><span class="mtitle">이니시스 지급데이터 작성·수동 취소</span><span class="mstat">준비 중</span></div>
+    <div class="mrow prep"><span class="mno">16</span><span class="mtitle">대출내역 조회</span><span class="mstat">준비 중</span></div>
+    <div class="mrow prep"><span class="mno">19</span><span class="mtitle">연말정산 자료 조회·출력</span><span class="mstat">준비 중</span></div>
+  </div>
+
+  <!-- 그룹 4: 납부·행정 -->
+  <div class="grp">
+    <div class="gh">📁 납부·행정 <span class="gc">3건</span></div>
+    <div class="gline"></div>
+  </div>
+  <div class="mlist">
+    <div class="mrow prep"><span class="mno">18</span><span class="mtitle">등기 대행 요청 (주주리걸)</span><span class="mstat">준비 중</span></div>
+    <div class="mrow prep"><span class="mno">20</span><span class="mtitle">특허 연차등록료 납부</span><span class="mstat">준비 중</span></div>
+    <div class="mrow prep"><span class="mno">21</span><span class="mtitle">등록면허세 납부</span><span class="mstat">준비 중</span></div>
+  </div>
+
+  <p class="opnote">※ 매뉴얼은 <b>따라 하는 절차서</b>입니다. 기준·원리가 궁금할 땐 정산·신고 홈 → <b>세무 가이드</b>를 보세요. 각 매뉴얼의 화면은 실제 금액·계좌·사업자번호가 가려진 상태로만 넣습니다.</p>
+
+  <div class="foot">finance-manual · <span id="footver">v1</span> · 주식회사 공공의주방 · archiveat.kr · 2026</div>
+
+</div>
+<script>
+(function(){
+  var mv=document.querySelector('meta[name="version"]');
+  var mu=document.querySelector('meta[name="updated"]');
+  var ver=mv?mv.content:''; var upd=mu?mu.content:'';
+  var s=document.getElementById('updstamp'); if(s) s.textContent=upd+(ver?' · '+ver:'');
+  var fv=document.getElementById('footver'); if(fv&&ver) fv.textContent=ver;
+  // 완료 수 자동 집계
+  var dc=document.getElementById('doneCount');
+  if(dc) dc.textContent=document.querySelectorAll('.mrow.done').length;
+})();
+</script>
+</body>
+</html>
