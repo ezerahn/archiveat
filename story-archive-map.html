@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>책 재료 지도 · 안상미</title>
-<meta name="version" content="v11">
+<meta name="version" content="v12">
 <meta name="updated" content="2026.07.08">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,6 +40,14 @@
     text-align:center;
     padding:44px 20px 26px;
   }
+  .topnav{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+  .topnav a{
+    font-family:'Noto Serif KR',serif;font-size:.82rem;
+    padding:6px 15px;border-radius:20px;border:1px solid var(--line);
+    background:var(--card);color:var(--ink-soft);text-decoration:none;
+    transition:transform .12s;
+  }
+  .topnav a:active{transform:scale(.96);}
   header .kicker{
     font-size:.74rem;letter-spacing:.34em;color:var(--ink-faint);
     margin-bottom:14px;font-family:'Noto Serif KR',serif;
@@ -246,10 +254,15 @@
 <body>
 
 <header>
+  <nav class="topnav">
+    <a href="index.html">← 공공의주방 홈</a>
+    <a href="story-home.html">📖 스토리 홈</a>
+    <a href="https://claude.ai/chat/f01734cc-46a7-4d01-b7f3-8ca3612be97e" target="_blank" rel="noopener">💬 작업 대화</a>
+  </nav>
   <div class="kicker">책 재료 지도</div>
   <h1>먹이는 사람의 기록</h1>
   <p class="sub">꺼낸 이야기와, 밑줄 그을 한 줄. 그리고 아직 열지 않은 서랍들.</p>
-  <p class="date">안상미 · 공공의주방 / 아카이빗 &nbsp;|&nbsp; 업데이트 2026.07.08 · v11</p>
+  <p class="date">안상미 · 공공의주방 / 아카이빗 &nbsp;|&nbsp; 업데이트 2026.07.08 · v12</p>
 </header>
 
 <div class="tabs">
@@ -573,7 +586,7 @@
 <div class="underline"><span class="pen">✎</span><span class="u-txt">"받은 자리로 돌아가 주는 사람이 될 때, 한 바퀴가 완성된다."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
     </div>
 
-    <footer>이 지도는 상미님이 직접 꺼낸 이야기를 바탕으로 정리한 것입니다.<br>밑줄 한 줄의 최종 표현과 감정은 상미님의 몫으로 남겨둡니다. · v11</footer>
+    <footer>이 지도는 상미님이 직접 꺼낸 이야기를 바탕으로 정리한 것입니다.<br>밑줄 한 줄의 최종 표현과 감정은 상미님의 몫으로 남겨둡니다. · v12</footer>
   </div>
 </div>
 
