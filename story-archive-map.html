@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>책 재료 지도 · 안상미</title>
+<meta name="version" content="v11">
+<meta name="updated" content="2026.07.08">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2b2724;
+    --ink-soft:#6b625b;
+    --ink-faint:#9a8f86;
+    --paper:#f7f3ec;
+    --card:#fffdf9;
+    --line:#e6ddd0;
+    --spring:#6f8a5a;
+    --summer:#3f7d6e;
+    --autumn:#c2622d;
+    --winter:#5a7186;
+    --now:#8a7f74;
+    --gold:#b58a3c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Gowun Batang','Noto Serif KR',serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.8;
+    -webkit-text-size-adjust:100%;
+    padding:0 0 70px;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+
+  /* header */
+  header{
+    text-align:center;
+    padding:44px 20px 26px;
+  }
+  header .kicker{
+    font-size:.74rem;letter-spacing:.34em;color:var(--ink-faint);
+    margin-bottom:14px;font-family:'Noto Serif KR',serif;
+  }
+  header h1{
+    font-size:2rem;font-weight:700;letter-spacing:-.01em;
+    color:var(--ink);margin-bottom:10px;line-height:1.35;
+  }
+  header .sub{font-size:.9rem;color:var(--ink-soft);}
+  header .date{font-size:.74rem;color:var(--ink-faint);margin-top:14px;letter-spacing:.05em;font-family:'Noto Serif KR',serif;}
+
+  /* ===== CSS-only tabs ===== */
+  .tabs input[type=radio]{position:absolute;opacity:0;pointer-events:none;}
+
+  .tabbar{
+    position:sticky;top:0;z-index:10;
+    background:var(--paper);
+    display:flex;flex-wrap:wrap;justify-content:center;gap:6px;
+    padding:12px 0 14px;margin-bottom:6px;
+    border-bottom:1px solid var(--line);
+  }
+  .tabbar label{
+    font-family:'Noto Serif KR',serif;
+    font-size:.86rem;font-weight:600;
+    padding:6px 15px;border-radius:20px;
+    border:1px solid var(--line);background:var(--card);
+    color:var(--ink-soft);cursor:pointer;
+    transition:all .15s;white-space:nowrap;
+  }
+  .tabbar label:active{transform:scale(.96);}
+
+  .panel{display:none;animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+  /* wire up: each radio shows its panel + highlights its tab */
+  #t-compass:checked ~ .wrap #p-compass{display:block;}
+  #t-toc:checked ~ .wrap #p-toc{display:block;}
+  #t-spring:checked  ~ .wrap #p-spring{display:block;}
+  #t-summer:checked  ~ .wrap #p-summer{display:block;}
+  #t-autumn:checked  ~ .wrap #p-autumn{display:block;}
+  #t-winter:checked  ~ .wrap #p-winter{display:block;}
+  #t-teachers:checked ~ .wrap #p-teachers{display:block;}
+  #t-now:checked     ~ .wrap #p-now{display:block;}
+
+  #t-compass:checked ~ .wrap .tabbar label[for=t-compass],
+  #t-toc:checked ~ .wrap .tabbar label[for=t-toc],
+  #t-spring:checked  ~ .wrap .tabbar label[for=t-spring],
+  #t-summer:checked  ~ .wrap .tabbar label[for=t-summer],
+  #t-autumn:checked  ~ .wrap .tabbar label[for=t-autumn],
+  #t-winter:checked  ~ .wrap .tabbar label[for=t-winter],
+  #t-teachers:checked ~ .wrap .tabbar label[for=t-teachers],
+  #t-now:checked     ~ .wrap .tabbar label[for=t-now]{
+    background:var(--ink);color:var(--paper);border-color:var(--ink);
+  }
+
+  /* panel intro */
+  .p-intro{text-align:center;margin:26px 0 22px;}
+  .p-intro .p-name{font-size:1.5rem;font-weight:700;margin-bottom:6px;}
+  .p-intro .p-meta{font-size:.84rem;color:var(--ink-faint);}
+  #p-spring .p-name{color:var(--spring);}
+  #p-summer .p-name{color:var(--summer);}
+  #p-autumn .p-name{color:var(--autumn);}
+  #p-winter .p-name{color:var(--winter);}
+  #p-now .p-name{color:var(--now);}
+
+  /* 계절 정의 (상미님이 세운) */
+  .season-def{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:20px 20px;margin-bottom:22px;}
+  .season-def .sd-mean{font-size:.94rem;color:var(--ink);line-height:1.75;margin-bottom:12px;}
+  .season-def .sd-reader{font-size:.86rem;color:var(--ink-soft);line-height:1.7;padding-top:12px;border-top:1px dashed var(--line);}
+  .season-def .sd-reader b{color:var(--gold);}
+  .season-def .sd-voice{margin-top:14px;padding:12px 14px;background:#f3ede2;border-left:3px solid var(--now);border-radius:0 8px 8px 0;}
+  .season-def .sd-voice .sv-lab{font-size:.68rem;letter-spacing:.14em;color:var(--ink-faint);margin-bottom:6px;font-family:'Noto Serif KR',serif;}
+  .season-def .sd-voice .sv-txt{font-size:.88rem;color:var(--ink);line-height:1.8;}
+
+  /* 나침반 */
+  .compass{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:13px;padding:22px 20px;margin-bottom:14px;
+  }
+  .compass h3{font-size:.98rem;color:var(--gold);margin-bottom:7px;font-weight:700;}
+  .compass p{font-size:.92rem;color:var(--ink);}
+  .compass p.q{color:var(--ink-soft);font-size:.86rem;margin-top:6px;}
+  .msg-core{
+    background:#2b2724;color:#f7f3ec;border-radius:13px;
+    padding:26px 22px;text-align:center;margin:20px 0 8px;
+  }
+  .msg-core .lab{font-size:.7rem;letter-spacing:.3em;color:#c9bfae;margin-bottom:12px;}
+  .msg-core .txt{font-size:1.1rem;line-height:1.7;font-weight:600;}
+
+  .thread{
+    background:var(--card);border:1px solid var(--line);border-radius:13px;
+    padding:22px 20px;text-align:center;margin-bottom:14px;
+  }
+  .thread .flow{font-size:1rem;line-height:2;}
+  .thread .desc{font-size:.86rem;color:var(--ink-soft);}
+  .thread .q{font-size:.84rem;color:var(--ink-soft);margin-top:12px;}
+
+  /* story cards */
+  .card{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:20px 20px 18px;margin-bottom:14px;
+    position:relative;
+  }
+  .card .num{
+    position:absolute;top:18px;right:18px;
+    font-size:.7rem;color:var(--ink-faint);letter-spacing:.04em;
+    font-family:'Noto Serif KR',serif;
+  }
+  .card h4{font-size:1.08rem;font-weight:700;margin-bottom:3px;padding-right:56px;}
+  .card .emo{font-size:.74rem;color:var(--ink-faint);margin-bottom:11px;letter-spacing:.08em;}
+  .card .body{font-size:.9rem;color:var(--ink-soft);margin-bottom:14px;}
+
+  /* 육성 원문 */
+  .card .voice{
+    background:#f3ede2;border-left:3px solid var(--now);
+    border-radius:0 8px 8px 0;padding:12px 14px;margin-bottom:13px;
+  }
+  .card .voice .v-lab{font-size:.68rem;letter-spacing:.14em;color:var(--ink-faint);margin-bottom:6px;font-family:'Noto Serif KR',serif;}
+  .card .voice .v-txt{font-size:.9rem;color:var(--ink);line-height:1.75;}
+
+  /* 거울 (해석) */
+  .card .mirror{
+    background:#eef1ec;border-left:3px solid var(--spring);
+    border-radius:0 8px 8px 0;padding:12px 14px;margin-bottom:13px;
+  }
+  .card .mirror .m-lab{font-size:.68rem;letter-spacing:.14em;color:#5c7049;margin-bottom:6px;font-family:'Noto Serif KR',serif;}
+  .card .mirror .m-txt{font-size:.9rem;color:var(--ink);line-height:1.75;}
+
+  .card .underline{border-top:1px dashed var(--line);padding-top:13px;display:flex;gap:9px;align-items:flex-start;}
+  .card .underline .pen{color:var(--gold);font-size:.88rem;flex-shrink:0;line-height:1.6;}
+  .card .underline .u-txt{font-size:.94rem;color:var(--ink);font-weight:600;line-height:1.6;}
+  .card .underline .u-note{display:block;font-size:.7rem;color:var(--ink-faint);font-weight:400;margin-top:5px;letter-spacing:.02em;}
+
+  /* empty */
+  .empty-card{background:transparent;border:1px dashed var(--line);border-radius:12px;padding:16px 18px;margin-bottom:11px;}
+  .empty-card h4{font-size:.98rem;font-weight:700;color:var(--ink-soft);margin-bottom:3px;}
+  .empty-card p{font-size:.84rem;color:var(--ink-faint);}
+  .empty-note{text-align:center;font-size:.86rem;color:var(--ink-faint);margin:20px 0 6px;}
+
+  /* 선생님 갤러리 */
+  .layer-guide{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:22px 20px;margin-bottom:20px;}
+  .layer-guide h3{font-size:.96rem;color:var(--gold);margin-bottom:6px;font-weight:700;}
+  .layer-guide .g-lead{font-size:.86rem;color:var(--ink-soft);margin-bottom:16px;line-height:1.7;}
+  .layer-row{display:flex;gap:11px;margin-bottom:14px;align-items:baseline;}
+  .layer-row:last-of-type{margin-bottom:0;}
+  .layer-badge{
+    flex-shrink:0;font-size:.72rem;font-weight:700;
+    border-radius:20px;padding:3px 12px;
+    font-family:'Noto Serif KR',serif;letter-spacing:.02em;
+    background:#efe8dc;border:1px solid var(--line);
+  }
+  .lv1{color:#6f8a5a;} .lv2{color:#b07040;} .lv3{color:#4f7d70;}
+  .layer-row .l-txt{font-size:.9rem;color:var(--ink-soft);line-height:1.7;}
+  .layer-row .l-txt b{color:var(--ink);}
+  .layer-guide .g-tip{font-size:.83rem;color:var(--ink-faint);margin-top:16px;line-height:1.7;padding-top:14px;border-top:1px dashed var(--line);}
+
+  .t-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 18px 14px;margin-bottom:13px;}
+  .t-card .t-head{display:flex;align-items:baseline;gap:9px;margin-bottom:12px;flex-wrap:wrap;}
+  .t-card .t-name{font-size:1.05rem;font-weight:700;color:var(--ink);}
+  .t-card .t-slot{font-size:.8rem;color:var(--ink-faint);}
+  .t-field{font-size:.87rem;color:var(--ink-soft);padding:8px 0;border-top:1px dashed var(--line);line-height:1.6;}
+  .t-field b{color:var(--autumn);font-weight:700;font-size:.77rem;letter-spacing:.03em;margin-right:7px;}
+  .t-fill{color:var(--ink-faint);}
+
+  /* 제목·목차 (가설) */
+  .titlecard{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:20px;margin-bottom:16px;}
+  .titlecard h3{font-size:.9rem;color:var(--gold);margin-bottom:12px;font-weight:700;}
+  .title-opt{padding:9px 0;border-top:1px dashed var(--line);font-size:.92rem;color:var(--ink);}
+  .title-opt:first-of-type{border-top:none;}
+  .title-opt .tt{font-weight:700;}
+  .title-opt .tn{display:block;font-size:.8rem;color:var(--ink-faint);margin-top:2px;}
+  .title-opt.pick{background:#f6efe0;margin:4px -10px;padding:12px 12px;border-radius:8px;border-top:none;}
+  .title-opt.pick .tt{color:var(--autumn);}
+
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:22px 20px;margin-bottom:16px;}
+  .toc .part{margin-bottom:20px;}
+  .toc .part:last-child{margin-bottom:0;}
+  .toc .p-title{font-size:1.04rem;font-weight:700;color:var(--ink);margin-bottom:3px;}
+  .toc .p-season{font-size:.74rem;color:var(--ink-faint);letter-spacing:.06em;margin-bottom:9px;}
+  .toc ul{list-style:none;margin:0 0 8px;}
+  .toc li{font-size:.9rem;color:var(--ink-soft);padding:3px 0 3px 15px;position:relative;line-height:1.55;}
+  .toc li::before{content:"—";position:absolute;left:0;color:var(--ink-faint);}
+  .toc .gain{font-size:.79rem;color:var(--gold);padding-left:15px;font-style:italic;}
+  .toc .pro-epi{font-size:.95rem;font-weight:700;color:var(--ink);padding:10px 0;}
+  .toc .pro-epi span{display:block;font-size:.8rem;font-weight:400;color:var(--ink-faint);font-style:italic;margin-top:2px;}
+
+  /* howto */
+  .howto{background:#efe8dc;border-radius:13px;padding:22px 20px;margin-top:26px;}
+  .howto h3{font-size:.98rem;margin-bottom:11px;color:var(--ink);font-weight:700;}
+  .howto ul{list-style:none;}
+  .howto li{font-size:.87rem;color:var(--ink-soft);padding-left:16px;position:relative;margin-bottom:8px;}
+  .howto li::before{content:"·";position:absolute;left:3px;color:var(--gold);font-weight:700;}
+
+  footer{text-align:center;font-size:.72rem;color:var(--ink-faint);margin-top:34px;letter-spacing:.04em;font-family:'Noto Serif KR',serif;}
+
+  @media (max-width:480px){
+    header h1{font-size:1.72rem;}
+    .tabbar label{font-size:.8rem;padding:5px 12px;}
+    .card h4{padding-right:50px;}
+    .msg-core .txt{font-size:1rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="kicker">책 재료 지도</div>
+  <h1>먹이는 사람의 기록</h1>
+  <p class="sub">꺼낸 이야기와, 밑줄 그을 한 줄. 그리고 아직 열지 않은 서랍들.</p>
+  <p class="date">안상미 · 공공의주방 / 아카이빗 &nbsp;|&nbsp; 업데이트 2026.07.08 · v11</p>
+</header>
+
+<div class="tabs">
+  <input type="radio" name="tab" id="t-compass" checked>
+  <input type="radio" name="tab" id="t-toc">
+  <input type="radio" name="tab" id="t-spring">
+  <input type="radio" name="tab" id="t-summer">
+  <input type="radio" name="tab" id="t-autumn">
+  <input type="radio" name="tab" id="t-winter">
+  <input type="radio" name="tab" id="t-teachers">
+  <input type="radio" name="tab" id="t-now">
+
+  <div class="wrap">
+    <nav class="tabbar">
+      <label for="t-compass">나침반</label>
+      <label for="t-toc">제목·목차</label>
+      <label for="t-spring">봄</label>
+      <label for="t-summer">여름</label>
+      <label for="t-autumn">가을</label>
+      <label for="t-winter">겨울</label>
+      <label for="t-teachers">선생님</label>
+      <label for="t-now">지금</label>
+    </nav>
+
+    <!-- ================= 나침반 ================= -->
+    <div class="panel" id="p-compass">
+      <div class="p-intro">
+        <div class="p-name" style="color:var(--gold);">나침반</div>
+        <div class="p-meta">글을 쓰다 흔들릴 때 돌아오는 자리</div>
+      </div>
+
+      <div class="msg-core" style="background:#2b2724;"><div class="lab">이 책의 목표</div><div class="txt" style="font-size:1.15rem;">스테디셀러 —<br>반짝 팔리는 책이 아니라,<br>오래 읽히는 책.</div><p style="font-size:.82rem;color:#c9bfae;line-height:1.7;margin-top:14px;font-weight:400;">시의성(코로나·AI)에만 기대지 않고 안 변하는 것(사람·마음·판단의 원리)에 무게를 둔다. 독자가 밑줄 긋고 남에게 인용하고 싶은 문장이 있고, 5년 뒤 창업하는 사람도 자기 이야기로 읽을 수 있어야 한다.</p></div>
+
+      <div class="compass"><h3>◆ 우리 둘의 역할</h3>
+        <p style="font-size:.92rem;color:var(--ink);"><b>상미님</b> — 진심과 재료를, 그리고 책의 목소리를(날것의 육성이 가장 강한 힘이다).<br><b>Claude</b> — 독자의 눈과 구조를. 늘 "독자가 왜 계속 읽지?"를 붙든다.</p>
+        <p class="q" style="margin-top:8px;">Claude는 상미님을 편들지 않는다. 애정을 쏟은 이야기라도 독자에게 안 통할 것 같으면 그렇게 말한다. 듣기 좋은 말이 아니라 <b>독자에게 통할 말</b>을 한다 — 그것이 이 책을 오래 살아남게 한다.</p>
+      </div>
+
+      <div class="compass"><h3>◆ 왜 쓰는가</h3><p>사업 홍보가 아니라, <b>사람을 먹이며 살아온 20년을 숫자가 아니라 이야기로 남기기 위해.</b> 손익계산서에는 매출과 고정비만 찍히지, "요리보다 사람이 먼저 보였다"던 마음은 안 찍히니까.</p></div>
+
+      <div class="compass"><h3>◆ 누가 읽는가</h3><p>주 독자는 <b>좋아하는 일로 창업하려는 사람</b> — 특히 경력전환 여성·1인 창업자. 그 안에 <b>전환기 40~50대의 마음</b>을 함께 안는다. (오늘 만난 20대 창업가처럼, 나이를 넘어 '판단과 태도'를 배우려는 이들에게 닿는다.)</p><p class="q">한 사람을 정확히 겨눈 책이 결국 많이 읽힌다. "모두를 위한 책"은 아무도 자기 책이라 느끼지 않는다.</p></div>
+
+      <div class="compass"><h3>◆ 어떤 목소리로</h3><p>재직 중에 써도 된다. 단 <b>"회사의 기록"이 아니라 "이 회사를 지나온 한 사람의 기록"</b>으로. 그러면 저작권도 메시지도 다 내 것이 되고, 회사 기밀(재무·거래 비중)은 애초에 들어갈 필요가 없어진다.</p></div>
+
+      <div class="compass"><h3>◆ 실질적 정보는 어떻게</h3><p><b>"방법(how-to)"이 아니라 "판단(why)"으로.</b> 방법은 검색하면 나오지만, 판단은 겪은 사람만 준다. 사례는 구체적으로, 교훈은 원리로. — 그래야 정보가 안 썩는다.</p></div>
+
+      <div class="compass"><h3>◆ 문체</h3><p>이야기로 흐르다가, 결정적인 순간에 <b>짧고 단단한 한 줄로 매듭</b>짓는 리듬. 독자가 밑줄 긋고 싶어지는 그 한 줄. (미래식당 『당신의 보통에 맞추어드립니다』의 결.)</p></div>
+
+      <div class="msg-core"><div class="lab">이 책의 한 문장</div><div class="txt">"마음(사람 중심)으로 시작한 사업이<br>냉정한 현실을 어떻게 통과하는가 —<br>그리고 그 마음이 어떻게 살아남는가."</div></div>
+
+      <div class="thread" style="margin-top:20px;">
+        <div class="flow"><b style="color:var(--spring);">어머니</b> → <b style="color:var(--summer);">요리 선생님들</b> → <b style="color:var(--autumn);">나</b></div>
+        <div class="desc">못하던 데서 시작해, 배우고, 정성으로 계속하다 결국 남을 먹이는 사람이 되는 이야기 — 세 번 반복된다.</div>
+        <div class="q">나는 그 한가운데서 앞선 세대를 세상에 드러내고, 그것을 선물처럼 내주는 <b>잇는 사람</b>이었다.</div>
+      </div>
+
+      <div class="compass" style="margin-top:20px;"><h3>◆ 상미님의 작동 공식 (책의 뼈대)</h3><p style="text-align:center;font-size:1rem;line-height:2;margin:6px 0;"><b>브랜딩</b> → <b>사람의 역할·경험</b> → <b>시스템 구축</b> → <b>동일 패턴의 학습효과</b> → <b>연계 브랜딩으로 확장</b></p><p class="q">가화만사성 · 우리동네김장날 · 한끼매니저 · MBTI — 오늘 나온 모든 프로젝트가 이 하나의 공식으로 설명된다. 미래식당(고바야시)은 <b>시스템</b>에서 출발했지만, 상미님은 <b>브랜딩</b>에서 출발해 시스템으로 받쳤다. 각 챕터가 이 리듬을 타면, 독자는 매번 상미님의 사고방식을 배워간다.</p></div>
+
+      <div class="msg-core" style="background:#3a3430;"><div class="lab">모든 것의 뿌리 — 상미님이라는 사람</div><div class="txt">"나는 같이 잘 하는 것이<br>중요한 사람 같아."</div><p style="font-size:.84rem;color:#c9bfae;line-height:1.7;margin-top:14px;font-weight:400;">함께할 때 가치가 증폭됨을 알기에 — 매력(브랜딩)으로 모으고, 불편하지 않도록 질서(시스템)를 깔았다. 브랜딩도 시스템도, 다 '같이 하기' 위한 수단이었다. 혼자 깨달은 "음식이 주는 가치"를, 여럿을 통해 확장·전달하려 한 것.</p></div>
+
+      <div class="compass" style="margin-top:20px;"><h3>◆ 프롤로그 뼈대 (상미님이 세운 구조)</h3>
+        <p style="font-size:.9rem;color:var(--ink);margin-bottom:12px;">배경을 이력서처럼 나열하지 않는다. <b>구체적 장면 하나로 열고</b> → "나는 이런 사람이었다"로 푼다. (미래식당이 "편식쟁이라 이상한 사람 취급받았다"는 장면으로 연 것처럼.)</p>
+        <div class="t-field"><b>여는 장면 (미정)</b><span class="t-fill">— 어머니의 부엌 / 호텔 레스토랑 런칭 / 공동체의 저녁 중 택. 상미님이 정할 자리</span></div>
+        <div class="t-field"><b>직무의 경험</b><span class="t-fill">호텔에서 레스토랑 3개 런칭·브랜딩(→브랜딩 감각) + 인사팀에서 사람을 바라봄(→사람 보는 눈)</span></div>
+        <div class="t-field"><b>나됨의 형성</b><span class="t-fill">가정·공동체에서 깨달아간 "나의 나됨" — 나의 가치, 내 경험의 기준</span></div>
+        <div class="t-field"><b>씨앗의 선언</b><span class="t-fill">이것이 세상에 어떤 씨앗이 되길 원했는가</span></div>
+        <div class="t-field"><b>작동방식의 예고</b><span class="t-fill">나의 일하는 방식(브랜딩→사람→시스템)이 여기서 나왔다</span></div>
+        <p class="q" style="margin-top:12px;">발견 — 작동 공식의 앞 두 축(브랜딩·사람)이 <b>호텔에서 이미 손에 익은 것</b>이었다. 레스토랑 런칭=브랜딩, 인사팀=사람 보는 눈. 웨스틴조선호텔이 작동 공식의 훈련장.</p>
+      </div>
+
+      <div class="compass"><h3>◆ 각 챕터 푸는 법 (나중에)</h3><p style="font-size:.9rem;color:var(--ink-soft);">챕터는 사례를 나열하지 않는다. <b>계절(시간)은 숨은 뼈대</b>로만 두고, 겉은 <b>흥미로운 장면 제목</b>으로. 각 장은 이야기로 흐르다 짧은 한 줄로 매듭. 사례(가화만사성·김장날)는 따로 빼지 않고 그 시간의 이야기 속에 녹인다. <b>→ 추후 시점에 각 챕터에서 다시 시작.</b></p></div>
+
+      <div class="howto">
+        <h3>이 지도를 쓰는 법</h3>
+        <ul>
+          <li>탭으로 계절을 하나씩 엽니다. 계절은 <b>챕터명이 아니라</b> 상징적·임시 서랍 — 각 계절 맨 위에 상미님이 세운 뜻과 "독자에게 주는 것"이 적혀 있어요. (봄=준비·멘토링 / 여름=시작·브랜딩 / 가을=위기를 넘는 법·아카이빗 탄생 / 겨울=재정의·다시 시작)</li>
+          <li>이건 <b>목차가 아니라 재료 창고</b> — 무엇이 쌓였고 무엇이 비었나 보는 서랍입니다.</li>
+          <li>카드마다 세 겹이 담겨 있어요 — <b>📿 육성</b>(상미님이 실제로 한 말, 책의 진짜 재료) · <b>🪞 거울</b>(그 행동이 이런 의미였다는 해석) · <b>✎ 밑줄 한 줄</b>(독자에게 줄 원리).</li>
+          <li><b>🪞 거울</b>은 상미님 <b>행동의 의미</b>를 비추는 자리입니다. 느낌·감정은 상미님 몫으로 비워뒀어요.</li>
+          <li><b>✎ 밑줄 한 줄</b>은 모두 <b>초안</b>입니다. 상미님 목소리로 다듬어야 진짜가 됩니다.</li>
+          <li>빈 서랍(점선)은 아직 안 한 이야기 — <b>가을·겨울</b>이 비어 있어요.</li>
+          <li>목차는 재료를 다 꺼낸 뒤, 시간을 일부러 흐트러뜨리며 따로 짭니다.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ================= 제목·목차 (가설) ================= -->
+    <div class="panel" id="p-toc">
+      <div class="p-intro"><div class="p-name" style="color:var(--autumn);">제목 · 목차</div><div class="p-meta">현재 가설 · 계속 다듬어갈 자리 (확정 아님)</div></div>
+
+      <div class="titlecard">
+        <h3>◆ 가제목 후보</h3>
+        <div class="title-opt pick"><span class="tt">『디지털의 탈을 쓴 아날로그』</span><span class="tn">★현재 추천 · 부제 "사람을 먹이며 브랜딩한 20년" — 궁금증을 부르고, 상미님만 쓸 수 있고, 유행 타지 않음(스테디 조건). '밀키트·쿠킹박스' 같은 썩는 단어 없음.</span></div>
+        <div class="title-opt"><span class="tt">『먹이는 사람』</span><span class="tn">따뜻함으로 스미는 쪽. 마음(어머니·돌봄)에 무게를 싣고 싶다면 이쪽.</span></div>
+        <div class="title-opt"><span class="tt">『얼굴이 곧 브랜딩입니다』</span><span class="tn">상미님 철학 직격. 창업자가 궁금해할 제목.</span></div>
+        <div class="title-opt"><span class="tt">『개발자들이 플랫폼을 만들 때, 나는 발품을 팔았다』</span><span class="tn">긴 제목이 곧 이야기. 시대와의 대비가 후킹.</span></div>
+        <div class="title-opt"><span class="tt">『같이 잘 하는 법』</span><span class="tn">상미님 뿌리에서 나온 말. 담백하고 오래 감.</span></div>
+        <p class="q" style="margin-top:12px;font-size:.83rem;">갈림길 — <b>궁금증으로 끄는 쪽</b>(디지털의 탈을 쓴 아날로그) vs <b>따뜻함으로 스미는 쪽</b>(먹이는 사람). 이 선택이 제목뿐 아니라 목차 톤 전체를 좌우함. <b>미정.</b></p>
+      </div>
+
+      <div class="toc">
+        <h3 style="font-size:.9rem;color:var(--gold);margin-bottom:16px;font-weight:700;">◆ 목차 (현재 가설)</h3>
+
+        <div class="pro-epi">프롤로그 — 나는 혼자 아는 것에 만족하지 못하는 사람이었다</div>
+
+        <div class="part">
+          <div class="p-title">1부 · 얼굴을 찍으러 다닌 겨울</div>
+          <div class="p-season">숨은 뼈대: 봄 — 준비·멘토링</div>
+          <ul>
+            <li>개발자들이 플랫폼을 만들 때, 나는 발품을 팔았다</li>
+            <li>여든 번의 문을 두드리다</li>
+            <li>자기 사진 한 장 없던 사람들 — 우리 엄마도 그랬다</li>
+            <li>울고 웃던 정부과제, 그리고 이름이 태어난 책상</li>
+          </ul>
+          <div class="gain">→ 시작하려는 이에게: 무에서 유를 찾는 마음과 방법</div>
+        </div>
+
+        <div class="part">
+          <div class="p-title">2부 · 촌스러운 걸 예쁘게</div>
+          <div class="p-season">숨은 뼈대: 여름 — 시작·브랜딩</div>
+          <ul>
+            <li>얼굴이 곧 브랜딩입니다</li>
+            <li>선생님이 빛나는 순간을 보고 싶어서 (가화만사성)</li>
+            <li>핑크색 김장 앞치마 (우리동네김장날)</li>
+            <li>양파님과 낫또님 — 이름을 지어 부른다는 것</li>
+          </ul>
+          <div class="gain">→ 막 시작한 이에게: 무엇을 어떻게 보여줄 것인가</div>
+        </div>
+
+        <div class="part">
+          <div class="p-title">3부 · 세상은 호락호락하지 않았다 <span style="font-size:.72rem;color:var(--autumn);font-weight:400;">(내용 아직 · 가설)</span></div>
+          <div class="p-season">숨은 뼈대: 가을 — 위기·아카이빗 탄생</div>
+          <ul>
+            <li>쌓은 것이 하루아침에 사라진 날 (코로나)</li>
+            <li>버티는 힘은 어디서 오는가</li>
+            <li>논현동, 그리고 아카이빗의 탄생</li>
+          </ul>
+          <div class="gain">→ 무너진 이에게: 다시 세우는 법</div>
+        </div>
+
+        <div class="part">
+          <div class="p-title">4부 · 멈출까, 계속할까 <span style="font-size:.72rem;color:var(--autumn);font-weight:400;">(내용 아직 · 가설)</span></div>
+          <div class="p-season">숨은 뼈대: 겨울 — 재정의·다시</div>
+          <ul>
+            <li>버릴 것과 살릴 것</li>
+            <li>논현에서 광교로 — 이사가 말해준 것</li>
+            <li>AI 시대에도 변하지 않아야 할 것</li>
+          </ul>
+          <div class="gain">→ 갈림길에 선 이에게: 재정의하고 지속하는 법</div>
+        </div>
+
+        <div class="pro-epi">에필로그 — 받은 자리로 돌아가 주는 사람이 되다<span>멘토링, 그리고 이 책</span></div>
+      </div>
+
+      <div class="titlecard">
+        <h3>◆ 점검 (Claude의 독자 관점)</h3>
+        <div class="t-field"><b>강점</b><span class="t-fill">각 부 제목이 후킹(장면). 독자의 여정(꿈→시작→위기→갈림길)을 따라가 어느 단계 독자든 자기 자리를 찾음. 소제목이 정보가 아니라 그림.</span></div>
+        <div class="t-field"><b>약점 1</b><span class="t-fill">3·4부는 내용이 아직 안 나옴 → 지금은 가설. 이야기가 나오면 소제목이 바뀐다.</span></div>
+        <div class="t-field"><b>약점 2</b><span class="t-fill">2부가 제일 강하고 4부가 제일 약함. 뒤로 갈수록 힘이 빠지지 않게 4부에 강한 장면 하나가 꼭 필요.</span></div>
+      </div>
+
+      <p style="text-align:center;font-size:.82rem;color:var(--ink-faint);margin-top:6px;">확정 아님. 이야기가 쌓일 때마다 여기서 계속 다듬는다.</p>
+    </div>
+
+    <!-- ================= 봄 ================= -->
+    <div class="panel" id="p-spring">
+      <div class="p-intro"><div class="p-name">봄</div><div class="p-meta">준비 · 인고의 시절 (2015~ 정부과제)</div></div>
+      <div class="season-def"><div class="sd-mean"><b>준비, 그 인고의 시절.</b> 도전하고 세우고 다시 도전하고, 정의하고 설득하는 과정. 2015년 정부과제를 하며 방법을 찾아가던, 울고 웃던 순간들. 전문가를 섭외하며 우리의 가치를 정의하고 설득하고 증명해내려 애쓴 기록.</div><div class="sd-reader"><b>독자에게</b> — 무에서 유를 어떻게 찾아가야 하는지 고민하는, 멘토링이 가장 필요한 창업자에게. 제일 넘어지고, 에너지 있게 도전하고 좌절하며 움직이던 순간들. "창업가에게 제일 궁금하고 고민되는 순간."</div><div class="sd-voice"><div class="sv-lab">📿 상미님 육성</div><div class="sv-txt">"봄은 준비겠지.. 시작까지도 인고의 시절이 있었어. 도전하고 세우고 다시 도전하고 정의하고 설득하는 과정. 이게 아마도 2015년 정부과제를 하면서 내가 계속 도전하고 방법을 찾아가던 울고 웃던 순간들의 기록이 될 것 같아. (…) 처음 무언가를 시작하는 이들에게, 무에서 유를 어떻게 찾아가야 하는지 고민하고 멘토링을 원하는 이들에게 필요한 마인드와 정보들과 에피소드들이 들어있어야 할 것 같아. 전문가들을 섭외하며 우리의 가치를 정의하고 설득하고 증명해내려 애쓴 순간들의 기록. 이게 창업가들에게 제일 궁금하고 고민되는 순간들일 거야. 나도 그랬거든. 멘토링이 제일 필요한 순간이지."</div></div></div>
+
+      <div class="card"><span class="num">순서 06</span><h4>어머니, 그리고 미역줄기</h4><div class="emo">그리움 · 뿌리</div><p class="body">결혼 후 요리를 배워, 정성으로 남을 먹이는 사람이 되신 어머니. 정성껏 싸주던 도시락. 제일 좋아하던 꼬들꼬들한 미역줄기는 <b>지금 아카이빗 반찬 메뉴에 들어가 있다.</b> 어머니의 부엌이 곧 나의 첫 주방이었다.</p>
+<div class="voice"><div class="v-lab">📿 상미님 육성</div><div class="v-txt">"우리 엄마도 늘 정성껏 음식을 해서 우리 도시락과 주변분들을 대접하던 분이셨어. 우리 엄마도 결혼 전에는 요리를 잘 하지 못하셨대. 결혼하고 요리를 하는데 잘하는 요리가 없어서 요리를 배우고, 그렇게 계속 하다 보니 너무 잘하는 분이 되었지. (…) 우리 엄마 반찬에서 내가 좋아하던 메뉴 중 하나는 미역줄기였어. 얼마나 꼬들꼬들 맛있던지."</div></div>
+<div class="mirror"><div class="m-lab">🪞 거울</div><div class="m-txt">당신이 80명의 선생님에게서 어머니를 본 것은 우연이 아니었다. 그들은 정말로 같은 길을 걸은 사람들 — 못하던 데서 배워 결국 남을 먹이게 된 사람들이었다. 어머니의 여정을 곁에서 지켜본 당신만이 그들을 알아볼 수 있었다.</div></div>
+<div class="underline"><span class="pen">✎</span><span class="u-txt">"주기만 하는 사람은, 늘 자기 앨범 속에 몇 장 없다."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
+
+      <div class="card"><span class="num">순서 02</span><h4>집밥 시대를 먼저 읽다</h4><div class="emo">확신</div><p class="body">경기 침체 → 집밥 시대가 온다고 예측. 일본의 쿡패드·ABC쿠킹처럼, 한국도 지역 기반 요리 선생님이 집밥의 주축이 될 거라 믿었다. (뒤에 백종원 집밥·수미네 반찬이 증명했다.)</p>
+<div class="voice"><div class="v-lab">📿 상미님 육성</div><div class="v-txt">"경기가 침체되면서 집밥 시대가 될 거라 예측했거든. 일본이 그랬고, 그래서 쿡패드·ABC쿠킹스튜디오 등 집밥이 오랜 시간 자리 잡았지. 우리나라도 백종원 집밥, 수미네 반찬 등이 그 이후로 한참이었고. 그래서 나는 지역 기반의 요리 선생님이 집밥의 주축이 될 거라 믿었어."</div></div>
+<div class="mirror"><div class="m-lab">🪞 거울</div><div class="m-txt">당신이 발품을 판 것은 무모한 열정이 아니라, 시대를 먼저 읽은 베팅이었다. 남들이 아직 오지 않은 흐름을, 당신은 먼저 믿고 그 방향으로 몸을 움직였다.</div></div>
+<div class="underline"><span class="pen">✎</span><span class="u-txt">"남보다 먼저 믿는 일은 외롭지만, 그 외로움이 결국 차별점이 된다."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
+
+      <div class="card"><span class="num">순서 01</span><h4>여든 번의 겨울 방문</h4><div class="emo">설렘 · 벅참</div><p class="body">정부과제를 준비하며, 포토그래퍼와 함께 요리 선생님 80여 분의 스튜디오를 하나하나 찾아가 프로필 사진을 찍고 이야기를 나눴다. 개발자들이 플랫폼을 만들던 시대에, 발품을 팔아 만난 사람들이 평생 친구가 되었다.</p>
+<div class="voice"><div class="v-lab">📿 상미님 육성</div><div class="v-txt">"정부과제를 준비하면서 요리전문가를 찾아다니며 직접 섭외하던 겨울 내내가 생각이 나네. 우리의 시작을 기대하며. 80여 분의 프로필 사진을 찍어주러 포토그래퍼랑 같이 선생님들 스튜디오를 직접 방문해서 사진을 찍고 이야기를 나누며 신뢰를 쌓던… 그 당시는 대부분 개발자가 플랫폼을 만들던 시기라, 이렇게 발품을 팔며 만나러 다닌 것이 우리의 큰 자산이 되었고, 선생님들과 끈끈한 정으로 평생 친구가 되는 시작이 되었지."</div></div>
+<div class="mirror"><div class="m-lab">🪞 거울</div><div class="m-txt">당신은 사람을 '모은' 게 아니라, 한 명 한 명을 만나러 '간' 것이었다. 효율의 시대에 굳이 발품을 판 그 선택이, 당신이 어떤 사람인지를 가장 먼저 말해준다. 다들 화면 뒤에서 연결하려 할 때, 당신은 문을 두드렸다.</div></div>
+<div class="underline"><span class="pen">✎</span><span class="u-txt">"남들이 자동화할 때 무엇을 손으로 지킬지가, 결국 차별점이 된다."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
+
+      <div class="card"><span class="num">순서 03</span><h4>킨포크처럼 — 얼굴이 곧 브랜딩</h4><div class="emo">존중 · 헌신</div><p class="body">요리 선생님을 강사가 아니라 매거진 화보의 인물로 격상하려 했다. 로고가 아니라 사람의 얼굴이 브랜드라는 믿음. 그 미학은 iF 디자인 대상으로 세계 무대에서 인정받았다.</p>
+<div class="voice"><div class="v-lab">📿 상미님 육성</div><div class="v-txt">"매거진에 나오는 사람들, 킨포크에 나오는 프로필 사진처럼 공공의주방의 브랜딩에 맞게, 요리전문가의 정의에 맞게 표현하고자 했어. (…) 우리 서비스 공공의주방의 정체성을 담당할 선생님들의 얼굴이 브랜딩이라 생각했어. 지금도 여전히 사람 중심의 서비스라 여겨. 고객에게나 우리 서비스에서나."</div></div>
+<div class="mirror"><div class="m-lab">🪞 거울</div><div class="m-txt">당신은 동네에서 반찬 가르치던 분을 매거진의 주인공으로 세우려 했다. 이건 사진이 아니라 '격상'이었다 — "당신은 이렇게 표현될 자격이 있는 사람"이라고 카메라로 말해준 것. 그 믿음이 12년이 지나도 변하지 않았다는 게, 이 회사의 척추다.</div></div>
+<div class="underline"><span class="pen">✎</span><span class="u-txt">"브랜드의 중심에 로고를 두면 회사가 크고, 얼굴을 두면 사람이 큰다."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
+
+      <div class="card"><span class="num">순서 04·05</span><h4>첫 선생님, 자기 사진 없던 사람들</h4><div class="emo">다정 · 울컥</div><p class="body">지긋한 나이의 첫 선생님은 어색하고 쑥스러워하셨다. 눈을 맞추고, 편안한 미소를 끌어내고, 대표 식재료를 곁에 연출하며 찍었다. 그분들은 평생 가르치고 퍼주기만 했지, 정작 자기 사진 한 장이 없었다. "마치 우리 엄마처럼, 주기만 하는 사랑."</p>
+<div class="voice"><div class="v-lab">📿 상미님 육성</div><div class="v-txt">"어색하고 쑥스러워하셨지. 나는 그 앞에서 최대한 편안한 미소가 나오도록 눈을 맞추고, 시선을 유도하고, 자연스러운 포즈를 취하게 하고, 대표되는 분야의 식재료를 연출해 드리고 하면서 찍었지. (…) 그 누구도, 그분들은 가르치기만 했지 자기 자신을 찍어주는 사진이 없었던 거야. 마치 우리네 엄마처럼 말이야. 주기만 하는 사랑 같은."</div></div>
+<div class="mirror"><div class="m-lab">🪞 거울</div><div class="m-txt">당신이 무릎을 굽혀 눈을 맞추고 미소를 끌어내던 그 손길은, 사진 기술이 아니라 "당신은 이렇게 빛날 수 있는 사람"이라고 몸으로 설득하는 일이었다. 평생 프레임 밖에 있던 사람을, 당신이 처음으로 한가운데 세웠다.</div></div>
+<div class="underline"><span class="pen">✎</span><span class="u-txt">"평생 주기만 한 사람에게 카메라를 돌리는 일 — 그게 우리가 한 일이었다."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
+
+      <div class="card"><span class="num">순서 07</span><h4>MBTI — 사랑을 시스템으로</h4><div class="emo">확신</div><p class="body">선생님 한 분 한 분을 <b>M</b>eeting(만남·인터뷰)·<b>B</b>randing(시그니처 메뉴 3~4개)·<b>T</b>eaching(수업 현장)·<b>I</b>dentity(프로젝트 연결)로 기록했다. 따뜻함을 감정이 아니라 구조로 만든 것.</p>
+<div class="voice"><div class="v-lab">📿 상미님 육성</div><div class="v-txt">"나도 질문을 진짜 많이 했거든. 그러곤 내부에서 팀이 다 알 수 있도록 그것도 만들었었어. MBTI — Meeting, Branding, Teaching, Identity라고. 만나서 사진 찍고 이야기 나눈 인터뷰 자료들이 미팅, 선생님에게 가장 잘 어울리는 시그니처 메뉴 3~4개씩 만들어드리며 브랜딩, 실제 수업에서 사진들을 티칭, 그리고 프로젝트로 아이덴티티 연결해드린 것. 이렇게 선생님마다 기록을 남겼더랬지."</div></div>
+<div class="mirror"><div class="m-lab">🪞 거울</div><div class="m-txt">당신은 마음만 따뜻한 사람이 아니었다. 그 마음을 80명에게 똑같이 정성껏 닿게 하려고 '구조'를 짠 사람이었다. 돌봄을 설계할 줄 아는 사람 — 이게 당신이 말한 "판을 짜는 사람"의 실체다.</div></div>
+<div class="underline"><span class="pen">✎</span><span class="u-txt">"마음은 시스템이 될 때 비로소 80명에게 똑같이 닿는다."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
+
+      <div class="card"><span class="num">순서 08</span><h4>회사의 미션 — 시스템이 사람을 지키게</h4><div class="emo">확신 · 사명</div><p class="body">"세상의 급변을 우리가 대신 읽고 시스템을 만들어, 선생님은 진정성에만 집중하게." 사람을 시스템에 맞추지 않고, 시스템이 사람을 지키게. 주인공은 선생님, 나는 '리얼 어시'.</p>
+<div class="voice"><div class="v-lab">📿 상미님 육성</div><div class="v-txt">"우리의 역할이 시스템을 만들어드리는 일이라고 생각했어. 누구나 전문가가 되고 성장할 수 있도록. 세상이 너무 급변하니까, 우리가 세상의 방식을 읽고 시스템만 드리면, 선생님은 진정성 있게 요리와 사람을 만나고 전하는 데만 집중하실 수 있었으면 했어."</div></div>
+<div class="mirror"><div class="m-lab">🪞 거울</div><div class="m-txt">대부분의 플랫폼은 "사람이 시스템에 맞추라"고 요구한다. 당신은 반대로, 시스템이 사람을 지키게 만들려 했다. 어머니 같은 그분들이 세상 방식에 닳지 않도록, 그 사이에 완충재를 대준 것. 그게 당신이 그들에게 준 진짜 선물이었다.</div></div>
+<div class="underline"><span class="pen">✎</span><span class="u-txt">"좋은 시스템은 사람을 갈아 넣지 않는다. 사람을 닳지 않게 지킨다."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
+
+      <div class="card"><span class="num">순서 09</span><h4>정부과제의 몸부림 — 이름이 태어난 자리</h4><div class="emo">막막함 · 부담</div><p class="body">따뜻한 마음을 지표 언어로 번역해 심사대 앞에서 증명해야 했던, 끝이 안 보이던 싸움. 그 몸부림의 한복판, 합격을 준비하던 캠프의 책상에서 <b>'공공의주방'이라는 이름이 태어났다.</b></p>
+<div class="voice"><div class="v-lab">📿 상미님 육성</div><div class="v-txt">"그게 아마 정부과제인 것 같아. 스타트업으로 도전해서 이 시스템을 인정받기 위한 몸부림의 시기랄까. 3년 걸릴 거 같아."</div></div>
+<div class="mirror"><div class="m-lab">🪞 거울</div><div class="m-txt">선생님들은 진정성에만 집중하게 해드리려고, 정작 당신 자신은 진정성을 숫자로 바꿔 내밀며 몸부림쳐야 했다. 부드러운 걸 지키려는 사람이, 가장 딱딱한 걸 홀로 정면으로 맞은 것. 그리고 그 한복판에서 이 모든 것의 이름이 태어났다.</div></div>
+<div class="underline"><span class="pen">✎</span><span class="u-txt">"따뜻한 일을 지키려면, 그것을 차가운 언어로 증명할 줄도 알아야 한다."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
+    </div>
+
+    <!-- ================= 여름 ================= -->
+    <div class="panel" id="p-summer">
+      <div class="p-intro"><div class="p-name">여름</div><div class="p-meta">시작 · 찬란한 순간 (시드투자 이후)</div></div>
+      <div class="season-def"><div class="sd-mean"><b>시작. 찬란한 순간.</b> 시드투자로 드디어 서비스가 열린 순간. 이 시작까지 오기 쉽지 않다 — 누구에게나 주어진 시작은 아니다. 그 빛나는 순간에 무엇을 해야 할지, 무엇을 보여줄지. 가화만사성·우리동네김장날 같은 우리만의 콘텐츠를 브랜딩하며 차별화하고, 가치를 담으려 애쓴 이야기.</div><div class="sd-reader"><b>독자에게</b> — 막 시작한 이에게 "무엇을 보여줄 것인가". 제일 재미난 에피소드와 사진이 많은, 찬란히 빛나는 순간들. 다채롭게.</div><div class="sd-voice"><div class="sv-lab">📿 상미님 육성</div><div class="sv-txt">"여름은 시작. 시드투자로 드디어 서비스가 시작된 순간. 이 시작까지 오기 쉽지 않아. 누구에게나 주어진 시작은 아닐 수 있어. 우리도 그랬고. 그렇게 시작된 찬란한 순간에 우리는 무엇을 해야 할지, 무엇을 보여줘야 할지 그 이야기가 필요해. 가화만사성, 우리동네김장날 같은 우리만의 콘텐츠를 브랜딩하며 차별화하는 방식, 그리고 가치를 넣기 위해 노력해야 하는 부분 등등. 제일 재미난 에피소드와 사진들이 많은 순간들일 것 같아. 찬란히 빛나기도 하고, 이런 순간들은 다채롭게 이야기하고."</div></div></div>
+
+      <div class="card"><span class="num">순서 11</span><h4>논현 스튜디오의 1년</h4><div class="emo">보람 · 감사</div><p class="body">PD·편집자·요리전문가가 매일 스튜디오에 모여, 시그니처 메뉴 5편에 식재료 팁까지 촬영·편집한 1년. 요리하는 PD가 식재료 팁을 직접 기획했다. 요리하는 사람이 진짜 궁금해하는 것을, 체계적으로.</p>
+<div class="voice"><div class="v-lab">📿 상미님 육성</div><div class="v-txt">"우리는 PD, 편집자, 그리고 요리전문가들이 우리 논현 아카이빗 스튜디오에 와서 매일 5편씩 촬영하고 편집하는 일을 거의 1년 동안 했어. (…) 우리 팀에 PD가 요리를 하는 친구여서, 그 친구가 식재료 팁은 직접 기획하고 같이 촬영하고 편집하고 그랬지. 감사한 일이었어. (…) 정말 요리하는 사람의 입장에서 궁금한 내용들을 체계적으로 작업했다는 것이."</div></div>
+<div class="mirror"><div class="m-lab">🪞 거울</div><div class="m-txt">여기서 처음으로 '나'가 아니라 '우리'가 나온다. 이 방대한 아카이브는 당신의 시스템 위에서, 함께한 사람들의 손으로 지어졌다. 그리고 당신 팀은 '보여주기 좋은 것'이 아니라 '배우는 사람이 진짜 막히는 지점'을 찍었다 — 그래서 사람들이 찾아본 것이다.</div></div>
+<div class="underline"><span class="pen">✎</span><span class="u-txt">"보여주기 좋은 것이 아니라, 진짜 손이 멈추는 지점을 찍었다."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
+
+      <div class="card"><span class="num">순서 10·12</span><h4>1,100편의 아카이브 — "우리가 주는 선물"</h4><div class="emo">자부 · 나눔</div><p class="body">모든 식재료의 써는 법·보관법·손질법을 영상으로 다 남겼다(일부 10~18만 조회). 시간·노력·비용이 만만치 않았지만, <b>팔지 않고 유튜브에 무료 공개했다.</b> "이건 우리가 세상에 주는 선물이거든." 채널명 @archiveat365 — 매일.</p>
+<div class="voice"><div class="v-lab">📿 상미님 육성</div><div class="v-txt">"이렇게 모든 식재료를 손질법 보관법까지 영상으로 다 해놓은 건 아마 우리뿐이지 않을까 싶어. (…) 이건 우리가 주는 선물 같은 것이거든. 그래서 유튜브에 영상도 공개해 놓은 이유이지."</div></div>
+<div class="mirror"><div class="m-lab">🪞 거울</div><div class="m-txt">시간으로도 노력으로도 비용으로도 쉽지 않았던 1년의 결과물을, 당신은 팔지 않고 그냥 내주었다. 어머니가 도시락을 대가 없이 싸주셨듯이. "선물"이라는 당신의 단어가 정확하다 — 이건 마케팅이 아니라 헌사였다.</div></div>
+<div class="underline"><span class="pen">✎</span><span class="u-txt">"팔 수 있는 걸 내주는 것은 손해가 아니라, 가장 느린 투자다."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
+
+      <div class="card"><span class="num">순서 13</span><h4>양파님, 낫또님 — 식재료 이름의 팀</h4><div class="emo">그리움 · 웃음</div><p class="body">팀원을 식재료 이름으로 불렀다. 양파님·체리님·허브님, 요리하는 PD는 낫또님. 함께한 수많은 인턴들도 다 식재료 이름을 하나씩 얻어 갔다. 사람 중심이 조직 문화까지 내려온 자리.</p>
+<div class="voice"><div class="v-lab">📿 상미님 육성</div><div class="v-txt">"우리는 팀원의 이름을 식재료 이름으로 불렀었어. 인턴들도 참 많이 함께 했었는데 그 친구들도 다 식재료 이름으로 불렀지. 양파님, 체리님, 허브님, 요리하는 PD의 이름은 낫또님이었어 ㅎㅎ"</div></div>
+<div class="mirror"><div class="m-lab">🪞 거울</div><div class="m-txt">직급도 없고 김대리 박과장도 없고, 양파님·체리님만 있던 곳. 이 디테일 하나가 회사 소개서 열 장보다 이 팀을 더 정확하게 말해준다. 당신의 '사람 중심'은 서비스만이 아니라, 사람을 부르는 방식까지 내려와 있었다.</div></div>
+<div class="underline"><span class="pen">✎</span><span class="u-txt">"직급으로 부르면 일이 남고, 이름을 지어 부르면 사람이 남는다."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
+
+      <div class="card"><span class="num">순서 15</span><h4>미래식당과의 만남 — "디지털의 탈을 쓴 아날로그"</h4><div class="emo">공감 · 동지애</div><p class="body">서비스 오픈 후 운영을 고민할 때 『당신의 보통에 맞추어 드립니다』를 만났다. 저자 고바야시가 <b>쿡패드 출신</b>이라는 게 마음에 다가왔다 — 쿡패드는 공공의주방이 벤치마킹하던 회사였으니까. 같은 흐름(집밥 시대)을 읽고, 개발자 시각으로 아날로그의 온기를 설계한 사람. 먼발치의 동지를 알아본 것.</p>
+<div class="voice"><div class="v-lab">📿 상미님 육성</div><div class="v-txt">"디지털의 탈을 쓴 아날로그라고 내가 늘 말하던 공공의주방을 런칭하고, 어떻게 운영할지 고민할 때 이 책을 만났어. (…) 왜 그분이 개발자 시각으로 미래식당을 만들 수 있었는지 나는 공감이 너무 됐고 배울 점이 많았거든. (…) 다시금 책을 내려고 하니 그분의 마음이 나도 이제 느껴지네."</div></div>
+<div class="mirror"><div class="m-lab">🪞 거울</div><div class="m-txt">당신은 책을 참고한 게 아니라, 같은 우물을 판 동지를 알아본 것이다. 그리고 지금 그가 창업자들을 위해 책을 쓴 마음을 당신이 느낀다는 것 — 그게 바로 당신이 이 책을 써야 하는 이유다. 받은 사람이 이제 주는 사람이 된다.</div></div>
+<div class="underline"><span class="pen">✎</span><span class="u-txt">"디지털의 탈을 쓴 아날로그 — 겉은 시스템, 속은 사람."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
+
+      <div class="card"><span class="num">순서 16</span><h4>한끼매니저, 그리고 두 개의 리얼어시</h4><div class="emo">확신 · 절제</div><p class="body">미래식당 '한끼알바'를 번역해, 모든 수업에 갈 수 없으니 <b>수강생 한 명이 한끼매니저</b>가 되어 피드백·사진으로 현장이 안전히 끝났음을 알리게 했다(포인트 지급). 우리는 선생님의 리얼어시, 한끼매니저는 서비스의 리얼어시. 단, 사람을 억지로 잇지는 않았다 — "부담이 되니까."</p>
+<div class="voice"><div class="v-lab">📿 상미님 육성</div><div class="v-txt">"우리는 선생님의 리얼어시고, 한끼매니저는 서비스의 리얼어시였던 거지. (…) 거기서 사람을 잇고 연결하는 실제적인 장면까지 의도하진 않았어. 그럼 부담이 되니까. 서로의 필요로 의미 잇는 정도면 충분하다고 생각했던 것 같아."</div></div>
+<div class="mirror"><div class="m-lab">🪞 거울</div><div class="m-txt">많은 사람이 "연결하라"고 요구할 때, 당신은 연결의 여백을 남겼다. 억지로 엮지 않는 것도 사람을 지키는 일임을 안 것. 그리고 우리동네김장날에선 그 절제가, 강요 없이도 저절로 피어나는 관계로 확장됐다.</div></div>
+<div class="underline"><span class="pen">✎</span><span class="u-txt">"억지로 잇지 않는 것도 사람을 지키는 일이다. 좋은 시스템은 여백을 남긴다."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
+
+      <div class="card"><span class="num">순서 17</span><h4>가화만사성 — 선생님이 빛나는 순간을 보려고</h4><div class="emo">기쁨 · 설렘</div><p class="body">MBTI의 T(Teaching)를 프로젝트로. "수업할 때 선생님은 빛이 나거든. 그 모습을 보고 싶어서." 만 원 수업, 한 달 5개, 수업당 10명 선착순 → 매달 50명 경험. 수도권 5개 지역, 다양한 카테고리. "만원의 행복"은 빤해서, 가치를 담은 <b>가화만사성</b>으로 이름 지음. 단골 수강생이 저절로 생겼다. (소문만복래로 확장 구상)</p>
+<div class="voice"><div class="v-lab">📿 상미님 육성</div><div class="v-txt">"수업할 때 선생님들은 빛이 나거든. 그래서 그 모습을 보고 싶고 (…) 만원의 행복은 너무 빤하고, 우리 서비스의 정신과 가치를 담은 가화만사성이란 이름을 넣은 거지. (…) 젊은 세대는 가화만사성 한자를 모르는 세대여도, 이 프로젝트명 속에 우리 가치를 담아."</div></div>
+<div class="mirror"><div class="m-lab">🪞 거울</div><div class="m-txt">프로젝트의 출발점이 "그 사람이 빛나는 걸 보고 싶어서"라니 — 얼마나 사람 중심이면 그럴까. 그리고 트렌디한 이름 대신 가치를 심은 것은, "얼굴이 곧 브랜딩"과 같은 결이다. 브랜딩을 유행이 아니라 정신으로 하는 사람.</div></div>
+<div class="underline"><span class="pen">✎</span><span class="u-txt">"판을 잘 깔아두면, 연결은 강요하지 않아도 저절로 피어난다."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
+
+      <div class="card"><span class="num">순서 18</span><h4>우리동네김장날 — 어머니의 물김치에서 사회적 기부까지</h4><div class="emo">벅참 · 그리움</div><p class="body">서비스를 시작할 때부터 품은 "그 카드" = <b>어머니의 물김치</b>. 레시피 없이 감으로 하는 손맛이 사라지기 전에 붙잡으려는 마음(= ARCHIVEAT). "우리동네"는 어디서든 동일한 경험을 주는 복제 가능한 판. <b>첫해 6곳</b> — 용인·송파(주민) → 광화문 한옥루프탑(기업·공유주방 위쿡) → 광교(아파트 공동체) → 파주 웅진(3대 가족) → 디캠프(스타트업+독거어르신 김치 기부). 7인 전문가 체제, 핑크(전문가)＋남색(수강생) 앞치마. 아이들까지 손으로 김장을 배웠다.</p>
+<div class="voice"><div class="v-lab">📿 상미님 육성</div><div class="v-txt">"우리 엄마는 김치를, 특히 물김치를 엄청 맛있게 담으셨어. (…) 우리네 엄마들은 정형화된 레시피를 만들기 어려워하지. 감으로 하시니까. (…) 우리동네라는, 우리동네선생님이라는, 그래서 최대한 동일한 경험을 주고 싶다는. (…) 디캠프와 협업을 사회적 가치로, 스타트업 대표들이 다같이 모여 김장을 하고 강남구청 통해 독거어르신들에게 김치를 기부하는 행사까지. 우리의 가치가 푹 담긴 거지."</div></div>
+<div class="mirror"><div class="m-lab">🪞 거울</div><div class="m-txt">하나의 김장이 이웃→기업→아파트→3대 가족→사회 기부로 번져나갔다. 촌스러운 김장을 핑크 앞치마로 화보로 바꾸고, 사라질 뻔한 어머니의 손맛을 아이들 손에까지 전했다. 디캠프에서 독거어르신께 닿은 그 김치 — "주기만 하는 사랑"이 가장 외로운 곳에 도착한 순간이다.</div></div>
+<div class="underline"><span class="pen">✎</span><span class="u-txt">"하나의 형식에 매번 다른 마음을 담으면, 그것은 시스템이 아니라 문화가 된다."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
+    </div>
+
+    <!-- ================= 가을 ================= -->
+    <div class="panel" id="p-autumn">
+      <div class="p-intro"><div class="p-name">가을</div><div class="p-meta">위기를 넘는 법 · 아카이빗의 탄생 (코로나~투자)</div></div>
+      <div class="season-def"><div class="sd-mean"><b>위기를 어떻게 넘는가.</b> 세상은 호락호락하지 않다. 코로나가 터지고 쌓아올린 가치가 하루아침에 내세울 것이 없어진 그때 — 어떻게 버텼는지, 인연은 어떻게 이어지는지, 버티는 힘은 어디서 오는지. 그 치열함 속에서 투자를 받아 <b>쿠킹박스 아카이빗이 탄생</b>한 이야기. 논현동, 촬영·편집·콘텐츠·저작권, 선생님들의 역할.</div><div class="sd-reader"><b>독자에게</b> — 무너진 자리에서 다시 세우는 법. 생각대로 되는 일은 없지만, 그럴 때 가져야 할 마인드와 놓칠 수 없는 가치들.</div><div class="sd-voice"><div class="sv-lab">📿 상미님 육성</div><div class="sv-txt">"가을은 위기를 어떻게 넘어가는지. 세상은 그렇게 호락호락하지 않다는 것을. 코로나가 터지고 우리가 쌓아올린 가치가 하루아침에 내세울 것이 없어진 그때, 어떻게 해야 하는지, 어떻게 했는지, 인연은 어떻게 이어지는지, 버티는 힘은 어디에서 오는지. 그럼에도 늘 최선을 다해 진행했던 순간들·경험·프로젝트들. 여러 지자체, 온라인 방식, 거기서 파생된 수업키트, 그리고 방법을 찾기 위해 치열하게 노력했던 이야기들… 그렇게 보낸 시간 속에 드디어 투자를 받게 되어 쿠킹박스 서비스를 만들 수 있게 된 이야기. 아카이빗의 탄생 스토리지. 논현동에서 투자금을 받아 우리가 했던 일들. 촬영·편집·콘텐츠·저작권, 선생님들의 역할, 서비스의 탄생. 이후 여전히 어려운 경기침체, 생각대로 되어지는 일은 없지만 그럴 때 가져야 할 마인드와 놓칠 수 없는 가치들을."</div></div></div>
+      <div class="empty-note">아직 열지 않은 서랍입니다. (다음에 이어갈 이야기)</div>
+      <div class="empty-card"><h4>· 코로나, 가치가 사라진 날</h4><p>쌓아올린 것이 하루아침에 내세울 것이 없어진 그때, 어떻게 했는가.</p></div>
+      <div class="empty-card"><h4>· 버티는 힘 · 이어지는 인연</h4><p>지자체 협업, 온라인 방식, 거기서 파생된 수업키트 — 방법을 찾으려 치열했던 순간들.</p></div>
+      <div class="empty-card"><h4>· 아카이빗의 탄생</h4><p>투자를 받아 쿠킹박스를 만들다. 논현동에서의 촬영·편집·콘텐츠·저작권, 선생님들의 역할.</p></div>
+    </div>
+
+    <!-- ================= 겨울 ================= -->
+    <div class="panel" id="p-winter">
+      <div class="p-intro"><div class="p-name">겨울</div><div class="p-meta">멈춤이냐 지속이냐 · 다시 시작 (광교~AI 시대)</div></div>
+      <div class="season-def"><div class="sd-mean"><b>멈춤이냐 지속이냐, 그리고 다시.</b> 다시 도전을 외칠 때 감내해야 할 것들. 우리의 가치를 재정의하고, 버릴 것과 살릴 것을 결정하고 실행하는 시간. 논현→광교 이전의 의미, 서비스에 대한 집중, 아카이빗에 집중하려는 마음. 그리고 새로운 시대(AI)의 도래 속 현재의 우리, 그럼에도 변하지 않아야 할 것들.</div><div class="sd-reader"><b>독자에게</b> — 갈림길에 선 이에게, 재정의하고 지속하는 법. "알 수 없는 미래는 실패가 아니라 꿈을 꾸는 것이고, 언제나 이어지고 있음."</div><div class="sd-voice"><div class="sv-lab">📿 상미님 육성</div><div class="sv-txt">"겨울. 멈춤이냐 지속이냐를 고민할 때, 우리는 다시 도전을 외칠 때 우리가 감내해야 할 것들. 우리의 가치를 재정의하고 버릴 것과 살릴 것에 대해 결정하고 실행하는 시간들. 논현에서 광교로 이전한 행동의 의미, 서비스에 대한 집중, 아카이빗에 집중하고자 하는 마음. 그리고 새로운 시대의 도래. 방식으로 여전히 새로운 시작. 그리고 AI 시대에 맞춰 꿈꾸는 것들이 구현되는 세상에서 현재의 우리의 모습. 그러나 여전히 우리의 새로운 시작에서 변하지 않아야 할 것들. 알 수 없는 미래는 실패가 아니라 꿈을 꾸는 것이고, 언제나 이어지고 있음을 알려주기."</div></div></div>
+      <div class="empty-note">아직 열지 않은 서랍입니다. (다음에 이어갈 이야기)</div>
+      <div class="empty-card"><h4>· 멈춤이냐 지속이냐 — 재정의의 시간</h4><p>가치를 다시 정의하고, 버릴 것과 살릴 것을 결정하고 실행하다.</p></div>
+      <div class="empty-card"><h4>· 논현에서 광교로 — 이전의 의미</h4><p>서비스에 대한 집중, 아카이빗에 집중하고자 하는 마음.</p></div>
+      <div class="empty-card"><h4>· AI 시대, 여전히 새로운 시작</h4><p>꿈꾸던 것이 구현되는 세상에서 현재의 우리. 변하지 않아야 할 것들.</p></div>
+    </div>
+
+    <!-- ================= 선생님 갤러리 ================= -->
+    <div class="panel" id="p-teachers">
+      <div class="p-intro"><div class="p-name" style="color:var(--autumn);">선생님 갤러리</div><div class="p-meta">책에 등장할 후보 — 얼굴을 살리되 주인공은 흐리지 않게</div></div>
+
+      <div class="layer-guide">
+        <h3>◆ 선생님을 책에 모시는 세 가지 결</h3>
+        <p class="g-lead">한 분 한 분이 다 귀하지만, 책에서는 모두를 같은 깊이로 담을 순 없어요. 그래서 결을 셋으로 나눠, 어떤 분은 스치듯 곁에, 어떤 분은 깊이 모십니다.</p>
+        <div class="layer-row"><span class="layer-badge lv1">스치듯</span><span class="l-txt">이름 없이 장면으로. "20년간 김치만 담그신 분"처럼. 부담 없이 어디에나.</span></div>
+        <div class="layer-row"><span class="layer-badge lv2">깊이</span><span class="l-txt">한 분을 MBTI 4단계로 온전히. 가장 뭉클한 챕터. <b>동의 필요</b>(가명도 좋아요).</span></div>
+        <div class="layer-row"><span class="layer-badge lv3">레시피</span><span class="l-txt">시그니처 한 장을 챕터 끝에 선물처럼. 그 사람이자, 독자를 위한 실용.</span></div>
+        <p class="g-tip">스치듯 여럿을 곁에 두고, 두세 분만 깊이, 챕터 끝마다 레시피 한 장 — 그 배합이면 선생님들이 살아 있으면서도 이야기의 중심은 흐려지지 않아요.</p>
+      </div>
+
+      <div class="empty-note">떠오르는 선생님을 한 분씩 여기 모십니다.</div>
+
+      <div class="t-card">
+        <div class="t-head"><span class="t-name">선생님 ①</span><span class="t-slot">· 아직 결을 정하지 않음</span></div>
+        <div class="t-field"><b>이름/가명</b><span class="t-fill">— 상미님이 채울 자리</span></div>
+        <div class="t-field"><b>시그니처</b><span class="t-fill">— 대표 메뉴 (층위 3 레시피 후보)</span></div>
+        <div class="t-field"><b>상미님과의 일화</b><span class="t-fill">— 첫 만남·촬영·잊지 못할 순간</span></div>
+        <div class="t-field"><b>동의</b><span class="t-fill">— 실명/사진/레시피 공개 여부</span></div>
+      </div>
+
+      <div class="t-card">
+        <div class="t-head"><span class="t-name">선생님 ②</span><span class="t-slot">· 아직 결을 정하지 않음</span></div>
+        <div class="t-field"><b>이름/가명</b><span class="t-fill">— 상미님이 채울 자리</span></div>
+        <div class="t-field"><b>시그니처</b><span class="t-fill">— 대표 메뉴 (층위 3 레시피 후보)</span></div>
+        <div class="t-field"><b>상미님과의 일화</b><span class="t-fill">— 첫 만남·촬영·잊지 못할 순간</span></div>
+        <div class="t-field"><b>동의</b><span class="t-fill">— 실명/사진/레시피 공개 여부</span></div>
+      </div>
+
+      <div class="t-card">
+        <div class="t-head"><span class="t-name">선생님 ③</span><span class="t-slot">· 아직 결을 정하지 않음</span></div>
+        <div class="t-field"><b>이름/가명</b><span class="t-fill">— 상미님이 채울 자리</span></div>
+        <div class="t-field"><b>시그니처</b><span class="t-fill">— 대표 메뉴 (층위 3 레시피 후보)</span></div>
+        <div class="t-field"><b>상미님과의 일화</b><span class="t-fill">— 첫 만남·촬영·잊지 못할 순간</span></div>
+        <div class="t-field"><b>동의</b><span class="t-fill">— 실명/사진/레시피 공개 여부</span></div>
+      </div>
+
+      <p style="text-align:center;font-size:.82rem;color:var(--ink-faint);margin-top:6px;">다음에 선생님을 떠올리시면, 제가 그분을 여기 모시고 어떤 결이 어울릴지 함께 잡을게요.</p>
+    </div>
+
+    <!-- ================= 지금 ================= -->
+    <div class="panel" id="p-now">
+      <div class="p-intro"><div class="p-name">지금</div><div class="p-meta">받던 자리에서 주는 자리로</div></div>
+
+      <div class="card"><span class="num">순서 14</span><h4>KOVWA 멘토링 — 수미상관</h4><div class="emo">감사 · 회복</div><p class="body">10년 전 여성벤처협회의 <b>지원받던</b> 창업자가, 이제 <b>멘토로 초대받아</b> 대표님들과 두 시간 넘게 이야기한다. 답을 주기보다 이야기를 끌어내는 방식 — 80명을 만나던 그 눈 그대로. 받는 자리에서 주는 자리로.</p>
+<div class="voice"><div class="v-lab">📿 상미님 육성</div><div class="v-txt">"오늘 멘토링했어. 여성벤처협회에서 대표님들이 요청들을 하시네. 오늘도 이런저런 이야기를 하다 보니 시간이 훌쩍 2시간이 넘었어."</div></div>
+<div class="mirror"><div class="m-lab">🪞 거울</div><div class="m-txt">10년 전 지원받던 그 협회에서, 이제 당신은 멘토로 초대받는다. 받던 자리에서 주는 자리로. 그리고 대표님들이 당신에게 자꾸 요청하는 이유 — 당신은 답을 주는 멘토가 아니라, 이야기를 끌어내주는 멘토라서다. 80명을 만나던 그 눈 그대로.</div></div>
+<div class="underline"><span class="pen">✎</span><span class="u-txt">"받은 자리로 돌아가 주는 사람이 될 때, 한 바퀴가 완성된다."<span class="u-note">초안 · 상미님이 다듬을 자리</span></span></div></div>
+    </div>
+
+    <footer>이 지도는 상미님이 직접 꺼낸 이야기를 바탕으로 정리한 것입니다.<br>밑줄 한 줄의 최종 표현과 감정은 상미님의 몫으로 남겨둡니다. · v11</footer>
+  </div>
+</div>
+
+</body>
+</html>
