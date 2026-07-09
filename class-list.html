@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v9"><meta name="updated" content="2026.07.09 23:37">
+<meta name="version" content="v9"><meta name="updated" content="2026.07.10 00:16">
 <title>전체 클래스 목록</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -68,6 +68,9 @@ table.mat td.tl{text-align:left;font-weight:600}
 table.mat td.rt{text-align:right;font-family:"DM Mono",monospace}
 table.mat td.a{background:#F3F7FA;color:var(--online)}
 table.mat td.p{background:#EAF3FA;font-weight:700}
+table.mat tr.subtot td{background:#F0EADB;font-weight:700;color:var(--sub);border-top:1.5px solid #D8CDB4}
+table.mat tr.subtot td.tl{text-align:right;padding-right:10px}
+table.mat tr.subtot td.p{background:#E4EDD9;color:var(--open)}
 table.mat a{color:var(--point);text-decoration:none}
 .matsum{margin-top:10px;text-align:right;font-family:"DM Mono",monospace;font-size:14px}.matsum b{font-size:17px;color:var(--online)}
 .matwrap{overflow-x:auto}
@@ -109,7 +112,7 @@ document.getElementById('fKind').addEventListener('click',function(e){if(e.targe
 function sortBy(k){if(SORT===k)DIR=-DIR;else{SORT=k;DIR=1;}render();}
 function esc(v){return v==null?'':String(v).replace(/</g,'&lt;').replace(/"/g,'&quot;');}
 function fmtN(n){if(n==null||n==='')return '';return Math.round(n).toLocaleString();}
-function won(n){if(n==null||n==='')return '-';return Number(n).toLocaleString()+'원';}
+function won(n){if(n==null||n==='')return '-';return Math.round(Number(n)).toLocaleString()+'원';}
 function pct(n){if(n==null||n==='')return '-';return (Math.round(n*1000)/10)+'%';}
 function num(v){v=parseFloat((''+v).replace(/,/g,''));return isNaN(v)?0:v;}
 function parseQ(code){if(!code)return null;var m=(''+code).match(/QDATA:([A-Za-z0-9+\/=]+)/);if(!m)return null;try{var d=JSON.parse(decodeURIComponent(escape(atob(m[1]))));return d;}catch(e){return null;}}
@@ -142,15 +145,20 @@ function drow(k,v,mono){if(v==null||v===''||v==='-')return '';return '<div class
 function blk(label,text){return '<div class="dsub">'+label+'</div>'+(text?('<div class="dtext">'+esc(text)+'</div>'):'<div class="dempty">미입력</div>');}
 function matTable(code,paxFallback){
   var d=parseQ(code);if(!d||!d.rows||!d.rows.length)return '<div class="dempty">재료 정보가 없습니다. 계산기에서 등록하면 채워집니다.</div>';
-  var pax=num(d.pax)||paxFallback||1;var body='',tot=0;
+  var pax=num(d.pax)||paxFallback||1;var body='',tot=0,cur=null,sub=0;
+  var subRow=function(g,st){return '<tr class="subtot"><td colspan="13" class="tl">'+esc(g||'기타')+' 소계 (1인)</td><td class="rt p">'+fmtN(st)+'</td></tr>';};
   d.rows.forEach(function(r){
+    var g=r.gu||'';
+    if(cur!==null&&g!==cur){body+=subRow(cur,sub);sub=0;}
+    cur=g;
     var v1=num(r.v1),pv=num(r.pv),pm=num(r.pm),ou=num(r.ou);
-    var need=v1*pax,ord=ou*pv,total=pm*ou;var per=(pax>0&&ord>0)?total/pax*(need/ord):0;tot+=per;
+    var need=v1*pax,ord=ou*pv,total=pm*ou;var per=(pax>0&&ord>0)?total/pax*(need/ord):0;tot+=per;sub+=per;
     body+='<tr><td>'+esc(r.gu)+'</td><td class="tl">'+esc(r.nm)+'</td><td>'+esc(r.ba)+'</td>'
       +'<td>'+(r.lk?'<a href="'+esc(r.lk)+'" target="_blank">링크</a>':'')+'</td>'
       +'<td class="rt">'+esc(r.v1)+'</td><td>'+esc(r.u1)+'</td><td class="rt">'+esc(r.pv)+'</td><td>'+esc(r.pu)+'</td><td class="rt">'+fmtN(pm)+'</td>'
       +'<td class="rt a">'+fmtN(need)+'</td><td class="rt">'+esc(r.ou)+'</td><td class="rt a">'+fmtN(ord)+'</td><td class="rt a">'+fmtN(total)+'</td><td class="rt p">'+fmtN(per)+'</td></tr>';
   });
+  if(cur!==null)body+=subRow(cur,sub);
   return '<div class="matwrap"><table class="mat"><thead><tr>'
     +'<th rowspan="2">구분</th><th rowspan="2">구성품</th><th rowspan="2">레시피<br>기준량</th><th rowspan="2">구매처</th>'
     +'<th class="grp" colspan="2">1인 기준</th><th class="grp" colspan="3">판매 기준단위</th>'
@@ -174,14 +182,19 @@ function buildDetail(cid){
     +'<div class="dnote">수강신청 확인사항·GSEEK 참여안내 등 고정 문구는 채널로 낼 때 자동으로 붙습니다.</div>';
   // ③ 재료 (견적 표)
   var p3=matTable(c['견적코드'],d.applied||d.mn);
-  // ④ 가격·정산 (단가 구조)
-  var net=(d.vat==='포함'&&d.price)?d.price/1.1:d.price;
+  // ④ 가격·정산 (단가 + 부가세금액 + 이 클래스 전체 손익)
+  var vatAmt=null,supply=null;
+  if(d.price!=null){if(d.vat==='포함'){supply=d.price/1.1;vatAmt=d.price-supply;}else if(d.vat==='별도'){supply=d.price;vatAmt=d.price*0.1;}}
   var cost=(d.mat||0)+(d.pack||0)+(d.ship||0)+(d.teach||0);
+  var ap4=d.applied||d.mn||0;
+  var kit4=(d.price!=null&&ap4)?d.price*ap4:null;
+  var take4=(kit4!=null&&ap4)?(kit4-cost*ap4-(d.settle||0)):null;
   var p4='<div class="flow">'
     +'<div class="flow-sec"><div class="flow-h">단가 (인당)</div>'
     +'<div class="flow-r"><span>판매가</span><span class="fv">'+won(d.price)+'</span></div>'
-    +'<div class="flow-r"><span>부가세</span><span class="fv">'+(d.vat||'-')+'</span></div>'
-    +'<div class="flow-r"><span>부가세 제외가</span><span class="fv">'+won(net)+'</span></div></div>'
+    +(vatAmt!=null?('<div class="flow-r"><span>부가세 ('+(d.vat||'')+')</span><span class="fv">'+won(vatAmt)+'</span></div>'
+      +'<div class="flow-r"><span>'+(d.vat==='포함'?'공급가 (부가세 제외)':'합계 (부가세 포함)')+'</span><span class="fv">'+won(d.vat==='포함'?supply:(d.price+vatAmt))+'</span></div>'):'')
+    +'</div>'
     +'<div class="flow-sec"><div class="flow-h">원가 (인당)</div>'
     +'<div class="flow-r"><span>재료비</span><span class="fv">'+won(d.mat)+'</span></div>'
     +(d.kind==='온라인'?('<div class="flow-r"><span>패킹비</span><span class="fv">'+won(d.pack)+'</span></div>'
@@ -189,24 +202,28 @@ function buildDetail(cid){
       +'<div class="flow-r"><span>강사비</span><span class="fv">'+won(d.teach)+'</span></div>'):'')
     +'<div class="flow-r tot"><span>원가 합</span><span class="fv">'+won(cost)+'</span></div></div>'
     +'<div class="flow-sec"><div class="flow-r tot pos"><span>수익 (인당)</span><span class="fv">'+won(d.profit)+'</span></div>'
-    +'<div class="flow-r"><span>수익률</span><span class="fv">'+pct(d.rate)+'</span></div></div></div>'
+    +'<div class="flow-r"><span>수익률</span><span class="fv">'+pct(d.rate)+'</span></div></div>'
+    +(take4!=null?('<div class="flow-sec"><div class="flow-h">이 클래스 전체 손익 (신청 '+ap4+'명 기준)</div>'
+      +'<div class="flow-r"><span>받을 것 (판매가 × '+ap4+'명)</span><span class="fv">'+won(kit4)+'</span></div>'
+      +'<div class="flow-r neg"><span>− 원가 ('+won(cost)+' × '+ap4+'명)</span><span class="fv">-'+fmtN(cost*ap4)+'원</span></div>'
+      +'<div class="flow-r neg"><span>− 선생님 정산액</span><span class="fv">-'+fmtN(d.settle||0)+'원</span></div>'
+      +'<div class="flow-r tot pos"><span>우리 몫 (순이익)</span><span class="fv">'+won(take4)+'</span></div></div>'):'')
+    +'</div>'
     +'<div class="dnote">정산구조: '+(d.struct==='A'?'A · 주최수금(우리 정산받음)':(d.struct==='B'?'B · 우리수금(에스크로)':'-'))+'</div>';
   // ⑤ 모집
   var mtype=d.mtype==='A'?'A · 사전확정':(d.mtype==='B'?'B · 모집확정':'-');
   var p5=drow('모집유형',mtype)+drow('최소인원',d.mn)+drow('최대인원',d.mx)+drow('신청인원',d.applied)+drow('개폐강',d.openst)
     +drow('확정기준일',d.confirmday)+drow('환불마감일',d.refundday)+drow('환불규칙',d.refundsrc)
     +'<div class="dnote">수강생 명단(연락처·주소)은 개인정보라 표시하지 않습니다. 완전판 마스터에 있습니다.</div>';
-  // ⑥ 정산 (돈 흐름)
+  // ⑥ 정산 (선생님 지급에 집중 · 우리 몫은 ④에)
   var applied=d.applied||d.mn||0;
-  var kitTotal=(d.price!=null&&applied)?d.price*applied:null;   // 발주처→우리(키트비 총액)
+  var kitTotal=(d.price!=null&&applied)?d.price*applied:null;
   var settle=d.settle;var payReal=null,payNote='';
   if(settle!=null&&settle!==''){
     if(d.ttype==='개인'){var tax=Math.round(settle*0.033);payReal=settle-tax;payNote='정산액 '+won(settle)+' − 원천세 3.3% '+won(tax);}
     else if(d.ttype==='사업자'){payReal=settle;payNote='세금계산서 발행 · 원천징수 없음';}
     else payReal=settle;
   }
-  var ourCost=(d.mat||0)+(d.pack||0)+(d.ship||0)+(d.teach||0);
-  var ourTake=(kitTotal!=null&&applied)?(kitTotal-ourCost*applied-(settle||0)):null;
   var p6='';
   if(payReal!=null)p6+='<div class="bigpay"><span class="bk">👩‍🍳 선생님께 입금할 금액</span><span class="bv">'+won(payReal)+'</span></div>'+(payNote?'<div class="dnote" style="margin-top:-6px;margin-bottom:12px">'+payNote+'</div>':'');
   p6+='<div class="flow">'
@@ -217,8 +234,7 @@ function buildDetail(cid){
     +'<div class="flow-r"><span>정산방식</span><span class="fv">'+(d.feeway==='인당1만'?'인당 1만원':(d.feeway==='수수료%'?('수수료 '+pct(d.feerate)):'-'))+'</span></div>'
     +'<div class="flow-r"><span>선생님 정산액</span><span class="fv">'+won(settle)+'</span></div>'
     +'<div class="flow-r"><span>선생님 유형</span><span class="fv">'+(d.ttype==='개인'?'개인(원천세 3.3%)':(d.ttype==='사업자'?'사업자(계산서)':'-'))+'</span></div>'
-    +'<div class="flow-r neg"><span>실지급액</span><span class="fv">'+won(payReal)+'</span></div></div>'
-    +(ourTake!=null?('<div class="flow-sec"><div class="flow-r tot pos"><span>우리 몫 (받을 것 − 원가 − 선생님)</span><span class="fv">'+won(ourTake)+'</span></div></div>'):'')
+    +'<div class="flow-r neg tot"><span>실지급액</span><span class="fv">'+won(payReal)+'</span></div></div>'
     +'</div>'
     +'<div class="dnote">💳 선생님 계좌·은행은 개인정보라 표시하지 않습니다. <b>완전판 마스터(채팅창)</b>에서 확인하세요.</div>';
 
