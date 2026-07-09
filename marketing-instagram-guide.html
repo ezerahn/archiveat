@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v3"><meta name="updated" content="2026.07.09 20:10">
+<meta name="version" content="v4"><meta name="updated" content="2026.07.09 20:30">
 <title>아카이빗 인스타 가이드</title>
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono&display=swap" rel="stylesheet">
@@ -9,9 +9,7 @@
 :root{
  --bg:#FAF7F1; --paper:#fff; --ink:#2B2621; --sub:#6f675d; --muted:#9a9186;
  --line:#EAE2D4; --line2:#F0EAE0;
- --coral:#FF5019;            /* 아카이빗 포인트(절제) */
- --gjk:#8C8577;             /* 공공의주방 = 차분한 회갈색 참조점 */
- --gjk-bg:#F4F1EA; --aca-bg:#FFF3EE;
+ --coral:#FF5019; --gjk:#8C8577; --gjk-bg:#F4F1EA; --aca-bg:#FFF3EE;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif;line-height:1.65}
@@ -24,99 +22,91 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,-appl
 .breadcrumb .sep{color:#d3ccbf;margin:0 5px}
 .breadcrumb .upd{font-family:"DM Mono",monospace}
 h1{font-family:Hahmlet,serif;font-weight:700;font-size:29px;letter-spacing:-.02em;margin:10px 0 4px}
-.lead{font-size:14px;color:var(--sub);margin:0 0 30px}
-/* hero — 차분 */
-.hero{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px 26px;margin-bottom:14px}
-.hero .eyebrow{font-size:11.5px;letter-spacing:.16em;color:var(--muted);font-family:"DM Mono",monospace;margin-bottom:10px}
-.hero h2{font-family:Hahmlet,serif;font-weight:700;font-size:27px;line-height:1.35;margin:0 0 10px}
-.hero h2 .hl{color:var(--coral)}
-.hero p{margin:0;font-size:14px;color:var(--sub);max-width:52ch}
-/* the one rule — coral 절제 */
-.rule{border:1px solid var(--line);border-left:4px solid var(--coral);border-radius:12px;padding:16px 20px;margin-bottom:34px;background:var(--paper)}
-.rule .k{font-size:11.5px;font-weight:700;color:var(--coral);letter-spacing:.04em;margin-bottom:7px}
-.rule .big{font-family:Hahmlet,serif;font-weight:600;font-size:17px;line-height:1.55}
+.lead{font-size:14px;color:var(--sub);margin:0 0 18px}
+/* 항상 보이는 핵심 한 줄 */
+.rule{border:1px solid var(--line);border-left:4px solid var(--coral);border-radius:12px;padding:14px 18px;margin-bottom:16px;background:var(--paper)}
+.rule .big{font-family:Hahmlet,serif;font-weight:600;font-size:16px;line-height:1.55}
 .rule .big b{color:var(--coral)}
-.rule .sub{font-size:13px;color:var(--muted);margin-top:8px}
-/* section head — 회색 번호, 색 마커 제거 */
-.sec{margin:36px 0 14px;border-top:1px solid var(--line2);padding-top:22px}
-.sec:first-of-type{border-top:none;padding-top:0}
-.sec .num{font-family:"DM Mono",monospace;font-size:12px;color:var(--muted);letter-spacing:.05em}
-.sec h3{font-family:Hahmlet,serif;font-weight:700;font-size:20px;margin:3px 0 0}
-.sec .desc{font-size:13.5px;color:var(--sub);margin:7px 0 0}
-/* 좌우 대비 (공공의주방 | 아카이빗) */
+/* 탭바 (sticky) */
+.tabs{position:sticky;top:0;z-index:10;display:flex;gap:6px;background:var(--bg);padding:8px 0 10px;margin-bottom:4px;border-bottom:1px solid var(--line2)}
+.tab{flex:1;text-align:center;font-size:13.5px;font-weight:700;padding:9px 6px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--sub);cursor:pointer;font-family:Pretendard;transition:.12s}
+.tab .sub{display:block;font-size:10.5px;font-weight:500;color:var(--muted);margin-top:1px;font-family:"DM Mono",monospace}
+.tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tab.on .sub{color:#c9c0b2}
+.panel{display:none;animation:fade .18s ease}
+.panel.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+/* hero */
+.hero{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 22px;margin:14px 0}
+.hero .eyebrow{font-size:11.5px;letter-spacing:.16em;color:var(--muted);font-family:"DM Mono",monospace;margin-bottom:9px}
+.hero h2{font-family:Hahmlet,serif;font-weight:700;font-size:25px;line-height:1.35;margin:0 0 9px}
+.hero h2 .hl{color:var(--coral)}
+.hero p{margin:0;font-size:13.7px;color:var(--sub)}
+.block{margin:22px 0 12px}
+.block h3{font-family:Hahmlet,serif;font-weight:700;font-size:18px;margin:0}
+.block .desc{font-size:13.3px;color:var(--sub);margin:6px 0 0}
+/* 좌우 대비 */
 .vs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .vs .col{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--paper)}
-.vs .col .cap{padding:9px 14px;font-size:12px;font-weight:700;font-family:"DM Mono",monospace;letter-spacing:.02em}
+.vs .col .cap{padding:9px 14px;font-size:12px;font-weight:700;font-family:"DM Mono",monospace}
 .vs .gj .cap{background:var(--gjk-bg);color:var(--gjk)}
 .vs .ac .cap{background:var(--aca-bg);color:var(--coral)}
-.vs .rowline{display:flex;gap:10px;padding:10px 14px;border-top:1px solid var(--line2);font-size:13.5px}
+.vs .rowline{display:flex;gap:10px;padding:9px 14px;border-top:1px solid var(--line2);font-size:13px}
 .vs .rowline:first-of-type{border-top:none}
-.vs .rowline .lb{flex:0 0 46px;color:var(--muted);font-size:12px}
+.vs .rowline .lb{flex:0 0 44px;color:var(--muted);font-size:11.5px}
 .vs .ac .rowline .val{font-weight:600}
-.vs-legend{font-size:12px;color:var(--muted);margin-top:8px;text-align:center}
-/* 결 리스트 — 차분 */
+.vs-legend{font-size:11.7px;color:var(--muted);margin-top:8px;text-align:center}
 .core{display:flex;flex-direction:column;gap:8px}
 .core .row{display:flex;gap:14px;background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:12px 16px}
-.core .tag{flex:0 0 56px;font-family:Hahmlet,serif;font-weight:700;font-size:14px;color:var(--ink)}
-.core .txt{font-size:13.7px}
-.core .txt b{font-weight:700}
-.core .txt .why{color:var(--muted);font-size:13px}
-/* 이어달리기 */
-.relay{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:10px}
-.relay .flow{display:flex;align-items:center;gap:10px;font-family:Hahmlet,serif;font-weight:700;font-size:15px;flex-wrap:wrap;margin-bottom:6px}
-.relay .a{color:var(--gjk)} .relay .arrow{color:var(--coral)} .relay .b{color:var(--coral)}
-.relay .desc2{font-size:13px;color:var(--sub)}
+.core .tag{flex:0 0 56px;font-family:Hahmlet,serif;font-weight:700;font-size:14px}
+.core .txt{font-size:13.5px}.core .txt b{font-weight:700}.core .txt .why{color:var(--muted);font-size:12.7px}
+.relay{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:15px 18px;margin-bottom:10px}
+.relay .flow{display:flex;align-items:center;gap:9px;font-family:Hahmlet,serif;font-weight:700;font-size:14.5px;flex-wrap:wrap;margin-bottom:6px}
+.relay .a{color:var(--gjk)}.relay .arrow{color:var(--coral)}.relay .b{color:var(--coral)}
+.relay .desc2{font-size:12.7px;color:var(--sub)}
 .patterns{display:flex;flex-direction:column;gap:9px}
 .pat{background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:12px 16px}
-.pat .h{font-weight:700;font-size:13.7px;margin-bottom:5px;display:flex;gap:8px;align-items:center}
-.pat .h .n{font-family:"DM Mono",monospace;font-size:11.5px;color:var(--sub);background:var(--line2);border-radius:5px;padding:1px 7px}
-.pat .ex{font-size:12.7px;color:var(--sub);background:var(--bg);border-left:2px solid var(--line);border-radius:0 8px 8px 0;padding:8px 12px;margin-top:6px;white-space:pre-wrap;line-height:1.6}
-.amt{background:var(--gjk-bg);border:1px solid var(--line);border-radius:11px;padding:13px 16px;margin-top:10px;font-size:13px}
-.amt b{color:var(--ink)}
-.amt ul{margin:7px 0 0;padding-left:18px} .amt li{margin:3px 0;color:var(--sub)}
-/* 요일 — 차분, 색 없이 */
+.pat .h{font-weight:700;font-size:13.5px;margin-bottom:5px;display:flex;gap:8px;align-items:center}
+.pat .h .n{font-family:"DM Mono",monospace;font-size:11px;color:var(--sub);background:var(--line2);border-radius:5px;padding:1px 7px}
+.pat .ex{font-size:12.5px;color:var(--sub);background:var(--bg);border-left:2px solid var(--line);border-radius:0 8px 8px 0;padding:8px 12px;margin-top:6px;white-space:pre-wrap;line-height:1.6}
+.amt{background:var(--gjk-bg);border:1px solid var(--line);border-radius:11px;padding:13px 16px;margin-top:10px;font-size:12.7px}
+.amt b{color:var(--ink)}.amt ul{margin:7px 0 0;padding-left:18px}.amt li{margin:3px 0;color:var(--sub)}
 .week{display:flex;flex-direction:column;gap:7px}
-.day{display:flex;align-items:stretch;background:var(--paper);border:1px solid var(--line);border-radius:11px;overflow:hidden}
-.day .d{flex:0 0 50px;display:flex;align-items:center;justify-content:center;font-family:Hahmlet,serif;font-weight:700;font-size:16px;color:var(--ink);background:var(--gjk-bg)}
+.day{display:flex;background:var(--paper);border:1px solid var(--line);border-radius:11px;overflow:hidden}
+.day .d{flex:0 0 50px;display:flex;align-items:center;justify-content:center;font-family:Hahmlet,serif;font-weight:700;font-size:16px;background:var(--gjk-bg)}
 .day.core-day .d{background:var(--aca-bg);color:var(--coral)}
 .day .body{padding:10px 15px;flex:1}
-.day .t{font-weight:700;font-size:13.7px;display:flex;align-items:center;gap:8px}
-.day .t .fix{font-size:10px;font-family:"DM Mono",monospace;background:var(--coral);color:#fff;border-radius:4px;padding:1px 6px}
-.day .s{font-size:12.7px;color:var(--muted);margin-top:2px}
+.day .t{font-weight:700;font-size:13.5px;display:flex;align-items:center;gap:8px}
+.day .t .fix{font-size:9.5px;font-family:"DM Mono",monospace;background:var(--coral);color:#fff;border-radius:4px;padding:1px 6px}
+.day .s{font-size:12.5px;color:var(--muted);margin-top:2px}
 .day.opt{opacity:.8;border-style:dashed}
-/* 글 틀 */
 .tmpls{display:flex;flex-direction:column;gap:11px}
 .tmpl{background:var(--paper);border:1px solid var(--line);border-radius:11px;overflow:hidden}
-.tmpl .th{padding:9px 15px;font-weight:700;font-size:13.5px;color:var(--ink);background:var(--gjk-bg);display:flex;justify-content:space-between;border-bottom:1px solid var(--line2)}
-.tmpl .th .day-lbl{font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted)}
-.tmpl pre{margin:0;padding:14px 16px;white-space:pre-wrap;font-family:Pretendard;font-size:13.3px;line-height:1.8;color:var(--sub)}
+.tmpl .th{padding:9px 15px;font-weight:700;font-size:13.3px;background:var(--gjk-bg);display:flex;justify-content:space-between;border-bottom:1px solid var(--line2)}
+.tmpl .th .day-lbl{font-family:"DM Mono",monospace;font-size:11px;color:var(--muted)}
+.tmpl pre{margin:0;padding:14px 16px;white-space:pre-wrap;font-family:Pretendard;font-size:13px;line-height:1.8;color:var(--sub)}
 .tmpl pre .blank{background:#FBEEE7;color:var(--coral);border-radius:4px;padding:0 5px;font-weight:600}
-/* 썸네일 */
 .thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
 .thumb{background:var(--paper);border:1px solid var(--line);border-radius:11px;overflow:hidden;text-align:center}
-.thumb .pv{height:88px;display:flex;align-items:center;justify-content:center;font-size:28px;background:var(--gjk-bg)}
-.thumb .cap{padding:9px 8px}
-.thumb .cap .t{font-weight:700;font-size:12.7px} .thumb .cap .s{font-size:11.3px;color:var(--muted);margin-top:2px}
-/* 공식 */
+.thumb .pv{height:82px;display:flex;align-items:center;justify-content:center;font-size:26px;background:var(--gjk-bg)}
+.thumb .cap{padding:8px}.thumb .cap .t{font-weight:700;font-size:12.5px}.thumb .cap .s{font-size:11px;color:var(--muted);margin-top:2px}
 .formula{counter-reset:f;display:flex;flex-direction:column;gap:8px}
 .formula .step{display:flex;gap:12px;align-items:flex-start;background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:11px 15px}
 .formula .step::before{counter-increment:f;content:counter(f);flex:0 0 22px;height:22px;border-radius:50%;background:var(--gjk-bg);color:var(--sub);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;font-family:"DM Mono",monospace}
-.formula .step .st{font-size:13.7px} .formula .step .st b{font-weight:700} .formula .step .st span{color:var(--muted);font-size:13px}
-/* 예시 */
-.example{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:17px 20px}
-.example .photo{font-size:12.3px;color:var(--muted);font-weight:700;margin-bottom:10px}
-.example pre{margin:0;white-space:pre-wrap;font-family:Pretendard;font-size:13.7px;line-height:1.75}
-.example .note{margin-top:12px;font-size:12.3px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
-/* 체크리스트 — 차분 */
-.check{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
-.check h3{font-family:Hahmlet,serif;margin:0 0 4px;font-size:17px}
-.check .sub{font-size:12.3px;color:var(--muted);margin-bottom:13px}
+.formula .step .st{font-size:13.5px}.formula .step .st b{font-weight:700}.formula .step .st span{color:var(--muted);font-size:12.7px}
+.example{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-top:10px}
+.example .photo{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:10px}
+.example pre{margin:0;white-space:pre-wrap;font-family:Pretendard;font-size:13.5px;line-height:1.75}
+.example .note{margin-top:12px;font-size:12px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.check{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:19px 22px;margin-top:12px}
+.check h4{font-family:Hahmlet,serif;margin:0 0 4px;font-size:16px;font-weight:700}
+.check .sub{font-size:12px;color:var(--muted);margin-bottom:13px}
 .check ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
-.check li{display:flex;gap:11px;font-size:13.7px;align-items:flex-start;color:var(--sub)}
+.check li{display:flex;gap:11px;font-size:13.5px;align-items:flex-start;color:var(--sub)}
 .check li::before{content:'';flex:0 0 17px;height:17px;border:1.5px solid var(--coral);border-radius:5px;margin-top:2px}
 .check li b{color:var(--ink)}
-footer{margin-top:36px;font-size:12px;color:var(--muted);font-family:"DM Mono",monospace;text-align:center}
-@media (max-width:560px){h1{font-size:25px}.hero h2{font-size:23px}.thumbs{grid-template-columns:1fr}.vs{grid-template-columns:1fr}}
+footer{margin-top:34px;font-size:12px;color:var(--muted);font-family:"DM Mono",monospace;text-align:center}
+@media (max-width:560px){h1{font-size:25px}.hero h2{font-size:22px}.thumbs{grid-template-columns:1fr}.vs{grid-template-columns:1fr}.tab{font-size:12.5px}}
 </style></head>
 <body><div class="wrap">
 <header>
@@ -125,101 +115,108 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);font-family:"DM Mono",m
       <a class="pill" href="marketing.html">← 마케팅 홈</a>
       <a class="pill" href="https://claude.ai/chat/f14fa17b-eb35-4ee9-af74-7ef955c6ddac" target="_blank" rel="noopener">💬 작업 대화</a>
     </div>
-    <div class="breadcrumb">AI 워크스페이스 › 마케팅 › 인스타 가이드 <span class="sep">|</span> <span class="upd">업데이트 2026.07.09 20:10 · v3</span></div>
+    <div class="breadcrumb">AI 워크스페이스 › 마케팅 › 인스타 가이드 <span class="sep">|</span> <span class="upd">업데이트 2026.07.09 20:30 · v4</span></div>
   </div>
   <h1>아카이빗 인스타 가이드</h1>
-  <p class="lead">매번 새로 고민하지 않게. 공공의주방과 나란히 놓고 결을 확인하며, 틀에 오늘 재료만 끼우면 되도록.</p>
+  <p class="lead">정서는 유지하되, 탭에서 필요한 부분만. 올릴 땐 '이번 주' 탭만 열면 돼요.</p>
 </header>
 
-<section class="hero">
-  <div class="eyebrow">ARCHIVEAT · INSTAGRAM</div>
-  <h2>당신의 한 끼가 <span class="hl">주인공인 식탁</span></h2>
-  <p>아카이빗 인스타는 상품이 아니라 <b>먹는 사람의 하루</b>를 비춥니다. 공공의주방이 '만드는 사람(선생님)'을 비췄다면, 아카이빗은 '받는 사람의 식탁'이에요.</p>
+<div class="rule">
+  <div class="big">상품만 찍으면 <b>밀키트</b>, 식탁 위 한 끼 <b>+ 왜 이 재료인지</b>를 얹으면 <b>아카이빗</b>.</div>
+</div>
+
+<div class="tabs">
+  <button class="tab on" onclick="showTab('t1',this)">결<span class="sub">정체성</span></button>
+  <button class="tab" onclick="showTab('t2',this)">운영<span class="sub">두 계정</span></button>
+  <button class="tab" onclick="showTab('t3',this)">이번 주<span class="sub">뭘 올릴지</span></button>
+  <button class="tab" onclick="showTab('t4',this)">쓰기<span class="sub">공식·체크</span></button>
+</div>
+
+<!-- TAB 1 결 -->
+<section class="panel on" id="t1">
+  <div class="hero">
+    <div class="eyebrow">ARCHIVEAT · INSTAGRAM</div>
+    <h2>당신의 한 끼가 <span class="hl">주인공인 식탁</span></h2>
+    <p>아카이빗 인스타는 상품이 아니라 <b>먹는 사람의 하루</b>를 비춥니다. 공공의주방이 '만드는 사람(선생님)'을 비췄다면, 아카이빗은 '받는 사람의 식탁'이에요.</p>
+  </div>
+
+  <div class="block"><h3>두 계정, 나란히 보기</h3><p class="desc">뿌리는 같아요(사람 중심). 공공의주방은 <b>만드는 사람</b>을, 아카이빗은 <b>먹는 사람</b>을 중심에 둡니다.</p></div>
+  <div class="vs">
+    <div class="col gj">
+      <div class="cap">공공의주방 · 1.4만</div>
+      <div class="rowline"><span class="lb">역할</span><span class="val">신뢰·유입 입구</span></div>
+      <div class="rowline"><span class="lb">파는것</span><span class="val">사람(전문가)·클래스</span></div>
+      <div class="rowline"><span class="lb">주인공</span><span class="val">선생님의 얼굴</span></div>
+      <div class="rowline"><span class="lb">톤</span><span class="val">헌신·따뜻함</span></div>
+      <div class="rowline"><span class="lb">글</span><span class="val">사람 이야기·손글씨</span></div>
+    </div>
+    <div class="col ac">
+      <div class="cap">아카이빗 · 940</div>
+      <div class="rowline"><span class="lb">역할</span><span class="val">구매·재구매 전환</span></div>
+      <div class="rowline"><span class="lb">파는것</span><span class="val">쿠킹박스(물건·경험)</span></div>
+      <div class="rowline"><span class="lb">주인공</span><span class="val">고객의 식탁·손</span></div>
+      <div class="rowline"><span class="lb">톤</span><span class="val">일상의 위로</span></div>
+      <div class="rowline"><span class="lb">글</span><span class="val">왜 이 재료인지(판단)</span></div>
+    </div>
+  </div>
+  <div class="vs-legend">왼쪽(회색) 공공의주방=참조점 · 오른쪽(코랄) 아카이빗=주인공</div>
+
+  <div class="block"><h3>아카이빗의 결</h3></div>
+  <div class="core">
+    <div class="row"><div class="tag">주인공</div><div class="txt"><b>고객의 식탁·손</b> <span class="why">— 선생님 얼굴은 공공의주방 몫. 완성된 한 끼를 덜어내는 손·그릇을.</span></div></div>
+    <div class="row"><div class="tag">톤</div><div class="txt"><b>일상의 위로</b> <span class="why">— "바빠도 이렇게 챙겨 먹어요". 애쓰지 않아도 잘 챙겨 먹는 삶.</span></div></div>
+    <div class="row"><div class="tag">무기</div><div class="txt"><b>why (왜 이 재료인지)</b> <span class="why">— 밀키트는 "맛있어요!"만. 아카이빗은 "왜 이 소스·계절·조합인지"를 써요.</span></div></div>
+    <div class="row"><div class="tag">사진</div><div class="txt"><b>완성된 한 끼 · 손 · 새벽 박스</b> <span class="why">— 상품컷에서 멈추지 말 것. 얼굴보다 '행위와 결과'.</span></div></div>
+    <div class="row"><div class="tag">뿌리</div><div class="txt"><b>여기 쓴 이야기가 곧 책 재료</b> <span class="why">— 짧게 쓰면 인스타, 쌓이면 책.</span></div></div>
+  </div>
 </section>
 
-<div class="rule">
-  <div class="k">딱 하나만 기억하세요</div>
-  <div class="big">상품만 찍으면 <b>밀키트</b>, 식탁 위 한 끼 <b>+ 왜 이 재료인지</b>를 얹으면 <b>아카이빗</b>.</div>
-  <div class="sub">올리기 전에 자문하세요 — "이거 상품컷에서 멈췄나, 식탁+why까지 갔나?"</div>
-</div>
-
-<div class="sec"><span class="num">01</span><h3>두 계정, 나란히 보기</h3>
-<p class="desc">뿌리는 같아요(사람 중심). 다만 공공의주방은 <b>만드는 사람</b>을, 아카이빗은 <b>먹는 사람</b>을 중심에 둡니다. 이 대비를 늘 곁에 두고 쓰세요.</p></div>
-<div class="vs">
-  <div class="col gj">
-    <div class="cap">공공의주방 · 1.4만</div>
-    <div class="rowline"><span class="lb">역할</span><span class="val">신뢰·유입 입구</span></div>
-    <div class="rowline"><span class="lb">파는 것</span><span class="val">사람(전문가)·클래스</span></div>
-    <div class="rowline"><span class="lb">주인공</span><span class="val">선생님의 얼굴</span></div>
-    <div class="rowline"><span class="lb">톤</span><span class="val">헌신·따뜻함</span></div>
-    <div class="rowline"><span class="lb">글</span><span class="val">사람 이야기·손글씨</span></div>
-    <div class="rowline"><span class="lb">한 줄</span><span class="val">사람이 주인공인 커뮤니티</span></div>
+<!-- TAB 2 운영 -->
+<section class="panel" id="t2">
+  <div class="block"><h3>두 계정 운영 · 이어달리기</h3><p class="desc">같은 말 반복이 아니라 <b>바통 터치</b>. 큰 계정이 작은 계정을 끌어줘요.</p></div>
+  <div class="relay">
+    <div class="flow"><span class="a">공공의주방 · 신뢰</span> <span class="arrow">→</span> <span class="b">아카이빗 · 집에서 그 맛</span></div>
+    <div class="desc2">"우리 이런 거 가르쳐요" 하다가, 가끔 "집에서도 먹고 싶으면 여기(아카이빗)" 하고 손짓. 흐름은 <b>공공의주방 → 아카이빗</b> 한 방향 우선.</div>
   </div>
-  <div class="col ac">
-    <div class="cap">아카이빗 · 940</div>
-    <div class="rowline"><span class="lb">역할</span><span class="val">구매·재구매 전환</span></div>
-    <div class="rowline"><span class="lb">파는 것</span><span class="val">쿠킹박스(물건·경험)</span></div>
-    <div class="rowline"><span class="lb">주인공</span><span class="val">고객의 식탁·손</span></div>
-    <div class="rowline"><span class="lb">톤</span><span class="val">일상의 위로</span></div>
-    <div class="rowline"><span class="lb">글</span><span class="val">왜 이 재료인지(판단)</span></div>
-    <div class="rowline"><span class="lb">한 줄</span><span class="val">당신의 한 끼가 주인공인 식탁</span></div>
-  </div>
-</div>
-<div class="vs-legend">왼쪽(회색) 공공의주방은 참조점 · 오른쪽(코랄) 아카이빗이 주인공</div>
-
-<div class="sec"><span class="num">02</span><h3>아카이빗의 결</h3></div>
-<div class="core">
-  <div class="row"><div class="tag">주인공</div><div class="txt"><b>고객의 식탁·손</b> <span class="why">— 선생님 얼굴은 공공의주방 몫. 완성된 한 끼를 덜어내는 손·그릇을 비춰요.</span></div></div>
-  <div class="row"><div class="tag">톤</div><div class="txt"><b>일상의 위로</b> <span class="why">— "바빠도 이렇게 챙겨 먹어요". 애쓰지 않아도 잘 챙겨 먹는 삶.</span></div></div>
-  <div class="row"><div class="tag">무기</div><div class="txt"><b>why (왜 이 재료인지)</b> <span class="why">— 다른 밀키트는 "맛있어요!"만. 아카이빗은 "왜 이 소스·계절·조합인지"를 써요. 배우는 재미로 남아요.</span></div></div>
-  <div class="row"><div class="tag">사진</div><div class="txt"><b>완성된 한 끼 · 손 · 새벽 박스</b> <span class="why">— 상품컷·재료팩에서 멈추지 말 것. 얼굴보다 '행위와 결과'.</span></div></div>
-  <div class="row"><div class="tag">뿌리</div><div class="txt"><b>여기 쓴 이야기가 곧 책 재료</b> <span class="why">— 짧게 쓰면 인스타, 쌓이면 책. 낭비가 아니에요.</span></div></div>
-</div>
-
-<div class="sec"><span class="num">03</span><h3>두 계정 운영 · 이어달리기</h3>
-<p class="desc">같은 말을 반복하는 게 아니라 <b>바통 터치</b>. 각자 자기 이야기를 하되, 큰 계정이 작은 계정을 끌어줍니다.</p></div>
-<div class="relay">
-  <div class="flow"><span class="a">공공의주방 · 신뢰</span> <span class="arrow">→</span> <span class="b">아카이빗 · 집에서 그 맛</span></div>
-  <div class="desc2">공공의주방에서 "우리 이런 거 가르쳐요" 하다가, 가끔 "집에서도 먹고 싶으면 여기(아카이빗)" 하고 손짓. 흐름은 <b>공공의주방 → 아카이빗</b> 한 방향 우선.</div>
-</div>
-<div class="patterns">
-  <div class="pat"><div class="h"><span class="n">패턴 1</span> 클래스 후기 끝에 다리 놓기</div><div class="ex">오늘 배운 갑오징어볶음, 집에서도 그 맛 그대로.
+  <div class="patterns">
+    <div class="pat"><div class="h"><span class="n">패턴 1</span> 클래스 후기 끝에 다리 놓기</div><div class="ex">오늘 배운 갑오징어볶음, 집에서도 그 맛 그대로.
 손질된 재료로 10분이면 완성돼요 → @archiveat.kr</div></div>
-  <div class="pat"><div class="h"><span class="n">패턴 2</span> "클래스 못 와도" 콘텐츠</div><div class="ex">이번 수업은 마감됐어요. 그래도 이 메뉴,
+    <div class="pat"><div class="h"><span class="n">패턴 2</span> "클래스 못 와도" 콘텐츠</div><div class="ex">이번 수업은 마감됐어요. 그래도 이 메뉴,
 집에서 해보고 싶다면 아카이빗 쿠킹박스에 있어요.</div></div>
-  <div class="pat"><div class="h"><span class="n">패턴 3</span> 같은 메뉴, 다른 각도</div><div class="ex">공공의주방: "선생님이 알려주는 갑오징어 손질법" (배우는 이야기)
+    <div class="pat"><div class="h"><span class="n">패턴 3</span> 같은 메뉴, 다른 각도</div><div class="ex">공공의주방: "선생님이 알려주는 갑오징어 손질법" (배우는 이야기)
 아카이빗: "집에서 10분, 갑오징어볶음 한 끼" (먹는 이야기)</div></div>
-  <div class="pat"><div class="h"><span class="n">패턴 4</span> 스토리로 가볍게 리그램</div><div class="ex">아카이빗 새 글을 공공의주방 스토리(24h)에 "@archiveat.kr 새 메뉴 나왔어요" 하고 공유.</div></div>
-</div>
-<div class="amt">
-  <b>양 조절 (광고처럼 안 보이게)</b>
-  <ul>
-    <li>공공의주방 클래스 글 <b>3~4개당 1개</b>만 아카이빗 다리 놓기</li>
-    <li><b>월 1~2회</b>는 아카이빗을 아예 주인공으로</li>
-    <li>스토리 리그램은 <b>아카이빗 새 글마다</b> (부담 없으니)</li>
-  </ul>
-</div>
+    <div class="pat"><div class="h"><span class="n">패턴 4</span> 스토리로 가볍게 리그램</div><div class="ex">아카이빗 새 글을 공공의주방 스토리(24h)에 "@archiveat.kr 새 메뉴 나왔어요" 하고 공유.</div></div>
+  </div>
+  <div class="amt">
+    <b>양 조절 (광고처럼 안 보이게)</b>
+    <ul>
+      <li>공공의주방 클래스 글 <b>3~4개당 1개</b>만 아카이빗 다리 놓기</li>
+      <li><b>월 1~2회</b>는 아카이빗을 아예 주인공으로</li>
+      <li>스토리 리그램은 <b>아카이빗 새 글마다</b></li>
+    </ul>
+  </div>
+</section>
 
-<div class="sec"><span class="num">04</span><h3>요일 리듬 · 주 3회 고정</h3>
-<p class="desc">요일 = 콘텐츠 종류를 고정해 고민을 줄여요. <b>월·수·금 3회</b>가 기본, 여력되면 아래 추가.</p></div>
-<div class="week">
-  <div class="day core-day"><div class="d">월</div><div class="body"><div class="t">이번 주 신메뉴 예고 <span class="fix">고정</span></div><div class="s">이번 주 식탁에 올라올 것 · "이번 주엔 이걸로 챙겨보세요"</div></div></div>
-  <div class="day core-day"><div class="d">수</div><div class="body"><div class="t">제철 재료 이야기 <span class="fix">고정</span></div><div class="s">왜 이 계절에 이 재료를 골랐는지(why) · 손질하는 손</div></div></div>
-  <div class="day core-day"><div class="d">금</div><div class="body"><div class="t">주말 식탁 제안 <span class="fix">고정</span></div><div class="s">"이번 주말, 이거 어때요" · 장면으로 제안</div></div></div>
-  <div class="day opt"><div class="d">여력</div><div class="body"><div class="t">추가하면 좋은 것</div><div class="s">화: 신메뉴 소개(완성 한 끼+why) · 목: 새벽배송·비하인드 · 토·일: 후기·질문</div></div></div>
-</div>
+<!-- TAB 3 이번 주 -->
+<section class="panel" id="t3">
+  <div class="block"><h3>요일 리듬 · 주 3회 고정</h3><p class="desc">요일 = 콘텐츠 종류 고정. <b>월·수·금</b>이 기본, 여력되면 아래 추가.</p></div>
+  <div class="week">
+    <div class="day core-day"><div class="d">월</div><div class="body"><div class="t">이번 주 신메뉴 예고 <span class="fix">고정</span></div><div class="s">이번 주 식탁에 올라올 것 · "이번 주엔 이걸로"</div></div></div>
+    <div class="day core-day"><div class="d">수</div><div class="body"><div class="t">제철 재료 이야기 <span class="fix">고정</span></div><div class="s">왜 이 계절에 이 재료를(why) · 손질하는 손</div></div></div>
+    <div class="day core-day"><div class="d">금</div><div class="body"><div class="t">주말 식탁 제안 <span class="fix">고정</span></div><div class="s">"이번 주말, 이거 어때요" · 장면으로</div></div></div>
+    <div class="day opt"><div class="d">여력</div><div class="body"><div class="t">추가하면 좋은 것</div><div class="s">화: 신메뉴 소개 · 목: 새벽배송·비하인드 · 토·일: 후기·질문</div></div></div>
+  </div>
 
-<div class="sec"><span class="num">05</span><h3>종류별 글 틀 · 빈칸 채우기</h3>
-<p class="desc">매번 새 글이 아니라, 요일 틀에 <span style="background:#FBEEE7;color:var(--coral);border-radius:4px;padding:0 5px;font-weight:600">빈칸</span>만 채우면 돼요.</p></div>
-<div class="tmpls">
-  <div class="tmpl"><div class="th"><span>월 · 신메뉴 예고</span><span class="day-lbl">MON</span></div><pre>이번 주 식탁에 올라올 새 메뉴 예고!
+  <div class="block"><h3>종류별 글 틀 · 빈칸 채우기</h3><p class="desc">요일 틀에 <span style="background:#FBEEE7;color:var(--coral);border-radius:4px;padding:0 5px;font-weight:600">빈칸</span>만 채우면 완성.</p></div>
+  <div class="tmpls">
+    <div class="tmpl"><div class="th"><span>월 · 신메뉴 예고</span><span class="day-lbl">MON</span></div><pre>이번 주 식탁에 올라올 새 메뉴 예고!
 
 <span class="blank">메뉴명</span>, <span class="blank">한 줄 매력</span>
 
 <span class="blank">언제 만나요 — 목/토 새벽배송</span>
 
 👉 예약: 프로필 링크 @archiveat.kr</pre></div>
-  <div class="tmpl"><div class="th"><span>수 · 제철 재료 이야기</span><span class="day-lbl">WED</span></div><pre>지금이 제철, <span class="blank">재료</span>.
+    <div class="tmpl"><div class="th"><span>수 · 제철 재료 이야기</span><span class="day-lbl">WED</span></div><pre>지금이 제철, <span class="blank">재료</span>.
 
 <span class="blank">why — 이맘때 이 재료가 가장 좋은 이유</span>
 
@@ -228,36 +225,38 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);font-family:"DM Mono",m
 여러분은 <span class="blank">재료</span>, 어떻게 즐기세요?
 
 👉 이번 주 식탁: 프로필 링크</pre></div>
-  <div class="tmpl"><div class="th"><span>금 · 주말 식탁 제안</span><span class="day-lbl">FRI</span></div><pre>이번 주말, <span class="blank">상황·마음 한 줄</span>.
+    <div class="tmpl"><div class="th"><span>금 · 주말 식탁 제안</span><span class="day-lbl">FRI</span></div><pre>이번 주말, <span class="blank">상황·마음 한 줄</span>.
 
 <span class="blank">메뉴</span>, 장 볼 필요 없이 10분이면 돼요.
 
 <span class="blank">why 또는 팁 한 줄</span>
 
 👉 주말 식탁: 프로필 링크</pre></div>
-</div>
+  </div>
 
-<div class="sec"><span class="num">06</span><h3>썸네일 3종 · 사진만 교체</h3>
-<p class="desc">정해진 3개 틀에 사진만 갈아끼워요. (쿠킹박스 촬영컷·유튜브 스틸·조리 사진 활용)</p></div>
-<div class="thumbs">
-  <div class="thumb"><div class="pv">🍽️</div><div class="cap"><div class="t">A · 식탁 완성컷</div><div class="s">완성된 한 끼 크게</div></div></div>
-  <div class="thumb"><div class="pv">🤲</div><div class="cap"><div class="t">B · 조리하는 손</div><div class="s">손질·덜어내는 손</div></div></div>
-  <div class="thumb"><div class="pv">✍️</div><div class="cap"><div class="t">C · 텍스트 강조</div><div class="s">질문·제철 카피</div></div></div>
-</div>
+  <div class="block"><h3>썸네일 3종 · 사진만 교체</h3><p class="desc">정해진 3개 틀에 사진만 갈아끼워요.</p></div>
+  <div class="thumbs">
+    <div class="thumb"><div class="pv">🍽️</div><div class="cap"><div class="t">A · 식탁 완성컷</div><div class="s">완성된 한 끼 크게</div></div></div>
+    <div class="thumb"><div class="pv">🤲</div><div class="cap"><div class="t">B · 조리하는 손</div><div class="s">손질·덜어내는 손</div></div></div>
+    <div class="thumb"><div class="pv">✍️</div><div class="cap"><div class="t">C · 텍스트 강조</div><div class="s">질문·제철 카피</div></div></div>
+  </div>
+</section>
 
-<div class="sec"><span class="num">07</span><h3>글쓰기 공식</h3></div>
-<div class="formula">
-  <div class="step"><div class="st"><b>사진이 먼저 말하게</b> <span>— 상품컷 말고 식탁컷.</span></div></div>
-  <div class="step"><div class="st"><b>첫 줄은 상황·마음</b> <span>— "바쁜 하루 끝, 그래도 이건 챙겼어요". 광고 말고 마음.</span></div></div>
-  <div class="step"><div class="st"><b>why 한 줄</b> <span>— 왜 이 재료·조합인지. 아카이빗만의 판단.</span></div></div>
-  <div class="step"><div class="st"><b>가끔 질문으로 관계</b> <span>— "여러분은 오늘 뭐 드셨어요?"</span></div></div>
-  <div class="step"><div class="st"><b>정보는 마지막에 짧게</b> <span>— 구성·조리시간·주문 링크.</span></div></div>
-</div>
+<!-- TAB 4 쓰기 -->
+<section class="panel" id="t4">
+  <div class="block"><h3>글쓰기 공식</h3></div>
+  <div class="formula">
+    <div class="step"><div class="st"><b>사진이 먼저 말하게</b> <span>— 상품컷 말고 식탁컷.</span></div></div>
+    <div class="step"><div class="st"><b>첫 줄은 상황·마음</b> <span>— "바쁜 하루 끝, 그래도 이건 챙겼어요".</span></div></div>
+    <div class="step"><div class="st"><b>why 한 줄</b> <span>— 왜 이 재료·조합인지. 아카이빗만의 판단.</span></div></div>
+    <div class="step"><div class="st"><b>가끔 질문으로 관계</b> <span>— "여러분은 오늘 뭐 드셨어요?"</span></div></div>
+    <div class="step"><div class="st"><b>정보는 마지막에 짧게</b> <span>— 구성·조리시간·주문 링크.</span></div></div>
+  </div>
 
-<div class="sec"><span class="num">08</span><h3>예시 한 편</h3></div>
-<div class="example">
-  <div class="photo">사진 — 완성된 열무비빔밥 한 그릇, 김가루 얹는 손 (상품 아님) · 썸네일 A</div>
-  <pre>바쁜 여름 저녁, 그래도 한 끼는 제대로.
+  <div class="block"><h3>예시 한 편</h3></div>
+  <div class="example">
+    <div class="photo">사진 — 완성된 열무비빔밥 한 그릇, 김가루 얹는 손 · 썸네일 A</div>
+    <pre>바쁜 여름 저녁, 그래도 한 끼는 제대로.
 
 생열무는 살짝만 데쳐 아삭함을 남겼어요.
 오래 데치면 풋내는 가시지만 물러지거든요 —
@@ -269,22 +268,30 @@ footer{margin-top:36px;font-size:12px;color:var(--muted);font-family:"DM Mono",m
 여러분은 더울 때 어떤 한 끼로 버티세요?
 
 👉 이번 주 식탁: 프로필 링크</pre>
-  <div class="note">식탁컷 · 첫 줄=마음 · why(왜 살짝 데치는지) · 질문 · 정보는 맨 끝 — 다섯 개 다 들어있어요.</div>
-</div>
+    <div class="note">식탁컷 · 첫 줄=마음 · why · 질문 · 정보는 맨 끝 — 다섯 개 다.</div>
+  </div>
 
-<div class="sec"><span class="num">09</span><h3>올리기 전 체크</h3></div>
-<div class="check">
-  <h3>올리기 전 체크리스트</h3>
-  <div class="sub">다섯 개 중 하나라도 '아니오'면 아직 아카이빗답지 않아요.</div>
-  <ul>
-    <li>상품컷에서 멈추지 않고 <b>식탁·손·순간</b>을 담았나?</li>
-    <li>"왜 이 재료인지" <b>why 한 줄</b>이 있나?</li>
-    <li>첫 줄이 광고가 아니라 <b>마음·상황</b>인가?</li>
-    <li>선생님 얼굴이 주인공이 아닌가? <b>(그건 공공의주방)</b></li>
-    <li>이 글이 나중에 <b>책 재료</b>가 될 만한가?</li>
-  </ul>
-</div>
+  <div class="check">
+    <h4>올리기 전 체크리스트</h4>
+    <div class="sub">하나라도 '아니오'면 아직 아카이빗답지 않아요.</div>
+    <ul>
+      <li>상품컷에서 멈추지 않고 <b>식탁·손·순간</b>을 담았나?</li>
+      <li>"왜 이 재료인지" <b>why 한 줄</b>이 있나?</li>
+      <li>첫 줄이 광고가 아니라 <b>마음·상황</b>인가?</li>
+      <li>선생님 얼굴이 주인공이 아닌가? <b>(그건 공공의주방)</b></li>
+      <li>이 글이 나중에 <b>책 재료</b>가 될 만한가?</li>
+    </ul>
+  </div>
+</section>
 
-<footer>ARCHIVEAT · 인스타 가이드 · v3 · 업데이트 2026.07.09 20:10</footer>
+<footer>ARCHIVEAT · 인스타 가이드 · v4 · 업데이트 2026.07.09 20:30</footer>
 </div>
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('on',p.id===id)});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
+  btn.classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
 </body></html>
