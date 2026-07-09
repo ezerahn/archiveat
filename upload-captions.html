@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v2"><meta name="updated" content="2026.07.08">
+<meta name="version" content="v3"><meta name="updated" content="2026.07.09 11:47">
 <title>아카이빗 업로드 문구</title>
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono&display=swap" rel="stylesheet">
@@ -14,6 +14,13 @@ header.top{display:flex;flex-direction:column;gap:5px;padding:4px 0 10px}
 .label{font-size:12px;color:var(--muted);font-family:"DM Mono",monospace}
 h1{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:700;font-size:26px;letter-spacing:-.02em;margin:2px 0}
 .desc-top{font-size:13px;color:var(--muted)}
+.navbar{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{font-size:13px;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);padding:5px 13px;border-radius:20px;font-weight:600;white-space:nowrap}
+.pill:active{transform:scale(.97)}
+.breadcrumb{font-size:12px;color:var(--muted);text-align:right;line-height:1.6;font-family:Pretendard;margin-left:auto}
+.breadcrumb .sep{color:#cbc3b4;margin:0 5px}
+.breadcrumb .upd{font-family:"DM Mono",monospace}
 .mtabs{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 2px}
 .mtab{border:1px solid var(--line);background:#fff;color:var(--muted);font-size:13px;font-weight:600;padding:5px 14px;border-radius:20px;cursor:pointer;font-family:Pretendard}
 .mtab.on{background:var(--coral);color:#fff;border-color:var(--coral)}
@@ -43,7 +50,13 @@ footer{margin-top:24px;font-size:12px;color:var(--muted);font-family:"DM Mono",m
 </style></head>
 <body><div class="wrap">
 <header class="top">
-  <span class="label">ARCHIVEAT · 마케팅</span>
+  <div class="navbar">
+    <div class="pills">
+      <a class="pill" href="index.html">← 공공의주방 홈</a>
+      <a class="pill" href="#" target="_blank" rel="noopener">💬 작업 대화</a>
+    </div>
+    <div class="breadcrumb">AI 워크스페이스 › 마케팅 › 업로드 문구 <span class="sep">|</span> <span class="upd">업데이트 2026.07.09 11:47 · v3</span></div>
+  </div>
   <h1>업로드 문구</h1>
   <span class="desc-top">날짜 탭을 누르면 그날 3편만 · [복사] 버튼으로 바로 붙여넣기</span>
   <div class="mtabs"><button class="mtab on" onclick="showM('2026-07',this)">7월</button></div>
