@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v9"><meta name="updated" content="2026.07.10 00:16">
+<meta name="version" content="v9"><meta name="updated" content="2026.07.10 00:29">
 <title>전체 클래스 목록</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -182,34 +182,35 @@ function buildDetail(cid){
     +'<div class="dnote">수강신청 확인사항·GSEEK 참여안내 등 고정 문구는 채널로 낼 때 자동으로 붙습니다.</div>';
   // ③ 재료 (견적 표)
   var p3=matTable(c['견적코드'],d.applied||d.mn);
-  // ④ 가격·정산 (단가 + 부가세금액 + 이 클래스 전체 손익)
+  // ④ 가격·정산 (단가 + 부가세금액 + 강사료 분리 + 공급가 기준 손익)
   var vatAmt=null,supply=null;
-  if(d.price!=null){if(d.vat==='포함'){supply=d.price/1.1;vatAmt=d.price-supply;}else if(d.vat==='별도'){supply=d.price;vatAmt=d.price*0.1;}}
-  var cost=(d.mat||0)+(d.pack||0)+(d.ship||0)+(d.teach||0);
+  if(d.price!=null){if(d.vat==='포함'){supply=d.price/1.1;vatAmt=d.price-supply;}else if(d.vat==='별도'){supply=d.price;vatAmt=d.price*0.1;}else{supply=d.price;}}
+  var costEx=(d.mat||0)+(d.pack||0)+(d.ship||0);
   var ap4=d.applied||d.mn||0;
-  var kit4=(d.price!=null&&ap4)?d.price*ap4:null;
-  var take4=(kit4!=null&&ap4)?(kit4-cost*ap4-(d.settle||0)):null;
+  var recv4=(supply!=null&&ap4)?supply*ap4:null;
+  var take4=(recv4!=null&&ap4)?(recv4-costEx*ap4-(d.settle||0)):null;
   var p4='<div class="flow">'
     +'<div class="flow-sec"><div class="flow-h">단가 (인당)</div>'
     +'<div class="flow-r"><span>판매가</span><span class="fv">'+won(d.price)+'</span></div>'
     +(vatAmt!=null?('<div class="flow-r"><span>부가세 ('+(d.vat||'')+')</span><span class="fv">'+won(vatAmt)+'</span></div>'
       +'<div class="flow-r"><span>'+(d.vat==='포함'?'공급가 (부가세 제외)':'합계 (부가세 포함)')+'</span><span class="fv">'+won(d.vat==='포함'?supply:(d.price+vatAmt))+'</span></div>'):'')
     +'</div>'
-    +'<div class="flow-sec"><div class="flow-h">원가 (인당)</div>'
+    +'<div class="flow-sec"><div class="flow-h">원가 (인당) · 쿠킹박스</div>'
     +'<div class="flow-r"><span>재료비</span><span class="fv">'+won(d.mat)+'</span></div>'
     +(d.kind==='온라인'?('<div class="flow-r"><span>패킹비</span><span class="fv">'+won(d.pack)+'</span></div>'
-      +'<div class="flow-r"><span>배송비</span><span class="fv">'+won(d.ship)+'</span></div>'
-      +'<div class="flow-r"><span>강사비</span><span class="fv">'+won(d.teach)+'</span></div>'):'')
-    +'<div class="flow-r tot"><span>원가 합</span><span class="fv">'+won(cost)+'</span></div></div>'
+      +'<div class="flow-r"><span>배송비</span><span class="fv">'+won(d.ship)+'</span></div>'):'')
+    +'<div class="flow-r tot"><span>원가 합</span><span class="fv">'+won(costEx)+'</span></div></div>'
+    +((d.teach)?('<div class="flow-sec"><div class="flow-h">강사료 (인당) · 별도</div>'
+      +'<div class="flow-r"><span>강사료 (선생님 인건비)</span><span class="fv">'+won(d.teach)+'</span></div></div>'):'')
     +'<div class="flow-sec"><div class="flow-r tot pos"><span>수익 (인당)</span><span class="fv">'+won(d.profit)+'</span></div>'
     +'<div class="flow-r"><span>수익률</span><span class="fv">'+pct(d.rate)+'</span></div></div>'
     +(take4!=null?('<div class="flow-sec"><div class="flow-h">이 클래스 전체 손익 (신청 '+ap4+'명 기준)</div>'
-      +'<div class="flow-r"><span>받을 것 (판매가 × '+ap4+'명)</span><span class="fv">'+won(kit4)+'</span></div>'
-      +'<div class="flow-r neg"><span>− 원가 ('+won(cost)+' × '+ap4+'명)</span><span class="fv">-'+fmtN(cost*ap4)+'원</span></div>'
-      +'<div class="flow-r neg"><span>− 선생님 정산액</span><span class="fv">-'+fmtN(d.settle||0)+'원</span></div>'
+      +'<div class="flow-r"><span>받을 것 ('+(d.vat==='포함'?'공급가':'판매가')+' × '+ap4+'명)</span><span class="fv">'+won(recv4)+'</span></div>'
+      +'<div class="flow-r neg"><span>− 원가 ('+won(costEx)+' × '+ap4+'명)</span><span class="fv">-'+fmtN(costEx*ap4)+'원</span></div>'
+      +'<div class="flow-r neg"><span>− 선생님 정산액 (강사료)</span><span class="fv">-'+fmtN(d.settle||0)+'원</span></div>'
       +'<div class="flow-r tot pos"><span>우리 몫 (순이익)</span><span class="fv">'+won(take4)+'</span></div></div>'):'')
     +'</div>'
-    +'<div class="dnote">정산구조: '+(d.struct==='A'?'A · 주최수금(우리 정산받음)':(d.struct==='B'?'B · 우리수금(에스크로)':'-'))+'</div>';
+    +'<div class="dnote">부가세 제외(공급가) 기준 손익입니다. 강사료는 원가와 분리해 별도 차감합니다. 정산구조: '+(d.struct==='A'?'A · 주최수금':(d.struct==='B'?'B · 우리수금':'-'))+'</div>';
   // ⑤ 모집
   var mtype=d.mtype==='A'?'A · 사전확정':(d.mtype==='B'?'B · 모집확정':'-');
   var p5=drow('모집유형',mtype)+drow('최소인원',d.mn)+drow('최대인원',d.mx)+drow('신청인원',d.applied)+drow('개폐강',d.openst)
