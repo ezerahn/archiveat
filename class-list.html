@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v9"><meta name="updated" content="2026.07.10 13:59">
+<meta name="version" content="v9"><meta name="updated" content="2026.07.10 14:04">
 <title>전체 클래스 목록</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -34,6 +34,9 @@ tr.mainrow{cursor:pointer}
 tr.mainrow:hover{background:#FBF8EF}
 tr.mainrow.open{background:#F4EFE3}
 .ln{font-weight:600}.rt{text-align:center;font-family:"DM Mono",monospace}
+.lt-thumb-wrap{display:inline-block;vertical-align:middle;margin-right:9px}
+.lt-thumb{width:34px;height:34px;border-radius:7px;object-fit:cover;vertical-align:middle;background:#EEE9DD}
+.lt-ph{align-items:center;justify-content:center;font-size:15px;color:#B8AE98}
 .arrow{display:inline-block;transition:.2s;color:var(--point);font-size:11px;margin-right:6px}
 tr.mainrow.open .arrow{transform:rotate(90deg)}
 .badge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:"DM Mono",monospace;white-space:nowrap}
@@ -83,6 +86,8 @@ table.mat a{color:var(--point);text-decoration:none}
 .flow-h2{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .fh-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:"DM Mono",monospace}
 .fhb-done{background:#E6F4E6;color:var(--open)}.fhb-wait{background:#EEE9DD;color:var(--wait)}
+.d-photo{margin-bottom:14px}
+.d-photo img{width:100%;max-height:260px;object-fit:cover;border-radius:12px;display:block}
 .flow-r{display:flex;justify-content:space-between;padding:8px 14px;font-size:13.5px;border-top:1px dashed var(--line)}
 .flow-r:first-of-type{border-top:none}.flow-r .fv{font-family:"DM Mono",monospace}
 .flow-r.tot{font-weight:700;background:#FBFAF6}.flow-r.tot .fv{font-size:15px}
@@ -137,7 +142,8 @@ function render(){
   var html='';
   rows.forEach(function(r){
     html+='<tr class="mainrow'+(OPEN===r.cid?' open':'')+'" onclick="toggle(\''+r.cid+'\')">'
-      +'<td><span class="arrow">▶</span>'+(r.datef||'-')+'</td><td>'+esc(r.orderer)+'</td><td class="ln">'+esc(r.name)+'</td>'
+      +'<td><span class="arrow">▶</span>'+(r.datef||'-')+'</td><td>'+esc(r.orderer)+'</td>'
+      +'<td class="ln"><span class="lt-thumb-wrap"><img class="lt-thumb" src="class-images/'+esc(r.cid)+'.jpg" alt="" loading="lazy" onerror="this.style.display=&quot;none&quot;;this.nextElementSibling.style.display=&quot;inline-flex&quot;"><span class="lt-thumb lt-ph" style="display:none">🍽</span></span>'+esc(r.name)+'</td>'
       +'<td><span class="kind k-'+esc(r.kind)+'">'+esc(r.kind)+'</span></td>'
       +'<td><span class="badge st-'+esc(r.state)+'">'+esc(r.state)+'</span></td>'
       +'<td class="rt">'+(r.applied||0)+'</td><td>'+esc(r.teacher)+'</td>'
@@ -178,7 +184,9 @@ function buildDetail(cid){
   var d=DETAIL[cid];if(!d)return '<div class="dempty">상세 정보 없음</div>';
   var c=d.content||{};
   // ① 정보
-  var p1=drow('수업명',d.name)+drow('강의명',c['강의명'])+drow('발주처',d.orderer)+drow('구분',d.kind)
+  var photo='<div class="d-photo"><img src="class-images/'+esc(cid)+'.jpg" alt="" '
+    +'onerror="this.parentElement.style.display=&quot;none&quot;"></div>';
+  var p1=photo+drow('수업명',d.name)+drow('강의명',c['강의명'])+drow('발주처',d.orderer)+drow('구분',d.kind)
     +drow('수업일',d.date)+drow('시각',d.time)+drow('장소/배송',d.place)
     +drow('대상',c['대상'])+drow('선발방식',c['선발방식'])+drow('소요시간',c['소요시간'])+drow('줌 링크',c['줌링크'])+drow('상태',d.state);
   // ② 과정개요서
