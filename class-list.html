@@ -1,11 +1,11 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v9"><meta name="updated" content="2026.07.10 14:04">
+<meta name="version" content="v9"><meta name="updated" content="2026.07.10 14:31">
 <title>전체 클래스 목록</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;--point:#B4A032;--online:#2C7BB6;--offline:#C2570E;--open:#2E7D32;--short:#E2611B;--wait:#9A8F7C;}
+:root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;--point:#B4A032;--online:#2C7BB6;--offline:#C2570E;--open:#2E7D32;--short:#E2611B;--wait:#9A8F7C;--coral:#FF5019;}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.55;padding-bottom:60px}
 .wrap{max-width:1160px;margin:0 auto;padding:0 20px}
@@ -40,13 +40,21 @@ tr.mainrow.open{background:#F4EFE3}
 .arrow{display:inline-block;transition:.2s;color:var(--point);font-size:11px;margin-right:6px}
 tr.mainrow.open .arrow{transform:rotate(90deg)}
 .badge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:"DM Mono",monospace;white-space:nowrap}
-.st-기획중{background:#EEE9DD;color:var(--wait)}.st-모집중{background:#FCE8DD;color:var(--short)}
-.st-확정{background:#E6F4E6;color:var(--open)}.st-미달{background:#F6DDD2;color:#B44A1E}
-.st-수업완료{background:#E8EEF4;color:var(--online)}.st-정산완료{background:#EDEAE0;color:var(--wait)}.st-보류{background:#EEE9DD;color:var(--wait)}
+.st-기획중{background:#F3ECD7;color:#A08A4E}.st-모집중{background:#FFE7DF;color:var(--coral)}
+.st-확정{background:#FFE7DF;color:var(--coral)}.st-미달{background:#EAE6DE;color:#BFB6A6;text-decoration:line-through}
+.st-수업완료{background:#FCE8DD;color:var(--offline)}.st-정산완료{background:#E6F4E6;color:var(--open)}.st-보류{background:#EAE6DE;color:#BFB6A6}
 .kind{font-size:11px;padding:2px 7px;border-radius:8px}
 .paychip{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:"DM Mono",monospace;white-space:nowrap}
 .pc-done{background:#E6F4E6;color:var(--open)}.pc-wait{background:#EEE9DD;color:var(--wait)}
-.k-온라인{background:#E8F1F8;color:var(--online)}.k-오프라인{background:#FAECE0;color:var(--offline)}
+.rt b{font-family:"DM Mono",monospace}
+.pax-mini{font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:8px;font-family:"DM Mono",monospace;margin-left:2px}
+.pm-fix{background:#EEE9DD;color:var(--wait)}.pm-ing{background:#E8F1F8;color:var(--online)}
+.pm-open{background:#E6F4E6;color:var(--open)}.pm-short{background:#F6DDD2;color:#B44A1E}
+.legend{margin-top:16px;padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+.lg-t{font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:9px}
+.lg-r{font-size:12px;color:var(--sub);line-height:1.9}
+.lg-r b{color:var(--ink)}.lg-x{color:var(--wait)}
+.k-온라인,.k-오프라인{background:transparent;color:var(--sub);padding:0;font-weight:500}
 .detailrow>td{padding:0;background:#FBF8F0;border-bottom:1px solid var(--line)}
 .dwrap{padding:4px 20px 22px}
 .dhead{display:flex;justify-content:space-between;align-items:center;padding:14px 0 10px}
@@ -103,15 +111,22 @@ table.mat a{color:var(--point);text-decoration:none}
 <header class="hero"><h1>전체 클래스 목록</h1><p class="lead">행을 클릭하면 아래로 6탭 상세가 열립니다. 상태·발주처·형태로 걸러 보고 검색하세요.</p></header>
 <div class="filters">
 <input id="q" placeholder="🔍 수업명·발주처·선생님 검색" oninput="render()">
-<select id="fState" onchange="render()"><option value="">상태 전체</option><option>기획중</option><option>모집중</option><option>확정</option><option>미달</option><option>수업완료</option><option>정산완료</option><option>보류</option></select>
+<select id="fState" onchange="render()"><option value="">상태 전체</option><option value="기획중">기획중</option><option value="모집중">모집중</option><option value="확정">개강확정</option><option value="미달">폐강</option><option value="수업완료">수업완료</option><option value="정산완료">정산완료</option><option value="보류">보류</option></select>
 <select id="fOrd" onchange="render()"><option value="">발주처 전체</option></select>
 <div class="seg" id="fKind"><button class="on" data-k="">전체</button><button data-k="온라인">온라인</button><button data-k="오프라인">오프라인</button></div>
 </div>
 <div class="count" id="count"></div>
 <div class="listwrap"><table class="lt"><thead><tr>
 <th onclick="sortBy('date')">수업일</th><th onclick="sortBy('orderer')">발주처</th><th onclick="sortBy('name')">수업명</th>
-<th onclick="sortBy('kind')">형태</th><th onclick="sortBy('state')">수업상태</th><th onclick="sortBy('applied')">신청</th><th onclick="sortBy('teacher')">선생님</th><th onclick="sortBy('paidin')">입금</th><th onclick="sortBy('paidout')">지급</th>
+<th onclick="sortBy('kind')">형태</th><th onclick="sortBy('state')">수업상태</th><th onclick="sortBy('applied')">인원</th><th onclick="sortBy('teacher')">선생님</th><th onclick="sortBy('paidin')">입금</th><th onclick="sortBy('paidout')">지급</th>
 </tr></thead><tbody id="tb"></tbody></table></div>
+<div class="legend">
+  <div class="lg-t">📖 열 설명</div>
+  <div class="lg-r"><b>수업상태</b> — 기획중 → 모집중 → 개강확정 → 수업완료 <span class="lg-x">(모객 클래스가 최소 인원 미달이면 <b>폐강</b>)</span></div>
+  <div class="lg-r"><b>인원</b> — <b>사전확정</b>: 경기도지식 등 정해진 인원(모집 안 함) / <b>모객</b>: 신청/최대 인원 + 개폐강(신청중·확정·폐강)</div>
+  <div class="lg-r"><b>개폐강 기준</b> — 모객 클래스는 수업일 4일 전(D-4) 자정 마감 → 신청이 최소 인원 이상이면 <b>확정</b>, 미만이면 <b>폐강</b></div>
+  <div class="lg-r"><b>입금</b> — 발주처 → 우리 (받을 돈)　·　<b>지급</b> — 우리 → 선생님 (줄 돈)</div>
+</div>
 <div class="foot">전체 클래스 목록 · v9 · 클래스 홈 도구</div>
 </div>
 <script>
@@ -123,6 +138,12 @@ document.getElementById('fKind').addEventListener('click',function(e){if(e.targe
 function sortBy(k){if(SORT===k)DIR=-DIR;else{SORT=k;DIR=1;}render();}
 function esc(v){return v==null?'':String(v).replace(/</g,'&lt;').replace(/"/g,'&quot;');}
 function payChip(v,kind){var done=(v===(kind+'완료'));return '<span class="paychip '+(done?'pc-done':'pc-wait')+'">'+(done?'✓ 완료':'대기')+'</span>';}
+function stLabel(s){return {'확정':'개강확정','미달':'폐강'}[s]||s;}
+function paxCell(r){
+  if(r.mtype==='A'){return '<b>'+(r.mx||r.mn||0)+'</b>명 <span class="pax-mini pm-fix">사전확정</span>';}
+  var op={'신청중':'pm-ing','확정':'pm-open','미달':'pm-short'}[r.openst]||'pm-ing';
+  return '<b>'+(r.applied||0)+'</b>/'+(r.mx||0)+' <span class="pax-mini '+op+'">'+(r.openst||'')+'</span>';
+}
 function fmtN(n){if(n==null||n==='')return '';return Math.round(n).toLocaleString();}
 function won(n){if(n==null||n==='')return '-';return Math.round(Number(n)).toLocaleString()+'원';}
 function pct(n){if(n==null||n==='')return '-';return (Math.round(n*1000)/10)+'%';}
@@ -145,8 +166,8 @@ function render(){
       +'<td><span class="arrow">▶</span>'+(r.datef||'-')+'</td><td>'+esc(r.orderer)+'</td>'
       +'<td class="ln"><span class="lt-thumb-wrap"><img class="lt-thumb" src="class-images/'+esc(r.cid)+'.jpg" alt="" loading="lazy" onerror="this.style.display=&quot;none&quot;;this.nextElementSibling.style.display=&quot;inline-flex&quot;"><span class="lt-thumb lt-ph" style="display:none">🍽</span></span>'+esc(r.name)+'</td>'
       +'<td><span class="kind k-'+esc(r.kind)+'">'+esc(r.kind)+'</span></td>'
-      +'<td><span class="badge st-'+esc(r.state)+'">'+esc(r.state)+'</span></td>'
-      +'<td class="rt">'+(r.applied||0)+'</td><td>'+esc(r.teacher)+'</td>'
+      +'<td><span class="badge st-'+esc(r.state)+'">'+stLabel(r.state)+'</span></td>'
+      +'<td class="rt">'+paxCell(r)+'</td><td>'+esc(r.teacher)+'</td>'
       +'<td>'+payChip(r.paidin,'입금')+'</td><td>'+payChip(r.paidout,'지급')+'</td></tr>';
     if(OPEN===r.cid){html+='<tr class="detailrow"><td colspan="9">'+buildDetail(r.cid)+'</td></tr>';}
   });

@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v9"><meta name="updated" content="2026.07.10 14:04">
+<meta name="version" content="v9"><meta name="updated" content="2026.07.10 14:31">
 <title>클래스 홈</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -8,7 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
 :root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;
---point:#B4A032;--online:#2C7BB6;--offline:#C2570E;--open:#2E7D32;--short:#E2611B;--wait:#9A8F7C;}
+--point:#B4A032;--online:#2C7BB6;--offline:#C2570E;--open:#2E7D32;--short:#E2611B;--wait:#9A8F7C;--coral:#FF5019;}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:60px}
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
@@ -38,7 +38,7 @@ body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;border-top:3px solid var(--line);transition:.12s;cursor:pointer}
 .card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(36,31,27,.08)}
-.card.k-online{border-top-color:var(--online)}.card.k-offline{border-top-color:var(--offline)}
+/* 형태별 카드 테두리 색 제거 — 색은 상태 배지에만 */
 .c-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:9px}
 .c-top{display:flex;gap:12px;align-items:flex-start}
 .c-thumb-wrap{flex-shrink:0}
@@ -46,11 +46,13 @@ body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,
 .c-thumb-ph{align-items:center;justify-content:center;font-size:26px;color:#B8AE98}
 .c-main{flex:1;min-width:0}
 .c-src{font-size:12px;color:var(--sub);font-weight:600;background:#F4EFE3;padding:4px 10px;border-radius:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.k-online .c-src{background:#E8F1F8;color:var(--online)}.k-offline .c-src{background:#FAECE0;color:var(--offline)}
+/* c-src 온/오프 색 제거 — 기본 회색 유지 */
 .badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;font-family:"DM Mono",monospace;white-space:nowrap;flex-shrink:0}
-.st-plan{background:#EEE9DD;color:var(--wait)}.st-recruit{background:#FCE8DD;color:var(--short)}
-.st-open{background:#E6F4E6;color:var(--open)}.st-short{background:#F6DDD2;color:#B44A1E}
-.st-cdone{background:#E8EEF4;color:var(--online)}.st-settle{background:#EDEAE0;color:var(--sub)}.st-hold{background:#EEE9DD;color:var(--wait)}
+.st-plan{background:#F3ECD7;color:#A08A4E}
+.st-live{background:#FFE7DF;color:var(--coral)}
+.st-wait{background:#FCE8DD;color:var(--offline)}
+.st-done{background:#E6F4E6;color:var(--open)}
+.st-off{background:#EAE6DE;color:#BFB6A6;text-decoration:line-through}
 .c-name{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-size:19px;font-weight:700;margin:2px 0 8px}
 .c-info{font-size:12.5px;color:var(--sub);line-height:1.7}
 .c-info .c-day{font-family:"DM Mono",monospace;font-size:12px;color:var(--ink)}
@@ -169,7 +171,7 @@ table.mat a{color:var(--point);text-decoration:none}
 </div>
 
 <section class="layer"><div class="layer-h"><h2>진행 중인 클래스</h2><span class="ls">기획·모집·확정·정산</span><span class="bar"></span></div>
-<div class="grp"><div class="grp-h"><h3>곧 수업</h3><span>확정 · 준비</span></div><div class="grid"><article class="card k-online" onclick="openDetail('GS-2607')"><header class="c-head"><span class="c-src">경기도지식 · 온라인</span><span class="badge st-open">개강확정</span></header><div class="c-top"><div class="c-thumb-wrap"><img class="c-thumb" src="class-images/GS-2607.jpg" alt="" loading="lazy" onerror="this.style.display=&quot;none&quot;;this.nextElementSibling.style.display=&quot;flex&quot;"><div class="c-thumb c-thumb-ph" style="display:none">🍽</div></div><div class="c-main"><div class="c-name">제철 복숭아로 만드는 복숭아청과 브리치즈 샐러드</div><div class="c-info"><div class="c-tea">👤 이영미</div><div class="c-day">📅 수업일 2026.7.24 (금) 16:00</div></div></div></div><div class="c-div"></div><div class="c-pax">👥 30명 <span class="pax-tag pt-fix">사전확정</span></div><div class="c-fin"><span class="fi">총매출 1,363,636원</span><span class="fsep">|</span><span class="fi">원가 750,360원</span><span class="fsep">|</span><span class="fi net">순이익 313,276원 (23.0%)</span></div></article></div></div>
+<div class="grp"><div class="grp-h"><h3>곧 수업</h3><span>확정 · 준비</span></div><div class="grid"><article class="card k-online" onclick="openDetail('GS-2607')"><header class="c-head"><span class="c-src">경기도지식 · 온라인</span><span class="badge st-live">개강확정</span></header><div class="c-top"><div class="c-thumb-wrap"><img class="c-thumb" src="class-images/GS-2607.jpg" alt="" loading="lazy" onerror="this.style.display=&quot;none&quot;;this.nextElementSibling.style.display=&quot;flex&quot;"><div class="c-thumb c-thumb-ph" style="display:none">🍽</div></div><div class="c-main"><div class="c-name">제철 복숭아로 만드는 복숭아청과 브리치즈 샐러드</div><div class="c-info"><div class="c-tea">👤 이영미</div><div class="c-day">📅 수업일 2026.7.24 (금) 16:00</div></div></div></div><div class="c-div"></div><div class="c-pax">👥 30명 <span class="pax-tag pt-fix">사전확정</span></div><div class="c-fin"><span class="fi">총매출 1,363,636원</span><span class="fsep">|</span><span class="fi">원가 750,360원</span><span class="fsep">|</span><span class="fi net">순이익 313,276원 (23.0%)</span></div></article></div></div>
 </section>
 
 <section class="layer"><div class="layer-h"><h2>주요 기능</h2><span class="ls">목록·리포트</span><span class="bar"></span></div>
