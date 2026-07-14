@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light">
 <meta name="version" content="v3">
 <meta name="updated" content="2026.07.03 16:45">
 <title>회사 정보 홈</title>
@@ -14,25 +16,29 @@
     --ink:#241F1B; --ink-soft:#6B6256; --muted:#A89C8A; --line:#E7DCC8;
     --pt:#780A0A; --pt-deep:#5E0808; --pt-wash:#F3E3E0; --pt-line:#E6CFC9;
     --sans:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
-    --serif:'Hahmlet',serif;
+    --serif:'Hahmlet','Gowun Batang','Noto Serif KR',serif;
     --mono:'DM Mono',ui-monospace,monospace;
   }
   *{margin:0; padding:0; box-sizing:border-box}
+  :root{color-scheme:light;}
+  html{background:#FAF5EC;}
   body{background:var(--paper); color:var(--ink); font-family:var(--sans); line-height:1.7; -webkit-font-smoothing:antialiased}
   .wrap{max-width:880px; margin:0 auto; padding:36px 22px 70px}
 
   /* 헤더 */
   .top{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:24px}
   .top-left{display:flex; gap:8px; flex-wrap:wrap}
-  .top-right{font-family:var(--mono); font-size:12px; color:var(--muted); text-align:right; line-height:1.7; margin-left:auto}
+  .top-right{font-family:var(--sans); font-size:12px; color:var(--muted); text-align:right; line-height:1.7; margin-left:auto}
+  .top-right .crumb{font-family:var(--sans); font-size:12px; color:var(--muted)}
+  .top-right #upd{font-family:var(--mono); font-size:12px; color:var(--muted)}
   .top-right .sep{color:var(--line); margin:0 6px}
-  .pill{display:inline-block; font-family:var(--mono); font-size:.72rem; color:var(--ink-soft); text-decoration:none; padding:5px 13px; border-radius:20px; background:var(--card); border:1px solid var(--line); transition:.15s}
+  .pill{display:inline-block; font-family:var(--sans); font-size:13px; color:var(--ink-soft); text-decoration:none; padding:5px 13px; border-radius:20px; background:var(--card); border:1px solid var(--line); transition:.15s}
   .pill:hover{background:var(--pt-wash); border-color:var(--pt-line); color:var(--pt-deep)}
   .brand{font-family:var(--mono); font-size:.7rem; letter-spacing:.08em; color:var(--muted)}
   .eyebrow{font-family:var(--mono); font-size:.72rem; letter-spacing:.05em; color:var(--pt); margin-bottom:6px}
-  h1{font-family:var(--serif); font-size:2.2rem; font-weight:700; letter-spacing:-.01em; margin-bottom:8px}
+  h1{font-family:var(--serif); font-size:40px; font-weight:700; letter-spacing:-.02em; margin-bottom:8px}
   .meta{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-bottom:10px}
-  .lede{color:var(--ink-soft); font-size:1rem; max-width:640px}
+  .lede{color:var(--ink-soft); font-size:15px; max-width:640px}
 
   /* 탭 (CSS 라디오 토글 · JS 없이 작동) */
   .tabs{margin-top:30px}
@@ -78,7 +84,10 @@
   #as4:checked ~ .subtabs label[for="as4"],
   #as5:checked ~ .subtabs label[for="as5"],
   #as6:checked ~ .subtabs label[for="as6"],
-  #as7:checked ~ .subtabs label[for="as7"]{color:var(--pt); border-bottom-color:var(--pt); font-weight:600}
+  #as7:checked ~ .subtabs label[for="as7"],
+  #sc1:checked ~ .subtabs label[for="sc1"],
+  #sc2:checked ~ .subtabs label[for="sc2"],
+  #sc3:checked ~ .subtabs label[for="sc3"]{color:var(--pt); border-bottom-color:var(--pt); font-weight:600}
   #av1:checked ~ .subpanels #avp1,
   #av2:checked ~ .subpanels #avp2,
   #av3:checked ~ .subpanels #avp3,
@@ -91,8 +100,45 @@
   #as4:checked ~ .subpanels #asp4,
   #as5:checked ~ .subpanels #asp5,
   #as6:checked ~ .subpanels #asp6,
-  #as7:checked ~ .subpanels #asp7{display:block}
+  #as7:checked ~ .subpanels #asp7,
+  #sc1:checked ~ .subpanels #scp1,
+  #sc2:checked ~ .subpanels #scp2,
+  #sc3:checked ~ .subpanels #scp3{display:block}
   .dlrow{display:flex; gap:8px; flex-wrap:wrap; margin:10px 0 2px}
+
+  /* 자기 점검 */
+  .selfq{border:1px solid var(--line); background:var(--card); border-radius:14px; padding:16px 18px; margin-bottom:12px}
+  .selfq .qn{font-family:var(--mono); font-size:.68rem; color:var(--pt); letter-spacing:.06em; margin-bottom:6px}
+  .selfq h3{font-family:var(--serif); font-size:1.06rem; line-height:1.45; margin:0 0 8px; color:var(--ink)}
+  .selfq .why{font-size:.88rem; color:var(--ink-soft); margin:0 0 10px; line-height:1.6}
+  .selfq .row{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+  .badge{display:inline-block; font-family:var(--mono); font-size:.68rem; padding:3px 10px; border-radius:100px; border:1px solid var(--line)}
+  .b-red{background:#FBEAEA; color:#8C1D1D; border-color:#E6C4C4}
+  .b-yel{background:#FCF3E2; color:#7A5A16; border-color:#E8D8B4}
+  .b-grn{background:#E8F3EC; color:#1F5F3C; border-color:#C6E0CF}
+  .selfq .memo{font-size:.82rem; color:var(--muted)}
+  .selfnote{background:var(--pt-wash); border:1px solid var(--pt-line); border-radius:12px; padding:13px 15px; margin:0 0 18px; font-size:.86rem; color:var(--ink-soft); line-height:1.65}
+
+  /* 판단 체크 */
+  .gate{background:var(--card); border:1.5px solid var(--pt-line); border-radius:14px; padding:16px 18px; margin:0 0 22px}
+  .gate h3{font-family:var(--serif); font-size:1.06rem; margin:0 0 4px; color:var(--pt-deep)}
+  .gate .g-sub{font-size:.8rem; color:var(--muted); margin:0 0 10px}
+  .gate ul{list-style:none; padding:0; margin:0 0 10px}
+  .gate li{font-size:.9rem; color:var(--ink); padding:5px 0 5px 22px; position:relative; line-height:1.55}
+  .gate li:before{content:"□"; position:absolute; left:0; color:var(--pt); font-size:.95rem}
+  .gate .g-rule{font-family:var(--mono); font-size:.78rem; color:var(--pt-deep); background:var(--pt-wash); border-radius:8px; padding:7px 11px; display:inline-block}
+
+  /* 의사결정 기록 */
+  .dec{border-left:3px solid var(--pt-line); background:var(--card); border:1px solid var(--line); border-left-width:3px; border-radius:10px; padding:14px 16px; margin-bottom:11px}
+  .dec .d-top{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:6px}
+  .dec .d-date{font-family:var(--mono); font-size:.7rem; color:var(--muted)}
+  .dec h4{font-family:var(--sans); font-weight:700; font-size:.98rem; margin:0; color:var(--ink)}
+  .dec dl{margin:6px 0 0; display:grid; grid-template-columns:64px 1fr; gap:4px 10px; font-size:.86rem; line-height:1.6}
+  .dec dt{color:var(--pt-deep); font-weight:600}
+  .dec dd{margin:0; color:var(--ink-soft)}
+  .b-go{background:#E8F3EC; color:#1F5F3C; border-color:#C6E0CF}
+  .b-hold{background:#FCF3E2; color:#7A5A16; border-color:#E8D8B4}
+  .b-no{background:#F1EEEA; color:#6B625A; border-color:#DFD7CC}
 
   /* 발행 예정 기사 강조 카드 */
   .feat{border:1.5px solid var(--pt-line); background:linear-gradient(180deg, var(--pt-wash), var(--card)); border-radius:16px; padding:18px 18px 16px; margin:0 0 22px}
@@ -233,7 +279,7 @@
   footer p{font-family:var(--mono); font-size:.72rem; color:var(--muted)}
 
   @media(max-width:560px){
-    h1{font-size:1.8rem} .wrap{padding:26px 16px 56px}
+    h1{font-size:30px} .wrap{padding:26px 16px 56px}
     .kv{grid-template-columns:96px 1fr; gap:4px 10px}
     .tablabel{font-size:.78rem; padding:7px 12px}
     table{font-size:.84rem} th,td{padding:7px 8px}
@@ -279,7 +325,7 @@
       <label class="tablabel" for="t7">프로젝트</label>
       <label class="tablabel" for="t10">보도·기사</label>
       <label class="tablabel" for="t5">보유자산</label>
-      <label class="tablabel" for="t8">확인필요</label>
+      <label class="tablabel" for="t8">자기점검</label>
     </div>
 
     <div class="panels">
@@ -1031,24 +1077,150 @@
 
       <!-- 8 확인필요 -->
       <section id="p8" class="panel">
-        <div class="phead"><h2>확인 필요</h2><span class="sub">반영 전 재확인 항목</span></div>
-        <div class="card">
-          <ul class="list">
-            <li>현재 정확한 회원 수</li>
-            <li>현재 공식몰 누적 주문 수</li>
-            <li>2025년 실제 매출 · 2026년 현재 매출</li>
-            <li>누적 클래스 수 · 누적 수강생 수</li>
-            <li>누적 기업/기관 거래처 수</li>
-            <li>현재 보유 장비 목록 · 재고 자산 규모</li>
-            <li>상표권·도메인·저작권 등 지식재산권 보유 현황</li>
-            <li>정규 직원/외주/강사 네트워크 구분</li>
-            <li>아카이빗 브랜드 공식 사업 범위 (쿠킹박스·클래스·케이터링·카페·콘텐츠 중 어디까지 공식화)</li>
-            <li>온·오프라인 클래스 누적 정확한 횟수 (5,000회+)</li>
-            <li>쿠킹박스 메뉴 수 확정 (약 500개 ↔ 전략문서 465개)</li>
-            <li>신세계 '클래스콕' 정확한 표기 · 운영 종료 여부</li>
-            <li>해외 디자인 어워드 명칭 확정 (iF 2017 / 독일 GDA 2022 중)</li>
-            <li>제휴사(호반건설·롯데홈쇼핑·엘앤에스벤처캐피탈)·프리A 기사 공개 범위</li>
-          </ul>
+        <div class="phead"><h2>자기 점검</h2><span class="sub">돌려 말하지 않는다</span></div>
+
+        <input class="subpick" type="radio" name="self" id="sc1" checked>
+        <input class="subpick" type="radio" name="self" id="sc2">
+        <input class="subpick" type="radio" name="self" id="sc3">
+        <div class="subtabs">
+          <label class="subtab" for="sc1">기준</label>
+          <label class="subtab" for="sc2">의사결정</label>
+          <label class="subtab" for="sc3">확인필요</label>
+        </div>
+
+        <div class="subpanels">
+
+          <!-- 기준 -->
+          <section class="subpanel" id="scp1">
+            <div class="selfnote" style="border-width:1.5px">
+              <b style="font-size:1.02rem; color:var(--pt-deep)">현실은 생존이다.</b><br>
+              엑싯도, M&amp;A도, 자산 인정도 — <b>살아남아야 그다음</b>이다.<br>
+              올 하반기에 하는 모든 일은 <b>내년 수익 파이프라인이 되는가</b>로만 판단한다.<br>
+              안 되면 — 아무리 매력적이어도 <b>안 한다</b>.
+            </div>
+
+            <div class="gate">
+              <h3>이 일, 할까 말까</h3>
+              <p class="g-sub">제안이 오면 여기부터 통과시킨다</p>
+              <ul>
+                <li><b>내년 수익으로 이어지는가.</b> 일회성이면 안 한다</li>
+                <li><b>세 파이프라인 중 어디를 굵게 하는가.</b> 클래스 · 케이터링 · 쿠킹박스</li>
+                <li><b>비용을 커버하는가.</b> 원가·인건비 빼고 남는가</li>
+              </ul>
+              <span class="g-rule">위 3개가 아니면 → 안 한다</span>
+              <p style="font-size:.82rem; color:var(--muted); margin:12px 0 0; line-height:1.6">
+                <b>보조</b> — 알려지는가 · 자산이 남는가 (플러스일 뿐, 결정타 아님)<br>
+                <b>인원</b> — 가야 하면 방법은 찾는다. <span style="color:var(--pt-deep)">제약이지 기준이 아니다</span>
+              </p>
+            </div>
+
+            <div class="selfq">
+              <div class="qn">01 · 생존</div>
+              <h3>지금 버는 돈이 나가는 돈을 덮는가</h3>
+              <p class="why">아니라면 나머지 질문은 사치다. 흑자로 돌기 전까지 다른 건 다 후순위.</p>
+              <div class="row"><span class="badge b-red">미정</span><span class="memo">→ 월 고정비 vs 월 수익 (재무·세무 홈)</span></div>
+            </div>
+
+            <div class="selfq">
+              <div class="qn">02 · 파이프라인</div>
+              <h3>클래스 · 케이터링 · 쿠킹박스 — 내년에도 돈이 들어오는가</h3>
+              <p class="why">셋 다 애매하면 셋 다 죽는다. 하반기에 뭘 심어야 내년에 거두는지 정한다.</p>
+              <div class="row"><span class="badge b-red">미정</span><span class="memo">→ 각 라인별 내년 수익 시나리오 필요</span></div>
+            </div>
+
+            <div class="selfq">
+              <div class="qn">03 · 하반기 액션</div>
+              <h3>지금 하는 이 일이, 내년 매출로 이어지는가</h3>
+              <p class="why">이어지지 않는 일은 지금 당장 손을 뗀다. 바쁜 것과 버는 것은 다르다.</p>
+              <div class="row"><span class="badge b-red">미정</span><span class="memo">→ 진행 중인 일 전부 이 잣대로 재검토</span></div>
+            </div>
+
+            <div class="selfq">
+              <div class="qn">04 · 버릴 것</div>
+              <h3>무엇을 그만둘 것인가</h3>
+              <p class="why">혼자 다 하면 다 못 한다. 이익 안 나는 것부터 접는다. 미련은 비용이다.</p>
+              <div class="row"><span class="badge b-red">미정</span><span class="memo">→ 사업별 실제 이익 비교부터</span></div>
+            </div>
+
+            <div class="selfq">
+              <div class="qn">05 · 걸 것</div>
+              <h3>안 하면 내년이 없는 것은 무엇인가</h3>
+              <p class="why">지키기만 하면 서서히 죽는다. 하나는 걸어야 한다.</p>
+              <div class="row"><span class="badge b-yel">검토 중</span><span class="memo">→ 아카이빗몰 활성화 · 온라인 클래스 전환</span></div>
+            </div>
+
+            <div class="selfq">
+              <div class="qn">06 · 그다음</div>
+              <h3>엑싯 · M&amp;A는 언제 이야기할 수 있는가</h3>
+              <p class="why">자립해서 숫자가 나와야 자산이 인정된다. 그전엔 협상 테이블에 앉지도 못한다.</p>
+              <div class="row"><span class="badge b-red">미정</span><span class="memo">→ 자립 이후. 지금은 생존이 먼저</span></div>
+            </div>
+
+            <div class="dlrow" style="margin-top:14px">
+              <a class="dl" href="https://ezerahn.github.io/home/greenroom-mentoring-worksheet.html" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center">📝 그린룸 멘토링 워크시트</a>
+            </div>
+          </section>
+
+          <!-- 의사결정 -->
+          <section class="subpanel" id="scp2">
+            <p class="sub" style="margin:0 0 14px">무엇을, 왜 그렇게 정했는가 — 결정이 쌓이면 방향이 보인다</p>
+
+            <div class="dec">
+              <div class="d-top"><span class="d-date">2026.07</span><span class="badge b-hold">검토 중</span><h4>갤러리아 문화센터 클래스 → 온라인 전환</h4></div>
+              <dl>
+                <dt>상황</dt><dd>백화점 측이 오프라인 클래스를 온라인으로 전환하자고 제안</dd>
+                <dt>질문</dt><dd>내년 수익으로 이어지나 · 쿠킹박스(재료 배송)와 붙일 수 있나 · 남나</dd>
+                <dt>결정</dt><dd>—</dd>
+                <dt>만들 것</dt><dd>—</dd>
+              </dl>
+            </div>
+
+            <div class="dec">
+              <div class="d-top"><span class="d-date">2026.07</span><span class="badge b-hold">검토 중</span><h4>아카이빗몰 활성화</h4></div>
+              <dl>
+                <dt>상황</dt><dd>공식몰 열었으나 주문이 돌지 않음</dd>
+                <dt>질문</dt><dd>프로젝트로 밀 것인가 · 제휴 유입으로 풀 것인가 · 무엇이 유입을 만드나</dd>
+                <dt>결정</dt><dd>—</dd>
+                <dt>만들 것</dt><dd>—</dd>
+              </dl>
+            </div>
+
+            <div class="dec">
+              <div class="d-top"><span class="d-date">2026.07</span><span class="badge b-no">보류</span><h4>M&amp;A / 엑싯</h4></div>
+              <dl>
+                <dt>상황</dt><dd>현 규모에서 협상력이 없음</dd>
+                <dt>질문</dt><dd>인수자가 살 만한 것이 무엇인가 — 지금은 답할 수 없다</dd>
+                <dt>결정</dt><dd><b>자립 이후로 미룸.</b> 생존이 먼저</dd>
+                <dt>만들 것</dt><dd>흑자 구조 · 반복 매출 · 인정받는 자산</dd>
+              </dl>
+            </div>
+
+            <p style="font-size:.8rem; color:var(--muted); margin:14px 0 0">※ 대화창에서 결론이 나오면 여기에 채운다.</p>
+          </section>
+
+          <!-- 확인필요 -->
+          <section class="subpanel" id="scp3">
+            <p class="sub" style="margin:0 0 12px">회사소개서·투자자료 반영 전 재확인</p>
+            <div class="card">
+              <ul class="list">
+                <li>현재 정확한 회원 수</li>
+                <li>현재 공식몰 누적 주문 수</li>
+                <li>2025년 실제 매출 · 2026년 현재 매출</li>
+                <li>누적 클래스 수 · 누적 수강생 수</li>
+                <li>누적 기업/기관 거래처 수</li>
+                <li>현재 보유 장비 목록 · 재고 자산 규모</li>
+                <li>상표권·도메인·저작권 등 지식재산권 보유 현황</li>
+                <li>정규 직원/외주/강사 네트워크 구분</li>
+                <li>아카이빗 브랜드 공식 사업 범위 (쿠킹박스·클래스·케이터링·카페·콘텐츠 중 어디까지 공식화)</li>
+                <li>온·오프라인 클래스 누적 정확한 횟수 (5,000회+)</li>
+                <li>쿠킹박스 메뉴 수 확정 (약 500개 ↔ 전략문서 465개)</li>
+                <li>신세계 '클래스콕' 정확한 표기 · 운영 종료 여부</li>
+                <li>해외 디자인 어워드 명칭 확정 (iF 2017 / 독일 GDA 2022 중)</li>
+                <li>제휴사·프리A 기사 공개 범위</li>
+              </ul>
+            </div>
+          </section>
+
         </div>
       </section>
 
@@ -1058,18 +1230,19 @@
   <!-- E. 원본 파일 -->
   <div class="files">
     <h3>📦 원본 파일</h3>
-    <p class="desc">최신본을 받아 드롭박스에 백업 보관하세요. (이 홈의 마스터는 엑셀입니다)</p>
+    <p class="desc">최신본을 받아 클라우드에 백업 보관하세요. (이 홈의 마스터는 엑셀입니다)</p>
     <div class="btns">
       <button class="dl" onclick="dlHTML()">📄 이 화면 HTML 받기</button>
       <button class="dl" onclick="dlXLSX()">📊 엑셀 마스터 받기</button>
+      <a class="dl" href="https://claude.ai/chat/2687d340-0034-41f4-a6ec-a126caafabd0" target="_blank" rel="noopener" style="text-decoration:none; display:inline-flex; align-items:center">💬 대화창에서 전체 받기</a>
     </div>
     <div id="msg"></div>
   </div>
 
   <!-- F. 운영 안내 -->
   <div class="note">
-    <p style="margin:0"><b>※ 이 홈은 보기·이동만 합니다.</b><br>
-    · 데이터를 고칠 땐 → <b>엑셀 마스터(또는 작업 대화창)</b>에서<br>
+    <p style="margin:0"><b>※ 홈은 보기·이동만 합니다.</b><br>
+    · 데이터를 고칠 땐 → <b>마스터(엑셀·작업 대화창)</b>에서<br>
     · 볼 땐 → 이 홈에서<br>
     · 모든 파일은 같은 폴더(github)에 두어야 링크가 작동합니다.</p>
   </div>
