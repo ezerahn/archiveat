@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v22"><meta name="updated" content="2026.07.14 12:10">
+<meta name="version" content="v23"><meta name="updated" content="2026.07.14 14:30">
 <title>아카이빗 인스타 가이드</title>
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono&display=swap" rel="stylesheet">
@@ -1198,11 +1198,77 @@ function tab(id,btn){
   var y=tb.getBoundingClientRect().top+window.scrollY;
   if(window.scrollY>y) window.scrollTo({top:y,behavior:'smooth'});
 }
+// 해시 라우팅 — 운영 파일에서 바로 진입
+var ROUTE = {
+  'voice':      ['t6', null,  null],
+  'pattern':    ['t3', 'p1',  null],
+  'p1':         ['t3', 'p1',  null],
+  'p1a':        ['t3', 'p1',  'q1'],
+  'p1b':        ['t3', 'p1',  'q2'],
+  'p1c':        ['t3', 'p1',  'q3'],
+  'p1d':        ['t3', 'p1',  'q4'],
+  'p2':         ['t3', 'p2',  null],
+  'p3':         ['t3', 'p3',  'r1'],
+  'p3a':        ['t3', 'p3',  'r1'],
+  'p3b':        ['t3', 'p3',  'r2'],
+  'p3c':        ['t3', 'p3',  'r3'],
+  'p3d':        ['t3', 'p3',  'r4'],
+  'p4':         ['t3', 'p4',  's1'],
+  'p4a':        ['t3', 'p4',  's1'],
+  'p4b':        ['t3', 'p4',  's2'],
+  'p5':         ['t3', 'p5',  null],
+  'highlight':  ['t3', 'p5',  null],
+  'photo':      ['t4', null,  null],
+  'cover':      ['t5', null,  null],
+  'write':      ['t5', null,  null],
+  'check':      ['t5', null,  null],
+  'identity':   ['t1', null,  null],
+  'relation':   ['t2', null,  null]
+};
+function goHash(){
+  var h=(location.hash||'').replace('#','').toLowerCase();
+  if(!h||!ROUTE[h]) return;
+  var r=ROUTE[h];
+  // 1단
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('on',p.id===r[0])});
+  document.querySelectorAll('.tab').forEach(function(t,i){
+    t.classList.toggle('on', t.getAttribute('onclick').indexOf("'"+r[0]+"'")>-1);
+  });
+  // 2단
+  if(r[1]){
+    document.querySelectorAll('.ppan').forEach(function(p){p.classList.toggle('on',p.id===r[1])});
+    document.querySelectorAll('.ptab').forEach(function(t){
+      t.classList.toggle('on', t.getAttribute('onclick').indexOf("'"+r[1]+"'")>-1);
+    });
+  }
+  // 3단
+  if(r[2]){
+    ['.qpan','.rpan','.span'].forEach(function(sel){
+      document.querySelectorAll(sel).forEach(function(p){
+        if(p.id===r[2]) p.classList.add('on');
+        else if(p.parentNode.querySelector('#'+r[2])) p.classList.remove('on');
+      });
+    });
+    document.querySelectorAll('.qtab').forEach(function(t){
+      var oc=t.getAttribute('onclick')||'';
+      if(oc.indexOf("'"+r[2]+"'")>-1){
+        t.parentNode.querySelectorAll('.qtab').forEach(function(x){x.classList.remove('on')});
+        t.classList.add('on');
+      }
+    });
+  }
+  setTimeout(function(){
+    var y=document.querySelector('.tabs').getBoundingClientRect().top+window.scrollY;
+    window.scrollTo({top:y,behavior:'smooth'});
+  },80);
+}
+window.addEventListener('hashchange',goHash);
 (function(){
   var v=document.querySelector('meta[name=version]').content;
   var u=document.querySelector('meta[name=updated]').content;
   document.querySelectorAll('.upd').forEach(function(e){e.textContent='업데이트 '+u+' · '+v;});
   document.getElementById('ftx').textContent='ARCHIVEAT · 인스타 가이드 · '+v+' · '+u;
+  goHash();
 })();
 </script>
 </body></html>

@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="version" content="v4"><meta name="updated" content="2026.07.14 14:35">
+<title>인스타 운영 · 아카이빗</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF5EC;--ink:#241F1B;--line:#E7DCC8;--line2:#F0E9DC;--coral:#FF5019;--muted:#8a8175;--sub:#6b6357;--paper:#fff;--gj:#F4F1EA;--aca:#FFF3EE}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,sans-serif;line-height:1.55}
+.wrap{max-width:1000px;margin:0 auto;padding:18px 16px 90px}
+.navbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.pills{display:flex;gap:7px;flex-wrap:wrap}
+.pill{font-size:12.5px;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--line);padding:5px 12px;border-radius:20px;font-weight:600}
+.pill.hi{background:var(--ink);color:#fff;border-color:var(--ink)}
+.breadcrumb{font-size:11.5px;color:var(--muted);margin-left:auto;font-family:"DM Mono",monospace}
+h1{font-family:Hahmlet,serif;font-weight:700;font-size:28px;margin:8px 0 3px}
+.lead{font-size:13.5px;color:var(--muted);margin:0 0 14px}
+
+.rhythm{position:sticky;top:0;z-index:20;background:var(--ink);color:#fff;border-radius:12px;padding:10px 15px;margin-bottom:9px;display:flex;align-items:center;gap:11px;flex-wrap:wrap;box-shadow:0 3px 12px rgba(0,0,0,.12)}
+.rhythm .rl{font-family:Hahmlet,serif;font-weight:700;font-size:12.5px;color:#F0AA32}
+.rhythm .rs{display:flex;align-items:center;gap:8px;font-size:12.5px;flex-wrap:wrap}
+.rhythm .rs b{color:#fff}
+.rhythm .ar{color:#7C7266}
+.rhythm .rn{margin-left:auto;font-size:11px;color:#9A9182}
+
+.tabs{position:sticky;top:52px;z-index:19;display:flex;gap:6px;background:var(--bg);padding:9px 0 10px;border-bottom:1px solid var(--line2);margin-bottom:14px;box-shadow:0 6px 10px -8px rgba(0,0,0,.09)}
+.tab{flex:1;text-align:center;font-size:13px;font-weight:700;padding:10px 4px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--sub);cursor:pointer;font-family:Pretendard;line-height:1.45}
+.tab .s{display:block;font-size:9.5px;font-weight:500;color:var(--muted);margin-top:2px;font-family:"DM Mono",monospace}
+.tab.on{background:var(--coral);color:#fff;border-color:var(--coral)}
+.tab.on .s{color:#FFD9CC}
+.panel{display:none}.panel.on{display:block}
+
+.blk{margin:20px 0 10px}
+.blk h3{font-family:Hahmlet,serif;font-weight:700;font-size:17px;margin:0}
+.blk .d{font-size:12.8px;color:var(--sub);margin:5px 0 0}
+
+/* 날짜 카드 */
+.dcard{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:13px}
+.dcard.done{opacity:.5}
+.dh{display:flex;align-items:center;gap:8px;padding:12px 15px;border-bottom:1px solid var(--line2);flex-wrap:wrap;background:#FBF8F2}
+.dd{font-family:"DM Mono",monospace;font-weight:700;font-size:15px}
+.dw{font-size:11.5px;color:var(--muted);background:var(--gj);border-radius:5px;padding:1px 6px}
+.ptag{font-family:"DM Mono",monospace;font-size:11px;font-weight:700;background:var(--ink);color:#fff;border-radius:5px;padding:2px 7px}
+.pnm{font-size:13px;font-weight:700}
+.hot{font-size:10.5px;font-weight:700;background:var(--aca);color:var(--coral);border:1px solid #F5C4B3;border-radius:5px;padding:1px 7px}
+.hltag{margin-left:auto;font-size:11.5px;color:var(--coral);font-weight:700;font-family:"DM Mono",monospace}
+.real{padding:8px 15px;font-size:12.2px;color:var(--sub);background:#FBF7EF;border-bottom:1px solid var(--line2)}
+.menu{padding:8px 15px;font-size:12.2px;color:var(--sub);border-bottom:1px solid var(--line2);background:#FDFBF7}
+.menu b{color:var(--coral);font-size:10.5px;font-family:"DM Mono",monospace;margin-right:6px}
+
+/* 캐러셀 */
+.slbar{display:flex;align-items:center;gap:9px;padding:10px 15px 0;font-size:11.5px;font-weight:700;color:var(--sub)}
+.slbar .sn{font-size:10.5px;font-weight:500;color:var(--muted)}
+.slbar .glink{margin-left:auto}
+.slides{display:flex;gap:11px;overflow-x:auto;padding:10px 15px 14px;border-bottom:1px solid var(--line2)}
+.glink{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:700;text-decoration:none;
+  color:var(--sub);background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:2px 9px;
+  font-family:Pretendard;white-space:nowrap;transition:all .1s}
+.glink:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.dh .glink{background:#fff}
+.sl{flex:0 0 auto}
+.slh{display:flex;gap:5px;align-items:center;margin-bottom:5px}
+.slh .n{font-family:"DM Mono",monospace;font-size:9.5px;font-weight:700;background:var(--ink);color:#fff;border-radius:4px;padding:1px 6px}
+.slh .t{font-size:10.5px;font-weight:700}
+.slh .lg{margin-left:auto;font-size:9px;font-weight:700;border-radius:4px;padding:1px 5px;font-family:"DM Mono",monospace}
+.lg.y{background:var(--aca);color:var(--coral);border:1px solid #F5C4B3}
+.lg.m{background:#FFF3C4;color:#8a6d1f;border:1px solid #EAD98A}
+.lg.n{background:var(--gj);color:var(--muted);border:1px solid var(--line)}
+.cnv{position:relative;width:142px;height:178px;border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+.cnv.st{width:100px;height:178px}
+.pho{position:absolute;inset:0;background:linear-gradient(145deg,#E9E2D5,#D2C8B4)}
+.szb{position:absolute;top:16px;bottom:16px;left:5px;right:5px;border:1px dashed rgba(255,80,25,.5)}
+.txl{position:absolute;left:7px;right:7px;bottom:24px;text-align:center}
+.b3{font-family:Hahmlet,serif;font-weight:700;font-size:11px;line-height:1.35;color:#1f1b17;text-shadow:0 1px 4px rgba(255,255,255,.92)}
+.f3{font-size:7.5px;color:var(--coral);font-weight:700;margin-top:2px;text-shadow:0 1px 4px rgba(255,255,255,.92)}
+.l3{font-size:6px;color:#5f574b;letter-spacing:.18em;margin-top:5px;font-family:"DM Mono",monospace}
+.nc{font-size:9px;color:#8b8271;font-style:italic}
+.mid{position:absolute;left:6px;right:6px;bottom:11px;text-align:center}
+.m1{font-size:8px;font-weight:700;color:#1f1b17;line-height:1.4;text-shadow:0 1px 4px rgba(255,255,255,.92)}
+.m2{font-size:6.8px;color:var(--coral);font-weight:700;margin-top:2px;line-height:1.4;text-shadow:0 1px 4px rgba(255,255,255,.92)}
+.door{position:absolute;inset:0;background:#2B2621;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:0 9px}
+.door .d1{font-family:Hahmlet,serif;font-weight:700;font-size:10px;color:#FF7A4D}
+.door .d2{font-size:7px;color:#B8B0A4;margin-top:6px;line-height:1.7}
+.door .d3{font-size:6px;color:#fff;letter-spacing:.18em;margin-top:7px;font-family:"DM Mono",monospace}
+.uiy{position:absolute;left:0;right:0;background:rgba(43,38,33,.3);display:flex;align-items:center;justify-content:center;font-size:5.5px;color:#fff}
+.stx{position:absolute;left:0;right:0;top:15px;bottom:23px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 8px}
+.stx .b4{font-family:Hahmlet,serif;font-weight:700;font-size:9.5px;text-align:center;line-height:1.4;color:#1f1b17;text-shadow:0 1px 4px rgba(255,255,255,.92)}
+.stx .t4{margin-top:6px;background:var(--coral);color:#fff;font-size:6px;font-weight:700;padding:3px 8px;border-radius:20px}
+.slc{margin-top:4px;font-size:9px;color:var(--muted);width:142px;text-align:center;line-height:1.35}
+.slc.st{width:100px}
+
+.dbody{display:grid;grid-template-columns:230px 1fr}
+.col1{padding:13px 15px;border-right:1px solid var(--line2)}
+.col2{padding:13px 15px}
+.lbl{font-size:10.5px;font-weight:700;color:var(--muted);font-family:"DM Mono",monospace;letter-spacing:.05em;margin-bottom:6px;display:flex;align-items:center;gap:7px}
+.cuts{margin:0;padding-left:15px;font-size:12.2px;color:var(--sub);line-height:1.8}
+.tagbox{background:var(--aca);border:1px solid #F5C4B3;border-radius:7px;padding:8px 11px;font-size:12.5px;font-weight:700;color:var(--coral)}
+.cpy{font-size:10px;font-weight:700;background:var(--ink);color:#fff;border:none;border-radius:5px;padding:3px 9px;cursor:pointer;font-family:Pretendard}
+.cpy:active{transform:scale(.96)}
+.cpy.ok{background:var(--coral)}
+.capb{margin:0;white-space:pre-wrap;font-family:Pretendard;font-size:12.6px;line-height:1.8;color:var(--sub);background:#FBF8F2;border-radius:8px;padding:11px 13px}
+.capb.cmt{font-size:11.8px;color:var(--muted);line-height:1.7}
+.chk{display:flex;gap:13px;padding:11px 15px;border-top:1px solid var(--line2);flex-wrap:wrap;background:#FBF8F2}
+.chk label{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--sub);cursor:pointer}
+.chk input{width:15px;height:15px;accent-color:var(--coral);cursor:pointer}
+
+.tbl{width:100%;border-collapse:collapse;font-size:12.7px;background:var(--paper);border:1px solid var(--line);border-radius:11px;overflow:hidden}
+.tbl th{background:var(--gj);color:var(--sub);font-size:11.5px;font-weight:700;text-align:left;padding:9px 12px}
+.tbl td{padding:9px 12px;border-top:1px solid var(--line2);color:var(--sub);vertical-align:top}
+.tbl td b{color:var(--ink)}
+.tbl .o{color:var(--coral);font-weight:700}
+.tbl tr.hot td{background:#FFF9F6}
+.tbl .pj{color:var(--coral);font-weight:600}
+.tbl .co{color:var(--muted);font-size:12px}
+
+/* 회사 */
+.cosec{font-family:Hahmlet,serif;font-weight:700;font-size:15px;margin:20px 0 8px;color:var(--ink);display:flex;align-items:center;gap:7px}
+.corow{display:flex;gap:11px;align-items:center;padding:10px 14px;background:var(--paper);border:1px solid var(--line);border-radius:10px;margin-bottom:6px;flex-wrap:wrap}
+.ca{font-weight:700;font-size:13px;min-width:130px}
+.cb{flex:1;font-size:12.3px;color:var(--sub);min-width:200px}
+.cc{font-size:10.5px;font-weight:700;border-radius:5px;padding:2px 8px;font-family:"DM Mono",monospace}
+.st-ok{background:var(--gj);color:var(--muted);border:1px solid var(--line)}
+.st-new{background:var(--aca);color:var(--coral);border:1px solid #F5C4B3}
+.st-src{background:#FFF3C4;color:#8a6d1f;border:1px solid #EAD98A}
+
+.note{background:#FBF7EF;border:1px solid var(--line);border-radius:11px;padding:13px 16px;font-size:12.4px;color:var(--sub);line-height:1.8;margin-top:12px}
+.note b{color:var(--ink)}
+.warn{background:#FBF6F4;border:1px solid #EFDDD5;border-radius:11px;padding:12px 15px;font-size:12.4px;color:#8a4b34;line-height:1.75;margin-bottom:12px}
+.warn b{color:#6e3b28}
+
+footer{margin-top:28px;font-size:11.5px;color:var(--muted);font-family:"DM Mono",monospace;text-align:center}
+@media(max-width:760px){.dbody{grid-template-columns:1fr}.col1{border-right:none;border-bottom:1px solid var(--line2)}}
+</style></head>
+<body><div class="wrap">
+<header>
+  <div class="navbar">
+    <div class="pills">
+      <a class="pill" href="marketing.html">← 마케팅 홈</a>
+      <a class="pill hi" href="marketing-instagram-guide.html">📐 가이드 (규칙)</a>
+      <a class="pill" href="https://claude.ai/chat/001318c0-a988-48de-80a9-1889249e46be" target="_blank" rel="noopener">💬 작업 대화</a>
+    </div>
+    <div class="breadcrumb"><span class="upd"></span></div>
+  </div>
+  <h1>인스타 운영</h1>
+  <p class="lead">미리 정해두고, 당일엔 사진만 넣어 올립니다. · <b>규칙·패턴·하이라이트 정의는 가이드에</b></p>
+</header>
+
+<div class="rhythm">
+  <span class="rl">주간 리듬</span>
+  <span class="rs"><b>수</b> 주문 마감 <span class="ar">→</span> <b>목</b> 패킹·촬영 <span class="ar">→</span> <b>금</b> 새벽 도착</span>
+  <span class="rn">멘트에 이 리듬이 살아 있어야 실제 느낌이 납니다</span>
+</div>
+
+<div class="tabs">
+  <button class="tab on" onclick="tab('t1',this)">7월 스케줄<span class="s">15개 · 캐러셀 포함</span></button>
+  <button class="tab" onclick="tab('t2',this)">연간<span class="s">1~12월</span></button>
+  <button class="tab" onclick="tab('t3',this)">회사 소재<span class="s">협업 · 제휴 · 자산</span></button>
+</div>
+
+<!-- 7월 -->
+<section class="panel on" id="t1">
+  <div class="warn">
+    <b>7/14 오늘 — 게시물 전에 하이라이트 3개부터.</b> 과거 자료만으로 만들 수 있습니다.<br>
+    ① <b>🤝 협업</b> (제휴 메일 전 필수) ② <b>📦 현장</b> ③ <b>💬 후기</b> &nbsp; <a class="glink" href="marketing-instagram-guide.html#highlight" target="_blank" rel="noopener">📐 하이라이트 정의</a>
+  </div>
+
+  <div class="blk"><h3>7/15 ~ 8/4 · 월~금 매일 · 5패턴 순환</h3><p class="d">
+  <b>월 1 큐레이션 · 화 2 요리 · 수 3 박스 · 목 4 식탁 · 금 5 회사</b> — 다만 <b>실제 리듬</b>과 <b>프로젝트</b>가 우선입니다.<br>
+  <b>7/20~7/24 = 복숭아 프로젝트 주간.</b> 요일 고정을 깨고 발주→입고→소분→물류→수업→후기를 그대로 따라갑니다.<br>
+  <b>메뉴는 전부 실제 등록·진열 중인 것</b>으로 짰습니다 (DB 확인).</p></div>
+
+  <div class="dcard"><div class="dh"><span class="dd">7/15</span><span class="dw">수</span><span class="ptag">1-A</span><span class="pnm">큐레이션 · 제철 픽</span><span class="hot">주문 마감</span><span class="hltag">→ 소식</span><a class="glink" href="marketing-instagram-guide.html#p1a" target="_blank" rel="noopener">📐 패턴 1-A</a></div><div class="real">오늘 밤 주문 마감 → 내일 패킹 → 금요일 새벽 도착</div><div class="menu"><b>메뉴</b> 오이무침 · 오이소박이 · 열무김치 (김은영)</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="b3">오늘 밤이 마감이에요</div><div class="f3">준비물은 불과 냄비뿐</div><div class="l3">ARCHIVEAT</div></div></div><div class="slc">오이 원물 클로즈업 (안 썬 채)</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">제철이라 맛있는 거예요</div><div class="m2">특별한 비법 없어요</div></div></div><div class="slc">열무 한 단 · 흙 묻은 뿌리</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">원물 그대로 보냅니다</div><div class="m2">썰면 물이 생기거든요</div></div></div><div class="slc">이번 주 메뉴 3~4개 그리드</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>@archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">9:16</span><span class="t">스토리</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">오늘 밤이 마감이에요</div><div class="t4">자세히 보기</div></div></div><div class="slc st">→ 소식</div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>오이 원물 클로즈업 (안 썬 채)</li><li>열무 한 단 · 흙 묻은 뿌리</li><li>이번 주 메뉴 3~4개 그리드</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#이번주메뉴 #제철 #오늘마감`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#이번주메뉴 #제철 #오늘마감</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`이번 주는 오이랑 열무예요.
+
+조금만 지나도 오이는 물러지고, 열무는 질겨져요.
+딱 지금 나온 걸로 골라 담았습니다.
+
+오이무침, 오이소박이, 열무김치.
+김은영 선생님 레시피 그대로예요.
+
+뭐 해 먹을지 고민되시면 그냥 이 중에서 고르세요.
+그게 제일 편해요.
+
+오늘 밤까지 주문하시면 내일 담아서
+금요일 새벽에 문 앞으로 갑니다.`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#voice" target="_blank" rel="noopener">📐 목소리</a></div><pre class="capb">이번 주는 오이랑 열무예요.
+
+조금만 지나도 오이는 물러지고, 열무는 질겨져요.
+딱 지금 나온 걸로 골라 담았습니다.
+
+오이무침, 오이소박이, 열무김치.
+김은영 선생님 레시피 그대로예요.
+
+뭐 해 먹을지 고민되시면 그냥 이 중에서 고르세요.
+그게 제일 편해요.
+
+오늘 밤까지 주문하시면 내일 담아서
+금요일 새벽에 문 앞으로 갑니다.</pre><div class="lbl" style="margin-top:11px">첫 댓글 (해시태그 + 링크) <button class="cpy sm" onclick="cp(this,`#아카이빗 #쿠킹박스 #제철요리 #오이무침 #오이소박이 #열무김치 #집밥 #간편요리 #10분요리 #저녁메뉴 #새벽배송 #원물
+
+📦 www.archiveat.kr`)">복사</button></div><pre class="capb cmt">#아카이빗 #쿠킹박스 #제철요리 #오이무침 #오이소박이 #열무김치 #집밥 #간편요리 #10분요리 #저녁메뉴 #새벽배송 #원물
+
+📦 www.archiveat.kr</pre></div></div><div class="chk"><label><input type="checkbox" onchange="sv()"> 촬영</label><label><input type="checkbox" onchange="sv()"> 디자인</label><label><input type="checkbox" onchange="sv()"> 피드</label><label><input type="checkbox" onchange="sv()"> 첫 댓글</label><label><input type="checkbox" onchange="sv()"> 스토리</label><label><input type="checkbox" onchange="sv()"> 하이라이트</label></div></div><div class="dcard"><div class="dh"><span class="dd">7/16</span><span class="dw">목</span><span class="ptag">3-C</span><span class="pnm">박스 · 패킹</span><span class="hot">패킹일 ★ 촬영</span><span class="hltag">→ 현장 ★</span><a class="glink" href="marketing-instagram-guide.html#p3c" target="_blank" rel="noopener">📐 패턴 3-C</a></div><div class="real">실제 패킹하는 날. 현장 컷 몰아서 찍기</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg m">로고 △</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="b3">지금 담고 있어요</div><div class="f3">준비물은 불과 냄비뿐</div><div class="l3">ARCHIVEAT</div></div></div><div class="slc">장갑 낀 손이 소분백 담는 컷</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">레시피 카드도 같이</div><div class="m2">순서만 따라오면 됩니다</div></div></div><div class="slc">레시피 카드 넣는 손</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">하나하나 손으로</div><div class="m2">공장이 아니라 사람이</div></div></div><div class="slc">줄지어 선 소분백 · 코랄 스티커</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>@archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">9:16</span><span class="t">스토리</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">지금 담고 있어요</div><div class="t4">자세히 보기</div></div></div><div class="slc st">→ 현장 ★</div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>장갑 낀 손이 소분백 담는 컷</li><li>레시피 카드 넣는 손</li><li>줄지어 선 소분백 · 코랄 스티커</li><li>번호 매긴 박스</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#담는중 #오늘출발`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#담는중 #오늘출발</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`지금 이번 주 박스 담고 있어요.
+
+소분백 하나하나 넣고, 레시피 카드 넣고,
+빠진 거 없나 다시 보고.
+
+자동화 안 합니다. 사람이 손으로 담아요.
+그래야 빠지는 게 없거든요.
+
+포장은 전부 종이로 해요.
+받으시면 그냥 분리수거 하시면 됩니다.
+
+오늘 담아서 내일 새벽에 문 앞으로 갑니다.`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#voice" target="_blank" rel="noopener">📐 목소리</a></div><pre class="capb">지금 이번 주 박스 담고 있어요.
+
+소분백 하나하나 넣고, 레시피 카드 넣고,
+빠진 거 없나 다시 보고.
+
+자동화 안 합니다. 사람이 손으로 담아요.
+그래야 빠지는 게 없거든요.
+
+포장은 전부 종이로 해요.
+받으시면 그냥 분리수거 하시면 됩니다.
+
+오늘 담아서 내일 새벽에 문 앞으로 갑니다.</pre><div class="lbl" style="margin-top:11px">첫 댓글 (해시태그 + 링크) <button class="cpy sm" onclick="cp(this,`#아카이빗 #패킹 #쿠킹박스 #현장 #소분 #종이포장 #새벽배송 #집밥 #원물 #제철
+
+📦 www.archiveat.kr`)">복사</button></div><pre class="capb cmt">#아카이빗 #패킹 #쿠킹박스 #현장 #소분 #종이포장 #새벽배송 #집밥 #원물 #제철
+
+📦 www.archiveat.kr</pre></div></div><div class="chk"><label><input type="checkbox" onchange="sv()"> 촬영</label><label><input type="checkbox" onchange="sv()"> 디자인</label><label><input type="checkbox" onchange="sv()"> 피드</label><label><input type="checkbox" onchange="sv()"> 첫 댓글</label><label><input type="checkbox" onchange="sv()"> 스토리</label><label><input type="checkbox" onchange="sv()"> 하이라이트</label></div></div><div class="dcard"><div class="dh"><span class="dd">7/17</span><span class="dw">금</span><span class="ptag">5</span><span class="pnm">회사 · 협업 ★★</span><span class="hot">배송 도착</span><span class="hltag">→ 협업 ★★</span><a class="glink" href="marketing-instagram-guide.html#p5" target="_blank" rel="noopener">📐 패턴 5</a></div><div class="real">협업 하이라이트 첫 콘텐츠. 제휴 메일 전 필수 자산</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="b3">이런 곳과 함께합니다</div><div class="f3">준비물은 불과 냄비뿐</div><div class="l3">ARCHIVEAT</div></div></div><div class="slc">협업 로고 모음</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">검증된 전문가들이 개발했어요</div><div class="m2">레시피 400여 개 · 영상 3,000여 개</div></div></div><div class="slc">클래스 진행 현장</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">2016년부터 해왔습니다</div><div class="m2">제휴 문의는 DM으로</div></div></div><div class="slc">부스 · 수업 사진</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>@archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">9:16</span><span class="t">스토리</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">이런 곳과 함께합니다</div><div class="t4">자세히 보기</div></div></div><div class="slc st">→ 협업 ★★</div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>협업 로고 모음</li><li>클래스 진행 현장</li><li>부스 · 수업 사진</li><li>레시피 아카이브</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#협업 #아카이빗현장`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#협업 #아카이빗현장</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`아카이빗은 2016년부터 해왔어요.
+
+클래스101, 신세계 클래스콕, 지자체 수업,
+백화점 문화센터에서 수업을 열었고
+
+검증된 전문가들이 개발한 레시피 400여 개,
+영상 3,000여 개를 쌓아왔습니다.
+
+임수진, 김은영, 장재우, 박소현, 박나래…
+각자 잘하는 분야가 다른 선생님들이에요.
+
+지금은 그 레시피를 쿠킹박스로 담아 보내고 있어요.
+
+함께하고 싶으신 곳은 DM 주세요.`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#voice" target="_blank" rel="noopener">📐 목소리</a></div><pre class="capb">아카이빗은 2016년부터 해왔어요.
+
+클래스101, 신세계 클래스콕, 지자체 수업,
+백화점 문화센터에서 수업을 열었고
+
+검증된 전문가들이 개발한 레시피 400여 개,
+영상 3,000여 개를 쌓아왔습니다.
+
+임수진, 김은영, 장재우, 박소현, 박나래…
+각자 잘하는 분야가 다른 선생님들이에요.
+
+지금은 그 레시피를 쿠킹박스로 담아 보내고 있어요.
+
+함께하고 싶으신 곳은 DM 주세요.</pre><div class="lbl" style="margin-top:11px">첫 댓글 (해시태그 + 링크) <button class="cpy sm" onclick="cp(this,`#아카이빗 #공공의주방 #제휴 #협업 #전문가레시피 #쿠킹박스 #푸드테크 #클래스 #B2B
+
+📩 제휴·협업 문의 DM
+📦 www.archiveat.kr`)">복사</button></div><pre class="capb cmt">#아카이빗 #공공의주방 #제휴 #협업 #전문가레시피 #쿠킹박스 #푸드테크 #클래스 #B2B
+
+📩 제휴·협업 문의 DM
+📦 www.archiveat.kr</pre></div></div><div class="chk"><label><input type="checkbox" onchange="sv()"> 촬영</label><label><input type="checkbox" onchange="sv()"> 디자인</label><label><input type="checkbox" onchange="sv()"> 피드</label><label><input type="checkbox" onchange="sv()"> 첫 댓글</label><label><input type="checkbox" onchange="sv()"> 스토리</label><label><input type="checkbox" onchange="sv()"> 하이라이트</label></div></div><div class="dcard"><div class="dh"><span class="dd">7/20</span><span class="dw">월</span><span class="ptag">1-A</span><span class="pnm">큐레이션 · 제철 픽</span><span class="hot">복숭아 프로젝트 주간</span><span class="hltag">→ 소식</span><a class="glink" href="marketing-instagram-guide.html#p1a" target="_blank" rel="noopener">📐 패턴 1-A</a></div><div class="real">7/24 경기도지식 온라인 수업(30명) 준비 주간 시작</div><div class="menu"><b>메뉴</b> 제철 복숭아 · 초여름 과일 사라다 (장재우) 연계</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="b3">7월엔 복숭아예요</div><div class="f3">준비물은 불과 냄비뿐</div><div class="l3">ARCHIVEAT</div></div></div><div class="slc">복숭아 클로즈업 · 껍질 결</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">7월 복숭아가 제일 좋을 때</div><div class="m2">조금만 지나면 물러져요</div></div></div><div class="slc">복숭아 여러 개, 상자째</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">제철이라 맛있는 겁니다</div></div></div><div class="slc">초여름 과일 사라다 완성컷</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>@archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">9:16</span><span class="t">스토리</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">7월엔 복숭아예요</div><div class="t4">자세히 보기</div></div></div><div class="slc st">→ 소식</div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>복숭아 클로즈업 · 껍질 결</li><li>복숭아 여러 개, 상자째</li><li>초여름 과일 사라다 완성컷</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#제철 #복숭아 #이번주`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#제철 #복숭아 #이번주</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`7월 복숭아가 제일 좋을 때예요.
+
+조금만 지나면 물러지고 향도 덜하거든요.
+딱 이맘때 나온 걸로 골랐어요.
+
+이번 주 금요일엔 복숭아로 온라인 수업이 있어요.
+경기도지식, 30명이 각자 집에서 같이 만듭니다.
+
+복숭아청은 담가서 숙성시키고,
+복숭아조림은 바로 샐러드에 올리고.
+
+수업 준비하는 과정도 여기 올릴게요.`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#voice" target="_blank" rel="noopener">📐 목소리</a></div><pre class="capb">7월 복숭아가 제일 좋을 때예요.
+
+조금만 지나면 물러지고 향도 덜하거든요.
+딱 이맘때 나온 걸로 골랐어요.
+
+이번 주 금요일엔 복숭아로 온라인 수업이 있어요.
+경기도지식, 30명이 각자 집에서 같이 만듭니다.
+
+복숭아청은 담가서 숙성시키고,
+복숭아조림은 바로 샐러드에 올리고.
+
+수업 준비하는 과정도 여기 올릴게요.</pre><div class="lbl" style="margin-top:11px">첫 댓글 (해시태그 + 링크) <button class="cpy sm" onclick="cp(this,`#아카이빗 #복숭아 #제철 #복숭아청 #브리치즈샐러드 #경기도지식 #온라인클래스 #여름디저트 #홈쿠킹
+
+📦 www.archiveat.kr`)">복사</button></div><pre class="capb cmt">#아카이빗 #복숭아 #제철 #복숭아청 #브리치즈샐러드 #경기도지식 #온라인클래스 #여름디저트 #홈쿠킹
+
+📦 www.archiveat.kr</pre></div></div><div class="chk"><label><input type="checkbox" onchange="sv()"> 촬영</label><label><input type="checkbox" onchange="sv()"> 디자인</label><label><input type="checkbox" onchange="sv()"> 피드</label><label><input type="checkbox" onchange="sv()"> 첫 댓글</label><label><input type="checkbox" onchange="sv()"> 스토리</label><label><input type="checkbox" onchange="sv()"> 하이라이트</label></div></div><div class="dcard"><div class="dh"><span class="dd">7/21</span><span class="dw">화</span><span class="ptag">3-A</span><span class="pnm">박스 · 입고(발주)</span><span class="hot">재료 발주</span><span class="hltag">→ 현장</span><a class="glink" href="marketing-instagram-guide.html#p3a" target="_blank" rel="noopener">📐 패턴 3-A</a></div><div class="real">복숭아 30인분 발주 · 유리병 30개 준비</div><div class="menu"><b>메뉴</b> 복숭아 키트 (수업용)</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg m">로고 △</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="b3">복숭아 30인분, 발주했어요</div><div class="f3">준비물은 불과 냄비뿐</div><div class="l3">ARCHIVEAT</div></div></div><div class="slc">발주서 · 수량</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">30명분을 준비합니다</div><div class="m2">유리병도 하나씩 넣어요</div></div></div><div class="slc">유리병 30개 늘어놓은 컷 ★ 규모</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">내일 아침에 들어와요</div><div class="m2">들어오면 바로 소분합니다</div></div></div><div class="slc">작업 준비 현장</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>@archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">9:16</span><span class="t">스토리</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">복숭아 30인분, 발주했어요</div><div class="t4">자세히 보기</div></div></div><div class="slc st">→ 현장</div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>발주서 · 수량</li><li>유리병 30개 늘어놓은 컷 ★ 규모</li><li>작업 준비 현장</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#오늘발주 #30인분`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#오늘발주 #30인분</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`이번 주 금요일에 온라인 수업이 있어요.
+경기도지식, 30명이 함께합니다.
+
+오늘 복숭아 30인분을 발주했어요.
+유리병도 30개 준비했고요.
+
+내일 아침에 들어오면 바로 소분해서
+저녁에 물류로 보냅니다.
+
+목요일 새벽이면 30분 댁 앞이에요.
+
+기획부터 발주, 소분, 배송, 수업까지
+저희가 다 합니다.`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#voice" target="_blank" rel="noopener">📐 목소리</a></div><pre class="capb">이번 주 금요일에 온라인 수업이 있어요.
+경기도지식, 30명이 함께합니다.
+
+오늘 복숭아 30인분을 발주했어요.
+유리병도 30개 준비했고요.
+
+내일 아침에 들어오면 바로 소분해서
+저녁에 물류로 보냅니다.
+
+목요일 새벽이면 30분 댁 앞이에요.
+
+기획부터 발주, 소분, 배송, 수업까지
+저희가 다 합니다.</pre><div class="lbl" style="margin-top:11px">첫 댓글 (해시태그 + 링크) <button class="cpy sm" onclick="cp(this,`#아카이빗 #복숭아 #경기도지식 #온라인클래스 #현장 #발주 #30인분 #키트 #협업
+
+📩 제휴·협업 문의 DM
+📦 www.archiveat.kr`)">복사</button></div><pre class="capb cmt">#아카이빗 #복숭아 #경기도지식 #온라인클래스 #현장 #발주 #30인분 #키트 #협업
+
+📩 제휴·협업 문의 DM
+📦 www.archiveat.kr</pre></div></div><div class="chk"><label><input type="checkbox" onchange="sv()"> 촬영</label><label><input type="checkbox" onchange="sv()"> 디자인</label><label><input type="checkbox" onchange="sv()"> 피드</label><label><input type="checkbox" onchange="sv()"> 첫 댓글</label><label><input type="checkbox" onchange="sv()"> 스토리</label><label><input type="checkbox" onchange="sv()"> 하이라이트</label></div></div><div class="dcard"><div class="dh"><span class="dd">7/22</span><span class="dw">수</span><span class="ptag">3-B</span><span class="pnm">박스 · 소분 ★ 압권</span><span class="hot">입고→소분→물류</span><span class="hltag">→ 현장 + About</span><a class="glink" href="marketing-instagram-guide.html#p3b" target="_blank" rel="noopener">📐 패턴 3-B</a></div><div class="real">아침 입고 → 낮 소분 → 저녁 물류. 하루가 다 담기는 날</div><div class="menu"><b>메뉴</b> 복숭아 키트 (수업용)</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg m">로고 △</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="b3">오늘 들어와서, 오늘 담습니다</div><div class="f3">준비물은 불과 냄비뿐</div><div class="l3">ARCHIVEAT</div></div></div><div class="slc">복숭아 상자째 도착 (아침) ★</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">썰지 않았어요</div><div class="m2">복숭아는 손대는 순간부터 물러지거든요</div></div></div><div class="slc">30개 분량 늘어놓은 컷 ★ 규모</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">설탕이랑 드레싱은 계량해뒀어요</div><div class="m2">비율 맞추기 어려운 건 저희 몫</div></div></div><div class="slc">유리병 30개</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>@archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">9:16</span><span class="t">스토리</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">오늘 들어와서, 오늘 담습니다</div><div class="t4">자세히 보기</div></div></div><div class="slc st">→ 현장 + About</div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>복숭아 상자째 도착 (아침) ★</li><li>30개 분량 늘어놓은 컷 ★ 규모</li><li>유리병 30개</li><li>소분하는 손 · 설탕 계량</li><li>저녁 물류 트럭</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#오늘입고 #원물그대로 #당일소분`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#오늘입고 #원물그대로 #당일소분</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`오늘 아침에 복숭아가 들어왔어요.
+
+씻지 않고, 썰지도 않았습니다.
+손질해서 보내면 편하겠지만
+복숭아는 손대는 순간부터 물러지거든요.
+
+원물 그대로 담습니다.
+대신 설탕이랑 드레싱은 저희가 계량해뒀어요.
+비율 맞추기 어려운 건 저희 몫이니까요.
+
+오늘 담아서 오늘 저녁 물류로 보냅니다.
+내일 새벽이면 30분 댁 앞이에요.
+
+아침에 들어와서 저녁에 나갑니다.`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#voice" target="_blank" rel="noopener">📐 목소리</a></div><pre class="capb">오늘 아침에 복숭아가 들어왔어요.
+
+씻지 않고, 썰지도 않았습니다.
+손질해서 보내면 편하겠지만
+복숭아는 손대는 순간부터 물러지거든요.
+
+원물 그대로 담습니다.
+대신 설탕이랑 드레싱은 저희가 계량해뒀어요.
+비율 맞추기 어려운 건 저희 몫이니까요.
+
+오늘 담아서 오늘 저녁 물류로 보냅니다.
+내일 새벽이면 30분 댁 앞이에요.
+
+아침에 들어와서 저녁에 나갑니다.</pre><div class="lbl" style="margin-top:11px">첫 댓글 (해시태그 + 링크) <button class="cpy sm" onclick="cp(this,`#아카이빗 #원물 #당일소분 #복숭아 #현장 #신선 #경기도지식 #키트 #소분 #계량
+
+📩 제휴·협업 문의 DM
+📦 www.archiveat.kr`)">복사</button></div><pre class="capb cmt">#아카이빗 #원물 #당일소분 #복숭아 #현장 #신선 #경기도지식 #키트 #소분 #계량
+
+📩 제휴·협업 문의 DM
+📦 www.archiveat.kr</pre></div></div><div class="chk"><label><input type="checkbox" onchange="sv()"> 촬영</label><label><input type="checkbox" onchange="sv()"> 디자인</label><label><input type="checkbox" onchange="sv()"> 피드</label><label><input type="checkbox" onchange="sv()"> 첫 댓글</label><label><input type="checkbox" onchange="sv()"> 스토리</label><label><input type="checkbox" onchange="sv()"> 하이라이트</label></div></div><div class="dcard"><div class="dh"><span class="dd">7/23</span><span class="dw">목</span><span class="ptag">3-D</span><span class="pnm">박스 · 물류</span><span class="hot">새벽배송 출발</span><span class="hltag">→ 현장</span><a class="glink" href="marketing-instagram-guide.html#p3d" target="_blank" rel="noopener">📐 패턴 3-D</a></div><div class="real">30개 박스 출고. 내일이 수업</div><div class="menu"><b>메뉴</b> 복숭아 키트 (수업용)</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg m">로고 △</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="b3">내일 수업이에요</div><div class="f3">준비물은 불과 냄비뿐</div><div class="l3">ARCHIVEAT</div></div></div><div class="slc">30개 박스 팔레트 ★</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">30개 박스가 나갔어요</div><div class="m2">내일 새벽이면 도착합니다</div></div></div><div class="slc">송장 붙은 박스</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">받으시면 냉장고에</div><div class="m2">원물이라 신선해요</div></div></div><div class="slc">새벽 물류</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>@archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">9:16</span><span class="t">스토리</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">내일 수업이에요</div><div class="t4">자세히 보기</div></div></div><div class="slc st">→ 현장</div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>30개 박스 팔레트 ★</li><li>송장 붙은 박스</li><li>새벽 물류</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#배송완료 #내일만나요`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#배송완료 #내일만나요</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`30개 박스가 오늘 새벽에 나갔어요.
+
+내일 경기도지식 온라인 수업이거든요.
+30분이 각자 집에서 같이 만들 거예요.
+
+복숭아는 원물로, 설탕이랑 드레싱은 계량해서.
+유리병도 하나씩 넣었습니다.
+
+받으시면 냉장고에 넣어두세요.
+내일 오후 4시에 만나요.`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#voice" target="_blank" rel="noopener">📐 목소리</a></div><pre class="capb">30개 박스가 오늘 새벽에 나갔어요.
+
+내일 경기도지식 온라인 수업이거든요.
+30분이 각자 집에서 같이 만들 거예요.
+
+복숭아는 원물로, 설탕이랑 드레싱은 계량해서.
+유리병도 하나씩 넣었습니다.
+
+받으시면 냉장고에 넣어두세요.
+내일 오후 4시에 만나요.</pre><div class="lbl" style="margin-top:11px">첫 댓글 (해시태그 + 링크) <button class="cpy sm" onclick="cp(this,`#아카이빗 #새벽배송 #경기도지식 #온라인클래스 #물류 #키트 #복숭아 #30인분
+
+📩 제휴·협업 문의 DM
+📦 www.archiveat.kr`)">복사</button></div><pre class="capb cmt">#아카이빗 #새벽배송 #경기도지식 #온라인클래스 #물류 #키트 #복숭아 #30인분
+
+📩 제휴·협업 문의 DM
+📦 www.archiveat.kr</pre></div></div><div class="chk"><label><input type="checkbox" onchange="sv()"> 촬영</label><label><input type="checkbox" onchange="sv()"> 디자인</label><label><input type="checkbox" onchange="sv()"> 피드</label><label><input type="checkbox" onchange="sv()"> 첫 댓글</label><label><input type="checkbox" onchange="sv()"> 스토리</label><label><input type="checkbox" onchange="sv()"> 하이라이트</label></div></div><div class="dcard"><div class="dh"><span class="dd">7/24</span><span class="dw">금</span><span class="ptag">5</span><span class="pnm">회사 · 협업 ★★</span><span class="hot">수업 당일 30명</span><span class="hltag">→ 협업 ★★</span><a class="glink" href="marketing-instagram-guide.html#p5" target="_blank" rel="noopener">📐 패턴 5</a></div><div class="real">경기도지식 온라인 수업 · 이영미 전문가 · 16:00</div><div class="menu"><b>메뉴</b> 복숭아청 · 복숭아조림 · 브리치즈샐러드 (쿠킹박스 등록 예정)</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="b3">경기도지식, 30명과 함께</div><div class="f3">준비물은 불과 냄비뿐</div><div class="l3">ARCHIVEAT</div></div></div><div class="slc">화상 수업 화면 (30명 그리드) ★</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">30분이 각자 집에서 같이</div><div class="m2">기획부터 수업까지 저희가 다 합니다</div></div></div><div class="slc">강사 이영미 선생님</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">이영미 선생님이 알려주셨어요</div><div class="m2">전문가 레시피 그대로</div></div></div><div class="slc">완성된 복숭아청 병</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>@archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">9:16</span><span class="t">스토리</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">경기도지식, 30명과 함께</div><div class="t4">자세히 보기</div></div></div><div class="slc st">→ 협업 ★★</div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>화상 수업 화면 (30명 그리드) ★</li><li>강사 이영미 선생님</li><li>완성된 복숭아청 병</li><li>브리치즈샐러드 완성컷</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#협업 #온라인클래스 #오늘수업`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#협업 #온라인클래스 #오늘수업</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`오늘 경기도지식 온라인 수업이 있었어요.
+30분이 각자 집에서 같이 만들었습니다.
+
+이영미 선생님이 알려주셨어요.
+복숭아청은 담가서 숙성시키고,
+복숭아조림은 바로 샐러드에 올리고.
+
+브리치즈랑 루꼴라 얹으니 근사하죠.
+
+기획부터 발주, 소분, 배송, 수업까지
+저희가 다 합니다.
+
+반응이 좋아서 쿠킹박스로도 준비 중이에요.
+곧 만나실 수 있어요.
+
+함께하고 싶으신 곳은 DM 주세요.`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#voice" target="_blank" rel="noopener">📐 목소리</a></div><pre class="capb">오늘 경기도지식 온라인 수업이 있었어요.
+30분이 각자 집에서 같이 만들었습니다.
+
+이영미 선생님이 알려주셨어요.
+복숭아청은 담가서 숙성시키고,
+복숭아조림은 바로 샐러드에 올리고.
+
+브리치즈랑 루꼴라 얹으니 근사하죠.
+
+기획부터 발주, 소분, 배송, 수업까지
+저희가 다 합니다.
+
+반응이 좋아서 쿠킹박스로도 준비 중이에요.
+곧 만나실 수 있어요.
+
+함께하고 싶으신 곳은 DM 주세요.</pre><div class="lbl" style="margin-top:11px">첫 댓글 (해시태그 + 링크) <button class="cpy sm" onclick="cp(this,`#아카이빗 #경기도지식 #온라인클래스 #복숭아청 #브리치즈샐러드 #협업 #제휴 #전문가레시피 #이영미
+
+📩 제휴·협업 문의 DM
+📦 www.archiveat.kr`)">복사</button></div><pre class="capb cmt">#아카이빗 #경기도지식 #온라인클래스 #복숭아청 #브리치즈샐러드 #협업 #제휴 #전문가레시피 #이영미
+
+📩 제휴·협업 문의 DM
+📦 www.archiveat.kr</pre></div></div><div class="chk"><label><input type="checkbox" onchange="sv()"> 촬영</label><label><input type="checkbox" onchange="sv()"> 디자인</label><label><input type="checkbox" onchange="sv()"> 피드</label><label><input type="checkbox" onchange="sv()"> 첫 댓글</label><label><input type="checkbox" onchange="sv()"> 스토리</label><label><input type="checkbox" onchange="sv()"> 하이라이트</label></div></div><div class="dcard"><div class="dh"><span class="dd">7/27</span><span class="dw">월</span><span class="ptag">4-A</span><span class="pnm">식탁 · 후기</span><span class="hot">수업 후기</span><span class="hltag">→ 후기</span><a class="glink" href="marketing-instagram-guide.html#p4a" target="_blank" rel="noopener">📐 패턴 4-A</a></div><div class="real">수강생 후기·완성 사진 수집</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="nc">(카피 없음)</div></div></div><div class="slc">수강생 완성컷</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진만</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div></div><div class="slc">후기 캡처</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진만</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div></div><div class="slc">완성된 복숭아청 병 여러 개</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>@archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">9:16</span><span class="t">스토리</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">고객 후기</div><div class="t4">자세히 보기</div></div></div><div class="slc st">→ 후기</div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>수강생 완성컷</li><li>후기 캡처</li><li>완성된 복숭아청 병 여러 개</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#고객후기 #복숭아청`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#고객후기 #복숭아청</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`"복숭아청 색이 너무 예뻐요."
+
+30분이 같은 재료로 각자 만들었는데
+다 다르게 나왔더라구요.
+
+숙성되면 음료로도, 디저트로도 드실 수 있어요.
+
+— 경기도지식 수강생 후기 중에서`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#voice" target="_blank" rel="noopener">📐 목소리</a></div><pre class="capb">"복숭아청 색이 너무 예뻐요."
+
+30분이 같은 재료로 각자 만들었는데
+다 다르게 나왔더라구요.
+
+숙성되면 음료로도, 디저트로도 드실 수 있어요.
+
+— 경기도지식 수강생 후기 중에서</pre><div class="lbl" style="margin-top:11px">첫 댓글 (해시태그 + 링크) <button class="cpy sm" onclick="cp(this,`#아카이빗 #후기 #복숭아청 #온라인클래스 #경기도지식 #수강후기 #홈쿠킹
+
+📦 www.archiveat.kr`)">복사</button></div><pre class="capb cmt">#아카이빗 #후기 #복숭아청 #온라인클래스 #경기도지식 #수강후기 #홈쿠킹
+
+📦 www.archiveat.kr</pre></div></div><div class="chk"><label><input type="checkbox" onchange="sv()"> 촬영</label><label><input type="checkbox" onchange="sv()"> 디자인</label><label><input type="checkbox" onchange="sv()"> 피드</label><label><input type="checkbox" onchange="sv()"> 첫 댓글</label><label><input type="checkbox" onchange="sv()"> 스토리</label><label><input type="checkbox" onchange="sv()"> 하이라이트</label></div></div><div class="dcard"><div class="dh"><span class="dd">7/28</span><span class="dw">화</span><span class="ptag">2</span><span class="pnm">요리 · 조리 과정</span><span class="hot"></span><span class="hltag">→ 레시피</span><a class="glink" href="marketing-instagram-guide.html#p2" target="_blank" rel="noopener">📐 패턴 2</a></div><div class="real">오이소박이 과정컷 — 한 메뉴의 조리 흐름</div><div class="menu"><b>메뉴</b> 오이소박이 (베이직 · 김은영)</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="b3">칼집이 제일 중요해요</div><div class="f3">준비물은 불과 냄비뿐</div><div class="l3">ARCHIVEAT</div></div></div><div class="slc">오이 칼집 내는 손</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">칼집은 직접 냅니다</div><div class="m2">소는 저희가 배합해서 담았어요</div></div></div><div class="slc">소 채우는 손</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">10분이면 완성</div><div class="m2">김은영 선생님 레시피 그대로</div></div></div><div class="slc">완성된 오이소박이</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>@archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">9:16</span><span class="t">스토리</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">칼집이 제일 중요해요</div><div class="t4">자세히 보기</div></div></div><div class="slc st">→ 레시피</div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>오이 칼집 내는 손</li><li>소 채우는 손</li><li>완성된 오이소박이</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#레시피팁 #10분요리 #직접만들기`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#레시피팁 #10분요리 #직접만들기</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`오이소박이, 칼집이 제일 중요해요.
+
+밑동을 1cm쯤 남기고 십자로 넣으세요.
+끝까지 자르면 소 넣을 때 다 벌어져 버리거든요.
+
+김은영 선생님이 그러시더라구요.
+꽉 채우려고 하지 말라고. 익으면 어차피 배어든다고요.
+
+소는 저희가 미리 배합해뒀으니까
+벌린 틈에 살살 밀어 넣기만 하시면 돼요.
+
+10분이면 됩니다. 어렵지 않아요.`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#voice" target="_blank" rel="noopener">📐 목소리</a></div><pre class="capb">오이소박이, 칼집이 제일 중요해요.
+
+밑동을 1cm쯤 남기고 십자로 넣으세요.
+끝까지 자르면 소 넣을 때 다 벌어져 버리거든요.
+
+김은영 선생님이 그러시더라구요.
+꽉 채우려고 하지 말라고. 익으면 어차피 배어든다고요.
+
+소는 저희가 미리 배합해뒀으니까
+벌린 틈에 살살 밀어 넣기만 하시면 돼요.
+
+10분이면 됩니다. 어렵지 않아요.</pre><div class="lbl" style="margin-top:11px">첫 댓글 (해시태그 + 링크) <button class="cpy sm" onclick="cp(this,`#아카이빗 #오이소박이 #김치 #집밥 #10분요리 #쿠킹박스 #레시피 #김은영 #여름김치 #제철
+
+📦 www.archiveat.kr`)">복사</button></div><pre class="capb cmt">#아카이빗 #오이소박이 #김치 #집밥 #10분요리 #쿠킹박스 #레시피 #김은영 #여름김치 #제철
+
+📦 www.archiveat.kr</pre></div></div><div class="chk"><label><input type="checkbox" onchange="sv()"> 촬영</label><label><input type="checkbox" onchange="sv()"> 디자인</label><label><input type="checkbox" onchange="sv()"> 피드</label><label><input type="checkbox" onchange="sv()"> 첫 댓글</label><label><input type="checkbox" onchange="sv()"> 스토리</label><label><input type="checkbox" onchange="sv()"> 하이라이트</label></div></div><div class="dcard"><div class="dh"><span class="dd">7/29</span><span class="dw">수</span><span class="ptag">1-C</span><span class="pnm">큐레이션 · 인기 세트</span><span class="hot">주문 마감</span><span class="hltag">→ 구성품</span><a class="glink" href="marketing-instagram-guide.html#p1c" target="_blank" rel="noopener">📐 패턴 1-C</a></div><div class="real">오늘 밤 마감</div><div class="menu"><b>메뉴</b> 갑오징어볶음(박나래) + 김치콩나물국(김은영) + 오이무침(김은영)</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="b3">지금 가장 많이 담는 조합</div><div class="f3">준비물은 불과 냄비뿐</div><div class="l3">ARCHIVEAT</div></div></div><div class="slc">세트 3종 나란히</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">메인 하나, 국 하나, 반찬 하나</div><div class="m2">이 정도면 일주일이 됩니다</div></div></div><div class="slc">갑오징어볶음 완성컷</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">세트로 담으면 10% 더</div><div class="m2">조합은 저희가 짰어요</div></div></div><div class="slc">김치콩나물국 · 오이무침</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>@archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">9:16</span><span class="t">스토리</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">지금 가장 많이 담는 조합</div><div class="t4">자세히 보기</div></div></div><div class="slc st">→ 구성품</div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>세트 3종 나란히</li><li>갑오징어볶음 완성컷</li><li>김치콩나물국 · 오이무침</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#이번주메뉴 #인기조합 #오늘마감`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#이번주메뉴 #인기조합 #오늘마감</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`다들 이렇게 담으시더라구요.
+
+메인 하나, 국 하나, 반찬 하나.
+이 정도면 일주일 저녁이 대충 해결돼요.
+
+이번 주엔 갑오징어볶음이랑 김치콩나물국,
+그리고 오이무침을 많이 담으셨어요.
+
+뭘 골라야 할지 모르시겠으면 이대로 담으세요.
+세트로 담으시면 10% 빠집니다.
+
+오늘 밤까지 주문하시면 내일 담아서
+금요일 새벽에 갑니다.`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#voice" target="_blank" rel="noopener">📐 목소리</a></div><pre class="capb">다들 이렇게 담으시더라구요.
+
+메인 하나, 국 하나, 반찬 하나.
+이 정도면 일주일 저녁이 대충 해결돼요.
+
+이번 주엔 갑오징어볶음이랑 김치콩나물국,
+그리고 오이무침을 많이 담으셨어요.
+
+뭘 골라야 할지 모르시겠으면 이대로 담으세요.
+세트로 담으시면 10% 빠집니다.
+
+오늘 밤까지 주문하시면 내일 담아서
+금요일 새벽에 갑니다.</pre><div class="lbl" style="margin-top:11px">첫 댓글 (해시태그 + 링크) <button class="cpy sm" onclick="cp(this,`#아카이빗 #쿠킹박스 #일주일식단 #세트 #집밥 #갑오징어볶음 #김치콩나물국 #오이무침 #저녁메뉴 #간편요리
+
+📦 www.archiveat.kr`)">복사</button></div><pre class="capb cmt">#아카이빗 #쿠킹박스 #일주일식단 #세트 #집밥 #갑오징어볶음 #김치콩나물국 #오이무침 #저녁메뉴 #간편요리
+
+📦 www.archiveat.kr</pre></div></div><div class="chk"><label><input type="checkbox" onchange="sv()"> 촬영</label><label><input type="checkbox" onchange="sv()"> 디자인</label><label><input type="checkbox" onchange="sv()"> 피드</label><label><input type="checkbox" onchange="sv()"> 첫 댓글</label><label><input type="checkbox" onchange="sv()"> 스토리</label><label><input type="checkbox" onchange="sv()"> 하이라이트</label></div></div><div class="dcard"><div class="dh"><span class="dd">7/30</span><span class="dw">목</span><span class="ptag">3-C</span><span class="pnm">박스 · 패킹</span><span class="hot">패킹일 ★ 촬영</span><span class="hltag">→ 현장</span><a class="glink" href="marketing-instagram-guide.html#p3c" target="_blank" rel="noopener">📐 패턴 3-C</a></div><div class="real">실제 패킹</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg m">로고 △</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="b3">사람이 담습니다</div><div class="f3">준비물은 불과 냄비뿐</div><div class="l3">ARCHIVEAT</div></div></div><div class="slc">담는 손</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">종이로만 포장해요</div><div class="m2">받으시면 그냥 분리수거</div></div></div><div class="slc">종이 아이스팩</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">빠진 게 없나 다시 봅니다</div></div></div><div class="slc">레시피 카드</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>@archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">9:16</span><span class="t">스토리</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">사람이 담습니다</div><div class="t4">자세히 보기</div></div></div><div class="slc st">→ 현장</div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>담는 손</li><li>종이 아이스팩</li><li>레시피 카드</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#담는중 #오늘출발`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#담는중 #오늘출발</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`오늘도 담고 있어요.
+
+소분백 넣고, 레시피 카드 넣고,
+종이 아이스팩 넣고.
+
+포장은 전부 종이로 해요.
+플라스틱 아이스팩 처리하기 번거롭잖아요.
+
+내일 새벽에 문 앞으로 갑니다.`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#voice" target="_blank" rel="noopener">📐 목소리</a></div><pre class="capb">오늘도 담고 있어요.
+
+소분백 넣고, 레시피 카드 넣고,
+종이 아이스팩 넣고.
+
+포장은 전부 종이로 해요.
+플라스틱 아이스팩 처리하기 번거롭잖아요.
+
+내일 새벽에 문 앞으로 갑니다.</pre><div class="lbl" style="margin-top:11px">첫 댓글 (해시태그 + 링크) <button class="cpy sm" onclick="cp(this,`#아카이빗 #패킹 #종이포장 #쿠킹박스 #현장 #친환경 #새벽배송 #소분
+
+📦 www.archiveat.kr`)">복사</button></div><pre class="capb cmt">#아카이빗 #패킹 #종이포장 #쿠킹박스 #현장 #친환경 #새벽배송 #소분
+
+📦 www.archiveat.kr</pre></div></div><div class="chk"><label><input type="checkbox" onchange="sv()"> 촬영</label><label><input type="checkbox" onchange="sv()"> 디자인</label><label><input type="checkbox" onchange="sv()"> 피드</label><label><input type="checkbox" onchange="sv()"> 첫 댓글</label><label><input type="checkbox" onchange="sv()"> 스토리</label><label><input type="checkbox" onchange="sv()"> 하이라이트</label></div></div><div class="dcard"><div class="dh"><span class="dd">7/31</span><span class="dw">금</span><span class="ptag">5</span><span class="pnm">회사 · 자산</span><span class="hot">배송 도착</span><span class="hltag">→ 협업</span><a class="glink" href="marketing-instagram-guide.html#p5" target="_blank" rel="noopener">📐 패턴 5</a></div><div class="real">7월 마무리 · 자산 소개</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="b3">레시피 400개, 영상 3,000개</div><div class="f3">준비물은 불과 냄비뿐</div><div class="l3">ARCHIVEAT</div></div></div><div class="slc">레시피 카드 더미</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">검증된 전문가들이 개발했어요</div><div class="m2">저희가 만든 게 아니에요</div></div></div><div class="slc">영상 아카이브 화면</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">그대로 쿠킹박스에 담습니다</div></div></div><div class="slc">선생님들 · 개발 현장</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>@archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">9:16</span><span class="t">스토리</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">레시피 400개, 영상 3,000개</div><div class="t4">자세히 보기</div></div></div><div class="slc st">→ 협업</div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>레시피 카드 더미</li><li>영상 아카이브 화면</li><li>선생님들 · 개발 현장</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#협업 #전문가레시피`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#협업 #전문가레시피</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`검증된 전문가들이 개발한 레시피 400여 개,
+영상 3,000여 개를 쌓아왔어요.
+
+임수진, 김은영, 장재우, 박소현, 박나래, 이영미…
+각자 잘하는 분야가 다른 선생님들이에요.
+
+그 레시피를 그대로 쿠킹박스에 담습니다.
+저희가 만든 게 아니라, 전문가가 만든 걸 그대로요.
+
+판매채널이나 콘텐츠 협업, 언제든 DM 주세요.`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#voice" target="_blank" rel="noopener">📐 목소리</a></div><pre class="capb">검증된 전문가들이 개발한 레시피 400여 개,
+영상 3,000여 개를 쌓아왔어요.
+
+임수진, 김은영, 장재우, 박소현, 박나래, 이영미…
+각자 잘하는 분야가 다른 선생님들이에요.
+
+그 레시피를 그대로 쿠킹박스에 담습니다.
+저희가 만든 게 아니라, 전문가가 만든 걸 그대로요.
+
+판매채널이나 콘텐츠 협업, 언제든 DM 주세요.</pre><div class="lbl" style="margin-top:11px">첫 댓글 (해시태그 + 링크) <button class="cpy sm" onclick="cp(this,`#아카이빗 #전문가레시피 #제휴 #협업 #콘텐츠 #B2B #푸드테크 #레시피개발 #공공의주방
+
+📩 제휴·협업 문의 DM
+📦 www.archiveat.kr`)">복사</button></div><pre class="capb cmt">#아카이빗 #전문가레시피 #제휴 #협업 #콘텐츠 #B2B #푸드테크 #레시피개발 #공공의주방
+
+📩 제휴·협업 문의 DM
+📦 www.archiveat.kr</pre></div></div><div class="chk"><label><input type="checkbox" onchange="sv()"> 촬영</label><label><input type="checkbox" onchange="sv()"> 디자인</label><label><input type="checkbox" onchange="sv()"> 피드</label><label><input type="checkbox" onchange="sv()"> 첫 댓글</label><label><input type="checkbox" onchange="sv()"> 스토리</label><label><input type="checkbox" onchange="sv()"> 하이라이트</label></div></div><div class="dcard"><div class="dh"><span class="dd">8/3</span><span class="dw">월</span><span class="ptag">1-B</span><span class="pnm">큐레이션 · 시즌 테마</span><span class="hot">복날 시즌</span><span class="hltag">→ 소식</span><a class="glink" href="marketing-instagram-guide.html#p1b" target="_blank" rel="noopener">📐 패턴 1-B</a></div><div class="real">8월 시즌 = 여름 보양 · 방학 키즈</div><div class="menu"><b>메뉴</b> 두유콩국수(박재한) · 비빔국수(김은영) — 진열 중</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="b3">더울 땐 시원한 게 최고</div><div class="f3">준비물은 불과 냄비뿐</div><div class="l3">ARCHIVEAT</div></div></div><div class="slc">콩국수 완성컷</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">두유로 만들어요</div><div class="m2">콩 갈 필요 없어요</div></div></div><div class="slc">비빔국수</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">10분이면 됩니다</div></div></div><div class="slc">여름 상차림</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>@archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">9:16</span><span class="t">스토리</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">더울 땐 시원한 게 최고</div><div class="t4">자세히 보기</div></div></div><div class="slc st">→ 소식</div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>콩국수 완성컷</li><li>비빔국수</li><li>여름 상차림</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#복날 #시즌메뉴 #여름`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#복날 #시즌메뉴 #여름</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`날이 이렇게 더우면 입맛이 없잖아요.
+
+이번 주엔 시원한 국수 두 가지 준비했어요.
+두유콩국수랑 비빔국수요.
+
+콩국수는 두유로 만듭니다.
+콩 불리고 갈고 하는 거, 그거 진짜 번거롭거든요.
+저희가 그 과정을 없앴어요.
+
+면만 삶으시면 됩니다. 10분이에요.`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#voice" target="_blank" rel="noopener">📐 목소리</a></div><pre class="capb">날이 이렇게 더우면 입맛이 없잖아요.
+
+이번 주엔 시원한 국수 두 가지 준비했어요.
+두유콩국수랑 비빔국수요.
+
+콩국수는 두유로 만듭니다.
+콩 불리고 갈고 하는 거, 그거 진짜 번거롭거든요.
+저희가 그 과정을 없앴어요.
+
+면만 삶으시면 됩니다. 10분이에요.</pre><div class="lbl" style="margin-top:11px">첫 댓글 (해시태그 + 링크) <button class="cpy sm" onclick="cp(this,`#아카이빗 #복날 #두유콩국수 #비빔국수 #여름메뉴 #10분요리 #쿠킹박스 #집밥 #제철
+
+📦 www.archiveat.kr`)">복사</button></div><pre class="capb cmt">#아카이빗 #복날 #두유콩국수 #비빔국수 #여름메뉴 #10분요리 #쿠킹박스 #집밥 #제철
+
+📦 www.archiveat.kr</pre></div></div><div class="chk"><label><input type="checkbox" onchange="sv()"> 촬영</label><label><input type="checkbox" onchange="sv()"> 디자인</label><label><input type="checkbox" onchange="sv()"> 피드</label><label><input type="checkbox" onchange="sv()"> 첫 댓글</label><label><input type="checkbox" onchange="sv()"> 스토리</label><label><input type="checkbox" onchange="sv()"> 하이라이트</label></div></div><div class="dcard"><div class="dh"><span class="dd">8/4</span><span class="dw">화</span><span class="ptag">2</span><span class="pnm">요리 · 조리 과정</span><span class="hot"></span><span class="hltag">→ 레시피</span><a class="glink" href="marketing-instagram-guide.html#p2" target="_blank" rel="noopener">📐 패턴 2</a></div><div class="real">두유콩국수 과정컷</div><div class="menu"><b>메뉴</b> 두유콩국수 (마스터 · 박재한)</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="b3">소면은 찬물에 헹구세요</div><div class="f3">준비물은 불과 냄비뿐</div><div class="l3">ARCHIVEAT</div></div></div><div class="slc">면 삶는 손</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">찬물에 바로 헹구세요</div><div class="m2">전분기를 빼야 쫄깃해져요</div></div></div><div class="slc">찬물에 헹구는 손</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">두유는 저희가 배합했어요</div></div></div><div class="slc">완성된 콩국수</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>@archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">9:16</span><span class="t">스토리</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">소면은 찬물에 헹구세요</div><div class="t4">자세히 보기</div></div></div><div class="slc st">→ 레시피</div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>면 삶는 손</li><li>찬물에 헹구는 손</li><li>완성된 콩국수</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#레시피팁 #10분요리`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#레시피팁 #10분요리</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`소면 삶을 때, 찬물에 바로 헹구세요.
+
+전분기를 빼야 면이 쫄깃해집니다.
+그냥 건져서 담으면 금방 퍼져요.
+
+박재한 선생님이 그러시더라구요.
+물이 끓어오르면 찬물 한 컵 부으라고.
+그래야 겉만 안 퍼진다고요.
+
+두유는 저희가 배합해서 담았어요.
+콩 불리고 갈 일 없습니다.
+
+면만 삶으시면 돼요.`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#voice" target="_blank" rel="noopener">📐 목소리</a></div><pre class="capb">소면 삶을 때, 찬물에 바로 헹구세요.
+
+전분기를 빼야 면이 쫄깃해집니다.
+그냥 건져서 담으면 금방 퍼져요.
+
+박재한 선생님이 그러시더라구요.
+물이 끓어오르면 찬물 한 컵 부으라고.
+그래야 겉만 안 퍼진다고요.
+
+두유는 저희가 배합해서 담았어요.
+콩 불리고 갈 일 없습니다.
+
+면만 삶으시면 돼요.</pre><div class="lbl" style="margin-top:11px">첫 댓글 (해시태그 + 링크) <button class="cpy sm" onclick="cp(this,`#아카이빗 #두유콩국수 #소면 #국수삶는법 #10분요리 #쿠킹박스 #레시피 #박재한 #여름메뉴
+
+📦 www.archiveat.kr`)">복사</button></div><pre class="capb cmt">#아카이빗 #두유콩국수 #소면 #국수삶는법 #10분요리 #쿠킹박스 #레시피 #박재한 #여름메뉴
+
+📦 www.archiveat.kr</pre></div></div><div class="chk"><label><input type="checkbox" onchange="sv()"> 촬영</label><label><input type="checkbox" onchange="sv()"> 디자인</label><label><input type="checkbox" onchange="sv()"> 피드</label><label><input type="checkbox" onchange="sv()"> 첫 댓글</label><label><input type="checkbox" onchange="sv()"> 스토리</label><label><input type="checkbox" onchange="sv()"> 하이라이트</label></div></div>
+
+  <div class="note">
+    <b>당일 작업 흐름</b><br>
+    사진 촬영 → 대화창에 전달 → 문구 확정 → <b>복사</b> → 디자인 → 피드 업로드 → <b>첫 댓글에 해시태그+링크</b> → 스토리 재공유 → <b>하이라이트에 담기</b> → 체크<br><br>
+    <b>첫 줄 태그는 3개까지.</b> 상태·상황만(#담는중 #오늘출발). 검색용 태그(#쿠킹박스 #집밥)는 첫 댓글로.<br>
+    <b>#아카이빗은 첫 댓글에 항상.</b> 검색용이 아니라 <b>축적용</b>입니다 — 누군가 우리를 알게 됐을 때 태그를 누르면 전부 한 화면에 뜹니다.<br><br>
+    <a class="glink" href="marketing-instagram-guide.html#check" target="_blank" rel="noopener">📐 올리기 전 체크리스트</a> <a class="glink" href="marketing-instagram-guide.html#voice" target="_blank" rel="noopener">📐 아카이빗 말투</a> <a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a> <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 폴더</a>
+  </div>
+</section>
+
+<!-- 연간 -->
+<section class="panel" id="t2">
+  <div class="blk"><h3>연간 계획 · 1~12월</h3><p class="d">시즌 테마는 <b>공식몰 슬롯 4</b>와 동기화. 시즌 전환 <b>2~3주 전</b> 미리 준비.</p></div>
+  <table class="tbl">
+    <tr><th>월</th><th>시즌 테마</th><th>제철 재료</th><th>프로젝트</th><th>회사 소재</th></tr>
+    <tr class=""><td><b>1월</b></td><td><b>새해 보양·따뜻한 국물</b></td><td>황태 · 굴 · 시금치</td><td class="pj">—</td><td class="co">연간 계획 · 팀</td></tr><tr class=""><td><b>2월</b></td><td><b>설 명절 한 상</b></td><td>만둣국 · 갈비찜 · 잡채 · 동태전</td><td class="pj">—</td><td class="co">명절 협업</td></tr><tr class=""><td><b>3월</b></td><td><b>봄나물 한 상</b></td><td>냉이 · 달래 · 봄동 · 두릅 · 쑥</td><td class="pj">—</td><td class="co">봄 클래스</td></tr><tr class=""><td><b>4월</b></td><td><b>건강식·가벼운 식탁</b></td><td>샐러드 · 간편 한 끼</td><td class="pj">—</td><td class="co">1분기 결산</td></tr><tr class=""><td><b>5월</b></td><td><b>가정의 달·가족 식탁</b></td><td>키즈 첫 시도 · 함께 먹는 한 끼</td><td class="pj">—</td><td class="co">키즈 클래스</td></tr><tr class=""><td><b>6월</b></td><td><b>초여름·입맛 살리기</b></td><td>열무 · 오이 · 가지 · 애호박</td><td class="pj">—</td><td class="co">—</td></tr><tr class=" hot"><td><b>7월</b></td><td><b>여름 보양·방학특집</b></td><td>복숭아 · 오이 · 열무 · 참외</td><td class="pj">경기도지식 온라인 수업 (7/24 · 30명)</td><td class="co">협업 이력 · 자산 · 팀 ★★</td></tr><tr class=" hot"><td><b>8월</b></td><td><b>여름 막바지·간편식</b></td><td>콩국수 · 매콤 덮밥 · 해산물</td><td class="pj">제휴 메일 발송 ★★</td><td class="co">제휴 파이프 가동</td></tr><tr class=""><td><b>9월</b></td><td><b>초가을·풍성한 식탁</b></td><td>버섯 · 고구마 · 연근</td><td class="pj">—</td><td class="co">추석 협업</td></tr><tr class=""><td><b>10월</b></td><td><b>가을·뿌리채소</b></td><td>무 · 우엉 · 감자 · 조림·구이</td><td class="pj">—</td><td class="co">하반기 실적</td></tr><tr class=""><td><b>11월</b></td><td><b>김장 시즌·깊은 맛</b></td><td>배추 · 묵은지 · 굴</td><td class="pj">—</td><td class="co">김장 키트 협업</td></tr><tr class=""><td><b>12월</b></td><td><b>연말 특별식·선물</b></td><td>전복 · 굴 · 대하 · 선물 세트</td><td class="pj">—</td><td class="co">연말 결산 · 내년 계획</td></tr>
+  </table>
+
+  <div class="blk"><h3>지금 쓸 수 있는 메뉴 — 여름 제철 · 진열 중</h3><p class="d">DB 확인 결과 <b>실제 등록·진열은 약 30개.</b> 아래는 여름 제철로 쓸 수 있는 것들.<br>
+  <b>여름 = 김은영 선생님이 중심</b>입니다 — 패턴 2에서 인용할 이름이 여기서 정해집니다.</p></div>
+  <table class="tbl">
+    <tr><th>메뉴</th><th>카테고리</th><th>종류</th><th>전문가</th></tr>
+    <tr><td><b>오이무침</b></td><td>기본반찬</td><td>베이직</td><td class="o">김은영</td></tr><tr><td><b>오이소박이</b></td><td>김치</td><td>베이직</td><td class="o">김은영</td></tr><tr><td><b>열무김치</b></td><td>김치</td><td>베이직</td><td class="o">김은영</td></tr><tr><td><b>생열무비빔밥</b></td><td>밥·덮밥</td><td>베이직</td><td class="o">김은영</td></tr><tr><td><b>비빔국수</b></td><td>면·국수</td><td>베이직</td><td class="o">김은영</td></tr><tr><td><b>두유콩국수</b></td><td>면·국수</td><td>마스터</td><td class="o">박재한</td></tr><tr><td><b>참외샐러드</b></td><td>샐러드</td><td>쿠킹박스</td><td class="o">임수진</td></tr><tr><td><b>청포묵샐러드</b></td><td>샐러드</td><td>쿠킹박스</td><td class="o">장재우</td></tr><tr><td><b>초여름 과일 사라다</b></td><td>샐러드</td><td>마스터</td><td class="o">장재우</td></tr><tr><td><b>가지볶음</b></td><td>기본반찬</td><td>베이직</td><td class="o">임수진</td></tr><tr><td><b>애호박볶음</b></td><td>기본반찬</td><td>베이직</td><td class="o">김은영</td></tr><tr><td><b>파김치</b></td><td>김치</td><td>—</td><td class="o">—</td></tr>
+  </table>
+
+  <div class="blk"><h3>시그니처 (항시)</h3></div>
+  <table class="tbl">
+    <tr><th>메뉴</th><th>카테고리</th><th>종류</th><th>전문가</th></tr>
+    <tr><td><b>갑오징어볶음</b></td><td>메인반찬</td><td>쿠킹박스</td><td class="o">박나래</td></tr><tr><td><b>삼색소보로덮밥</b></td><td>밥·덮밥</td><td>마스터</td><td class="o">장재우</td></tr><tr><td><b>어향가지볶음</b></td><td>세계음식</td><td>쿠킹박스</td><td class="o">이영미</td></tr><tr><td><b>해물파전</b></td><td>전</td><td>쿠킹박스</td><td class="o">박나래</td></tr><tr><td><b>김치두루치기</b></td><td>메인반찬</td><td>베이직</td><td class="o">임수진</td></tr><tr><td><b>골뱅이무침</b></td><td>메인반찬</td><td>베이직</td><td class="o">임수진</td></tr>
+  </table>
+  <div class="warn" style="margin-top:12px">
+    <b>미등록 메뉴로 콘텐츠를 짜면 안 됩니다.</b> 클릭해도 상품이 없어요.<br>
+    미나리바지락전 · 삼계탕 · 전복죽 등은 <b>아직 미등록</b>입니다. 8월에 밀 상품이 정해지면 알려주세요 — 그 기준으로 스케줄을 갱신하겠습니다.
+  </div>
+
+  <div class="blk"><h3>월간 루틴</h3></div>
+  <table class="tbl">
+    <tr><th>주기</th><th>할 일</th></tr>
+    <tr><td><b>매주 목</b></td><td>패킹 현장 촬영 — 그 주 패턴 3 소재 확보</td></tr>
+    <tr><td><b>매주 금</b></td><td>인사이트 4개 기록 — 도달 / 프로필 방문 / 링크 클릭 / 팔로워</td></tr>
+    <tr><td><b>매월 말</b></td><td>다음 달 제철·시즌 확정 (몰 슬롯 3·4와 동기화) · 밀 상품 지정</td></tr>
+    <tr><td><b>시즌 전환 2~3주 전</b></td><td>시즌 테마 사진·메뉴 준비</td></tr>
+    <tr><td><b>프로젝트 발생 시</b></td><td>미리 공유 → 그 주 피드를 프로젝트 중심으로 재구성</td></tr>
+  </table>
+
+  <div class="blk"><h3>베이스라인 (2026.07.14)</h3><p class="d">피드·스토리 공백 상태의 출발점. 4주 뒤 같은 항목으로 비교합니다.</p></div>
+  <table class="tbl">
+    <tr><th></th><th>아카이빗</th><th>공공의주방</th></tr>
+    <tr><td>팔로워</td><td class=""><b>934</b></td><td>1.4만</td></tr><tr><td>조회수</td><td class=""><b>1,081</b></td><td>489</td></tr><tr><td>도달 계정</td><td class=""><b>706</b></td><td>262</td></tr><tr><td>반응</td><td class=""><b>29</b></td><td>7</td></tr><tr><td>프로필 방문</td><td class="o"><b>19 ← 핵심 지표</b></td><td>34</td></tr><tr><td>외부 링크</td><td class="o"><b>2</b></td><td>—</td></tr>
+  </table>
+  <div class="note"><b>핵심 지표 = 프로필 방문.</b> 팔로워는 목표로 잡지 않습니다 — 결과지 원인이 아니에요.<br>
+  목표: <b>B(인지) → C(팔로워) → A(매출)</b> 순서. 하반기 제휴가 1순위.</div>
+</section>
+
+<!-- 회사 -->
+<section class="panel" id="t3">
+  <div class="blk"><h3>회사 소재 창고 <a class="glink" href="marketing-instagram-guide.html#p5" target="_blank" rel="noopener">📐 패턴 5</a></h3><p class="d">패턴 5(회사)의 재료. <b>날짜에 안 묶입니다</b> — 생각날 때 쌓아두고 필요할 때 꺼내 씁니다.<br>
+  <b>빈칸이 보이면 채우게 됩니다.</b> 새로운 게 생기면 대화창에 던져주세요.</p></div>
+  <div class="cosec">협업 이력</div><div class="corow"><span class="ca">경기도지식 (GSEEK)</span><span class="cb">2026.7 · 온라인 30명 · 복숭아청·브리치즈샐러드 · 이영미 전문가</span><span class="cc st-ok">확정</span></div><div class="corow"><span class="ca">신세계 클래스콕</span><span class="cb">온라인 클래스 협업</span><span class="cc st-ok">완료</span></div><div class="corow"><span class="ca">클래스101</span><span class="cb">수수료 20% · 강사료 10% · 패킹/배송 20% · 원가 30% · 아카이빗 20% 구조 설계</span><span class="cc st-ok">완료</span></div><div class="corow"><span class="ca">백화점 문화센터</span><span class="cb">오프라인 클래스</span><span class="cc st-ok">완료</span></div><div class="corow"><span class="ca">지자체 수업</span><span class="cb">지역 클래스</span><span class="cc st-ok">완료</span></div><div class="corow"><span class="ca">넥스트라이즈</span><span class="cb">박람회 부스 (A0 포스터 4장 구성)</span><span class="cc st-ok">완료</span></div><div class="corow"><span class="ca">갤러리아</span><span class="cb">정규(여름) 클래스 · 박소진 · 깻잎상추전 · 해물부추전</span><span class="cc st-new">진행</span></div><div class="cosec">제휴 파이프 ★</div><div class="corow"><span class="ca">7월 말~8월</span><span class="cb">제휴 메일 일괄 발송</span><span class="cc st-new">예정 ★★</span></div><div class="corow"><span class="ca">—</span><span class="cb">판매채널 확대 (리테일·플랫폼)</span><span class="cc st-src">목표</span></div><div class="corow"><span class="ca">—</span><span class="cb">콘텐츠 협업 (레시피·영상 자산 활용)</span><span class="cc st-src">목표</span></div><div class="corow"><span class="ca">—</span><span class="cb">B2B 키트 (기업·지자체·교육)</span><span class="cc st-src">목표</span></div><div class="cosec">자산</div><div class="corow"><span class="ca">레시피</span><span class="cb">400여 개 · 19개 카테고리</span><span class="cc st-ok">확정</span></div><div class="corow"><span class="ca">영상</span><span class="cb">3,000여 개 (식재료 280 · 베이직 708 · 마스터 1,617 · 쿠킹박스 133)</span><span class="cc st-ok">확정</span></div><div class="corow"><span class="ca">전문가</span><span class="cb">임수진 · 김은영 · 장재우 · 박소현 · 박나래 · 이영미 · 김희경 · 박재한 · 최진 · 홍가람 · 요리코치써니 외</span><span class="cc st-ok">확정</span></div><div class="corow"><span class="ca">유튜브</span><span class="cb">@archiveat365 · 구독 2,604 · 28일 조회 26.7만</span><span class="cc st-ok">확정</span></div><div class="corow"><span class="ca">공식몰</span><span class="cb">archiveat.kr (Cafe24) · 7슬롯 큐레이션 구조</span><span class="cc st-ok">확정</span></div><div class="cosec">스토리</div><div class="corow"><span class="ca">2016년 창업</span><span class="cb">공공의주방 → 아카이빗으로 확장</span><span class="cc st-src">소재</span></div><div class="corow"><span class="ca">원물로 보내기로 한 결정</span><span class="cb">편한 길(손질)을 안 간 이유</span><span class="cc st-src">소재 ★</span></div><div class="corow"><span class="ca">1인 운영 + AI 백본</span><span class="cb">AI를 운영 백본으로. 인터뷰에서 공개 표명</span><span class="cc st-src">소재 ★</span></div><div class="corow"><span class="ca">소분의 판단</span><span class="cb">뭘 해주고 뭘 남길지 — 그 선택이 곧 아카이빗</span><span class="cc st-src">소재</span></div><div class="cosec">데이터</div><div class="corow"><span class="ca">재구매율</span><span class="cb">?</span><span class="cc st-new">채워야 함</span></div><div class="corow"><span class="ca">인기 메뉴 TOP</span><span class="cb">?</span><span class="cc st-new">채워야 함</span></div><div class="corow"><span class="ca">평균 객단가</span><span class="cb">?</span><span class="cc st-new">채워야 함</span></div><div class="corow"><span class="ca">세트 실마진</span><span class="cb">~25% (단품과 유사)</span><span class="cc st-ok">확정</span></div>
+  <div class="note">
+    <b>「제휴 파이프」는 콘텐츠가 아니라 업무 트래커입니다.</b> 7월 말~8월에 메일 돌릴 곳, 어디에 보냈고 어떤 답이 왔는지 기록하는 자리.<br><br>
+    <b>제휴 담당자가 보는 순서</b> — About → 협업 → 현장. 하이라이트 앞 3개가 승부처입니다. <a class="glink" href="marketing-instagram-guide.html#highlight" target="_blank" rel="noopener">📐 하이라이트 8개</a><br>
+    <b>프로필 소개글에 한 줄</b> — "검증된 전문가 레시피 400여 개 · 제휴·협업 문의 → DM"
+  </div>
+</section>
+
+<footer id="ft"></footer>
+</div>
+<script>
+function tab(id,btn){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('on',p.id===id)});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
+  btn.classList.add('on');
+  var tb=document.querySelector('.tabs');
+  var y=tb.getBoundingClientRect().top+window.scrollY-52;
+  if(window.scrollY>y) window.scrollTo({top:y,behavior:'smooth'});
+}
+function cp(btn,txt){
+  navigator.clipboard.writeText(txt).then(function(){
+    var o=btn.textContent; btn.textContent='복사됨 ✓'; btn.classList.add('ok');
+    setTimeout(function(){btn.textContent=o;btn.classList.remove('ok')},1200);
+  });
+}
+function sv(){
+  document.querySelectorAll('.dcard').forEach(function(d){
+    var all=d.querySelectorAll('.chk input');
+    var done=d.querySelectorAll('.chk input:checked');
+    d.classList.toggle('done', all.length>0 && all.length===done.length);
+  });
+}
+(function(){
+  var v=document.querySelector('meta[name=version]').content;
+  var u=document.querySelector('meta[name=updated]').content;
+  document.querySelectorAll('.upd').forEach(function(e){e.textContent='업데이트 '+u+' · '+v;});
+  document.getElementById('ft').textContent='ARCHIVEAT · 인스타 운영 · '+v+' · '+u;
+})();
+</script>
+</body></html>
