@@ -1,44 +1,71 @@
 <!doctype html>
 <html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v7"><meta name="updated" content="2026.07.13 21:50">
+<meta name="version" content="v8"><meta name="updated" content="2026.07.14 03:40">
 <title>마케팅 홈 · 공공의주방</title>
 <link rel="apple-touch-icon" href="app-icon.png">
 <link rel="icon" href="app-icon.png">
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#FAF5EC;--ink:#241F1B;--line:#E7DCC8;--coral:#FF5019;--muted:#8a8175;}
+:root{--bg:#FAF5EC;--ink:#241F1B;--line:#E7DCC8;--line2:#F0E9DC;--coral:#FF5019;--muted:#8a8175;--sub:#6b6357;--paper:#fff}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif;line-height:1.5}
-.wrap{max-width:900px;margin:0 auto;padding:22px 18px 80px}
-/* header */
+.wrap{max-width:920px;margin:0 auto;padding:22px 18px 80px}
 .navbar{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:6px}
 .pills{display:flex;gap:8px;flex-wrap:wrap}
-.pill{font-size:13px;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);padding:5px 13px;border-radius:20px;font-weight:600;white-space:nowrap}
+.pill{font-size:13px;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--line);padding:5px 13px;border-radius:20px;font-weight:600;white-space:nowrap}
 .pill:active{transform:scale(.97)}
-.breadcrumb{font-size:12px;color:var(--muted);text-align:right;line-height:1.6;font-family:Pretendard;margin-left:auto}
+.breadcrumb{font-size:12px;color:var(--muted);text-align:right;line-height:1.6;margin-left:auto}
 .breadcrumb .sep{color:#cbc3b4;margin:0 5px}
 .breadcrumb .upd{font-family:"DM Mono",monospace}
-h1{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:700;font-size:40px;letter-spacing:-.02em;margin:8px 0 4px}
-.lead{font-size:15px;color:var(--muted);margin:0 0 24px}
-/* cards */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
-.card{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;box-shadow:0 1px 3px rgba(0,0,0,.03);transition:transform .08s,box-shadow .12s}
-.card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.07)}
-.card .ico{font-size:26px}
-.card h3{font-family:Hahmlet,serif;font-size:18px;margin:10px 0 4px;font-weight:700}
-.card p{font-size:13px;color:var(--muted);margin:0}
-.card .go{margin-top:12px;font-size:12px;font-weight:700;color:var(--coral);font-family:"DM Mono",monospace}
-.card.soon{opacity:.62;pointer-events:none;background:#FBF7EF;border-style:dashed}
-.card.soon .chip{display:inline-block;font-size:11px;font-weight:700;color:var(--muted);background:#EFE7D6;padding:2px 8px;border-radius:10px;margin-top:12px;font-family:Pretendard}
-.sec{font-family:Hahmlet,serif;font-weight:700;font-size:15px;margin:30px 0 12px;color:var(--ink)}
-/* backup box */
-.backup{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
-.bbtn{flex:1 1 200px;text-align:center;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:Pretendard}
-.bbtn:active{transform:scale(.98)}
-.notice{margin-top:26px;padding:14px 16px;background:#FBF7EF;border:1px solid var(--line);border-radius:12px;font-size:13px;color:#6b6357;line-height:1.7}
+h1{font-family:Hahmlet,"Gowun Batang",serif;font-weight:700;font-size:38px;letter-spacing:-.02em;margin:8px 0 4px}
+.lead{font-size:15px;color:var(--muted);margin:0 0 26px}
+
+.dash{background:var(--ink);color:#fff;border-radius:16px;padding:20px 22px;margin-bottom:30px}
+.dash .dh{display:flex;align-items:center;gap:9px;margin-bottom:15px}
+.dash .dh .t{font-family:Hahmlet,serif;font-weight:700;font-size:17px}
+.dash .dh .chip2{font-size:10.5px;font-weight:700;background:#443C33;color:#B8B0A4;border-radius:6px;padding:2px 8px;font-family:"DM Mono",monospace}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px}
+.stat{background:#332C25;border-radius:11px;padding:13px 15px}
+.stat .lb{font-size:11px;color:#9A9182;margin-bottom:4px}
+.stat .vl{font-family:"DM Mono",monospace;font-size:21px;font-weight:700;color:#fff;line-height:1.2}
+.stat .vl em{font-style:normal;font-size:12px;color:#9A9182;font-weight:500;margin-left:2px}
+.stat .sub{font-size:10.5px;color:#F0AA32;margin-top:3px}
+.stat.tbd .vl{color:#6E6559}
+.dash .note{margin-top:13px;font-size:11.5px;color:#8E857A;line-height:1.6}
+
+.sec{display:flex;align-items:center;gap:10px;margin:32px 0 14px}
+.sec h2{font-family:Hahmlet,serif;font-weight:700;font-size:19px;margin:0}
+.sec .ln{flex:1;height:1px;background:var(--line)}
+.sec .cnt{font-size:11px;color:var(--muted);font-family:"DM Mono",monospace}
+
+.chan{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:14px}
+.chan .ch{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line2);flex-wrap:wrap}
+.chan .ch .ico2{font-size:19px}
+.chan .ch .nm{font-family:Hahmlet,serif;font-weight:700;font-size:16px}
+.chan .ch .id{font-size:11.5px;color:var(--muted);font-family:"DM Mono",monospace}
+.chan .ch .go2{margin-left:auto;font-size:11.5px;color:var(--coral);text-decoration:none;font-weight:700;font-family:"DM Mono",monospace}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;padding:14px 16px 16px}
+.card{display:block;text-decoration:none;color:inherit;background:#FBF8F2;border:1px solid var(--line2);border-radius:12px;padding:14px 15px;transition:transform .08s,box-shadow .12s,border-color .12s}
+.card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.06);border-color:var(--line)}
+.card .ico{font-size:20px}
+.card h3{font-size:14.5px;margin:8px 0 3px;font-weight:700}
+.card p{font-size:12px;color:var(--muted);margin:0;line-height:1.55}
+.card .go{margin-top:9px;font-size:11px;font-weight:700;color:var(--coral);font-family:"DM Mono",monospace}
+.card.file{background:var(--paper);border-style:dashed}
+.card.file .go{color:var(--sub)}
+
+.soon{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.scard{background:#FBF7EF;border:1px dashed var(--line);border-radius:14px;padding:16px 18px;opacity:.72}
+.scard .ico{font-size:20px}
+.scard h3{font-family:Hahmlet,serif;font-size:16px;margin:8px 0 3px;font-weight:700}
+.scard p{font-size:12px;color:var(--muted);margin:0}
+.scard .chip{display:inline-block;font-size:10.5px;font-weight:700;color:var(--muted);background:#EFE7D6;padding:2px 8px;border-radius:10px;margin-top:10px;font-family:"DM Mono",monospace}
+
+.notice{margin-top:30px;padding:14px 16px;background:#FBF7EF;border:1px solid var(--line);border-radius:12px;font-size:12.5px;color:var(--sub);line-height:1.75}
 footer{margin-top:26px;font-size:12px;color:var(--muted);font-family:"DM Mono",monospace;text-align:center}
+@media(max-width:600px){h1{font-size:30px}.grid,.soon{grid-template-columns:1fr}}
 </style></head>
 <body><div class="wrap">
 <header>
@@ -47,69 +74,113 @@ footer{margin-top:26px;font-size:12px;color:var(--muted);font-family:"DM Mono",m
       <a class="pill" href="index.html">← 공공의주방 홈</a>
       <a class="pill" href="https://claude.ai/chat/001318c0-a988-48de-80a9-1889249e46be" target="_blank" rel="noopener">💬 작업 대화</a>
     </div>
-    <div class="breadcrumb">AI 워크스페이스 › 마케팅 <span class="sep">|</span> <span class="upd">업데이트 2026.07.09 19:10 · v6</span></div>
+    <div class="breadcrumb">AI 워크스페이스 › 마케팅 <span class="sep">|</span> <span class="upd"></span></div>
   </div>
   <h1>마케팅 홈</h1>
-  <p class="lead">유튜브·인스타 콘텐츠와 제휴를 관리합니다.</p>
+  <p class="lead">SNS 채널과 제휴·이벤트를 한곳에서 관리합니다.</p>
+</header>
 
+<div class="dash">
+  <div class="dh"><span style="font-size:17px">📊</span><span class="t">대시보드</span><span class="chip2">자리만 · 추후</span></div>
+  <div class="stats">
+    <div class="stat">
+      <div class="lb">쇼츠 업로드</div>
+      <div class="vl">890<em>/ 2,738</em></div>
+      <div class="sub">32% · 미업로드 1,848</div>
+    </div>
+    <div class="stat tbd"><div class="lb">이번 주 유튜브</div><div class="vl">—</div></div>
+    <div class="stat tbd"><div class="lb">이번 주 인스타</div><div class="vl">—</div></div>
+    <div class="stat tbd"><div class="lb">이번 주 메뉴</div><div class="vl">—</div></div>
+  </div>
+  <div class="note">※ 쇼츠 수치는 영상DB 마스터 기준. 나머지는 운영 데이터 연결 후 채웁니다.</div>
+</div>
+
+<div class="sec"><h2>SNS</h2><div class="ln"></div><span class="cnt">2 channels</span></div>
+
+<div class="chan">
+  <div class="ch">
+    <span class="ico2">▶️</span>
+    <span class="nm">유튜브</span>
+    <span class="id">@archiveat365 · 쇼츠 매일 3편</span>
+    <a class="go2" href="https://www.youtube.com/@archiveat365" target="_blank" rel="noopener">채널 열기 →</a>
+  </div>
   <div class="grid">
     <a class="card" href="marketing-captions.html">
       <div class="ico">📝</div>
-      <h3>업로드캡션</h3>
-      <p>유튜브·인스타 업로드 문구(제목·설명·캡션)를 날짜별로 복사</p>
+      <h3>업로드 캡션</h3>
+      <p>제목·설명·인스타 캡션을 날짜별로 복사</p>
       <div class="go">열기 →</div>
     </a>
+    <a class="card file" href="marketing-shorts-manager.xlsx" download>
+      <div class="ico">📊</div>
+      <h3>쇼츠 관리표</h3>
+      <p>업로드 스케줄 · 미업로드 풀 · 콘텐츠 원칙</p>
+      <div class="go">받기 ↓</div>
+    </a>
+    <a class="card file" href="marketing-video-db.xlsx" download>
+      <div class="ico">🎬</div>
+      <h3>영상 DB 마스터</h3>
+      <p>식재료·베이직·마스터·쿠킹박스 2,738편</p>
+      <div class="go">받기 ↓</div>
+    </a>
+  </div>
+</div>
+
+<div class="chan">
+  <div class="ch">
+    <span class="ico2">📸</span>
+    <span class="nm">인스타그램</span>
+    <span class="id">@archiveat.kr · 주 3~4회</span>
+    <a class="go2" href="https://www.instagram.com/archiveat.kr/" target="_blank" rel="noopener">계정 열기 →</a>
+  </div>
+  <div class="grid">
     <a class="card" href="marketing-instagram-guide.html">
-      <div class="ico">📸</div>
-      <h3>아카이빗 인스타 가이드</h3>
-      <p>당신의 한 끼가 주인공인 식탁 · 톤·요일 리듬·체크리스트</p>
+      <div class="ico">📐</div>
+      <h3>인스타 가이드</h3>
+      <p>결 · 관계 · 목소리 · 패턴 1·2·3·4 · 사진 · 쓰기</p>
       <div class="go">열기 →</div>
     </a>
-    <div class="card soon">
-      <div class="ico">▶️</div>
-      <h3>유튜브 업로드 관리</h3>
-      <p>예약·업로드 현황·조회수 추적</p>
-      <span class="chip">준비 중</span>
-    </div>
-    <div class="card soon">
-      <div class="ico">🤝</div>
-      <h3>제휴·협업 목록</h3>
-      <p>여주시 등 협업 콘텐츠·파트너 관리</p>
-      <span class="chip">준비 중</span>
-    </div>
+    <a class="card file" href="archiveat-instagram-guide.pdf" download>
+      <div class="ico">🖨</div>
+      <h3>가이드 PDF</h3>
+      <p>인쇄용 · 탭 전체 펼침</p>
+      <div class="go">받기 ↓</div>
+    </a>
   </div>
+</div>
 
-  <div class="sec">📦 원본 파일</div>
-  <div class="backup">
-    <a class="bbtn" href="#" onclick="saveThis(event)">📄 이 화면 HTML 받기</a>
-    <a class="bbtn" href="marketing-shorts-manager.xlsx" download>📊 쇼츠 관리표 받기</a>
-    <a class="bbtn" href="marketing-video-db.xlsx" download>🎬 영상DB마스터 받기</a>
-    <a class="bbtn" href="https://claude.ai/chat/001318c0-a988-48de-80a9-1889249e46be" target="_blank" rel="noopener">💬 대화창에서 전체 받기</a>
+<div class="sec"><h2>그 외</h2><div class="ln"></div><span class="cnt">준비 중</span></div>
+<div class="soon">
+  <div class="scard">
+    <div class="ico">🤝</div>
+    <h3>협업·제휴</h3>
+    <p>여주시 등 협업 콘텐츠 · 파트너 관리</p>
+    <span class="chip">준비 중</span>
   </div>
+  <div class="scard">
+    <div class="ico">🎁</div>
+    <h3>이벤트</h3>
+    <p>리뷰 이벤트 · 신규 회원 혜택 · 타임세일</p>
+    <span class="chip">준비 중</span>
+  </div>
+</div>
 
-  <div class="notice">
-    ※ 홈은 보기·이동만 합니다.<br>
-    · 데이터를 고칠 땐 → 마스터(엑셀·대화창)에서<br>
-    · 볼 땐 → 이 홈에서<br>
-    · 모든 파일은 같은 폴더(github)에 두어야 링크가 작동합니다.
-  </div>
-</header>
-<footer id="ft">ARCHIVEAT · 마케팅 홈 · v6 · 업데이트 2026.07.09 19:10</footer>
+<div class="notice">
+  ※ 홈은 <b>보기·이동만</b> 합니다.<br>
+  · 데이터를 고칠 땐 → 마스터(엑셀·대화창)에서<br>
+  · 볼 땐 → 이 홈에서<br>
+  · 모든 파일은 같은 폴더(github)에 두어야 링크가 작동합니다.
+</div>
+
+<footer id="ft"></footer>
 </div>
 <script>
-// 메타 값 한 곳에서 읽어 헤더·푸터 자동 일치
 (function(){
   var v=document.querySelector('meta[name=version]').content;
   var u=document.querySelector('meta[name=updated]').content;
   document.querySelectorAll('.upd').forEach(function(e){e.textContent='업데이트 '+u+' · '+v;});
-  var ft=document.getElementById('ft'); if(ft) ft.textContent='ARCHIVEAT · 마케팅 홈 · '+v+' · 업데이트 '+u;
+  var ft=document.getElementById('ft');
+  if(ft) ft.textContent='ARCHIVEAT · 마케팅 홈 · '+v+' · 업데이트 '+u;
 })();
-// 이 화면 자기 자신 저장
-function saveThis(e){
-  e.preventDefault();
-  var blob=new Blob([document.documentElement.outerHTML],{type:'text/html'});
-  var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='marketing.html'; a.click();
-  URL.revokeObjectURL(a.href);
-}
 </script>
 </body></html>
