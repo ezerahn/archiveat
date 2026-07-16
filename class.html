@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v9"><meta name="updated" content="2026.07.16 12:57">
+<meta name="version" content="v9"><meta name="updated" content="2026.07.16 13:37">
 <title>클래스 홈</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -144,6 +144,28 @@ table.mat tr.subtot td.p{background:#E4EDD9;color:var(--open)}
 table.mat a{color:var(--point);text-decoration:none}
 .ship-note{font-size:9.5px;color:var(--offline);font-weight:600}
 .matsum{margin-top:10px;text-align:right;font-family:"DM Mono",monospace;font-size:14px}.matsum b{font-size:17px;color:var(--online)}
+.ordsec{margin-top:22px;padding-top:18px;border-top:2px solid var(--line)}
+.ordh{font-family:Hahmlet,serif;font-size:16px;font-weight:700;margin-bottom:12px}.ordh .s{font-family:Pretendard;font-size:11.5px;color:var(--wait);font-weight:400;margin-left:8px}
+.ordwrap{overflow-x:auto}
+table.ord{width:100%;border-collapse:collapse;font-size:11.5px;white-space:nowrap}
+table.ord th{background:#F1EADB;padding:7px 8px;border:1px solid var(--line);font-weight:600;color:var(--sub)}
+table.ord td{padding:6px 8px;border:1px solid var(--line)}
+table.ord .tl{text-align:left}table.ord .rt{text-align:right;font-family:"DM Mono",monospace}
+table.ord .ck{text-align:center;font-size:13px}table.ord .sm{font-size:10.5px;color:var(--wait)}
+table.ord a{text-decoration:none}
+.kp{font-size:10px;font-weight:700;padding:2px 7px;border-radius:9px;font-family:"DM Mono",monospace}
+.kp-frz{background:#E4EEF6;color:var(--online)}.kp-cool{background:#E6F4E6;color:var(--open)}.kp-room{background:#EEE9DD;color:var(--wait)}.kp-none{background:transparent;color:#CFC5B2}
+.stk{font-size:9.5px;background:#EFEADD;color:var(--point);padding:1px 6px;border-radius:8px;font-weight:700}
+.ordnote{font-size:11.5px;color:var(--offline);margin-top:9px;font-weight:600}
+.ordnote2{font-size:11px;color:var(--wait);margin-top:10px;line-height:1.6}
+.cmpwrap{margin-top:14px}
+table.cmp{border-collapse:collapse;font-size:12.5px;min-width:340px}
+table.cmp th{background:#F1EADB;padding:8px 14px;border:1px solid var(--line);font-weight:700}
+table.cmp td{padding:8px 14px;border:1px solid var(--line)}
+table.cmp .tl{text-align:left}table.cmp .rt{text-align:right;font-family:"DM Mono",monospace}
+table.cmp .cmp-net td{font-weight:700;background:#FBF8EF}table.cmp .cmp-net .rt{color:var(--open)}
+.pend{font-size:11px;color:var(--wait);font-style:italic}
+.cmpsub{font-size:9.5px;color:var(--wait);font-weight:400;display:block}
 .matwrap{overflow-x:auto}
 .flow{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:4px}
 .flow-sec{border-bottom:1px solid var(--line)}.flow-sec:last-child{border-bottom:none}
@@ -251,7 +273,56 @@ function matTable(code,paxFallback){
     +'<tr><th>용량</th><th>단위</th><th>용량</th><th>단위</th><th>금액</th></tr></thead><tbody>'+body+'</tbody></table></div>'
     +'<div class="matsum">재료비 합계(1인) <b>'+fmtN(tot)+'</b> 원 · 기준 인원 '+pax+'명</div>';
 }
-function openDetail(cid){
+function keepBadge(k){var m={'냉동':'kp-frz','냉장':'kp-cool','실온':'kp-room'};if(!k||!m[k])return '<span class="kp kp-none">—</span>';return '<span class="kp '+m[k]+'">'+k+'</span>';}
+function orderTable(code,od){
+  var d=parseQ(code);if(!d||!d.rows||!d.rows.length)return '';
+  var body='',planTot=0,realTot=0,hasReal=false,merge={};
+  d.rows.forEach(function(r){
+    var ou=num(r.ou),pv=num(r.pv),pm=num(r.pm),sh=num(r.sh);
+    var total=pm*ou+sh;planTot+=total;
+    var buy=fmtN(ou)+' × '+fmtN(pv)+(r.pu||'');
+    var base=(r.nm||'').replace(/\s*\(.*$/,'').trim();merge[base]=(merge[base]||0)+ou;
+    var o=(od&&od[r.nm])||{};
+    var real=(o.realamt!=null&&o.realamt!=='')?num(o.realamt):null;
+    if(real!=null){realTot+=real;hasReal=true;}
+    var stockTag=o.stock?' <span class="stk">재고</span>':'';
+    body+='<tr>'
+      +'<td>'+esc2(r.gu)+'</td><td class="tl">'+esc2(r.nm)+'</td>'
+      +'<td class="tl">'+buy+(r.lk?' <a href="'+esc2(r.lk)+'" target="_blank">🔗</a>':'')+'</td>'
+      +'<td class="rt">'+fmtN(total)+'</td>'
+      +'<td>'+keepBadge(o.keep)+'</td>'
+      +'<td>'+(o.store?esc2(o.store):'—')+'</td>'
+      +'<td class="rt sm">'+(o.odate?esc2(o.odate):'—')+'</td>'
+      +'<td class="rt sm">'+(o.idate?esc2(o.idate):'—')+'</td>'
+      +'<td class="ck">'+(o.ordered?'✅':'⬜')+'</td>'
+      +'<td class="ck">'+(o.arrived?'📦':'⬜')+'</td>'
+      +'<td class="rt">'+(real!=null?fmtN(real)+stockTag:(o.stock?'<span class="stk">재고</span>':'—'))+'</td>'
+      +'</tr>';
+  });
+  // 합산 코멘트 (2회 이상 나온 재료)
+  var cnt={};d.rows.forEach(function(r){var b=(r.nm||'').replace(/\s*\(.*$/,'').trim();cnt[b]=(cnt[b]||0)+1;});
+  var notes=[];for(var b in cnt){if(cnt[b]>1)notes.push(b+' 총 '+fmtN(merge[b])+'개 발주');}
+  var mergeNote=notes.length?'<div class="ordnote">※ 합산 발주: '+notes.join(' · ')+' (같은 상품은 한 번에 주문)</div>':'';
+  // 손익 비교
+  var supply=num(d.price);if((d.vat||'')==='incl')supply=Math.round(supply/1.1);
+  var pax=num(d.pax)||1;var pack=num(d.pack),ship2=num(d.ship),teach=num(d.teach);
+  var useTot=0;
+  d.rows.forEach(function(r){var v1=num(r.v1),pv2=num(r.pv),pm2=num(r.pm),ou2=num(r.ou),sh2=num(r.sh);var need=v1*pax,ord=ou2*pv2,tt=pm2*ou2+sh2;if(pax>0&&ord>0)useTot+=tt/pax*(need/ord);});
+  var planMat=Math.round(useTot);var planNet=supply-planMat-pack-ship2-teach;
+  var realPer=hasReal?Math.round(realTot/pax):null;
+  var realNet=hasReal?(supply-realPer-pack-ship2-teach):null;
+  var cmp='<div class="cmpwrap"><table class="cmp"><thead><tr><th>구분</th><th>계획(원가)</th><th>실제(발주)</th></tr></thead><tbody>'
+    +'<tr><td class="tl">발주 총액 <span class="cmpsub">전체·구매기준</span></td><td class="rt">'+fmtN(planTot)+'</td><td class="rt">'+(hasReal?fmtN(realTot):'<span class="pend">발주 후 입력</span>')+'</td></tr>'
+    +'<tr><td class="tl">재료비(1인) <span class="cmpsub">계획=사용 / 실제=지출</span></td><td class="rt">'+fmtN(planMat)+'</td><td class="rt">'+(hasReal?fmtN(realPer):'—')+'</td></tr>'
+    +'<tr class="cmp-net"><td class="tl">순이익(1인)</td><td class="rt">'+fmtN(planNet)+'</td><td class="rt">'+(hasReal?fmtN(realNet):'—')+'</td></tr>'
+    +'</tbody></table></div>';
+  return '<div class="ordsec"><div class="ordh">📦 발주 · 입고 <span class="s">원가표 기준 발주 리스트 · 주문/입고 체크 · 실제 비용</span></div>'
+    +'<div class="ordwrap"><table class="ord"><thead><tr>'
+    +'<th>구분</th><th>재료</th><th>발주량</th><th>계획금액</th><th>보관</th><th>발주처</th><th>발주일</th><th>입고예정</th><th>주문</th><th>입고</th><th>실제금액</th>'
+    +'</tr></thead><tbody>'+body+'</tbody></table></div>'+mergeNote
+    +cmp
+    +'<div class="ordnote2">발주 정보(보관·발주처·날짜·주문/입고·실제금액)는 실제 발주하며 채팅으로 알려주시면 채워집니다. 냉동/냉장/실온은 패킹 방식에서 이 값을 가져다 씁니다.</div></div>';
+}
   var d=D[cid];if(!d)return;CUR=cid;
   document.getElementById('mOrderer').textContent=(d.orderer||'')+' · '+(d.kind||'');
   document.getElementById('mName').textContent=d.name||'';
@@ -275,8 +346,8 @@ function openDetail(cid){
     (c.레시피?'<button class="dcopy" onclick="copyRecipe()">📋 레시피 전체 복사</button>':'')
     +blk('조리법',c.레시피)
     +'<div class="dnote">레시피 카드 제작용 조리법입니다. 들어가는 재료·단가는 옆 [구성품(원가)] 탭에서 봅니다.</div>';
-  // ④ 구성품(원가) — 견적 표 + 소계
-  document.getElementById('d4').innerHTML=matTable(c.견적코드,d.applied||d.mn);
+  // ④ 구성품(원가) — 견적 표 + 소계 + 발주 섹션
+  document.getElementById('d4').innerHTML=matTable(c.견적코드,d.applied||d.mn)+orderTable(c.견적코드,d.order);
   // ④ 가격·정산 (단가 + 부가세금액 + 강사료 분리 + 공급가 기준 손익)
   var vatAmt=null,supply=null;
   if(d.price!=null){if(d.vat==='포함'){supply=d.price/1.1;vatAmt=d.price-supply;}else if(d.vat==='별도'){supply=d.price;vatAmt=d.price*0.1;}else{supply=d.price;}}
