@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v9"><meta name="updated" content="2026.07.16 14:55">
+<meta name="version" content="v9"><meta name="updated" content="2026.07.16 14:59">
 <title>클래스 홈</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -147,9 +147,12 @@ table.mat a{color:var(--point);text-decoration:none}
 .ordsec{margin-top:22px;padding-top:18px;border-top:2px solid var(--line)}
 .ordh{font-family:Hahmlet,serif;font-size:16px;font-weight:700;margin-bottom:12px}.ordh .s{font-family:Pretendard;font-size:11.5px;color:var(--wait);font-weight:400;margin-left:8px}
 .ordwrap{overflow-x:auto}
-table.ord{width:100%;border-collapse:collapse;font-size:11.5px;white-space:nowrap}
-table.ord th{background:#F1EADB;padding:7px 8px;border:1px solid var(--line);font-weight:600;color:var(--sub)}
-table.ord td{padding:6px 8px;border:1px solid var(--line)}
+table.ord{width:100%;border-collapse:collapse;font-size:11px;table-layout:auto}
+table.ord th{background:#F1EADB;padding:6px 7px;border:1px solid var(--line);font-weight:600;color:var(--sub);font-size:10.5px}
+table.ord td{padding:5px 7px;border:1px solid var(--line);white-space:nowrap}
+table.ord th{white-space:nowrap}
+.nw{white-space:nowrap}.mut{color:#CFC5B2}
+.gu-mini{font-size:8.5px;background:#EFEADD;color:var(--wait);padding:1px 5px;border-radius:6px;font-weight:600}
 table.ord .tl{text-align:left}table.ord .rt{text-align:right;font-family:"DM Mono",monospace}
 table.ord .ck{text-align:center;font-size:13px}table.ord .sm{font-size:10.5px;color:var(--wait)}
 table.ord a{text-decoration:none}
@@ -306,19 +309,15 @@ function orderTable(code,od){
     else{var lack=need-qty;var more=pv>0?Math.ceil(lack/pv):0;stat='<span class="ost ost-short">⚠️ '+fmtN(lack)+(r.pu||'')+' 부족'+(more>0?' ('+more+'개↑)':'')+'</span>';}
     var stockTag=o.stock?' <span class="stk">재고</span>':'';
     body+='<tr>'
-      +'<td>'+esc2(r.gu)+'</td><td class="tl">'+esc2(r.nm)+(r.lk?' <a href="'+esc2(r.lk)+'" target="_blank">🔗</a>':'')+'</td>'
-      +'<td class="rt">'+fmtN(need)+(r.pu||'')+'<span class="plan2">계획 '+plan+'</span></td>'
-      +'<td class="rt">'+(qty!=null?fmtN(qty)+(r.pu||''):'—')+'</td>'
-      +'<td class="tl">'+stat+'</td>'
+      +'<td class="tl"><span class="gu-mini">'+esc2(r.gu)+'</span> '+esc2(r.nm)+(r.lk?' <a href="'+esc2(r.lk)+'" target="_blank">🔗</a>':'')+'</td>'
+      +'<td class="rt nw"><b>'+fmtN(need)+(r.pu||'')+'</b> / '+(qty!=null?fmtN(qty)+(r.pu||''):'<span class="mut">—</span>')+'</td>'
+      +'<td>'+stat+'</td>'
       +'<td>'+keepBadge(o.keep)+'</td>'
-      +'<td>'+(o.store?esc2(o.store):'—')+'</td>'
-      +'<td class="rt sm">'+(o.odate?esc2(o.odate):'—')+'</td>'
-      +'<td class="rt sm">'+(o.idate?esc2(o.idate):'—')+'</td>'
-      +'<td class="ck">'+(o.ordered?'✅':'⬜')+'</td>'
-      +'<td class="ck">'+(o.arrived?'📦':'⬜')+'</td>'
-      +'<td class="rt sm2">'+fmtN(total)+'</td>'
-      +'<td class="rt">'+(real!=null?fmtN(real)+stockTag:(o.stock?'<span class="stk">재고</span>':'—'))+'</td>'
-      +'<td class="rt">'+(real!=null?diffCell(real-total):(o.stock?'<span class="stk">재고</span>':'—'))+'</td>'
+      +'<td class="sm">'+(o.store?esc2(o.store):'—')+'</td>'
+      +'<td class="sm nw">'+((o.odate||o.idate)?(esc2(o.odate||'?')+' → '+esc2(o.idate||'?')):'—')+'</td>'
+      +'<td class="ck nw">'+(o.ordered?'✅':'⬜')+(o.arrived?'📦':'⬜')+'</td>'
+      +'<td class="rt nw"><span class="sm2">'+fmtN(total)+'</span> / '+(real!=null?fmtN(real)+stockTag:(o.stock?'<span class="stk">재고</span>':'<span class="mut">—</span>'))+'</td>'
+      +'<td class="rt">'+(real!=null?diffCell(real-total):(o.stock?'<span class="stk">재고</span>':'<span class="mut">—</span>'))+'</td>'
       +'</tr>';
   });
   // 합산 코멘트 (2회 이상 나온 재료)
@@ -340,7 +339,7 @@ function orderTable(code,od){
     +'</tbody></table></div>';
   return '<div class="ordsec"><div class="ordh">📦 발주 · 입고 <span class="s">필요량 대비 주문량 · 부족분 · 실제 비용</span></div>'
     +'<div class="ordwrap"><table class="ord"><thead><tr>'
-    +'<th>구분</th><th>재료</th><th>필요량</th><th>주문량</th><th>상태</th><th>보관</th><th>발주처</th><th>발주일</th><th>입고예정</th><th>주문</th><th>입고</th><th>계획금액</th><th>실제금액</th><th>차액</th>'
+    +'<th>재료</th><th>필요 / 주문</th><th>상태</th><th>보관</th><th>발주처</th><th>발주 → 입고</th><th>주문/입고</th><th>계획 / 실제</th><th>차액</th>'
     +'</tr></thead><tbody>'+body+'</tbody></table></div>'+mergeNote
     +cmp
     +'<div class="ordnote2">필요량 = 1인 사용량 × 인원 · 주문량이 필요량 이상이면 ✅충족, 미만이면 ⚠️부족(더 살 개수 표시). 발주 정보는 실제 발주하며 채팅으로 알려주시면 채워집니다.</div></div>';
