@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v9"><meta name="updated" content="2026.07.16 13:37">
+<meta name="version" content="v9"><meta name="updated" content="2026.07.16 14:09">
 <title>클래스 홈</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -323,6 +323,7 @@ function orderTable(code,od){
     +cmp
     +'<div class="ordnote2">발주 정보(보관·발주처·날짜·주문/입고·실제금액)는 실제 발주하며 채팅으로 알려주시면 채워집니다. 냉동/냉장/실온은 패킹 방식에서 이 값을 가져다 씁니다.</div></div>';
 }
+function openDetail(cid){
   var d=D[cid];if(!d)return;CUR=cid;
   document.getElementById('mOrderer').textContent=(d.orderer||'')+' · '+(d.kind||'');
   document.getElementById('mName').textContent=d.name||'';
