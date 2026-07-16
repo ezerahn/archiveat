@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="아카이빗의 콘텐츠 자산을 상품과 고객 제안으로 연결하는 프론트엔드 서비스 OS 제안서" />
-  <title>Archiveat Planner | Preview v0.3</title>
+  <title>Archiveat Planner | Preview</title>
   <style>
     :root{--ink:#24322d;--muted:#66736d;--brand:#355f4e;--brand2:#668b78;--soft:#eaf1ed;--cream:#f8f4eb;--line:#dbe3de;--accent:#b86f3d;--white:#fff;--shadow:0 12px 32px rgba(39,61,51,.08);--radius:18px;--sidebar:260px}
     *{box-sizing:border-box} html{scroll-behavior:smooth}
@@ -112,7 +112,7 @@
     <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="architecture" id="tab-architecture" data-tab="architecture"><span>02</span>핵심 구조</button>
     <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="themes" id="tab-themes" data-tab="themes"><span>03</span>테마 라이브러리</button>
     <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="programs" id="tab-programs" data-tab="programs"><span>04</span>핵심 Program</button>
-    <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="contentcard" id="tab-contentcard" data-tab="contentcard"><span>05</span>Content Card</button>
+    <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="contentcard" id="tab-contentcard" data-tab="contentcard"><span>05</span>메뉴 DB</button>
     <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="proposal" id="tab-proposal" data-tab="proposal"><span>06</span>고객 제안</button>
     <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="annual" id="tab-annual" data-tab="annual"><span>07</span>연간 운영</button>
     <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="workflow" id="tab-workflow" data-tab="workflow"><span>08</span>업무 흐름</button>
@@ -138,13 +138,143 @@
 <div class="card program"><div class="program-num">08</div><div class="program-title">시즌 스페셜</div><div class="program-en">Seasonal Special</div><p>특정 시기에 판매력이 강한 행사성 상품</p><span class="tag">설</span><span class="tag">추석</span><span class="tag">복날</span><span class="tag">김장</span><span class="tag">크리스마스</span><span class="tag">송년회</span></div>
 </div></section>
 
-<section id="contentcard" class="tab-panel" role="tabpanel" aria-labelledby="tab-contentcard"><div class="section-kicker">05 · Master DB</div><h2>시스템의 중심: Content Card</h2><p class="lead">단순 메뉴표가 아니라 메뉴 하나를 하나의 콘텐츠 자산으로 관리합니다. 이 카드에서 몰 상품, 클래스, 기업 제안, SNS, 뉴스레터가 파생됩니다.</p><table><thead><tr><th>구분</th><th>주요 항목</th></tr></thead><tbody>
-<tr><td>식별 정보</td><td>콘텐츠 ID, 메뉴명, 메뉴 상태</td></tr><tr><td>분류</td><td>Program, Project, Collection, Season</td></tr><tr><td>메뉴 정보</td><td>카테고리, 주재료, 조리법, 인분</td></tr><tr><td>운영 정보</td><td>난이도, 조리시간, 수업시간, 필요 도구</td></tr><tr><td>대상 정보</td><td>권장 연령, 가족, 키즈, 성인, 시니어</td></tr><tr><td>상품 가능 여부</td><td>온라인 클래스, 오프라인 클래스, 쿠킹박스, 케이터링</td></tr><tr><td>배송 정보</td><td>냉장·냉동·실온, 배송 안정성, 유통기한</td></tr><tr><td>가격 정보</td><td>재료원가, 포장비, 배송비, 권장 판매가</td></tr><tr><td>콘텐츠 자산</td><td>사진, 영상, 쇼츠, 레시피, 강의안</td></tr><tr><td>운영 자산</td><td>담당 전문가, 클래스 운영 이력, 상품번호</td></tr><tr><td>채널 상태</td><td>몰 등록, SNS 등록, 뉴스레터 등록</td></tr><tr><td>추천 정보</td><td>월별 적합도, 기업 적합도, 가족행사 적합도</td></tr><tr><td>실적 정보</td><td>판매량, 선택률, 만족도, 재구매 여부</td></tr>
-</tbody></table><h3>오이소박이 Content Card 예시</h3><div class="grid-3"><div class="card soft"><strong>분류</strong><br>김치학교 → 봄김치 → 봄철 별미김치</div><div class="card soft"><strong>시즌</strong><br>추천 월 4~6월</div><div class="card soft"><strong>운영</strong><br>난이도 중급 · 수업 60분</div><div class="card"><strong>상품화</strong><br>온라인 클래스 가능 · 쿠킹박스 가능</div><div class="card"><strong>추천 대상</strong><br>기업·가족·공공기관 높음 · 키즈 보통</div><div class="card"><strong>자산 보유</strong><br>사진·레시피·쇼츠·전문가 연결</div></div></section>
+<section id="contentcard" class="tab-panel" role="tabpanel" aria-labelledby="tab-contentcard">
+  <div class="section-kicker">05 · Menu Master DB</div>
+  <h2>Content Card & 메뉴 Master DB</h2>
+  <p class="lead">
+    메뉴 하나를 하나의 콘텐츠 자산으로 관리하되, 카테고리·계절·대상·수업 방식·상품화 상태를
+    여러 태그로 연결합니다. 이 DB가 메뉴 추천, 클래스, 쿠킹박스, 몰 상품, 기업 제안과 마케팅의 공통 기반이 됩니다.
+  </p>
+
+  <h3>현재 원본 데이터 기준</h3>
+  <div class="grid-4">
+    <div class="card soft"><strong>원본 파일</strong><br>카테고리마스터 v22</div>
+    <div class="card soft"><strong>카테고리</strong><br>19개</div>
+    <div class="card soft"><strong>메뉴 등록 건수</strong><br>465건</div>
+    <div class="card soft"><strong>고유 메뉴</strong><br>456개</div>
+  </div>
+  <div class="callout">
+    <strong>총 메뉴 수의 기준</strong><br>
+    원본에는 메뉴가 입력된 472행이 있으며, 이 중 ‘신규 메뉴 입력’ 안내 행 7개를 제외하면 카테고리 등록 건수는 465건입니다.
+    서로 다른 카테고리에 중복 등록된 메뉴 9건을 하나의 메뉴 ID로 통합하면, 현재 관리할 고유 메뉴 수는 <strong>456개</strong>입니다.
+    따라서 대외·내부 보고에서 ‘총 메뉴 수’는 456개, ‘카테고리 배치 건수’는 465건으로 구분합니다.
+  </div>
+
+  <h3>중복 메뉴 처리 원칙</h3>
+  <p>
+    동일 메뉴가 여러 카테고리에 들어간 경우 삭제하지 않습니다. 하나의 메뉴 ID를 만들고 여러 카테고리 태그를 연결합니다.
+    현재 교차 등록된 메뉴는 쫄면, 히야시츄카, 탕반가릿국, 버팔로윙, 삼색달걀말이, 쇼유치킨,
+    아귀캐슈너트강정, 태국식달걀튀김, 그래놀라와과일콩포트입니다.
+  </p>
+  <div class="definition">
+    예: MENU-0128 히야시츄카 → 주 카테고리: 면·파스타·국수 / 추가 태그: 세계음식·일본·여름
+  </div>
+
+  <h3>쿠킹박스 및 등록 상태의 기준</h3>
+  <table>
+    <thead><tr><th>항목</th><th>정의</th><th>DB 적용 원칙</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>쿠킹박스 가능</td>
+        <td>현재 보유한 456개 고유 메뉴는 모두 쿠킹박스 제작이 가능한 레시피입니다.</td>
+        <td>기본값을 ‘가능’으로 두고, 일정·수급·대량 생산·배송 조건만 개별 검토합니다.</td>
+      </tr>
+      <tr>
+        <td>등록</td>
+        <td>쿠킹박스로 상품화하여 아카이빗몰에 업로드한 상태입니다.</td>
+        <td>상품화 상태와 몰 업로드 상태를 의미합니다.</td>
+      </tr>
+      <tr>
+        <td>미등록</td>
+        <td>레시피 자산은 있으나 현재 아카이빗몰 상품으로 업로드하지 않은 상태입니다.</td>
+        <td>고객 제안은 가능하며, 선택 시 신규 상품화 작업을 진행합니다.</td>
+      </tr>
+      <tr>
+        <td>등록(미진열)</td>
+        <td>상품화·업로드는 완료했으나 현재 몰에서 노출하지 않는 상태입니다.</td>
+        <td>추후 DB에서는 상품화 상태와 진열 상태를 별도 필드로 분리합니다.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>‘종류’ 문구의 의미: 메뉴 개발 출처와 시기</h3>
+  <table>
+    <thead><tr><th>종류</th><th>개발 배경</th><th>현재 보유 자산</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>베이직</td>
+        <td>아카이빗몰 런칭 전, 전문가들이 기본 활용도가 높은 메뉴로 선정한 레시피</td>
+        <td>레시피·구성품·사진·영상 일부</td>
+      </tr>
+      <tr>
+        <td>마스터</td>
+        <td>아카이빗몰 런칭 전, 전문가들이 본인의 시그니처 메뉴로 선정한 레시피</td>
+        <td>레시피·구성품·사진·영상 일부</td>
+      </tr>
+      <tr>
+        <td>쿠킹박스</td>
+        <td>아카이빗몰 런칭 전, 쿠킹박스 활용을 전제로 미리 개발한 레시피군</td>
+        <td>레시피·구성품·사진·영상 일부</td>
+      </tr>
+      <tr>
+        <td>아카이빗</td>
+        <td>아카이빗몰 오픈 이후 아카이빗 내부에서 새로 개발한 메뉴</td>
+        <td>메뉴별 보유 자료를 확인하여 연결</td>
+      </tr>
+      <tr>
+        <td>갤러리아·경기도지식 등</td>
+        <td>외부 기업·기관과의 협업 및 제휴 클래스를 위해 개발한 메뉴</td>
+        <td>협업 과정개요·레시피·운영자료 등 프로젝트별 자산</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <strong>관리 원칙</strong><br>
+    기존 ‘종류’ 값은 원본 이력을 보존하기 위해 유지합니다. 향후에는
+    ‘개발 출처(전문가·내부·외부 협업)’, ‘세부 프로젝트’, ‘개발 시기’, ‘보유 자산’, ‘상품화 상태’를
+    별도 필드로 분리하여 검색과 추천에 활용합니다.
+  </div>
+
+  <h3>메뉴 Content Card의 필수 항목</h3>
+  <table>
+    <thead><tr><th>구분</th><th>주요 항목</th></tr></thead>
+    <tbody>
+      <tr><td>식별 정보</td><td>메뉴 ID, 메뉴명, 제안 가능 상태</td></tr>
+      <tr><td>원본 이력</td><td>기존/신규, 종류, 개발 출처, 세부 프로젝트, 담당 전문가</td></tr>
+      <tr><td>분류</td><td>Program, Project, Collection, 주 카테고리, 추가 카테고리</td></tr>
+      <tr><td>시즌</td><td>추천 월, 계절, 제철 식재료, 시즌 행사</td></tr>
+      <tr><td>메뉴 정보</td><td>주재료, 조리법, 인분, 난이도, 조리시간, 수업시간, 필요 도구</td></tr>
+      <tr><td>대상 적합도</td><td>연령대, 직업·생활유형, 조직 내 대상, 가족·키즈·성인·시니어 적합도</td></tr>
+      <tr><td>진행 방식</td><td>온라인 클래스, 오프라인 클래스, 케이터링 적용 가능성</td></tr>
+      <tr><td>쿠킹박스 운영</td><td>전체 기본값 가능, 대량 생산성, 수급 안정성, 포장 난이도, 배송 안정성</td></tr>
+      <tr><td>상품화 상태</td><td>등록·미등록, 진열·미진열, 상품번호, 몰 링크</td></tr>
+      <tr><td>가격 정보</td><td>예상 가격대, 재료원가, 포장비, 배송비, 권장 판매가</td></tr>
+      <tr><td>콘텐츠 자산</td><td>레시피, 구성품표, 사진, 영상, 쇼츠, 강의안</td></tr>
+      <tr><td>추천 정보</td><td>기업 적합도, 공공기관 적합도, 가족행사 적합도, 대중성, 화면 효과</td></tr>
+      <tr><td>실적 정보</td><td>제안 횟수, 선택률, 판매량, 매출, 마진, 만족도, 재구매</td></tr>
+    </tbody>
+  </table>
+
+  <h3>오이소박이 Content Card 예시</h3>
+  <div class="grid-3">
+    <div class="card soft"><strong>분류</strong><br>김치학교 → 봄김치 → 봄철 별미김치</div>
+    <div class="card soft"><strong>시즌</strong><br>추천 월 4~6월</div>
+    <div class="card soft"><strong>대상</strong><br>30~70대 · 주부·지역 주민·시니어</div>
+    <div class="card"><strong>운영</strong><br>난이도 중급 · 수업 60분</div>
+    <div class="card"><strong>상품화</strong><br>쿠킹박스 가능 · 등록 여부 별도 관리</div>
+    <div class="card"><strong>자산</strong><br>레시피·구성품·사진·영상·전문가 연결</div>
+  </div>
+
+  <div class="callout">
+    <strong>업데이트 원칙</strong><br>
+    현재 수량과 용어 정의는 카테고리마스터 v22 기준입니다. 새로운 메뉴와 업체 요청이 들어올 때마다
+    필드와 태그를 보완하되, 이미 확정한 의미를 바꾸지 않고 변경 이력을 기록합니다.
+  </div>
+</section>
 
 <section id="proposal" class="tab-panel" role="tabpanel" aria-labelledby="tab-proposal"><div class="section-kicker">06 · Proposal System</div><h2>고객 제안 구조</h2><p class="lead">고객에게 처음부터 복잡한 프로그램 체계를 설명하지 않고, 고객 조건과 해당 월의 테마를 기준으로 실제 선택 가능한 메뉴 후보를 먼저 제안합니다.</p>
-<div class="stage"><div class="stage-num">1</div><div><h3>고객 문의 입력</h3><ul class="checklist"><li>진행 희망 월</li><li>고객 유형</li><li>참가 대상과 연령</li><li>인원</li><li>온라인·오프라인</li><li>희망 수업시간</li><li>행사 목적</li><li>원하는 분위기</li><li>선호 메뉴</li><li>제외 식재료·알레르기</li><li>배송 지역</li><li>배송지 수</li><li>예산 보유 여부</li></ul></div></div>
-<div class="stage"><div class="stage-num">2</div><div><h3>고객 분석</h3><p>고객 조건과 Content Card의 태그를 비교합니다.</p><div class="card soft"><strong>예시 입력</strong><br>5월 · 40대 여성 · 100명 · 온라인 · 힐링 · 건강한 메뉴 선호 · 예산 미정</div></div></div>
+<div class="stage"><div class="stage-num">1</div><div><h3>고객 문의 입력</h3><ul class="checklist"><li>진행 희망 월과 행사일</li><li>고객 유형</li><li>참여 인원</li><li>성별 구성</li><li>연령대</li><li>직업·생활유형</li><li>조직 내 대상</li><li>요리 경험 수준</li><li>온라인·오프라인</li><li>희망 수업시간</li><li>행사 목적</li><li>원하는 분위기</li><li>선호 메뉴</li><li>제외 식재료·알레르기</li><li>쿠킹박스 포함 여부</li><li>배송 지역과 배송지 수</li><li>예산 보유 여부</li></ul></div></div>
+<div class="stage"><div class="stage-num">2</div><div><h3>고객 분석</h3><p>고객 조건과 Content Card의 태그를 비교합니다.</p><div class="card soft"><strong>예시 입력</strong><br>5월 · 40대 여성 직장인 · 100명 · 온라인 · 힐링 · 건강한 메뉴 선호 · 예산 미정</div></div></div>
 <div class="stage"><div class="stage-num">3</div><div><h3>1차 메뉴 큐레이션</h3><p>고객 상황에 따라 3개·5개·10개를 제안하고, 이 단계에서는 최종 견적이 아닌 예상 가격대만 제시합니다.</p><table><thead><tr><th>메뉴</th><th>추천 이유</th><th>수업시간</th><th>예상 가격대</th></tr></thead><tbody><tr><td>버섯덮밥과 오이고추된장무침</td><td>건강한 한 끼 구성</td><td>60분</td><td>3만 원대</td></tr><tr><td>양배추쌈밥</td><td>완성 화면과 건강 이미지가 좋음</td><td>60분</td><td>3만 원대</td></tr><tr><td>고사리 오일파스타</td><td>익숙한 재료의 새로운 활용</td><td>60분</td><td>4만 원대</td></tr><tr><td>브리치즈 샐러드</td><td>가볍고 감성적인 메뉴</td><td>45분</td><td>3만 원대</td></tr><tr><td>오이소박이</td><td>제철성과 체험성이 높음</td><td>60분</td><td>3만 원대</td></tr></tbody></table></div></div>
 <div class="stage"><div class="stage-num">4</div><div><h3>방향 확정</h3><p>고객이 메뉴 또는 방향을 선택합니다.</p><span class="tag">건강한 한식 방향</span><span class="tag">가족 참여형</span><span class="tag">2번과 4번 구체화</span><span class="tag">예산에 맞는 2개 상세 제안</span></div></div>
 <div class="stage"><div class="stage-num">5</div><div><h3>2차 상세 제안</h3><div class="grid-2"><div class="card"><h4>과정개요서</h4><ul><li>과정명과 교육 목적</li><li>대상과 권장 연령</li><li>진행 방식과 수업시간</li><li>수업 내용과 진행 순서</li><li>완성 메뉴와 참가자 준비물</li><li>기대 효과</li></ul></div><div class="card"><h4>쿠킹박스 구성표</h4><ul><li>식재료·소스·부재료</li><li>레시피 카드</li><li>포장·보관 형태</li><li>참가자 준비 재료</li><li>배송 일정</li></ul></div><div class="card"><h4>가격 및 운영조건</h4><ul><li>재료원가·포장비·배송비</li><li>강사비·운영비·콘텐츠비</li><li>최소 인원</li><li>1인 판매가와 총 견적</li><li>추가 옵션</li></ul></div><div class="card"><h4>최종 산출물</h4><ul><li>상세 제안서</li><li>과정개요서</li><li>쿠킹박스 구성표</li><li>견적서</li><li>운영 일정표</li></ul></div></div></div></div>
@@ -154,11 +284,25 @@
 
 <section id="workflow" class="tab-panel" role="tabpanel" aria-labelledby="tab-workflow"><div class="section-kicker">08 · Workflow</div><h2>전체 업무 흐름</h2><div class="flow"><div class="node">Content Card 등록</div><div class="arrow">→</div><div class="node">Theme Library 분류</div><div class="arrow">→</div><div class="node">추천 후보 생성</div><div class="arrow">→</div><div class="node">고객 문의 접수</div><div class="arrow">→</div><div class="node">1차 메뉴 제안</div></div><div class="flow"><div class="node">고객 방향 선택</div><div class="arrow">→</div><div class="node">과정·구성·가격 산출</div><div class="arrow">→</div><div class="node">제안서·견적 제출</div><div class="arrow">→</div><div class="node">수주 확정</div><div class="arrow">→</div><div class="node">백엔드 OS 이관</div></div><div class="callout"><strong>핵심 피드백 루프</strong><br>판매량·선택률·마진·만족도·재구매 결과를 다시 Content Card에 반영해야 다음 추천이 더 정확해지고, 회사의 경험이 데이터 자산으로 축적됩니다.</div></section>
 
-<section id="phases" class="tab-panel" role="tabpanel" aria-labelledby="tab-phases"><div class="section-kicker">09 · Build Plan</div><h2>구축 단계</h2><div class="grid-3"><div class="card"><h3>Phase 1. 구조 설계</h3><ul><li>8개 핵심 Program 확정</li><li>하위 Project 분류체계 확정</li><li>Content Card 항목 확정</li><li>고객 문의 입력 항목 확정</li><li>추천 태그와 점수 기준 확정</li></ul></div><div class="card"><h3>Phase 2. 기존 메뉴 데이터화</h3><ul><li>현재 보유 메뉴 전체 등록</li><li>Program·Project·Season 연결</li><li>상품 가능 여부 입력</li><li>사진·영상·레시피 연결</li><li>가격·배송·기업 추천 태그 입력</li></ul></div><div class="card"><h3>Phase 3. 운영·제안 체계</h3><ul><li>월별 테마·메뉴 구성</li><li>1차 메뉴 제안서 양식</li><li>과정개요서·구성표</li><li>가격 계산표·견적서</li><li>몰·콘텐츠·SNS 캘린더</li></ul></div></div></section>
+<section id="phases" class="tab-panel" role="tabpanel" aria-labelledby="tab-phases"><div class="section-kicker">09 · Build Plan</div><h2>구축 단계</h2><div class="grid-3"><div class="card"><h3>Phase 1. 구조 설계</h3><ul><li>8개 핵심 Program 확정</li><li>하위 Project 분류체계 확정</li><li>Content Card 항목 확정</li><li>고객 문의 입력 항목 확정</li><li>추천 태그와 점수 기준 확정</li></ul></div><div class="card"><h3>Phase 2. 기존 메뉴 데이터화</h3><ul><li>456개 고유 메뉴 ID 생성</li><li>465개 카테고리 배치 관계 연결</li><li>개발 출처·종류·등록 상태 정리</li><li>레시피·구성품·사진·영상 연결</li><li>연령·직업·시즌·가격·배송 추천 태그 입력</li></ul></div><div class="card"><h3>Phase 3. 운영·제안 체계</h3><ul><li>월별 테마·메뉴 구성</li><li>1차 메뉴 제안서 양식</li><li>과정개요서·구성표</li><li>가격 계산표·견적서</li><li>몰·콘텐츠·SNS 캘린더</li></ul></div></div></section>
 
-<section id="recommendation" class="tab-panel" role="tabpanel" aria-labelledby="tab-recommendation"><div class="section-kicker">10 · Recommendation</div><h2>최종 제안</h2><p class="lead">현재 단계에서는 월별 메뉴를 바로 배치하기보다, 재작업을 줄이고 시스템의 확장성을 확보하기 위해 아래 세 가지를 먼저 확정해야 합니다.</p><div class="status-row"><div class="status-label">우선순위 1</div><div><strong>8개 핵심 Program과 하위 Project 구조</strong></div></div><div class="status-row"><div class="status-label">우선순위 2</div><div><strong>Content Card에 입력할 데이터 항목</strong></div></div><div class="status-row"><div class="status-label">우선순위 3</div><div><strong>메뉴 추천에 사용할 태그와 평가 기준</strong></div></div><div class="definition">권장 진행 순서: Program·Project 구조 설계 → Content Card 항목 확정 → 태그·평가기준 확정 → 기존 메뉴 분류 → 월별 운영 및 고객 제안 체계 구축</div></section>
+<section id="recommendation" class="tab-panel" role="tabpanel" aria-labelledby="tab-recommendation">
+  <div class="section-kicker">10 · Next Action</div>
+  <h2>현재 단계의 실행 우선순위</h2>
+  <p class="lead">
+    골격 설계는 완료되었습니다. 다음 단계는 전체 시스템을 더 꾸미는 것이 아니라,
+    현재 보유한 456개 고유 메뉴로 실제 고객 문의 한 건을 추천부터 제안서까지 처리하는 MVP를 실행하는 것입니다.
+  </p>
+  <div class="status-row"><div class="status-label">우선순위 1</div><div><strong>메뉴 Master DB 기초 생성</strong><br>456개 메뉴 ID, 465개 카테고리 관계, 종류·전문가·등록 상태를 우선 이관합니다.</div></div>
+  <div class="status-row"><div class="status-label">우선순위 2</div><div><strong>최소 추천 태그 입력</strong><br>월·계절, 연령대, 직업·생활유형, 온라인·오프라인, 수업시간, 가격대, 배송 안정성만 먼저 입력합니다.</div></div>
+  <div class="status-row"><div class="status-label">우선순위 3</div><div><strong>첫 고객 문의 실전 테스트</strong><br>고객 조건으로 내부 후보 10개를 추출하고 고객 발송용 5개 제안서를 만듭니다.</div></div>
+  <div class="status-row"><div class="status-label">우선순위 4</div><div><strong>선택 메뉴만 상세화</strong><br>고객이 선택한 메뉴에 한해 구성품, 과정개요서, 원가, 견적과 운영 일정을 완성합니다.</div></div>
+  <div class="definition">
+    실행 원칙: 모든 데이터를 완벽하게 만든 뒤 영업을 시작하지 않습니다. 실제 업체 요청을 처리하면서 필요한 필드와 평가 기준을 추가하고, 확정된 정의는 본 파일에 계속 누적합니다.
+  </div>
+</section>
 </div>
-<footer class="footer">Archiveat Planner · Frontend Service OS Proposal · Preview v0.3<br>본 문서는 아카이빗의 콘텐츠 자산을 상품과 고객 제안으로 전환하기 위한 내부 기획안입니다.</footer>
+<footer class="footer">Archiveat Planner · Frontend Service OS Proposal · Preview<br>본 문서는 아카이빗의 콘텐츠 자산을 상품과 고객 제안으로 전환하기 위한 내부 기획안입니다.</footer>
 </main></div>
 <div class="toolbar"><button onclick="window.print()">인쇄 / PDF 저장</button></div>
 
