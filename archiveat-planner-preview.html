@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="아카이빗의 콘텐츠 자산을 상품과 고객 제안으로 연결하는 프론트엔드 서비스 OS 제안서" />
+  <title>Archiveat Planner | Preview v0.3</title>
+  <style>
+    :root{--ink:#24322d;--muted:#66736d;--brand:#355f4e;--brand2:#668b78;--soft:#eaf1ed;--cream:#f8f4eb;--line:#dbe3de;--accent:#b86f3d;--white:#fff;--shadow:0 12px 32px rgba(39,61,51,.08);--radius:18px;--sidebar:260px}
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Segoe UI",sans-serif;color:var(--ink);background:#f5f7f5;line-height:1.72;word-break:keep-all}
+    a{color:inherit}.layout{display:grid;grid-template-columns:var(--sidebar) minmax(0,1fr);min-height:100vh}
+    aside{position:sticky;top:0;height:100vh;padding:28px 20px;background:var(--ink);color:#fff;overflow:auto}
+    .logo{font-size:21px;font-weight:800;letter-spacing:.02em;margin-bottom:4px}.logo-sub{font-size:12px;color:#cbd7d1;margin-bottom:28px}
+    .nav-label{font-size:11px;color:#9fb2a8;text-transform:uppercase;letter-spacing:.12em;margin:18px 8px 8px}
+    nav a{display:block;text-decoration:none;font-size:13px;color:#dce7e1;padding:8px 10px;border-radius:9px;margin:2px 0}nav a:hover{background:rgba(255,255,255,.09);color:#fff}
+    main{min-width:0}.hero{padding:72px 7vw 64px;text-align:center;background:radial-gradient(circle at 85% 12%,rgba(255,255,255,.20),transparent 26%),linear-gradient(135deg,#284b3d 0%,#446c59 65%,#6d8f7d 100%);color:#fff}
+    .eyebrow{display:inline-block;padding:6px 12px;border:1px solid rgba(255,255,255,.32);border-radius:999px;font-size:12px;letter-spacing:.08em;margin-bottom:18px}
+    h1{margin:0;font-size:clamp(38px,6vw,72px);line-height:1.02;letter-spacing:-.04em}.hero h2{margin:16px 0 0;font-size:clamp(19px,2.2vw,30px);font-weight:500;color:#e7f0eb}.hero p{max-width:800px;margin:24px auto 0;font-size:16px;color:#e0ebe5}
+    .hero-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:36px auto 0;max-width:980px}.hero-card{text-align:center;padding:18px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.09);border-radius:14px;backdrop-filter:blur(5px)}.hero-card strong{display:block;font-size:15px}.hero-card span{display:block;margin-top:5px;font-size:12px;color:#d8e5de}
+    .content{padding:48px 6vw 100px;max-width:1500px;margin:0 auto}section{scroll-margin-top:28px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:38px;margin:0 0 26px;box-shadow:var(--shadow)}
+    .section-kicker{color:var(--brand);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}h2{margin:4px 0 16px;font-size:30px;line-height:1.25;letter-spacing:-.025em}h3{margin:30px 0 12px;font-size:20px;letter-spacing:-.015em}h4{margin:18px 0 8px;font-size:16px}p{margin:9px 0}.lead{font-size:18px;line-height:1.7;color:#3d4d46}
+    .definition{margin-top:22px;padding:22px 24px;border-left:5px solid var(--brand);background:var(--soft);border-radius:0 14px 14px 0;font-size:17px;font-weight:650}
+    .grid-2,.grid-3,.grid-4{display:grid;gap:16px;margin-top:18px}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:20px}.card.soft{background:var(--cream)}.card h3,.card h4{margin-top:0}.tag{display:inline-block;margin:3px 4px 3px 0;padding:4px 9px;border-radius:999px;background:var(--soft);color:var(--brand);font-size:12px;font-weight:700}
+    .flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:22px 0}.flow .node{flex:1 1 120px;min-width:120px;text-align:center;padding:14px 10px;border-radius:12px;background:var(--soft);border:1px solid #ccdbd2;font-weight:750;font-size:13px}.flow .arrow{color:var(--brand2);font-weight:900;font-size:18px}
+    .branch{padding:22px;background:#f7faf8;border:1px dashed #b7cbbf;border-radius:14px;margin-top:16px}
+    table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0 6px;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px}th,td{text-align:left;vertical-align:top;padding:12px 13px;border-bottom:1px solid var(--line)}th{background:#edf3ef;color:#284c3d;font-weight:800}tr:last-child td{border-bottom:none}tbody tr:nth-child(even) td{background:#fafcfb}
+    ul,ol{padding-left:22px}li{margin:5px 0}.program{position:relative;padding-top:48px}.program-num{position:absolute;top:15px;right:18px;font-size:30px;color:#d4dfd9;font-weight:900}.program-title{font-size:19px;font-weight:850;margin-bottom:2px}.program-en{font-size:12px;color:var(--muted);margin-bottom:11px}
+    .callout{margin:22px 0;padding:20px 22px;background:#fff7ef;border:1px solid #edd1ba;border-radius:14px}.callout strong{color:#8b4f29}
+    .stage{display:grid;grid-template-columns:54px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--line)}.stage:last-child{border-bottom:none}.stage-num{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:var(--brand);color:#fff;font-weight:900}.stage h3{margin:0 0 8px}
+    .checklist{columns:2;column-gap:30px}.checklist li{break-inside:avoid}.status-row{display:grid;grid-template-columns:160px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.status-row:last-child{border-bottom:none}.status-label{font-weight:800;color:var(--brand)}
+    .footer{padding:30px 6vw 50px;color:var(--muted);text-align:center;font-size:12px}.toolbar{position:fixed;right:22px;bottom:22px;display:flex;gap:8px;z-index:10}.toolbar button{border:0;background:var(--ink);color:white;padding:11px 15px;border-radius:999px;box-shadow:0 8px 22px rgba(0,0,0,.16);cursor:pointer;font-weight:700}.toolbar button:hover{background:var(--brand)}
+    @media(max-width:1050px){.layout{display:block}aside{position:relative;height:auto;padding:18px 20px}aside nav{display:none}.hero-grid,.grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}.checklist{columns:1}}
+    @media(max-width:700px){.hero{padding:52px 24px 46px}.content{padding:28px 14px 70px}section{padding:24px 20px}.hero-grid,.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.flow{display:block}.flow .node{margin:8px 0}.flow .arrow{text-align:center;transform:rotate(90deg)}.status-row{grid-template-columns:1fr;gap:2px}table{display:block;overflow-x:auto;white-space:nowrap}.toolbar{right:14px;bottom:14px}}
+    @media print{body{background:#fff}.layout{display:block}aside,.toolbar{display:none!important}.hero{padding:44px 42px;background:#315846!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.content{padding:28px 32px}section{box-shadow:none;break-inside:avoid-page;margin-bottom:16px}.program{break-inside:avoid}a{text-decoration:none}}
+  
+    /* Tab layout */
+    .app{min-height:100vh}
+    .layout{display:block}
+    main{width:100%;min-width:0}
+    .hero{padding-bottom:52px}
+    .hero-actions{max-width:1180px;margin:0 auto 22px;display:flex;justify-content:flex-end}
+    .chat-link{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid rgba(255,255,255,.42);border-radius:999px;background:rgba(255,255,255,.13);color:#fff;text-decoration:none;font-size:13px;font-weight:800;box-shadow:0 8px 20px rgba(0,0,0,.10);backdrop-filter:blur(7px);transition:background .2s ease,transform .2s ease,border-color .2s ease}
+    .chat-link:hover{background:#fff;color:var(--brand);border-color:#fff;transform:translateY(-1px)}
+    .chat-link:focus-visible{outline:3px solid rgba(255,255,255,.55);outline-offset:3px}
+    .tabbar{
+      position:sticky;top:0;z-index:50;
+      background:rgba(255,255,255,.96);
+      border-bottom:1px solid var(--line);
+      box-shadow:0 8px 22px rgba(39,61,51,.07);
+      backdrop-filter:blur(14px);
+    }
+    .tabbar-inner{
+      max-width:1500px;margin:0 auto;padding:12px 5vw;
+      display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin;
+      -webkit-overflow-scrolling:touch;
+    }
+    .tab-button{
+      flex:0 0 auto;border:1px solid var(--line);background:#fff;color:var(--muted);
+      border-radius:12px;padding:10px 14px;cursor:pointer;font:inherit;font-size:13px;
+      font-weight:750;white-space:nowrap;transition:.18s ease;
+    }
+    .tab-button span{
+      display:inline-grid;place-items:center;min-width:23px;height:23px;margin-right:7px;
+      border-radius:7px;background:var(--soft);color:var(--brand);font-size:11px;
+    }
+    .tab-button:hover{border-color:#b8cbbf;color:var(--brand);transform:translateY(-1px)}
+    .tab-button.active{background:var(--brand);border-color:var(--brand);color:#fff;box-shadow:0 7px 18px rgba(53,95,78,.22)}
+    .tab-button.active span{background:rgba(255,255,255,.18);color:#fff}
+    .tab-content{min-height:720px;padding-top:34px}
+    .tab-panel{display:none;animation:tabFade .24s ease}
+    .tab-panel.active{display:block}
+    .tab-panel > .section-kicker{margin-top:0}
+    @keyframes tabFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    .tab-nav-bottom{display:flex;justify-content:space-between;gap:12px;margin-top:26px}
+    .tab-nav-bottom button{
+      border:1px solid var(--line);background:#fff;color:var(--brand);padding:11px 16px;
+      border-radius:10px;cursor:pointer;font-weight:800;
+    }
+    .tab-nav-bottom button:hover{background:var(--soft)}
+    @media(max-width:700px){
+      .tabbar-inner{padding:10px 14px}
+      .tab-button{padding:9px 11px;font-size:12px}
+      .tab-content{padding-top:22px}
+      .hero{padding-bottom:38px}
+      .hero-actions{justify-content:center;margin-bottom:18px}
+    }
+    @media print{
+      .tabbar{display:none!important}
+      .hero-actions{display:none!important}
+      .tab-panel{display:block!important;animation:none!important}
+      .tab-content{min-height:0}
+    }
+
+</style>
+</head>
+<body>
+<div class="app"><main>
+<header class="hero">
+  <div class="hero-actions"><a class="chat-link" href="https://chatgpt.com/g/g-p-6a587945f9e081918ea9babecc9be195/c/6a58795f-2b48-83e8-b6b6-212c8e8ae042" target="_blank" rel="noopener noreferrer" aria-label="Archiveat Planner 채팅창을 새 창에서 열기">💬 채팅창 바로가기</a></div>
+  <div class="eyebrow">ARCHIVEAT FRONTEND SERVICE OS</div>
+  <h1>Archiveat Planner</h1>
+  <h2>콘텐츠 자산을 상품과 고객 제안으로 연결하는 매출 설계 시스템</h2>
+  <p>아카이빗이 보유한 메뉴·레시피·사진·영상·클래스 운영 경험을 구조화하고, 이를 월별 상품, 고객 맞춤 클래스, 쿠킹박스, 케이터링 및 B2B 제안으로 전환하기 위한 프론트엔드 서비스 OS 제안서입니다.</p>
+  <div class="hero-grid"><div class="hero-card"><strong>콘텐츠 자산화</strong><span>메뉴 하나를 여러 상품과 채널로 재활용</span></div><div class="hero-card"><strong>제안 효율화</strong><span>고객 조건에 맞는 3·5·10개 후보 빠른 도출</span></div><div class="hero-card"><strong>매출 연결</strong><span>선택된 메뉴를 견적·과정개요서·운영안으로 구체화</span></div></div>
+</header>
+
+<nav class="tabbar" role="tablist" aria-label="제안서 목차">
+  <div class="tabbar-inner">
+    <button class="tab-button active" type="button" role="tab" aria-selected="true" aria-controls="overview" id="tab-overview" data-tab="overview"><span>01</span>시스템 정의</button>
+    <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="architecture" id="tab-architecture" data-tab="architecture"><span>02</span>핵심 구조</button>
+    <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="themes" id="tab-themes" data-tab="themes"><span>03</span>테마 라이브러리</button>
+    <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="programs" id="tab-programs" data-tab="programs"><span>04</span>핵심 Program</button>
+    <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="contentcard" id="tab-contentcard" data-tab="contentcard"><span>05</span>Content Card</button>
+    <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="proposal" id="tab-proposal" data-tab="proposal"><span>06</span>고객 제안</button>
+    <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="annual" id="tab-annual" data-tab="annual"><span>07</span>연간 운영</button>
+    <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="workflow" id="tab-workflow" data-tab="workflow"><span>08</span>업무 흐름</button>
+    <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="phases" id="tab-phases" data-tab="phases"><span>09</span>구축 단계</button>
+    <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="recommendation" id="tab-recommendation" data-tab="recommendation"><span>10</span>최종 제안</button>
+  </div>
+</nav>
+<div class="content tab-content">
+<section id="overview" class="tab-panel active" role="tabpanel" aria-labelledby="tab-overview"><div class="section-kicker">01 · Overview</div><h2>시스템의 성격과 목적</h2><p class="lead">Archiveat Planner는 아카이빗의 콘텐츠 자산을 고객에게 적합한 상품과 제안으로 전환하여, 클래스·쿠킹박스·케이터링 매출을 높이기 위한 프론트엔드 서비스 OS입니다.</p><div class="definition">메뉴와 콘텐츠를 관리하는 데서 끝나지 않고, 고객 문의 분석 → 메뉴 큐레이션 → 상세 제안 → 수주까지 연결하는 시스템</div><div class="grid-2"><div class="card soft"><h3>기존 백엔드 OS</h3><p>회사가 실제 업무를 실행하고 관리하는 운영 시스템</p><span class="tag">주간업무</span><span class="tag">행사관리</span><span class="tag">구매·발주</span><span class="tag">정산</span><span class="tag">실행관리</span></div><div class="card"><h3>Archiveat Planner</h3><p>고객에게 제안할 상품을 기획하고 매출 기회를 만드는 서비스 시스템</p><span class="tag">콘텐츠 기획</span><span class="tag">상품 구성</span><span class="tag">메뉴 추천</span><span class="tag">제안서</span><span class="tag">매출 창출</span></div></div><div class="callout"><strong>연결 원칙</strong><br>Archiveat Planner에서 상품과 제안이 확정되면, 실제 발주·배송·행사·정산 업무는 기존 백엔드 OS로 이관합니다.</div></section>
+
+<section id="architecture" class="tab-panel" role="tabpanel" aria-labelledby="tab-architecture"><div class="section-kicker">02 · Architecture</div><h2>시스템의 핵심 구조</h2><h3>내부 콘텐츠 관리 구조</h3><div class="flow"><div class="node">Brand</div><div class="arrow">→</div><div class="node">Annual Theme Library</div><div class="arrow">→</div><div class="node">Program</div><div class="arrow">→</div><div class="node">Project</div><div class="arrow">→</div><div class="node">Collection / Season</div><div class="arrow">→</div><div class="node">Content Card</div></div><div class="branch"><h3>Content Card에서 파생되는 결과물</h3><div class="grid-4"><div class="card">온라인 클래스</div><div class="card">오프라인 클래스</div><div class="card">쿠킹박스</div><div class="card">케이터링</div><div class="card">몰 상품</div><div class="card">SNS 콘텐츠</div><div class="card">이메일 콘텐츠</div><div class="card">B2B 제안</div></div></div><p>클래스·쿠킹박스·B2B 제안은 계층의 다음 단계가 아니라, <strong>콘텐츠 카드를 활용해 만들어지는 각각의 상품 및 영업 결과물</strong>입니다.</p></section>
+
+<section id="themes" class="tab-panel" role="tabpanel" aria-labelledby="tab-themes"><div class="section-kicker">03 · Theme Library</div><h2>Annual Theme Library의 역할</h2><div class="grid-3"><div class="card"><h3>분류 기준</h3><p>아카이빗의 메뉴와 콘텐츠를 일관되게 분류합니다.</p></div><div class="card"><h3>기획 기준</h3><p>월별 상품, 캠페인, 몰 운영 및 콘텐츠 캘린더의 기준이 됩니다.</p></div><div class="card"><h3>영업 기준</h3><p>개별 메뉴가 아니라 의미 있는 묶음으로 기업과 기관에 제안합니다.</p></div></div><div class="callout"><strong>표현 예시</strong><br>“이번 달은 오이소박이입니다”보다 “4월 봄김치 프로젝트 — 오이소박이·파김치·봄동겉절이·열무김치 중 선택”이 영업 관점에서 더 효과적입니다.</div><p>고객에게는 테마와 실제 메뉴를 함께 보여주되, Program·Project 같은 내부 관리 용어는 필요할 때만 노출합니다.</p></section>
+
+<section id="programs" class="tab-panel" role="tabpanel" aria-labelledby="tab-programs"><div class="section-kicker">04 · Program Library</div><h2>8개 핵심 Program</h2><p class="lead">12개 이상의 상위 프로그램을 운영하면 중복과 관리 복잡성이 커질 수 있으므로, 핵심 Program은 8개로 제한하고 저장식·디저트·보양식·홈파티 등은 하위 Project로 관리합니다.</p><div class="grid-2">
+<div class="card program"><div class="program-num">01</div><div class="program-title">사계절 식탁</div><div class="program-en">Seasonal Table</div><p>제철 식문화와 계절 식재료 중심</p><span class="tag">봄나물</span><span class="tag">여름채소</span><span class="tag">가을버섯</span><span class="tag">겨울국물</span><span class="tag">제철 과일</span></div>
+<div class="card program"><div class="program-num">02</div><div class="program-title">오늘의 집밥</div><div class="program-en">Everyday Kitchen</div><p>가장 많은 메뉴가 들어가는 기본 프로그램</p><span class="tag">국</span><span class="tag">찌개</span><span class="tag">반찬</span><span class="tag">덮밥</span><span class="tag">한 그릇 요리</span></div>
+<div class="card program"><div class="program-num">03</div><div class="program-title">김치학교</div><div class="program-en">Kimchi Studio</div><p>김치를 독립적인 콘텐츠 자산으로 관리</p><span class="tag">봄김치</span><span class="tag">여름김치</span><span class="tag">김장</span><span class="tag">겉절이</span><span class="tag">별미김치</span></div>
+<div class="card program"><div class="program-num">04</div><div class="program-title">세계 식탁 여행</div><div class="program-en">World Kitchen</div><p>한식 외 세계요리와 퓨전 메뉴</p><span class="tag">이탈리아</span><span class="tag">중국</span><span class="tag">일본</span><span class="tag">동남아</span><span class="tag">미국식 브런치</span></div>
+<div class="card program"><div class="program-num">05</div><div class="program-title">건강한 식탁</div><div class="program-en">Healthy Table</div><p>건강과 식생활 개선 중심</p><span class="tag">저속노화</span><span class="tag">단백질</span><span class="tag">채소</span><span class="tag">발효</span><span class="tag">장 건강</span><span class="tag">저염</span></div>
+<div class="card program"><div class="program-num">06</div><div class="program-title">브런치 & 홈카페</div><div class="program-en">Brunch & Café</div><p>브런치·디저트·음료를 함께 관리</p><span class="tag">샌드위치</span><span class="tag">샐러드</span><span class="tag">파스타</span><span class="tag">오믈렛</span><span class="tag">쿠키</span><span class="tag">음료</span></div>
+<div class="card program"><div class="program-num">07</div><div class="program-title">패밀리 쿠킹</div><div class="program-en">Family Kitchen</div><p>가족과 키즈 참여형 콘텐츠</p><span class="tag">부모와 아이</span><span class="tag">부부</span><span class="tag">가족 요리</span><span class="tag">키즈 쿠킹</span><span class="tag">기념일</span></div>
+<div class="card program"><div class="program-num">08</div><div class="program-title">시즌 스페셜</div><div class="program-en">Seasonal Special</div><p>특정 시기에 판매력이 강한 행사성 상품</p><span class="tag">설</span><span class="tag">추석</span><span class="tag">복날</span><span class="tag">김장</span><span class="tag">크리스마스</span><span class="tag">송년회</span></div>
+</div></section>
+
+<section id="contentcard" class="tab-panel" role="tabpanel" aria-labelledby="tab-contentcard"><div class="section-kicker">05 · Master DB</div><h2>시스템의 중심: Content Card</h2><p class="lead">단순 메뉴표가 아니라 메뉴 하나를 하나의 콘텐츠 자산으로 관리합니다. 이 카드에서 몰 상품, 클래스, 기업 제안, SNS, 뉴스레터가 파생됩니다.</p><table><thead><tr><th>구분</th><th>주요 항목</th></tr></thead><tbody>
+<tr><td>식별 정보</td><td>콘텐츠 ID, 메뉴명, 메뉴 상태</td></tr><tr><td>분류</td><td>Program, Project, Collection, Season</td></tr><tr><td>메뉴 정보</td><td>카테고리, 주재료, 조리법, 인분</td></tr><tr><td>운영 정보</td><td>난이도, 조리시간, 수업시간, 필요 도구</td></tr><tr><td>대상 정보</td><td>권장 연령, 가족, 키즈, 성인, 시니어</td></tr><tr><td>상품 가능 여부</td><td>온라인 클래스, 오프라인 클래스, 쿠킹박스, 케이터링</td></tr><tr><td>배송 정보</td><td>냉장·냉동·실온, 배송 안정성, 유통기한</td></tr><tr><td>가격 정보</td><td>재료원가, 포장비, 배송비, 권장 판매가</td></tr><tr><td>콘텐츠 자산</td><td>사진, 영상, 쇼츠, 레시피, 강의안</td></tr><tr><td>운영 자산</td><td>담당 전문가, 클래스 운영 이력, 상품번호</td></tr><tr><td>채널 상태</td><td>몰 등록, SNS 등록, 뉴스레터 등록</td></tr><tr><td>추천 정보</td><td>월별 적합도, 기업 적합도, 가족행사 적합도</td></tr><tr><td>실적 정보</td><td>판매량, 선택률, 만족도, 재구매 여부</td></tr>
+</tbody></table><h3>오이소박이 Content Card 예시</h3><div class="grid-3"><div class="card soft"><strong>분류</strong><br>김치학교 → 봄김치 → 봄철 별미김치</div><div class="card soft"><strong>시즌</strong><br>추천 월 4~6월</div><div class="card soft"><strong>운영</strong><br>난이도 중급 · 수업 60분</div><div class="card"><strong>상품화</strong><br>온라인 클래스 가능 · 쿠킹박스 가능</div><div class="card"><strong>추천 대상</strong><br>기업·가족·공공기관 높음 · 키즈 보통</div><div class="card"><strong>자산 보유</strong><br>사진·레시피·쇼츠·전문가 연결</div></div></section>
+
+<section id="proposal" class="tab-panel" role="tabpanel" aria-labelledby="tab-proposal"><div class="section-kicker">06 · Proposal System</div><h2>고객 제안 구조</h2><p class="lead">고객에게 처음부터 복잡한 프로그램 체계를 설명하지 않고, 고객 조건과 해당 월의 테마를 기준으로 실제 선택 가능한 메뉴 후보를 먼저 제안합니다.</p>
+<div class="stage"><div class="stage-num">1</div><div><h3>고객 문의 입력</h3><ul class="checklist"><li>진행 희망 월</li><li>고객 유형</li><li>참가 대상과 연령</li><li>인원</li><li>온라인·오프라인</li><li>희망 수업시간</li><li>행사 목적</li><li>원하는 분위기</li><li>선호 메뉴</li><li>제외 식재료·알레르기</li><li>배송 지역</li><li>배송지 수</li><li>예산 보유 여부</li></ul></div></div>
+<div class="stage"><div class="stage-num">2</div><div><h3>고객 분석</h3><p>고객 조건과 Content Card의 태그를 비교합니다.</p><div class="card soft"><strong>예시 입력</strong><br>5월 · 40대 여성 · 100명 · 온라인 · 힐링 · 건강한 메뉴 선호 · 예산 미정</div></div></div>
+<div class="stage"><div class="stage-num">3</div><div><h3>1차 메뉴 큐레이션</h3><p>고객 상황에 따라 3개·5개·10개를 제안하고, 이 단계에서는 최종 견적이 아닌 예상 가격대만 제시합니다.</p><table><thead><tr><th>메뉴</th><th>추천 이유</th><th>수업시간</th><th>예상 가격대</th></tr></thead><tbody><tr><td>버섯덮밥과 오이고추된장무침</td><td>건강한 한 끼 구성</td><td>60분</td><td>3만 원대</td></tr><tr><td>양배추쌈밥</td><td>완성 화면과 건강 이미지가 좋음</td><td>60분</td><td>3만 원대</td></tr><tr><td>고사리 오일파스타</td><td>익숙한 재료의 새로운 활용</td><td>60분</td><td>4만 원대</td></tr><tr><td>브리치즈 샐러드</td><td>가볍고 감성적인 메뉴</td><td>45분</td><td>3만 원대</td></tr><tr><td>오이소박이</td><td>제철성과 체험성이 높음</td><td>60분</td><td>3만 원대</td></tr></tbody></table></div></div>
+<div class="stage"><div class="stage-num">4</div><div><h3>방향 확정</h3><p>고객이 메뉴 또는 방향을 선택합니다.</p><span class="tag">건강한 한식 방향</span><span class="tag">가족 참여형</span><span class="tag">2번과 4번 구체화</span><span class="tag">예산에 맞는 2개 상세 제안</span></div></div>
+<div class="stage"><div class="stage-num">5</div><div><h3>2차 상세 제안</h3><div class="grid-2"><div class="card"><h4>과정개요서</h4><ul><li>과정명과 교육 목적</li><li>대상과 권장 연령</li><li>진행 방식과 수업시간</li><li>수업 내용과 진행 순서</li><li>완성 메뉴와 참가자 준비물</li><li>기대 효과</li></ul></div><div class="card"><h4>쿠킹박스 구성표</h4><ul><li>식재료·소스·부재료</li><li>레시피 카드</li><li>포장·보관 형태</li><li>참가자 준비 재료</li><li>배송 일정</li></ul></div><div class="card"><h4>가격 및 운영조건</h4><ul><li>재료원가·포장비·배송비</li><li>강사비·운영비·콘텐츠비</li><li>최소 인원</li><li>1인 판매가와 총 견적</li><li>추가 옵션</li></ul></div><div class="card"><h4>최종 산출물</h4><ul><li>상세 제안서</li><li>과정개요서</li><li>쿠킹박스 구성표</li><li>견적서</li><li>운영 일정표</li></ul></div></div></div></div>
+</section>
+
+<section id="annual" class="tab-panel" role="tabpanel" aria-labelledby="tab-annual"><div class="section-kicker">07 · Annual Operation</div><h2>연간 운영 시스템</h2><p class="lead">Content Card가 완성되면 같은 데이터를 반복 활용하여 월별 상품, 마케팅, 영업 자료를 자동 또는 반자동으로 생성합니다.</p><div class="grid-4"><div class="card">월별 추천 테마</div><div class="card">월별 추천 메뉴</div><div class="card">기업 대상 제안 메뉴</div><div class="card">클래스 운영 캘린더</div><div class="card">몰 업로드 캘린더</div><div class="card">SNS 콘텐츠 캘린더</div><div class="card">이메일 뉴스레터</div><div class="card">시즌 이벤트 캘린더</div></div><h3>콘텐츠 카드 활용 예시</h3><div class="flow"><div class="node">오이소박이 Content Card</div><div class="arrow">→</div><div class="node">4~6월 추천</div><div class="arrow">→</div><div class="node">봄김치 프로젝트</div><div class="arrow">→</div><div class="node">클래스·쿠킹박스·몰·SNS·뉴스레터</div></div></section>
+
+<section id="workflow" class="tab-panel" role="tabpanel" aria-labelledby="tab-workflow"><div class="section-kicker">08 · Workflow</div><h2>전체 업무 흐름</h2><div class="flow"><div class="node">Content Card 등록</div><div class="arrow">→</div><div class="node">Theme Library 분류</div><div class="arrow">→</div><div class="node">추천 후보 생성</div><div class="arrow">→</div><div class="node">고객 문의 접수</div><div class="arrow">→</div><div class="node">1차 메뉴 제안</div></div><div class="flow"><div class="node">고객 방향 선택</div><div class="arrow">→</div><div class="node">과정·구성·가격 산출</div><div class="arrow">→</div><div class="node">제안서·견적 제출</div><div class="arrow">→</div><div class="node">수주 확정</div><div class="arrow">→</div><div class="node">백엔드 OS 이관</div></div><div class="callout"><strong>핵심 피드백 루프</strong><br>판매량·선택률·마진·만족도·재구매 결과를 다시 Content Card에 반영해야 다음 추천이 더 정확해지고, 회사의 경험이 데이터 자산으로 축적됩니다.</div></section>
+
+<section id="phases" class="tab-panel" role="tabpanel" aria-labelledby="tab-phases"><div class="section-kicker">09 · Build Plan</div><h2>구축 단계</h2><div class="grid-3"><div class="card"><h3>Phase 1. 구조 설계</h3><ul><li>8개 핵심 Program 확정</li><li>하위 Project 분류체계 확정</li><li>Content Card 항목 확정</li><li>고객 문의 입력 항목 확정</li><li>추천 태그와 점수 기준 확정</li></ul></div><div class="card"><h3>Phase 2. 기존 메뉴 데이터화</h3><ul><li>현재 보유 메뉴 전체 등록</li><li>Program·Project·Season 연결</li><li>상품 가능 여부 입력</li><li>사진·영상·레시피 연결</li><li>가격·배송·기업 추천 태그 입력</li></ul></div><div class="card"><h3>Phase 3. 운영·제안 체계</h3><ul><li>월별 테마·메뉴 구성</li><li>1차 메뉴 제안서 양식</li><li>과정개요서·구성표</li><li>가격 계산표·견적서</li><li>몰·콘텐츠·SNS 캘린더</li></ul></div></div></section>
+
+<section id="recommendation" class="tab-panel" role="tabpanel" aria-labelledby="tab-recommendation"><div class="section-kicker">10 · Recommendation</div><h2>최종 제안</h2><p class="lead">현재 단계에서는 월별 메뉴를 바로 배치하기보다, 재작업을 줄이고 시스템의 확장성을 확보하기 위해 아래 세 가지를 먼저 확정해야 합니다.</p><div class="status-row"><div class="status-label">우선순위 1</div><div><strong>8개 핵심 Program과 하위 Project 구조</strong></div></div><div class="status-row"><div class="status-label">우선순위 2</div><div><strong>Content Card에 입력할 데이터 항목</strong></div></div><div class="status-row"><div class="status-label">우선순위 3</div><div><strong>메뉴 추천에 사용할 태그와 평가 기준</strong></div></div><div class="definition">권장 진행 순서: Program·Project 구조 설계 → Content Card 항목 확정 → 태그·평가기준 확정 → 기존 메뉴 분류 → 월별 운영 및 고객 제안 체계 구축</div></section>
+</div>
+<footer class="footer">Archiveat Planner · Frontend Service OS Proposal · Preview v0.3<br>본 문서는 아카이빗의 콘텐츠 자산을 상품과 고객 제안으로 전환하기 위한 내부 기획안입니다.</footer>
+</main></div>
+<div class="toolbar"><button onclick="window.print()">인쇄 / PDF 저장</button></div>
+
+<script>
+(function(){
+  const buttons=[...document.querySelectorAll('.tab-button')];
+  const panels=[...document.querySelectorAll('.tab-panel')];
+
+  function activate(id, updateHash=true){
+    buttons.forEach(btn=>{
+      const on=btn.dataset.tab===id;
+      btn.classList.toggle('active',on);
+      btn.setAttribute('aria-selected',String(on));
+      btn.tabIndex=on?0:-1;
+    });
+    panels.forEach(panel=>panel.classList.toggle('active',panel.id===id));
+    const activeBtn=buttons.find(b=>b.dataset.tab===id);
+    if(activeBtn) activeBtn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+    if(updateHash) history.replaceState(null,'','#'+id);
+    window.scrollTo({top:document.querySelector('.tabbar').offsetTop,behavior:'smooth'});
+  }
+
+  buttons.forEach((btn,index)=>{
+    btn.addEventListener('click',()=>activate(btn.dataset.tab));
+    btn.addEventListener('keydown',e=>{
+      if(!['ArrowRight','ArrowLeft','Home','End'].includes(e.key)) return;
+      e.preventDefault();
+      let next=index;
+      if(e.key==='ArrowRight') next=(index+1)%buttons.length;
+      if(e.key==='ArrowLeft') next=(index-1+buttons.length)%buttons.length;
+      if(e.key==='Home') next=0;
+      if(e.key==='End') next=buttons.length-1;
+      buttons[next].focus();
+      activate(buttons[next].dataset.tab);
+    });
+  });
+
+  const hash=location.hash.replace('#','');
+  if(hash && panels.some(p=>p.id===hash)) activate(hash,false);
+})();
+</script>
+
+</body></html>
