@@ -121,6 +121,12 @@
       <li><strong>도구</strong> = 각 테마홈 안의 카드 (예: 케이터링 → 견적산출기·메뉴선택기).</li>
       <li>이동 흐름: 메인홈 → 테마홈 → 도구.</li>
     </ul>
+    <h3>기록이 들어가는 곳 <span style="font-weight:400;color:var(--muted);font-size:.85rem">("누구랑"이 아니라 "무슨 실행"으로)</span></h3>
+    <ul class="list">
+      <li><strong>기록·정산은 실행 홈에</strong> — 어느 거래처와 무엇을 하든 실행 성격으로 분류: 클래스 → <code>class.html</code> / 쿠킹박스 → <code>cookingbox.html</code> / 케이터링 → <code>catering.html</code>. 거래처(솜씨당·갤러리아 등)는 각 건의 <strong>태그·필드</strong>로 남긴다. 거래처별 홈은 따로 만들지 않는다(거래처가 늘어도 홈은 그대로).</li>
+      <li><strong>콘텐츠·제안 홈은 "앞단"까지만</strong> — 제안·기획(테마 카탈로그·메뉴 창고·명함 DB·제안 현황)만 담당. 계약·실행이 시작되면 실행 홈으로 넘겨 거기서 기록·정산. 정산·수강생 같은 실행 기록은 여기 넣지 않는다(중복 방지).</li>
+      <li><strong>콘텐츠·제안 홈의 진화 = 영업 툴</strong> — 데이터 저장소가 아니라 "제안을 빠르게 찍어내는 도구"로 고도화(대상 선택 → 테마·메뉴 조립 → 제안서+메일문구).</li>
+    </ul>
     <h3>영역 + 파일명 <span style="font-weight:400;color:var(--muted);font-size:.85rem">(영어 고정 · 한글이면 404)</span></h3>
     <table>
       <tr><th>구역</th><th>영역</th><th>파일명</th></tr>
@@ -471,7 +477,7 @@
             String(d.getMonth()+1).padStart(2,'0') + '.' +
             String(d.getDate()).padStart(2,'0') +
             ' (' + days[d.getDay()] + ')';
-    document.getElementById('today').textContent = s + ' · v8';
+    document.getElementById('today').textContent = s + ' · v9';
   })();
 </script>
 </body>
