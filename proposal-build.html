@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="version" content="v17">
-<meta name="updated" content="2026.07.18 16:05">
+<meta name="version" content="v19">
+<meta name="updated" content="2026.07.18 17:50">
 <title>제안 만들기 · 콘텐츠·제안</title>
 <link rel="apple-touch-icon" href="app-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -53,6 +53,15 @@ h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:80
 .mr:last-child{border-bottom:0}
 .mr .mn{font-size:13px;color:var(--ink);font-weight:500;line-height:1.4}
 .mr .mc{font-size:10.5px;color:var(--muted);white-space:nowrap}
+.why2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.w2{background:#FFFCF6;border:.5px solid #EFE7D6;border-left:2.5px solid var(--coral);border-radius:7px;padding:12px 14px 13px}
+.w2 .wn{display:block;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.16em;color:var(--coral);margin-bottom:5px}
+.w2 b{display:block;font-size:14px;margin-bottom:4px;line-height:1.45}
+.w2 .wd{display:block;font-size:12px;line-height:1.65;color:var(--sub)}
+.foot1{margin-top:26px;border-top:1px solid var(--line);padding-top:12px;font-size:11.5px;color:var(--muted)}
+.foot1 b{color:var(--forest)}
+.ctabox{margin-top:14px;background:var(--forest);color:#D9E3D4;border-radius:10px;padding:14px 18px;font-size:12.5px;line-height:1.6}
+.ctabox b{display:block;font-family:Hahmlet,serif;color:#fff;font-size:15px;margin-bottom:3px}
 .laybar{display:flex;align-items:center;gap:7px;margin-bottom:14px;padding-bottom:12px;border-bottom:.5px dashed var(--line);flex-wrap:wrap}
 .lay-label{font-family:"DM Mono",monospace;font-size:10.5px;color:var(--muted);letter-spacing:.06em;margin-right:3px}
 .lay{font-size:11.5px;padding:4px 11px;border-radius:20px;border:.5px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;user-select:none}
@@ -115,6 +124,15 @@ h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:80
 .mr:last-child{border-bottom:0}
 .mr .mn{font-size:13px;color:var(--ink);font-weight:500;line-height:1.4}
 .mr .mc{font-size:10.5px;color:var(--muted);white-space:nowrap}
+.why2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.w2{background:#FFFCF6;border:.5px solid #EFE7D6;border-left:2.5px solid var(--coral);border-radius:7px;padding:12px 14px 13px}
+.w2 .wn{display:block;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.16em;color:var(--coral);margin-bottom:5px}
+.w2 b{display:block;font-size:14px;margin-bottom:4px;line-height:1.45}
+.w2 .wd{display:block;font-size:12px;line-height:1.65;color:var(--sub)}
+.foot1{margin-top:26px;border-top:1px solid var(--line);padding-top:12px;font-size:11.5px;color:var(--muted)}
+.foot1 b{color:var(--forest)}
+.ctabox{margin-top:14px;background:var(--forest);color:#D9E3D4;border-radius:10px;padding:14px 18px;font-size:12.5px;line-height:1.6}
+.ctabox b{display:block;font-family:Hahmlet,serif;color:#fff;font-size:15px;margin-bottom:3px}
 .laybar{display:flex;align-items:center;gap:7px;margin-bottom:14px;padding-bottom:12px;border-bottom:.5px dashed var(--line);flex-wrap:wrap}
 .lay-label{font-family:"DM Mono",monospace;font-size:10.5px;color:var(--muted);letter-spacing:.06em;margin-right:3px}
 .lay{font-size:11.5px;padding:4px 11px;border-radius:20px;border:.5px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;user-select:none}
@@ -248,7 +266,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--forest-lt);background
         <a class="pill" href="https://claude.ai/chat/c8ce7bf0-36f0-4c65-8af4-36ce1fe513a9" target="_blank" rel="noopener">💬 작업 대화</a>
       </div>
       <div class="breadcrumb">AI 워크스페이스 <span class="sep">›</span> 콘텐츠·제안 <span class="sep">›</span> 제안 만들기
-        <span class="sep">|</span> <span class="meta">업데이트 2026.07.18 · v17</span></div>
+        <span class="sep">|</span> <span class="meta">업데이트 2026.07.18 · v19</span></div>
     </div>
     <div class="head">
       <div class="eyebrow">PROPOSAL BUILDER</div>
@@ -306,8 +324,6 @@ input:focus,select:focus,textarea:focus{border-color:var(--forest-lt);background
           <div><label>대상 회사</label><input type="text" id="company" placeholder="예: 솜씨당"></div>
           <div><label>담당자</label><input type="text" id="person" placeholder="예: 장윤재 이사"></div>
         </div>
-        <label>버전</label>
-        <div class="seg" id="ver"><span class="sg on" data-v="1차">1차 · 소개·제철</span><span class="sg" data-v="2차">2차 · 맞춤</span></div>
         <label>렌즈</label>
         <div class="seg" id="lens"><span class="sg on" data-v="기업">기업(목적)</span><span class="sg" data-v="유통">유통(라인업)</span></div>
       </div>
@@ -365,15 +381,16 @@ input:focus,select:focus,textarea:focus{border-color:var(--forest-lt);background
           <div class="ptitle"><span id="i_pttl"></span><br><span id="i_psub" style="font-weight:700"></span></div>
           <div class="plead">공공의주방 요리 전문가들의 비법 레시피를, 온라인·오프라인 클래스와 쿠킹박스·케이터링으로. 원하시는 방식과 인원에 맞춰 프로그램을 구성해 드립니다.</div>
           <div class="sechd">WHY ARCHIVEAT</div>
-          <div class="why">
-            <div><b>전문가의 비법 레시피</b>요리 전문가 120여 명의 노하우를 레시피로 아카이빙합니다.</div>
-            <div><b>온·오프라인 수업 경험</b>다양한 채널에서 쌓아온 풍부한 쿠킹 프로그램 운영 경험.</div>
-            <div><b>손질된 신선 재료</b>다듬고 계량한 재료와 전문가 소스를 그대로 전해드립니다.</div>
-            <div><b>어디서든 가능한 유연함</b>온라인·오프라인·박스·케이터링, 상황에 맞춰 구성합니다.</div>
+          <div class="why2">
+            <div class="w2"><span class="wn">01</span><b>전문가의 비법 레시피</b><span class="wd">요리 전문가들의 노하우를 레시피로 아카이빙합니다.</span></div>
+            <div class="w2"><span class="wn">02</span><b>온·오프라인 수업 경험</b><span class="wd">다양한 채널에서 쌓아온 풍부한 쿠킹 프로그램 운영 경험.</span></div>
+            <div class="w2"><span class="wn">03</span><b>손질된 신선 재료</b><span class="wd">다듬고 계량한 재료와 전문가 소스를 그대로 전해드립니다.</span></div>
+            <div class="w2"><span class="wn">04</span><b>어디서든 가능한 유연함</b><span class="wd">온라인·오프라인·박스·케이터링, 상황에 맞춰 구성합니다.</span></div>
           </div>
           <div class="sechd">HOW WE WORK · 네 가지 진행 방식</div>
           <div class="plead" style="margin-bottom:14px">같은 테마를 원하시는 방식으로 진행해 드립니다. 수업 없이 <b>쿠킹박스만</b> 받으시는 것도 가능합니다.</div>
           <div class="fmtcards" id="i_fmtcards"></div>
+          <div class="foot1">문의 · <b>archiveat.kr</b> · 주식회사 공공의주방 &nbsp;|&nbsp; 원하시는 테마와 방식을 알려주시면 상세 제안을 보내드립니다.</div>
         </div>
         <div class="page" style="border-bottom:0">
           <div class="phead"><span>ARCHIVEAT</span><span id="i_ph2"></span></div>
@@ -386,7 +403,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--forest-lt);background
             <span class="lay-note">PDF 만들 때 이 배치로 제작됩니다</span>
           </div>
           <div id="i_themes"></div>
-          <div class="must" id="i_ctaview"></div>
+          <div class="ctabox"><b>원하는 테마로 구성해 드려요</b><span id="i_ctaview"></span></div>
         </div>
         <div class="tip">※ 테마 사진칸을 클릭하거나 이미지를 끌어다 놓으면 미리보기에 보입니다. (임시 표시 · 파일에 저장되지 않습니다)</div>
       </div>
@@ -476,7 +493,7 @@ var FORMATS={
   labels:{way:"진행 방식",ppl:"인원",dur:"행사 시간",lvl:"구성",area:"장소",price:"단가(예시)"},
   vals:{way:"현장 케이터링",ppl:"30~60명 (조율 가능)",dur:"약 2시간",lvl:"핑거푸드 · 플래터 중심",area:"고객사 현장 (협의)",price:"협의 (인원 · 구성에 따라)"}}
 };
-var S={ver:'1차',lens:'기업',fmt:'온라인클래스',sel:[]};
+var S={ver:'2차 · 맞춤',lens:'기업',fmt:'온라인클래스',sel:[]};
 var $=function(i){return document.getElementById(i);};
 function esc(s){return (s||'').replace(/[&<>"]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m];});}
 function hasSrc(n){for(var i=0;i<S.sel.length;i++){for(var j=0;j<S.sel[i].src.length;j++){if(S.sel[i].src[j].n===n)return i;}}return -1;}
@@ -498,7 +515,7 @@ function loadTheme(name){
 }
 $('theme').addEventListener('change',function(){if(this.value)loadTheme(this.value);else{S.sel=[];render();}});
 function setSeg(id,val){document.querySelectorAll('#'+id+' .sg').forEach(function(s){s.classList.toggle('on',s.dataset.v===val);});if(id==='ver')S.ver=val;else S.lens=val;}
-['ver','lens'].forEach(function(id){document.querySelectorAll('#'+id+' .sg').forEach(function(s){s.addEventListener('click',function(){setSeg(id,s.dataset.v);render();});});});
+document.querySelectorAll('#lens .sg').forEach(function(s){s.addEventListener('click',function(){setSeg('lens',s.dataset.v);render();});});
 
 
 function applyFormat(k,fillVals){
@@ -526,7 +543,7 @@ S.themes=Object.keys(INTRO_THEMES).map(function(k){
 
 
 function setMode(m){
-  S.mode=m;
+  S.mode=m; S.ver=(m==='소개')?'1차 · 소개':'2차 · 맞춤';
   document.querySelectorAll('#mode .mb').forEach(function(x){x.classList.toggle('on',x.dataset.v===m);});
   var intro=(m==='소개');
   document.querySelectorAll('.intro-only').forEach(function(e){e.classList.toggle('hide',!intro);});
