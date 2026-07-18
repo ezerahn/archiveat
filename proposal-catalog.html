@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="version" content="v4">
-<meta name="updated" content="2026.07.17 20:05">
+<meta name="version" content="v5">
+<meta name="updated" content="2026.07.17 21:40">
 <title>테마 카탈로그 · 콘텐츠·제안</title>
 <link rel="apple-touch-icon" href="app-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -55,6 +55,8 @@ h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:80
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
 .tcard{background:var(--card);border:.5px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column}
+.tcard.real{border-color:var(--forest);box-shadow:0 2px 12px rgba(62,86,65,.07)}
+.src2{margin-top:12px;font-size:11.5px;color:var(--muted);padding-top:10px;border-top:1px dashed var(--line);line-height:1.6}
 .tcard h3{font-family:Hahmlet,serif;font-weight:700;font-size:18px;margin:0 0 3px;letter-spacing:-.01em}
 .tcard .one{font-size:12.5px;color:var(--sub);margin-bottom:12px}
 .tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
@@ -91,7 +93,7 @@ h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:80
       </div>
       <div class="breadcrumb">
         AI 워크스페이스 <span class="sep">›</span> 콘텐츠·제안 <span class="sep">›</span> 테마 카탈로그
-        <span class="sep">|</span> <span class="meta">업데이트 2026.07.17 · v4</span>
+        <span class="sep">|</span> <span class="meta">업데이트 2026.07.17 · v5</span>
       </div>
     </div>
     <div class="head">
@@ -101,7 +103,7 @@ h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:80
     </div>
   </header>
 
-  <div class="seed">※ 아래 테마·메뉴는 골격 확인용 <b>예시(시드)</b>입니다. 실제 검증 클래스(냉이꽃게탕·복숭아청)만 ★로 표시. 실제 태그·메뉴가 붙으면 교체됩니다.</div>
+  <div class="seed">★ <b>실제 제안 1건</b>(여름밤, 우리 팀 쿠킹클래스 — 솜씨당 2026.08)은 진짜 데이터입니다. 나머지 12개 테마·메뉴는 골격 확인용 <b>예시(시드)</b>로, 실제 건이 생기면 하나씩 교체됩니다.</div>
 
   <div class="filters" id="filters">
     <div class="fgroup"><span class="flabel">용도/상황</span>
@@ -154,14 +156,17 @@ h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:80
         <div class="foot"><span class="gam">8~14인 · 1인 3.5만</span><span class="go" onclick="go('봄나물 제철 클래스')">이 테마로 제안 →</span></div>
       </div>
 
-      <div class="tcard" data-purpose="복지" data-season="여름" data-exec="클래스 쿠킹박스" data-verified="1">
-        <h3>여름 제철 쿠킹 나이트</h3><p class="one">여름밤, 팀이 함께 즐기는 제철 클래스</p>
-        <div class="tags"><span class="tag">복지</span><span class="tag">여름</span><span class="tag">클래스</span><span class="tag">쿠킹박스</span><span class="tag v">★ 검증</span></div>
-        <div class="mlabel">구성 메뉴 · 제철 + 시그니처★ + 다양</div>
-        <div class="mrow"><span>복숭아청 <span class="st">★</span></span><span class="mrole">저장식 · 제철</span></div>
-        <div class="mrow"><span>여름채소 냉파스타</span><span class="mrole">세계요리 · 제철</span></div>
-        <div class="mrow"><span>오이냉국</span><span class="mrole">집밥 · 제철</span></div>
-        <div class="foot"><span class="gam">8~12인 · 1인 3.5~4만</span><span class="go" onclick="go('여름 제철 쿠킹 나이트')">이 테마로 제안 →</span></div>
+      <div class="tcard real" data-purpose="복지 팀빌딩" data-season="여름" data-exec="클래스 쿠킹박스" data-verified="1">
+        <h3>여름밤, 우리 팀 쿠킹클래스</h3><p class="one">여름밤, 제철로 완성하는 우리 팀 쿠킹클래스</p>
+        <div class="tags"><span class="tag">복지·팀빌딩</span><span class="tag">여름</span><span class="tag">클래스</span><span class="tag">쿠킹박스</span><span class="tag v">★ 실제 제안</span></div>
+        <div class="mlabel">구성 메뉴 5 · 제철 1 + 시그니처 4 · 한·양·중·디저트</div>
+        <div class="mrow"><span>제철 복숭아 수제청 &amp; 브리치즈 샐러드 <span class="st">★</span></span><span class="mrole">디저트·양식 · 제철</span></div>
+        <div class="mrow"><span>참나물 불고기 퀘사디아 &amp; 참외 샐러드</span><span class="mrole">세계요리 · 시그니처</span></div>
+        <div class="mrow"><span>들기름 버섯 솥밥 &amp; 얼큰 순두부찌개</span><span class="mrole">한식 · 시그니처</span></div>
+        <div class="mrow"><span>고급 중화 풍미 가득, 중국식 닭구이</span><span class="mrole">중식 · 시그니처</span></div>
+        <div class="mrow"><span>크림소스를 곁들인 순살 가자미 스테이크</span><span class="mrole">양식 · 시그니처</span></div>
+        <div class="src2">대상 30~40대 직장인 · 온라인+쿠킹박스 · 약 90분 · 초급~보통<br>실제 사례 — 솜씨당(2026.08, 3회차)</div>
+        <div class="foot"><span class="gam">회당 50~100인 · 1인 5만+VAT(예시)</span><span class="go" onclick="go('여름밤, 우리 팀 쿠킹클래스')">이 테마로 제안 →</span></div>
       </div>
 
       <div class="tcard" data-purpose="복지 유통" data-season="가을" data-exec="클래스" data-verified="0">
