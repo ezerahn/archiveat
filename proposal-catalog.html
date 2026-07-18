@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="version" content="v4">
+<meta name="updated" content="2026.07.17 20:05">
+<title>테마 카탈로그 · 콘텐츠·제안</title>
+<link rel="apple-touch-icon" href="app-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
+<style>
+:root{
+  --cream:#FAF5EC; --ink:#241F1B; --line:#E7DCC8; --sub:#6B6256; --muted:#9A8F7C;
+  --forest:#3E5641; --forest-lt:#5A6B4E; --forest-bg:#EAEFE6; --card:#FFFFFF; --star:#C9A24E;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--cream);color:var(--ink);font-family:"Pretendard",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+a{text-decoration:none;color:inherit}
+
+.top{padding:26px 0 0}
+.top-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.pills{display:flex;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:6px 14px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--sub);transition:.15s}
+.pill:hover{border-color:var(--forest);color:var(--forest)}
+.breadcrumb{font-size:12px;color:var(--muted);text-align:right;line-height:1.7}
+.breadcrumb .sep{color:#CFC5B2;margin:0 4px}
+.breadcrumb .meta{font-family:"DM Mono",monospace;font-size:11px}
+.head{padding:30px 0 24px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.eyebrow{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.14em;color:var(--forest);margin-bottom:12px}
+h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:800;font-size:40px;letter-spacing:-.02em;line-height:1.15}
+.subtitle{font-size:15px;color:var(--sub);margin-top:14px;max-width:680px}
+
+.seed{font-size:12px;color:#A08A4E;background:#F7F0DC;border:1px solid #EADFBE;border-radius:8px;padding:8px 14px;margin-bottom:20px;display:inline-block}
+
+.filters{background:#fff;border:.5px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:16px}
+.fgroup{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;padding:6px 0}
+.fgroup+.fgroup{border-top:.5px solid var(--line)}
+.flabel{font-size:11px;color:var(--muted);min-width:54px;font-family:"DM Mono",monospace;letter-spacing:.03em}
+.chip{font-size:12.5px;padding:5px 12px;border-radius:20px;border:.5px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;transition:.12s;user-select:none}
+.chip:hover{border-color:var(--forest-lt)}
+.chip.on{background:var(--forest);color:#EAEFE6;border-color:var(--forest)}
+
+.bar{display:flex;justify-content:space-between;align-items:center;margin:0 2px 8px;font-size:12.5px;color:var(--muted)}
+.bar .reset{cursor:pointer;color:var(--forest);font-family:inherit}
+
+.tsection{margin-bottom:10px}
+.section-h{font-family:Hahmlet,serif;font-weight:600;font-size:17px;margin:24px 0 12px;display:flex;align-items:baseline;gap:8px}
+.section-h .cnt{font-family:"DM Mono",monospace;font-size:12px;color:var(--muted);font-weight:400}
+.section-h .dot{width:7px;height:7px;border-radius:50%;background:var(--forest);display:inline-block}
+
+.tabs{display:flex;gap:2px;border-bottom:.5px solid var(--line);margin:0 0 8px}
+.tab{font-size:14px;padding:9px 15px;color:var(--sub);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-.5px;transition:.12s;user-select:none}
+.tab:hover{color:var(--forest)}
+.tab.on{color:var(--forest);border-bottom-color:var(--forest);font-weight:500}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.tcard{background:var(--card);border:.5px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column}
+.tcard h3{font-family:Hahmlet,serif;font-weight:700;font-size:18px;margin:0 0 3px;letter-spacing:-.01em}
+.tcard .one{font-size:12.5px;color:var(--sub);margin-bottom:12px}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.tag{font-size:11px;padding:3px 9px;border-radius:20px;background:var(--forest-bg);color:var(--forest);border:.5px solid #D5DFCF}
+.tag.v{background:#F7F0DC;color:#A08A4E;border-color:#EADFBE}
+.mlabel{font-size:10.5px;color:var(--muted);font-family:"DM Mono",monospace;margin-bottom:6px}
+.mrow{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:.5px solid #F0E8D6;font-size:13px}
+.mrow:last-of-type{border-bottom:0}
+.mrole{font-size:11px;color:var(--muted)}
+.st{color:var(--star);font-size:11px}
+.foot{display:flex;justify-content:space-between;align-items:center;border-top:.5px solid var(--line);padding-top:12px;margin-top:12px}
+.foot .gam{font-size:11px;color:var(--muted);font-family:"DM Mono",monospace}
+.foot .go{font-size:12.5px;padding:6px 13px;border-radius:8px;border:.5px solid var(--forest);color:var(--forest);cursor:pointer}
+.foot .go:hover{background:var(--forest-bg)}
+.empty{text-align:center;color:var(--muted);font-size:13px;padding:40px 0}
+
+.guide-note{background:var(--forest-bg);border-radius:14px;padding:20px 22px;margin:34px 0 18px;font-size:13px;color:#4A5646;line-height:1.8}
+.guide-note b{color:var(--forest)}
+.files-label{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--muted);margin:16px 0 10px}
+.files{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:60px}
+.fbtn{display:inline-flex;align-items:center;gap:7px;font-size:13px;padding:10px 16px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer}
+.fbtn:hover{border-color:var(--forest);color:var(--forest)}
+
+@media(max-width:720px){.breadcrumb{text-align:left}h1.title{font-size:30px}.grid{grid-template-columns:1fr}}
+</style></head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="top-row">
+      <div class="pills">
+        <a class="pill" href="proposal.html">← 콘텐츠·제안 홈</a>
+        <a class="pill" href="https://claude.ai/chat/c8ce7bf0-36f0-4c65-8af4-36ce1fe513a9" target="_blank" rel="noopener">💬 작업 대화</a>
+      </div>
+      <div class="breadcrumb">
+        AI 워크스페이스 <span class="sep">›</span> 콘텐츠·제안 <span class="sep">›</span> 테마 카탈로그
+        <span class="sep">|</span> <span class="meta">업데이트 2026.07.17 · v4</span>
+      </div>
+    </div>
+    <div class="head">
+      <div class="eyebrow">THEME CATALOG</div>
+      <h1 class="title">테마 카탈로그</h1>
+      <p class="subtitle">미리 짜둔 제안용 테마를 모아둡니다. 필터로 찾아, 제안에 바로 꺼내 씁니다. 자주 영업할 <b>간판 테마</b>만 여기 두고, 특이 요청은 제안 만들기에서 즉석 조립합니다.</p>
+    </div>
+  </header>
+
+  <div class="seed">※ 아래 테마·메뉴는 골격 확인용 <b>예시(시드)</b>입니다. 실제 검증 클래스(냉이꽃게탕·복숭아청)만 ★로 표시. 실제 태그·메뉴가 붙으면 교체됩니다.</div>
+
+  <div class="filters" id="filters">
+    <div class="fgroup"><span class="flabel">용도/상황</span>
+      <span class="chip" data-g="목적" data-v="복지">복지</span>
+      <span class="chip" data-g="목적" data-v="팀빌딩">팀빌딩</span>
+      <span class="chip" data-g="목적" data-v="행사">행사·명절</span>
+      <span class="chip" data-g="목적" data-v="유통">유통·백화점</span>
+    </div>
+    <div class="fgroup"><span class="flabel">계절</span>
+      <span class="chip" data-g="계절" data-v="봄">봄</span>
+      <span class="chip" data-g="계절" data-v="여름">여름</span>
+      <span class="chip" data-g="계절" data-v="가을">가을</span>
+      <span class="chip" data-g="계절" data-v="겨울">겨울</span>
+      <span class="chip" data-g="계절" data-v="사철">사철</span>
+    </div>
+    <div class="fgroup"><span class="flabel">실행</span>
+      <span class="chip" data-g="실행" data-v="클래스">클래스</span>
+      <span class="chip" data-g="실행" data-v="쿠킹박스">쿠킹박스</span>
+      <span class="chip" data-g="실행" data-v="케이터링">케이터링</span>
+    </div>
+    <div class="fgroup"><span class="flabel">검증</span>
+      <span class="chip" data-g="검증" data-v="y">★ 검증만</span>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <span class="tab on" data-sec="전체">전체</span>
+    <span class="tab" data-sec="계절">계절</span>
+    <span class="tab" data-sec="명절">명절·행사</span>
+    <span class="tab" data-sec="용도">용도</span>
+  </div>
+
+  <div class="bar">
+    <span id="count">13개 테마</span>
+    <span class="reset" id="reset">필터 초기화</span>
+  </div>
+
+  <!-- 계절 대표 -->
+  <div class="tsection" data-sec="계절">
+    <div class="section-h"><span class="dot"></span>계절 대표 <span class="cnt">4</span></div>
+    <div class="grid">
+
+      <div class="tcard" data-purpose="복지" data-season="봄" data-exec="클래스 쿠킹박스" data-verified="1">
+        <h3>봄나물 제철 클래스</h3><p class="one">봄나물·해산물로 차린 봄 한 상</p>
+        <div class="tags"><span class="tag">복지</span><span class="tag">봄</span><span class="tag">클래스</span><span class="tag">쿠킹박스</span><span class="tag v">★ 검증</span></div>
+        <div class="mlabel">구성 메뉴 · 제철 + 시그니처★ + 다양</div>
+        <div class="mrow"><span>냉이꽃게탕 <span class="st">★</span></span><span class="mrole">집밥 · 제철</span></div>
+        <div class="mrow"><span>달래 간장 비빔밥</span><span class="mrole">집밥 · 제철</span></div>
+        <div class="mrow"><span>주꾸미 볶음</span><span class="mrole">집밥 · 제철</span></div>
+        <div class="foot"><span class="gam">8~14인 · 1인 3.5만</span><span class="go" onclick="go('봄나물 제철 클래스')">이 테마로 제안 →</span></div>
+      </div>
+
+      <div class="tcard" data-purpose="복지" data-season="여름" data-exec="클래스 쿠킹박스" data-verified="1">
+        <h3>여름 제철 쿠킹 나이트</h3><p class="one">여름밤, 팀이 함께 즐기는 제철 클래스</p>
+        <div class="tags"><span class="tag">복지</span><span class="tag">여름</span><span class="tag">클래스</span><span class="tag">쿠킹박스</span><span class="tag v">★ 검증</span></div>
+        <div class="mlabel">구성 메뉴 · 제철 + 시그니처★ + 다양</div>
+        <div class="mrow"><span>복숭아청 <span class="st">★</span></span><span class="mrole">저장식 · 제철</span></div>
+        <div class="mrow"><span>여름채소 냉파스타</span><span class="mrole">세계요리 · 제철</span></div>
+        <div class="mrow"><span>오이냉국</span><span class="mrole">집밥 · 제철</span></div>
+        <div class="foot"><span class="gam">8~12인 · 1인 3.5~4만</span><span class="go" onclick="go('여름 제철 쿠킹 나이트')">이 테마로 제안 →</span></div>
+      </div>
+
+      <div class="tcard" data-purpose="복지 유통" data-season="가을" data-exec="클래스" data-verified="0">
+        <h3>가을 제철 집밥 클래스</h3><p class="one">환절기, 따뜻한 제철 한 상</p>
+        <div class="tags"><span class="tag">복지</span><span class="tag">유통</span><span class="tag">가을</span><span class="tag">클래스</span></div>
+        <div class="mlabel">구성 메뉴 · 제철 + 시그니처★ + 다양</div>
+        <div class="mrow"><span>버섯 들깨 전골</span><span class="mrole">집밥 · 제철</span></div>
+        <div class="mrow"><span>전어 강정</span><span class="mrole">집밥 · 제철</span></div>
+        <div class="mrow"><span>단호박 리소토</span><span class="mrole">세계요리 · 제철</span></div>
+        <div class="foot"><span class="gam">8~16인 · 1인 3.5만</span><span class="go" onclick="go('가을 제철 집밥 클래스')">이 테마로 제안 →</span></div>
+      </div>
+
+      <div class="tcard" data-purpose="복지" data-season="겨울" data-exec="클래스 쿠킹박스" data-verified="0">
+        <h3>겨울 보양 한 상</h3><p class="one">추위 녹이는 뜨끈한 제철 밥상</p>
+        <div class="tags"><span class="tag">복지</span><span class="tag">겨울</span><span class="tag">클래스</span><span class="tag">쿠킹박스</span></div>
+        <div class="mlabel">구성 메뉴 · 제철 + 시그니처★ + 다양</div>
+        <div class="mrow"><span>굴 순두부</span><span class="mrole">집밥 · 제철</span></div>
+        <div class="mrow"><span>뿌리채소 전골</span><span class="mrole">집밥 · 제철</span></div>
+        <div class="mrow"><span>대구 맑은탕</span><span class="mrole">집밥 · 제철</span></div>
+        <div class="foot"><span class="gam">8~14인 · 1인 3.5만</span><span class="go" onclick="go('겨울 보양 한 상')">이 테마로 제안 →</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 명절·행사 대표 -->
+  <div class="tsection" data-sec="명절">
+    <div class="section-h"><span class="dot"></span>명절·행사 대표 <span class="cnt">6</span></div>
+    <div class="grid">
+
+      <div class="tcard" data-purpose="복지 행사" data-season="겨울" data-exec="클래스 쿠킹박스" data-verified="0">
+        <h3>설 명절 음식 클래스</h3><p class="one">차례상·손님상 핵심 메뉴</p>
+        <div class="tags"><span class="tag">행사</span><span class="tag">겨울</span><span class="tag">클래스</span><span class="tag">쿠킹박스</span></div>
+        <div class="mlabel">구성 메뉴 · 명절 핵심</div>
+        <div class="mrow"><span>갈비찜</span><span class="mrole">집밥 · 명절</span></div>
+        <div class="mrow"><span>잡채</span><span class="mrole">집밥 · 명절</span></div>
+        <div class="mrow"><span>모둠전</span><span class="mrole">집밥 · 명절</span></div>
+        <div class="foot"><span class="gam">8~16인 · 1인 3.5만</span><span class="go" onclick="go('설 명절 음식 클래스')">이 테마로 제안 →</span></div>
+      </div>
+
+      <div class="tcard" data-purpose="복지 행사" data-season="가을" data-exec="클래스 쿠킹박스" data-verified="0">
+        <h3>추석 한가위 상차림</h3><p class="one">가을 제철 명절 한 상</p>
+        <div class="tags"><span class="tag">행사</span><span class="tag">가을</span><span class="tag">클래스</span><span class="tag">쿠킹박스</span></div>
+        <div class="mlabel">구성 메뉴 · 명절 핵심</div>
+        <div class="mrow"><span>송편</span><span class="mrole">디저트 · 명절</span></div>
+        <div class="mrow"><span>토란국</span><span class="mrole">집밥 · 명절</span></div>
+        <div class="mrow"><span>산적</span><span class="mrole">집밥 · 명절</span></div>
+        <div class="foot"><span class="gam">8~16인 · 1인 3.5만</span><span class="go" onclick="go('추석 한가위 상차림')">이 테마로 제안 →</span></div>
+      </div>
+
+      <div class="tcard" data-purpose="복지 행사" data-season="여름" data-exec="케이터링 쿠킹박스" data-verified="0">
+        <h3>복날 보양 케이터링</h3><p class="one">한여름 기력 보충 보양식</p>
+        <div class="tags"><span class="tag">행사</span><span class="tag">여름</span><span class="tag">케이터링</span><span class="tag">쿠킹박스</span></div>
+        <div class="mlabel">구성 메뉴 · 보양</div>
+        <div class="mrow"><span>삼계탕</span><span class="mrole">집밥 · 보양</span></div>
+        <div class="mrow"><span>전복죽</span><span class="mrole">집밥 · 보양</span></div>
+        <div class="mrow"><span>오리 백숙</span><span class="mrole">집밥 · 보양</span></div>
+        <div class="foot"><span class="gam">20~50인 · 1인 3만</span><span class="go" onclick="go('복날 보양 케이터링')">이 테마로 제안 →</span></div>
+      </div>
+
+      <div class="tcard" data-purpose="유통 행사" data-season="겨울" data-exec="클래스" data-verified="0">
+        <h3>김장 클래스</h3><p class="one">저장식 대표, 김장철 시즌 상품</p>
+        <div class="tags"><span class="tag">유통</span><span class="tag">겨울</span><span class="tag">클래스</span></div>
+        <div class="mlabel">구성 메뉴 · 저장식</div>
+        <div class="mrow"><span>배추김치</span><span class="mrole">저장식 · 김장</span></div>
+        <div class="mrow"><span>수육</span><span class="mrole">집밥 · 다양</span></div>
+        <div class="mrow"><span>굴보쌈</span><span class="mrole">집밥 · 제철</span></div>
+        <div class="foot"><span class="gam">10~20인 · 1인 4만</span><span class="go" onclick="go('김장 클래스')">이 테마로 제안 →</span></div>
+      </div>
+
+      <div class="tcard" data-purpose="행사" data-season="겨울" data-exec="케이터링 클래스" data-verified="0">
+        <h3>크리스마스 홈파티</h3><p class="one">연말 파티, 화려한 한 상</p>
+        <div class="tags"><span class="tag">행사</span><span class="tag">겨울</span><span class="tag">케이터링</span><span class="tag">클래스</span></div>
+        <div class="mlabel">구성 메뉴 · 파티</div>
+        <div class="mrow"><span>로스트 치킨</span><span class="mrole">세계요리 · 파티</span></div>
+        <div class="mrow"><span>플래터 3종</span><span class="mrole">파티 · 시그니처</span></div>
+        <div class="mrow"><span>미니 케이크</span><span class="mrole">디저트 · 다양</span></div>
+        <div class="foot"><span class="gam">20~50인 · 1인 3만</span><span class="go" onclick="go('크리스마스 홈파티')">이 테마로 제안 →</span></div>
+      </div>
+
+      <div class="tcard" data-purpose="행사" data-season="겨울" data-exec="케이터링" data-verified="1">
+        <h3>연말 송년 파티 플래터</h3><p class="one">송년·시상식, 손이 가는 핑거푸드</p>
+        <div class="tags"><span class="tag">행사</span><span class="tag">겨울</span><span class="tag">케이터링</span><span class="tag v">★ 검증</span></div>
+        <div class="mlabel">구성 메뉴 · 제철 + 시그니처★ + 다양</div>
+        <div class="mrow"><span>제철 굴 그라탕</span><span class="mrole">파티 · 제철</span></div>
+        <div class="mrow"><span>플래터 3종 <span class="st">★</span></span><span class="mrole">파티 · 시그니처</span></div>
+        <div class="mrow"><span>미니 약과</span><span class="mrole">디저트 · 다양</span></div>
+        <div class="foot"><span class="gam">30~60인 · 1인 2.5~3만</span><span class="go" onclick="go('연말 송년 파티 플래터')">이 테마로 제안 →</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 용도 대표 -->
+  <div class="tsection" data-sec="용도">
+    <div class="section-h"><span class="dot"></span>용도 대표 (상시) <span class="cnt">3</span></div>
+    <div class="grid">
+
+      <div class="tcard" data-purpose="복지" data-season="사철" data-exec="클래스 쿠킹박스" data-verified="0">
+        <h3>임직원 건강 밥상</h3><p class="one">저염·채소 중심, 사철 복지 프로그램</p>
+        <div class="tags"><span class="tag">복지</span><span class="tag">사철</span><span class="tag">클래스</span><span class="tag">쿠킹박스</span></div>
+        <div class="mlabel">구성 메뉴 · 효능 건강</div>
+        <div class="mrow"><span>제철 채소 비빔밥</span><span class="mrole">집밥 · 제철</span></div>
+        <div class="mrow"><span>두부 스테이크</span><span class="mrole">집밥 · 단백질</span></div>
+        <div class="mrow"><span>발효 채소 샐러드</span><span class="mrole">브런치 · 발효</span></div>
+        <div class="foot"><span class="gam">10~20인 · 1인 3~3.5만</span><span class="go" onclick="go('임직원 건강 밥상')">이 테마로 제안 →</span></div>
+      </div>
+
+      <div class="tcard" data-purpose="팀빌딩" data-season="사철" data-exec="클래스" data-verified="0">
+        <h3>팀빌딩 세계요리</h3><p class="one">함께 만드는 협업형, 신입 온보딩에도</p>
+        <div class="tags"><span class="tag">팀빌딩</span><span class="tag">사철</span><span class="tag">클래스</span></div>
+        <div class="mlabel">구성 메뉴 · 협업 · 난이도 낮음</div>
+        <div class="mrow"><span>수제 피자</span><span class="mrole">세계요리 · 협업</span></div>
+        <div class="mrow"><span>딤섬 빚기</span><span class="mrole">세계요리 · 협업</span></div>
+        <div class="mrow"><span>타코 바</span><span class="mrole">세계요리 · 협업</span></div>
+        <div class="foot"><span class="gam">10~24인 · 1인 3.5만</span><span class="go" onclick="go('팀빌딩 세계요리')">이 테마로 제안 →</span></div>
+      </div>
+
+      <div class="tcard" data-purpose="유통" data-season="사철" data-exec="클래스" data-verified="0">
+        <h3>백화점 사계절 라인업</h3><p class="one">문화센터·백화점 고객용 콘텐츠 렌즈</p>
+        <div class="tags"><span class="tag">유통</span><span class="tag">사철</span><span class="tag">클래스</span></div>
+        <div class="mlabel">구성 · 프로그램 라인업 쇼케이스</div>
+        <div class="mrow"><span>사계절 식탁</span><span class="mrole">프로그램</span></div>
+        <div class="mrow"><span>김치·저장식</span><span class="mrole">프로그램</span></div>
+        <div class="mrow"><span>브런치·홈카페</span><span class="mrole">프로그램</span></div>
+        <div class="foot"><span class="gam">회차·인원 협의</span><span class="go" onclick="go('백화점 사계절 라인업')">이 테마로 제안 →</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="empty" id="empty-all" style="display:none">조건에 맞는 테마가 없어요. 필터를 줄여보세요.</div>
+
+  <div class="guide-note">
+    <b>이 화면의 역할</b> — 여기는 <b>미리 만들어 두는 곳</b>입니다. 자주 영업할 간판 테마만 카드로 쟁여두고, 필터로 찾아 꺼내 씁니다. 카드가 많아져 계절/명절/용도로 묶어뒀어요.<br>
+    ※ "이 테마로 제안 →"을 누르면 제안 만들기로 넘겨 회사·제철만 갈아끼웁니다. (제안 만들기 화면은 다음 단계)
+  </div>
+
+  <div class="files-label">📦 원본 파일</div>
+  <div class="files">
+    <span class="fbtn" onclick="saveSelf()">📄 이 화면 HTML 받기</span>
+    <a class="fbtn" href="https://claude.ai/chat/c8ce7bf0-36f0-4c65-8af4-36ce1fe513a9" target="_blank" rel="noopener">💬 대화창에서 전체 받기</a>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var v=document.querySelector('meta[name=version]'),u=document.querySelector('meta[name=updated]');
+  if(v&&u){var el=document.querySelector('.breadcrumb .meta');if(el)el.textContent='업데이트 '+u.content+' · '+v.content;}
+})();
+
+var active={목적:new Set(),계절:new Set(),실행:new Set(),검증:new Set()};
+var chips=document.querySelectorAll('#filters .chip');
+chips.forEach(function(c){
+  c.addEventListener('click',function(){
+    var g=c.dataset.g,val=c.dataset.v;
+    if(active[g].has(val)){active[g].delete(val);c.classList.remove('on');}
+    else{active[g].add(val);c.classList.add('on');}
+    apply();
+  });
+});
+document.getElementById('reset').addEventListener('click',function(){
+  Object.keys(active).forEach(function(k){active[k].clear();});
+  chips.forEach(function(c){c.classList.remove('on');});
+  apply();
+});
+
+var currentTab='전체';
+document.querySelectorAll('#tabs .tab').forEach(function(t){
+  t.addEventListener('click',function(){
+    currentTab=t.dataset.sec;
+    document.querySelectorAll('#tabs .tab').forEach(function(x){x.classList.remove('on');});
+    t.classList.add('on');
+    apply();
+  });
+});
+
+function hit(card){
+  function grp(attr,set){
+    if(set.size===0)return true;
+    var vals=(card.dataset[attr]||'').split(' ');
+    for(var v of set){if(vals.indexOf(v)>-1)return true;}
+    return false;
+  }
+  if(!grp('purpose',active.목적))return false;
+  if(!grp('season',active.계절))return false;
+  if(!grp('exec',active.실행))return false;
+  if(active.검증.size>0 && card.dataset.verified!=='1')return false;
+  return true;
+}
+function apply(){
+  var total=0;
+  document.querySelectorAll('.tsection').forEach(function(s){
+    var inTab=(currentTab==='전체'||s.dataset.sec===currentTab);
+    var cards=s.querySelectorAll('.tcard'),vis=0;
+    cards.forEach(function(c){var ok=hit(c);c.style.display=ok?'flex':'none';if(ok)vis++;});
+    s.style.display=(inTab&&vis)?'block':'none';
+    var cnt=s.querySelector('.section-h .cnt');if(cnt)cnt.textContent=vis;
+    total+=(inTab?vis:0);
+  });
+  document.getElementById('count').textContent=total+'개 테마';
+  document.getElementById('empty-all').style.display=total?'none':'block';
+}
+function go(name){ alert('제안 만들기로 넘어감: "'+name+'"  —  제안 만들기 화면은 다음 단계에서 연결됩니다.'); }
+function saveSelf(){
+  var blob=new Blob([document.documentElement.outerHTML],{type:'text/html'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='proposal-catalog.html';a.click();
+}
+</script>
+</body></html>
