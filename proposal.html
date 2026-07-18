@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="version" content="v2">
-<meta name="updated" content="2026.07.17 15:20">
+<meta name="version" content="v3">
+<meta name="updated" content="2026.07.17 21:10">
 <title>콘텐츠·제안 홈</title>
 <link rel="apple-touch-icon" href="app-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -57,6 +57,7 @@ h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:80
 .card .flow{margin-top:14px;font-size:12px;color:var(--forest-lt);font-family:"DM Mono",monospace;line-height:1.7}
 .card .src{margin-top:12px;font-size:11.5px;color:var(--muted);padding-top:12px;border-top:1px dashed var(--line)}
 .badge{position:absolute;top:16px;right:16px;font-size:10px;font-family:"DM Mono",monospace;padding:3px 9px;border-radius:20px;background:#F3ECD7;color:#A08A4E}
+.badge.live{background:var(--forest);color:#EAEFE6}
 
 /* 업무 카드 = 진한 강조 / 데이터 카드 = 재료 느낌 */
 .card.work{border-left:3px solid var(--forest)}
@@ -138,21 +139,21 @@ h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:80
       <span class="zone-desc">꺼내 쓰는 기준·원천 — 잘 정리돼 있어야 위에서 빠르게 조립됩니다.</span>
     </div>
     <div class="grid grid-3">
-      <a class="card data" href="#" onclick="return false">
-        <span class="badge">준비중</span>
+      <a class="card data" href="proposal-catalog.html">
+        <span class="badge live">v4</span>
         <div class="num">03</div>
         <div class="ic">🗂️</div>
         <h3>테마 카탈로그</h3>
-        <p>목적·상황별로 기획한 테마들. 각 테마의 조합 공식과 예시 메뉴, 실행 방식(클래스·박스·케이터링)을 담습니다.</p>
-        <div class="src">최초 기획 후 계속 수정 · 1차 영업 자산</div>
+        <p>미리 짜둔 제안용 테마 모음. 용도·계절·실행 필터와 탭으로 찾아, 제안에 바로 꺼내 씁니다.</p>
+        <div class="src">대표 테마 13개(시드) · 계절 / 명절·행사 / 용도</div>
       </a>
-      <a class="card data" href="#" onclick="return false">
-        <span class="badge">준비중</span>
+      <a class="card data" href="proposal-menu.html">
+        <span class="badge live">v1</span>
         <div class="num">04</div>
         <div class="ic">🍽️</div>
         <h3>메뉴 창고</h3>
-        <p>보유한 메뉴 데이터. 구성품·재료비 같은 팩트에, 계절·종류·난이도 분류 태그와 검증 ★ 추천 태그를 붙여 관리합니다.</p>
-        <div class="src">쿠킹박스 등 타 홈에서 받아와 업데이트</div>
+        <p>보유 메뉴 <b>472개</b>. 검색과 종류(19 카테고리)·등록여부·개발유형 필터로 찾습니다. 축 태그는 앞으로 추가.</p>
+        <div class="src">쿠킹박스 카테고리마스터에서 받아와 업데이트</div>
       </a>
       <a class="card data" href="#" onclick="return false">
         <span class="badge">준비중</span>
@@ -170,7 +171,7 @@ h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:80
     <b>이 홈의 흐름</b> — 아래 <b>재료(테마·메뉴·명함)</b>를 꺼내 위에서 <b>제안</b>을 조립합니다. 재료가 잘 쌓일수록 제안이 빨라집니다.<br>
     ※ 제안서·메일 문구는 홈에서 준비하고, 실제 발송은 대표님 메일로. 확정되면 클래스 홈으로 이어집니다.
   </div>
-  <p class="note">※ 이 화면은 큰 틀(뼈대)입니다. 각 카드의 세부 화면은 앞으로 하나씩 채워갑니다. 배치·이름은 언제든 수정할 수 있습니다.</p>
+  <p class="note">※ 아래 <b>재료</b>부터 하나씩 만들고 위(제안 실무)로 올라갑니다. 현재 ③테마 카탈로그·④메뉴 창고 완성, ⑤명함 DB와 ①②는 준비중입니다.</p>
 
   <!-- ===== 원본 파일 · 가이드 ===== -->
   <div class="files-wrap">
