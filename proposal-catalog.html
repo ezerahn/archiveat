@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="version" content="v5">
-<meta name="updated" content="2026.07.17 21:40">
+<meta name="version" content="v6">
+<meta name="updated" content="2026.07.17 22:30">
 <title>테마 카탈로그 · 콘텐츠·제안</title>
 <link rel="apple-touch-icon" href="app-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -89,11 +89,12 @@ h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:80
     <div class="top-row">
       <div class="pills">
         <a class="pill" href="proposal.html">← 콘텐츠·제안 홈</a>
+        <a class="pill" href="proposal-build.html">✍️ 제안 만들기</a>
         <a class="pill" href="https://claude.ai/chat/c8ce7bf0-36f0-4c65-8af4-36ce1fe513a9" target="_blank" rel="noopener">💬 작업 대화</a>
       </div>
       <div class="breadcrumb">
         AI 워크스페이스 <span class="sep">›</span> 콘텐츠·제안 <span class="sep">›</span> 테마 카탈로그
-        <span class="sep">|</span> <span class="meta">업데이트 2026.07.17 · v5</span>
+        <span class="sep">|</span> <span class="meta">업데이트 2026.07.17 · v6</span>
       </div>
     </div>
     <div class="head">
@@ -371,7 +372,7 @@ function apply(){
   document.getElementById('count').textContent=total+'개 테마';
   document.getElementById('empty-all').style.display=total?'none':'block';
 }
-function go(name){ alert('제안 만들기로 넘어감: "'+name+'"  —  제안 만들기 화면은 다음 단계에서 연결됩니다.'); }
+function go(name){ location.href='proposal-build.html?theme='+encodeURIComponent(name); }
 function saveSelf(){
   var blob=new Blob([document.documentElement.outerHTML],{type:'text/html'});
   var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='proposal-catalog.html';a.click();
