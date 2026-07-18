@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="version" content="v4">
+<meta name="updated" content="2026.07.18 09:20">
+<title>제안 만들기 · 콘텐츠·제안</title>
+<link rel="apple-touch-icon" href="app-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
+<style>
+:root{--cream:#FAF5EC;--ink:#241F1B;--line:#E7DCC8;--sub:#6B6256;--muted:#9A8F7C;--forest:#3E5641;--forest-lt:#5A6B4E;--forest-bg:#EAEFE6;--card:#fff;--coral:#FF5019}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--cream);color:var(--ink);font-family:"Pretendard",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1280px;margin:0 auto;padding:0 24px}
+a{text-decoration:none;color:inherit}
+.top{padding:26px 0 0}
+.top-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:6px 14px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--sub)}
+.pill:hover{border-color:var(--forest);color:var(--forest)}
+.breadcrumb{font-size:12px;color:var(--muted);text-align:right}
+.breadcrumb .sep{color:#CFC5B2;margin:0 4px}.breadcrumb .meta{font-family:"DM Mono",monospace;font-size:11px}
+.head{padding:26px 0 20px;border-bottom:1px solid var(--line);margin-bottom:20px}
+.eyebrow{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.14em;color:var(--forest);margin-bottom:10px}
+h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:800;font-size:38px;letter-spacing:-.02em}
+.subtitle{font-size:14.5px;color:var(--sub);margin-top:12px;max-width:740px}
+.cols{display:grid;grid-template-columns:430px minmax(0,1fr);gap:20px;align-items:start}
+.sticky{position:sticky;top:14px}
+.panel{background:#fff;border:.5px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px}
+.panel h4{font-size:11px;font-family:"DM Mono",monospace;color:var(--muted);letter-spacing:.06em;margin-bottom:10px}
+label{display:block;font-size:11.5px;color:var(--muted);margin:10px 0 4px}
+input[type=text],select,textarea{width:100%;font-family:inherit;font-size:13.5px;color:var(--ink);border:.5px solid var(--line);border-radius:8px;padding:8px 10px;background:#FCFAF4;outline:0}
+input:focus,select:focus,textarea:focus{border-color:var(--forest-lt);background:#fff}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.sg{font-size:12.5px;padding:5px 12px;border-radius:20px;border:.5px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;user-select:none}
+.sg.on{background:var(--forest);color:#EAEFE6;border-color:var(--forest)}
+.pickhead{display:flex;gap:8px;margin-bottom:8px}
+.pickhead input{flex:1}.pickhead select{width:130px}
+.picklist{border:.5px solid var(--line);border-radius:10px;max-height:230px;overflow:auto;background:#FCFAF4}
+.pk{display:flex;align-items:center;gap:9px;padding:7px 11px;border-bottom:.5px solid #F1EAD9;cursor:pointer;font-size:13px}
+.pk:last-child{border-bottom:0}.pk:hover,.pk.on{background:var(--forest-bg)}
+.pk .bx{width:15px;height:15px;border-radius:4px;border:1.2px solid #C9BFA8;background:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff}
+.pk.on .bx{background:var(--forest);border-color:var(--forest)}
+.pk .pn{flex:1;line-height:1.35}.pk .pc{font-size:10.5px;color:var(--muted);white-space:nowrap}
+.pickinfo{font-size:11.5px;color:var(--muted);margin:7px 2px 0;display:flex;justify-content:space-between;align-items:center}
+.pickinfo b{color:var(--forest)}
+.mitem{border:.5px solid var(--line);border-radius:10px;padding:10px 11px;margin-bottom:8px;background:#fff}
+.mitem.new{border-color:#D9C48A;background:#FFFDF6}
+.mtop{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.mtop input.lbl{flex:1;font-size:13.5px;font-weight:600;padding:5px 8px;background:#fff}
+.ib{font-size:11px;color:var(--muted);cursor:pointer;padding:2px 6px;border-radius:5px;border:.5px solid var(--line);background:#fff;user-select:none;white-space:nowrap}
+.ib:hover{border-color:var(--forest);color:var(--forest)}
+.nb{font-size:10px;font-family:"DM Mono",monospace;background:#F3ECD7;color:#A08A4E;border-radius:20px;padding:2px 8px;white-space:nowrap}
+.srcs{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin-bottom:5px}
+.srcs .sc{font-size:10.5px;color:var(--forest);background:var(--forest-bg);border:.5px solid #D5DFCF;border-radius:20px;padding:2px 6px 2px 9px;display:inline-flex;align-items:center;gap:5px}
+.srcs .sc i{cursor:pointer;font-style:normal;color:#7E8C77}
+.srcs .none{font-size:11px;color:#A08A4E}
+.addsrc{position:relative;margin-bottom:6px}
+.addsrc input{font-size:12px;padding:5px 8px}
+.sres{position:absolute;left:0;right:0;top:32px;background:#fff;border:.5px solid var(--line);border-radius:9px;max-height:180px;overflow:auto;z-index:20;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.sres div{padding:7px 10px;font-size:12.5px;cursor:pointer;border-bottom:.5px solid #F1EAD9;display:flex;justify-content:space-between;gap:8px}
+.sres div:hover{background:var(--forest-bg)}
+.sres .rc{font-size:10.5px;color:var(--muted);white-space:nowrap}
+.mdesc{width:100%;font-size:12px;border:0;border-top:.5px dashed var(--line);border-radius:0;padding:6px 0 0;background:transparent;resize:vertical;min-height:32px;color:var(--sub)}
+.photo{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
+.ph{font-size:10.5px;padding:2px 8px;border-radius:20px;border:.5px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;font-family:"DM Mono",monospace}
+.ph.on{background:var(--forest);color:#EAEFE6;border-color:var(--forest)}
+.ph.on.need{background:#C25A3A;border-color:#C25A3A;color:#fff}
+.prev{background:#fff;border:.5px solid var(--line);border-radius:14px;overflow:hidden}
+.page{padding:30px 34px;border-bottom:1px solid var(--line)}
+.phead{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);letter-spacing:.1em;font-family:"DM Mono",monospace;margin-bottom:22px}
+.plabel{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.16em;color:var(--coral);margin-bottom:8px}
+.ptitle{font-family:Hahmlet,serif;font-weight:800;font-size:27px;line-height:1.25;letter-spacing:-.02em;margin-bottom:12px}
+.plead{font-size:13px;color:var(--sub);max-width:640px;margin-bottom:24px}
+.sechd{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.16em;color:var(--muted);margin:22px 0 10px;padding-top:16px;border-top:1px solid var(--line)}
+.why{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.why div{font-size:12.5px;color:var(--sub)}
+.why b{display:block;font-size:13.5px;color:var(--ink);margin-bottom:2px;font-weight:600}
+.steps{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.steps div{background:#FCFAF4;border:.5px solid var(--line);border-radius:10px;padding:12px 13px;font-size:12px;color:var(--sub)}
+.steps b{display:block;font-size:13px;color:var(--ink);margin-bottom:3px}
+.steps .sn{font-family:"DM Mono",monospace;font-size:10px;color:var(--coral);letter-spacing:.1em}
+.spec{display:grid;grid-template-columns:1fr 1fr;gap:0 22px;font-size:12.5px;margin-top:6px}
+.spec div{display:flex;justify-content:space-between;padding:7px 0;border-bottom:.5px solid #F1EAD9}
+.spec span:first-child{color:var(--muted)}
+.must{font-size:11.5px;color:var(--muted);margin-top:12px;padding-top:10px;border-top:.5px solid var(--line)}
+.pmenu{display:flex;gap:13px;padding:13px 0;border-bottom:.5px solid #F1EAD9}
+.pmenu:last-child{border-bottom:0}
+.pnum{font-family:"DM Mono",monospace;font-size:12px;color:var(--coral);min-width:20px;padding-top:2px}
+.pthumb{width:96px;height:72px;border-radius:8px;background:#F3EEE0;border:.5px dashed #DCD2BC;display:flex;align-items:center;justify-content:center;font-size:9.5px;color:var(--muted);text-align:center;flex-shrink:0;line-height:1.35;font-family:"DM Mono",monospace;cursor:pointer;overflow:hidden;position:relative}
+.pthumb:hover{border-color:var(--forest);color:var(--forest)}
+.pthumb.ok{border-style:solid;border-color:#CBD8C4;background:var(--forest-bg);color:var(--forest)}
+.pthumb.need{border-color:#E0B6A6;background:#FBEFE9;color:#B4593A}
+.pthumb.drag{border-color:var(--forest);background:var(--forest-bg)}
+.pthumb img{width:100%;height:100%;object-fit:cover;display:block}
+.pthumb .x{position:absolute;top:2px;right:3px;background:rgba(0,0,0,.45);color:#fff;font-size:9px;border-radius:4px;padding:0 4px;line-height:1.5}
+.pmenu .pb{flex:1}
+.pmenu .pt{font-size:14px;font-weight:600;margin-bottom:3px}
+.pmenu .pd{font-size:12px;color:var(--sub)}
+.pmenu .pc{font-size:10.5px;color:var(--forest);border:.5px solid #D5DFCF;background:var(--forest-bg);border-radius:20px;padding:1px 8px;display:inline-block;margin-bottom:4px}
+.tip{font-size:11.5px;color:var(--muted);padding:9px 34px 14px}
+.exp{margin-top:14px}
+.tabsx{display:flex;gap:2px;border-bottom:.5px solid var(--line);margin-bottom:10px;flex-wrap:wrap}
+.tabx{font-size:13px;padding:8px 14px;color:var(--sub);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-.5px}
+.tabx.on{color:var(--forest);border-bottom-color:var(--forest);font-weight:500}
+.outbox{width:100%;min-height:200px;font-family:"DM Mono",monospace;font-size:11.5px;line-height:1.7;white-space:pre-wrap}
+.btnrow{display:flex;gap:8px;margin-top:9px;flex-wrap:wrap}
+.btn{font-size:13px;padding:8px 15px;border-radius:9px;border:.5px solid var(--forest);color:var(--forest);background:#fff;cursor:pointer}
+.btn:hover{background:var(--forest-bg)}
+.needlist{background:#FBEFE9;border:.5px solid #EED8CC;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#8A4630;margin-top:12px;line-height:1.7}
+.needlist b{color:#7A3A24}
+.newlist{background:#FFFBF0;border:.5px solid #EADFBE;border-radius:10px;padding:11px 14px;font-size:12.5px;color:#8A7333;margin-top:10px;line-height:1.7}
+.guide-note{background:var(--forest-bg);border-radius:14px;padding:18px 22px;margin:26px 0 16px;font-size:13px;color:#4A5646;line-height:1.8}
+.guide-note b{color:var(--forest)}
+.files-label{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--muted);margin:14px 0 9px}
+.files{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:60px}
+.fbtn{display:inline-flex;align-items:center;gap:7px;font-size:13px;padding:10px 16px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer}
+.fbtn:hover{border-color:var(--forest);color:var(--forest)}
+@media(max-width:1000px){.cols{grid-template-columns:1fr}.sticky{position:static}.why,.steps,.spec{grid-template-columns:1fr}h1.title{font-size:29px}.breadcrumb{text-align:left}}
+</style></head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="top-row">
+      <div class="pills">
+        <a class="pill" href="proposal.html">← 콘텐츠·제안 홈</a>
+        <a class="pill" href="proposal-catalog.html">🗂️ 테마 카탈로그</a>
+        <a class="pill" href="proposal-menu.html">🍽️ 메뉴 창고</a>
+        <a class="pill" href="https://claude.ai/chat/c8ce7bf0-36f0-4c65-8af4-36ce1fe513a9" target="_blank" rel="noopener">💬 작업 대화</a>
+      </div>
+      <div class="breadcrumb">AI 워크스페이스 <span class="sep">›</span> 콘텐츠·제안 <span class="sep">›</span> 제안 만들기
+        <span class="sep">|</span> <span class="meta">업데이트 2026.07.18 · v4</span></div>
+    </div>
+    <div class="head">
+      <div class="eyebrow">PROPOSAL BUILDER</div>
+      <h1 class="title">제안 만들기</h1>
+      <p class="subtitle">메뉴를 체크하면 오른쪽 제안서에 바로 들어갑니다. <b>표시명은 자유롭게 수정</b>하고 여러 메뉴를 <b>세트로 묶을</b> 수 있습니다. 원본(메뉴 창고)은 바뀌지 않습니다.</p>
+    </div>
+  </header>
+
+  <div class="cols">
+    <div>
+      <div class="panel">
+        <h4>01 · 무엇을 · 누구에게</h4>
+        <label>테마 (카탈로그에서 가져오기)</label>
+        <select id="theme"></select>
+        <div class="row2">
+          <div><label>대상 회사</label><input type="text" id="company" placeholder="예: 솜씨당"></div>
+          <div><label>담당자</label><input type="text" id="person" placeholder="예: 장윤재 이사"></div>
+        </div>
+        <label>버전</label>
+        <div class="seg" id="ver"><span class="sg on" data-v="1차">1차 · 소개·제철</span><span class="sg" data-v="2차">2차 · 맞춤</span></div>
+        <label>렌즈</label>
+        <div class="seg" id="lens"><span class="sg on" data-v="기업">기업(목적)</span><span class="sg" data-v="유통">유통(라인업)</span></div>
+      </div>
+
+      <div class="panel">
+        <h4>02 · 표지 카피</h4>
+        <label>제목</label><input type="text" id="ttl" placeholder="여름밤,">
+        <label>부제</label><input type="text" id="sub" placeholder="제철로 완성하는 우리 팀 쿠킹클래스">
+        <div class="row2">
+          <div><label>시즌 라벨</label><input type="text" id="seasonlbl" placeholder="2026 SUMMER"></div>
+          <div><label>월</label><select id="month"></select></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>03 · 메뉴 고르기 <span id="mcount" style="color:var(--forest)"></span></h4>
+        <div class="pickhead">
+          <input type="text" id="msearch" placeholder="메뉴 검색 (472개)">
+          <select id="mcat"></select>
+        </div>
+        <div class="picklist" id="picklist"></div>
+        <div class="pickinfo"><span id="pkinfo"></span>
+          <span><span class="ib" onclick="addNew()">＋ 신규 메뉴</span> <span class="ib" onclick="clearSel()">비우기</span></span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>04 · 선택한 메뉴 (표시명·구성·설명·사진)</h4>
+        <div id="mlist"></div>
+      </div>
+
+      <div class="panel">
+        <h4>05 · 패키지 조건</h4>
+        <div class="row2">
+          <div><label>진행 방식</label><input type="text" id="way" value="온라인 실시간 + 쿠킹박스"></div>
+          <div><label>인원</label><input type="text" id="ppl" value="회당 50~100명 (조율 가능)"></div>
+        </div>
+        <div class="row2">
+          <div><label>소요 시간</label><input type="text" id="dur" value="약 1시간 30분"></div>
+          <div><label>난이도</label><input type="text" id="lvl" value="초급 ~ 보통"></div>
+        </div>
+        <div class="row2">
+          <div><label>배송 지역</label><input type="text" id="area" value="수도권 · 충청 일부 (일부 지역 제외)"></div>
+          <div><label>참가비(예시)</label><input type="text" id="price" value="50,000원 + VAT / 1인"></div>
+        </div>
+        <label>일정 (메일 문구용)</label><input type="text" id="sched" placeholder="예: 8월 25·26·27일 저녁">
+      </div>
+    </div>
+
+    <div class="sticky">
+      <div class="prev">
+        <div class="page">
+          <div class="phead"><span>ARCHIVEAT · 아카이빗 · 주식회사 공공의주방</span><span id="ph1"></span></div>
+          <div class="plabel" id="pv-label"></div>
+          <div class="ptitle"><span id="pv-ttl"></span><br><span id="pv-sub" style="font-weight:700"></span></div>
+          <div class="plead" id="pv-lead"></div>
+          <div class="sechd">WHY ARCHIVEAT</div>
+          <div class="why">
+            <div><b>전문가의 비법 레시피</b>공공의주방 요리 전문가들의 노하우를 그대로 전수합니다.</div>
+            <div><b>온·오프라인 수업 경험</b>다양한 채널에서 쌓아온 풍부한 쿠킹 프로그램 운영 경험.</div>
+            <div><b>손질된 신선 재료 배송</b>준비 없이 받는 즉시 시작, 손쉽게 즐기는 요리의 즐거움.</div>
+            <div><b>신선 새벽배송</b>서울·경기·인천 새벽배송, 충청 일부까지 신선하게.</div>
+          </div>
+          <div class="sechd">HOW IT WORKS</div>
+          <div class="steps">
+            <div><span class="sn">STEP 1</span><b>쿠킹박스 배송</b>손질된 제철 재료와 전문가 소스를 집으로.</div>
+            <div><span class="sn">STEP 2</span><b>실시간 온라인 클래스</b>줌으로 전문 강사와 함께, 초급자도 쉬운 속도로.</div>
+            <div><span class="sn">STEP 3</span><b>함께 완성 · 나눔</b>각자의 주방에서 같은 요리를 완성하는 특별한 저녁.</div>
+          </div>
+          <div class="sechd" id="pkghd"></div>
+          <div class="spec" id="pv-spec"></div>
+          <div class="must">※ 참가비는 예시 기준입니다. 실제 메뉴와 구성품이 확정되면 최종 단가로 조정됩니다.</div>
+        </div>
+        <div class="page" style="border-bottom:0">
+          <div class="phead"><span>ARCHIVEAT</span><span id="ph2"></span></div>
+          <div class="plabel" id="pv-mlabel"></div>
+          <div class="ptitle" style="font-size:22px" id="pv-mtitle"></div>
+          <div class="plead">한식·양식·세계요리까지, 저녁에 즐기기 좋은 난이도로 구성했습니다. 원하시는 메뉴로 회차를 구성해 드립니다.</div>
+          <div id="pv-menus"></div>
+          <div class="must">관심 메뉴와 희망 일정을 회신 주시면 상세 견적을 안내해 드립니다.</div>
+        </div>
+        <div class="tip">※ 사진칸을 클릭하거나 이미지를 끌어다 놓으면 미리보기에 보입니다. (이 화면에서만 임시 표시 · 파일에 저장되지 않습니다)</div>
+      </div>
+
+      <div class="needlist" id="needlist" style="display:none"></div>
+      <div class="newlist" id="newlist" style="display:none"></div>
+
+      <div class="exp">
+        <div class="tabsx" id="tabsx">
+          <span class="tabx on" data-t="mail">✉️ 메일 문구</span>
+          <span class="tabx" data-t="pdata">📄 제안서 사양 (PDATA)</span>
+          <span class="tabx" data-t="ai">🤖 AI에게 메뉴 제안받기</span>
+        </div>
+        <textarea class="outbox" id="out" readonly></textarea>
+        <div class="btnrow"><span class="btn" id="copybtn" onclick="copyOut()">✉️ 메일 문구 복사</span><span class="btn" onclick="saveSelf()">📄 이 화면 HTML 받기</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-note">
+    <b>표시명을 바꿔도 원본은 안 바뀝니다</b> — 표시명은 이 제안서에만 쓰이고, 아래 <b>구성</b>에 담긴 원본 메뉴가 근거로 남습니다. 원본이 없으면 <b>신규</b>로 표시돼, 나중에 레시피·구성품을 만들 대상이 한눈에 보입니다.<br>
+    ※ <b>PDATA</b>를 작업 대화에 붙여넣으면 최종 PDF로, <b>AI에게 메뉴 제안받기</b>를 붙여넣으면 조합·신규 메뉴·표시명 안을 받아볼 수 있습니다.
+  </div>
+
+  <div class="files-label">📦 원본 파일</div>
+  <div class="files">
+    <span class="fbtn" onclick="saveSelf()">📄 이 화면 HTML 받기</span>
+    <a class="fbtn" href="https://claude.ai/chat/c8ce7bf0-36f0-4c65-8af4-36ce1fe513a9" target="_blank" rel="noopener">💬 대화창에서 전체 받기</a>
+  </div>
+</div>
+
+<input type="file" id="fpick" accept="image/*" style="display:none">
+<script>
+(function(){var v=document.querySelector('meta[name=version]'),u=document.querySelector('meta[name=updated]');if(v&&u){var e=document.querySelector('.breadcrumb .meta');if(e)e.textContent='업데이트 '+u.content+' · '+v.content;}})();
+var MENUS=[{"n": "강된장채소비빔밥", "c": "밥·덮밥·비빔밥"}, {"n": "고등어생강밥", "c": "밥·덮밥·비빔밥"}, {"n": "근대쌈밥", "c": "밥·덮밥·비빔밥"}, {"n": "달걀볶음밥", "c": "밥·덮밥·비빔밥"}, {"n": "돼지고기김치밥", "c": "밥·덮밥·비빔밥"}, {"n": "두부브로콜리소보로비빔밥", "c": "밥·덮밥·비빔밥"}, {"n": "뿌리채소하얀약밥", "c": "밥·덮밥·비빔밥"}, {"n": "멍게비빔밥", "c": "밥·덮밥·비빔밥"}, {"n": "명란낙지젓비빔밥", "c": "밥·덮밥·비빔밥"}, {"n": "밥케이크", "c": "밥·덮밥·비빔밥"}, {"n": "버섯덮밥", "c": "밥·덮밥·비빔밥"}, {"n": "불고기숙주덮밥", "c": "밥·덮밥·비빔밥"}, {"n": "삼색소보로덮밥", "c": "밥·덮밥·비빔밥"}, {"n": "생열무비빔밥", "c": "밥·덮밥·비빔밥"}, {"n": "소고기청경채볶음밥", "c": "밥·덮밥·비빔밥"}, {"n": "약밥", "c": "밥·덮밥·비빔밥"}, {"n": "양배추쌈밥", "c": "밥·덮밥·비빔밥"}, {"n": "전복미역강황밥", "c": "밥·덮밥·비빔밥"}, {"n": "잔멸치녹차밥", "c": "밥·덮밥·비빔밥"}, {"n": "참나물날치알볶음밥", "c": "밥·덮밥·비빔밥"}, {"n": "초당옥수수솥밥", "c": "밥·덮밥·비빔밥"}, {"n": "콩나물밥", "c": "밥·덮밥·비빔밥"}, {"n": "닭갈비덮밥", "c": "밥·덮밥·비빔밥"}, {"n": "팽이버섯덮밥", "c": "밥·덮밥·비빔밥"}, {"n": "파인애플볶음밥", "c": "밥·덮밥·비빔밥"}, {"n": "파인애플불고기도리아", "c": "밥·덮밥·비빔밥"}, {"n": "해물커리덮밥", "c": "밥·덮밥·비빔밥"}, {"n": "LA갈비채소덮밥", "c": "밥·덮밥·비빔밥"}, {"n": "마파두부덮밥", "c": "밥·덮밥·비빔밥"}, {"n": "보리밥열무김치", "c": "밥·덮밥·비빔밥"}, {"n": "불고기비빔밥", "c": "밥·덮밥·비빔밥"}, {"n": "고추냉이크림파스타", "c": "면·파스타·국수"}, {"n": "고사리페스토파스타", "c": "면·파스타·국수"}, {"n": "나폴리탄스파게티", "c": "면·파스타·국수"}, {"n": "두유콩국수", "c": "면·파스타·국수"}, {"n": "라구파스타", "c": "면·파스타·국수"}, {"n": "로제파스타", "c": "면·파스타·국수"}, {"n": "바질페스토파스타", "c": "면·파스타·국수"}, {"n": "베이컨간장파스타", "c": "면·파스타·국수"}, {"n": "베이컨양배추볶음우동", "c": "면·파스타·국수"}, {"n": "베이컨크림리소토", "c": "면·파스타·국수"}, {"n": "베이컨크림파스타", "c": "면·파스타·국수"}, {"n": "봉골레파스타", "c": "면·파스타·국수"}, {"n": "버섯리소토", "c": "면·파스타·국수"}, {"n": "비빔국수", "c": "면·파스타·국수"}, {"n": "뽀모도로파스타", "c": "면·파스타·국수"}, {"n": "슈림프치킨차우면", "c": "면·파스타·국수"}, {"n": "알리오올리오", "c": "면·파스타·국수"}, {"n": "양배추토마토파스타", "c": "면·파스타·국수"}, {"n": "열무물국수", "c": "면·파스타·국수"}, {"n": "오븐스파게티", "c": "면·파스타·국수"}, {"n": "원팬봉골레파스타", "c": "면·파스타·국수"}, {"n": "원팬시금치리소토", "c": "면·파스타·국수"}, {"n": "원팬토마토파스타", "c": "면·파스타·국수"}, {"n": "쫄면", "c": "면·파스타·국수"}, {"n": "토마토비빔국수", "c": "면·파스타·국수"}, {"n": "평양냉면", "c": "면·파스타·국수"}, {"n": "해물차우면", "c": "면·파스타·국수"}, {"n": "해산물마리소토", "c": "면·파스타·국수"}, {"n": "해산물토마토리소토", "c": "면·파스타·국수"}, {"n": "해산물토마토파스타", "c": "면·파스타·국수"}, {"n": "히야시츄카", "c": "면·파스타·국수"}, {"n": "초계국수", "c": "면·파스타·국수"}, {"n": "김치리소토", "c": "면·파스타·국수"}, {"n": "바질페스토콜드파스타", "c": "면·파스타·국수"}, {"n": "제주 고사리 파스타", "c": "면·파스타·국수"}, {"n": "감잣국", "c": "국·찌개"}, {"n": "고추장찌개", "c": "국·찌개"}, {"n": "근대된장국", "c": "국·찌개"}, {"n": "김칫국", "c": "국·찌개"}, {"n": "김치콩나물국", "c": "국·찌개"}, {"n": "냉이된장찌개", "c": "국·찌개"}, {"n": "된장찌개", "c": "국·찌개"}, {"n": "돼지고기김치찌개", "c": "국·찌개"}, {"n": "매생이굴국", "c": "국·찌개"}, {"n": "맑은조개국", "c": "국·찌개"}, {"n": "미역국", "c": "국·찌개"}, {"n": "바지락미역국", "c": "국·찌개"}, {"n": "배추된장국", "c": "국·찌개"}, {"n": "북엇국", "c": "국·찌개"}, {"n": "비지찌개", "c": "국·찌개"}, {"n": "소고기뭇국", "c": "국·찌개"}, {"n": "순두부찌개", "c": "국·찌개"}, {"n": "쑥국", "c": "국·찌개"}, {"n": "시금치된장국", "c": "국·찌개"}, {"n": "양파유부찌개", "c": "국·찌개"}, {"n": "오이찌개", "c": "국·찌개"}, {"n": "오징어뭇국", "c": "국·찌개"}, {"n": "차돌된장찌개", "c": "국·찌개"}, {"n": "청국장찌개", "c": "국·찌개"}, {"n": "콩나물국", "c": "국·찌개"}, {"n": "황태해장국", "c": "국·찌개"}, {"n": "콩나물냉국", "c": "국·찌개"}, {"n": "만둣국", "c": "국·찌개"}, {"n": "감자수제비", "c": "국·찌개"}, {"n": "오이냉국", "c": "국·찌개"}, {"n": "토마토달걀탕", "c": "국·찌개"}, {"n": "냉이우렁된장찌개", "c": "국·찌개"}, {"n": "봄동된장국", "c": "국·찌개"}, {"n": "감자들깨탕", "c": "탕·전골"}, {"n": "꽃게탕", "c": "탕·전골"}, {"n": "닭볶음탕", "c": "탕·전골"}, {"n": "대파감자수프", "c": "탕·전골"}, {"n": "버섯매운탕", "c": "탕·전골"}, {"n": "부대찌개", "c": "탕·전골"}, {"n": "삼계탕", "c": "탕·전골"}, {"n": "어묵탕", "c": "탕·전골"}, {"n": "전복보양곰탕", "c": "탕·전골"}, {"n": "청국장순두부전골", "c": "탕·전골"}, {"n": "콩나물동태찜", "c": "탕·전골"}, {"n": "탕반가릿국", "c": "탕·전골"}, {"n": "토마토수프", "c": "탕·전골"}, {"n": "육개장", "c": "탕·전골"}, {"n": "버섯들깨탕", "c": "탕·전골"}, {"n": "갑오징어볶음", "c": "메인반찬"}, {"n": "고등어김치찜", "c": "메인반찬"}, {"n": "고등어조림", "c": "메인반찬"}, {"n": "골뱅이무침", "c": "메인반찬"}, {"n": "깻잎말이찜", "c": "메인반찬"}, {"n": "꼬막무침", "c": "메인반찬"}, {"n": "꿀닭봉", "c": "메인반찬"}, {"n": "김치두루치기", "c": "메인반찬"}, {"n": "김치찜", "c": "메인반찬"}, {"n": "낙지당면볶음", "c": "메인반찬"}, {"n": "달걀소고기장조림", "c": "메인반찬"}, {"n": "달걀찜", "c": "메인반찬"}, {"n": "닭갈비", "c": "메인반찬"}, {"n": "돼지갈비찜", "c": "메인반찬"}, {"n": "돼지불고기", "c": "메인반찬"}, {"n": "마늘소스치킨윙", "c": "메인반찬"}, {"n": "맥적", "c": "메인반찬"}, {"n": "묵은지수육", "c": "메인반찬"}, {"n": "문어조림", "c": "메인반찬"}, {"n": "무수분수육", "c": "메인반찬"}, {"n": "버팔로윙", "c": "메인반찬"}, {"n": "브로콜리마늘볶음", "c": "메인반찬"}, {"n": "삼색달걀말이", "c": "메인반찬"}, {"n": "소고기장조림", "c": "메인반찬"}, {"n": "소불고기", "c": "메인반찬"}, {"n": "순두부새우달걀찜", "c": "메인반찬"}, {"n": "순살찜닭", "c": "메인반찬"}, {"n": "수육", "c": "메인반찬"}, {"n": "쇼유치킨", "c": "메인반찬"}, {"n": "시금치새우볶음", "c": "메인반찬"}, {"n": "어묵볶음", "c": "메인반찬"}, {"n": "어묵잡채", "c": "메인반찬"}, {"n": "연어데리야끼", "c": "메인반찬"}, {"n": "오리주물럭", "c": "메인반찬"}, {"n": "오징어볶음", "c": "메인반찬"}, {"n": "우엉잡채", "c": "메인반찬"}, {"n": "원팬잡채", "c": "메인반찬"}, {"n": "조갯살두부조림", "c": "메인반찬"}, {"n": "제육볶음", "c": "메인반찬"}, {"n": "크림가자미스테이크", "c": "메인반찬"}, {"n": "더덕구이", "c": "메인반찬"}, {"n": "돼지고기장조림", "c": "메인반찬"}, {"n": "부대볶음", "c": "메인반찬"}, {"n": "훈제오리부추찜", "c": "메인반찬"}, {"n": "아귀캐슈너트강정", "c": "메인반찬"}, {"n": "알배추삼겹찜", "c": "메인반찬"}, {"n": "전복장", "c": "메인반찬"}, {"n": "오징어두부두루치기", "c": "메인반찬"}, {"n": "콩나물불고기", "c": "메인반찬"}, {"n": "돼지고기김치말이", "c": "메인반찬"}, {"n": "가지볶음", "c": "기본반찬·밑반찬"}, {"n": "감자조림", "c": "기본반찬·밑반찬"}, {"n": "감자채볶음", "c": "기본반찬·밑반찬"}, {"n": "꼬마새송이마늘볶음", "c": "기본반찬·밑반찬"}, {"n": "김무침", "c": "기본반찬·밑반찬"}, {"n": "된장고추무침", "c": "기본반찬·밑반찬"}, {"n": "두부조림", "c": "기본반찬·밑반찬"}, {"n": "무말랭이피클", "c": "기본반찬·밑반찬"}, {"n": "무생채", "c": "기본반찬·밑반찬"}, {"n": "무조림", "c": "기본반찬·밑반찬"}, {"n": "미역자반", "c": "기본반찬·밑반찬"}, {"n": "미역줄기볶음", "c": "기본반찬·밑반찬"}, {"n": "버섯볶음", "c": "기본반찬·밑반찬"}, {"n": "배추겉절이", "c": "기본반찬·밑반찬"}, {"n": "볶음김치", "c": "기본반찬·밑반찬"}, {"n": "부추무침", "c": "기본반찬·밑반찬"}, {"n": "삼색멸치볶음", "c": "기본반찬·밑반찬"}, {"n": "시금치무침", "c": "기본반찬·밑반찬"}, {"n": "애호박볶음", "c": "기본반찬·밑반찬"}, {"n": "연근조림", "c": "기본반찬·밑반찬"}, {"n": "열무나물", "c": "기본반찬·밑반찬"}, {"n": "오이고추된장무침", "c": "기본반찬·밑반찬"}, {"n": "오이무침", "c": "기본반찬·밑반찬"}, {"n": "오이장아찌", "c": "기본반찬·밑반찬"}, {"n": "우엉조림", "c": "기본반찬·밑반찬"}, {"n": "진미채볶음", "c": "기본반찬·밑반찬"}, {"n": "채소피클", "c": "기본반찬·밑반찬"}, {"n": "콩나물무침", "c": "기본반찬·밑반찬"}, {"n": "콩자반", "c": "기본반찬·밑반찬"}, {"n": "땅콩조림", "c": "기본반찬·밑반찬"}, {"n": "파절이", "c": "기본반찬·밑반찬"}, {"n": "풋마늘무침", "c": "기본반찬·밑반찬"}, {"n": "김조림", "c": "기본반찬·밑반찬"}, {"n": "상추겉절이", "c": "기본반찬·밑반찬"}, {"n": "오이볶음", "c": "기본반찬·밑반찬"}, {"n": "도토리묵무침", "c": "기본반찬·밑반찬"}, {"n": "도토리묵김치무침", "c": "기본반찬·밑반찬"}, {"n": "달래두부조림", "c": "기본반찬·밑반찬"}, {"n": "소고기달걀장조림", "c": "기본반찬·밑반찬"}, {"n": "가지채전", "c": "전 (煎)"}, {"n": "감자전", "c": "전 (煎)"}, {"n": "굴전", "c": "전 (煎)"}, {"n": "김치전", "c": "전 (煎)"}, {"n": "동태전", "c": "전 (煎)"}, {"n": "미나리바지락전", "c": "전 (煎)"}, {"n": "봄동전", "c": "전 (煎)"}, {"n": "부추전", "c": "전 (煎)"}, {"n": "애호박전", "c": "전 (煎)"}, {"n": "오코노미야키", "c": "전 (煎)"}, {"n": "해물파전", "c": "전 (煎)"}, {"n": "삼색달걀말이", "c": "전 (煎)"}, {"n": "깻잎상추전", "c": "전 (煎)"}, {"n": "해물부추전", "c": "전 (煎)"}, {"n": "가지멘보샤", "c": "튀김"}, {"n": "감자크림김치크로켓", "c": "튀김"}, {"n": "두릅튀김", "c": "튀김"}, {"n": "두부강정", "c": "튀김"}, {"n": "버팔로윙", "c": "튀김"}, {"n": "스팸가스", "c": "튀김"}, {"n": "아귀캐슈너트강정", "c": "튀김"}, {"n": "어니언링", "c": "튀김"}, {"n": "장어튀김", "c": "튀김"}, {"n": "칠리핫도그", "c": "튀김"}, {"n": "크림치즈김치만두튀김", "c": "튀김"}, {"n": "탕수만두", "c": "튀김"}, {"n": "태국식달걀튀김", "c": "튀김"}, {"n": "표고말이돼지고기튀김", "c": "튀김"}, {"n": "김말이·새우튀김·야끼만두·채소튀김", "c": "튀김"}, {"n": "← 신규 메뉴 입력", "c": "튀김"}, {"n": "깍두기", "c": "김치"}, {"n": "백김치", "c": "김치"}, {"n": "배추김치", "c": "김치"}, {"n": "양파김치", "c": "김치"}, {"n": "열무김치", "c": "김치"}, {"n": "열무물김치", "c": "김치"}, {"n": "오이소박이", "c": "김치"}, {"n": "총각김치", "c": "김치"}, {"n": "파김치", "c": "김치"}, {"n": "풋고추김치", "c": "김치"}, {"n": "← 신규 메뉴 입력", "c": "김치"}, {"n": "가스파초", "c": "샐러드·가벼운 한 끼"}, {"n": "광어세비체포케", "c": "샐러드·가벼운 한 끼"}, {"n": "닭가슴살냉채", "c": "샐러드·가벼운 한 끼"}, {"n": "닭가슴살샐러드", "c": "샐러드·가벼운 한 끼"}, {"n": "닭죽", "c": "샐러드·가벼운 한 끼"}, {"n": "당근라페", "c": "샐러드·가벼운 한 끼"}, {"n": "렌틸콩샐러드", "c": "샐러드·가벼운 한 끼"}, {"n": "문어미역초회", "c": "샐러드·가벼운 한 끼"}, {"n": "버섯물회", "c": "샐러드·가벼운 한 끼"}, {"n": "병아리콩샐러드", "c": "샐러드·가벼운 한 끼"}, {"n": "새우마요샐러드", "c": "샐러드·가벼운 한 끼"}, {"n": "소고기채소죽", "c": "샐러드·가벼운 한 끼"}, {"n": "양파수프", "c": "샐러드·가벼운 한 끼"}, {"n": "연근칩샐러드", "c": "샐러드·가벼운 한 끼"}, {"n": "연어샐러드", "c": "샐러드·가벼운 한 끼"}, {"n": "오이아보카도수프", "c": "샐러드·가벼운 한 끼"}, {"n": "옥수수수프", "c": "샐러드·가벼운 한 끼"}, {"n": "전복죽", "c": "샐러드·가벼운 한 끼"}, {"n": "초여름 과일 사라다", "c": "샐러드·가벼운 한 끼"}, {"n": "참나물두부샐러드", "c": "샐러드·가벼운 한 끼"}, {"n": "참외샐러드", "c": "샐러드·가벼운 한 끼"}, {"n": "청포묵샐러드", "c": "샐러드·가벼운 한 끼"}, {"n": "카프레제", "c": "샐러드·가벼운 한 끼"}, {"n": "카펠리나불고기샐러드", "c": "샐러드·가벼운 한 끼"}, {"n": "코울슬로", "c": "샐러드·가벼운 한 끼"}, {"n": "콥샐러드", "c": "샐러드·가벼운 한 끼"}, {"n": "쿠스쿠스샐러드", "c": "샐러드·가벼운 한 끼"}, {"n": "클램차우더", "c": "샐러드·가벼운 한 끼"}, {"n": "에그포테이토차우더", "c": "샐러드·가벼운 한 끼"}, {"n": "감자샐러드", "c": "샐러드·가벼운 한 끼"}, {"n": "그릴드치즈샌드위치", "c": "샌드위치·브런치"}, {"n": "그래놀라와과일콩포트", "c": "샌드위치·브런치"}, {"n": "단호박에그슬럿", "c": "샌드위치·브런치"}, {"n": "반미샌드위치", "c": "샌드위치·브런치"}, {"n": "바나나오트밀팬케이크", "c": "샌드위치·브런치"}, {"n": "베이직샌드위치", "c": "샌드위치·브런치"}, {"n": "버터밀크팬케이크", "c": "샌드위치·브런치"}, {"n": "수플레팬케이크", "c": "샌드위치·브런치"}, {"n": "시금치프리타타", "c": "샌드위치·브런치"}, {"n": "시저치킨샌드위치", "c": "샌드위치·브런치"}, {"n": "애플시나몬오트밀", "c": "샌드위치·브런치"}, {"n": "양파절임샌드위치", "c": "샌드위치·브런치"}, {"n": "에그인헬", "c": "샌드위치·브런치"}, {"n": "옛날토스트", "c": "샌드위치·브런치"}, {"n": "차돌박이샌드위치", "c": "샌드위치·브런치"}, {"n": "참치샌드위치", "c": "샌드위치·브런치"}, {"n": "치킨크랜베리샌드위치", "c": "샌드위치·브런치"}, {"n": "치킨피타샌드위치", "c": "샌드위치·브런치"}, {"n": "크레페", "c": "샌드위치·브런치"}, {"n": "크림치즈연어베이글", "c": "샌드위치·브런치"}, {"n": "키쉬", "c": "샌드위치·브런치"}, {"n": "키토와플오픈샌드위치", "c": "샌드위치·브런치"}, {"n": "텐더비프샌드위치", "c": "샌드위치·브런치"}, {"n": "프렌치토스트", "c": "샌드위치·브런치"}, {"n": "플레인오믈렛", "c": "샌드위치·브런치"}, {"n": "하와이안크래미샌드위치", "c": "샌드위치·브런치"}, {"n": "햄치즈롤", "c": "샌드위치·브런치"}, {"n": "햄치즈크루아상", "c": "샌드위치·브런치"}, {"n": "훈제연어크루아상샌드위치", "c": "샌드위치·브런치"}, {"n": "리코타치즈샌드위치", "c": "샌드위치·브런치"}, {"n": "로스트치킨파니니", "c": "샌드위치·브런치"}, {"n": "베이컨어니언파니니", "c": "샌드위치·브런치"}, {"n": "미니팬케이크핫도그", "c": "샌드위치·브런치"}, {"n": "김치토르티야오믈렛", "c": "샌드위치·브런치"}, {"n": "스트리트토스트", "c": "샌드위치·브런치"}, {"n": "간장떡볶이", "c": "분식"}, {"n": "궁중떡볶이", "c": "분식"}, {"n": "김치누름적", "c": "분식"}, {"n": "김치말이주먹밥", "c": "분식"}, {"n": "꼬치어묵", "c": "분식"}, {"n": "닭꼬치", "c": "분식"}, {"n": "달걀지단김밥", "c": "분식"}, {"n": "들깨현미떡볶이", "c": "분식"}, {"n": "땡초어묵김밥", "c": "분식"}, {"n": "로제떡볶이", "c": "분식"}, {"n": "매운참치김밥", "c": "분식"}, {"n": "매콤기름떡볶이", "c": "분식"}, {"n": "영양유부초밥", "c": "분식"}, {"n": "오픈유부초밥", "c": "분식"}, {"n": "잔멸치묵은지쌈밥", "c": "분식"}, {"n": "채소김밥", "c": "분식"}, {"n": "채소초밥", "c": "분식"}, {"n": "쫄면", "c": "분식"}, {"n": "쫄면떡볶이", "c": "분식"}, {"n": "토마토메밀김밥", "c": "분식"}, {"n": "템페김밥", "c": "분식"}, {"n": "햄무스비", "c": "분식"}, {"n": "← 신규 메뉴 입력", "c": "분식"}, {"n": "공심채볶음", "c": "세계음식"}, {"n": "닭고기캐슈너트볶음", "c": "세계음식"}, {"n": "두부팟타이", "c": "세계음식"}, {"n": "똠양꿍", "c": "세계음식"}, {"n": "망고스티키라이스", "c": "세계음식"}, {"n": "참외솜땀", "c": "세계음식"}, {"n": "치앙마이프라이즈", "c": "세계음식"}, {"n": "태국식달걀튀김", "c": "세계음식"}, {"n": "태국식매운조개볶음", "c": "세계음식"}, {"n": "팟씨유", "c": "세계음식"}, {"n": "얌운센", "c": "세계음식"}, {"n": "노가다", "c": "세계음식"}, {"n": "부리토", "c": "세계음식"}, {"n": "살사로하와살사베르데", "c": "세계음식"}, {"n": "엔칠라다", "c": "세계음식"}, {"n": "카르니타스타코", "c": "세계음식"}, {"n": "케사디야", "c": "세계음식"}, {"n": "칠라낄레스", "c": "세계음식"}, {"n": "파히타", "c": "세계음식"}, {"n": "피코데가요와과카몰레", "c": "세계음식"}, {"n": "쇼유치킨", "c": "세계음식"}, {"n": "히야시츄카", "c": "세계음식"}, {"n": "마라황과", "c": "세계음식"}, {"n": "어향가지볶음", "c": "세계음식"}, {"n": "중국식닭구이", "c": "세계음식"}, {"n": "가지롤", "c": "세계음식"}, {"n": "가지피자", "c": "세계음식"}, {"n": "뢰스티", "c": "세계음식"}, {"n": "라따뚜이", "c": "세계음식"}, {"n": "라쟈냐", "c": "세계음식"}, {"n": "마렝고치킨스테이크", "c": "세계음식"}, {"n": "맥앤치즈", "c": "세계음식"}, {"n": "방당죄르", "c": "세계음식"}, {"n": "불고기아란치니", "c": "세계음식"}, {"n": "부야베스", "c": "세계음식"}, {"n": "연어파피요트", "c": "세계음식"}, {"n": "차지키소스", "c": "세계음식"}, {"n": "치킨스테이크", "c": "세계음식"}, {"n": "치킨프리카세", "c": "세계음식"}, {"n": "크림소스캐비지롤", "c": "세계음식"}, {"n": "포크립구이", "c": "세계음식"}, {"n": "풀드포크코울슬로슬라이더", "c": "세계음식"}, {"n": "파에야", "c": "세계음식"}, {"n": "햄버그스테이크", "c": "세계음식"}, {"n": "후무스", "c": "세계음식"}, {"n": "리코타누디", "c": "세계음식"}, {"n": "리코타라비올리", "c": "세계음식"}, {"n": "로스트치킨", "c": "세계음식"}, {"n": "생선파피요트", "c": "세계음식"}, {"n": "니쿠자가", "c": "세계음식"}, {"n": "참나물 불고기 퀘사디아", "c": "세계음식"}, {"n": "개성편수", "c": "이북식"}, {"n": "이북식가자미식해", "c": "이북식"}, {"n": "이북식소금게장", "c": "이북식"}, {"n": "이북식어복쟁반", "c": "이북식"}, {"n": "이북식찰밥피순대", "c": "이북식"}, {"n": "탕반가릿국", "c": "이북식"}, {"n": "평양만두", "c": "이북식"}, {"n": "평양식닭온반", "c": "이북식"}, {"n": "해주교반", "c": "이북식"}, {"n": "← 신규 메뉴 입력", "c": "이북식"}, {"n": "견과바", "c": "비건·건강식"}, {"n": "그릭요거트바크", "c": "비건·건강식"}, {"n": "두부토르티야랩", "c": "비건·건강식"}, {"n": "비건치즈양송이샌드위치", "c": "비건·건강식"}, {"n": "삼색건강스무디", "c": "비건·건강식"}, {"n": "아사이볼", "c": "비건·건강식"}, {"n": "에그칙피샌드위치", "c": "비건·건강식"}, {"n": "코코넛무카레", "c": "비건·건강식"}, {"n": "코코아에너지바", "c": "비건·건강식"}, {"n": "클렌징수프", "c": "비건·건강식"}, {"n": "포두부롤", "c": "비건·건강식"}, {"n": "하와이안비건바비큐피자", "c": "비건·건강식"}, {"n": "호박가지쌈밥", "c": "비건·건강식"}, {"n": "병아리콩두유", "c": "비건·건강식"}, {"n": "← 신규 메뉴 입력", "c": "비건·건강식"}, {"n": "감자치즈빵", "c": "베이킹·디저트"}, {"n": "깨강정", "c": "베이킹·디저트"}, {"n": "당근코코넛파운드케이크", "c": "베이킹·디저트"}, {"n": "단호박티딩러스크", "c": "베이킹·디저트"}, {"n": "레몬마들렌", "c": "베이킹·디저트"}, {"n": "레이디핑거", "c": "베이킹·디저트"}, {"n": "로투스설기", "c": "베이킹·디저트"}, {"n": "바나나로띠", "c": "베이킹·디저트"}, {"n": "병아리콩르뱅쿠키", "c": "베이킹·디저트"}, {"n": "브라우니", "c": "베이킹·디저트"}, {"n": "스콘", "c": "베이킹·디저트"}, {"n": "스윗밤머핀", "c": "베이킹·디저트"}, {"n": "수박설기", "c": "베이킹·디저트"}, {"n": "쇼트브레드쿠키", "c": "베이킹·디저트"}, {"n": "쑥두부브라우니", "c": "베이킹·디저트"}, {"n": "애플시나몬쿠키", "c": "베이킹·디저트"}, {"n": "양갱", "c": "베이킹·디저트"}, {"n": "얼그레이플라워스콘", "c": "베이킹·디저트"}, {"n": "오레오설기", "c": "베이킹·디저트"}, {"n": "오색송편", "c": "베이킹·디저트"}, {"n": "과일찹쌀떡", "c": "베이킹·디저트"}, {"n": "과일타르트", "c": "베이킹·디저트"}, {"n": "그래놀라와과일콩포트", "c": "베이킹·디저트"}, {"n": "초당옥수수뇨끼", "c": "베이킹·디저트"}, {"n": "초코아몬드머핀", "c": "베이킹·디저트"}, {"n": "초콜릿청크쿠키", "c": "베이킹·디저트"}, {"n": "캔디드피넛", "c": "베이킹·디저트"}, {"n": "퐁당컵케이크", "c": "베이킹·디저트"}, {"n": "토마토허브파운드케이크", "c": "베이킹·디저트"}, {"n": "땅콩버터사과쿠키", "c": "베이킹·디저트"}, {"n": "호박베리스콘", "c": "베이킹·디저트"}, {"n": "두바이쫀득쿠키", "c": "베이킹·디저트"}, {"n": "다즐링홍차", "c": "음료·티"}, {"n": "말차", "c": "음료·티"}, {"n": "보이차", "c": "음료·티"}, {"n": "수정과", "c": "음료·티"}, {"n": "식혜", "c": "음료·티"}, {"n": "아쌈홍차와실론홍차", "c": "음료·티"}, {"n": "아이스티", "c": "음료·티"}, {"n": "애프터눈티", "c": "음료·티"}, {"n": "영국식밀크티", "c": "음료·티"}, {"n": "오르차타", "c": "음료·티"}, {"n": "인도식차이밀크티", "c": "음료·티"}, {"n": "중국식우롱차", "c": "음료·티"}, {"n": "한국식녹차", "c": "음료·티"}, {"n": "← 신규 메뉴 입력", "c": "음료·티"}, {"n": "간장양념장", "c": "소스·양념"}, {"n": "고추장양념소스", "c": "소스·양념"}, {"n": "냉채소스", "c": "소스·양념"}, {"n": "달래장", "c": "소스·양념"}, {"n": "된장소스", "c": "소스·양념"}, {"n": "바질페스토", "c": "소스·양념"}, {"n": "아카이빗비빔장", "c": "소스·양념"}, {"n": "참깨소스", "c": "소스·양념"}, {"n": "← 신규 메뉴 입력", "c": "소스·양념"}, {"n": "(가을) 낙엽쿠키", "c": "키즈"}, {"n": "(가을) 알밤휘낭시에", "c": "키즈"}, {"n": "(가을) 한과 휘낭시에", "c": "키즈"}, {"n": "중장비케이크", "c": "키즈"}, {"n": "빼낭시에", "c": "키즈"}, {"n": "슈가볼쿠키", "c": "키즈"}, {"n": "사탕닮은 케이크팝 만들기", "c": "키즈"}, {"n": "거북이멜론빵 만들기", "c": "키즈"}, {"n": "화산구겔호프 만들기", "c": "키즈"}], CATS=["밥·덮밥·비빔밥", "면·파스타·국수", "국·찌개", "탕·전골", "메인반찬", "기본반찬·밑반찬", "전 (煎)", "튀김", "김치", "샐러드·가벼운 한 끼", "샌드위치·브런치", "분식", "세계음식", "이북식", "비건·건강식", "베이킹·디저트", "음료·티", "소스·양념", "키즈"], THEMES={"여름밤, 우리 팀 쿠킹클래스": {"lens": "기업", "sub": "제철로 완성하는 우리 팀 쿠킹클래스", "menus": [["제철 복숭아 수제청 & 브리치즈 샐러드", "", "제철 복숭아청에 루꼴라와 브리치즈를 더한 여름 프리미엄 샐러드.", 1, []], ["참나물 불고기 퀘사디아 & 참외 샐러드", "", "달콤한 불고기와 치즈, 참나물 퀘사디아에 여름 참외 샐러드를 곁들인 한 끼.", 3, [["참나물 불고기 퀘사디아", "세계음식"], ["참외샐러드", "샐러드·가벼운 한 끼"]]], ["들기름 버섯 솥밥 & 얼큰 순두부찌개", "", "고소한 들기름 버섯 솥밥과 얼큰한 순두부찌개, 든든한 여름 보양 한상.", 1, [["순두부찌개", "국·찌개"]]], ["고급 중화 풍미 가득, 중국식 닭구이", "", "양념 밴 닭다리살과 파·깻잎을 고소한 밀쌈에 돌돌 싸 먹는 별미.", 1, [["중국식닭구이", "세계음식"]]], ["크림소스를 곁들인 순살 가자미 스테이크", "", "바삭하게 구운 순살 가자미에 풍미 가득한 크림소스를 더한 스테이크.", 1, [["크림가자미스테이크", "메인반찬"]]]]}, "봄나물 제철 클래스": {"lens": "기업", "sub": "봄나물·해산물로 차린 봄 한 상", "menus": []}, "가을 제철 집밥 클래스": {"lens": "기업", "sub": "환절기, 따뜻한 제철 한 상", "menus": []}, "연말 송년 파티 플래터": {"lens": "기업", "sub": "송년·시상식, 손이 가는 핑거푸드", "menus": []}, "임직원 건강 밥상": {"lens": "기업", "sub": "저염·채소 중심, 사철 복지 프로그램", "menus": []}, "백화점 사계절 라인업": {"lens": "유통", "sub": "문화센터·백화점 고객용 프로그램 라인업", "menus": []}};
+/* item: {label, auto, src:[{n,c}], d, p, img} */
+var S={ver:'1차',lens:'기업',sel:[]};
+var $=function(i){return document.getElementById(i);};
+function esc(s){return (s||'').replace(/[&<>"]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m];});}
+function hasSrc(n){for(var i=0;i<S.sel.length;i++){for(var j=0;j<S.sel[i].src.length;j++){if(S.sel[i].src[j].n===n)return i;}}return -1;}
+function autoLabel(m){if(!m.auto)return;m.label=m.src.map(function(s){return s.n;}).join(' & ');}
+function cardCat(m){return m.src.length?m.src[0].c:'신규';}
+
+$('theme').innerHTML='<option value="">— 직접 구성 —</option>'+Object.keys(THEMES).map(function(k){return '<option>'+k+'</option>';}).join('');
+$('month').innerHTML=[1,2,3,4,5,6,7,8,9,10,11,12].map(function(m){return '<option'+(m===8?' selected':'')+'>'+m+'월</option>';}).join('');
+$('mcat').innerHTML='<option value="">전체 카테고리</option>'+CATS.map(function(c){return '<option>'+c+'</option>';}).join('');
+
+function loadTheme(name){
+  var t=THEMES[name]; if(!t)return;
+  S.sel=(t.menus||[]).map(function(m){return {label:m[0],auto:false,src:(m[4]||[]).map(function(x){return {n:x[0],c:x[1]};}),d:m[2],p:m[3]||0,img:null};});
+  var parts=name.split(', ');
+  $('ttl').value=parts.length>1?parts[0]+',':name;
+  $('sub').value=t.sub||'';
+  setSeg('lens',t.lens||'기업');
+  render();
+}
+$('theme').addEventListener('change',function(){if(this.value)loadTheme(this.value);else{S.sel=[];render();}});
+function setSeg(id,val){document.querySelectorAll('#'+id+' .sg').forEach(function(s){s.classList.toggle('on',s.dataset.v===val);});if(id==='ver')S.ver=val;else S.lens=val;}
+['ver','lens'].forEach(function(id){document.querySelectorAll('#'+id+' .sg').forEach(function(s){s.addEventListener('click',function(){setSeg(id,s.dataset.v);render();});});});
+
+function renderPicker(){
+  var q=$('msearch').value.trim(), cat=$('mcat').value;
+  var hits=MENUS.filter(function(m){if(cat&&m.c!==cat)return false;if(q&&m.n.indexOf(q)<0)return false;return true;});
+  var shown=hits.slice(0,120);
+  $('picklist').innerHTML=shown.length?shown.map(function(m){
+    var on=hasSrc(m.n)>-1;
+    return '<div class="pk'+(on?' on':'')+'" data-n="'+esc(m.n)+'" data-c="'+esc(m.c)+'"><span class="bx">'+(on?'✓':'')+'</span><span class="pn">'+esc(m.n)+'</span><span class="pc">'+esc(m.c)+'</span></div>';
+  }).join(''):'<div style="padding:14px;font-size:12.5px;color:var(--muted)">검색 결과가 없어요. ＋신규 메뉴로 직접 추가할 수 있어요.</div>';
+  $('pkinfo').innerHTML='검색 '+hits.length+'개'+(hits.length>120?' (120 표시)':'')+' · 선택 <b>'+S.sel.length+'개</b>';
+}
+$('picklist').addEventListener('click',function(e){
+  var d=e.target.closest('.pk'); if(!d)return;
+  var n=d.dataset.n, i=hasSrc(n);
+  if(i>-1){
+    var it=S.sel[i];
+    it.src=it.src.filter(function(s){return s.n!==n;});
+    if(!it.src.length&&it.auto)S.sel.splice(i,1); else autoLabel(it);
+  }else{
+    S.sel.push({label:n,auto:true,src:[{n:n,c:d.dataset.c}],d:'',p:0,img:null});
+  }
+  render();
+});
+$('msearch').addEventListener('input',renderPicker);
+$('mcat').addEventListener('change',renderPicker);
+function addNew(){S.sel.push({label:'',auto:false,src:[],d:'',p:0,img:null});render();
+  setTimeout(function(){var els=document.querySelectorAll('#mlist input.lbl');if(els.length)els[els.length-1].focus();},30);}
+function clearSel(){if(S.sel.length&&!confirm('선택한 메뉴를 모두 비울까요?'))return;S.sel=[];render();}
+
+function renderEditor(){
+  $('mcount').textContent=S.sel.length+'개 선택';
+  $('mlist').innerHTML=S.sel.map(function(m,i){
+    var isNew=!m.src.length;
+    var srcs=m.src.length?m.src.map(function(s,j){return '<span class="sc">'+esc(s.n)+'<i onclick="rmsrc('+i+','+j+')">✕</i></span>';}).join('')
+      :'<span class="none">원본 없음 · 신규 메뉴</span>';
+    return '<div class="mitem'+(isNew?' new':'')+'">'+
+      '<div class="mtop"><span class="ib" onclick="mv('+i+',-1)">↑</span><span class="ib" onclick="mv('+i+',1)">↓</span>'+
+      '<input class="lbl" type="text" placeholder="제안서에 나갈 이름" value="'+esc(m.label)+'" oninput="setlbl('+i+',this.value)">'+
+      (isNew?'<span class="nb">신규</span>':'')+'<span class="ib" onclick="rm('+i+')">✕</span></div>'+
+      '<div class="srcs">'+srcs+'</div>'+
+      '<div class="addsrc"><input type="text" placeholder="＋ 원본 메뉴 추가 (세트로 묶기)" oninput="ssearch('+i+',this.value)" onblur="setTimeout(function(){var r=document.getElementById(\'sres'+i+'\');if(r)r.style.display=\'none\';},180)"><div class="sres" id="sres'+i+'" style="display:none"></div></div>'+
+      '<textarea class="mdesc" placeholder="한 줄 설명 (제안서에 그대로 들어갑니다)" oninput="setd('+i+',this.value)">'+esc(m.d)+'</textarea>'+
+      '<div class="photo"><span class="ph'+(m.p===1?' on':'')+'" onclick="setp('+i+',1)">사진 있음</span>'+
+      '<span class="ph'+(m.p===2?' on need':'')+'" onclick="setp('+i+',2)">사진 필요</span>'+
+      '<span class="ph'+(m.p===3?' on need':'')+'" onclick="setp('+i+',3)">교체 필요</span>'+
+      (m.img?'<span class="ph on" onclick="clrimg('+i+')">미리보기 사진 ✕</span>':'')+'</div></div>';
+  }).join('')||'<div style="font-size:12.5px;color:var(--muted);padding:4px 0">위에서 메뉴를 체크하거나 ＋신규 메뉴를 눌러 추가하세요.</div>';
+}
+function ssearch(i,q){
+  var box=$('sres'+i); if(!box)return;
+  q=(q||'').trim(); if(!q){box.style.display='none';return;}
+  var hits=MENUS.filter(function(m){return m.n.indexOf(q)>-1;}).slice(0,20);
+  box.innerHTML=hits.length?hits.map(function(m){return '<div onmousedown="addsrc('+i+',\''+esc(m.n).replace(/'/g,"\\'")+'\',\''+esc(m.c).replace(/'/g,"\\'")+'\')"><span>'+esc(m.n)+'</span><span class="rc">'+esc(m.c)+'</span></div>';}).join(''):'<div style="color:var(--muted)">결과 없음</div>';
+  box.style.display='block';
+}
+function addsrc(i,n,c){
+  var it=S.sel[i];
+  if(!it.src.some(function(s){return s.n===n;}))it.src.push({n:n,c:c});
+  if(!it.label)it.auto=true;
+  autoLabel(it); render();
+}
+function rmsrc(i,j){var it=S.sel[i];it.src.splice(j,1);autoLabel(it);render();}
+function setlbl(i,v){S.sel[i].label=v;S.sel[i].auto=false;renderPreview();buildOut();}
+function mv(i,d){var j=i+d;if(j<0||j>=S.sel.length)return;var t=S.sel[i];S.sel[i]=S.sel[j];S.sel[j]=t;render();}
+function rm(i){S.sel.splice(i,1);render();}
+function setd(i,v){S.sel[i].d=v;renderPreview();buildOut();}
+function setp(i,v){S.sel[i].p=(S.sel[i].p===v?0:v);render();}
+function clrimg(i){if(S.sel[i].img){URL.revokeObjectURL(S.sel[i].img);S.sel[i].img=null;}render();}
+
+var pickIdx=-1;
+$('fpick').addEventListener('change',function(){if(this.files&&this.files[0]&&pickIdx>-1)setImg(pickIdx,this.files[0]);this.value='';});
+function setImg(i,f){
+  if(!f.type||f.type.indexOf('image')<0){alert('이미지 파일만 됩니다.');return;}
+  if(S.sel[i].img)URL.revokeObjectURL(S.sel[i].img);
+  S.sel[i].img=URL.createObjectURL(f); if(S.sel[i].p===0)S.sel[i].p=1; render();
+}
+function bindThumbs(){
+  document.querySelectorAll('.pthumb').forEach(function(t){
+    var i=+t.dataset.i;
+    t.addEventListener('click',function(e){if(e.target.classList.contains('x'))return;pickIdx=i;$('fpick').click();});
+    t.addEventListener('dragover',function(e){e.preventDefault();t.classList.add('drag');});
+    t.addEventListener('dragleave',function(){t.classList.remove('drag');});
+    t.addEventListener('drop',function(e){e.preventDefault();t.classList.remove('drag');if(e.dataTransfer.files[0])setImg(i,e.dataTransfer.files[0]);});
+  });
+}
+
+function renderPreview(){
+  var mo=$('month').value, sl=$('seasonlbl').value||('2026 '+mo);
+  $('pv-label').textContent=sl+' · 온라인 쿠킹클래스 제안';
+  $('ph1').textContent=sl+' · 01'; $('ph2').textContent=sl+' · 02';
+  $('pv-ttl').textContent=$('ttl').value||'제목을 입력하세요';
+  $('pv-sub').textContent=$('sub').value||'';
+  var co=$('company').value;
+  $('pv-lead').textContent='공공의주방 요리 전문가들의 비법 레시피를, 집으로 배송되는 쿠킹박스와 실시간 온라인 클래스로. 장보기도 준비도 없이, 손쉽게 근사한 한 끼를 완성하는 특별한 저녁을 '+(co?co+'에 ':'')+'제안드립니다.';
+  $('pkghd').textContent=(S.lens==='유통')?'유통·문화센터 프로그램 라인업':'기업 복지 · 팀빌딩 온라인 클래스';
+  var sp=[['진행 방식',$('way').value],['참여 인원',$('ppl').value],['소요 시간',$('dur').value],['난이도',$('lvl').value],['배송 지역',$('area').value],['참가비 (예시)',$('price').value]];
+  $('pv-spec').innerHTML=sp.map(function(r){return '<div><span>'+esc(r[0])+'</span><span>'+esc(r[1])+'</span></div>';}).join('');
+  var n=S.sel.length, kor=['','하나','둘','셋','넷','다섯','여섯','일곱','여덟','아홉','열'][n]||n;
+  $('pv-mlabel').textContent=(sl.split(' ')[1]||'MENU')+' MENU · '+n;
+  $('pv-mtitle').textContent=(S.lens==='유통')?'아카이빗 프로그램 라인업':'아카이빗이 전하는 매력 만점 클래스 '+kor;
+  $('pv-menus').innerHTML=S.sel.map(function(m,i){
+    var cls=m.img?'ok':(m.p===1?'ok':((m.p===2||m.p===3)?'need':''));
+    var inner=m.img?('<img src="'+m.img+'" alt=""><span class="x" onclick="clrimg('+i+')">✕</span>')
+      :(m.p===1?'사진 있음':(m.p===2?'사진 필요':(m.p===3?'교체 필요':'사진 넣기<br>클릭·드롭')));
+    return '<div class="pmenu"><span class="pnum">'+String(i+1).padStart(2,'0')+'</span>'+
+      '<div class="pthumb '+cls+'" data-i="'+i+'">'+inner+'</div>'+
+      '<div class="pb"><span class="pc">'+esc(cardCat(m))+'</span><div class="pt">'+esc(m.label||'(이름 미입력)')+'</div><div class="pd">'+esc(m.d||'— 한 줄 설명을 입력하세요 —')+'</div></div></div>';
+  }).join('')||'<div style="font-size:12.5px;color:var(--muted)">메뉴를 체크하면 여기에 보입니다.</div>';
+  bindThumbs();
+  var need=S.sel.filter(function(m){return m.p===2||m.p===3;});
+  var nl=$('needlist');
+  if(need.length){nl.style.display='block';nl.innerHTML='<b>📷 보내주실 사진 '+need.length+'건</b><br>'+need.map(function(m){return '· '+esc(m.label)+' ('+(m.p===2?'신규':'교체')+')';}).join('<br>')+'<br><span style="font-size:11.5px">권장 4:3 가로 · 1440×1080px · 밝은 자연광</span>';}
+  else nl.style.display='none';
+  var nw=S.sel.filter(function(m){return !m.src.length;});
+  var wl=$('newlist');
+  if(nw.length){wl.style.display='block';wl.innerHTML='<b>🆕 원본에 없는 신규 메뉴 '+nw.length+'건</b><br>'+nw.map(function(m){return '· '+esc(m.label||'(이름 미입력)');}).join('<br>')+'<br><span style="font-size:11.5px">확정되면 레시피·구성품 준비가 필요합니다.</span>';}
+  else wl.style.display='none';
+}
+
+function buildOut(){
+  var t=document.querySelector('#tabsx .tabx.on').dataset.t;
+  var co=$('company').value||'○○', pe=$('person').value||'담당자님';
+  var sl=$('seasonlbl').value||'2026', sc=$('sched').value||'협의 일정';
+  if(t==='mail'){
+    $('out').value='제목: [아카이빗] '+$('month').value+' '+($('ttl').value||'')+' 온라인 쿠킹클래스 메뉴 제안서 전달드립니다\n\n'+
+    pe+'께,\n안녕하세요. 공공의주방·아카이빗 안상미입니다.\n\n'+
+    '먼저 저희 아카이빗에 관심 가져주셔서 감사드립니다.\n앞서 말씀 나눈 일정과 구성('+sc+' · '+$('ppl').value+' · 쿠킹박스 포함 온라인 수업)을 바탕으로, 제철 메뉴를 중심으로 제안서를 정리해 첨부드립니다.\n'+
+    '한식·양식·세계요리까지 임직원분들이 저녁에 즐기시기 좋은 '+S.sel.length+'가지 메뉴를 골라 담았습니다. 메뉴별 사진과 간략한 소개, 진행 방식과 구성 안내를 함께 담았으니 편하게 살펴봐 주시면 감사하겠습니다.\n'+
+    '제안드린 메뉴는 예시 구성이며, 조정하고 싶으신 메뉴나 원하시는 방향이 있으시면 언제든 편하게 말씀해 주세요. 인원과 일정, 구성까지 맞춰 세부 견적과 함께 조율해 드리겠습니다.\n\n'+
+    '감사합니다.\n\n주식회사 공공의주방 · 아카이빗\n안상미 드림\narchiveat.kr';
+  }else if(t==='pdata'){
+    var o={type:'PDATA',ver:S.ver,lens:S.lens,company:co,person:pe,season:sl,month:$('month').value,
+      theme:$('theme').value,title:$('ttl').value,sub:$('sub').value,schedule:sc,
+      spec:{way:$('way').value,ppl:$('ppl').value,dur:$('dur').value,lvl:$('lvl').value,area:$('area').value,price:$('price').value},
+      menus:S.sel.map(function(m){return {label:m.label,cat:cardCat(m),sources:m.src.map(function(s){return s.n;}),isNew:!m.src.length,desc:m.d,photo:['미정','있음','필요','교체'][m.p]};})};
+    $('out').value=JSON.stringify(o,null,1);
+  }else{
+    var cur=S.sel.map(function(m,i){return (i+1)+'. '+(m.label||'(미입력)')+(m.src.length?' [원본: '+m.src.map(function(s){return s.n;}).join(' + ')+']':' [신규]');}).join('\n')||'(아직 없음)';
+    $('out').value='[아카이빗 · 메뉴 구성 요청]\n\n'+
+'테마: '+($('theme').value||$('ttl').value||'-')+'\n대상: '+co+' ('+S.lens+' 렌즈 · '+S.ver+' 제안)\n시즌: '+sl+' / '+$('month').value+'\n'+
+'조건: '+$('way').value+' · '+$('ppl').value+' · '+$('dur').value+' · 난이도 '+$('lvl').value+'\n참가비(예시): '+$('price').value+'\n\n'+
+'현재 구성:\n'+cur+'\n\n'+
+'요청:\n'+
+'1) 위 조건('+$('dur').value+' 수업)에 맞는 메뉴 구성을 추천해 주세요. 메인+사이드처럼 한 회차로 묶어서요.\n'+
+'2) 제철 1~2 + 시그니처 2~3 + 종류 다양(한·양·중·디저트) 원칙을 지켜주세요.\n'+
+'3) 보유 메뉴(472개)에서 고른 것과, 없지만 추천할 신규 메뉴를 구분해 주세요.\n'+
+'4) 각 항목의 제안서용 표시명과 한 줄 설명(먹음직스러운 톤)도 함께 제안해 주세요.\n';
+  }
+  syncBtn();
+}
+function syncBtn(){var t=document.querySelector('#tabsx .tabx.on').dataset.t;
+  $('copybtn').textContent=(t==='mail')?'✉️ 메일 문구 복사':(t==='pdata'?'📄 PDATA 복사':'🤖 요청문 복사');}
+document.querySelectorAll('#tabsx .tabx').forEach(function(x){x.addEventListener('click',function(){document.querySelectorAll('#tabsx .tabx').forEach(function(y){y.classList.remove('on');});x.classList.add('on');buildOut();});});
+['company','person','ttl','sub','seasonlbl','month','way','ppl','dur','lvl','area','price','sched'].forEach(function(id){
+  $(id).addEventListener('input',function(){renderPreview();buildOut();});
+  $(id).addEventListener('change',function(){renderPreview();buildOut();});});
+function render(){renderPicker();renderEditor();renderPreview();buildOut();}
+function copyOut(){var t=document.querySelector('#tabsx .tabx.on').dataset.t;var o=$('out');o.select();document.execCommand('copy');alert((t==='mail'?'메일 문구':(t==='pdata'?'PDATA':'요청문'))+'을 복사했습니다.');}
+function saveSelf(){var b=new Blob([document.documentElement.outerHTML],{type:'text/html'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='proposal-build.html';a.click();}
+
+var qp=new URLSearchParams(location.search).get('theme');
+var start=(qp&&THEMES[qp])?qp:'여름밤, 우리 팀 쿠킹클래스';
+$('theme').value=start; loadTheme(start);
+</script>
+</body></html>
