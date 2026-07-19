@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>견적서 — K-우주포럼 2026 총회 (추가 30명)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#efece5;font-family:'Pretendard',system-ui,sans-serif;color:#1f1f1d;}
+  .wrap{display:flex;justify-content:center;padding:24px 12px;}
+  .page{width:210mm;min-height:297mm;background:#fff;padding:20mm 18mm;box-shadow:0 4px 24px rgba(0,0,0,.12);position:relative;color:#1f1f1d;}
+  .doc-logo{position:absolute;top:16mm;right:18mm;border:1.5px solid #780A0A;color:#780A0A;font-size:11px;font-weight:700;padding:3px 8px;letter-spacing:1px;}
+  .doc-title{font-family:'Hahmlet',serif;font-size:42px;font-weight:800;margin:0 0 6px;letter-spacing:-1px;}
+  .doc-sub{font-size:16px;font-weight:600;margin:0 0 6px;}
+  .doc-tag{display:inline-block;background:#F4E6E4;color:#780A0A;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;margin:0 0 20px;}
+  .doc-meta{font-size:12px;color:#333;line-height:1.7;}
+  .doc-meta .unit{float:right;color:#555;}
+  .rule{border:none;border-top:2px solid #1f1f1d;margin:10px 0 0;}
+  .qt{width:100%;border-collapse:collapse;margin-top:18px;font-size:13px;}
+  .qt th{text-align:center;font-weight:600;color:#333;padding:10px 6px;border-bottom:1.5px solid #1f1f1d;}
+  .qt th:first-child{text-align:left;}
+  .qt td{padding:11px 6px;border-bottom:1px solid #e7e3db;text-align:center;font-family:'DM Mono',monospace;font-variant-numeric:tabular-nums;}
+  .qt td:first-child{text-align:left;font-weight:600;font-family:'Pretendard',sans-serif;}
+  .qt td.amt{text-align:right;}
+  .qt td.note{text-align:left;color:#555;font-size:12px;font-family:'Pretendard',sans-serif;}
+  .sums{margin-top:4px;}
+  .sumline{display:flex;justify-content:space-between;align-items:center;padding:12px 6px;font-size:15px;border-top:1.5px solid #1f1f1d;margin-top:6px;font-family:'DM Mono',monospace;}
+  .sumline span:first-child{font-family:'Pretendard',sans-serif;}
+  .sumline.sub{border-top:none;padding:6px 6px;font-size:14px;color:#444;}
+  .sumline.final{background:#d7d4cd;font-weight:800;font-size:16px;padding:13px 10px;}
+  .qdate{text-align:right;font-size:12px;color:#555;margin-top:8px;}
+  .foot{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:24px;font-size:12px;}
+  .foot h4{font-size:12px;margin:14px 0 6px;}
+  .foot ul{margin:0;padding-left:14px;line-height:1.7;color:#444;}
+  .who{border-bottom:1px solid #999;padding-bottom:6px;margin-bottom:14px;font-weight:600;}
+  .co .who{border:none;padding:0;margin:0 0 4px;}
+  .co div{padding:3px 0;}
+  .printbar{max-width:210mm;margin:0 auto 4px;text-align:right;}
+  .printbar button{font-family:inherit;font-size:13px;background:#780A0A;color:#fff;border:none;border-radius:8px;padding:9px 16px;cursor:pointer;}
+  @media print{
+    html,body{background:#fff;}
+    .wrap{padding:0;}
+    .page{box-shadow:none;width:auto;min-height:auto;margin:0;padding:14mm;}
+    .printbar{display:none;}
+    @page{size:A4;margin:0;}
+  }
+</style>
+</head>
+<body>
+  <div class="printbar"><button onclick="window.print()">🖨 인쇄 / PDF로 저장</button></div>
+  <div class="wrap">
+    <div class="page">
+      <div class="doc-logo">공공의주방</div>
+      <h1 class="doc-title">견적서</h1>
+      <div class="doc-sub">머니투데이 &lt;K-우주포럼 2026 총회&gt;</div>
+      <div class="doc-tag">추가 견적 · 인원 30명 추가</div>
+      <div class="doc-meta"><span class="unit">(단위: 원. VAT별도)</span>* 행사 일시 : 2026-07-07<br>* 장소 : 디캠프 마포 박병원홀 (프론트원) 5층</div>
+      <hr class="rule">
+
+      <table class="qt">
+        <thead><tr><th>세부내용</th><th>단가</th><th>인원, 개수</th><th>공급 가액</th><th>비고</th></tr></thead>
+        <tbody>
+          <tr><td>메뉴 (핑거푸드)</td><td>30,000</td><td>30</td><td class="amt">900,000</td><td class="note">기존 70명 외 추가 30명</td></tr>
+        </tbody>
+      </table>
+
+      <div class="sums">
+        <div class="sumline"><span>소계 (공급가액)</span><span>900,000</span></div>
+        <div class="sumline sub"><span>부가세 (10%)</span><span>90,000</span></div>
+        <div class="sumline final"><span>합계 (VAT포함)</span><span>990,000</span></div>
+      </div>
+
+      <div class="qdate">견적일: 2026.07.01</div>
+
+      <div class="foot">
+        <div>
+          <div class="who">담당자 : 송하나(파트장)</div>
+          <h4>[운영]</h4>
+          <ul>
+            <li>행사 시작 30분전 완료 (준비시간 기본 1시간-1시간 30분 예정)</li>
+            <li>행사 시간 기본 2시간</li>
+            <li>앞접시, 커트러리 등 기본 일회용으로 제공</li>
+            <li>행사 준비팀 당일 주차 지원 필요</li>
+          </ul>
+          <h4>[정산]</h4>
+          <ul>
+            <li>케이터링 신청 시 : 선금 (50%)</li>
+            <li>케이터링 전일 : 잔금 (50%)</li>
+            <li>환불규정 : 행사 30일전 계약금의 70% / 14일전 50% / 7일전 계약금 전액환불 불가</li>
+            <li>결제방법 변경은 문의 주시면 최대한 편의 제공하겠습니다.</li>
+          </ul>
+        </div>
+        <div class="co">
+          <div class="who">회사명 : (주) 공공의주방</div>
+          <div>대표자 :　안상미</div>
+          <div>연락처 :　010.2770.5538</div>
+          <div>등록번호 : 368-81-00400</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

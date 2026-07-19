@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="version" content="v4">
+<meta name="updated" content="2026.07.18 20:05">
+<title>명함 DB · 콘텐츠·제안</title>
+<link rel="apple-touch-icon" href="app-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{--cream:#FAF5EC;--ink:#241F1B;--line:#E7DCC8;--sub:#6B6256;--muted:#9A8F7C;--forest:#3E5641;--forest-lt:#5A6B4E;--forest-bg:#EAEFE6;--coral:#FF5019}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--cream);color:var(--ink);font-family:"Pretendard",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+a{text-decoration:none;color:inherit}
+.top{padding:26px 0 0}
+.top-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:6px 14px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--sub)}
+.pill:hover{border-color:var(--forest);color:var(--forest)}
+.breadcrumb{font-size:12px;color:var(--muted);text-align:right}
+.breadcrumb .sep{color:#CFC5B2;margin:0 4px}.breadcrumb .meta{font-family:"DM Mono",monospace;font-size:11px}
+.head{padding:28px 0 20px;border-bottom:1px solid var(--line);margin-bottom:18px}
+.eyebrow{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.14em;color:var(--forest);margin-bottom:10px}
+h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:800;font-size:38px;letter-spacing:-.02em}
+.subtitle{font-size:14.5px;color:var(--sub);margin-top:12px;max-width:720px}
+
+.privacy{background:#FFF6F2;border:1px solid #F3D9CD;border-radius:12px;padding:13px 17px;font-size:12.5px;color:#8A4630;margin-bottom:14px;line-height:1.7}
+.privacy b{color:#7A3A24}
+.loadbar{background:#fff;border:.5px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.loadbar .ldesc{font-size:12.5px;color:var(--sub);flex:1;min-width:220px}
+.btn{font-size:13px;padding:9px 16px;border-radius:9px;border:.5px solid var(--forest);color:var(--forest);background:#fff;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--forest-bg)}
+.btn.solid{background:var(--forest);color:#EAEFE6}
+.stats{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}
+.st{background:#fff;border:.5px solid var(--line);border-radius:11px;padding:11px 15px;min-width:96px}
+.st .n{font-family:"DM Mono",monospace;font-size:19px;font-weight:500;color:var(--forest)}
+.st .l{font-size:11px;color:var(--muted);margin-top:1px}
+.filters{background:#fff;border:.5px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:14px}
+.fgroup{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;padding:6px 0}
+.fgroup+.fgroup{border-top:.5px solid var(--line)}
+.flabel{font-size:11px;color:var(--muted);min-width:56px;font-family:"DM Mono",monospace}
+.chip{font-size:12px;padding:4px 11px;border-radius:20px;border:.5px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;user-select:none}
+.chip:hover{border-color:var(--forest-lt)}
+.chip.on{background:var(--forest);color:#EAEFE6;border-color:var(--forest)}
+.searchbar{display:flex;align-items:center;gap:10px;background:#fff;border:.5px solid var(--line);border-radius:12px;padding:3px 14px;margin-bottom:12px}
+.searchbar input{border:0;outline:0;font-size:14px;font-family:inherit;padding:9px 0;flex:1;background:transparent;color:var(--ink)}
+.searchbar .ico{color:var(--muted);font-family:"DM Mono",monospace}
+.bar{display:flex;justify-content:space-between;align-items:center;margin:0 2px 12px;font-size:12.5px;color:var(--muted)}
+.bar .reset{cursor:pointer;color:var(--forest)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:13px}
+.card{background:#fff;border:.5px solid var(--line);border-radius:13px;padding:15px 17px}
+.card.sample{background:#FFFDF6;border-color:#EADFBE}
+.c-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px}
+.c-co{font-size:15.5px;font-weight:700;line-height:1.35}
+.c-pe{font-size:12.5px;color:var(--sub);margin-top:1px}
+.tag{font-size:10.5px;padding:2px 9px;border-radius:20px;background:var(--forest-bg);color:var(--forest);border:.5px solid #D5DFCF;white-space:nowrap}
+.stt{font-size:10.5px;padding:2px 9px;border-radius:20px;white-space:nowrap;font-family:"DM Mono",monospace}
+.s0{background:#F2EFE6;color:#8B8272}.s1{background:#E8EFF6;color:#2C6B96}.s2{background:#FFF3DC;color:#A07A28}
+.s3{background:#EAEFE6;color:var(--forest)}.s4{background:#E4F0E4;color:#2E6B3E;font-weight:600}.s5{background:#F5EAEA;color:#96504A}
+.rows{margin:10px 0 0;font-size:12.5px}
+.row{display:flex;gap:8px;padding:4px 0;border-bottom:.5px solid #F4EEE0}
+.row:last-child{border-bottom:0}
+.row .k{color:var(--muted);min-width:56px;font-size:11.5px}
+.row .v{flex:1;color:#3D3833;word-break:break-all}
+.intr{margin-top:9px;padding-top:9px;border-top:.5px dashed var(--line);font-size:12px;color:var(--sub);line-height:1.6}
+.next{margin-top:8px;font-size:12px;color:var(--forest);background:var(--forest-bg);border-radius:7px;padding:6px 10px}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);font-size:13px;padding:40px 0}
+.guide-note{background:var(--forest-bg);border-radius:14px;padding:18px 22px;margin:28px 0 16px;font-size:13px;color:#4A5646;line-height:1.8}
+.guide-note b{color:var(--forest)}
+.files-label{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--muted);margin:14px 0 9px}
+.files{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:60px}
+.fbtn{display:inline-flex;align-items:center;gap:7px;font-size:13px;padding:10px 16px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer}
+.fbtn:hover{border-color:var(--forest);color:var(--forest)}
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  .top{padding:18px 0 0}
+  .pill{font-size:12px;padding:5px 11px}
+  .breadcrumb{text-align:left;font-size:11px;line-height:1.6}
+  .head{padding:20px 0 16px;margin-bottom:14px}
+  h1.title{font-size:26px}
+  .subtitle{font-size:13.5px}
+  .privacy{padding:11px 13px;font-size:12px;border-radius:10px}
+  /* 열기 바 */
+  .loadbar{padding:13px 14px;gap:10px;border-radius:12px}
+  .loadbar .ldesc{min-width:100%;font-size:12px}
+  .btn{flex:1;text-align:center;padding:10px 12px}
+  /* 통계 — 3개씩 */
+  .stats{gap:7px}
+  .st{flex:1 1 calc(33.33% - 5px);min-width:0;padding:9px 10px;border-radius:10px}
+  .st .n{font-size:16px}
+  .st .l{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  /* 필터 */
+  .filters{padding:11px 12px;border-radius:12px}
+  .fgroup{padding:7px 0;gap:8px;flex-wrap:nowrap;align-items:flex-start}
+  .flabel{min-width:52px;margin:3px 0 0;flex:0 0 auto}
+  #fcat,#fstt,#fint{display:flex;flex-wrap:wrap;gap:6px;flex:1;min-width:0}
+  .chip{font-size:11.5px;padding:4px 10px;flex:0 0 auto;white-space:nowrap}
+  .searchbar{padding:2px 12px}
+  .searchbar input{font-size:15px}
+  .bar{font-size:12px;margin-bottom:10px}
+  /* 카드 */
+  .grid{grid-template-columns:1fr;gap:10px}
+  .card{padding:13px 14px;border-radius:12px}
+  .c-co{font-size:14.5px}
+  .c-pe{font-size:12px}
+  .row .k{min-width:48px;font-size:11px}
+  .row .v{font-size:12px}
+  .intr{font-size:11.5px}
+  .next{font-size:11.5px;padding:5px 9px}
+  .guide-note{padding:15px 16px;font-size:12.5px;margin:22px 0 14px}
+  .fbtn{font-size:12.5px;padding:9px 13px;flex:1;justify-content:center}
+}
+</style></head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="top-row">
+      <div class="pills">
+        <a class="pill" href="proposal.html">← 콘텐츠·제안 홈</a>
+        <a class="pill" href="proposal-build.html">✍️ 제안 만들기</a>
+        <a class="pill" href="https://claude.ai/chat/c8ce7bf0-36f0-4c65-8af4-36ce1fe513a9" target="_blank" rel="noopener">💬 작업 대화</a>
+      </div>
+      <div class="breadcrumb">AI 워크스페이스 <span class="sep">›</span> 콘텐츠·제안 <span class="sep">›</span> 명함 DB
+        <span class="sep">|</span> <span class="meta">업데이트 2026.07.18 · v4</span></div>
+    </div>
+    <div class="head">
+      <div class="eyebrow">CARD DATABASE</div>
+      <h1 class="title">명함 DB</h1>
+      <p class="subtitle">받은 명함을 대상·관심분야·상태로 정리합니다. 여기서 보낼 곳을 골라 <b>제안 만들기</b>로 넘어갑니다.</p>
+    </div>
+  </header>
+
+  <div class="privacy">
+    🔒 <b>개인정보 보호</b> — 이 화면에는 실제 명함 데이터가 저장되어 있지 않습니다. 아래 <b>엑셀 마스터를 열어</b> 보는 방식이며,
+    읽은 내용은 <b>이 브라우저 화면에만</b> 잠시 표시되고 파일이나 인터넷에 저장되지 않습니다. (새로고침하면 사라집니다)
+  </div>
+
+  <div class="loadbar">
+    <span class="ldesc">📂 <b>proposal_명함DB_마스터.xlsx</b>를 열면 실제 명함이 표시됩니다. 지금은 <b>예시 10건</b>을 보고 계십니다.</span>
+    <span class="btn solid" onclick="document.getElementById('xf').click()">엑셀 마스터 열기</span>
+    <span class="btn" onclick="loadSample()">예시로 되돌리기</span>
+    <input type="file" id="xf" accept=".xlsx,.xls" style="display:none">
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="searchbar"><span class="ico">⌕</span><input id="q" type="text" placeholder="회사·담당자·메모 검색"></div>
+
+  <div class="filters" id="filters">
+    <div class="fgroup"><span class="flabel">카테고리</span><span id="fcat"></span></div>
+    <div class="fgroup"><span class="flabel">상태</span><span id="fstt"></span></div>
+    <div class="fgroup"><span class="flabel">관심분야</span><span id="fint"></span></div>
+  </div>
+
+  <div class="bar"><span id="count"></span><span class="reset" id="reset">필터·검색 초기화</span></div>
+  <div class="grid" id="grid"></div>
+
+  <div class="guide-note">
+    <b>이 화면의 역할</b> — 명함을 <b>보고 고르는 곳</b>입니다. 입력·수정은 엑셀 마스터에서 하세요.<br>
+    ※ 새 명함은 이미지를 작업 대화에 올려주시면 엑셀에 정리해 드립니다. 상태가 <b>확정</b>이 되면 실행 홈(클래스·쿠킹박스·케이터링)으로 넘어갑니다.
+  </div>
+
+  <div class="files-label">📦 원본 파일</div>
+  <div class="files">
+    <span class="fbtn" onclick="saveSelf()">📄 이 화면 HTML 받기</span>
+    <a class="fbtn" href="https://claude.ai/chat/c8ce7bf0-36f0-4c65-8af4-36ce1fe513a9" target="_blank" rel="noopener">💬 대화창에서 전체 받기</a>
+  </div>
+</div>
+
+<script>
+(function(){var v=document.querySelector('meta[name=version]'),u=document.querySelector('meta[name=updated]');if(v&&u){var e=document.querySelector('.breadcrumb .meta');if(e)e.textContent='업데이트 '+u.content+' · '+v.content;}})();
+
+var CATS=['기업','지자체·공공','유통·백화점','문화센터·교육','투자자·기관','협회·단체','미디어','기타'];
+var STTS=['미발송','소개본 발송','반응','맞춤 제안','확정','보류'];
+var INTS=['복지','팀빌딩','행사·케이터링','키즈·가족','제휴'];
+
+/* 예시 데이터 — 실존 인물·기업 아님 */
+var SAMPLE=[
+ {co:'(예시) 한빛전자',pe:'김서연',ti:'인사팀 과장',em:'sy.kim@example.com',ph:'010-0000-0001',cat:'기업',intr:'복지, 팀빌딩',met:'2026-07-02',via:'디캠프 IR 데모데이',memo:'재택 직원 많아 박스 관심',stt:'소개본 발송',last:'2026-07-10',next:'8월 첫주 반응 확인'},
+ {co:'(예시) 수원시청 청년정책과',pe:'박도현',ti:'주무관',em:'dh.park@example.go.kr',ph:'031-000-0002',cat:'지자체·공공',intr:'키즈·가족',met:'2026-06-24',via:'경기도 창업지원 설명회',memo:'1인가구 청년 대상 사업 예산 있음',stt:'반응',last:'2026-07-05',next:'1인 밥상 맞춤 제안 발송'},
+ {co:'(예시) 그린백화점 문화센터',pe:'이하늘',ti:'문화사업팀 대리',em:'sky.lee@example.com',ph:'02-000-0003',cat:'유통·백화점',intr:'키즈·가족, 제휴',met:'2026-05-18',via:'갤러리아 협업 미팅에서 소개',memo:'가을 강좌 라인업 검토 중',stt:'맞춤 제안',last:'2026-07-14',next:'가을 커리큘럼 회신 대기'},
+ {co:'(예시) 마루소프트',pe:'정민재',ti:'총무팀 팀장',em:'mj.jung@example.com',ph:'010-0000-0004',cat:'기업',intr:'행사·케이터링',met:'2026-07-11',via:'파티본 진선옥 대표 소개',memo:'연말 송년회 100명 규모 예상',stt:'미발송',last:'',next:'소개본 발송 예정'},
+ {co:'(예시) 온빛평생교육원',pe:'최유진',ti:'교육기획팀',em:'yj.choi@example.com',ph:'010-0000-0005',cat:'문화센터·교육',intr:'키즈·가족',met:'2026-06-30',via:'스타필드 ClassCok 행사',memo:'방학 특강 관심',stt:'소개본 발송',last:'2026-07-08',next:'키즈 테마 추가 제안'},
+ {co:'(예시) 엠와이 파트너스',pe:'한지우',ti:'심사역',em:'jw.han@example.com',ph:'010-0000-0006',cat:'투자자·기관',intr:'제휴',met:'2026-04-15',via:'반기 보고 미팅',memo:'영업 대상 아님 · 관계 관리',stt:'보류',last:'',next:'하반기 보고 시 근황 공유'},
+ {co:'(예시) 대한식품협회',pe:'오세훈',ti:'사업본부 차장',em:'sh.oh@example.or.kr',ph:'02-000-0007',cat:'협회·단체',intr:'제휴',met:'2026-06-05',via:'식품박람회 부스',memo:'회원사 대상 복지 프로그램 제휴 논의',stt:'반응',last:'2026-06-20',next:'제휴 형태 정리해 회신'},
+ {co:'(예시) 라이프매거진',pe:'윤가은',ti:'푸드 에디터',em:'ge.yoon@example.com',ph:'010-0000-0008',cat:'미디어',intr:'제휴',met:'2026-07-03',via:'인스타 DM 후 미팅',memo:'제철 레시피 연재 제안 받음',stt:'미발송',last:'',next:'콘텐츠 협업안 정리'},
+ {co:'(예시) 세움건설',pe:'강태원',ti:'경영지원팀 부장',em:'tw.kang@example.com',ph:'010-0000-0009',cat:'기업',intr:'복지, 행사·케이터링',met:'2026-05-22',via:'광교 지식산업센터 입주사 모임',memo:'추석 선물 대체로 쿠킹박스 검토',stt:'확정',last:'2026-07-01',next:'클래스 홈으로 이관 완료'},
+ {co:'(예시) 용인시 여성가족과',pe:'서지안',ti:'주무관',em:'ja.seo@example.go.kr',ph:'031-000-0010',cat:'지자체·공공',intr:'키즈·가족, 복지',met:'2026-07-16',via:'지역 아동센터 연계 사업 설명회',memo:'가족 요리교실 하반기 예산 확인 중',stt:'미발송',last:'',next:'가족 집밥 테마로 소개본'}
+];
+
+var DATA=[], IS_SAMPLE=true;
+var active={cat:new Set(),stt:new Set(),intr:new Set()}, q='';
+var $=function(i){return document.getElementById(i);};
+function esc(s){return (s==null?'':String(s)).replace(/[&<>"]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m];});}
+
+function chipRow(id,arr,key){
+  $(id).innerHTML=arr.map(function(v){return '<span class="chip" data-k="'+key+'" data-v="'+esc(v)+'">'+esc(v)+'</span>';}).join(' ');
+}
+chipRow('fcat',CATS,'cat'); chipRow('fstt',STTS,'stt'); chipRow('fint',INTS,'intr');
+document.querySelectorAll('#filters .chip').forEach(function(c){
+  c.addEventListener('click',function(){
+    var k=c.dataset.k,v=c.dataset.v;
+    if(active[k].has(v)){active[k].delete(v);c.classList.remove('on');}else{active[k].add(v);c.classList.add('on');}
+    render();
+  });
+});
+$('q').addEventListener('input',function(){q=this.value.trim();render();});
+$('reset').addEventListener('click',function(){
+  ['cat','stt','intr'].forEach(function(k){active[k].clear();});
+  document.querySelectorAll('#filters .chip').forEach(function(c){c.classList.remove('on');});
+  q=''; $('q').value=''; render();
+});
+
+function sclass(s){var i=STTS.indexOf(s); return 's'+(i<0?0:i);}
+function render(){
+  var rows=DATA.filter(function(d){
+    if(active.cat.size&&!active.cat.has(d.cat))return false;
+    if(active.stt.size&&!active.stt.has(d.stt))return false;
+    if(active.intr.size){
+      var mine=(d.intr||'').split(',').map(function(x){return x.trim();});
+      var hit=false; active.intr.forEach(function(v){if(mine.indexOf(v)>-1)hit=true;});
+      if(!hit)return false;
+    }
+    if(q){
+      var blob=[d.co,d.pe,d.ti,d.memo,d.via,d.next].join(' ');
+      if(blob.indexOf(q)<0)return false;
+    }
+    return true;
+  });
+  $('count').textContent=rows.length+'명'+(IS_SAMPLE?' · 예시 데이터':'');
+  $('grid').innerHTML=rows.length?rows.map(function(d){
+    return '<div class="card'+(IS_SAMPLE?' sample':'')+'">'+
+      '<div class="c-top"><div><div class="c-co">'+esc(d.co)+'</div><div class="c-pe">'+esc(d.pe)+(d.ti?' · '+esc(d.ti):'')+'</div></div>'+
+      '<span class="stt '+sclass(d.stt)+'">'+esc(d.stt||'미발송')+'</span></div>'+
+      '<div style="display:flex;gap:5px;flex-wrap:wrap">'+
+        (d.cat?'<span class="tag">'+esc(d.cat)+'</span>':'')+
+        (d.intr||'').split(',').filter(function(x){return x.trim();}).map(function(x){return '<span class="tag">'+esc(x.trim())+'</span>';}).join('')+
+      '</div>'+
+      '<div class="rows">'+
+        (d.em?'<div class="row"><span class="k">이메일</span><span class="v">'+esc(d.em)+'</span></div>':'')+
+        (d.ph?'<div class="row"><span class="k">연락처</span><span class="v">'+esc(d.ph)+'</span></div>':'')+
+        (d.last?'<div class="row"><span class="k">최근발송</span><span class="v">'+esc(d.last)+'</span></div>':'')+
+      '</div>'+
+      ((d.met||d.via||d.memo)?'<div class="intr">'+(d.met?'📅 '+esc(d.met)+' · ':'')+esc(d.via||'')+(d.memo?'<br>'+esc(d.memo):'')+'</div>':'')+
+      (d.next?'<div class="next">▶ '+esc(d.next)+'</div>':'')+
+    '</div>';
+  }).join(''):'<div class="empty">조건에 맞는 명함이 없어요.</div>';
+  renderStats();
+}
+function renderStats(){
+  var tot=DATA.length, by={};
+  STTS.forEach(function(s){by[s]=0;});
+  DATA.forEach(function(d){if(by[d.stt]!==undefined)by[d.stt]++;});
+  var cards=[['전체',tot]];
+  ['미발송','소개본 발송','반응','맞춤 제안','확정'].forEach(function(s){cards.push([s,by[s]||0]);});
+  $('stats').innerHTML=cards.map(function(c){return '<div class="st"><div class="n">'+c[1]+'</div><div class="l">'+c[0]+'</div></div>';}).join('');
+}
+
+function loadSample(){DATA=SAMPLE.slice(); IS_SAMPLE=true; render();}
+
+$('xf').addEventListener('change',function(e){
+  var f=e.target.files[0]; if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    try{
+      var wb=XLSX.read(new Uint8Array(ev.target.result),{type:'array'});
+      var sh=wb.Sheets['명함DB']||wb.Sheets[wb.SheetNames[0]];
+      var rows=XLSX.utils.sheet_to_json(sh,{defval:''});
+      var map={'회사명':'co','담당자':'pe','직함':'ti','이메일':'em','연락처':'ph','카테고리':'cat',
+               '관심분야':'intr','만난날짜':'met','만난경위':'via','메모':'memo','상태':'stt','최근발송일':'last','다음액션':'next'};
+      DATA=rows.map(function(r0){
+        var o={}; Object.keys(map).forEach(function(k){o[map[k]]=fmt(r0[k]);}); return o;
+      }).filter(function(o){return o.co && o.co.indexOf('(예시)')<0;});
+      IS_SAMPLE=false;
+      if(!DATA.length){alert('읽을 데이터가 없어요. 「명함DB」 시트에 회사명이 입력됐는지 확인해주세요.');loadSample();return;}
+      render();
+    }catch(err){alert('파일을 읽지 못했어요: '+err.message);}
+  };
+  r.readAsArrayBuffer(f); this.value='';
+});
+function fmt(v){
+  if(v instanceof Date){var p=function(n){return (n<10?'0':'')+n;};return v.getFullYear()+'-'+p(v.getMonth()+1)+'-'+p(v.getDate());}
+  return (v==null?'':String(v)).trim();
+}
+function saveSelf(){var b=new Blob([document.documentElement.outerHTML],{type:'text/html'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='proposal-cards.html';a.click();}
+loadSample();
+</script>
+</body></html>

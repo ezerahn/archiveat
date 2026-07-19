@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v3">
-<meta name="updated" content="2026.07.07 00:25">
+<meta name="version" content="v4">
+<meta name="updated" content="2026.07.07 13:45">
 <title>클래스 견적 계산기</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,8 +47,10 @@ th{background:#F4EFE3;font-size:11px;font-weight:700;color:var(--sub);position:s
 th.grp{background:#EFE7D4}
 td input{width:100%;font-family:inherit;font-size:12.5px;border:none;background:none;text-align:center;color:var(--ink);padding:3px 2px}
 td input:focus{outline:1px solid var(--point);border-radius:3px;background:#fff}
-td.auto{background:#F3F7FA;font-family:"DM Mono",monospace;color:var(--online);font-weight:500}
-td.per{background:#EAF3FA;font-family:"DM Mono",monospace;font-weight:700;color:var(--ink)}
+td.auto{background:#F3F7FA;font-family:"DM Mono",monospace;color:var(--online);font-weight:500;text-align:right;padding-right:8px}
+td.per{background:#EAF3FA;font-family:"DM Mono",monospace;font-weight:700;color:var(--ink);text-align:right;padding-right:8px}
+td input[type=number]{text-align:right;padding-right:6px}
+td input.c-1인단위,td input.c-판매단위{text-align:center;padding-right:2px}
 td.txt input{text-align:left}
 .lk{color:var(--point);text-decoration:none;font-size:13px}
 .rowdel{color:var(--wait);cursor:pointer;font-size:14px;background:none;border:none;padding:0 2px}
@@ -110,6 +112,7 @@ details.content summary .s{font-size:12px;color:var(--wait);margin-left:auto;fon
 .btn.ghost{background:var(--card);border:1px solid var(--line);color:var(--ink)}
 .foot{margin-top:28px;font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
 .note{font-size:12px;color:var(--wait);margin-top:8px}
+.pii{font-size:10px;color:#B44A1E;font-weight:600}
 @media(max-width:520px){.hero h1{font-size:29px}.topbar{align-items:flex-start}.tb-right{flex-direction:column;align-items:flex-end;gap:2px}.tb-sep{display:none}}
 </style></head><body><div class="wrap">
 
@@ -121,7 +124,7 @@ details.content summary .s{font-size:12px;color:var(--wait);margin-left:auto;fon
 <div class="tb-right"><span class="crumb">AI 워크스페이스 › 클래스 › 견적 계산기</span><span class="tb-sep">|</span><span class="updated" id="upd"></span></div>
 </div>
 
-<header class="hero"><h1>클래스 견적 계산기</h1><p class="lead">재료비와 수익률을 계산해 진행 여부를 판단하고, 확정 내용을 복사해 등록합니다.</p></header>
+<header class="hero"><h1>클래스 등록·견적</h1><p class="lead">신규 클래스를 등록하고 재료비·수익률을 계산합니다. 확정 내용을 복사해 마스터에 등록합니다.</p></header>
 
 <!-- 불러오기 (수정용) -->
 <details class="block content" id="loadBlock">
@@ -153,6 +156,22 @@ details.content summary .s{font-size:12px;color:var(--wait);margin-left:auto;fon
 </div>
 </section>
 
+<!-- ①-2 일정·모집 (접이식) -->
+<details class="block fold" open>
+<summary><span class="n">📅</span><h2>일정 · 모집</h2><span class="s">수업일·장소와 모집 방식</span></summary>
+<div class="grid" style="margin-top:14px">
+<div class="f"><label>수업일</label><input id="cdate" type="date"></div>
+<div class="f"><label>시각</label><input id="ctime" type="time" value="16:00"></div>
+<div class="f wide"><label>장소 / 배송</label><input id="cplace" placeholder="온라인: 온라인 줌+배송 / 오프라인: 갤러리아 광교"></div>
+<div class="f"><label>모집 방식</label>
+<div class="seg mtype" id="mtype"><button data-t="A" class="on">사전확정</button><button data-t="B">모객</button></div>
+</div>
+<div class="f"><label>최소 인원</label><input id="cmin" type="number" inputmode="numeric" placeholder="예: 4"></div>
+<div class="f"><label>최대 인원</label><input id="cmax" type="number" inputmode="numeric" placeholder="예: 30"></div>
+</div>
+<p class="note">사전확정(경기도지식 등) = 정해진 인원이 옴 · 모객(갤러리아·몰 등) = 신청받아 최소 채우면 개강. 모객은 수업일 D-4 자정 마감.</p>
+</details>
+
 <!-- ②-A 온라인: 재료비 표 -->
 <section class="block" id="matBlock">
 <div class="bh"><span class="n">②</span><h2>재료비 (1인 기준)</h2><span class="s">구매처 링크는 클릭 시 새 탭 · 주문단위만 직접 입력</span></div>
@@ -183,7 +202,31 @@ details.content summary .s{font-size:12px;color:var(--wait);margin-left:auto;fon
 <p class="note">기본 20%. 발주처·조건에 따라 수정하세요. 오프라인은 재료비를 선생님이 부담하므로 우리 원가에서 제외됩니다.</p>
 </section>
 
-<!-- ③ 수익률 -->
+<!-- ③-2 정산·선생님 (접이식 · 입력 전용) -->
+<details class="block fold">
+<summary><span class="n">💰</span><h2>정산 · 선생님</h2><span class="s">등록용 정보 입력 (계산은 홈에서 자동)</span></summary>
+<div class="grid" style="margin-top:14px">
+<div class="f"><label>선생님 이름</label><input id="t_name" placeholder="예: 이영미"></div>
+<div class="f"><label>선생님 유형</label>
+<div class="seg ttype" id="ttype"><button data-t="개인" class="on">개인</button><button data-t="사업자">사업자</button></div>
+</div>
+<div class="f"><label>정산 방식</label>
+<div class="seg feeway" id="feeway"><button data-w="인당1만" class="on">인당 1만</button><button data-w="수수료%">수수료%</button></div>
+</div>
+<div class="f"><label>정산액 / 율</label><input id="t_feeval" placeholder="인당1만: 10000 / 수수료%: 20"></div>
+<div class="f"><label>정산 구조</label>
+<div class="seg struct" id="struct"><button data-s="주최수금" class="on">주최수금</button><button data-s="우리수금">우리수금</button></div>
+</div>
+<div class="f"><label>세금계산서 발행처</label><input id="t_taxto" placeholder="예: 휴넷 / 우리"></div>
+<div class="f"><label>지급 주체</label><input id="t_payer" placeholder="예: 휴넷 / 우리"></div>
+<div class="f"><label>지급 시기</label><input id="t_paywhen" placeholder="예: 익월 말일"></div>
+</div>
+<div class="grid" style="margin-top:4px">
+<div class="f"><label>선생님 은행 <span class="pii">⚠️개인정보</span></label><input id="t_bank" placeholder="예: 신한"></div>
+<div class="f"><label>선생님 계좌 <span class="pii">⚠️개인정보</span></label><input id="t_acct" placeholder="예: 110-***-******"></div>
+</div>
+<p class="note">개인 선생님은 원천세 3.3% 공제 후 지급 · 정산 계산은 홈에서 자동으로 합니다(여기선 입력만). ⚠️ 은행·계좌는 개인정보라 github HTML에는 안 올라가고, 완전판 마스터(채팅)에만 저장됩니다.</p>
+</details>
 <section class="block">
 <div class="bh"><span class="n">③</span><h2>수익 판정</h2><span class="s">부가세 제외가 기준 · 20% 이상이면 진행</span></div>
 
@@ -235,12 +278,13 @@ details.content summary .s{font-size:12px;color:var(--wait);margin-left:auto;fon
 <div class="cf full c-online"><label>참여 안내 (온라인)</label><textarea id="c_join" placeholder="클래스 하루 전, 참여 링크를 문자로 보내드립니다"></textarea></div>
 <div class="cf full c-offline hide"><label>장소 (오프라인)</label><input id="c_place" placeholder="스타필드 고양점 지하1층 (상세주소는 예약 시 공개)"></div>
 <div class="cf full c-offline hide"><label>동반인 규정 (오프라인)</label><textarea id="c_guest" placeholder="동반인 1인까지, 만 7세부터 참여 가능…"></textarea></div>
+<div class="cf full"><label>레시피 (조리법 · 레시피 카드용)</label><textarea id="c_recipe" placeholder="조리 순서를 적어주세요. 레시피 탭·레시피 카드에 쓰입니다.&#10;예) 1. 꽃게는 손질해 반으로 자른다  2. 냄비에 물을 붓고…"></textarea></div>
 </div>
-<p class="note">고정 문구(수강신청 확인사항·GSEEK 참여안내·촬영동의)는 채널로 낼 때 자동으로 붙습니다. 여기선 안 적어도 됩니다.</p>
+<p class="note">대표 사진은 <b>class-images/[회차ID].jpg</b>로 올리면 카드에 자동 연결됩니다(계산기 입력 불필요). 고정 문구(수강신청 확인사항·GSEEK 참여안내·촬영동의)는 채널로 낼 때 자동으로 붙습니다.</p>
 </div>
 </details>
 
-<div class="foot">클래스 견적 계산기 · v3 · 계산 → 복사 → 채팅창 → 마스터 기록</div>
+<div class="foot">클래스 등록·견적 · v5 · 입력 → 복사 → 채팅창 → 마스터 등록</div>
 </div>
 
 <div class="copybar"><div class="inner">
@@ -361,6 +405,23 @@ function setVat(v){
 }
 document.getElementById('vat').addEventListener('click',function(e){if(e.target.tagName==='BUTTON')setVat(e.target.dataset.v);});
 
+var MTYPE='A';
+function setMtype(t){
+  MTYPE=t;
+  document.querySelectorAll('#mtype button').forEach(function(b){b.classList.toggle('on',b.dataset.t===MTYPE);});
+}
+document.getElementById('mtype').addEventListener('click',function(e){if(e.target.tagName==='BUTTON')setMtype(e.target.dataset.t);});
+
+var TTYPE='개인',FEEWAY='인당1만',STRUCT='주최수금';
+function setSeg(box,val,vname){
+  window[vname]=val;
+  document.querySelectorAll('#'+box+' button').forEach(function(b){
+    var d=b.dataset.t||b.dataset.w||b.dataset.s;b.classList.toggle('on',d===val);});
+}
+document.getElementById('ttype').addEventListener('click',function(e){if(e.target.tagName==='BUTTON')setSeg('ttype',e.target.dataset.t,'TTYPE');});
+document.getElementById('feeway').addEventListener('click',function(e){if(e.target.tagName==='BUTTON')setSeg('feeway',e.target.dataset.w,'FEEWAY');});
+document.getElementById('struct').addEventListener('click',function(e){if(e.target.tagName==='BUTTON')setSeg('struct',e.target.dataset.s,'STRUCT');});
+
 function copyOut(){
   var g=function(id){return document.getElementById(id).value||'';};
   var pax=g('pax'),price=g('price');
@@ -370,6 +431,26 @@ function copyOut(){
   lines.push('발주처: '+(g('orderer')||'(미입력)')+' / '+(MODE==='online'?'온라인':'오프라인'));
   lines.push('판매가(인당): '+won(num(price))+'원 (부가세 '+(VAT==='incl'?'포함':'별도')+')');
   lines.push('인원: '+pax+'명');
+  // 일정·모집
+  var _mt=(MTYPE==='A'?'사전확정':'모객');
+  if(g('cdate')||g('cplace')){
+    lines.push('');
+    lines.push('[일정·모집]');
+    if(g('cdate'))lines.push('수업일: '+g('cdate')+(g('ctime')?' '+g('ctime'):''));
+    if(g('cplace'))lines.push('장소/배송: '+g('cplace'));
+    lines.push('모집: '+_mt+(MTYPE==='B'?(' (최소 '+(g('cmin')||'?')+' · 최대 '+(g('cmax')||'?')+')'):''));
+  }
+  // 정산·선생님
+  if(g('t_name')||g('t_feeval')||g('t_taxto')){
+    lines.push('');
+    lines.push('[정산·선생님]');
+    if(g('t_name'))lines.push('선생님: '+g('t_name')+' ('+TTYPE+')');
+    lines.push('정산방식: '+FEEWAY+(g('t_feeval')?' — '+g('t_feeval'):''));
+    if(g('struct'))lines.push('정산구조: '+STRUCT);
+    if(g('t_taxto'))lines.push('세금계산서 발행처: '+g('t_taxto'));
+    if(g('t_payer')||g('t_paywhen'))lines.push('지급: '+(g('t_payer')||'')+(g('t_paywhen')?' / '+g('t_paywhen'):''));
+    if(g('t_bank')||g('t_acct'))lines.push('⚠️계좌(개인정보): '+(g('t_bank')||'')+' '+(g('t_acct')||''));
+  }
   if(MODE==='online'){
     lines.push('');
     lines.push('[재료 구성]');
@@ -389,14 +470,17 @@ function copyOut(){
   lines.push('[판정] 수익률 '+document.getElementById('vRate').textContent+' — '+document.getElementById('vLbl').textContent);
   lines.push('수익/우리몫(인당): '+document.getElementById('rProfit').textContent+'원');
   // ④ 콘텐츠 (입력된 것만)
-  var cmap=[['c_title2','강의명'],['c_intro','소개문'],['c_detail','강의내용'],['c_target','대상'],['c_select','선발방식'],['c_time','소요시간'],['c_kit','키트 구성품'],['c_prep','개별 준비물'],['c_teacher','강사명'],['c_career','강사 이력'],['c_tag','해시태그']];
+  var cmap=[['c_title2','강의명'],['c_intro','소개문'],['c_detail','강의내용'],['c_target','대상'],['c_select','선발방식'],['c_time','소요시간'],['c_kit','키트 구성품'],['c_prep','개별 준비물'],['c_teacher','강사명'],['c_career','강사 이력'],['c_tag','해시태그'],['c_recipe','레시피(조리법)']];
   if(MODE==='online'){cmap.push(['c_ship','배송 안내'],['c_join','참여 안내']);}
   else{cmap.push(['c_place','장소'],['c_guest','동반인 규정']);}
   var clines=[];
   cmap.forEach(function(p){var el=document.getElementById(p[0]);if(el&&el.value.trim())clines.push('· '+p[1]+': '+el.value.trim());});
   if(clines.length){lines.push('');lines.push('[클래스 콘텐츠]');lines=lines.concat(clines);}
   // 복원코드 (수정용) — 사람이 읽는 요약과 별개로 표 전체를 담음
-  var data={mode:MODE,vat:VAT,title:g('title'),orderer:g('orderer'),price:g('price'),pax:g('pax'),
+  var data={mode:MODE,vat:VAT,mtype:MTYPE,title:g('title'),orderer:g('orderer'),price:g('price'),pax:g('pax'),
+    cdate:g('cdate'),ctime:g('ctime'),cplace:g('cplace'),cmin:g('cmin'),cmax:g('cmax'),
+    t_name:g('t_name'),ttype:TTYPE,feeway:FEEWAY,t_feeval:g('t_feeval'),struct:STRUCT,
+    t_taxto:g('t_taxto'),t_payer:g('t_payer'),t_paywhen:g('t_paywhen'),t_bank:g('t_bank'),t_acct:g('t_acct'),
     pack:g('pack'),ship:g('ship'),teach:g('teach'),feeRate:g('feeRate'),rows:[],content:{}};
   document.querySelectorAll('#matBody tr').forEach(function(tr){
     var q=function(s){return tr.querySelector(s)?tr.querySelector(s).value:'';};
@@ -404,7 +488,7 @@ function copyOut(){
       ba:tr.children[2].querySelector('input').value,lk:q('.lkin'),
       v1:q('.c-1인용량'),u1:q('.c-1인단위'),pv:q('.c-판매용량'),pu:q('.c-판매단위'),pm:q('.c-판매금액'),ou:q('.c-주문단위')});
   });
-  ['c_title2','c_intro','c_detail','c_target','c_select','c_time','c_kit','c_prep','c_teacher','c_career','c_tag','c_ship','c_join','c_place','c_guest'].forEach(function(id){var e=document.getElementById(id);if(e)data.content[id]=e.value;});
+  ['c_title2','c_intro','c_detail','c_target','c_select','c_time','c_kit','c_prep','c_teacher','c_career','c_tag','c_ship','c_join','c_place','c_guest','c_recipe'].forEach(function(id){var e=document.getElementById(id);if(e)data.content[id]=e.value;});
   var code=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
   lines.push('');
   lines.push('---(수정용 복원코드 · 이 줄은 지우지 마세요)---');
@@ -430,6 +514,9 @@ function loadIn(){
   var sv=function(id,v){var e=document.getElementById(id);if(e)e.value=(v==null?'':v);};
   sv('title',data.title);sv('orderer',data.orderer);sv('price',data.price);sv('pax',data.pax);
   sv('pack',data.pack);sv('ship',data.ship);sv('teach',data.teach);sv('feeRate',data.feeRate);
+  sv('cdate',data.cdate);sv('ctime',data.ctime);sv('cplace',data.cplace);sv('cmin',data.cmin);sv('cmax',data.cmax);
+  sv('t_name',data.t_name);sv('t_feeval',data.t_feeval);sv('t_taxto',data.t_taxto);sv('t_payer',data.t_payer);
+  sv('t_paywhen',data.t_paywhen);sv('t_bank',data.t_bank);sv('t_acct',data.t_acct);
   // 콘텐츠
   if(data.content)Object.keys(data.content).forEach(function(k){sv(k,data.content[k]);});
   // 재료 행 복원
@@ -449,6 +536,10 @@ function loadIn(){
   // 모드·부가세 (표시 토글 포함)
   setVat(data.vat||'excl');
   setMode(data.mode||'online');
+  setMtype(data.mtype||'A');
+  setSeg('ttype',data.ttype||'개인','TTYPE');
+  setSeg('feeway',data.feeway||'인당1만','FEEWAY');
+  setSeg('struct',data.struct||'주최수금','STRUCT');
   // 콘텐츠 블록 펼치기(내용 있으면)
   if(data.content&&Object.keys(data.content).some(function(k){return data.content[k];}))document.getElementById('contentBlock').open=true;
   calc();

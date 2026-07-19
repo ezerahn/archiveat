@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="version" content="v1">
+<meta name="updated" content="2026.07.18 20:40">
+<title>제안 현황 · 콘텐츠·제안</title>
+<link rel="apple-touch-icon" href="app-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{--cream:#FAF5EC;--ink:#241F1B;--line:#E7DCC8;--sub:#6B6256;--muted:#9A8F7C;--forest:#3E5641;--forest-lt:#5A6B4E;--forest-bg:#EAEFE6;--coral:#FF5019}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--cream);color:var(--ink);font-family:"Pretendard",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+a{text-decoration:none;color:inherit}
+.top{padding:26px 0 0}
+.top-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:6px 14px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--sub)}
+.pill:hover{border-color:var(--forest);color:var(--forest)}
+.breadcrumb{font-size:12px;color:var(--muted);text-align:right}
+.breadcrumb .sep{color:#CFC5B2;margin:0 4px}.breadcrumb .meta{font-family:"DM Mono",monospace;font-size:11px}
+.head{padding:28px 0 20px;border-bottom:1px solid var(--line);margin-bottom:18px}
+.eyebrow{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.14em;color:var(--forest);margin-bottom:10px}
+h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:800;font-size:38px;letter-spacing:-.02em}
+.subtitle{font-size:14.5px;color:var(--sub);margin-top:12px;max-width:720px}
+.privacy{background:#FFF6F2;border:1px solid #F3D9CD;border-radius:12px;padding:13px 17px;font-size:12.5px;color:#8A4630;margin-bottom:14px;line-height:1.7}
+.privacy b{color:#7A3A24}
+.loadbar{background:#fff;border:.5px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.loadbar .ldesc{font-size:12.5px;color:var(--sub);flex:1;min-width:220px}
+.btn{font-size:13px;padding:9px 16px;border-radius:9px;border:.5px solid var(--forest);color:var(--forest);background:#fff;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--forest-bg)}
+.btn.solid{background:var(--forest);color:#EAEFE6}
+.stats{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}
+.st{background:#fff;border:.5px solid var(--line);border-radius:11px;padding:11px 15px;min-width:92px}
+.st .n{font-family:"DM Mono",monospace;font-size:19px;font-weight:500;color:var(--forest)}
+.st .l{font-size:11px;color:var(--muted);margin-top:1px}
+.filters{background:#fff;border:.5px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px}
+.fgroup{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;padding:6px 0}
+.fgroup+.fgroup{border-top:.5px solid var(--line)}
+.flabel{font-size:11px;color:var(--muted);min-width:52px;font-family:"DM Mono",monospace}
+.chip{font-size:12px;padding:4px 11px;border-radius:20px;border:.5px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;user-select:none}
+.chip:hover{border-color:var(--forest-lt)}
+.chip.on{background:var(--forest);color:#EAEFE6;border-color:var(--forest)}
+.searchbar{display:flex;align-items:center;gap:10px;background:#fff;border:.5px solid var(--line);border-radius:12px;padding:3px 14px;margin-bottom:12px}
+.searchbar input{border:0;outline:0;font-size:14px;font-family:inherit;padding:9px 0;flex:1;background:transparent;color:var(--ink)}
+.searchbar .ico{color:var(--muted);font-family:"DM Mono",monospace}
+.bar{display:flex;justify-content:space-between;align-items:center;margin:0 2px 12px;font-size:12.5px;color:var(--muted)}
+.bar .reset{cursor:pointer;color:var(--forest)}
+/* 회사 블록 */
+.co{background:#fff;border:.5px solid var(--line);border-radius:14px;padding:0;margin-bottom:13px;overflow:hidden}
+.co.sample{background:#FFFDF6;border-color:#EADFBE}
+.co-hd{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 18px;border-bottom:.5px solid var(--line);background:#FCFAF4}
+.co.sample .co-hd{background:#FFFBF0}
+.co-nm{font-size:16px;font-weight:700}
+.co-pe{font-size:12.5px;color:var(--sub);margin-top:1px}
+.co-rt{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.cnt{font-family:"DM Mono",monospace;font-size:11px;color:var(--muted)}
+.tl{padding:6px 18px 14px}
+.ev{display:flex;gap:12px;padding:11px 0;border-bottom:.5px dashed var(--line);position:relative}
+.ev:last-child{border-bottom:0}
+.ev .dt{font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted);min-width:74px;padding-top:2px}
+.ev .body{flex:1;min-width:0}
+.ev .l1{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:3px}
+.ev .tt{font-size:13.5px;font-weight:600}
+.tag{font-size:10.5px;padding:2px 8px;border-radius:20px;background:var(--forest-bg);color:var(--forest);border:.5px solid #D5DFCF;white-space:nowrap}
+.tag.v{background:#F3EEE0;color:#8A7333;border-color:#E5DBC4}
+.stt{font-size:10.5px;padding:2px 9px;border-radius:20px;white-space:nowrap;font-family:"DM Mono",monospace}
+.s0{background:#E8EFF6;color:#2C6B96}.s1{background:#EDF2F7;color:#5B7186}.s2{background:#FFF3DC;color:#A07A28}
+.s3{background:#FBEFE9;color:#B4593A}.s4{background:#E4F0E4;color:#2E6B3E;font-weight:600}
+.s5{background:#F5EAEA;color:#96504A}.s6{background:#F2EFE6;color:#8B8272}
+.ev .re{font-size:12.5px;color:#3D3833;margin-top:2px}
+.ev .fi{font-size:11.5px;color:var(--muted);margin-top:3px;word-break:break-all}
+.next{margin:9px 18px 14px;font-size:12.5px;color:var(--forest);background:var(--forest-bg);border-radius:8px;padding:8px 12px}
+.moved{margin:9px 18px 14px;font-size:12.5px;color:#2E6B3E;background:#E4F0E4;border-radius:8px;padding:8px 12px}
+.empty{text-align:center;color:var(--muted);font-size:13px;padding:40px 0}
+.guide-note{background:var(--forest-bg);border-radius:14px;padding:18px 22px;margin:28px 0 16px;font-size:13px;color:#4A5646;line-height:1.8}
+.guide-note b{color:var(--forest)}
+.files-label{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--muted);margin:14px 0 9px}
+.files{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:60px}
+.fbtn{display:inline-flex;align-items:center;gap:7px;font-size:13px;padding:10px 16px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer}
+.fbtn:hover{border-color:var(--forest);color:var(--forest)}
+@media(max-width:640px){
+  .wrap{padding:0 14px}
+  .top{padding:18px 0 0}
+  .pill{font-size:12px;padding:5px 11px}
+  .breadcrumb{text-align:left;font-size:11px}
+  .head{padding:20px 0 16px;margin-bottom:14px}
+  h1.title{font-size:26px}
+  .subtitle{font-size:13.5px}
+  .privacy{padding:11px 13px;font-size:12px}
+  .loadbar{padding:13px 14px;gap:10px}
+  .loadbar .ldesc{min-width:100%;font-size:12px}
+  .btn{flex:1;text-align:center;padding:10px 12px}
+  .stats{gap:7px}
+  .st{flex:1 1 calc(33.33% - 5px);min-width:0;padding:9px 10px}
+  .st .n{font-size:16px}
+  .st .l{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .filters{padding:11px 12px}
+  .fgroup{padding:7px 0;gap:8px;flex-wrap:nowrap;align-items:flex-start}
+  .flabel{min-width:46px;margin:3px 0 0;flex:0 0 auto}
+  #fver,#fstt{display:flex;flex-wrap:wrap;gap:6px;flex:1;min-width:0}
+  .chip{font-size:11.5px;padding:4px 10px;flex:0 0 auto;white-space:nowrap}
+  .searchbar input{font-size:15px}
+  .co-hd{padding:12px 14px;flex-wrap:wrap}
+  .co-rt{justify-content:flex-start}
+  .tl{padding:4px 14px 12px}
+  .ev{gap:0;flex-direction:column;padding:10px 0}
+  .ev .dt{min-width:0;margin-bottom:3px}
+  .next,.moved{margin:8px 14px 12px;font-size:12px}
+}
+</style></head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="top-row">
+      <div class="pills">
+        <a class="pill" href="proposal.html">← 콘텐츠·제안 홈</a>
+        <a class="pill" href="proposal-cards.html">📇 명함 DB</a>
+        <a class="pill" href="proposal-build.html">✍️ 제안 만들기</a>
+        <a class="pill" href="https://claude.ai/chat/c8ce7bf0-36f0-4c65-8af4-36ce1fe513a9" target="_blank" rel="noopener">💬 작업 대화</a>
+      </div>
+      <div class="breadcrumb">AI 워크스페이스 <span class="sep">›</span> 콘텐츠·제안 <span class="sep">›</span> 제안 현황
+        <span class="sep">|</span> <span class="meta">업데이트 2026.07.18 · v1</span></div>
+    </div>
+    <div class="head">
+      <div class="eyebrow">PROPOSAL STATUS</div>
+      <h1 class="title">제안 현황</h1>
+      <p class="subtitle">어디에 무엇을 보냈고 어디까지 왔는지 봅니다. 회사별로 보낸 건이 <b>시간순</b>으로 쌓입니다.</p>
+    </div>
+  </header>
+
+  <div class="privacy">
+    🔒 <b>개인정보 보호</b> — 이 화면에는 실제 데이터가 저장되어 있지 않습니다. <b>엑셀 마스터를 열어</b> 보는 방식이며,
+    읽은 내용은 이 브라우저 화면에만 잠시 표시되고 저장되지 않습니다. (새로고침하면 사라집니다)
+  </div>
+
+  <div class="loadbar">
+    <span class="ldesc">📂 <b>proposal_명함DB_마스터.xlsx</b>의 「제안현황」 시트를 읽습니다. 지금은 <b>예시</b>를 보고 계십니다.</span>
+    <span class="btn solid" onclick="document.getElementById('xf').click()">엑셀 마스터 열기</span>
+    <span class="btn" onclick="loadSample()">예시로 되돌리기</span>
+    <input type="file" id="xf" accept=".xlsx,.xls" style="display:none">
+  </div>
+
+  <div class="stats" id="stats"></div>
+  <div class="searchbar"><span class="ico">⌕</span><input id="q" type="text" placeholder="회사·테마·회신 내용 검색"></div>
+
+  <div class="filters">
+    <div class="fgroup"><span class="flabel">버전</span><span id="fver"></span></div>
+    <div class="fgroup"><span class="flabel">상태</span><span id="fstt"></span></div>
+  </div>
+
+  <div class="bar"><span id="count"></span><span class="reset" id="reset">필터·검색 초기화</span></div>
+  <div id="list"></div>
+
+  <div class="guide-note">
+    <b>이 화면의 역할</b> — 보낸 제안의 <b>이력을 보는 곳</b>입니다. 입력·수정은 엑셀 마스터의 「제안현황」 시트에서 하세요.<br>
+    ※ 한 줄 = 발송 건 하나입니다. 같은 회사에 여러 번 보내면 아래로 쌓입니다. <b>확정</b>되면 실행 홈(클래스·쿠킹박스·케이터링)으로 넘어가 거기서 기록·정산합니다.
+  </div>
+
+  <div class="files-label">📦 원본 파일</div>
+  <div class="files">
+    <span class="fbtn" onclick="saveSelf()">📄 이 화면 HTML 받기</span>
+    <a class="fbtn" href="https://claude.ai/chat/c8ce7bf0-36f0-4c65-8af4-36ce1fe513a9" target="_blank" rel="noopener">💬 대화창에서 전체 받기</a>
+  </div>
+</div>
+
+<script>
+(function(){var v=document.querySelector('meta[name=version]'),u=document.querySelector('meta[name=updated]');if(v&&u){var e=document.querySelector('.breadcrumb .meta');if(e)e.textContent='업데이트 '+u.content+' · '+v.content;}})();
+
+var VERS=['소개용','맞춤'];
+var STTS=['발송','열람','회신','수정요청','확정','보류','종료'];
+
+/* 예시 — 실존 기업 아님 */
+var SAMPLE=[
+ {co:'(예시) 한빛전자',pe:'김서연',ver:'소개용',fmt:'-',thm:'2026 하반기 카탈로그',dt:'2026-07-10',cha:1,stt:'열람',re:'',next:'8월 첫주 반응 확인',mv:'-',file:'아카이빗_쿠킹프로그램_안내_2026하반기.pdf',memo:'6테마 소개본'},
+ {co:'(예시) 한빛전자',pe:'김서연',ver:'맞춤',fmt:'온라인 클래스',thm:'여름 제철 한 상',dt:'2026-08-01',cha:1,stt:'회신',re:'메뉴 2개 교체 요청 · 일정 8월 말 희망',next:'수정본 발송',mv:'-',file:'아카이빗_제안서_한빛전자.pdf',memo:''},
+ {co:'(예시) 한빛전자',pe:'김서연',ver:'맞춤',fmt:'온라인 클래스',thm:'여름 제철 한 상',dt:'2026-08-05',cha:2,stt:'확정',re:'회당 60명 · 3회차 확정',next:'클래스 홈에서 회차 등록',mv:'클래스',file:'아카이빗_제안서_한빛전자_2차.pdf',memo:'정산은 클래스 홈'},
+ {co:'(예시) 수원시청 청년정책과',pe:'박도현',ver:'소개용',fmt:'-',thm:'2026 하반기 카탈로그',dt:'2026-07-05',cha:1,stt:'회신',re:'1인가구 청년 사업으로 검토 가능하다고 회신',next:'1인 밥상 맞춤 제안',mv:'-',file:'아카이빗_쿠킹프로그램_안내_2026하반기.pdf',memo:''},
+ {co:'(예시) 그린백화점 문화센터',pe:'이하늘',ver:'맞춤',fmt:'오프라인 클래스',thm:'방학 키즈 쿠킹',dt:'2026-07-14',cha:1,stt:'발송',re:'',next:'가을 커리큘럼 회신 대기',mv:'-',file:'아카이빗_제안서_그린백화점.pdf',memo:''},
+ {co:'(예시) 마루소프트',pe:'정민재',ver:'맞춤',fmt:'케이터링',thm:'연말 파티 한 상',dt:'2026-07-16',cha:1,stt:'수정요청',re:'예산 범위 낮춰 재제안 요청',next:'구성 조정해 재발송',mv:'-',file:'아카이빗_제안서_마루소프트.pdf',memo:'송년회 100명'}
+];
+
+var DATA=[], IS_SAMPLE=true, active={ver:new Set(),stt:new Set()}, q='';
+var $=function(i){return document.getElementById(i);};
+function esc(s){return (s==null?'':String(s)).replace(/[&<>"]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m];});}
+
+function chipRow(id,arr,key){
+  $(id).innerHTML=arr.map(function(v){return '<span class="chip" data-k="'+key+'" data-v="'+esc(v)+'">'+esc(v)+'</span>';}).join(' ');
+}
+chipRow('fver',VERS,'ver'); chipRow('fstt',STTS,'stt');
+document.querySelectorAll('.filters .chip').forEach(function(c){
+  c.addEventListener('click',function(){
+    var k=c.dataset.k,v=c.dataset.v;
+    if(active[k].has(v)){active[k].delete(v);c.classList.remove('on');}else{active[k].add(v);c.classList.add('on');}
+    render();
+  });
+});
+$('q').addEventListener('input',function(){q=this.value.trim();render();});
+$('reset').addEventListener('click',function(){
+  active.ver.clear();active.stt.clear();
+  document.querySelectorAll('.filters .chip').forEach(function(c){c.classList.remove('on');});
+  q='';$('q').value='';render();
+});
+
+function sclass(s){var i=STTS.indexOf(s);return 's'+(i<0?0:i);}
+function render(){
+  var rows=DATA.filter(function(d){
+    if(active.ver.size&&!active.ver.has(d.ver))return false;
+    if(active.stt.size&&!active.stt.has(d.stt))return false;
+    if(q&&[d.co,d.pe,d.thm,d.re,d.next,d.memo].join(' ').indexOf(q)<0)return false;
+    return true;
+  });
+  // 회사별 그룹
+  var order=[],grp={};
+  rows.forEach(function(d){ if(!grp[d.co]){grp[d.co]=[];order.push(d.co);} grp[d.co].push(d); });
+  $('count').textContent=order.length+'개사 · '+rows.length+'건'+(IS_SAMPLE?' · 예시':'');
+  $('list').innerHTML=order.length?order.map(function(co){
+    var evs=grp[co].slice().sort(function(a,b){return String(a.dt).localeCompare(String(b.dt));});
+    var last=evs[evs.length-1];
+    return '<div class="co'+(IS_SAMPLE?' sample':'')+'">'+
+      '<div class="co-hd"><div><div class="co-nm">'+esc(co)+'</div>'+
+        (last.pe?'<div class="co-pe">'+esc(last.pe)+'</div>':'')+'</div>'+
+        '<div class="co-rt"><span class="cnt">'+evs.length+'건</span><span class="stt '+sclass(last.stt)+'">'+esc(last.stt)+'</span></div></div>'+
+      '<div class="tl">'+evs.map(function(d){
+        return '<div class="ev"><span class="dt">'+esc(d.dt)+'</span><div class="body">'+
+          '<div class="l1"><span class="tt">'+esc(d.thm||'(테마 미기재)')+'</span>'+
+          '<span class="tag v">'+esc(d.ver)+'</span>'+
+          (d.fmt&&d.fmt!=='-'?'<span class="tag">'+esc(d.fmt)+'</span>':'')+
+          (d.cha>1?'<span class="tag v">'+esc(d.cha)+'차 수정</span>':'')+
+          '<span class="stt '+sclass(d.stt)+'">'+esc(d.stt)+'</span></div>'+
+          (d.re?'<div class="re">💬 '+esc(d.re)+'</div>':'')+
+          (d.file?'<div class="fi">📎 '+esc(d.file)+'</div>':'')+
+        '</div></div>';
+      }).join('')+'</div>'+
+      (last.mv&&last.mv!=='-'?'<div class="moved">✓ '+esc(last.mv)+' 홈으로 이관 · 이후 기록·정산은 그쪽에서</div>'
+        :(last.next?'<div class="next">▶ '+esc(last.next)+'</div>':''))+
+    '</div>';
+  }).join(''):'<div class="empty">조건에 맞는 제안이 없어요.</div>';
+  renderStats();
+}
+function renderStats(){
+  var by={}; STTS.forEach(function(s){by[s]=0;});
+  var cos={};
+  DATA.forEach(function(d){ if(by[d.stt]!==undefined)by[d.stt]++; cos[d.co]=1; });
+  var cards=[['거래처',Object.keys(cos).length],['전체 발송',DATA.length]];
+  ['발송','회신','수정요청','확정'].forEach(function(s){cards.push([s,by[s]||0]);});
+  $('stats').innerHTML=cards.map(function(c){return '<div class="st"><div class="n">'+c[1]+'</div><div class="l">'+c[0]+'</div></div>';}).join('');
+}
+function loadSample(){DATA=SAMPLE.slice();IS_SAMPLE=true;render();}
+
+$('xf').addEventListener('change',function(e){
+  var f=e.target.files[0]; if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    try{
+      var wb=XLSX.read(new Uint8Array(ev.target.result),{type:'array'});
+      var sh=wb.Sheets['제안현황'];
+      if(!sh){alert('「제안현황」 시트를 찾지 못했어요. 명함DB 마스터 파일인지 확인해주세요.');return;}
+      var rows=XLSX.utils.sheet_to_json(sh,{defval:''});
+      var map={'회사명':'co','담당자':'pe','버전':'ver','실행형식':'fmt','테마':'thm','발송일':'dt',
+               '차수':'cha','상태':'stt','회신내용':'re','다음액션':'next','이관처':'mv','첨부파일':'file','메모':'memo'};
+      DATA=rows.map(function(r0){var o={};Object.keys(map).forEach(function(k){o[map[k]]=fmt(r0[k]);});o.cha=parseInt(o.cha)||1;return o;})
+               .filter(function(o){return o.co && o.co.indexOf('(예시)')<0;});
+      IS_SAMPLE=false;
+      if(!DATA.length){alert('읽을 데이터가 없어요. 「제안현황」 시트에 회사명이 입력됐는지 확인해주세요.');loadSample();return;}
+      render();
+    }catch(err){alert('파일을 읽지 못했어요: '+err.message);}
+  };
+  r.readAsArrayBuffer(f); this.value='';
+});
+function fmt(v){
+  if(v instanceof Date){var p=function(n){return (n<10?'0':'')+n;};return v.getFullYear()+'-'+p(v.getMonth()+1)+'-'+p(v.getDate());}
+  return (v==null?'':String(v)).trim();
+}
+function saveSelf(){var b=new Blob([document.documentElement.outerHTML],{type:'text/html'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='proposal-status.html';a.click();}
+loadSample();
+</script>
+</body></html>

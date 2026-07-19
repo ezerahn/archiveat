@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v9"><meta name="updated" content="2026.07.14 17:50">
+<meta name="version" content="v14"><meta name="updated" content="2026.07.15 17:45">
 <title>인스타 운영 · 아카이빗</title>
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono&display=swap" rel="stylesheet">
@@ -113,6 +113,25 @@ h1{font-family:Hahmlet,serif;font-weight:700;font-size:28px;margin:8px 0 3px}
 .slc{margin-top:4px;font-size:9px;color:var(--muted);width:142px;text-align:center;line-height:1.35}
 .slc.st{width:100px}
 
+/* 슬라이드 문구 (디자인용 · 자동 추출) */
+.slcopy{padding:11px 15px 13px;border-bottom:1px solid var(--line2);background:#FCFAF4}
+.slcopy .lbl{margin-bottom:8px}
+.slcopy .cpy{font-size:9.5px;padding:2px 9px;margin-left:7px}
+.scrows{display:flex;flex-direction:column;gap:5px}
+.scrow{display:flex;gap:9px;align-items:baseline;font-size:12.4px;line-height:1.55}
+.scrow .scn{flex:0 0 auto;min-width:34px;font-family:"DM Mono",monospace;font-size:9.5px;font-weight:700;color:#fff;background:var(--ink);border-radius:4px;padding:2px 6px;text-align:center;white-space:nowrap}
+.scrow .sct{color:var(--ink);font-weight:600}
+.scrow .sct i{color:#cbb6a0;font-style:normal;margin:0 3px}
+.scrow.fx .scn{background:var(--muted)}
+.scrow.fx .sct{color:var(--muted);font-weight:500}
+
+/* 썸네일(커버) 문구 — 디자인용, 카드 맨 위 */
+.thumbcopy{margin:11px 0 4px;padding:12px 14px;background:var(--aca);border:1.5px solid #F5C4B3;border-radius:11px}
+.thumbcopy .lbl{color:var(--coral);margin-bottom:7px}
+.thumbcopy .tc{font-family:Hahmlet,serif;font-weight:700;font-size:18px;line-height:1.4;color:var(--coral)}
+.thumbcopy .tc .f{display:block;font-family:Pretendard;font-size:13px;font-weight:600;color:var(--sub);margin-top:4px}
+.thumbcopy .tc.none{font-family:Pretendard;font-size:12.5px;font-weight:600;color:var(--muted)}
+
 .dbody{display:grid;grid-template-columns:230px 1fr}
 .col1{padding:13px 15px;border-right:1px solid var(--line2)}
 .col2{padding:13px 15px}
@@ -180,7 +199,7 @@ footer{margin-top:28px;font-size:11.5px;color:var(--muted);font-family:"DM Mono"
     <div class="pills">
       <a class="pill" href="marketing.html">← 마케팅 홈</a>
       <a class="pill hi" href="marketing-instagram-guide.html">📐 가이드 (규칙)</a>
-      <a class="pill" href="https://claude.ai/chat/001318c0-a988-48de-80a9-1889249e46be" target="_blank" rel="noopener">💬 작업 대화</a>
+      <a class="pill" href="https://claude.ai/chat/de162d6f-4bed-4837-bc49-ca35f4ebbc97" target="_blank" rel="noopener">💬 작업 대화</a>
     </div>
     <div class="breadcrumb"><span class="upd"></span></div>
   </div>
@@ -213,7 +232,7 @@ footer{margin-top:28px;font-size:11.5px;color:var(--muted);font-family:"DM Mono"
   <b>메뉴는 전부 실제 등록·진열 중인 것</b>으로 짰습니다 (DB 확인).</p></div>
 
   <div class="mtabs"><button class="mtab on" onclick="mtab('m0',this)">7월 <span class="mc">13</span></button><button class="mtab" onclick="mtab('m1',this)">8월 <span class="mc">2</span></button></div><div class="dtabs on" id="m0"><button class="dtab plan" data-d="7/15" onclick="dtab('d0',this)"><span class="dt1">7/15</span><span class="dt2">수</span><span class="dt3">1-A</span></button><button class="dtab plan" data-d="7/16" onclick="dtab('d1',this)"><span class="dt1">7/16</span><span class="dt2">목</span><span class="dt3">3-C</span></button><button class="dtab plan" data-d="7/17" onclick="dtab('d2',this)"><span class="dt1">7/17</span><span class="dt2">금</span><span class="dt3">5</span></button><button class="dtab plan" data-d="7/20" onclick="dtab('d3',this)"><span class="dt1">7/20</span><span class="dt2">월</span><span class="dt3">1-A</span></button><button class="dtab plan" data-d="7/21" onclick="dtab('d4',this)"><span class="dt1">7/21</span><span class="dt2">화</span><span class="dt3">3-A</span></button><button class="dtab plan" data-d="7/22" onclick="dtab('d5',this)"><span class="dt1">7/22</span><span class="dt2">수</span><span class="dt3">3-B</span></button><button class="dtab plan" data-d="7/23" onclick="dtab('d6',this)"><span class="dt1">7/23</span><span class="dt2">목</span><span class="dt3">3-D</span></button><button class="dtab plan" data-d="7/24" onclick="dtab('d7',this)"><span class="dt1">7/24</span><span class="dt2">금</span><span class="dt3">5</span></button><button class="dtab plan" data-d="7/27" onclick="dtab('d8',this)"><span class="dt1">7/27</span><span class="dt2">월</span><span class="dt3">4-A</span></button><button class="dtab plan" data-d="7/28" onclick="dtab('d9',this)"><span class="dt1">7/28</span><span class="dt2">화</span><span class="dt3">2</span></button><button class="dtab plan" data-d="7/29" onclick="dtab('d10',this)"><span class="dt1">7/29</span><span class="dt2">수</span><span class="dt3">1-C</span></button><button class="dtab plan" data-d="7/30" onclick="dtab('d11',this)"><span class="dt1">7/30</span><span class="dt2">목</span><span class="dt3">3-C</span></button><button class="dtab plan" data-d="7/31" onclick="dtab('d12',this)"><span class="dt1">7/31</span><span class="dt2">금</span><span class="dt3">5</span></button></div><div class="dtabs" id="m1"><button class="dtab plan" data-d="8/3" onclick="dtab('d13',this)"><span class="dt1">8/3</span><span class="dt2">월</span><span class="dt3">1-B</span></button><button class="dtab plan" data-d="8/4" onclick="dtab('d14',this)"><span class="dt1">8/4</span><span class="dt2">화</span><span class="dt3">2</span></button></div>
-  <div class="dpan on" id="d0"><div class="dcard" data-d="7/15"><div class="dh"><span class="stbadge sb-plan">예정</span><span class="dd">7/15</span><span class="dw">수</span><span class="ptag">1-A</span><span class="pnm">큐레이션 · 제철 픽</span><span class="hot">주문 마감</span><span class="fmb feed">🖼 피드</span><span class="hlbox"><span class="hlk">📌 하이라이트</span><span class="hlv">📣 소식</span></span><a class="glink" href="marketing-instagram-guide.html#p1a" target="_blank" rel="noopener">📐 패턴 1-A</a></div><div class="real">오늘 밤 주문 마감 → 내일 패킹 → 금요일 새벽 도착</div><div class="menu"><b>메뉴</b> 오이무침 · 오이소박이 · 열무김치 (김은영)</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="b3">오늘 밤이 마감이에요</div><div class="f3">제철로 차리는 일주일 식탁</div><div class="l3">ARCHIVEAT</div></div></div><div class="slc">오이 원물 클로즈업 (안 썬 채)</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">제철이라 맛있는 거예요</div><div class="m2">특별한 비법 없어요</div></div></div><div class="slc">열무 한 단 · 흙 묻은 뿌리</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">원물 그대로 보냅니다</div><div class="m2">썰면 물이 생기거든요</div></div></div><div class="slc">이번 주 메뉴 3~4개 그리드</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>@archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">A</span><span class="t">재공유</span><span class="lg n">로고 ✕</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">오늘 밤이 마감이에요</div><div class="t4">게시물 보기</div></div></div><div class="slc st">링크 ✕ · 📌 <b>소식</b></div></div><div class="sl"><div class="slh"><span class="n">B</span><span class="t">링크 ★</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">오늘 밤<br>마감</div><div class="t4">🔗 주문하러 가기</div></div></div><div class="slc st"><b style="color:var(--coral)">링크 스티커 필수</b></div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>오이 원물 클로즈업 (안 썬 채)</li><li>열무 한 단 · 흙 묻은 뿌리</li><li>이번 주 메뉴 3~4개 그리드</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#이번주메뉴 #제철 #오늘마감`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#이번주메뉴 #제철 #오늘마감</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`이번 주는 오이랑 열무예요.
+  <div class="dpan on" id="d0"><div class="dcard" data-d="7/15"><div class="dh"><span class="stbadge sb-plan">예정</span><span class="dd">7/15</span><span class="dw">수</span><span class="ptag">1-A</span><span class="pnm">큐레이션 · 제철 픽</span><span class="hot">주문 마감</span><span class="fmb feed">🖼 피드</span><span class="hlbox"><span class="hlk">📌 하이라이트</span><span class="hlv">📣 소식</span></span><a class="glink" href="marketing-instagram-guide.html#p1a" target="_blank" rel="noopener">📐 패턴 1-A</a></div><div class="real">오늘 밤 주문 마감 → 내일 패킹 → 금요일 새벽 도착</div><div class="menu"><b>메뉴</b> 오이무침 · 오이소박이 · 열무김치 (김은영)</div><div class="slbar">캐러셀 설계 <span class="sn">사진 = 캔버스 전체 · 점선 = 안전영역</span><a class="glink" href="marketing-instagram-guide.html#cover" target="_blank" rel="noopener">📐 커버 규격</a></div><div class="slides"><div class="sl"><div class="slh"><span class="n">1</span><span class="t">커버</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="szb"></div><div class="txl"><div class="b3">여름엔<br>오이랑 열무가 답!</div><div class="f3">아카이빗쿠킹박스<br>바로 열면 요리시작!</div><div class="l3">ARCHIVEAT</div></div></div><div class="slc">오이·열무 원물 (안 썬 채)</div></div><div class="sl"><div class="slh"><span class="n">2</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">제일 만만한 건 역시 무침이죠</div><div class="m2">쓱쓱 무치기만 하면 되지요</div></div></div><div class="slc">오이무침 완성컷 · 쿠킹박스｜오이무침</div></div><div class="sl"><div class="slh"><span class="n">3</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">좀 더 해보고 싶으면 오이소박이</div><div class="m2">칼집 넣는게 은근 재밌어요</div></div></div><div class="slc">오이소박이 완성컷 · 쿠킹박스｜오이소박이</div></div><div class="sl"><div class="slh"><span class="n">4</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">열무김치까지 담그시면</div><div class="m2">이번주는 반찬 걱정 없습니다</div></div></div><div class="slc">열무김치 완성컷 · 쿠킹박스｜열무김치</div></div><div class="sl"><div class="slh"><span class="n">5</span><span class="t">사진+캡션</span><span class="lg n">로고 ✕</span></div><div class="cnv"><div class="pho"></div><div class="mid"><div class="m1">아카이빗에서는</div><div class="m2">모든 식재료를 다 보내드려요</div></div></div><div class="slc">소분백 패킹 · 로고 스티커</div></div><div class="sl"><div class="slh"><span class="n">끝</span><span class="t">문</span><span class="lg y">로고 ○</span></div><div class="cnv"><div class="pho"></div><div class="door"><div class="d1">준비물은<br>불과 냄비뿐</div><div class="d2">금요일 새벽 도착<br>www.archiveat.kr</div><div class="d3">ARCHIVEAT</div></div></div><div class="slc">고정 템플릿</div></div><div class="sl"><div class="slh"><span class="n">A</span><span class="t">재공유</span><span class="lg n">로고 ✕</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">여름엔 오이랑 열무가 답!</div><div class="t4">게시물 보기</div></div></div><div class="slc st">링크 ✕ · 📌 <b>소식</b></div></div><div class="sl"><div class="slh"><span class="n">B</span><span class="t">링크 ★</span><span class="lg y">로고 ○</span></div><div class="cnv st"><div class="pho"></div><div class="uiy" style="top:0;height:15px">프로필 · 닫기</div><div class="uiy" style="bottom:0;height:23px">DM · 공유</div><div class="stx"><div class="b4">오늘 밤<br>마감</div><div class="t4">🔗 주문하러 가기</div></div></div><div class="slc st"><b style="color:var(--coral)">링크 스티커 필수</b></div></div></div><div class="dbody"><div class="col1"><div class="lbl">찍을 컷 <a class="glink" href="marketing-instagram-guide.html#photo" target="_blank" rel="noopener">📐 사진 규칙</a></div><ul class="cuts"><li>오이·열무 원물 (안 썬 채)</li><li>오이무침 완성컷</li><li>오이소박이 완성컷</li><li>열무김치 완성컷</li><li>소분백 패킹 컷 · 로고 스티커</li></ul></div><div class="col2"><div class="lbl">첫 줄 태그 <button class="cpy sm" onclick="cp(this,`#이번주메뉴 #제철 #오늘마감`)">복사</button> <a class="glink" href="marketing-instagram-guide.html#write" target="_blank" rel="noopener">📐 쓰기 규칙</a></div><div class="tagbox">#이번주메뉴 #제철 #오늘마감</div><div class="lbl" style="margin-top:11px">캡션 <button class="cpy sm" onclick="cp(this,`이번 주는 오이랑 열무예요.
 
 조금만 지나도 오이는 물러지고, 열무는 질겨져요.
 딱 지금 나온 걸로 골라 담았습니다.
@@ -795,6 +814,65 @@ function dtab(id,btn){
     var pid=(pick.getAttribute('onclick')||'').match(/'(d\d+)'/);
     if(pid) document.getElementById(pid[1]).classList.add('on');
   }
+})();
+// 슬라이드 글자 → 디자인용 문구 블록 자동 생성
+(function(){
+  function txt(el){
+    if(!el) return '';
+    return el.innerHTML.replace(/<br\s*\/?>/gi,' ').replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
+  }
+  document.querySelectorAll('.dcard').forEach(function(card){
+    var slides=card.querySelectorAll('.slides > .sl');
+    if(!slides.length) return;
+    var rows=[], plain=[];
+    slides.forEach(function(sl){
+      var label=(txt(sl.querySelector('.slh .n'))+' '+txt(sl.querySelector('.slh .t'))).trim();
+      var lines=[], fixed=false;
+      var txl=sl.querySelector('.txl'), mid=sl.querySelector('.mid'),
+          door=sl.querySelector('.door'), stx=sl.querySelector('.stx');
+      function grab(){for(var i=0;i<arguments.length;i++){var s=txt(arguments[i]);if(s)lines.push(s);}}
+      if(txl){
+        if(txl.querySelector('.nc')){lines.push('(카피 없음)');fixed=true;}
+        else grab(txl.querySelector('.b3'),txl.querySelector('.f3'));
+      } else if(mid){
+        grab(mid.querySelector('.m1'),mid.querySelector('.m2'));
+      } else if(door){
+        grab(door.querySelector('.d1'),door.querySelector('.d2')); fixed=true;
+      } else if(stx){
+        grab(stx.querySelector('.b4'),stx.querySelector('.t4'));
+      } else {lines.push('(사진만)');fixed=true;}
+      rows.push('<div class="scrow'+(fixed?' fx':'')+'"><span class="scn">'+label+'</span><span class="sct">'+lines.join(' <i>·</i> ')+'</span></div>');
+      plain.push('['+label+']\n'+lines.join('\n'));
+    });
+    var block=document.createElement('div');
+    block.className='slcopy';
+    block.innerHTML='<div class="lbl">🎨 슬라이드에 넣을 글자 <button class="cpy" type="button">전체 복사</button></div><div class="scrows">'+rows.join('')+'</div>';
+    block._plain=plain.join('\n\n');
+    var body=card.querySelector('.dbody');
+    if(body) card.insertBefore(block, body); else card.appendChild(block);
+    block.querySelector('.cpy').addEventListener('click',function(){cp(this,block._plain);});
+  });
+})();
+// 썸네일(커버) 문구 → 각 날짜 카드 맨 위 디자인용 블록
+(function(){
+  function txt(el){if(!el)return '';return el.innerHTML.replace(/<br\s*\/?>/gi,' ').replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();}
+  document.querySelectorAll('.dcard').forEach(function(card){
+    var cover=card.querySelector('.slides .sl .txl');
+    if(!cover) return;
+    var block=document.createElement('div');
+    block.className='thumbcopy';
+    if(cover.querySelector('.nc')){
+      block.innerHTML='<div class="lbl">📌 썸네일 문구</div><div class="tc none">커버 카피 없음 (사진만)</div>';
+    } else {
+      var b=txt(cover.querySelector('.b3')), f=txt(cover.querySelector('.f3'));
+      block._plain=b+(f?'\n'+f:'');
+      block.innerHTML='<div class="lbl">📌 썸네일 문구 <button class="cpy" type="button">복사</button></div><div class="tc">'+b+(f?'<span class="f">'+f+'</span>':'')+'</div>';
+    }
+    var dh=card.querySelector('.dh');
+    if(dh) dh.insertAdjacentElement('afterend', block); else card.insertBefore(block, card.firstChild);
+    var btn=block.querySelector('.cpy');
+    if(btn) btn.addEventListener('click',function(){cp(this,block._plain);});
+  });
 })();
 (function(){
   var v=document.querySelector('meta[name=version]').content;
