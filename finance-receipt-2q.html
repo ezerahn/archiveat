@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="version" content="v1">
+<meta name="updated" content="2026.07.20 15:30">
+<title>finance-receipt-2q</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--cream:#FAF5EC;--surface:#FFFDF8;--ink:#241F1B;--muted:#8C857A;--line:#E7DCC8;--coral:#FF5019;--taupe:#C2B190;--sage:#5E9087;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Pretendard,-apple-system,"Malgun Gothic",system-ui,sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5}
+.wrap{max-width:880px;margin:0 auto;padding:22px 20px 60px}
+.top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:26px;gap:12px;flex-wrap:wrap}
+.navleft{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#a8552f;text-decoration:none;padding:5px 13px;border:1px solid rgba(255,80,25,.22);border-radius:20px;background:rgba(255,80,25,.07);transition:.15s}
+.back:hover{background:rgba(255,80,25,.13);border-color:rgba(255,80,25,.4);color:var(--coral)}
+.metaline{margin-left:auto;text-align:right;font-size:12px;color:var(--muted);line-height:1.65}
+.metaline .bar{color:var(--line);margin:0 7px}
+.metaline .upd{font-family:"DM Mono",monospace}
+@media(max-width:620px){.metaline{width:100%}.metaline .bar{display:none}.metaline .crumb,.metaline .upd{display:block}}
+.hero{margin-bottom:20px}
+.hero h1{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:700;font-size:40px;letter-spacing:-.02em;line-height:1.12}
+.hero p{margin-top:11px;font-size:15px;color:var(--muted)}
+@media(max-width:620px){.hero h1{font-size:30px}.wrap{padding:18px 13px 44px}}
+.bar-all{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 17px;margin-bottom:8px;flex-wrap:wrap}
+.bar-all .lbl{font-size:13px;color:var(--muted)}
+.bar-all .big{font-family:"DM Mono",monospace;font-size:20px;color:var(--coral)}
+.pbar{flex:1;min-width:120px;height:7px;background:var(--line);border-radius:4px;overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:var(--coral);transition:.3s}
+.btn{font-size:12.5px;font-weight:600;color:var(--sage);padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);cursor:pointer;font-family:inherit;transition:.15s}
+.btn:hover{border-color:var(--sage);background:rgba(94,144,135,.08)}
+.guide{background:rgba(255,80,25,.055);border:1px solid rgba(255,80,25,.18);border-radius:12px;padding:14px 17px;margin:14px 0 24px;font-size:13px;color:#7c4426;line-height:1.75}
+.guide b{color:var(--coral)}
+.mon{margin-bottom:26px}
+.mh{display:flex;align-items:baseline;gap:11px;margin-bottom:11px;flex-wrap:wrap}
+.mh h2{font-family:Hahmlet,"Gowun Batang",serif;font-size:21px;font-weight:700}
+.cnt{font-family:"DM Mono",monospace;font-size:12.5px;color:var(--muted)}
+.cnt b{color:var(--coral)}
+.rows{display:flex;flex-direction:column;gap:6px}
+.row{display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 14px;cursor:pointer;transition:.13s}
+.row:hover{border-color:var(--taupe)}
+.row.on{background:rgba(94,144,135,.07);border-color:rgba(94,144,135,.3)}
+.row.on .nm{text-decoration:line-through;color:var(--muted)}
+.ck{width:17px;height:17px;accent-color:var(--sage);flex-shrink:0;cursor:pointer}
+.dt{font-family:"DM Mono",monospace;font-size:12.5px;color:var(--muted);min-width:34px}
+.cd{font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;flex-shrink:0}
+.c신한{background:rgba(44,123,182,.13);color:#1d5a86}
+.c국민{background:rgba(226,97,27,.13);color:#a8481a}
+.nm{flex:1;font-size:13.5px;min-width:130px}
+.tag{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:4px;margin-left:7px;white-space:nowrap}
+.tag.adj{background:#F8CBAD;color:#7c3a12}
+.tag.chk{background:#FFF2CC;color:#7a5c11}
+.amt{font-family:"DM Mono",monospace;font-size:13px;text-align:right;min-width:78px}
+.vd{font-size:11.5px;font-weight:700;min-width:38px;text-align:center}
+.vd.ok{color:var(--sage)}
+.vd.no{color:var(--taupe)}
+@media(max-width:620px){.row{flex-wrap:wrap}.nm{min-width:100%;order:5}}
+.etc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:8px;font-size:13px;color:#5b5447;line-height:1.8}
+.etc h3{font-family:Hahmlet,serif;font-size:16px;margin-bottom:8px;color:var(--ink)}
+.opnote{margin-top:26px;font-size:12px;color:var(--muted);line-height:1.7}
+.foot{margin-top:18px;padding-top:17px;border-top:1px solid var(--line);text-align:center;font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted)}
+@media print{.back,.btn,.bar-all,.guide{display:none}.row{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="navleft">
+      <a class="back" href="finance.html">← 정산·신고 홈</a>
+      <a class="back" href="https://claude.ai/chat/4ae0f808-def5-4036-87f6-76797258af57" target="_blank" rel="noopener">💬 작업 대화</a>
+    </div>
+    <div class="metaline">
+      <span class="crumb">AI 워크스페이스 › 정산·신고 › 증빙서철</span>
+      <span class="bar">|</span>
+      <span class="upd">업데이트 <span id="updstamp"></span></span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>증빙서철 정리 · 2분기</h1>
+    <p>4~6월 법인카드 34건. 영수증을 출력해 일자순으로 붙이고 하나씩 체크하세요.</p>
+  </div>
+
+  <div class="bar-all">
+    <span class="lbl">전체 진행</span>
+    <span class="big"><b id="dn">0</b> / 34</span>
+    <span class="pbar"><i id="pb"></i></span>
+    <button class="btn" onclick="reset()">전체 해제</button>
+    <button class="btn" onclick="window.print()">인쇄</button>
+  </div>
+
+  <div class="guide">
+    <b>붙이는 순서</b> — 월별로 나누고, 각 월 안에서 <b>날짜순</b>으로 붙입니다.<br>
+    <b>영수증 2장짜리</b> — 매출전표(결제 증명) + 영수증(품목·과세/면세)을 <b>둘 다</b> 붙입니다. 쿠팡·PG 경유 건이 해당합니다.<br>
+    <b>주황 태그</b> — 부가세 조정 건이라 영수증이 특히 중요합니다. 반드시 품목이 보이는 영수증까지 첨부하세요.
+  </div>
+
+<section class="mon" data-mon="2026-04">
+<div class="mh"><h2>4월</h2><span class="cnt"><b class="done">0</b> / 14건 · 합계 3,565,260원</span></div>
+<div class="rows">
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">01일</span>
+<span class="cd c국민">국민</span>
+<span class="nm">아카이빗몰 1초 회원가입 서비스 (유니드컴즈 · 홈택스 표기: 나이스정보통신)</span>
+<span class="amt">54,890</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">02일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">쿠킹박스 재료 (나무유통 수지상현점)<span class="tag chk">면세 확인됨</span></span>
+<span class="amt">20,240</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">13일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">인터넷 사용료 (KT)</span>
+<span class="amt">52,800</span>
+<span class="vd no">불공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">13일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: KG파이낸셜)</span>
+<span class="amt">203,500</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">15일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">망고보드 사용료 (리아모어소프트 · 홈택스 표기: 토스페이먼츠)</span>
+<span class="amt">140,000</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">15일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">온라인수업 식재료 발주 — 순정꽃게 (쿠팡 · 홈택스 표기: 한국정보통신)<span class="tag adj">부가세 조정</span></span>
+<span class="amt">264,280</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">15일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">쿠킹박스용 아이스팩 (쿠팡 · 홈택스 표기: 한국정보통신)<span class="tag adj">부가세 조정</span></span>
+<span class="amt">21,970</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">20일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">회사일반전화 (LG유플러스)</span>
+<span class="amt">31,380</span>
+<span class="vd no">불공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">20일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">법인핸드폰 요금 (SKT)</span>
+<span class="amt">24,750</span>
+<span class="vd no">불공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">21일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">온라인수업 식재료 발주 — 떡볶이 고추장 등 (쿠팡 · 홈택스 표기: 한국정보통신)<span class="tag adj">부가세 조정</span></span>
+<span class="amt">109,410</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">22일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">그룹웨어 하이웍스 (가비아 · 홈택스 표기: NHN케이씨피)</span>
+<span class="amt">57,750</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">26일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">자비스 사용료 (세무법인에스브이 · 홈택스 표기: 나이스정보통신)</span>
+<span class="amt">36,300</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">29일</span>
+<span class="cd c국민">국민</span>
+<span class="nm">기술보증기금1 보증료 (홈택스 표기: 금융결제원)</span>
+<span class="amt">1,884,820</span>
+<span class="vd no">불공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">29일</span>
+<span class="cd c국민">국민</span>
+<span class="nm">기술보증기금2 보증료 (홈택스 표기: 금융결제원)</span>
+<span class="amt">663,170</span>
+<span class="vd no">불공제</span>
+</label>
+</div></section>
+<section class="mon" data-mon="2026-05">
+<div class="mh"><h2>5월</h2><span class="cnt"><b class="done">0</b> / 13건 · 합계 1,197,643원</span></div>
+<div class="rows">
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">01일</span>
+<span class="cd c국민">국민</span>
+<span class="nm">아카이빗몰 1초 회원가입 서비스 (유니드컴즈 · 홈택스 표기: 나이스정보통신)</span>
+<span class="amt">54,890</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">11일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: KG파이낸셜)</span>
+<span class="amt">203,500</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">11일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">인터넷 사용료 (KT)</span>
+<span class="amt">52,800</span>
+<span class="vd no">불공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">12일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: 토스페이먼츠)</span>
+<span class="amt">80,000</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">14일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">온라인수업 식재료 발주 — 스파게티소스 등 (쿠팡 237,340 + 왓푸드 9,060 · 홈택스 표기: 한국정보통신)<span class="tag adj">부가세 조정</span></span>
+<span class="amt">246,400</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">15일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">온라인수업 식재료 발주 — 양념 소불고기 (쿠팡 · 홈택스 표기: NHN케이씨피)<span class="tag adj">부가세 조정</span></span>
+<span class="amt">44,800</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">18일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">쿠킹박스 재료 (나무유통 수지상현점)<span class="tag chk">면세 확인됨</span></span>
+<span class="amt">99,030</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">18일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">법인핸드폰 요금 (SKT)</span>
+<span class="amt">24,750</span>
+<span class="vd no">불공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">19일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">쿠킹박스용 보냉봉투 (성일화학 · 홈택스 표기: 토스페이먼츠)</span>
+<span class="amt">236,173</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">19일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">쿠킹박스 포장박스 우체국 3호 ((주)창마루 · 홈택스 표기: KG이니시스)</span>
+<span class="amt">29,900</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">20일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">회사일반전화 (LG유플러스)</span>
+<span class="amt">31,350</span>
+<span class="vd no">불공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">22일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">그룹웨어 하이웍스 (가비아 · 홈택스 표기: NHN케이씨피)</span>
+<span class="amt">57,750</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">26일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">자비스 사용료 (세무법인에스브이 · 홈택스 표기: 나이스정보통신)</span>
+<span class="amt">36,300</span>
+<span class="vd ok">공제</span>
+</label>
+</div></section>
+<section class="mon" data-mon="2026-06">
+<div class="mh"><h2>6월</h2><span class="cnt"><b class="done">0</b> / 7건 · 합계 469,590원</span></div>
+<div class="rows">
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">01일</span>
+<span class="cd c국민">국민</span>
+<span class="nm">아카이빗몰 1초 회원가입 서비스 (유니드컴즈 · 홈택스 표기: 나이스정보통신)</span>
+<span class="amt">54,890</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">11일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">인터넷 사용료 (KT)</span>
+<span class="amt">52,800</span>
+<span class="vd no">불공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">16일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: KG파이낸셜)</span>
+<span class="amt">203,500</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">18일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">법인핸드폰 요금 (SKT)</span>
+<span class="amt">33,000</span>
+<span class="vd no">불공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">18일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">회사일반전화 (LG유플러스)</span>
+<span class="amt">31,350</span>
+<span class="vd no">불공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">22일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">그룹웨어 하이웍스 (가비아 · 홈택스 표기: NHN케이씨피)</span>
+<span class="amt">57,750</span>
+<span class="vd ok">공제</span>
+</label>
+<label class="row">
+<input type="checkbox" class="ck">
+<span class="dt">26일</span>
+<span class="cd c신한">신한</span>
+<span class="nm">자비스 사용료 (세무법인에스브이 · 홈택스 표기: 나이스정보통신)</span>
+<span class="amt">36,300</span>
+<span class="vd ok">공제</span>
+</label>
+</div></section>
+
+  <div class="mh"><h2>카드 외 지출</h2><span class="cnt">통장 이체 · 증빙 별도</span></div>
+  <div class="etc">
+    <h3>따로 챙길 증빙</h3>
+    · <b>4대보험료 · 원천세</b> — 고지서 (매월 10일 이전)<br>
+    · <b>급여</b> — 급여대장 · 이체확인증 (25일)<br>
+    · <b>월세</b> — 세금계산서 (12일 · 1,540,000)<br>
+    · <b>관리비</b> — 고지서 (20일)<br>
+    · <b>기보 이자 · 대출이자</b> — 이자납입증명 (5일 · 22일)<br>
+    · <b>컬리 배송료</b> — 세금계산서 (19일경)<br>
+    · <b>복합기 · 기장료</b> — 세금계산서 (말일)
+  </div>
+
+  <p class="opnote">※ 체크는 <b>화면에서만</b> 표시됩니다(저장되지 않음). 한 번에 끝내거나, 인쇄해서 종이로 쓰세요.<br>
+  ※ 카드 건의 상세내역·공제여부는 <b>사업용신용카드_세액공제내역_4월_6월(정리본).xlsx</b> 기준입니다.</p>
+
+  <div class="foot">finance-receipt-2q · <span id="fv">v1</span> · 주식회사 공공의주방 · archiveat.kr · 2026</div>
+</div>
+<script>
+(function(){
+  var mv=document.querySelector('meta[name="version"]'),mu=document.querySelector('meta[name="updated"]');
+  var ver=mv?mv.content:'',upd=mu?mu.content:'';
+  var s=document.getElementById('updstamp'); if(s)s.textContent=upd+(ver?' · '+ver:'');
+  var f=document.getElementById('fv'); if(f&&ver)f.textContent=ver;
+})();
+function upd(){
+  var all=document.querySelectorAll('.ck'),n=0;
+  all.forEach(function(c){ if(c.checked)n++; c.closest('.row').classList.toggle('on',c.checked); });
+  document.getElementById('dn').textContent=n;
+  document.getElementById('pb').style.width=(n/all.length*100)+'%';
+  document.querySelectorAll('.mon').forEach(function(m){
+    var cs=m.querySelectorAll('.ck'),k=0;
+    cs.forEach(function(c){ if(c.checked)k++; });
+    m.querySelector('.done').textContent=k;
+  });
+}
+document.querySelectorAll('.ck').forEach(function(c){ c.addEventListener('change',upd); });
+function reset(){ document.querySelectorAll('.ck').forEach(function(c){c.checked=false;}); upd(); }
+upd();
+</script>
+</body>
+</html>
