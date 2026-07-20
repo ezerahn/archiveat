@@ -62,6 +62,12 @@ body{font-family:Pretendard,-apple-system,"Malgun Gothic",system-ui,sans-serif;b
 @media(max-width:620px){.row{flex-wrap:wrap}.nm{min-width:100%;order:5}}
 .etc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:8px;font-size:13px;color:#5b5447;line-height:1.8}
 .etc h3{font-family:Hahmlet,serif;font-size:16px;margin-bottom:8px;color:var(--ink)}
+.sub{font-size:12px;color:var(--muted);margin:9px 0 6px}
+.sub.ov{color:#a8552f;margin-top:13px}
+.sub .hint{color:var(--taupe)}
+.row.ovr{background:rgba(194,177,144,.09)}
+.tag.ovs{background:rgba(194,177,144,.32);color:#6e6142}
+.miss{color:var(--coral);font-size:11.5px;font-weight:700}
 .opnote{margin-top:26px;font-size:12px;color:var(--muted);line-height:1.7}
 .foot{margin-top:18px;padding-top:17px;border-top:1px solid var(--line);text-align:center;font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted)}
 @media print{.back,.btn,.bar-all,.guide{display:none}.row{break-inside:avoid}}
@@ -84,12 +90,12 @@ body{font-family:Pretendard,-apple-system,"Malgun Gothic",system-ui,sans-serif;b
 
   <div class="hero">
     <h1>증빙서철 정리 · 2분기</h1>
-    <p>4~6월 법인카드 34건. 영수증을 출력해 일자순으로 붙이고 하나씩 체크하세요.</p>
+    <p>4~6월 법인카드 46건(홈택스 34 + 해외결제 12). 영수증을 출력해 일자순으로 붙이고 하나씩 체크하세요.</p>
   </div>
 
   <div class="bar-all">
     <span class="lbl">전체 진행</span>
-    <span class="big"><b id="dn">0</b> / 34</span>
+    <span class="big"><b id="dn">0</b> / 46</span>
     <span class="pbar"><i id="pb"></i></span>
     <button class="btn" onclick="reset()">전체 해제</button>
     <button class="btn" onclick="window.print()">인쇄</button>
@@ -98,292 +104,75 @@ body{font-family:Pretendard,-apple-system,"Malgun Gothic",system-ui,sans-serif;b
   <div class="guide">
     <b>붙이는 순서</b> — 월별로 나누고, 각 월 안에서 <b>날짜순</b>으로 붙입니다.<br>
     <b>영수증 2장짜리</b> — 매출전표(결제 증명) + 영수증(품목·과세/면세)을 <b>둘 다</b> 붙입니다. 쿠팡·PG 경유 건이 해당합니다.<br>
-    <b>주황 태그</b> — 부가세 조정 건이라 영수증이 특히 중요합니다. 반드시 품목이 보이는 영수증까지 첨부하세요.
+    <b>해외결제</b> — 드롭박스·셔터스톡·줌·MS오피스는 홈택스 공제내역에 없습니다. 부가세 대상은 아니지만 <b>비용 증빙</b>이라 카드 명세서·이메일 영수증을 붙여야 합니다.<br><b>주황 태그</b> — 부가세 조정 건이라 영수증이 특히 중요합니다. 반드시 품목이 보이는 영수증까지 첨부하세요.
   </div>
 
 <section class="mon" data-mon="2026-04">
-<div class="mh"><h2>4월</h2><span class="cnt"><b class="done">0</b> / 14건 · 합계 3,565,260원</span></div>
+<div class="mh"><h2>4월</h2><span class="cnt"><b class="done">0</b> / 18건 · 합계 4,059,815원</span></div>
+<div class="sub">홈택스 공제내역 14건</div>
 <div class="rows">
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">01일</span>
-<span class="cd c국민">국민</span>
-<span class="nm">아카이빗몰 1초 회원가입 서비스 (유니드컴즈 · 홈택스 표기: 나이스정보통신)</span>
-<span class="amt">54,890</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">02일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">쿠킹박스 재료 (나무유통 수지상현점)<span class="tag chk">면세 확인됨</span></span>
-<span class="amt">20,240</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">13일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">인터넷 사용료 (KT)</span>
-<span class="amt">52,800</span>
-<span class="vd no">불공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">13일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: KG파이낸셜)</span>
-<span class="amt">203,500</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">15일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">망고보드 사용료 (리아모어소프트 · 홈택스 표기: 토스페이먼츠)</span>
-<span class="amt">140,000</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">15일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">온라인수업 식재료 발주 — 순정꽃게 (쿠팡 · 홈택스 표기: 한국정보통신)<span class="tag adj">부가세 조정</span></span>
-<span class="amt">264,280</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">15일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">쿠킹박스용 아이스팩 (쿠팡 · 홈택스 표기: 한국정보통신)<span class="tag adj">부가세 조정</span></span>
-<span class="amt">21,970</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">20일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">회사일반전화 (LG유플러스)</span>
-<span class="amt">31,380</span>
-<span class="vd no">불공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">20일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">법인핸드폰 요금 (SKT)</span>
-<span class="amt">24,750</span>
-<span class="vd no">불공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">21일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">온라인수업 식재료 발주 — 떡볶이 고추장 등 (쿠팡 · 홈택스 표기: 한국정보통신)<span class="tag adj">부가세 조정</span></span>
-<span class="amt">109,410</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">22일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">그룹웨어 하이웍스 (가비아 · 홈택스 표기: NHN케이씨피)</span>
-<span class="amt">57,750</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">26일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">자비스 사용료 (세무법인에스브이 · 홈택스 표기: 나이스정보통신)</span>
-<span class="amt">36,300</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">29일</span>
-<span class="cd c국민">국민</span>
-<span class="nm">기술보증기금1 보증료 (홈택스 표기: 금융결제원)</span>
-<span class="amt">1,884,820</span>
-<span class="vd no">불공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">29일</span>
-<span class="cd c국민">국민</span>
-<span class="nm">기술보증기금2 보증료 (홈택스 표기: 금융결제원)</span>
-<span class="amt">663,170</span>
-<span class="vd no">불공제</span>
-</label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">01일</span><span class="cd c국민">국민</span><span class="nm">아카이빗몰 1초 회원가입 서비스 (유니드컴즈 · 홈택스 표기: 나이스정보통신)</span><span class="amt">54,890</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">02일</span><span class="cd c신한">신한</span><span class="nm">쿠킹박스 재료 (나무유통 수지상현점)<span class="tag chk">면세 확인됨</span></span><span class="amt">20,240</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">13일</span><span class="cd c신한">신한</span><span class="nm">인터넷 사용료 (KT)</span><span class="amt">52,800</span><span class="vd no">불공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">13일</span><span class="cd c신한">신한</span><span class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: KG파이낸셜)</span><span class="amt">203,500</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">15일</span><span class="cd c신한">신한</span><span class="nm">망고보드 사용료 (리아모어소프트 · 홈택스 표기: 토스페이먼츠)</span><span class="amt">140,000</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">15일</span><span class="cd c신한">신한</span><span class="nm">온라인수업 식재료 발주 — 순정꽃게 (쿠팡 · 홈택스 표기: 한국정보통신)<span class="tag adj">부가세 조정</span></span><span class="amt">264,280</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">15일</span><span class="cd c신한">신한</span><span class="nm">쿠킹박스용 아이스팩 (쿠팡 · 홈택스 표기: 한국정보통신)<span class="tag chk">면세 확인됨</span></span><span class="amt">21,970</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">20일</span><span class="cd c신한">신한</span><span class="nm">회사일반전화 (LG유플러스)</span><span class="amt">31,380</span><span class="vd no">불공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">20일</span><span class="cd c신한">신한</span><span class="nm">법인핸드폰 요금 (SKT)</span><span class="amt">24,750</span><span class="vd no">불공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">21일</span><span class="cd c신한">신한</span><span class="nm">온라인수업 식재료 발주 — 떡볶이 고추장 등 (쿠팡 · 홈택스 표기: 한국정보통신)<span class="tag adj">부가세 조정</span></span><span class="amt">109,410</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">22일</span><span class="cd c신한">신한</span><span class="nm">그룹웨어 하이웍스 (가비아 · 홈택스 표기: NHN케이씨피)</span><span class="amt">57,750</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">26일</span><span class="cd c신한">신한</span><span class="nm">자비스 사용료 (세무법인에스브이 · 홈택스 표기: 나이스정보통신)</span><span class="amt">36,300</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">29일</span><span class="cd c국민">국민</span><span class="nm">기술보증기금1 보증료 (홈택스 표기: 금융결제원)</span><span class="amt">1,884,820</span><span class="vd no">불공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">29일</span><span class="cd c국민">국민</span><span class="nm">기술보증기금2 보증료 (홈택스 표기: 금융결제원)</span><span class="amt">663,170</span><span class="vd no">불공제</span></label>
+</div>
+<div class="sub ov">해외결제 4건 <span class="hint">— 홈택스 공제내역에 없음 · 부가세 대상 아님 · 비용 증빙으로 첨부</span></div><div class="rows">
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">02일</span><span class="cd c국민">국민</span><span class="nm">드롭박스 서버비 (USD 264.00 · 아일랜드)<span class="tag ovs">해외</span></span><span class="amt">406,882</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">02일</span><span class="cd c신한">신한</span><span class="nm">셔터스톡 이용료 (USD)<span class="tag ovs">해외</span></span><span class="amt">49,110</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">25일</span><span class="cd c신한">신한</span><span class="nm">줌(Zoom) 이용료 (USD)<span class="tag ovs">해외</span></span><span class="amt">25,720</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">27일</span><span class="cd c신한">신한</span><span class="nm">MS 오피스 (싱가포르)<span class="tag ovs">해외</span></span><span class="amt">12,843</span><span class="vd no">해당없음</span></label>
 </div></section>
 <section class="mon" data-mon="2026-05">
-<div class="mh"><h2>5월</h2><span class="cnt"><b class="done">0</b> / 13건 · 합계 1,197,643원</span></div>
+<div class="mh"><h2>5월</h2><span class="cnt"><b class="done">0</b> / 17건 · 합계 1,685,796원</span></div>
+<div class="sub">홈택스 공제내역 13건</div>
 <div class="rows">
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">01일</span>
-<span class="cd c국민">국민</span>
-<span class="nm">아카이빗몰 1초 회원가입 서비스 (유니드컴즈 · 홈택스 표기: 나이스정보통신)</span>
-<span class="amt">54,890</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">11일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: KG파이낸셜)</span>
-<span class="amt">203,500</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">11일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">인터넷 사용료 (KT)</span>
-<span class="amt">52,800</span>
-<span class="vd no">불공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">12일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: 토스페이먼츠)</span>
-<span class="amt">80,000</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">14일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">온라인수업 식재료 발주 — 스파게티소스 등 (쿠팡 237,340 + 왓푸드 9,060 · 홈택스 표기: 한국정보통신)<span class="tag adj">부가세 조정</span></span>
-<span class="amt">246,400</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">15일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">온라인수업 식재료 발주 — 양념 소불고기 (쿠팡 · 홈택스 표기: NHN케이씨피)<span class="tag adj">부가세 조정</span></span>
-<span class="amt">44,800</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">18일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">쿠킹박스 재료 (나무유통 수지상현점)<span class="tag chk">면세 확인됨</span></span>
-<span class="amt">99,030</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">18일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">법인핸드폰 요금 (SKT)</span>
-<span class="amt">24,750</span>
-<span class="vd no">불공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">19일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">쿠킹박스용 보냉봉투 (성일화학 · 홈택스 표기: 토스페이먼츠)</span>
-<span class="amt">236,173</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">19일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">쿠킹박스 포장박스 우체국 3호 ((주)창마루 · 홈택스 표기: KG이니시스)</span>
-<span class="amt">29,900</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">20일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">회사일반전화 (LG유플러스)</span>
-<span class="amt">31,350</span>
-<span class="vd no">불공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">22일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">그룹웨어 하이웍스 (가비아 · 홈택스 표기: NHN케이씨피)</span>
-<span class="amt">57,750</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">26일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">자비스 사용료 (세무법인에스브이 · 홈택스 표기: 나이스정보통신)</span>
-<span class="amt">36,300</span>
-<span class="vd ok">공제</span>
-</label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">01일</span><span class="cd c국민">국민</span><span class="nm">아카이빗몰 1초 회원가입 서비스 (유니드컴즈 · 홈택스 표기: 나이스정보통신)</span><span class="amt">54,890</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">11일</span><span class="cd c신한">신한</span><span class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: KG파이낸셜)</span><span class="amt">203,500</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">11일</span><span class="cd c신한">신한</span><span class="nm">인터넷 사용료 (KT)</span><span class="amt">52,800</span><span class="vd no">불공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">12일</span><span class="cd c신한">신한</span><span class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: 토스페이먼츠)</span><span class="amt">80,000</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">14일</span><span class="cd c신한">신한</span><span class="nm">온라인수업 식재료 발주 — 스파게티소스 등 (쿠팡 237,340 + 왓푸드 9,060 · 홈택스 표기: 한국정보통신)<span class="tag chk">면세 확인됨</span></span><span class="amt">246,400</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">15일</span><span class="cd c신한">신한</span><span class="nm">온라인수업 식재료 발주 — 양념 소불고기 (쿠팡 · 홈택스 표기: NHN케이씨피)<span class="tag chk">면세 확인됨</span></span><span class="amt">44,800</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">18일</span><span class="cd c신한">신한</span><span class="nm">쿠킹박스 재료 (나무유통 수지상현점)<span class="tag chk">면세 확인됨</span></span><span class="amt">99,030</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">18일</span><span class="cd c신한">신한</span><span class="nm">법인핸드폰 요금 (SKT)</span><span class="amt">24,750</span><span class="vd no">불공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">19일</span><span class="cd c신한">신한</span><span class="nm">쿠킹박스용 보냉봉투 (성일화학 · 홈택스 표기: 토스페이먼츠)</span><span class="amt">236,173</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">19일</span><span class="cd c신한">신한</span><span class="nm">쿠킹박스 포장박스 우체국 3호 ((주)창마루 · 홈택스 표기: KG이니시스)</span><span class="amt">29,900</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">20일</span><span class="cd c신한">신한</span><span class="nm">회사일반전화 (LG유플러스)</span><span class="amt">31,350</span><span class="vd no">불공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">22일</span><span class="cd c신한">신한</span><span class="nm">그룹웨어 하이웍스 (가비아 · 홈택스 표기: NHN케이씨피)</span><span class="amt">57,750</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">26일</span><span class="cd c신한">신한</span><span class="nm">자비스 사용료 (세무법인에스브이 · 홈택스 표기: 나이스정보통신)</span><span class="amt">36,300</span><span class="vd ok">공제</span></label>
+</div>
+<div class="sub ov">해외결제 4건 <span class="hint">— 홈택스 공제내역에 없음 · 부가세 대상 아님 · 비용 증빙으로 첨부</span></div><div class="rows">
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">02일</span><span class="cd c국민">국민</span><span class="nm">드롭박스 서버비 (USD 264.00 · 아일랜드)<span class="tag ovs">해외</span></span><span class="amt">400,734</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">02일</span><span class="cd c신한">신한</span><span class="nm">셔터스톡 이용료 (USD)<span class="tag ovs">해외</span></span><span class="amt">48,368</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">25일</span><span class="cd c신한">신한</span><span class="nm">줌(Zoom) 이용료 (USD)<span class="tag ovs">해외</span></span><span class="amt">26,153</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">27일</span><span class="cd c신한">신한</span><span class="nm">MS 오피스 (싱가포르)<span class="tag ovs">해외</span></span><span class="amt">12,898</span><span class="vd no">해당없음</span></label>
 </div></section>
 <section class="mon" data-mon="2026-06">
-<div class="mh"><h2>6월</h2><span class="cnt"><b class="done">0</b> / 7건 · 합계 469,590원</span></div>
+<div class="mh"><h2>6월</h2><span class="cnt"><b class="done">0</b> / 11건 · 합계 469,590원+</span></div>
+<div class="sub">홈택스 공제내역 7건</div>
 <div class="rows">
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">01일</span>
-<span class="cd c국민">국민</span>
-<span class="nm">아카이빗몰 1초 회원가입 서비스 (유니드컴즈 · 홈택스 표기: 나이스정보통신)</span>
-<span class="amt">54,890</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">11일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">인터넷 사용료 (KT)</span>
-<span class="amt">52,800</span>
-<span class="vd no">불공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">16일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: KG파이낸셜)</span>
-<span class="amt">203,500</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">18일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">법인핸드폰 요금 (SKT)</span>
-<span class="amt">33,000</span>
-<span class="vd no">불공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">18일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">회사일반전화 (LG유플러스)</span>
-<span class="amt">31,350</span>
-<span class="vd no">불공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">22일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">그룹웨어 하이웍스 (가비아 · 홈택스 표기: NHN케이씨피)</span>
-<span class="amt">57,750</span>
-<span class="vd ok">공제</span>
-</label>
-<label class="row">
-<input type="checkbox" class="ck">
-<span class="dt">26일</span>
-<span class="cd c신한">신한</span>
-<span class="nm">자비스 사용료 (세무법인에스브이 · 홈택스 표기: 나이스정보통신)</span>
-<span class="amt">36,300</span>
-<span class="vd ok">공제</span>
-</label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">01일</span><span class="cd c국민">국민</span><span class="nm">아카이빗몰 1초 회원가입 서비스 (유니드컴즈 · 홈택스 표기: 나이스정보통신)</span><span class="amt">54,890</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">11일</span><span class="cd c신한">신한</span><span class="nm">인터넷 사용료 (KT)</span><span class="amt">52,800</span><span class="vd no">불공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">16일</span><span class="cd c신한">신한</span><span class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: KG파이낸셜)</span><span class="amt">203,500</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">18일</span><span class="cd c신한">신한</span><span class="nm">법인핸드폰 요금 (SKT)</span><span class="amt">33,000</span><span class="vd no">불공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">18일</span><span class="cd c신한">신한</span><span class="nm">회사일반전화 (LG유플러스)</span><span class="amt">31,350</span><span class="vd no">불공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">22일</span><span class="cd c신한">신한</span><span class="nm">그룹웨어 하이웍스 (가비아 · 홈택스 표기: NHN케이씨피)</span><span class="amt">57,750</span><span class="vd ok">공제</span></label>
+<label class="row"><input type="checkbox" class="ck"><span class="dt">26일</span><span class="cd c신한">신한</span><span class="nm">자비스 사용료 (세무법인에스브이 · 홈택스 표기: 나이스정보통신)</span><span class="amt">36,300</span><span class="vd ok">공제</span></label>
+</div>
+<div class="sub ov">해외결제 4건 <span class="hint">— 홈택스 공제내역에 없음 · 부가세 대상 아님 · 비용 증빙으로 첨부</span></div><div class="rows">
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">02일</span><span class="cd c국민">국민</span><span class="nm">드롭박스 서버비 (USD)<span class="tag ovs">해외</span></span><span class="amt"><span class="miss">금액 확인</span></span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">02일</span><span class="cd c신한">신한</span><span class="nm">셔터스톡 이용료 (USD)<span class="tag ovs">해외</span></span><span class="amt"><span class="miss">금액 확인</span></span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">25일</span><span class="cd c신한">신한</span><span class="nm">줌(Zoom) 이용료 (USD)<span class="tag ovs">해외</span></span><span class="amt"><span class="miss">금액 확인</span></span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">27일</span><span class="cd c신한">신한</span><span class="nm">MS 오피스 (싱가포르)<span class="tag ovs">해외</span></span><span class="amt"><span class="miss">금액 확인</span></span><span class="vd no">해당없음</span></label>
 </div></section>
 
   <div class="mh"><h2>카드 외 지출</h2><span class="cnt">통장 이체 · 증빙 별도</span></div>
@@ -399,7 +188,7 @@ body{font-family:Pretendard,-apple-system,"Malgun Gothic",system-ui,sans-serif;b
   </div>
 
   <p class="opnote">※ 체크는 <b>화면에서만</b> 표시됩니다(저장되지 않음). 한 번에 끝내거나, 인쇄해서 종이로 쓰세요.<br>
-  ※ 카드 건의 상세내역·공제여부는 <b>사업용신용카드_세액공제내역_4월_6월(정리본).xlsx</b> 기준입니다.</p>
+  ※ 6월 해외결제 4건은 7월 카드명세서가 나와야 금액이 확정됩니다(각 2·2·25·27일).<br>※ 카드 건의 상세내역·공제여부는 <b>사업용신용카드_세액공제내역_4월_6월(정리본).xlsx</b> 기준입니다.</p>
 
   <div class="foot">finance-receipt-2q · <span id="fv">v1</span> · 주식회사 공공의주방 · archiveat.kr · 2026</div>
 </div>
