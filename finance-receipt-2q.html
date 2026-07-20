@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="version" content="v6">
-<meta name="updated" content="2026.07.20 17:35">
+<meta name="version" content="v7">
+<meta name="updated" content="2026.07.20 17:50">
 <title>finance-receipt-2q</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +42,7 @@ body{font-family:Pretendard,-apple-system,"Malgun Gothic",system-ui,sans-serif;b
 .cnt{font-family:"DM Mono",monospace;font-size:12.5px;color:var(--muted)}
 .cnt b{color:var(--coral)}
 .rows{display:flex;flex-direction:column;gap:6px}
-.row{display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 14px;cursor:pointer;transition:.13s}
+.row{display:flex;align-items:center;gap:11px;flex-wrap:wrap;row-gap:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 14px;cursor:pointer;transition:.13s}
 .row:hover{border-color:var(--taupe)}
 .row.on{background:rgba(94,144,135,.13);border-color:rgba(94,144,135,.38)}
 .row.on .nm,.row.on .dt,.row.on .amt{color:#4a5a54}
@@ -51,7 +51,7 @@ body{font-family:Pretendard,-apple-system,"Malgun Gothic",system-ui,sans-serif;b
 .cd{font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;flex-shrink:0}
 .c신한{background:rgba(44,123,182,.13);color:#1d5a86}
 .c국민{background:rgba(226,97,27,.13);color:#a8481a}
-.nm{flex:1;font-size:13.5px;min-width:130px}
+.nm{flex:1 1 180px;font-size:13.5px;min-width:0}
 .tag{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:4px;margin-left:7px;white-space:nowrap}
 .tag.adj{background:#E2611B;color:#fff}
 .row:has(.tag.adj){border-color:#E2611B;border-width:1.5px;background:rgba(226,97,27,.06)}
@@ -74,10 +74,10 @@ body{font-family:Pretendard,-apple-system,"Malgun Gothic",system-ui,sans-serif;b
 .row.bkr{background:rgba(44,123,182,.05)}
 .cbk{background:rgba(44,123,182,.13);color:#1d5a86}
 .mem{color:var(--muted);font-size:11.5px}
-.info{flex-basis:100%;order:9;font-family:"DM Mono",monospace;font-size:11.5px;padding:6px 10px;border-radius:7px;margin-top:2px;line-height:1.6}
+.info{flex:0 0 100%;order:99;font-family:"DM Mono",monospace;font-size:11px;margin:5px 0 1px 28px;padding-left:9px;border-left:2px solid currentColor;line-height:1.55;opacity:.85}
 .info b{font-weight:500}
-.info.adj{background:rgba(226,97,27,.11);color:#8a3d1e}
-.info.chk{background:rgba(239,199,94,.16);color:#7a5c11}
+.info.adj{color:#a8481a}
+.info.chk{color:#8a6a14}
 .tag.q{background:rgba(255,80,25,.16);color:#a8482a}
 .tabs{display:flex;gap:7px;margin:22px 0 18px;flex-wrap:wrap}
 .tab{font-family:inherit;font-size:14px;font-weight:600;color:var(--muted);padding:9px 18px;border:1px solid var(--line);border-radius:999px;background:var(--surface);cursor:pointer;transition:.15s}
