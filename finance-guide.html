@@ -75,7 +75,7 @@ body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Ne
   <div class="top">
     <div class="navleft">
       <a class="back" href="finance.html">← 정산·신고 홈</a>
-      <a class="back" href="https://claude.ai/chat/024598dc-4a12-4010-b257-5d655f771d15" target="_blank" rel="noopener">작업 대화 ↗</a>
+      <a class="back" href="https://claude.ai/chat/4ae0f808-def5-4036-87f6-76797258af57" target="_blank" rel="noopener">작업 대화 ↗</a>
     </div>
     <span class="brandmark">ARCHIVEAT · GUIDE</span>
   </div>
@@ -83,7 +83,7 @@ body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Ne
   <div class="hero">
     <span class="eyebrow">정산·신고 가이드</span>
     <h1>세금계산서·정산 기준 노트</h1>
-    <div class="meta">2026.07 · v5 · 헷갈릴 때 펴보는 정리</div>
+    <div class="meta">2026.07 · v6 · 헷갈릴 때 펴보는 정리</div>
     <p>케이터링·클래스 정산하며 정리한 기준입니다. 표로 빠르게 보고, 아래 설명으로 이유까지 익혀두세요.</p>
   </div>
 
@@ -106,6 +106,7 @@ body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Ne
     <a href="#g-basic">🧭 기본 개념</a>
     <a href="#g-sales">📤 받는 돈 (매출)</a>
     <a href="#g-purchase">📥 주는 돈·매입</a>
+      <a href="#g-deduct">💳 매입세액공제</a>
   </div>
 
   <!-- 그룹: 기본 개념 -->
@@ -305,6 +306,99 @@ body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Ne
     </div>
   </div>
 
+
+  <!-- 그룹: 매입세액공제 -->
+  <div class="grp" id="g-deduct">
+    <div class="gh">💳 매입세액공제 — 부가세를 돌려받는 기준</div>
+    <div class="gs">무엇이 공제되고 무엇이 안 되는지 · 식재료가 까다로운 이유</div>
+    <div class="gline"></div>
+  </div>
+
+  <div class="sec">
+    <h2><span class="no">①</span> 부가세는 어떻게 계산되나</h2>
+    <div class="lead">받은 부가세에서 낸 부가세를 빼면 납부액 또는 환급액</div>
+    <div class="exp">
+      물건을 팔 때 손님에게 <b>부가세를 받아 보관</b>했다가 나라에 냅니다(매출세액). 반대로 재료를 살 때는 우리가 <b>부가세를 냈으니</b> 그만큼 빼줍니다(매입세액). 이 빼주는 금액이 <b>매입세액공제</b>입니다.
+      <div class="li"><b>매출세액 − 매입세액 = 납부 또는 환급</b> — 매입이 많으면 환급받습니다.</div>
+      <div class="li">2026년 1기 실적 — 매출세액 1,713,234 − 매입세액 2,619,375 = <b class="coral">환급 906,141원</b></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2><span class="no">②</span> 공제받는 4가지 조건</h2>
+    <div class="lead">하나라도 안 맞으면 공제되지 않습니다</div>
+    <div class="scroll">
+    <table class="tbl">
+      <tr><th>조건</th><th>내용</th><th>확인 방법</th></tr>
+      <tr><td class="em">① 사업 관련</td><td>사업을 위해 쓴 돈인가</td><td>용도로 판단</td></tr>
+      <tr><td class="em">② 부가세 납부</td><td>실제로 부가세를 냈는가</td><td>영수증에 부가세 금액</td></tr>
+      <tr><td class="em">③ 적격증빙</td><td>세금계산서·사업용카드 전표·현금영수증</td><td>공급자 과세유형 조회</td></tr>
+      <tr><td class="em">④ 법정 불공제 아님</td><td>접대비·주차비 등이 아닌가</td><td>아래 표 참고</td></tr>
+    </table>
+    </div>
+    <div class="tip"><b>세금계산서를 받았다고 다 공제되는 게 아닙니다.</b> ③번 하나를 만족한 것일 뿐이고, 공급자가 <b>간이과세자·면세사업자·국외 사업자</b>면 공제되지 않습니다.</div>
+  </div>
+
+  <div class="sec">
+    <h2><span class="no">③</span> 공급자 과세유형 조회 — 홈택스</h2>
+    <div class="lead">로그인 없이 사업자등록번호만으로 확인됩니다</div>
+    <div class="exp">
+      홈택스 → <b>증명·등록·신청·사업장현황</b> → 사업자등록 신청·정정·휴폐업 → <b>사업자상태 조회(사업자등록번호)</b><br>
+      (검색창에 <b>사업자상태</b>를 치면 바로 나옵니다)
+      <div class="li"><b>부가가치세 일반과세자</b> → 공제 가능</div>
+      <div class="li"><b>간이과세자</b> → 원칙 불공제 (세금계산서 발급 사업자인지 함께 표시됨)</div>
+      <div class="li"><b>면세사업자</b> → 불공제 (애초에 부가세가 없음)</div>
+      <div class="li"><b>폐업자</b> → 폐업일 이후 발행분은 효력 없음</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2><span class="no">④</span> 공제 안 되는 유형 — 1기 실제 사례</h2>
+    <div class="lead">손해가 아니라 원래 대상이 아닌 경우가 대부분입니다</div>
+    <div class="scroll">
+    <table class="tbl">
+      <tr><th>이유</th><th>건수</th><th>세액</th><th>해당 항목</th></tr>
+      <tr><td class="em">면세 — 부가세가 붙지 않는 거래</td><td>3건</td><td class="coral">261,998</td><td>기술보증기금 보증료 · 특허청 수수료</td></tr><tr><td class="em">세금계산서를 따로 받는 거래</td><td>18건</td><td class="coral">60,152</td><td>통신 3사</td></tr><tr><td class="em">법에서 정한 불공제 (당연불공제)</td><td>2건</td><td class="coral">4,181</td><td>주차비</td></tr><tr><td class="em">전례에 따른 불공제</td><td>1건</td><td class="coral">770</td><td>쓰레기봉투</td></tr><tr><td class="em">세금 — 부가세 대상 아님</td><td>2건</td><td class="coral">0</td><td>등록면허세</td></tr>
+    </table>
+    </div>
+    <div class="exp">
+      <b>면세</b> — 애초에 부가세가 붙지 않는 거래입니다. 보증료·특허청 수수료가 그렇습니다. 낸 적이 없으니 돌려받을 것도 없습니다.
+      <div class="li"><b>세금계산서를 따로 받는 거래</b> — 통신비처럼 세금계산서가 이미 발행된 건을 카드로 결제한 경우입니다. 세금계산서로 공제받으므로 카드로 또 받으면 이중공제가 됩니다.</div>
+      <div class="li"><b>당연불공제</b> — 주차비·접대비처럼 법에서 공제를 막아둔 항목입니다.</div>
+      <div class="li"><b>간이과세자·국외 사업자</b> — 적격증빙이 성립하지 않습니다. 사업자번호를 조회해야 알 수 있습니다.</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2><span class="no">⑤</span> 식재료가 까다로운 이유</h2>
+    <div class="lead">가공하지 않은 농수축산물은 면세 · PG를 거치면 홈택스가 전액 과세로 계산</div>
+    <div class="exp">
+      <b>미가공 농수축산물은 면세</b>입니다. 꽃게·대파·쪽파·시금치에는 부가세가 붙지 않습니다. 반대로 양념 소불고기·스파게티소스·고추장 같은 <b>가공식품은 과세</b>입니다.
+      <div class="li">문제는 <b>결제대행사(PG)를 거치면 홈택스가 전액을 과세로 계산</b>한다는 점입니다. 쿠팡처럼 PG를 거치는 곳은 <b>영수증을 봐야</b> 진짜 부가세를 알 수 있습니다.</div>
+      <div class="li"><b>신호</b> — 세액이 정확히 합계÷11이면 홈택스가 뭉갠 것일 수 있습니다. 식재료 건은 영수증의 과세·비과세 금액을 확인하세요.</div>
+      <div class="li">2026년 1기에 영수증으로 바로잡은 것이 <b>7건</b>, 면세로 확인된 금액이 <b class="coral">529,680원</b>입니다. 그대로 공제받았다면 나중에 추징 대상이 됐을 부분입니다.</div>
+    </div>
+    <div class="tip"><b>카드 매칭 키는 금액+결제일</b>입니다. 사업자번호·상호는 PG를 거치며 흔들리므로 기준으로 쓰지 마세요.</div>
+  </div>
+
+  <div class="sec">
+    <h2><span class="no">⑥</span> 신고 자료에서 어느 칸이 기준인가</h2>
+    <div class="lead">사업용신용카드 세액공제내역 — M열이 신고 기준</div>
+    <div class="scroll">
+    <table class="tbl">
+      <tr><th>열</th><th>이름</th><th>누가 적나</th><th>신고 영향</th></tr>
+      <tr><td class="em">M</td><td>공제여부결정</td><td class="coral">삼화 (최종 판정)</td><td class="coral">신고 기준</td></tr>
+      <tr><td class="em">O</td><td>상세내역</td><td>공공의주방</td><td>판단 근거</td></tr>
+      <tr><td class="em">P</td><td>비고</td><td>공공의주방 (의견)</td><td class="ok">없음</td></tr>
+    </table>
+    </div>
+    <div class="exp">
+      우리는 <b>O열에 무엇을 샀는지, P열에 의견</b>을 적어 보냅니다. <b>M열 최종 판정은 삼화</b>가 합니다.
+      <div class="li"><b>우리가 M열을 직접 쓰지 않는 이유</b> — 간이과세자 여부·면세 품목·국외 사업자는 사업자번호를 조회해야 알 수 있고, 세법 판단 책임도 세무대리인에게 있습니다.</div>
+      <div class="li">2026년 1기에 삼화가 M열을 <b>1분기 24건·2분기 23건</b> 정정했고, 우리 P열 의견과 전부 일치했습니다.</div>
+    </div>
+  </div>
+
   <!-- 미확정 -->
   <div class="disc">
     <b>⚠️ 아직 확정 안 된 것 (삼화 추가 확인)</b><br>
@@ -313,7 +407,7 @@ body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Ne
     이 가이드는 <b>"우리가 이해한 정리"</b>이고, 개별 적용의 <b>최종 판단은 삼화회계법인 회신</b>이 기준입니다. 애매하면 항상 삼화에 확인하세요.
   </div>
 
-  <div class="foot">finance-guide · v5 · 주식회사 공공의주방 · archiveat.kr · 2026</div>
+  <div class="foot">finance-guide · v6 · 주식회사 공공의주방 · archiveat.kr · 2026</div>
 
 </div>
 </body>
