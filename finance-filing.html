@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="version" content="v1"><meta name="updated" content="2026.07.21 19:20">
+<meta name="version" content="v2"><meta name="updated" content="2026.07.21 20:10">
 <title>finance-filing</title>
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
@@ -26,6 +26,18 @@ body{font-family:Pretendard,-apple-system,"Malgun Gothic",system-ui,sans-serif;b
 .tab:hover{border-color:var(--taupe);color:var(--ink)}.tab.on{background:var(--coral);border-color:var(--coral);color:#fff}
 .tab .tn{font-family:"DM Mono",monospace;font-size:11.5px;opacity:.72;margin-left:4px}
 .panel{display:none}.panel.show{display:block}
+
+.sumbar{display:flex;align-items:center;gap:18px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:17px 22px;margin:0 0 18px;flex-wrap:wrap}
+.sumbar .calc{display:flex;align-items:baseline;gap:9px;font-family:"DM Mono",monospace;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.sumbar .calc b{color:var(--ink);font-weight:500}
+.sumbar .op{color:var(--taupe)}
+.sumbar .res{margin-left:auto;text-align:right}
+.sumbar .rlbl{font-size:12px;color:var(--muted);margin-bottom:2px}
+.sumbar .rval{font-family:"DM Mono",monospace;font-size:26px;color:var(--coral);line-height:1.15}
+.sumbar .rst{font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted);margin-top:3px}
+.sumbar .rst .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--coral);margin-right:5px;vertical-align:middle}
+.sumbar .rst.done .dot{background:var(--sage)}
+@media(max-width:620px){.sumbar{gap:11px}.sumbar .res{margin-left:0;text-align:left;width:100%}.sumbar .rval{font-size:23px}}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:9px;margin-bottom:16px}
 .kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
 .kpi .k{font-size:12px;color:var(--muted);margin-bottom:4px}
@@ -84,7 +96,16 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 
 <div class="qtabs"><button class="qtab">26년 1기</button><button class="qtab off" disabled>26년 2기</button></div>
 
-<div class="tabs">
+<div class="sumbar">
+    <div class="calc"><span>매출세액</span> <b>1,713,234</b> <span class="op">−</span> <span>매입세액</span> <b>2,619,375</b></div>
+    <div class="res">
+      <div class="rlbl">환급 예상</div>
+      <div class="rval">926,595<span style="font-size:15px"> 원</span></div>
+      <div class="rst"><span class="dot"></span>신고 7/25 · 최종본 대기</div>
+    </div>
+  </div>
+
+  <div class="tabs">
   <button class="tab" data-t="p0">① 증빙서철</button>
   <button class="tab on" data-t="p1">② 대조·검증 <span class="tn">6</span></button>
   <button class="tab" data-t="p2">③ 신고 이력</button>
