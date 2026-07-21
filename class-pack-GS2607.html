@@ -1,0 +1,578 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="version" content="v3">
+<meta name="updated" content="2026.07.21 21:30">
+<title>패킹 운영</title>
+<link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;--point:#B4A032;
+--room:#C2570E;--cold:#2C7BB6;--freeze:#5B5BA6;--ok:#2E7D32;--warn:#B44A1E;--wait:#9A8F7C;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
+.tb-left{display:flex;align-items:center;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:13px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 13px;transition:.12s}
+.pill:hover{border-color:var(--point);color:var(--point)}
+.tb-right{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--wait);text-align:right}
+.tb-sep{color:#CFC5B2}
+.updated{font-family:"DM Mono",monospace;font-size:12px;color:var(--wait)}
+.hero{padding:26px 0 4px}
+.hero h1{font-family:Hahmlet,"Gowun Batang",serif;font-weight:700;font-size:36px;letter-spacing:-.02em}
+.hero .lead{margin-top:6px;color:var(--sub);font-size:14.5px}
+h2{font-family:Hahmlet,"Gowun Batang",serif;font-size:19px;font-weight:700;margin:0}
+h3{font-size:14.5px;font-weight:700;margin:0}
+.tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line);margin-top:18px;padding-bottom:0}
+.tab{flex:0 0 auto;font-family:inherit;font-size:14px;font-weight:600;color:var(--sub);background:none;border:none;border-bottom:2px solid transparent;padding:11px 14px;cursor:pointer;white-space:nowrap;transition:.12s}
+.tab:hover{color:var(--ink)}
+.tab.on{color:var(--point);border-bottom-color:var(--point)}
+.panel{display:none;padding-top:6px}
+.panel.on{display:block}
+.block{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.bh{display:flex;align-items:baseline;gap:9px;margin-bottom:14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.bh .n{font-family:"DM Mono",monospace;font-size:12px;color:var(--point);font-weight:500}
+.bh .s{font-size:12px;color:var(--wait);margin-left:auto;text-align:right}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13.5px;color:var(--sub)}
+.meta b{color:var(--ink);font-weight:600}
+.dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.d{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+.d .k{font-size:12px;color:var(--sub);font-weight:500}
+.d .v{font-family:"DM Mono",monospace;font-size:22px;font-weight:700;margin-top:3px;line-height:1.15}
+.d .u{font-size:11.5px;color:var(--wait);margin-top:2px}
+.tbl-wrap{overflow-x:auto;margin:0 -3px}
+table{border-collapse:collapse;width:100%;min-width:600px;font-size:13px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:center;white-space:nowrap}
+th{background:#F4EFE3;font-size:11.5px;font-weight:700;color:var(--sub)}
+td.l{text-align:left;white-space:normal;min-width:150px}
+td.num{font-family:"DM Mono",monospace;text-align:right}
+tr.tot td{background:#EFE7D4;font-weight:700}
+tr.sub td{background:#F7F3E9;font-weight:600}
+.q{font-size:11px;color:var(--wait);display:block;margin-top:2px;white-space:normal;font-weight:400}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px}
+.b-room{background:#FBEDE2;color:var(--room)}
+.b-cold{background:#E6F0F8;color:var(--cold)}
+.b-freeze{background:#EAEAF6;color:var(--freeze)}
+.b-ok{background:#E4F0E4;color:var(--ok)}
+.b-warn{background:#FBE6DC;color:var(--warn)}
+.b-wait{background:#EFEBE1;color:var(--wait)}
+.alert{background:#FBEAE0;border:1px solid #F0D2C0;border-radius:12px;padding:13px 15px;margin-top:11px}
+.alert h3{color:var(--warn);margin-bottom:4px}
+.alert p{font-size:13px;color:var(--sub);line-height:1.6}
+.tip{background:#EDF3ED;border:1px solid #D5E4D5;border-radius:12px;padding:13px 15px;margin-top:11px}
+.tip h3{color:var(--ok);margin-bottom:4px}
+.tip p{font-size:13px;color:var(--sub);line-height:1.6}
+.note{font-size:12.5px;color:var(--wait);margin-top:9px;line-height:1.65}
+.ctrl{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;background:#F4EFE3;border-radius:10px;padding:13px 15px;margin-bottom:14px}
+.ctrl label{display:block;font-size:12px;color:var(--sub);font-weight:600;margin-bottom:4px}
+.ctrl input{font-family:"DM Mono",monospace;font-size:16px;font-weight:600;width:88px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+.ctrl .hint{font-size:12px;color:var(--wait);flex:1;min-width:180px}
+ol.steps{list-style:none;counter-reset:s}
+ol.steps li{counter-increment:s;position:relative;padding:9px 0 9px 40px;border-bottom:1px dashed var(--line);font-size:13.5px}
+ol.steps li:last-child{border-bottom:none}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:24px;height:24px;border-radius:50%;background:var(--point);color:#fff;font-family:"DM Mono",monospace;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+ol.steps li b{display:block;font-size:14px;margin-bottom:1px}
+ol.steps li span{color:var(--sub);font-size:12.5px}
+.chk{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.chk:last-child{border-bottom:none}
+.chk input{margin-top:3px;width:17px;height:17px;accent-color:var(--point);flex:0 0 auto;cursor:pointer}
+.chk label{cursor:pointer;flex:1}
+.chk .t{font-size:11.5px;font-family:"DM Mono",monospace;color:var(--wait);flex:0 0 auto}
+.chk span.d2{display:block;font-size:12px;color:var(--wait);margin-top:1px}
+.box3d{display:grid;gap:8px;margin-top:4px}
+.layer{border:1px solid var(--line);border-radius:10px;padding:11px 14px;background:#fff}
+.layer .lt{font-size:12px;font-weight:700;color:var(--point);font-family:"DM Mono",monospace}
+.layer .lc{font-size:13.5px;margin-top:3px}
+.layer .ld{font-size:12px;color:var(--wait);margin-top:2px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.foot{margin-top:26px;font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
+@media(max-width:640px){.hero h1{font-size:28px}.two{grid-template-columns:1fr}.tb-right{flex-direction:column;align-items:flex-end;gap:2px}.tb-sep{display:none}}
+</style></head><body><div class="wrap">
+
+<div class="topbar">
+<div class="tb-left">
+<a class="pill" href="class.html">← 클래스 홈</a>
+<a class="pill" href="https://claude.ai/chat/dce33b2f-5756-4005-9648-0eb426113e53" target="_blank" rel="noopener">💬 작업 대화</a>
+</div>
+<div class="tb-right"><span>AI 워크스페이스 › 클래스 › 패킹 운영</span><span class="tb-sep">|</span><span class="updated" id="upd"></span></div>
+</div>
+
+<header class="hero">
+<h1>패킹 운영</h1>
+<p class="lead">GS-2607 · 제철 복숭아로 만드는 복숭아청과 브리치즈 샐러드 · 경기도지식 온라인</p>
+</header>
+
+<div class="tabs">
+<button class="tab on" data-t="t1">개요</button>
+<button class="tab" data-t="t2">소스 배합</button>
+<button class="tab" data-t="t3">패킹 구성</button>
+<button class="tab" data-t="t4">소모품</button>
+<button class="tab" data-t="t5">라벨·출력물</button>
+<button class="tab" data-t="t6">송장·배송</button>
+<button class="tab" data-t="t7">선생님 안내</button>
+</div>
+
+<!-- ===== 1 개요 ===== -->
+<div class="panel on" id="t1">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>수업 정보</h2><span class="s">31세트 = 수강생 30 + 선생님 1</span></div>
+<div class="meta">
+<span>수업일 <b>2026.07.24 (금) 16:00</b></span>
+<span>형식 <b>줌 온라인 + 사전 배송</b></span>
+<span>선생님 <b>이영미 전문가</b></span>
+<span>패킹 <b>7/22 (수)</b></span>
+<span>배송 도착 <b>7/23 (목) 새벽</b></span>
+</div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>타임라인</h2><span class="s">D-3 → 수업일</span></div>
+<ol class="steps">
+<li><b>7/21 (화) — 오늘 밤</b><span>아이스팩 62개 냉동 · 소모품 재고 확인 및 부족분 발주 · 소스라벨 제작·출력 · 수강생 명단 요청 · 선생님 주소 수령</span></li>
+<li><b>7/22 (수) — 패킹일</b><span>재료 입고 확인 → 송장 입력·출력 → 소스 제조·소분 → 봉투별 소분 → 박싱 → 사진 촬영 → 17:00 출발</span></li>
+<li><b>7/23 (목) 새벽 — 배송 도착</b><span>수강생 각자 집으로 도착 · 수령 안내 문자 발송 · <b>즉시 냉장 보관 안내 필수</b></span></li>
+<li><b>7/24 (금) 16:00 — 수업</b><span>줌 라이브 진행 · 배송 모니터링 · 마무리 안내</span></li>
+</ol>
+<div class="alert">
+<h3>재료가 집에서 36시간 대기합니다</h3>
+<p>목요일 새벽 도착 후 금요일 16:00 수업까지 약 36시간입니다. 로메인과 루꼴라가 가장 취약합니다. 수령 안내 문자에 <b>"받으시면 바로 냉장 보관"</b>을 굵게 넣으세요. 복숭아는 후숙이 진행되므로 냉장이 맞습니다.</p>
+</div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">03</span><h2>진행 현황</h2></div>
+<div class="dash">
+<div class="d"><div class="k">재료 발주</div><div class="v" style="color:var(--ok)">완료</div><div class="u">전 품목 충족 · 372,610원</div></div>
+<div class="d"><div class="k">소모품</div><div class="v" style="color:var(--warn)">확인중</div><div class="u">에어캡·스티커만 확보</div></div>
+<div class="d"><div class="k">수강생 명단</div><div class="v" style="color:var(--warn)">미수령</div><div class="u">경기도지식</div></div>
+<div class="d"><div class="k">송장</div><div class="v" style="color:var(--wait)">대기</div><div class="u">31건 · 선생님 포함</div></div>
+</div>
+<p class="note">재료 발주 상세는 클래스 홈 → 회차 상세 → <b>발주·입고</b> 탭에서 봅니다. 이 화면은 패킹 실행만 다룹니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">04</span><h2>확정된 결정</h2></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>항목</th><th>결정</th><th>비고</th></tr></thead>
+<tbody>
+<tr><td class="l">세트 수</td><td>31세트</td><td class="l">수강생 30 + 선생님 1</td></tr>
+<tr><td class="l">소스 제조</td><td>베이스 + 오일 분리</td><td class="l">오일 45.7%라 혼합 시 층 분리</td></tr>
+<tr><td class="l">유리병 처리</td><td>설탕을 병 안에 + 에어캡</td><td class="l">깨져도 설탕 오염 없음 · 부피 절감</td></tr>
+<tr><td class="l">식초</td><td>오뚜기 사과식초</td><td class="l">선생님 확인 필요</td></tr>
+<tr><td class="l">냉동봉투</td><td>이번 미사용</td><td class="l">냉동 품목 없음</td></tr>
+<tr><td class="l">봉투 번호</td><td>수기 표기</td><td class="l">라벨 불필요</td></tr>
+</tbody></table></div>
+</section>
+</div>
+
+<!-- ===== 2 소스 배합 ===== -->
+<div class="panel" id="t2">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>대용량 배합 계산</h2><span class="s">인원·예비율을 바꾸면 전체가 다시 계산됩니다</span></div>
+<div class="ctrl">
+<div><label for="ipax">인원 (세트)</label><input type="number" id="ipax" value="31" min="1" max="500"></div>
+<div><label for="ibuf">예비율 (%)</label><input type="number" id="ibuf" value="10" min="0" max="50"></div>
+<div class="hint">예비율은 소분 중 용기 벽면 손실과 계량 오차를 덮는 몫입니다. 10% 권장.</div>
+</div>
+
+<h3 style="margin-bottom:8px">베이스 <span class="badge b-cold">냉장</span></h3>
+<div class="tbl-wrap"><table>
+<thead><tr><th>재료</th><th>1인</th><th>베이스 내 비율</th><th>순 소요량</th><th>예비 포함</th><th>계량 기준</th></tr></thead>
+<tbody id="tbBase"></tbody>
+</table></div>
+
+<h3 style="margin:18px 0 8px">오일 <span class="badge b-room">실온</span></h3>
+<div class="tbl-wrap"><table>
+<thead><tr><th>재료</th><th>1인</th><th>비율</th><th>순 소요량</th><th>예비 포함</th><th>계량 기준</th></tr></thead>
+<tbody id="tbOil"></tbody>
+</table></div>
+
+<div class="dash" style="margin-top:16px">
+<div class="d"><div class="k">1인 소스 총량</div><div class="v" id="dPer">85</div><div class="u">g · 베이스 44 + 오일 41</div></div>
+<div class="d"><div class="k">베이스 제조량</div><div class="v" id="dBase">1,500</div><div class="u">g · 예비 포함</div></div>
+<div class="d"><div class="k">오일 소요량</div><div class="v" id="dOil">1,398</div><div class="u">g · 예비 포함</div></div>
+<div class="d"><div class="k">소분 용기</div><div class="v" id="dCup">62</div><div class="u">개 · 2종 × 인원</div></div>
+</div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>재고 대비 확인</h2><span class="s">예비 포함 소요량 기준</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>재료</th><th>보유량</th><th>소스 소요</th><th>청·기타 소요</th><th>잔여</th><th>판정</th></tr></thead>
+<tbody id="tbStock"></tbody>
+</table></div>
+<p class="note">설탕은 수제청용 9,300g을 먼저 뺀 뒤 소스 몫을 계산합니다. 올리브오일은 2,000ml 전량이 소스용입니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">03</span><h2>제조 순서</h2></div>
+<ol class="steps">
+<li><b>설탕을 식초에 먼저 녹인다</b><span>식초 전량에 설탕을 넣고 완전히 녹을 때까지 젓습니다. 이 단계를 건너뛰면 나중에 알갱이가 가라앉습니다.</span></li>
+<li><b>레몬즙을 넣는다</b><span>산도가 고르게 섞이도록 저어줍니다.</span></li>
+<li><b>홀그레인머스타드를 넣고 충분히 섞는다</b><span>머스타드는 유화제 역할을 합니다. 덩어리 없이 풀어질 때까지 저으세요.</span></li>
+<li><b>베이스 완성 — 총량 확인</b><span>계산된 예비 포함 총량과 실제 무게를 대조합니다. 부족하면 비율대로 보충합니다.</span></li>
+<li><b>베이스 소분 (1인 44g × 예비율 적용)</b><span>소분 직전 한 번 저어줍니다. 머스타드는 시간이 지나면 가라앉습니다.</span></li>
+<li><b>오일은 따로 소분 (1인 41g)</b><span>베이스와 섞지 않습니다. 그냥 따르면 됩니다.</span></li>
+<li><b>라벨 부착 → 소스팩에 2개 함께 담기</b><span>베이스 라벨, 오일 라벨을 각각 붙인 뒤 소스팩 1봉에 함께 넣습니다.</span></li>
+</ol>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">04</span><h2>왜 분리하나</h2></div>
+<div class="tip">
+<h3>오일이 전체의 45.7%입니다</h3>
+<p>한 통에 다 섞으면 몇 시간 안에 층이 분리됩니다. 소분할 때마다 다시 저어야 하고, 그래도 세트마다 오일 비율이 달라집니다. 나눠 만들면 베이스는 설탕이 녹아 안정적이고 오일은 그냥 따르면 되니, 소분 정확도가 훨씬 올라갑니다. 수강생은 받아서 두 개를 합쳐 흔들면 됩니다.</p>
+</div>
+<div class="alert">
+<h3>오일이 냉장에서 하얗게 굳습니다</h3>
+<p>소스팩이 ③ 냉장봉투에 들어가는데, 올리브오일은 저온에서 백탁·응고합니다. 품질 문제가 아니고 실온에 두면 돌아오지만, 고객은 상한 것으로 오해합니다. 오일 라벨과 레시피카드에 <b>"굳으면 실온에 10분 두세요"</b>를 반드시 넣으세요. 오일만 ① 실온 종이봉투로 옮기는 방법도 있습니다.</p>
+</div>
+</section>
+</div>
+
+<!-- ===== 3 패킹 구성 ===== -->
+<div class="panel" id="t3">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>박스 전체 구성</h2><span class="s">1세트 기준</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>번호</th><th>봉투</th><th>온도대</th><th>내용물</th><th>수량</th><th>아이스팩</th></tr></thead>
+<tbody>
+<tr>
+<td><b>①</b></td><td class="l">종이봉투</td><td><span class="badge b-room">실온</span></td>
+<td class="l">유리병 500ml <b>(에어캡 감싸기)</b><br>└ 설탕 300g 지퍼백 <b>→ 병 안에</b><span class="q">설탕을 병 속에 넣어 완충 겸용</span></td>
+<td class="num">1장</td><td>—</td>
+</tr>
+<tr>
+<td><b>②</b></td><td class="l">냉장봉투 (중)</td><td><span class="badge b-cold">냉장</span></td>
+<td class="l">천도복숭아 5개<span class="q">약 725g</span></td>
+<td class="num">1장</td><td>1개</td>
+</tr>
+<tr>
+<td><b>③</b></td><td class="l">냉장봉투 (중)</td><td><span class="badge b-cold">냉장</span></td>
+<td class="l">로메인 50g · 와일드 루꼴라 30g<br>브리치즈 25g 1개 · <b>소스팩 1봉</b><span class="q">소스팩 안에 베이스 + 오일 2개</span></td>
+<td class="num">1장</td><td>1개</td>
+</tr>
+<tr>
+<td><b>④</b></td><td class="l">냉동봉투</td><td><span class="badge b-freeze">냉동</span></td>
+<td class="l">이번 메뉴 없음</td><td class="num">—</td><td>—</td>
+</tr>
+<tr class="sub">
+<td>—</td><td class="l">낱개</td><td><span class="badge b-room">실온</span></td>
+<td class="l">레시피카드 1장 · 디바이더 1장<span class="q">레시피카드는 박스 최상단</span></td>
+<td class="num">각 1</td><td>—</td>
+</tr>
+<tr class="tot"><td colspan="4">1세트 합계</td><td class="num">봉투 3 + 낱개 2</td><td>2개</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>박스 적재 순서</h2><span class="s">아래에서 위로</span></div>
+<div class="box3d">
+<div class="layer"><div class="lt">TOP — 5</div><div class="lc">레시피카드</div><div class="ld">열자마자 보이도록 맨 위에 올립니다</div></div>
+<div class="layer"><div class="lt">4</div><div class="lc">② 냉장봉투(복숭아) + ③ 냉장봉투(채소·치즈·소스) + 아이스팩 2개</div><div class="ld">아이스팩은 봉투 위에 얹습니다. 냉기는 아래로 내려갑니다</div></div>
+<div class="layer"><div class="lt">3</div><div class="lc">디바이더</div><div class="ld">실온과 냉장을 물리적으로 분리합니다</div></div>
+<div class="layer"><div class="lt">2</div><div class="lc">① 종이봉투 (설탕 넣은 유리병 · 에어캡)</div><div class="ld">가장 무겁고 단단하니 아래에 둡니다</div></div>
+<div class="layer"><div class="lt">BOTTOM — 1</div><div class="lc">박스 조립 · 바닥 테이프 보강</div><div class="ld">유리병이 들어가므로 바닥을 한 번 더 붙입니다</div></div>
+</div>
+<div class="tip">
+<h3>설탕 지퍼백을 병 안에, 그다음 에어캡</h3>
+<p>설탕 300g을 지퍼백에 밀봉해 <b>유리병 속에 넣고</b> 뚜껑을 닫은 뒤 에어캡으로 감쌉니다. 병이 비어 있으면 충격에 더 쉽게 깨지는데 내용물이 차 있으면 구조적으로 유리하고, 깨지더라도 설탕이 밀봉돼 있어 오염되지 않습니다. 부피도 줄어듭니다. 병은 세워서 넣고 흔들리지 않게 채우세요.</p>
+</div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">03</span><h2>패킹 순서 체크리스트</h2><span class="s">7/22 (수)</span></div>
+<div id="ckList"></div>
+<p class="note">체크는 화면에만 표시되며 새로고침하면 풀립니다. 기록이 필요하면 완료 후 화면을 캡처해 두세요.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">04</span><h2>소분 시 주의</h2></div>
+<div class="alert">
+<h3>잎채소를 가장 마지막에</h3>
+<p>로메인과 루꼴라는 상온 노출 시간이 곧 품질입니다. ① → ② → ③ 순서를 지키고, ③은 아이스팩과 함께 바로 박스로 넣으세요. 여유분이 로메인 50g(3.2%), 루꼴라 70g(7.5%)뿐이라 상한 잎이 많으면 마지막 세트가 모자랄 수 있습니다.</p>
+</div>
+<div class="tip">
+<h3>선생님 세트를 맨 마지막에 담으세요</h3>
+<p>재료가 모자라면 선생님 몫에서 조정하는 편이 수강생 클레임보다 낫습니다. 선생님께는 사정을 미리 말씀드리면 됩니다.</p>
+</div>
+</section>
+</div>
+
+<!-- ===== 4 소모품 ===== -->
+<div class="panel" id="t4">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>소요량</h2><span class="s">31세트 · 예비 포함</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>소모품</th><th>규격</th><th>1세트</th><th>31세트</th><th>준비 수량</th><th>상태</th></tr></thead>
+<tbody>
+<tr><td class="l">종이봉투 ①</td><td>유리병+설탕 들어갈 크기</td><td>1</td><td class="num">31</td><td class="num"><b>35장</b></td><td><span class="badge b-warn">재고확인</span></td></tr>
+<tr><td class="l">냉장봉투 ②③</td><td>중 사이즈</td><td>2</td><td class="num">62</td><td class="num"><b>70장</b></td><td><span class="badge b-warn">재고확인</span></td></tr>
+<tr><td class="l">소스팩</td><td>소형</td><td>1</td><td class="num">31</td><td class="num"><b>35개</b></td><td><span class="badge b-warn">재고확인</span></td></tr>
+<tr><td class="l">소스용기 (베이스)</td><td>60ml 이상 밀폐</td><td>1</td><td class="num">31</td><td class="num"><b>35개</b></td><td><span class="badge b-warn">재고확인</span></td></tr>
+<tr><td class="l">소스용기 (오일)</td><td>50ml 이상 밀폐</td><td>1</td><td class="num">31</td><td class="num"><b>35개</b></td><td><span class="badge b-warn">재고확인</span></td></tr>
+<tr><td class="l">아이스팩</td><td>—</td><td>2</td><td class="num">62</td><td class="num"><b>70개</b></td><td><span class="badge b-warn">오늘 냉동</span></td></tr>
+<tr><td class="l">디바이더</td><td>박스 규격</td><td>1</td><td class="num">31</td><td class="num"><b>35장</b></td><td><span class="badge b-warn">재고확인</span></td></tr>
+<tr><td class="l">설탕 지퍼백</td><td>300g용</td><td>1</td><td class="num">31</td><td class="num"><b>35장</b></td><td><span class="badge b-warn">재고확인</span></td></tr>
+<tr><td class="l">택배박스</td><td>3호 이상</td><td>1</td><td class="num">31</td><td class="num"><b>35개</b></td><td><span class="badge b-warn">재고확인</span></td></tr>
+<tr><td class="l">에어캡</td><td>50cm × 50m 반투명</td><td>약 35cm</td><td class="num">약 11m</td><td class="num"><b>1롤</b></td><td><span class="badge b-ok">확보 · 수 도착</span></td></tr>
+<tr><td class="l">취급주의 스티커</td><td>롤 라벨 500p</td><td>1</td><td class="num">31</td><td class="num"><b>1롤</b></td><td><span class="badge b-ok">확보 · 수 새벽</span></td></tr>
+<tr><td class="l">레시피카드</td><td>출력물</td><td>1</td><td class="num">31</td><td class="num"><b>35장</b></td><td><span class="badge b-wait">출력 필요</span></td></tr>
+<tr><td class="l">소스라벨</td><td>베이스 + 오일</td><td>2</td><td class="num">62</td><td class="num"><b>70장</b></td><td><span class="badge b-wait">제작·출력</span></td></tr>
+<tr><td class="l">박스테이프</td><td>50m</td><td>—</td><td class="num">—</td><td class="num"><b>2롤</b></td><td><span class="badge b-warn">재고확인</span></td></tr>
+</tbody></table></div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>오늘 밤 확인</h2><span class="s">7/21 (화)</span></div>
+<div class="alert">
+<h3>아이스팩 62개를 지금 냉동에 넣으세요</h3>
+<p>내일이 패킹입니다. 오늘 밤에 얼리지 않으면 못 씁니다. 재고가 없다면 지금 주문해도 내일 새벽 도착분은 얼어 있지 않아 쓸 수 없습니다. <b>재고가 부족하면 아이스팩 계획 자체를 다시 짜야 하니 즉시 알려주세요.</b></p>
+</div>
+<div class="alert">
+<h3>봉투·소스팩·박스 재고 확인</h3>
+<p>종이봉투 35장, 냉장봉투 70장, 소스팩 35개, 소스용기 70개, 디바이더 35장, 지퍼백 35장, 박스 35개. 하나라도 모자라면 오늘 안에 주문해야 내일 새벽에 들어옵니다. 로켓 새벽배송 마감 시간을 확인하세요.</p>
+</div>
+<div class="tip">
+<h3>에어캡 도착 시간이 변수입니다</h3>
+<p>취급주의 스티커는 새벽 도착이지만 에어캡은 낮에 올 수 있습니다. 늦어질 경우를 대비해 <b>① 종이봉투 작업을 패킹 순서 맨 뒤로 돌릴 수 있도록</b> 준비해 두세요. 50m 롤이라 유리병 31개(약 11m)에는 넉넉합니다.</p>
+</div>
+</section>
+</div>
+
+<!-- ===== 5 라벨·출력물 ===== -->
+<div class="panel" id="t5">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>출력물 목록</h2></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>출력물</th><th>규격</th><th>수량</th><th>언제</th><th>상태</th></tr></thead>
+<tbody>
+<tr><td class="l">소스라벨 — 베이스</td><td>라벨지</td><td class="num">35장</td><td>오늘 밤</td><td><span class="badge b-wait">제작 필요</span></td></tr>
+<tr><td class="l">소스라벨 — 오일</td><td>라벨지</td><td class="num">35장</td><td>오늘 밤</td><td><span class="badge b-wait">제작 필요</span></td></tr>
+<tr><td class="l">레시피카드</td><td>A5</td><td class="num">35장</td><td>오늘~내일 오전</td><td><span class="badge b-wait">선생님 확인 후</span></td></tr>
+<tr><td class="l">송장</td><td>프린터 세로·맞춤</td><td class="num">31건</td><td>내일 오전</td><td><span class="badge b-wait">명단 대기</span></td></tr>
+<tr><td class="l">취급주의 스티커</td><td>롤 라벨</td><td class="num">31장</td><td>박싱 시</td><td><span class="badge b-ok">구매완료</span></td></tr>
+</tbody></table></div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>소스라벨 문안</h2><span class="s">2종</span></div>
+<div class="two">
+<div class="layer">
+<div class="lt">베이스 <span class="badge b-cold">냉장</span></div>
+<div class="lc" style="margin-top:6px;line-height:1.7">
+<b>샐러드 드레싱 베이스</b><br>
+사과식초, 설탕, 홀그레인머스타드, 레몬즙<br>
+<span style="font-size:12px;color:var(--sub)">내용량 44g · 냉장 보관<br>
+사용 직전 오일과 합쳐 흔들어 주세요<br>
+수업일까지 냉장 보관해 주세요</span>
+</div>
+</div>
+<div class="layer">
+<div class="lt">오일 <span class="badge b-room">실온</span></div>
+<div class="lc" style="margin-top:6px;line-height:1.7">
+<b>엑스트라 버진 올리브오일</b><br>
+<span style="font-size:12px;color:var(--sub)">내용량 41g<br>
+<b>차가우면 하얗게 굳을 수 있습니다.<br>
+실온에 10분 두면 원래대로 돌아옵니다.</b><br>
+베이스와 합쳐 흔들어 사용하세요</span>
+</div>
+</div>
+</div>
+<div class="alert">
+<h3>오일 등급 표기를 확인하세요</h3>
+<p>발주된 제품은 데체코 엑스트라 버진 1L와 아몰리바 <b>포마스</b> 1L 두 종입니다. 등급이 다르므로 라벨에 "엑스트라 버진"으로 적으려면 실제로 무엇을 소분하는지 맞춰야 합니다. 섞어 쓰신다면 라벨에는 <b>"올리브오일"</b>로만 표기하는 것이 정확합니다.</p>
+</div>
+<p class="note">알레르기 표기가 필요하면 베이스 라벨에 "대두·밀 함유 가능"을 추가하세요. 홀그레인머스타드 제품 표기를 확인한 뒤 넣으시면 됩니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">03</span><h2>레시피카드에 꼭 넣을 것</h2></div>
+<ol class="steps">
+<li><b>수령 즉시 냉장 보관</b><span>목요일 새벽 도착 후 금요일 수업까지 36시간 대기합니다. 이 문구가 없으면 잎채소가 상합니다.</span></li>
+<li><b>드레싱은 두 개를 합쳐 흔들기</b><span>베이스 + 오일 = 완성. 오일이 굳었으면 실온에 10분.</span></li>
+<li><b>유리병 열탕 소독법</b><span>끓는 물에 넣는 시간, 건조 방법, 물기 완전 제거.</span></li>
+<li><b>복숭아청 보관</b><span>실온 숙성 기간과 냉장 이관 시점.</span></li>
+<li><b>알레르기 안내</b><span>우유(브리치즈) 함유. 공식몰 통합 표준문구 적용.</span></li>
+</ol>
+</section>
+</div>
+
+<!-- ===== 6 송장·배송 ===== -->
+<div class="panel" id="t6">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>진행 순서</h2><span class="s">명단 → 배송가능 확인 → 송장</span></div>
+<ol class="steps">
+<li><b>경기도지식에서 수강생 명단 수령</b><span>이름 · 연락처 · 우편번호 · 주소 · 배송장소 · 출입방법</span></li>
+<li><b>선생님(이영미) 주소 수령</b><span>31번째 행. 오늘 안에 받아두지 않으면 내일 송장에서 빠집니다.</span></li>
+<li><b>새벽배송 가능 지역 확인</b><span>컬리 toms에서 우편번호 대조. 도서·산간·제주는 통상 불가.</span></li>
+<li><b>불가 지역 대응 결정</b><span>일반택배 전환 시 금요일 16:00 수업 전 도착 보장이 어렵습니다. 나오는 즉시 대안 필요.</span></li>
+<li><b>엑셀 주소 입력 (31행)</b><span>선생님 포함. 관리자 주문 화면에서 주소·연락처 대조.</span></li>
+<li><b>toms 엑셀 업로드 → 송장 출력</b><span>프린터 세로 · 맞춤.</span></li>
+<li><b>관리자에 송장번호 저장 → 배송대기중 이동</b><span></span></li>
+<li><b>박싱 완료 후 배송중 처리</b><span>알림이 발송됩니다.</span></li>
+<li><b>차량 적재 → 17:00 출발 → 물류센터 입고</b><span></span></li>
+</ol>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>현재 상태</h2></div>
+<div class="dash">
+<div class="d"><div class="k">수강생 명단</div><div class="v" style="color:var(--warn)">미수령</div><div class="u">경기도지식 요청 필요</div></div>
+<div class="d"><div class="k">선생님 주소</div><div class="v" style="color:var(--warn)">미수령</div><div class="u">오늘 안에</div></div>
+<div class="d"><div class="k">배송가능 확인</div><div class="v" style="color:var(--wait)">대기</div><div class="u">명단 수령 후</div></div>
+<div class="d"><div class="k">총 송장</div><div class="v">31</div><div class="u">건 · 선생님 포함</div></div>
+</div>
+<div class="alert">
+<h3>명단이 이번 건 최대 병목입니다</h3>
+<p>내일 패킹인데 명단이 없으면 새벽배송 가능 여부도, 송장도 못 만듭니다. 경기도지식 쪽에 <b>오늘 안에</b> 받으세요. 받는 즉시 파일을 올려주시면 toms 업로드 양식으로 정리하고 우편번호 기준 1차 분류를 해 드리겠습니다.</p>
+</div>
+</section>
+</div>
+
+<!-- ===== 7 선생님 안내 ===== -->
+<div class="panel" id="t7">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>안내 항목</h2><span class="s">이영미 전문가</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>구분</th><th>내용</th><th>상태</th></tr></thead>
+<tbody>
+<tr><td class="l"><b>1. 레시피</b></td><td class="l">최종 확정 레시피 · 1인 기준량 · 드레싱 배합<br><b>식초를 사과식초로 발주했음</b> 반드시 확인<br>소스는 베이스+오일 2종 분리 소분</td><td><span class="badge b-warn">확인 필요</span></td></tr>
+<tr><td class="l"><b>2. 수업 안내</b></td><td class="l">2026.07.24 (금) 16:00 · 줌 온라인<br>경기도지식 · 수강생 30명<br>소요 시간 · 정산 조건</td><td><span class="badge b-wait">발송 대기</span></td></tr>
+<tr><td class="l"><b>3. 준비물 및 셋팅</b></td><td class="l">수강생과 동일 재료 1세트 (배송)<br>조리도구 · 완성 예시 미리 제작<br>카메라 각도 · 조명 · 배경</td><td><span class="badge b-wait">발송 대기</span></td></tr>
+<tr><td class="l"><b>4. 수업 링크</b></td><td class="l">줌 링크 · 호스트 권한 여부<br>15:40 입장 → 15:50 리허설<br>접속 장애 시 백업 연락처</td><td><span class="badge b-wait">줌 생성 후</span></td></tr>
+<tr><td class="l"><b>5. 주의사항</b></td><td class="l">알레르기(우유) 언급 · 유리병 소독법<br>복숭아 손질 · 청 보관법<br>드레싱 흔들어 사용 · 오일 백탁 설명<br>촬영 시 상표 노출 유의</td><td><span class="badge b-wait">발송 대기</span></td></tr>
+<tr><td class="l"><b>6. 재료 배송</b></td><td class="l">7/23 (목) 새벽 도착 · 컬리<br><b>주소 수령 필요</b><br>수령 확인 회신 요청 · 미도착 시 비상 연락</td><td><span class="badge b-warn">주소 대기</span></td></tr>
+</tbody></table></div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>완성 예시를 요청하세요</h2></div>
+<div class="tip">
+<h3>복숭아청은 담근 직후와 하루 뒤 색이 많이 다릅니다</h3>
+<p>선생님께 미리 만들어둔 청을 준비해 달라고 요청하시면, 수업 중 비교 컷을 보여줄 수 있습니다. 수강생이 "제대로 된 건가" 하는 불안이 줄고, 수업 후 문의도 줄어듭니다.</p>
+</div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">※</span><h2>운영 안내</h2></div>
+<p class="note" style="margin-top:0">
+이 화면은 보기·실행만 합니다.<br>
+· 재료 발주 데이터를 고칠 땐 → 마스터(엑셀/대화창)에서<br>
+· 발주·입고 현황을 볼 땐 → 클래스 홈 → 회차 상세 → 발주·입고 탭<br>
+· 모든 파일은 같은 폴더(github)에 두어야 링크가 작동합니다.
+</p>
+</section>
+</div>
+
+<div class="foot" id="foot"></div>
+</div>
+
+<script>
+(function(){
+  var u=document.querySelector('meta[name=updated]').content,v=document.querySelector('meta[name=version]').content;
+  var t='업데이트 '+u+' · '+v;
+  document.getElementById('upd').textContent=t;
+  document.getElementById('foot').textContent='패킹 운영 · GS-2607 · '+t;
+})();
+
+/* 탭 */
+document.querySelectorAll('.tab').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});
+    document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');
+    document.getElementById(b.dataset.t).classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* 소스 계산 */
+var BASE=[
+ {nm:'사과식초',   per:15, sp:'1T', unit:'ml', stock:900,  note:'오뚜기 900ml'},
+ {nm:'설탕',       per:13, sp:'1T', unit:'g',  stock:null, note:'청용 제외분에서'},
+ {nm:'홀그레인머스타드',per:8, sp:'1/2T',unit:'g', stock:420,  note:'210g × 2'},
+ {nm:'레몬즙',     per:8,  sp:'1/2T',unit:'ml',stock:1000, note:'돈시몬 1L'}
+];
+var OIL={nm:'올리브오일', per:41, sp:'3T', unit:'ml', stock:2000, note:'1L × 2'};
+var fmt=function(n){return n.toLocaleString('ko-KR',{maximumFractionDigits:0});};
+
+function calc(){
+  var pax=Math.max(1,parseInt(document.getElementById('ipax').value)||31);
+  var buf=Math.max(0,parseFloat(document.getElementById('ibuf').value)||0)/100;
+  var basePer=BASE.reduce(function(s,r){return s+r.per;},0);
+  var perAll=basePer+OIL.per;
+
+  var hb='';
+  BASE.forEach(function(r){
+    var net=r.per*pax, tot=net*(1+buf), ratio=r.per/basePer*100;
+    hb+='<tr><td class="l">'+r.nm+'<span class="q">'+r.note+'</span></td>'
+      +'<td class="num">'+r.per+'g <span style="color:var(--wait)">('+r.sp+')</span></td>'
+      +'<td class="num">'+ratio.toFixed(1)+'%</td>'
+      +'<td class="num">'+fmt(net)+'g</td>'
+      +'<td class="num"><b>'+fmt(tot)+'g</b></td>'
+      +'<td class="num">'+fmt(tot)+' '+r.unit+'</td></tr>';
+  });
+  hb+='<tr class="tot"><td class="l">베이스 합계</td><td class="num">'+basePer+'g</td><td class="num">100%</td>'
+    +'<td class="num">'+fmt(basePer*pax)+'g</td><td class="num">'+fmt(basePer*pax*(1+buf))+'g</td><td class="num">—</td></tr>';
+  document.getElementById('tbBase').innerHTML=hb;
+
+  var oNet=OIL.per*pax, oTot=oNet*(1+buf);
+  document.getElementById('tbOil').innerHTML=
+    '<tr><td class="l">'+OIL.nm+'<span class="q">'+OIL.note+'</span></td>'
+    +'<td class="num">'+OIL.per+'g <span style="color:var(--wait)">('+OIL.sp+')</span></td>'
+    +'<td class="num">100%</td><td class="num">'+fmt(oNet)+'g</td>'
+    +'<td class="num"><b>'+fmt(oTot)+'g</b></td><td class="num">'+fmt(oTot)+' ml</td></tr>';
+
+  document.getElementById('dPer').textContent=perAll;
+  document.getElementById('dBase').textContent=fmt(basePer*pax*(1+buf));
+  document.getElementById('dOil').textContent=fmt(oTot);
+  document.getElementById('dCup').textContent=pax*2;
+
+  /* 재고 대비 */
+  var SUGAR_JAM=300*pax;   /* 수제청용 */
+  var hs='';
+  BASE.concat([OIL]).forEach(function(r){
+    var tot=r.per*pax*(1+buf);
+    var stock=r.stock, other=0, label='—';
+    if(r.nm==='설탕'){ stock=10000; other=SUGAR_JAM; label=fmt(SUGAR_JAM)+'g'; }
+    var left=stock-tot-other;
+    var ok=left>=0;
+    hs+='<tr><td class="l">'+r.nm+'</td><td class="num">'+fmt(stock)+r.unit+'</td>'
+      +'<td class="num">'+fmt(tot)+r.unit+'</td><td class="num">'+label+'</td>'
+      +'<td class="num">'+fmt(left)+r.unit+'</td>'
+      +'<td><span class="badge '+(ok?'b-ok':'b-warn')+'">'+(ok?'충족':'부족')+'</span></td></tr>';
+  });
+  document.getElementById('tbStock').innerHTML=hs;
+}
+document.getElementById('ipax').addEventListener('input',calc);
+document.getElementById('ibuf').addEventListener('input',calc);
+calc();
+
+/* 체크리스트 */
+var CK=[
+ ['09:00','재료 입고 확인','수요일 새벽 도착분 8품목 · 상태 및 수량 대조'],
+ ['09:30','엑셀 주소 입력 (31행)','선생님 포함 · 관리자 주문 화면과 대조'],
+ ['10:00','toms 업로드 → 송장 출력','프린터 세로·맞춤'],
+ ['10:30','관리자 송장번호 저장 → 배송대기중','' ],
+ ['11:00','소스 베이스 제조','설탕을 식초에 먼저 녹이기 → 레몬즙 → 머스타드'],
+ ['12:00','소스 소분 + 라벨 부착','베이스 44g · 오일 41g · 소스팩 1봉에 2개'],
+ ['13:00','① 종이봉투 — 설탕 지퍼백을 병에 넣고 에어캡','에어캡 도착 확인 후 진행'],
+ ['14:00','② 냉장봉투 — 복숭아 5개씩','물러진 것 골라내기 · 여유 7~13개'],
+ ['15:00','③ 냉장봉투 — 채소·치즈·소스팩','가장 마지막 · 상온 노출 최소화'],
+ ['15:30','박스 조립 → 디바이더 → 적재','① 아래 · ②③ + 아이스팩 위 · 레시피카드 최상단'],
+ ['16:00','사진 촬영','인스타·유튜브용'],
+ ['16:15','박싱 → 송장 부착 → 취급주의 스티커',''],
+ ['16:30','관리자 배송대기중 → 배송중 처리','알림 발송됨'],
+ ['16:45','차량 적재',''],
+ ['17:00','출발 → 물류센터 입고','']
+];
+document.getElementById('ckList').innerHTML=CK.map(function(r,i){
+  return '<div class="chk"><input type="checkbox" id="c'+i+'">'
+    +'<label for="c'+i+'">'+r[1]+(r[2]?'<span class="d2">'+r[2]+'</span>':'')+'</label>'
+    +'<span class="t">'+r[0]+'</span></div>';
+}).join('');
+</script>
+</body></html>
