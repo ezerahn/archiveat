@@ -1,0 +1,838 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="version" content="v1"><meta name="updated" content="2026.07.21 19:20">
+<title>finance-filing</title>
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--cream:#FAF5EC;--surface:#FFFDF8;--ink:#241F1B;--muted:#8C857A;--line:#E7DCC8;--coral:#FF5019;--taupe:#C2B190;--sage:#5E9087;--blue:#2C7BB6}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Pretendard,-apple-system,"Malgun Gothic",system-ui,sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+.wrap{max-width:1000px;margin:0 auto;padding:22px 20px 60px}
+.top{display:flex;justify-content:space-between;margin-bottom:26px;gap:12px;flex-wrap:wrap}
+.navleft{display:flex;gap:8px;flex-wrap:wrap}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#a8552f;text-decoration:none;padding:5px 13px;border:1px solid rgba(255,80,25,.22);border-radius:20px;background:rgba(255,80,25,.07)}
+.back:hover{background:rgba(255,80,25,.13);color:var(--coral)}
+.metaline{margin-left:auto;text-align:right;font-size:12px;color:var(--muted)}
+.metaline .bar{color:var(--line);margin:0 7px}.metaline .upd{font-family:"DM Mono",monospace}
+.hero h1{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:700;font-size:40px;letter-spacing:-.02em}
+.hero p{margin-top:11px;font-size:15px;color:var(--muted)}
+@media(max-width:620px){.hero h1{font-size:29px}.wrap{padding:18px 13px 44px}}
+.qtabs{display:flex;gap:8px;margin:24px 0 12px;flex-wrap:wrap}
+.qtab{font-family:inherit;font-size:15px;font-weight:700;color:#fff;padding:11px 24px;border:1px solid var(--ink);border-radius:12px;background:var(--ink);cursor:default}
+.qtab.off{background:var(--surface);border-color:var(--line);color:var(--taupe)}
+.tabs{display:flex;gap:7px;margin:0 0 20px;flex-wrap:wrap}
+.tab{font-family:inherit;font-size:14px;font-weight:600;color:var(--muted);padding:9px 18px;border:1px solid var(--line);border-radius:999px;background:var(--surface);cursor:pointer;transition:.15s}
+.tab:hover{border-color:var(--taupe);color:var(--ink)}.tab.on{background:var(--coral);border-color:var(--coral);color:#fff}
+.tab .tn{font-family:"DM Mono",monospace;font-size:11.5px;opacity:.72;margin-left:4px}
+.panel{display:none}.panel.show{display:block}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:9px;margin-bottom:16px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.kpi .k{font-size:12px;color:var(--muted);margin-bottom:4px}
+.kpi .v{font-family:"DM Mono",monospace;font-size:22px}
+.kpi.g .v{color:var(--sage)}.kpi.c .v{color:var(--coral)}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:12.5px}
+th{background:rgba(194,177,144,.16);font-size:11.5px;font-weight:700;color:#6e6142;padding:9px 8px;white-space:nowrap;text-align:left}
+th.c,td.v,td.st{text-align:center}
+td{padding:9px 8px;border-top:1px solid var(--line);vertical-align:top}
+tr.diff{background:rgba(255,80,25,.055)}
+td.dt{font-family:"DM Mono",monospace;color:var(--muted);white-space:nowrap}
+td.cd{font-size:10.5px;font-weight:700;text-align:center;white-space:nowrap}
+.c신한{color:#1d5a86}.c국민{color:#a8481a}
+td.nm{min-width:150px}
+td.num{font-family:"DM Mono",monospace;text-align:right;white-space:nowrap}
+td.tax{color:var(--muted)}
+td.v{font-weight:700;white-space:nowrap}
+td.v.ok{color:var(--sage)}td.v.no{color:var(--taupe)}td.v.na{color:var(--line)}
+td.st{font-size:11px;font-weight:700;white-space:nowrap}
+td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
+.note{font-size:11px;color:#a8481a;margin-top:3px;line-height:1.5}
+.stage{display:flex;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin-bottom:8px}
+.stage.wait{opacity:.6;border-style:dashed}
+.sno{font-family:"DM Mono",monospace;font-size:19px;color:var(--taupe);width:26px;flex-shrink:0}
+.shead{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:4px}
+.shead b{font-size:15.5px}
+.sdt{font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted)}
+.sst{font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;background:rgba(94,144,135,.16);color:#3f6b62}
+.sst.wait{background:var(--line);color:var(--muted)}
+.sdesc{font-size:13.5px}
+.fgroup{margin-bottom:20px}
+.ftitle{font-size:12.5px;font-weight:700;color:var(--muted);margin-bottom:7px;padding-left:2px}
+.ftitle.samhwa{color:var(--blue)}.ftitle.etax{color:#3f6b62}
+.frow{display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 15px;margin-bottom:6px;flex-wrap:wrap}
+.fico{font-size:15px}
+.fnm{flex:1 1 220px;font-size:13.5px}
+.fnm code{display:block;font-family:"DM Mono",monospace;font-size:11px;color:var(--taupe);margin-top:2px}
+.fdt{font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted)}
+.dl{font-size:12.5px;font-weight:600;color:var(--sage);padding:6px 15px;border:1px solid var(--line);border-radius:999px;text-decoration:none;background:var(--cream);white-space:nowrap}
+.dl:hover{border-color:var(--sage)}
+.dl.off{color:var(--taupe);border-style:dashed;cursor:default}
+.box{background:rgba(44,123,182,.06);border:1px solid rgba(44,123,182,.2);border-radius:12px;padding:15px 17px;margin:14px 0;font-size:13px;line-height:1.8;color:#274b64}
+.box b{color:var(--blue)}.box code{font-family:"DM Mono",monospace;font-size:12px;background:rgba(44,123,182,.1);padding:1px 5px;border-radius:4px}
+.box.warm{background:rgba(255,80,25,.055);border-color:rgba(255,80,25,.18);color:#7c4426}.box.warm b{color:var(--coral)}
+.foot{margin-top:26px;padding-top:17px;border-top:1px solid var(--line);text-align:center;font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted)}
+@media print{.tabs,.qtabs,.back{display:none}.panel{display:block!important}}
+</style></head><body><div class="wrap">
+<div class="top">
+  <div class="navleft">
+    <a class="back" href="finance.html">← 정산·신고 홈</a>
+    <a class="back" href="https://claude.ai/chat/4ae0f808-def5-4036-87f6-76797258af57" target="_blank" rel="noopener">💬 작업 대화</a>
+  </div>
+  <div class="metaline"><span>AI 워크스페이스 › 정산·신고 › 신고 작업</span><span class="bar">|</span><span class="upd">업데이트 <span id="updstamp"></span></span></div>
+</div>
+<div class="hero"><h1>신고 작업</h1><p>한 기(期)를 신고하는 과정을 모았습니다. 증빙 확인부터 대조, 최종본 보관까지.</p></div>
+
+<div class="qtabs"><button class="qtab">26년 1기</button><button class="qtab off" disabled>26년 2기</button></div>
+
+<div class="tabs">
+  <button class="tab" data-t="p0">① 증빙서철</button>
+  <button class="tab on" data-t="p1">② 대조·검증 <span class="tn">6</span></button>
+  <button class="tab" data-t="p2">③ 신고 이력</button>
+  <button class="tab" data-t="p3">④ 자료실</button>
+</div>
+
+<section class="panel" id="p0">
+  <div class="box">증빙서철은 별도 화면에서 관리합니다. 분기·월별 체크리스트 211건이 들어 있습니다.<br>
+  <a class="back" href="finance-receipt.html" style="margin-top:9px">📎 증빙서철 열기</a></div>
+</section>
+
+<section class="panel show" id="p1">
+  <div class="kpis">
+    <div class="kpi"><div class="k">대조 건수</div><div class="v">84</div></div>
+    <div class="kpi g"><div class="k">동일</div><div class="v">78</div></div>
+    <div class="kpi c"><div class="k">확인 필요</div><div class="v">6</div></div>
+  </div>
+  <div class="box warm"><b>보는 법</b> — 우리 판정과 삼화 판정이 같으면 <b>동일</b> 한 글자만 표시됩니다. 다른 건만 배경색이 들어가고 아래에 사유가 붙습니다. <b>최종</b> 열은 신고 후 삼화 최종본을 받으면 채웁니다.</div>
+  <table>
+    <tr><th>날짜</th><th class="c">카드</th><th>내역</th><th style="text-align:right">금액</th><th style="text-align:right">부가세</th><th class="c">우리</th><th class="c">삼화</th><th class="c">최종</th><th class="c">상태</th></tr>
+    <tr class="same">
+<td class="dt">01-01</td><td class="cd c국민">국민</td>
+<td class="nm">아카이빗몰 1초 회원가입 서비스</td>
+<td class="num">54,890</td><td class="num tax">4,990</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">01-09</td><td class="cd c국민">국민</td>
+<td class="nm">공공의주방 홈페이지 서버비</td>
+<td class="num">203,500</td><td class="num tax">18,500</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">01-09</td><td class="cd c국민">국민</td>
+<td class="nm">망고보드 사용료</td>
+<td class="num">140,000</td><td class="num tax">12,727</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">01-12</td><td class="cd c신한">신한</td>
+<td class="nm">인터넷 사용료</td>
+<td class="num">52,800</td><td class="num tax">4,800</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">01-14</td><td class="cd c국민">국민</td>
+<td class="nm">등록면허세(즉석판매제조가공업)</td>
+<td class="num">26,200</td><td class="num tax">0</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">01-14</td><td class="cd c국민">국민</td>
+<td class="nm">등록면허세(통신판매업)</td>
+<td class="num">39,700</td><td class="num tax">0</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">01-16</td><td class="cd c국민">국민</td>
+<td class="nm">방문자용 주차할인권</td>
+<td class="num">10,000</td><td class="num tax">909</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">01-19</td><td class="cd c국민">국민</td>
+<td class="nm">온라인클래스재료(시금치외)</td>
+<td class="num">39,380</td><td class="num tax">809</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">01-19</td><td class="cd c신한">신한</td>
+<td class="nm">법인핸드폰 요금</td>
+<td class="num">24,750</td><td class="num tax">2,250</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">01-20</td><td class="cd c신한">신한</td>
+<td class="nm">회사일반전화</td>
+<td class="num">31,350</td><td class="num tax">2,850</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">01-22</td><td class="cd c신한">신한</td>
+<td class="nm">그룹웨어 하이웍스</td>
+<td class="num">57,750</td><td class="num tax">5,250</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">01-26</td><td class="cd c신한">신한</td>
+<td class="nm">자비스 사용료</td>
+<td class="num">36,300</td><td class="num tax">3,300</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="diff">
+<td class="dt">01-26</td><td class="cd c국민">국민</td>
+<td class="nm">벤처기업확인수수료<div class="note">벤처기업확인기관 398-82-00505 일반과세자 확인 · 삼화 정정 예정</div></td>
+<td class="num">225,000</td><td class="num tax">20,454</td>
+<td class="v ok">공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st diff">확인</td></tr>
+<tr class="same">
+<td class="dt">01-28</td><td class="cd c국민">국민</td>
+<td class="nm">박스</td>
+<td class="num">31,150</td><td class="num tax">2,831</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">01-29</td><td class="cd c국민">국민</td>
+<td class="nm">사무실 정기주차권</td>
+<td class="num">36,000</td><td class="num tax">3,272</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="diff">
+<td class="dt">01-30</td><td class="cd c신한">신한</td>
+<td class="nm">카다이프면취소<div class="note">판정 상이</div></td>
+<td class="num">-169,000</td><td class="num tax">-15,363</td>
+<td class="v ok">공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st diff">확인</td></tr>
+<tr class="diff">
+<td class="dt">01-30</td><td class="cd c신한">신한</td>
+<td class="nm">카다이프면<div class="note">판정 상이</div></td>
+<td class="num">169,000</td><td class="num tax">15,363</td>
+<td class="v ok">공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st diff">확인</td></tr>
+<tr class="same">
+<td class="dt">01-30</td><td class="cd c국민">국민</td>
+<td class="nm">홈페이지인증서발급비</td>
+<td class="num">38,500</td><td class="num tax">3,500</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">01-30</td><td class="cd c신한">신한</td>
+<td class="nm">피스타치오크림</td>
+<td class="num">128,900</td><td class="num tax">11,718</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">01-30</td><td class="cd c신한">신한</td>
+<td class="nm">코코아가루</td>
+<td class="num">71,600</td><td class="num tax">6,509</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">01-30</td><td class="cd c신한">신한</td>
+<td class="nm">피스타치오크림</td>
+<td class="num">34,000</td><td class="num tax">3,091</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="diff">
+<td class="dt">01-30</td><td class="cd c신한">신한</td>
+<td class="nm">탈지분유<div class="note">탈지분유는 면세 품목</div></td>
+<td class="num">14,000</td><td class="num tax">1,273</td>
+<td class="v ok">공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st diff">확인</td></tr>
+<tr class="same">
+<td class="dt">02-01</td><td class="cd c국민">국민</td>
+<td class="nm">아카이빗몰 1초 회원가입 서비스</td>
+<td class="num">54,890</td><td class="num tax">4,990</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">02-01</td><td class="cd c신한">신한</td>
+<td class="nm">온라인클래스재료(마시멜로우)</td>
+<td class="num">87,650</td><td class="num tax">7,968</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">02-03</td><td class="cd c신한">신한</td>
+<td class="nm">온라인클래스재료(초콜렛외)</td>
+<td class="num">61,000</td><td class="num tax">5,545</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="diff">
+<td class="dt">02-04</td><td class="cd c신한">신한</td>
+<td class="nm">온라인클래스재료(두쫀쿠)캐나다구입<div class="note">판매자 캐나다 사업자(Healthvisor) · 국외 거래</div></td>
+<td class="num">311,700</td><td class="num tax">28,337</td>
+<td class="v ok">공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st diff">확인</td></tr>
+<tr class="same">
+<td class="dt">02-10</td><td class="cd c신한">신한</td>
+<td class="nm">백상지</td>
+<td class="num">8,430</td><td class="num tax">766</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">02-10</td><td class="cd c신한">신한</td>
+<td class="nm">쿠킹박스재료(대파외)</td>
+<td class="num">86,040</td><td class="num tax">1,373</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">02-11</td><td class="cd c국민">국민</td>
+<td class="nm">서버비</td>
+<td class="num">203,500</td><td class="num tax">18,500</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">02-11</td><td class="cd c신한">신한</td>
+<td class="nm">인터넷 사용료</td>
+<td class="num">52,800</td><td class="num tax">4,800</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">02-11</td><td class="cd c신한">신한</td>
+<td class="nm">쿠킹박스재료(깐족파외)</td>
+<td class="num">47,420</td><td class="num tax">1,200</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="diff">
+<td class="dt">02-20</td><td class="cd c국민">국민</td>
+<td class="nm">소스용봉투<div class="note">상대가 간이과세자</div></td>
+<td class="num">17,710</td><td class="num tax">1,610</td>
+<td class="v ok">공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st diff">확인</td></tr>
+<tr class="same">
+<td class="dt">02-20</td><td class="cd c국민">국민</td>
+<td class="nm">아이스팩</td>
+<td class="num">16,600</td><td class="num tax">1,509</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">02-20</td><td class="cd c국민">국민</td>
+<td class="nm">특허연차등록료</td>
+<td class="num">334,000</td><td class="num tax">30,363</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">02-22</td><td class="cd c신한">신한</td>
+<td class="nm">그룹웨어 하이웍스</td>
+<td class="num">57,750</td><td class="num tax">5,250</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">02-23</td><td class="cd c신한">신한</td>
+<td class="nm">법인핸드폰 요금</td>
+<td class="num">24,750</td><td class="num tax">2,250</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">02-23</td><td class="cd c국민">국민</td>
+<td class="nm">건전지</td>
+<td class="num">1,650</td><td class="num tax">150</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">02-23</td><td class="cd c국민">국민</td>
+<td class="nm">버터</td>
+<td class="num">18,980</td><td class="num tax">1,725</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">02-23</td><td class="cd c신한">신한</td>
+<td class="nm">쓰레기봉투</td>
+<td class="num">8,470</td><td class="num tax">770</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">02-23</td><td class="cd c신한">신한</td>
+<td class="nm">회사일반전화</td>
+<td class="num">31,350</td><td class="num tax">2,850</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">02-26</td><td class="cd c신한">신한</td>
+<td class="nm">자비스 사용료</td>
+<td class="num">36,300</td><td class="num tax">3,300</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">03-01</td><td class="cd c국민">국민</td>
+<td class="nm">아카이빗몰 1초 회원가입 서비스</td>
+<td class="num">54,890</td><td class="num tax">4,990</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">03-11</td><td class="cd c신한">신한</td>
+<td class="nm">인터넷 사용료</td>
+<td class="num">52,800</td><td class="num tax">4,800</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">03-13</td><td class="cd c신한">신한</td>
+<td class="nm">공공의주방 홈페이지 서버비</td>
+<td class="num">203,500</td><td class="num tax">18,500</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">03-18</td><td class="cd c신한">신한</td>
+<td class="nm">법인핸드폰 요금</td>
+<td class="num">24,750</td><td class="num tax">2,250</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">03-18</td><td class="cd c신한">신한</td>
+<td class="nm">회사일반전화</td>
+<td class="num">31,350</td><td class="num tax">2,850</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">03-22</td><td class="cd c신한">신한</td>
+<td class="nm">그룹웨어 하이웍스</td>
+<td class="num">57,750</td><td class="num tax">5,250</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">03-26</td><td class="cd c신한">신한</td>
+<td class="nm">쿠킹박스재료</td>
+<td class="num">57,290</td><td class="num tax">1,289</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">03-26</td><td class="cd c신한">신한</td>
+<td class="nm">자비스 사용료</td>
+<td class="num">36,300</td><td class="num tax">3,300</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">03-27</td><td class="cd c신한">신한</td>
+<td class="nm">쿠킹박스재료</td>
+<td class="num">22,730</td><td class="num tax">1,015</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">04-01</td><td class="cd c국민">국민</td>
+<td class="nm">아카이빗몰 1초 회원가입 서비스 (유니드컴즈 · 홈택스 표기: 나이스정보통신)</td>
+<td class="num">54,890</td><td class="num tax">4,990</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">04-02</td><td class="cd c신한">신한</td>
+<td class="nm">쿠킹박스 재료 (나무유통 수지상현점) [영수증확인] 판매자가 과세·면세 구분 반영</td>
+<td class="num">20,240</td><td class="num tax">1,116</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">04-13</td><td class="cd c신한">신한</td>
+<td class="nm">인터넷 사용료 (KT)</td>
+<td class="num">52,800</td><td class="num tax">4,800</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">04-13</td><td class="cd c신한">신한</td>
+<td class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: KG파이낸셜)</td>
+<td class="num">203,500</td><td class="num tax">18,500</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">04-15</td><td class="cd c신한">신한</td>
+<td class="nm">망고보드 사용료 (리아모어소프트 · 홈택스 표기: 토스페이먼츠)</td>
+<td class="num">140,000</td><td class="num tax">12,727</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">04-15</td><td class="cd c신한">신한</td>
+<td class="nm">온라인수업 식재료 발주 — 순정꽃게 (쿠팡 · 홈택스 표기: 한국정보통신) [영수증기준] 과세 11,709 / 부가세 1,171 / 면세 251,400</td>
+<td class="num">264,280</td><td class="num tax">1,171</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">04-15</td><td class="cd c신한">신한</td>
+<td class="nm">쿠킹박스용 아이스팩 (쿠팡 · 홈택스 표기: 한국정보통신) [영수증확인] 전액 과세 · 조정 없음</td>
+<td class="num">21,970</td><td class="num tax">1,997</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">04-20</td><td class="cd c신한">신한</td>
+<td class="nm">회사일반전화 (LG유플러스)</td>
+<td class="num">31,380</td><td class="num tax">2,852</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">04-20</td><td class="cd c신한">신한</td>
+<td class="nm">법인핸드폰 요금 (SKT)</td>
+<td class="num">24,750</td><td class="num tax">2,250</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">04-21</td><td class="cd c신한">신한</td>
+<td class="nm">온라인수업 식재료 발주 — 떡볶이 고추장 등 (쿠팡 · 홈택스 표기: 한국정보통신) [영수증기준] 과세 19,500 / 부가세 1,950 / 면세 87,960</td>
+<td class="num">109,410</td><td class="num tax">1,950</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">04-22</td><td class="cd c신한">신한</td>
+<td class="nm">그룹웨어 하이웍스 (가비아 · 홈택스 표기: NHN케이씨피)</td>
+<td class="num">57,750</td><td class="num tax">5,250</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">04-26</td><td class="cd c신한">신한</td>
+<td class="nm">자비스 사용료 (세무법인에스브이 · 홈택스 표기: 나이스정보통신)</td>
+<td class="num">36,300</td><td class="num tax">3,300</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">04-29</td><td class="cd c국민">국민</td>
+<td class="nm">기술보증기금1 보증료 (홈택스 표기: 금융결제원)</td>
+<td class="num">1,884,820</td><td class="num tax">171,347</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">04-29</td><td class="cd c국민">국민</td>
+<td class="nm">기술보증기금2 보증료 (홈택스 표기: 금융결제원)</td>
+<td class="num">663,170</td><td class="num tax">60,288</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">05-01</td><td class="cd c국민">국민</td>
+<td class="nm">아카이빗몰 1초 회원가입 서비스 (유니드컴즈 · 홈택스 표기: 나이스정보통신)</td>
+<td class="num">54,890</td><td class="num tax">4,990</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">05-11</td><td class="cd c신한">신한</td>
+<td class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: KG파이낸셜)</td>
+<td class="num">203,500</td><td class="num tax">18,500</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">05-11</td><td class="cd c신한">신한</td>
+<td class="nm">인터넷 사용료 (KT)</td>
+<td class="num">52,800</td><td class="num tax">4,800</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">05-12</td><td class="cd c신한">신한</td>
+<td class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: 토스페이먼츠)</td>
+<td class="num">80,000</td><td class="num tax">7,272</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">05-14</td><td class="cd c신한">신한</td>
+<td class="nm">온라인수업 식재료 발주 — 스파게티소스 등 (쿠팡 237,340 + 왓푸드 9,060 · 홈택스 표기: 한국정보통신) [영수증확인] 전액 과세 · 조정 없음</td>
+<td class="num">246,400</td><td class="num tax">22,400</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">05-15</td><td class="cd c신한">신한</td>
+<td class="nm">온라인수업 식재료 발주 — 양념 소불고기 (쿠팡 · 홈택스 표기: NHN케이씨피) [영수증확인] 가공식품 과세 · 조정 없음</td>
+<td class="num">44,800</td><td class="num tax">4,073</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">05-18</td><td class="cd c신한">신한</td>
+<td class="nm">쿠킹박스 재료 (나무유통 수지상현점) [영수증확인] 판매자가 과세·면세 구분 반영</td>
+<td class="num">99,030</td><td class="num tax">9,002</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">05-18</td><td class="cd c신한">신한</td>
+<td class="nm">법인핸드폰 요금 (SKT)</td>
+<td class="num">24,750</td><td class="num tax">2,250</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">05-19</td><td class="cd c신한">신한</td>
+<td class="nm">쿠킹박스용 보냉봉투 (성일화학 · 홈택스 표기: 토스페이먼츠)</td>
+<td class="num">236,173</td><td class="num tax">21,470</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">05-19</td><td class="cd c신한">신한</td>
+<td class="nm">쿠킹박스 포장박스 우체국 3호 ((주)창마루 · 홈택스 표기: KG이니시스)</td>
+<td class="num">29,900</td><td class="num tax">2,718</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">05-20</td><td class="cd c신한">신한</td>
+<td class="nm">회사일반전화 (LG유플러스)</td>
+<td class="num">31,350</td><td class="num tax">2,850</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">05-22</td><td class="cd c신한">신한</td>
+<td class="nm">그룹웨어 하이웍스 (가비아 · 홈택스 표기: NHN케이씨피)</td>
+<td class="num">57,750</td><td class="num tax">5,250</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">05-26</td><td class="cd c신한">신한</td>
+<td class="nm">자비스 사용료 (세무법인에스브이 · 홈택스 표기: 나이스정보통신)</td>
+<td class="num">36,300</td><td class="num tax">3,300</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">06-01</td><td class="cd c국민">국민</td>
+<td class="nm">아카이빗몰 1초 회원가입 서비스 (유니드컴즈 · 홈택스 표기: 나이스정보통신)</td>
+<td class="num">54,890</td><td class="num tax">4,990</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">06-11</td><td class="cd c신한">신한</td>
+<td class="nm">인터넷 사용료 (KT)</td>
+<td class="num">52,800</td><td class="num tax">4,800</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">06-16</td><td class="cd c신한">신한</td>
+<td class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: KG파이낸셜)</td>
+<td class="num">203,500</td><td class="num tax">18,500</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">06-18</td><td class="cd c신한">신한</td>
+<td class="nm">법인핸드폰 요금 (SKT)</td>
+<td class="num">33,000</td><td class="num tax">3,000</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">06-18</td><td class="cd c신한">신한</td>
+<td class="nm">회사일반전화 (LG유플러스)</td>
+<td class="num">31,350</td><td class="num tax">2,850</td>
+<td class="v no">불공제</td>
+<td class="v no">불공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">06-22</td><td class="cd c신한">신한</td>
+<td class="nm">그룹웨어 하이웍스 (가비아 · 홈택스 표기: NHN케이씨피)</td>
+<td class="num">57,750</td><td class="num tax">5,250</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+<tr class="same">
+<td class="dt">06-26</td><td class="cd c신한">신한</td>
+<td class="nm">자비스 사용료 (세무법인에스브이 · 홈택스 표기: 나이스정보통신)</td>
+<td class="num">36,300</td><td class="num tax">3,300</td>
+<td class="v ok">공제</td>
+<td class="v ok">공제</td>
+<td class="v na">—</td>
+<td class="st same">동일</td></tr>
+  </table>
+</section>
+
+<section class="panel" id="p2">
+  <div class="stage done"><div class="sno">①</div><div class="sbody">
+<div class="shead"><b>우리 정리본</b><span class="sdt">2026.04 · 07.20</span><span class="sst done">완료</span></div>
+<p class="sdesc">홈택스 원본에 상세내역(O열)과 의견(P열)을 채워 전달</p></div></div>
+<div class="stage done"><div class="sno">②</div><div class="sbody">
+<div class="shead"><b>삼화 정리본</b><span class="sdt">2026.07.21 수령</span><span class="sst done">완료</span></div>
+<p class="sdesc">증빙서철을 보고 M열(공제여부결정) 확정 · 쿠팡 묶음 결제를 판매자별로 분해</p></div></div>
+<div class="stage done"><div class="sno">③</div><div class="sbody">
+<div class="shead"><b>우리 대조</b><span class="sdt">2026.07.21</span><span class="sst done">완료</span></div>
+<p class="sdesc">홈택스 전자세금계산서 목록·통장·PG 원본과 전건 대조 → 확인 필요 6건 도출</p></div></div>
+<div class="stage done"><div class="sno">④</div><div class="sbody">
+<div class="shead"><b>삼화 회신</b><span class="sdt">2026.07.21 수령</span><span class="sst done">완료</span></div>
+<p class="sdesc">불공제 4건 사유 확인 · 벤처기업확인수수료는 사업자번호 확인 후 공제로 정정 예정</p></div></div>
+<div class="stage wait"><div class="sno">⑤</div><div class="sbody">
+<div class="shead"><b>최종 신고</b><span class="sdt">2026.07.25</span><span class="sst wait">대기</span></div>
+<p class="sdesc">신고 완료 후 최종본 수령 → 이 표의 최종 열을 채우고 환급액 확정</p></div></div>
+  <div class="box"><b>1기 부가세 — 삼화 장부 기준</b><br>
+  매출세액 1,713,234 − 매입세액 2,619,375 = <b>환급 906,141원</b><br>
+  벤처기업확인수수료(20,454원)가 공제로 정정되면 <b>926,595원</b>이 됩니다. 최종 신고서로 확정합니다.</div>
+</section>
+
+<section class="panel" id="p3">
+  <div class="fgroup"><div class="ftitle ours">우리가 보낸 것</div>
+<div class="frow"><span class="fico">📊</span><span class="fnm">카드공제내역 판정본 (1~6월)<code>vat-2026-1q-card-ours.xlsx</code></span><span class="fdt">2026.07.21 발송</span><a class="dl" href="vat-2026-1q-card-ours.xlsx" download>받기</a></div>
+<div class="frow"><span class="fico">📊</span><span class="fnm">카드공제내역 정리본 (4~6월)<code>vat-2026-1q-card-ours-q2.xlsx</code></span><span class="fdt">2026.07.20 발송</span><a class="dl" href="vat-2026-1q-card-ours-q2.xlsx" download>받기</a></div>
+</div>
+<div class="fgroup"><div class="ftitle samhwa">삼화가 보낸 것</div>
+<div class="frow"><span class="fico">📊</span><span class="fnm">카드공제내역 (1~6월)<code>vat-2026-1q-card-samhwa.xls</code></span><span class="fdt">2026.07.21 수령</span><a class="dl" href="vat-2026-1q-card-samhwa.xls" download>받기</a></div>
+<div class="frow"><span class="fico">📊</span><span class="fnm">매출장<code>vat-2026-1q-sales.xlsx</code></span><span class="fdt">2026.07.21 수령</span><a class="dl" href="vat-2026-1q-sales.xlsx" download>받기</a></div>
+<div class="frow"><span class="fico">📊</span><span class="fnm">매입장<code>vat-2026-1q-purchase.xlsx</code></span><span class="fdt">2026.07.21 수령</span><a class="dl" href="vat-2026-1q-purchase.xlsx" download>받기</a></div>
+<div class="frow"><span class="fico">📊</span><span class="fnm">부가세 신고서<code>vat-2026-1q-return.pdf</code></span><span class="fdt">신고 후 수령</span><span class="dl off">대기 중</span></div>
+</div>
+<div class="fgroup"><div class="ftitle etax">홈택스 원본</div>
+<div class="frow"><span class="fico">📊</span><span class="fnm">전자세금계산서 · 매출 (1~3월)<code>vat-2026-1q-etax-sales-q1.xls</code></span><span class="fdt">2026.07.21</span><a class="dl" href="vat-2026-1q-etax-sales-q1.xls" download>받기</a></div>
+<div class="frow"><span class="fico">📊</span><span class="fnm">전자세금계산서 · 매출 (4~6월)<code>vat-2026-1q-etax-sales-q2.xls</code></span><span class="fdt">2026.07.21</span><a class="dl" href="vat-2026-1q-etax-sales-q2.xls" download>받기</a></div>
+<div class="frow"><span class="fico">📊</span><span class="fnm">전자세금계산서 · 매입 (1~3월)<code>vat-2026-1q-etax-purchase-q1.xls</code></span><span class="fdt">2026.07.21</span><a class="dl" href="vat-2026-1q-etax-purchase-q1.xls" download>받기</a></div>
+<div class="frow"><span class="fico">📊</span><span class="fnm">전자세금계산서 · 매입 (4~6월)<code>vat-2026-1q-etax-purchase-q2.xls</code></span><span class="fdt">2026.07.21</span><a class="dl" href="vat-2026-1q-etax-purchase-q2.xls" download>받기</a></div>
+</div>
+  <div class="box"><b>파일 올리는 방법</b><br>
+  받은 파일을 아래 이름으로 바꿔 <b>이 화면과 같은 폴더(GitHub)</b>에 올리면 버튼이 작동합니다. 파일이 없으면 <b>대기 중</b>으로 표시됩니다.<br><br>
+  <b>이름 규칙</b> — <code>vat-[연도]-[기]-[구분].확장자</code><br>
+  예: <code>vat-2026-1q-card-samhwa.xls</code> · <code>vat-2026-2q-return.pdf</code><br><br>
+  한글 파일명은 링크가 깨지므로 <b>반드시 영어로</b> 바꿔 주세요.</div>
+</section>
+
+<div class="foot">finance-filing · <span id="fv">v1</span> · 주식회사 공공의주방 · archiveat.kr</div>
+</div>
+<script>
+(function(){var mv=document.querySelector('meta[name="version"]'),mu=document.querySelector('meta[name="updated"]');
+var s=document.getElementById('updstamp'); if(s)s.textContent=(mu?mu.content:'')+(mv?' · '+mv.content:'');
+var f=document.getElementById('fv'); if(f&&mv)f.textContent=mv.content;})();
+document.querySelectorAll('.tab').forEach(function(b){b.addEventListener('click',function(){
+  document.querySelectorAll('.tab').forEach(function(x){x.classList.toggle('on',x===b);});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('show',p.id===b.dataset.t);});
+});});
+</script></body></html>
