@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v3">
-<meta name="updated" content="2026.07.21 21:30">
+<meta name="version" content="v5">
+<meta name="updated" content="2026.07.21 22:55">
 <title>패킹 운영</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
@@ -106,6 +106,7 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 
 <div class="tabs">
 <button class="tab on" data-t="t1">개요</button>
+<button class="tab" data-t="tR">레시피</button>
 <button class="tab" data-t="t2">소스 배합</button>
 <button class="tab" data-t="t3">패킹 구성</button>
 <button class="tab" data-t="t4">소모품</button>
@@ -167,6 +168,92 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 </section>
 </div>
 
+
+<!-- ===== 레시피 ===== -->
+<div class="panel" id="tR">
+
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>계량 환산</h2><span class="s">부피 → 무게 · 발주와 소분의 기준</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>레시피 표기</th><th>환산</th><th>1인</th><th>31인</th><th>쓰이는 곳</th></tr></thead>
+<tbody>
+<tr><td class="l">설탕 1/2컵</td><td class="num">100g</td><td class="num">100g</td><td class="num">3,100g</td><td class="l">복숭아 조림</td></tr>
+<tr><td class="l">레몬즙 2큰술</td><td class="num">30g</td><td class="num">30g</td><td class="num">930g</td><td class="l">복숭아 조림</td></tr>
+<tr><td class="l">물 1컵</td><td class="num">200ml</td><td class="num">—</td><td class="num">—</td><td class="l">조림 · <b>집에서 준비</b></td></tr>
+<tr><td class="l">식초 1큰술</td><td class="num">15g</td><td class="num">15g</td><td class="num">465g</td><td class="l">드레싱 베이스</td></tr>
+<tr><td class="l">설탕 1큰술</td><td class="num">13g</td><td class="num">13g</td><td class="num">403g</td><td class="l">드레싱 베이스</td></tr>
+<tr><td class="l">홀그레인머스타드 1/2T</td><td class="num">8g</td><td class="num">8g</td><td class="num">248g</td><td class="l">드레싱 베이스</td></tr>
+<tr><td class="l">레몬즙 1/2큰술</td><td class="num">8g</td><td class="num">8g</td><td class="num">248g</td><td class="l">드레싱 베이스</td></tr>
+<tr><td class="l">올리브오일 3T</td><td class="num">41g</td><td class="num">41g</td><td class="num">1,271g</td><td class="l">드레싱 오일</td></tr>
+<tr><td class="l">소금 한 꼬집</td><td class="num">약 0.3g</td><td class="num">—</td><td class="num">—</td><td class="l">드레싱 · <b>집에서 준비</b></td></tr>
+<tr><td class="l">로메인 3잎</td><td class="num">50g</td><td class="num">50g</td><td class="num">1,550g</td><td class="l">샐러드</td></tr>
+<tr><td class="l">복숭아 2개</td><td class="num">약 100g</td><td class="num">100g</td><td class="num">3,100g</td><td class="l">조림</td></tr>
+<tr><td class="l">천도복숭아 500g (껍질째)</td><td class="num">손질 후 300g</td><td class="num">500g</td><td class="num">15,500g</td><td class="l">복숭아청</td></tr>
+</tbody>
+</table></div>
+<div class="alert"><h3>이 표가 없어서 사고가 났습니다</h3><p>선생님 레시피는 컵·큰술 같은 부피 단위인데 발주와 소분은 g 단위입니다. 그 사이를 어디에도 적어두지 않아, <b>조림용 설탕 1/2컵과 레몬즙 2큰술이 원가에서 통째로 빠져 있었습니다.</b> 다음 회차부터는 이 표를 먼저 채우고 발주를 잡으세요.</p></div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>복숭아청</h2><span class="s">선생님 원본</span></div>
+<p class="note" style="margin-top:0">손질 복숭아 300g · 설탕 300g</p>
+<ol class="steps">
+<li><b>유리병 소독</b><span>냄비에 물 500ml 정도 넣고 바글바글 끓어오르면 유리병을 거꾸로 넣어 1분 정도 끓인 뒤 꺼내어 식힙니다.</span></li>
+<li><b>복숭아 손질</b><span>깨끗이 씻은 후 껍질 제거하고 잘게 깍둑썰기 합니다.</span></li>
+<li><b>켜켜이 담기</b><span>유리병에 설탕 → 복숭아 → 설탕 → 복숭아 → 설탕 순으로 넣습니다.</span></li>
+<li><b>실온 숙성</b><span>뚜껑을 꼭 닫고 1일 실온에 둡니다. 뒤집어 두기를 반복합니다.</span></li>
+<li><b>냉장 보관</b><span>설탕이 녹으면 냉장고로 옮깁니다.</span></li>
+</ol>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">03</span><h2>복숭아 조림과 브리치즈 샐러드</h2><span class="s">선생님 원본</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>구분</th><th>재료</th></tr></thead>
+<tbody>
+<tr><td>A. 조림</td><td class="l">복숭아 2개 · 설탕 1/2컵 · 물 1컵 · 레몬즙 2큰술</td></tr>
+<tr><td>B. 샐러드</td><td class="l">로메인 3잎 · 와일드 루꼴라 30g · 브리치즈 25g</td></tr>
+<tr><td>C. 드레싱</td><td class="l">식초 1큰술 · 설탕 1큰술 · 소금 한 꼬집 · 홀그레인머스타드 1/2T · 올리브오일 3T · 레몬즙 1/2큰술 · <span style="color:var(--warn)">(양파다짐 1큰술)</span></td></tr>
+</tbody>
+</table></div>
+<ol class="steps" style="margin-top:12px">
+<li><b>시럽 끓이기</b><span>설탕, 물 넣어 설탕이 녹을 때까지 바글바글 끓입니다.</span></li>
+<li><b>복숭아 조리기</b><span>껍질 제거 후 웨지썰기 하여 시럽에 넣고 10분 정도 약불에서 조립니다. 레몬즙 넣고 식힙니다.</span></li>
+<li><b>채소·치즈 손질</b><span>먹기 좋은 크기로 썰어줍니다.</span></li>
+<li><b>드레싱</b><span>재료를 모두 넣어 설탕과 소금이 녹을 때까지 고루 섞습니다. <b>키트는 베이스와 오일 2봉으로 나가므로, 합쳐서 흔들면 됩니다.</b></span></li>
+<li><b>담아내기</b><span>접시에 채소 → 복숭아 조림 → 브리치즈 올린 후 소스를 뿌립니다.</span></li>
+</ol>
+<div class="alert"><h3>양파 미확정</h3><p>선생님 원본에 <b>(양파다짐 1큰술)</b>이 괄호로 되어 있어 포함 여부가 정해지지 않았습니다. 현재 발주·소분·레시피카드 모두 <b>제외</b> 상태입니다. 넣기로 하면 양파 발주와 소분 항목이 추가됩니다.</p></div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">04</span><h2>재료가 어디로 가나</h2><span class="s">레시피 → 봉투</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>재료</th><th>1인</th><th>담는 방식</th><th>봉투</th></tr></thead>
+<tbody>
+<tr><td class="l">천도복숭아 (청용)</td><td class="num">500g</td><td>복숭아 5개 중 배분</td><td><span class="badge b-cold">② 냉장</span></td></tr>
+<tr><td class="l">천도복숭아 (조림용)</td><td class="num">100g</td><td>복숭아 5개 중 배분</td><td><span class="badge b-cold">② 냉장</span></td></tr>
+<tr><td class="l">설탕 (청용)</td><td class="num">300g</td><td>지퍼백 → 유리병 안</td><td><span class="badge b-room">① 실온</span></td></tr>
+<tr><td class="l">설탕 (조림용)</td><td class="num">100g</td><td>지퍼백 별도</td><td><span class="badge b-room">① 실온</span></td></tr>
+<tr><td class="l">유리병 500ml</td><td class="num">1개</td><td>에어캡 포장</td><td><span class="badge b-room">① 실온</span></td></tr>
+<tr><td class="l">레몬즙 (조림용)</td><td class="num">30g</td><td>소스팩</td><td><span class="badge b-cold">③ 냉장</span></td></tr>
+<tr><td class="l">드레싱 베이스</td><td class="num">44g</td><td>소스팩</td><td><span class="badge b-cold">③ 냉장</span></td></tr>
+<tr><td class="l">올리브오일</td><td class="num">41g</td><td>소스팩</td><td><span class="badge b-cold">③ 냉장</span></td></tr>
+<tr><td class="l">로메인 · 루꼴라 · 브리치즈</td><td class="num">105g</td><td>그대로</td><td><span class="badge b-cold">③ 냉장</span></td></tr>
+<tr><td class="l">물 · 소금</td><td class="num">—</td><td>집에서 준비</td><td>—</td></tr>
+</tbody>
+</table></div>
+<p class="note">복숭아는 청용 500g과 조림용 100g을 따로 담지 않고 <b>5개를 한 봉투에</b> 넣습니다. 수강생이 레시피카드를 보고 나눠 쓰면 됩니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">05</span><h2>레시피카드</h2><span class="s">인쇄물</span></div>
+<p class="note" style="margin-top:0">A4 양면 1장 · 앞장 커버 / 뒷장 두 레시피. 인쇄 시 여백 "없음", 배경 그래픽 "켜기", 양면은 "긴 쪽 넘기기"로 설정하세요.</p>
+<p style="margin-top:12px"><a class="pill" href="recipe-GS2607.html" style="font-size:14px;padding:9px 18px">📄 레시피카드 열기 →</a></p>
+</section>
+
+</div>
+
 <!-- ===== 2 소스 배합 ===== -->
 <div class="panel" id="t2">
 <section class="block">
@@ -189,11 +276,18 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 <tbody id="tbOil"></tbody>
 </table></div>
 
+<h3 style="margin:18px 0 8px">조림용 <span class="badge b-cold">별도 소분</span></h3>
+<div class="tbl-wrap"><table>
+<thead><tr><th>재료</th><th>1인</th><th>계량</th><th>순 소요량</th><th>예비 포함</th><th>담는 곳</th></tr></thead>
+<tbody id="tbJam"></tbody>
+</table></div>
+<p class="note">드레싱과 <b>합치지 않습니다.</b> 조림용 레몬즙 30g은 드레싱용 8g의 약 4배이고, 조림용 설탕 100g은 청용 300g과 쓰는 시점이 다릅니다.</p>
+
 <div class="dash" style="margin-top:16px">
 <div class="d"><div class="k">1인 소스 총량</div><div class="v" id="dPer">85</div><div class="u">g · 베이스 44 + 오일 41</div></div>
 <div class="d"><div class="k">베이스 제조량</div><div class="v" id="dBase">1,500</div><div class="u">g · 예비 포함</div></div>
 <div class="d"><div class="k">오일 소요량</div><div class="v" id="dOil">1,398</div><div class="u">g · 예비 포함</div></div>
-<div class="d"><div class="k">소분 용기</div><div class="v" id="dCup">62</div><div class="u">개 · 2종 × 인원</div></div>
+<div class="d"><div class="k">소분 용기</div><div class="v" id="dCup">93</div><div class="u">개 · 3종 × 인원</div></div>
 </div>
 </section>
 
@@ -215,8 +309,11 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 <li><b>베이스 완성 — 총량 확인</b><span>계산된 예비 포함 총량과 실제 무게를 대조합니다. 부족하면 비율대로 보충합니다.</span></li>
 <li><b>베이스 소분 (1인 44g × 예비율 적용)</b><span>소분 직전 한 번 저어줍니다. 머스타드는 시간이 지나면 가라앉습니다.</span></li>
 <li><b>오일은 따로 소분 (1인 41g)</b><span>베이스와 섞지 않습니다. 그냥 따르면 됩니다.</span></li>
-<li><b>라벨 부착 → 소스팩에 2개 함께 담기</b><span>베이스 라벨, 오일 라벨을 각각 붙인 뒤 소스팩 1봉에 함께 넣습니다.</span></li>
+<li><b>조림용 레몬즙을 따로 소분 (1인 30g)</b><span>드레싱용 8g과 별개입니다. 같은 돈시몬 1L 제품이지만 용도가 달라 따로 담습니다. 섞이면 조림도 드레싱도 양이 안 맞습니다.</span></li>
+<li><b>조림용 설탕을 따로 소분 (1인 100g · 1/2컵)</b><span>청용 300g과 절대 합치지 않습니다. 청은 병에 켜켜이 넣고 조림은 냄비에 끓이는 것이라 쓰는 시점이 다릅니다.</span></li>
+<li><b>라벨 부착 → 소스팩 3봉 + 지퍼백 1장</b><span>베이스·오일·조림용 레몬즙에 각각 라벨을 붙여 소스팩 3봉으로, 조림용 설탕은 지퍼백에 담아 실온봉투로 보냅니다.</span></li>
 </ol>
+<div class="alert"><h3>조림 재료를 빠뜨리기 쉽습니다</h3><p>드레싱만 생각하면 소스가 2종으로 끝나 보이지만, 복숭아 조림에도 설탕 1/2컵과 레몬즙 2큰술이 들어갑니다. 조림용 레몬즙 30g은 드레싱용 8g의 <b>약 4배</b>라 빠지면 조림 자체를 못 합니다.</p></div>
 </section>
 
 <section class="block">
@@ -251,7 +348,7 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 </tr>
 <tr>
 <td><b>③</b></td><td class="l">냉장봉투 (중)</td><td><span class="badge b-cold">냉장</span></td>
-<td class="l">로메인 50g · 와일드 루꼴라 30g<br>브리치즈 25g 1개 · <b>소스팩 1봉</b><span class="q">소스팩 안에 베이스 + 오일 2개</span></td>
+<td class="l">로메인 50g · 와일드 루꼴라 30g<br>브리치즈 25g 1개 · <b>소스팩 3봉</b><span class="q">드레싱 베이스 44g · 올리브오일 41g · 조림용 레몬즙 30g</span></td>
 <td class="num">1장</td><td>1개</td>
 </tr>
 <tr>
@@ -310,7 +407,7 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 <tbody>
 <tr><td class="l">종이봉투 ①</td><td>유리병+설탕 들어갈 크기</td><td>1</td><td class="num">31</td><td class="num"><b>35장</b></td><td><span class="badge b-warn">재고확인</span></td></tr>
 <tr><td class="l">냉장봉투 ②③</td><td>중 사이즈</td><td>2</td><td class="num">62</td><td class="num"><b>70장</b></td><td><span class="badge b-warn">재고확인</span></td></tr>
-<tr><td class="l">소스팩</td><td>소형</td><td>1</td><td class="num">31</td><td class="num"><b>35개</b></td><td><span class="badge b-warn">재고확인</span></td></tr>
+<tr><td class="l">소스팩</td><td>소형</td><td>3</td><td class="num">93</td><td class="num"><b>100개</b></td><td><span class="badge b-warn">재고확인</span></td></tr>
 <tr><td class="l">소스용기 (베이스)</td><td>60ml 이상 밀폐</td><td>1</td><td class="num">31</td><td class="num"><b>35개</b></td><td><span class="badge b-warn">재고확인</span></td></tr>
 <tr><td class="l">소스용기 (오일)</td><td>50ml 이상 밀폐</td><td>1</td><td class="num">31</td><td class="num"><b>35개</b></td><td><span class="badge b-warn">재고확인</span></td></tr>
 <tr><td class="l">아이스팩</td><td>—</td><td>2</td><td class="num">62</td><td class="num"><b>70개</b></td><td><span class="badge b-warn">오늘 냉동</span></td></tr>
@@ -333,7 +430,7 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 </div>
 <div class="alert">
 <h3>봉투·소스팩·박스 재고 확인</h3>
-<p>종이봉투 35장, 냉장봉투 70장, 소스팩 35개, 소스용기 70개, 디바이더 35장, 지퍼백 35장, 박스 35개. 하나라도 모자라면 오늘 안에 주문해야 내일 새벽에 들어옵니다. 로켓 새벽배송 마감 시간을 확인하세요.</p>
+<p>종이봉투 35장, 냉장봉투 70장, <b>소스팩 100개</b>, 디바이더 35장, <b>지퍼백 70장</b>, 박스 35개. 소스팩은 1인 3봉(베이스·오일·조림용 레몬즙), 지퍼백은 1인 2장(청용 설탕 300g·조림용 설탕 100g)입니다. 하나라도 모자라면 오늘 안에 주문해야 내일 새벽에 들어옵니다.</p>
 </div>
 <div class="tip">
 <h3>에어캡 도착 시간이 변수입니다</h3>
@@ -497,6 +594,10 @@ var BASE=[
  {nm:'레몬즙',     per:8,  sp:'1/2T',unit:'ml',stock:1000, note:'돈시몬 1L'}
 ];
 var OIL={nm:'올리브오일', per:41, sp:'3T', unit:'ml', stock:2000, note:'1L × 2'};
+var JAM=[
+ {nm:'조림용 레몬즙', per:30, sp:'2큰술', unit:'ml', stock:1000, note:'돈시몬 1L 추가분'},
+ {nm:'조림용 설탕',   per:100, sp:'1/2컵', unit:'g',  stock:null,  note:'보유 설탕에서 소분'}
+];
 var fmt=function(n){return n.toLocaleString('ko-KR',{maximumFractionDigits:0});};
 
 function calc(){
@@ -529,7 +630,21 @@ function calc(){
   document.getElementById('dPer').textContent=perAll;
   document.getElementById('dBase').textContent=fmt(basePer*pax*(1+buf));
   document.getElementById('dOil').textContent=fmt(oTot);
-  document.getElementById('dCup').textContent=pax*2;
+  var hj='';
+  JAM.forEach(function(r){
+    var net=r.per*pax, tot=net*(1+buf);
+    var where = (r.nm.indexOf('설탕')>=0) ? '지퍼백 → ① 실온봉투' : '소스팩 → ③ 냉장봉투';
+    var stk = (r.stock==null) ? '<span class="badge b-ok">재고 사용</span>'
+              : (r.stock>=tot ? '<span class="badge b-ok">충분</span>' : '<span class="badge b-warn">부족</span>');
+    hj+='<tr><td class="l">'+r.nm+'<span class="q">'+r.note+'</span></td>'
+      +'<td class="num">'+r.per+r.unit+' <span style="color:var(--wait)">('+r.sp+')</span></td>'
+      +'<td class="num">'+r.sp+'</td>'
+      +'<td class="num">'+fmt(net)+r.unit+'</td>'
+      +'<td class="num"><b>'+fmt(tot)+r.unit+'</b> '+stk+'</td>'
+      +'<td class="l">'+where+'</td></tr>';
+  });
+  document.getElementById('tbJam').innerHTML=hj;
+  document.getElementById('dCup').textContent=(pax*3);
 
   /* 재고 대비 */
   var SUGAR_JAM=300*pax;   /* 수제청용 */
@@ -558,10 +673,11 @@ var CK=[
  ['10:00','toms 업로드 → 송장 출력','프린터 세로·맞춤'],
  ['10:30','관리자 송장번호 저장 → 배송대기중','' ],
  ['11:00','소스 베이스 제조','설탕을 식초에 먼저 녹이기 → 레몬즙 → 머스타드'],
- ['12:00','소스 소분 + 라벨 부착','베이스 44g · 오일 41g · 소스팩 1봉에 2개'],
+ ['12:00','소스 소분 + 라벨 부착','베이스 44g · 오일 41g · 조림용 레몬즙 30g → 소스팩 3봉'],
+ ['12:40','설탕 소분','청용 300g · 조림용 100g → 지퍼백 2장 (합치지 않기)'],
  ['13:00','① 종이봉투 — 설탕 지퍼백을 병에 넣고 에어캡','에어캡 도착 확인 후 진행'],
  ['14:00','② 냉장봉투 — 복숭아 5개씩','물러진 것 골라내기 · 여유 7~13개'],
- ['15:00','③ 냉장봉투 — 채소·치즈·소스팩','가장 마지막 · 상온 노출 최소화'],
+ ['15:00','③ 냉장봉투 — 채소·치즈·소스팩 3봉','가장 마지막 · 상온 노출 최소화'],
  ['15:30','박스 조립 → 디바이더 → 적재','① 아래 · ②③ + 아이스팩 위 · 레시피카드 최상단'],
  ['16:00','사진 촬영','인스타·유튜브용'],
  ['16:15','박싱 → 송장 부착 → 취급주의 스티커',''],
