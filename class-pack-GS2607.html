@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v5">
-<meta name="updated" content="2026.07.21 22:55">
+<meta name="version" content="v25">
+<meta name="updated" content="2026.07.22 01:00">
 <title>패킹 운영</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
@@ -29,6 +29,7 @@ h3{font-size:14.5px;font-weight:700;margin:0}
 .tab{flex:0 0 auto;font-family:inherit;font-size:14px;font-weight:600;color:var(--sub);background:none;border:none;border-bottom:2px solid transparent;padding:11px 14px;cursor:pointer;white-space:nowrap;transition:.12s}
 .tab:hover{color:var(--ink)}
 .tab.on{color:var(--point);border-bottom-color:var(--point)}
+.tab .star{color:#FF5019}
 .panel{display:none;padding-top:6px}
 .panel.on{display:block}
 .block{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
@@ -42,6 +43,44 @@ h3{font-size:14.5px;font-weight:700;margin:0}
 .d .k{font-size:12px;color:var(--sub);font-weight:500}
 .d .v{font-family:"DM Mono",monospace;font-size:22px;font-weight:700;margin-top:3px;line-height:1.15}
 .d .u{font-size:11.5px;color:var(--wait);margin-top:2px}
+.subtabs{display:flex;gap:5px;flex-wrap:wrap;margin-top:16px;background:#F4EFE3;padding:5px;border-radius:11px}
+.stab{font-family:inherit;font-size:13px;font-weight:600;color:var(--sub);background:none;border:none;border-radius:8px;padding:8px 15px;cursor:pointer}
+.stab:hover{color:var(--ink)}
+.stab.on{background:#fff;color:var(--point);box-shadow:0 1px 3px rgba(0,0,0,.07)}
+.sub{display:none}.sub.on{display:block}
+.rsub{display:none}.rsub.on{display:block}
+.ksub{display:none}.ksub.on{display:block}
+.gsub{display:none}.gsub.on{display:block}
+.psub{display:none}.psub.on{display:block}
+.ckg{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-top:11px}
+.ckgh{font-size:13px;font-weight:700;color:var(--point);padding-bottom:8px;margin-bottom:3px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.ckgh span{font-family:"DM Mono",monospace;font-size:11px;font-weight:500;color:var(--wait);background:#F4EFE3;border-radius:20px;padding:1px 8px}
+.mcard{border:1px solid var(--line);border-radius:13px;padding:15px 17px;margin-top:13px;background:#fff}
+.mcard.m1{border-left:5px solid #C2570E}
+.mcard.m2{border-left:5px solid #B4A032}
+.mcard.m3{border-left:5px solid #2E7D32}
+.mcard .mh{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:11px}
+.mcard .mh .mno{font-family:"DM Mono",monospace;font-size:11px;color:#fff;border-radius:20px;padding:2px 10px}
+.mcard.m1 .mno{background:#C2570E}.mcard.m2 .mno{background:#B4A032}.mcard.m3 .mno{background:#2E7D32}
+.mcard .mh h4{font-size:15.5px;font-weight:700}
+.mcard .mh .cnt{margin-left:auto;font-size:12px;color:var(--wait);font-family:"DM Mono",monospace}
+.packrow{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-top:1px dashed var(--line)}
+.packrow .pk{flex-shrink:0;width:52px;text-align:center;font-family:"DM Mono",monospace;font-size:12px;font-weight:700;border-radius:7px;padding:5px 0;background:#F4EFE3;color:var(--sub)}
+.packrow.mix .pk{background:#FBEAE0;color:#B44A1E}
+.packrow .pi{flex:1;min-width:0}
+.packrow .pi .t{font-size:13.5px;font-weight:600}
+.packrow .pi .d{font-size:12px;color:var(--wait);margin-top:2px;line-height:1.5}
+.packrow .amt{font-family:"DM Mono",monospace;font-size:14px;font-weight:700;white-space:nowrap;text-align:right}
+.packrow .amt small{display:block;font-size:11px;font-weight:400;color:var(--wait);margin-top:1px}
+td.item{text-align:left;white-space:normal;line-height:1.75;min-width:290px}
+td.item .ln{display:block}
+td.item .amt{color:var(--wait);font-weight:400}
+.spack{display:block;margin-top:5px;border-left:3px solid var(--point);background:#FBF7EC;border-radius:0 7px 7px 0;padding:6px 10px}
+.spack .sh{display:block;font-size:11.5px;font-weight:700;color:var(--point);letter-spacing:.02em;margin-bottom:2px}
+.spack .si{display:block;font-size:12.5px;padding-left:2px}
+.spack .si b{font-weight:600}
+th.col-no{width:38px}th.col-bag{width:96px}th.col-tmp{width:62px}th.col-qty{width:52px}th.col-ice{width:64px}
+td.qtyc,td.icec{white-space:nowrap;font-family:"DM Mono",monospace;font-size:12px}
 .tbl-wrap{overflow-x:auto;margin:0 -3px}
 table{border-collapse:collapse;width:100%;min-width:600px;font-size:13px}
 th,td{border:1px solid var(--line);padding:7px 9px;text-align:center;white-space:nowrap}
@@ -109,7 +148,8 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 <button class="tab" data-t="tR">레시피</button>
 <button class="tab" data-t="t2">소스 배합</button>
 <button class="tab" data-t="t3">패킹 구성</button>
-<button class="tab" data-t="t4">소모품</button>
+<button class="tab" data-t="tP"><span class="star">★</span> 준비·패킹</button>
+<button class="tab" data-t="t4">재고</button>
 <button class="tab" data-t="t5">라벨·출력물</button>
 <button class="tab" data-t="t6">송장·배송</button>
 <button class="tab" data-t="t7">선생님 안내</button>
@@ -160,7 +200,7 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 <tbody>
 <tr><td class="l">세트 수</td><td>31세트</td><td class="l">수강생 30 + 선생님 1</td></tr>
 <tr><td class="l">소스 제조</td><td>베이스 + 오일 분리</td><td class="l">오일 45.7%라 혼합 시 층 분리</td></tr>
-<tr><td class="l">유리병 처리</td><td>설탕을 병 안에 + 에어캡</td><td class="l">깨져도 설탕 오염 없음 · 부피 절감</td></tr>
+<tr><td class="l">유리병 처리</td><td>에어캡만 감싸기</td><td class="l">설탕은 병에 넣지 않고 별도 소분팩으로</td></tr>
 <tr><td class="l">식초</td><td>오뚜기 사과식초</td><td class="l">선생님 확인 필요</td></tr>
 <tr><td class="l">냉동봉투</td><td>이번 미사용</td><td class="l">냉동 품목 없음</td></tr>
 <tr><td class="l">봉투 번호</td><td>수기 표기</td><td class="l">라벨 불필요</td></tr>
@@ -172,221 +212,234 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 <!-- ===== 레시피 ===== -->
 <div class="panel" id="tR">
 
-<section class="block">
-<div class="bh"><span class="n">01</span><h2>계량 환산</h2><span class="s">부피 → 무게 · 발주와 소분의 기준</span></div>
+<p class="note" style="margin-top:14px">아래 문구가 <b>레시피카드 뒷장</b>에 그대로 들어갑니다. 수정하실 내용은 이 화면 기준으로 알려주세요.</p>
+
+<div class="subtabs">
+<button class="stab rt on" data-r="r1">구성품 · 소스</button>
+<button class="stab rt" data-r="r2">조리법</button>
+</div>
+
+<!-- ── 구성품 · 소스 ── -->
+<div class="rsub on" id="r1">
+
+<div class="block" style="margin-top:14px">
+<div class="bh"><span class="n">01</span><h2>복숭아청</h2></div>
 <div class="tbl-wrap"><table>
-<thead><tr><th>레시피 표기</th><th>환산</th><th>1인</th><th>31인</th><th>쓰이는 곳</th></tr></thead>
+<thead><tr><th style="width:50%">보내드려요</th><th>집에서 준비하세요</th></tr></thead>
 <tbody>
-<tr><td class="l">설탕 1/2컵</td><td class="num">100g</td><td class="num">100g</td><td class="num">3,100g</td><td class="l">복숭아 조림</td></tr>
-<tr><td class="l">레몬즙 2큰술</td><td class="num">30g</td><td class="num">30g</td><td class="num">930g</td><td class="l">복숭아 조림</td></tr>
-<tr><td class="l">물 1컵</td><td class="num">200ml</td><td class="num">—</td><td class="num">—</td><td class="l">조림 · <b>집에서 준비</b></td></tr>
-<tr><td class="l">식초 1큰술</td><td class="num">15g</td><td class="num">15g</td><td class="num">465g</td><td class="l">드레싱 베이스</td></tr>
-<tr><td class="l">설탕 1큰술</td><td class="num">13g</td><td class="num">13g</td><td class="num">403g</td><td class="l">드레싱 베이스</td></tr>
-<tr><td class="l">홀그레인머스타드 1/2T</td><td class="num">8g</td><td class="num">8g</td><td class="num">248g</td><td class="l">드레싱 베이스</td></tr>
-<tr><td class="l">레몬즙 1/2큰술</td><td class="num">8g</td><td class="num">8g</td><td class="num">248g</td><td class="l">드레싱 베이스</td></tr>
-<tr><td class="l">올리브오일 3T</td><td class="num">41g</td><td class="num">41g</td><td class="num">1,271g</td><td class="l">드레싱 오일</td></tr>
-<tr><td class="l">소금 한 꼬집</td><td class="num">약 0.3g</td><td class="num">—</td><td class="num">—</td><td class="l">드레싱 · <b>집에서 준비</b></td></tr>
-<tr><td class="l">로메인 3잎</td><td class="num">50g</td><td class="num">50g</td><td class="num">1,550g</td><td class="l">샐러드</td></tr>
-<tr><td class="l">복숭아 2개</td><td class="num">약 100g</td><td class="num">100g</td><td class="num">3,100g</td><td class="l">조림</td></tr>
-<tr><td class="l">천도복숭아 500g (껍질째)</td><td class="num">손질 후 300g</td><td class="num">500g</td><td class="num">15,500g</td><td class="l">복숭아청</td></tr>
+<tr><td class="l">천도복숭아 500g <span class="q">껍질째 · 손질 후 300g</span></td><td class="l">물 <span class="q">유리병 소독용</span></td></tr>
+<tr><td class="l">설탕 300g</td><td class="l">—</td></tr>
+<tr><td class="l">유리병 500ml 1개</td><td class="l">—</td></tr>
 </tbody>
 </table></div>
-<div class="alert"><h3>이 표가 없어서 사고가 났습니다</h3><p>선생님 레시피는 컵·큰술 같은 부피 단위인데 발주와 소분은 g 단위입니다. 그 사이를 어디에도 적어두지 않아, <b>조림용 설탕 1/2컵과 레몬즙 2큰술이 원가에서 통째로 빠져 있었습니다.</b> 다음 회차부터는 이 표를 먼저 채우고 발주를 잡으세요.</p></div>
-</section>
+<p class="note">별도로 만들 소스가 없습니다.</p>
+</div>
 
-<section class="block">
-<div class="bh"><span class="n">02</span><h2>복숭아청</h2><span class="s">선생님 원본</span></div>
-<p class="note" style="margin-top:0">손질 복숭아 300g · 설탕 300g</p>
+<div class="block">
+<div class="bh"><span class="n">02</span><h2>복숭아 조림</h2></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th style="width:50%">보내드려요</th><th>집에서 준비하세요</th></tr></thead>
+<tbody>
+<tr><td class="l">천도복숭아 2개</td><td class="l">물 1컵</td></tr>
+<tr><td class="l">설탕 100g <span class="q">1/2컵</span></td><td class="l">—</td></tr>
+<tr><td class="l"><b>조림용 레몬즙</b> 30g <span class="q">2큰술</span></td><td class="l">—</td></tr>
+</tbody>
+</table></div>
+<p class="note">조림용 레몬즙은 레몬즙 그대로 담은 것이라 따로 만들 것이 없습니다.</p>
+</div>
+
+<div class="block">
+<div class="bh"><span class="n">03</span><h2>브리치즈 샐러드</h2></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th style="width:50%">보내드려요</th><th>집에서 준비하세요</th></tr></thead>
+<tbody>
+<tr><td class="l">로메인 50g <span class="q">3잎</span></td><td class="l">소금 한 꼬집</td></tr>
+<tr><td class="l">와일드 루꼴라 30g</td><td class="l">—</td></tr>
+<tr><td class="l">브리치즈 25g</td><td class="l">—</td></tr>
+<tr><td class="l"><b>드레싱 소스</b> 44g <span class="q">아래 배합 참조</span></td><td class="l">—</td></tr>
+<tr><td class="l"><b>올리브오일</b> 41g <span class="q">3큰술</span></td><td class="l">—</td></tr>
+</tbody>
+</table></div>
+
+<h3 style="margin:16px 0 8px;font-size:14.5px;font-weight:700">소스 직접 만들기 — 드레싱 소스 <span style="font-weight:400;color:var(--wait);font-size:12.5px">1인 44g</span></h3>
+<div class="tbl-wrap"><table>
+<thead><tr><th>재료</th><th>계량</th><th>무게</th></tr></thead>
+<tbody>
+<tr><td class="l">사과식초</td><td>1큰술</td><td class="num">15g</td></tr>
+<tr><td class="l">설탕</td><td>1큰술</td><td class="num">13g</td></tr>
+<tr><td class="l">홀그레인머스타드</td><td>1/2큰술</td><td class="num">8g</td></tr>
+<tr><td class="l">레몬즙</td><td>1/2큰술</td><td class="num">8g</td></tr>
+<tr class="tot"><td class="l">합계</td><td>—</td><td class="num">44g</td></tr>
+</tbody>
+</table></div>
+<p class="note">소금 한 꼬집을 더해 설탕과 소금이 녹을 때까지 고루 섞습니다. 사용 직전 <b>올리브오일 3큰술</b>과 합쳐 흔들면 드레싱이 완성됩니다.</p>
+</div>
+
+<div class="alert info"><h3>g과 계량 표기를 함께 적는 이유</h3><p>수강생이 나중에 이 카드만 보고 다시 만들 수 있어야 합니다. 소분해 보내는 재료도 <b>몇 g인지, 큰술로는 얼마인지</b> 둘 다 적어야 재현이 됩니다. 단순 소분(조림용 레몬즙·올리브오일)은 배합이 없으니 구성품 칸의 표기만으로 충분합니다.</p></div>
+</div>
+
+<!-- ── 조리법 ── -->
+<div class="rsub" id="r2">
+<div class="block" style="margin-top:14px">
+<div class="bh"><span class="n">01</span><h2>복숭아청</h2></div>
 <ol class="steps">
-<li><b>유리병 소독</b><span>냄비에 물 500ml 정도 넣고 바글바글 끓어오르면 유리병을 거꾸로 넣어 1분 정도 끓인 뒤 꺼내어 식힙니다.</span></li>
-<li><b>복숭아 손질</b><span>깨끗이 씻은 후 껍질 제거하고 잘게 깍둑썰기 합니다.</span></li>
+<li><b>유리병 소독</b><span>냄비에 물을 500ml 정도 넣고 바글바글 끓어오르면 유리병을 거꾸로 넣어 1분 정도 끓인 뒤 꺼내어 식힙니다.</span></li>
+<li><b>복숭아 손질</b><span>깨끗이 씻은 후 껍질을 제거하고 잘게 깍둑썰기 합니다.</span></li>
 <li><b>켜켜이 담기</b><span>유리병에 설탕 → 복숭아 → 설탕 → 복숭아 → 설탕 순으로 넣습니다.</span></li>
-<li><b>실온 숙성</b><span>뚜껑을 꼭 닫고 1일 실온에 둡니다. 뒤집어 두기를 반복합니다.</span></li>
-<li><b>냉장 보관</b><span>설탕이 녹으면 냉장고로 옮깁니다.</span></li>
+<li><b>실온 숙성</b><span>뚜껑을 꼭 닫고 1일 실온에 둡니다. 반나절에 한 번씩 뒤집어 주세요.</span></li>
+<li><b>냉장 보관</b><span>설탕이 다 녹으면 냉장고로 옮깁니다.</span></li>
 </ol>
-</section>
+</div>
 
-<section class="block">
-<div class="bh"><span class="n">03</span><h2>복숭아 조림과 브리치즈 샐러드</h2><span class="s">선생님 원본</span></div>
-<div class="tbl-wrap"><table>
-<thead><tr><th>구분</th><th>재료</th></tr></thead>
-<tbody>
-<tr><td>A. 조림</td><td class="l">복숭아 2개 · 설탕 1/2컵 · 물 1컵 · 레몬즙 2큰술</td></tr>
-<tr><td>B. 샐러드</td><td class="l">로메인 3잎 · 와일드 루꼴라 30g · 브리치즈 25g</td></tr>
-<tr><td>C. 드레싱</td><td class="l">식초 1큰술 · 설탕 1큰술 · 소금 한 꼬집 · 홀그레인머스타드 1/2T · 올리브오일 3T · 레몬즙 1/2큰술 · <span style="color:var(--warn)">(양파다짐 1큰술)</span></td></tr>
-</tbody>
-</table></div>
-<ol class="steps" style="margin-top:12px">
-<li><b>시럽 끓이기</b><span>설탕, 물 넣어 설탕이 녹을 때까지 바글바글 끓입니다.</span></li>
-<li><b>복숭아 조리기</b><span>껍질 제거 후 웨지썰기 하여 시럽에 넣고 10분 정도 약불에서 조립니다. 레몬즙 넣고 식힙니다.</span></li>
-<li><b>채소·치즈 손질</b><span>먹기 좋은 크기로 썰어줍니다.</span></li>
-<li><b>드레싱</b><span>재료를 모두 넣어 설탕과 소금이 녹을 때까지 고루 섞습니다. <b>키트는 베이스와 오일 2봉으로 나가므로, 합쳐서 흔들면 됩니다.</b></span></li>
-<li><b>담아내기</b><span>접시에 채소 → 복숭아 조림 → 브리치즈 올린 후 소스를 뿌립니다.</span></li>
+<div class="block">
+<div class="bh"><span class="n">02</span><h2>복숭아 조림과 브리치즈 샐러드</h2></div>
+<ol class="steps">
+<li><b>시럽 끓이기</b><span>냄비에 설탕 100g과 물 1컵을 넣고 설탕이 녹을 때까지 바글바글 끓입니다.</span></li>
+<li><b>복숭아 조리기</b><span>껍질을 제거하고 웨지로 썰어 시럽에 넣고 약불에서 10분 정도 조립니다. 불을 끄고 조림용 레몬즙을 넣은 뒤 식혀줍니다.</span></li>
+<li><b>채소와 치즈 손질</b><span>로메인과 루꼴라는 씻어 물기를 털고 먹기 좋은 크기로 썰어줍니다. 브리치즈도 먹기 좋게 썰어주세요.</span></li>
+<li><b>드레싱 완성</b><span>드레싱 소스에 올리브오일과 소금 한 꼬집을 넣고 30초 정도 고루 흔들어 섞습니다.</span></li>
+<li><b>담아내기</b><span>접시에 채소를 깔고 복숭아 조림과 브리치즈를 올린 후 드레싱을 뿌리면 완성입니다.</span></li>
 </ol>
-<div class="alert"><h3>양파 미확정</h3><p>선생님 원본에 <b>(양파다짐 1큰술)</b>이 괄호로 되어 있어 포함 여부가 정해지지 않았습니다. 현재 발주·소분·레시피카드 모두 <b>제외</b> 상태입니다. 넣기로 하면 양파 발주와 소분 항목이 추가됩니다.</p></div>
-</section>
+</div>
 
-<section class="block">
-<div class="bh"><span class="n">04</span><h2>재료가 어디로 가나</h2><span class="s">레시피 → 봉투</span></div>
-<div class="tbl-wrap"><table>
-<thead><tr><th>재료</th><th>1인</th><th>담는 방식</th><th>봉투</th></tr></thead>
-<tbody>
-<tr><td class="l">천도복숭아 (청용)</td><td class="num">500g</td><td>복숭아 5개 중 배분</td><td><span class="badge b-cold">② 냉장</span></td></tr>
-<tr><td class="l">천도복숭아 (조림용)</td><td class="num">100g</td><td>복숭아 5개 중 배분</td><td><span class="badge b-cold">② 냉장</span></td></tr>
-<tr><td class="l">설탕 (청용)</td><td class="num">300g</td><td>지퍼백 → 유리병 안</td><td><span class="badge b-room">① 실온</span></td></tr>
-<tr><td class="l">설탕 (조림용)</td><td class="num">100g</td><td>지퍼백 별도</td><td><span class="badge b-room">① 실온</span></td></tr>
-<tr><td class="l">유리병 500ml</td><td class="num">1개</td><td>에어캡 포장</td><td><span class="badge b-room">① 실온</span></td></tr>
-<tr><td class="l">레몬즙 (조림용)</td><td class="num">30g</td><td>소스팩</td><td><span class="badge b-cold">③ 냉장</span></td></tr>
-<tr><td class="l">드레싱 베이스</td><td class="num">44g</td><td>소스팩</td><td><span class="badge b-cold">③ 냉장</span></td></tr>
-<tr><td class="l">올리브오일</td><td class="num">41g</td><td>소스팩</td><td><span class="badge b-cold">③ 냉장</span></td></tr>
-<tr><td class="l">로메인 · 루꼴라 · 브리치즈</td><td class="num">105g</td><td>그대로</td><td><span class="badge b-cold">③ 냉장</span></td></tr>
-<tr><td class="l">물 · 소금</td><td class="num">—</td><td>집에서 준비</td><td>—</td></tr>
-</tbody>
-</table></div>
-<p class="note">복숭아는 청용 500g과 조림용 100g을 따로 담지 않고 <b>5개를 한 봉투에</b> 넣습니다. 수강생이 레시피카드를 보고 나눠 쓰면 됩니다.</p>
-</section>
-
-<section class="block">
-<div class="bh"><span class="n">05</span><h2>레시피카드</h2><span class="s">인쇄물</span></div>
-<p class="note" style="margin-top:0">A4 양면 1장 · 앞장 커버 / 뒷장 두 레시피. 인쇄 시 여백 "없음", 배경 그래픽 "켜기", 양면은 "긴 쪽 넘기기"로 설정하세요.</p>
-<p style="margin-top:12px"><a class="pill" href="recipe-GS2607.html" style="font-size:14px;padding:9px 18px">📄 레시피카드 열기 →</a></p>
-</section>
+<div class="block">
+<div class="bh"><span class="n">03</span><h2>TIP</h2></div>
+<div class="tip">
+<p>- 소독한 병은 물기가 완전히 마른 뒤 사용해야 청이 상하지 않습니다</p>
+<p>- 올리브오일이 뿌옇게 굳어 있어도 괜찮습니다. 실온에 잠시 두면 원래대로 돌아옵니다</p>
+<p>- 조림은 완전히 식혀서 올려야 채소가 숨이 죽지 않습니다</p>
+<p>- 드레싱에 양파다짐 1큰술을 더하면 알싸한 맛이 살아납니다. 기호에 따라 넣어보세요</p>
+</div>
 
 </div>
+
+<div class="block">
+<div class="bh"><span class="n">04</span><h2>레시피카드</h2></div>
+<p class="note" style="margin-top:0">A4 양면 1장 · 앞장 커버 / 뒷장 레시피. 인쇄 시 여백 "없음", 배경 그래픽 "켜기", 양면은 "긴 쪽 넘기기".</p>
+<p style="margin-top:12px"><a class="pill" href="recipe-GS2607.html" style="font-size:14px;padding:9px 18px">📄 레시피카드 열기 →</a></p>
+</div>
+</div>
+
+</div>
+
 
 <!-- ===== 2 소스 배합 ===== -->
 <div class="panel" id="t2">
-<section class="block">
-<div class="bh"><span class="n">01</span><h2>대용량 배합 계산</h2><span class="s">인원·예비율을 바꾸면 전체가 다시 계산됩니다</span></div>
+
 <div class="ctrl">
 <div><label for="ipax">인원 (세트)</label><input type="number" id="ipax" value="31" min="1" max="500"></div>
-<div><label for="ibuf">예비율 (%)</label><input type="number" id="ibuf" value="10" min="0" max="50"></div>
-<div class="hint">예비율은 소분 중 용기 벽면 손실과 계량 오차를 덮는 몫입니다. 10% 권장.</div>
+<div class="hint"><b>봉투 배정 확정</b> — 청용 설탕만 <b>중</b>, 나머지 4종은 전부 <b>소</b>.<br>예비율은 소스 성질에 맞춰 항목별로 다르게 적용됩니다.</div>
 </div>
 
-<h3 style="margin-bottom:8px">베이스 <span class="badge b-cold">냉장</span></h3>
-<div class="tbl-wrap"><table>
-<thead><tr><th>재료</th><th>1인</th><th>베이스 내 비율</th><th>순 소요량</th><th>예비 포함</th><th>계량 기준</th></tr></thead>
-<tbody id="tbBase"></tbody>
-</table></div>
-
-<h3 style="margin:18px 0 8px">오일 <span class="badge b-room">실온</span></h3>
-<div class="tbl-wrap"><table>
-<thead><tr><th>재료</th><th>1인</th><th>비율</th><th>순 소요량</th><th>예비 포함</th><th>계량 기준</th></tr></thead>
-<tbody id="tbOil"></tbody>
-</table></div>
-
-<h3 style="margin:18px 0 8px">조림용 <span class="badge b-cold">별도 소분</span></h3>
-<div class="tbl-wrap"><table>
-<thead><tr><th>재료</th><th>1인</th><th>계량</th><th>순 소요량</th><th>예비 포함</th><th>담는 곳</th></tr></thead>
-<tbody id="tbJam"></tbody>
-</table></div>
-<p class="note">드레싱과 <b>합치지 않습니다.</b> 조림용 레몬즙 30g은 드레싱용 8g의 약 4배이고, 조림용 설탕 100g은 청용 300g과 쓰는 시점이 다릅니다.</p>
-
-<div class="dash" style="margin-top:16px">
-<div class="d"><div class="k">1인 소스 총량</div><div class="v" id="dPer">85</div><div class="u">g · 베이스 44 + 오일 41</div></div>
-<div class="d"><div class="k">베이스 제조량</div><div class="v" id="dBase">1,500</div><div class="u">g · 예비 포함</div></div>
-<div class="d"><div class="k">오일 소요량</div><div class="v" id="dOil">1,398</div><div class="u">g · 예비 포함</div></div>
-<div class="d"><div class="k">소분 용기</div><div class="v" id="dCup">93</div><div class="u">개 · 3종 × 인원</div></div>
+<div class="subtabs">
+<button class="stab on" data-s="s1">한눈에</button>
+<button class="stab" data-s="s2">소스팩 · 믹스</button>
 </div>
-</section>
 
-<section class="block">
-<div class="bh"><span class="n">02</span><h2>재고 대비 확인</h2><span class="s">예비 포함 소요량 기준</span></div>
-<div class="tbl-wrap"><table>
-<thead><tr><th>재료</th><th>보유량</th><th>소스 소요</th><th>청·기타 소요</th><th>잔여</th><th>판정</th></tr></thead>
-<tbody id="tbStock"></tbody>
+<!-- ── 한눈에 ── -->
+<div class="sub on" id="s1">
+<div class="dash" style="margin-top:14px">
+<div class="d"><div class="k">소 봉투</div><div class="v" id="kS">124</div><div class="u">개</div></div>
+<div class="d"><div class="k">중 봉투</div><div class="v" id="kM">31</div><div class="u">개 · 청용 설탕</div></div>
+<div class="d"><div class="k">합계</div><div class="v" id="kAll">155</div><div class="u">개 · 1인 5팩</div></div>
+</div>
+
+<div class="tbl-wrap" style="margin-top:14px"><table>
+<thead><tr><th>메뉴</th><th>내용</th><th>구분</th><th>1인</th><th>레시피 표기</th><th>개수</th><th>봉투</th></tr></thead>
+<tbody id="tbAll"></tbody>
 </table></div>
-<p class="note">설탕은 수제청용 9,300g을 먼저 뺀 뒤 소스 몫을 계산합니다. 올리브오일은 2,000ml 전량이 소스용입니다.</p>
-</section>
+<p class="note"><b>소스팩</b>은 여러 재료를 섞어 만든 것, <b>소분팩</b>은 계량해서 담기만 한 것입니다. 실제로 만드는 건 드레싱 베이스 하나뿐이고 나머지 넷은 저울에 달아 담으면 됩니다.</p>
+</div>
 
-<section class="block">
-<div class="bh"><span class="n">03</span><h2>제조 순서</h2></div>
+<!-- ── 소스팩 ── -->
+<div class="sub" id="s2">
+<div class="block" style="margin-top:14px">
+<div class="bh"><span class="n">01</span><h2>드레싱 베이스</h2><span class="s">브리치즈 샐러드 · 유일하게 섞는 소스</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>재료</th><th>1인 <span style="font-weight:400">정량</span></th><th>레시피 표기</th><th>비율</th><th>레시피 정량<br><span style="font-weight:400">31인</span></th><th>실제 계량<br><span style="font-weight:400">정량 × 1.05 · 저울값</span></th></tr></thead>
+<tbody id="tbMix"></tbody>
+</table></div>
+<div class="dash" style="margin-top:14px">
+<div class="d"><div class="k">1인 소분량</div><div class="v">44</div><div class="u">g · <b>담을 때 이 값</b></div></div>
+<div class="d"><div class="k">레시피 정량</div><div class="v" id="mNet">1,364</div><div class="u">g · 44g × 31인</div></div>
+<div class="d"><div class="k">실제 만들 양</div><div class="v" id="mTot">1,432</div><div class="u">g · <b>정량 × 1.05</b></div></div>
+<div class="d"><div class="k">남는 양</div><div class="v" id="mSpare">68</div><div class="u">g · 볼·국자 잔량</div></div>
+</div>
+<div class="alert info"><h3>1,432g을 만들어 44g씩 31개를 담습니다</h3><p><b>44g은 레시피 정량이자 실제로 담는 양</b>입니다. 만드는 양만 정량의 1.05배로 늘린 것이니, 소분할 때는 그대로 44g씩 달면 됩니다. 1,432 ÷ 31 = 46.2g으로 계산해서 담으면 안 됩니다 — 그러면 예비가 사라집니다.<br>만드실 때는 <b>맨 오른쪽 「실제 계량」 열</b>만 보고 저울에 달면 됩니다. 남는 68g은 볼과 국자 벽면에 붙는 몫입니다.</p></div>
+</div>
+
+<div class="block">
+<div class="bh"><span class="n">02</span><h2>만드는 순서</h2></div>
 <ol class="steps">
-<li><b>설탕을 식초에 먼저 녹인다</b><span>식초 전량에 설탕을 넣고 완전히 녹을 때까지 젓습니다. 이 단계를 건너뛰면 나중에 알갱이가 가라앉습니다.</span></li>
-<li><b>레몬즙을 넣는다</b><span>산도가 고르게 섞이도록 저어줍니다.</span></li>
-<li><b>홀그레인머스타드를 넣고 충분히 섞는다</b><span>머스타드는 유화제 역할을 합니다. 덩어리 없이 풀어질 때까지 저으세요.</span></li>
-<li><b>베이스 완성 — 총량 확인</b><span>계산된 예비 포함 총량과 실제 무게를 대조합니다. 부족하면 비율대로 보충합니다.</span></li>
-<li><b>베이스 소분 (1인 44g × 예비율 적용)</b><span>소분 직전 한 번 저어줍니다. 머스타드는 시간이 지나면 가라앉습니다.</span></li>
-<li><b>오일은 따로 소분 (1인 41g)</b><span>베이스와 섞지 않습니다. 그냥 따르면 됩니다.</span></li>
-<li><b>조림용 레몬즙을 따로 소분 (1인 30g)</b><span>드레싱용 8g과 별개입니다. 같은 돈시몬 1L 제품이지만 용도가 달라 따로 담습니다. 섞이면 조림도 드레싱도 양이 안 맞습니다.</span></li>
-<li><b>조림용 설탕을 따로 소분 (1인 100g · 1/2컵)</b><span>청용 300g과 절대 합치지 않습니다. 청은 병에 켜켜이 넣고 조림은 냄비에 끓이는 것이라 쓰는 시점이 다릅니다.</span></li>
-<li><b>라벨 부착 → 소스팩 3봉 + 지퍼백 1장</b><span>베이스·오일·조림용 레몬즙에 각각 라벨을 붙여 소스팩 3봉으로, 조림용 설탕은 지퍼백에 담아 실온봉투로 보냅니다.</span></li>
+<li><b>식초에 설탕을 먼저 녹인다</b><span id="mk1"></span></li>
+<li><b>레몬즙을 넣는다</b><span id="mk2"></span></li>
+<li><b>홀그레인머스타드를 넣고 푼다</b><span id="mk3"></span></li>
+<li><b>총량 확인</b><span id="mk4"></span></li>
+<li><b>44g씩 소분 → 라벨 부착</b><span id="mk5"></span></li>
 </ol>
-<div class="alert"><h3>조림 재료를 빠뜨리기 쉽습니다</h3><p>드레싱만 생각하면 소스가 2종으로 끝나 보이지만, 복숭아 조림에도 설탕 1/2컵과 레몬즙 2큰술이 들어갑니다. 조림용 레몬즙 30g은 드레싱용 8g의 <b>약 4배</b>라 빠지면 조림 자체를 못 합니다.</p></div>
-</section>
+<div class="alert"><h3>소분 직전 한 번씩 저어주세요</h3><p>머스타드 알갱이가 가라앉습니다. 처음 담은 팩과 마지막 팩의 농도가 달라집니다.</p></div>
+</div>
+</div>
 
-<section class="block">
-<div class="bh"><span class="n">04</span><h2>왜 분리하나</h2></div>
-<div class="tip">
-<h3>오일이 전체의 45.7%입니다</h3>
-<p>한 통에 다 섞으면 몇 시간 안에 층이 분리됩니다. 소분할 때마다 다시 저어야 하고, 그래도 세트마다 오일 비율이 달라집니다. 나눠 만들면 베이스는 설탕이 녹아 안정적이고 오일은 그냥 따르면 되니, 소분 정확도가 훨씬 올라갑니다. 수강생은 받아서 두 개를 합쳐 흔들면 됩니다.</p>
-</div>
-<div class="alert">
-<h3>오일이 냉장에서 하얗게 굳습니다</h3>
-<p>소스팩이 ③ 냉장봉투에 들어가는데, 올리브오일은 저온에서 백탁·응고합니다. 품질 문제가 아니고 실온에 두면 돌아오지만, 고객은 상한 것으로 오해합니다. 오일 라벨과 레시피카드에 <b>"굳으면 실온에 10분 두세요"</b>를 반드시 넣으세요. 오일만 ① 실온 종이봉투로 옮기는 방법도 있습니다.</p>
-</div>
-</section>
 </div>
 
 <!-- ===== 3 패킹 구성 ===== -->
 <div class="panel" id="t3">
+
+<div class="subtabs">
+<button class="stab pk on" data-k="k1">봉투 구성</button>
+<button class="stab pk" data-k="k2">박스 적재</button>
+</div>
+
+<div class="ksub on" id="k1">
 <section class="block">
 <div class="bh"><span class="n">01</span><h2>박스 전체 구성</h2><span class="s">1세트 기준</span></div>
 <div class="tbl-wrap"><table>
-<thead><tr><th>번호</th><th>봉투</th><th>온도대</th><th>내용물</th><th>수량</th><th>아이스팩</th></tr></thead>
+<thead><tr><th class="col-no">번호</th><th class="col-bag">봉투</th><th class="col-tmp">온도대</th><th>내용물</th><th class="col-qty">수량</th><th class="col-ice">아이스팩</th></tr></thead>
 <tbody>
 <tr>
 <td><b>①</b></td><td class="l">종이봉투</td><td><span class="badge b-room">실온</span></td>
-<td class="l">유리병 500ml <b>(에어캡 감싸기)</b><br>└ 설탕 300g 지퍼백 <b>→ 병 안에</b><span class="q">설탕을 병 속에 넣어 완충 겸용</span></td>
-<td class="num">1장</td><td>—</td>
+<td class="item">
+<span class="ln">유리병 500ml 1개 <span class="amt">에어캡으로 감싸기</span></span>
+<span class="ln">청용 설탕 <span class="amt">300g · 중 봉투</span></span>
+<span class="ln">조림용 설탕 <span class="amt">100g · 소 봉투</span></span>
+</td>
+<td class="qtyc">1장</td><td class="icec">—</td>
 </tr>
 <tr>
 <td><b>②</b></td><td class="l">냉장봉투 (중)</td><td><span class="badge b-cold">냉장</span></td>
-<td class="l">천도복숭아 5개<span class="q">약 725g</span></td>
-<td class="num">1장</td><td>1개</td>
+<td class="item"><span class="ln">천도복숭아 5개 <span class="amt">약 725g</span></span></td>
+<td class="qtyc">1장</td><td class="icec">1개</td>
 </tr>
 <tr>
 <td><b>③</b></td><td class="l">냉장봉투 (중)</td><td><span class="badge b-cold">냉장</span></td>
-<td class="l">로메인 50g · 와일드 루꼴라 30g<br>브리치즈 25g 1개 · <b>소스팩 3봉</b><span class="q">드레싱 베이스 44g · 올리브오일 41g · 조림용 레몬즙 30g</span></td>
-<td class="num">1장</td><td>1개</td>
+<td class="item">
+<span class="ln">로메인 <span class="amt">50g · 3잎</span></span>
+<span class="ln">와일드 루꼴라 <span class="amt">30g</span></span>
+<span class="ln">브리치즈 <span class="amt">25g · 1개</span></span>
+<span class="spack">
+  <span class="sh">소스 3종</span>
+  <span class="si"><b>1.</b> 드레싱 소스 <span class="amt">44g</span></span>
+  <span class="si"><b>2.</b> 올리브오일 <span class="amt">41g</span></span>
+  <span class="si"><b>3.</b> 조림용 레몬즙 <span class="amt">30g</span></span>
+</span>
+</td>
+<td class="qtyc">1장</td><td class="icec">1개</td>
 </tr>
 <tr>
 <td><b>④</b></td><td class="l">냉동봉투</td><td><span class="badge b-freeze">냉동</span></td>
-<td class="l">이번 메뉴 없음</td><td class="num">—</td><td>—</td>
+<td class="item"><span class="ln" style="color:var(--wait)">이번 메뉴 없음</span></td><td class="qtyc">—</td><td class="icec">—</td>
 </tr>
 <tr class="sub">
 <td>—</td><td class="l">낱개</td><td><span class="badge b-room">실온</span></td>
-<td class="l">레시피카드 1장 · 디바이더 1장<span class="q">레시피카드는 박스 최상단</span></td>
-<td class="num">각 1</td><td>—</td>
+<td class="item"><span class="ln">레시피카드 <span class="amt">1장 · 박스 최상단</span></span><span class="ln">디바이더 <span class="amt">1장</span></span></td>
+<td class="qtyc">각 1</td><td class="icec">—</td>
 </tr>
-<tr class="tot"><td colspan="4">1세트 합계</td><td class="num">봉투 3 + 낱개 2</td><td>2개</td></tr>
+<tr class="tot"><td colspan="4">1세트 합계</td><td class="qtyc">3+2</td><td class="icec">2개</td></tr>
 </tbody></table></div>
 </section>
-
 <section class="block">
-<div class="bh"><span class="n">02</span><h2>박스 적재 순서</h2><span class="s">아래에서 위로</span></div>
-<div class="box3d">
-<div class="layer"><div class="lt">TOP — 5</div><div class="lc">레시피카드</div><div class="ld">열자마자 보이도록 맨 위에 올립니다</div></div>
-<div class="layer"><div class="lt">4</div><div class="lc">② 냉장봉투(복숭아) + ③ 냉장봉투(채소·치즈·소스) + 아이스팩 2개</div><div class="ld">아이스팩은 봉투 위에 얹습니다. 냉기는 아래로 내려갑니다</div></div>
-<div class="layer"><div class="lt">3</div><div class="lc">디바이더</div><div class="ld">실온과 냉장을 물리적으로 분리합니다</div></div>
-<div class="layer"><div class="lt">2</div><div class="lc">① 종이봉투 (설탕 넣은 유리병 · 에어캡)</div><div class="ld">가장 무겁고 단단하니 아래에 둡니다</div></div>
-<div class="layer"><div class="lt">BOTTOM — 1</div><div class="lc">박스 조립 · 바닥 테이프 보강</div><div class="ld">유리병이 들어가므로 바닥을 한 번 더 붙입니다</div></div>
-</div>
-<div class="tip">
-<h3>설탕 지퍼백을 병 안에, 그다음 에어캡</h3>
-<p>설탕 300g을 지퍼백에 밀봉해 <b>유리병 속에 넣고</b> 뚜껑을 닫은 뒤 에어캡으로 감쌉니다. 병이 비어 있으면 충격에 더 쉽게 깨지는데 내용물이 차 있으면 구조적으로 유리하고, 깨지더라도 설탕이 밀봉돼 있어 오염되지 않습니다. 부피도 줄어듭니다. 병은 세워서 넣고 흔들리지 않게 채우세요.</p>
-</div>
-</section>
-
-<section class="block">
-<div class="bh"><span class="n">03</span><h2>패킹 순서 체크리스트</h2><span class="s">7/22 (수)</span></div>
-<div id="ckList"></div>
-<p class="note">체크는 화면에만 표시되며 새로고침하면 풀립니다. 기록이 필요하면 완료 후 화면을 캡처해 두세요.</p>
-</section>
-
-<section class="block">
-<div class="bh"><span class="n">04</span><h2>소분 시 주의</h2></div>
+<div class="bh"><span class="n">02</span><h2>소분 시 주의</h2></div>
 <div class="alert">
 <h3>잎채소를 가장 마지막에</h3>
 <p>로메인과 루꼴라는 상온 노출 시간이 곧 품질입니다. ① → ② → ③ 순서를 지키고, ③은 아이스팩과 함께 바로 박스로 넣으세요. 여유분이 로메인 50g(3.2%), 루꼴라 70g(7.5%)뿐이라 상한 잎이 많으면 마지막 세트가 모자랄 수 있습니다.</p>
@@ -398,10 +451,81 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 </section>
 </div>
 
-<!-- ===== 4 소모품 ===== -->
-<div class="panel" id="t4">
+<div class="ksub" id="k2">
 <section class="block">
-<div class="bh"><span class="n">01</span><h2>소요량</h2><span class="s">31세트 · 예비 포함</span></div>
+<div class="bh"><span class="n">01</span><h2>박스 적재 순서</h2><span class="s">아래에서 위로 · 8단계</span></div>
+<div class="box3d">
+<div class="layer"><div class="lt">8</div><div class="lc">취급주의 스티커 부착</div><div class="ld">옆면 잘 보이는 위치</div></div>
+<div class="layer"><div class="lt">7</div><div class="lc">송장 부착</div><div class="ld">윗면 평평한 곳</div></div>
+<div class="layer"><div class="lt">6</div><div class="lc">박스 테이핑</div><div class="ld">뚜껑 접어 밀봉</div></div>
+<div class="layer"><div class="lt">TOP — 5</div><div class="lc">레시피카드</div><div class="ld">열자마자 보이도록 맨 위에</div></div>
+<div class="layer"><div class="lt">4</div><div class="lc">① 종이봉투 <span style="font-weight:400">유리병 · 설탕 2봉</span></div><div class="ld">실온품. 디바이더 위에 올립니다</div></div>
+<div class="layer"><div class="lt">3</div><div class="lc">디바이더</div><div class="ld">실온과 냉장을 물리적으로 분리합니다</div></div>
+<div class="layer"><div class="lt">2</div><div class="lc">② 냉장봉투 + ③ 냉장봉투 + 아이스팩 2개</div><div class="ld">복숭아 · 채소 · 치즈 · 소스 3종. 냉기가 바닥에 머물도록 아래에 둡니다</div></div>
+<div class="layer"><div class="lt">BOTTOM — 1</div><div class="lc">박스 조립 · 바닥 테이프 보강</div><div class="ld">유리병이 들어가므로 바닥을 한 번 더 붙입니다</div></div>
+</div>
+<div class="tip">
+<h3>유리병은 에어캡만 감싸 세워서</h3>
+<p>설탕을 병에 넣었다 빼는 손이 더 들어 별도 소분팩으로 보냅니다. 병은 <b>세워서</b> 넣고 흔들리지 않게 채우세요. 눕히면 굴러서 충격을 받습니다.</p>
+</div>
+</section>
+</div>
+
+</div>
+
+<!-- ===== 준비·패킹 ===== -->
+<div class="panel" id="tP">
+
+<div class="subtabs">
+<button class="stab pp on" data-p="p1">미리 해둘 것</button>
+<button class="stab pp" data-p="p2">당일에만 할 것</button>
+</div>
+
+<div class="psub on" id="p1">
+<p class="note" style="margin-top:14px">냉장품이 아닌 것은 전부 미리 끝낼 수 있습니다. 미리 해두면 당일 작업이 <b>15단계에서 8단계로</b> 줄어듭니다.</p>
+<div id="ckPre"></div>
+</div>
+
+<div class="psub" id="p2">
+<p class="note" style="margin-top:14px">냉장품 소분과 출고만 남습니다. 잎채소는 상온 노출을 줄여야 하니 <b>가장 마지막</b>에 담습니다.</p>
+<div id="ckDay"></div>
+<p class="note">체크는 화면에만 표시되며 새로고침하면 풀립니다. 기록이 필요하면 완료 후 화면을 캡처해 두세요.</p>
+</div>
+
+</div>
+
+<!-- ===== 4 재고 ===== -->
+<div class="panel" id="t4">
+
+<div class="subtabs">
+<button class="stab st on" data-g="g1">식재료</button>
+<button class="stab st" data-g="g2">포장 소모품</button>
+</div>
+
+<div class="gsub on" id="g1">
+
+<div class="block" style="margin-top:14px">
+<div class="bh"><span class="n">01</span><h2>입고 현황</h2><span class="s">차수별 · 기억에 의존하지 않도록</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>재료</th><th>1차 입고<br><span style="font-weight:400">7/21</span></th><th>2차 입고<br><span style="font-weight:400">7/22</span></th><th>미도착</th><th>확보</th><th>상태</th></tr></thead>
+<tbody id="tbIn"></tbody>
+</table></div>
+<div class="alert"><h3>미도착분 확인</h3><p><b>복숭아</b>는 어제 1차가 들어왔고 오늘 15kg(5kg×1 + 2kg×5)이 추가로 들어왔습니다. 1차 수량을 마스터에 넣어야 확보량이 확정됩니다.<br><b>조림용 레몬즙 1L</b>는 아직 도착하지 않았습니다. 이게 없으면 조림용 소분 31개를 만들 수 없습니다.</p></div>
+</div>
+
+<div class="block" style="margin-top:14px">
+<div class="bh"><span class="n">02</span><h2>메뉴별 소요와 잔여</h2><span class="s">메뉴별 소요량 · 예비 5% 포함</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>재료</th><th>보유</th><th>복숭아청</th><th>복숭아 조림</th><th>브리치즈 샐러드</th><th>총 소요</th><th>잔여</th><th>판정</th></tr></thead>
+<tbody id="tbStock"></tbody>
+</table></div>
+<p class="note">봉투 수량 산출 근거는 <b>「소스 배합 → 한눈에」</b>에 있습니다. 봉투·박스 등 포장재는 옆 <b>「포장 소모품」</b> 탭에서 봅니다.</p>
+</div>
+</div>
+
+<div class="gsub" id="g2">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>포장 소모품 소요량</h2><span class="s">31세트 · 예비 포함</span></div>
 <div class="tbl-wrap"><table>
 <thead><tr><th>소모품</th><th>규격</th><th>1세트</th><th>31세트</th><th>준비 수량</th><th>상태</th></tr></thead>
 <tbody>
@@ -421,9 +545,8 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 <tr><td class="l">박스테이프</td><td>50m</td><td>—</td><td class="num">—</td><td class="num"><b>2롤</b></td><td><span class="badge b-warn">재고확인</span></td></tr>
 </tbody></table></div>
 </section>
-
 <section class="block">
-<div class="bh"><span class="n">02</span><h2>오늘 밤 확인</h2><span class="s">7/21 (화)</span></div>
+<div class="bh"><span class="n">02</span><h2>패킹 전날 확인</h2><span class="s">부족하면 즉시 주문</span></div>
 <div class="alert">
 <h3>아이스팩 62개를 지금 냉동에 넣으세요</h3>
 <p>내일이 패킹입니다. 오늘 밤에 얼리지 않으면 못 씁니다. 재고가 없다면 지금 주문해도 내일 새벽 도착분은 얼어 있지 않아 쓸 수 없습니다. <b>재고가 부족하면 아이스팩 계획 자체를 다시 짜야 하니 즉시 알려주세요.</b></p>
@@ -437,6 +560,8 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 <p>취급주의 스티커는 새벽 도착이지만 에어캡은 낮에 올 수 있습니다. 늦어질 경우를 대비해 <b>① 종이봉투 작업을 패킹 순서 맨 뒤로 돌릴 수 있도록</b> 준비해 두세요. 50m 롤이라 유리병 31개(약 11m)에는 넉넉합니다.</p>
 </div>
 </section>
+</div>
+
 </div>
 
 <!-- ===== 5 라벨·출력물 ===== -->
@@ -600,95 +725,234 @@ var JAM=[
 ];
 var fmt=function(n){return n.toLocaleString('ko-KR',{maximumFractionDigits:0});};
 
+function fmt(n){return Math.round(n).toLocaleString();}
+
+/* 소스팩(믹스) — 드레싱 베이스 */
+var MIX={nm:'드레싱 베이스', per:44, buf:0.05, menu:'브리치즈 샐러드', unit:'g', dens:1.0,
+ parts:[{nm:'사과식초',per:15,sp:'1큰술'},{nm:'설탕',per:13,sp:'1큰술'},
+        {nm:'홀그레인머스타드',per:8,sp:'1/2T'},{nm:'레몬즙',per:8,sp:'1/2큰술'}]};
+
+/* 소분팩(계량만) */
+var PORT=[
+ {nm:'올리브오일',    menu:'브리치즈 샐러드', per:41,  sp:'3큰술',  buf:0.05, unit:'ml', dens:1.0, stock:2000},
+ {nm:'조림용 레몬즙', menu:'복숭아 조림',     per:30,  sp:'2큰술',  buf:0.05, unit:'ml', dens:1.0, stock:1000},
+ {nm:'조림용 설탕',   menu:'복숭아 조림',     per:100, sp:'1/2컵',  buf:0.05, unit:'g',  dens:0.8, stock:null},
+ {nm:'청용 설탕',     menu:'복숭아청',        per:300, sp:'300g',   buf:0.05, unit:'g',  dens:0.8, stock:null}
+];
+
 function calc(){
   var pax=Math.max(1,parseInt(document.getElementById('ipax').value)||31);
-  var buf=Math.max(0,parseFloat(document.getElementById('ibuf').value)||0)/100;
-  var basePer=BASE.reduce(function(s,r){return s+r.per;},0);
-  var perAll=basePer+OIL.per;
+  function bag(nm){ return nm==='청용 설탕' ? '중' : '소'; }
 
-  var hb='';
-  BASE.forEach(function(r){
-    var net=r.per*pax, tot=net*(1+buf), ratio=r.per/basePer*100;
-    hb+='<tr><td class="l">'+r.nm+'<span class="q">'+r.note+'</span></td>'
-      +'<td class="num">'+r.per+'g <span style="color:var(--wait)">('+r.sp+')</span></td>'
-      +'<td class="num">'+ratio.toFixed(1)+'%</td>'
-      +'<td class="num">'+fmt(net)+'g</td>'
-      +'<td class="num"><b>'+fmt(tot)+'g</b></td>'
-      +'<td class="num">'+fmt(tot)+' '+r.unit+'</td></tr>';
+  /* ---- 한눈에 : 통합표 ---- */
+  var rows=[];
+  rows.push({menu:MIX.menu, nm:MIX.nm, kind:'소스팩', per:MIX.per, unit:MIX.unit, dens:MIX.dens, sp:'—'});
+  PORT.forEach(function(r){ rows.push({menu:r.menu, nm:r.nm, kind:'소분팩', per:r.per, unit:r.unit, dens:r.dens, sp:r.sp}); });
+  rows.sort(function(a,b){
+    var o={'복숭아청':1,'복숭아 조림':2,'브리치즈 샐러드':3};
+    return (o[a.menu]-o[b.menu]);
   });
-  hb+='<tr class="tot"><td class="l">베이스 합계</td><td class="num">'+basePer+'g</td><td class="num">100%</td>'
-    +'<td class="num">'+fmt(basePer*pax)+'g</td><td class="num">'+fmt(basePer*pax*(1+buf))+'g</td><td class="num">—</td></tr>';
-  document.getElementById('tbBase').innerHTML=hb;
-
-  var oNet=OIL.per*pax, oTot=oNet*(1+buf);
-  document.getElementById('tbOil').innerHTML=
-    '<tr><td class="l">'+OIL.nm+'<span class="q">'+OIL.note+'</span></td>'
-    +'<td class="num">'+OIL.per+'g <span style="color:var(--wait)">('+OIL.sp+')</span></td>'
-    +'<td class="num">100%</td><td class="num">'+fmt(oNet)+'g</td>'
-    +'<td class="num"><b>'+fmt(oTot)+'g</b></td><td class="num">'+fmt(oTot)+' ml</td></tr>';
-
-  document.getElementById('dPer').textContent=perAll;
-  document.getElementById('dBase').textContent=fmt(basePer*pax*(1+buf));
-  document.getElementById('dOil').textContent=fmt(oTot);
-  var hj='';
-  JAM.forEach(function(r){
-    var net=r.per*pax, tot=net*(1+buf);
-    var where = (r.nm.indexOf('설탕')>=0) ? '지퍼백 → ① 실온봉투' : '소스팩 → ③ 냉장봉투';
-    var stk = (r.stock==null) ? '<span class="badge b-ok">재고 사용</span>'
-              : (r.stock>=tot ? '<span class="badge b-ok">충분</span>' : '<span class="badge b-warn">부족</span>');
-    hj+='<tr><td class="l">'+r.nm+'<span class="q">'+r.note+'</span></td>'
-      +'<td class="num">'+r.per+r.unit+' <span style="color:var(--wait)">('+r.sp+')</span></td>'
-      +'<td class="num">'+r.sp+'</td>'
-      +'<td class="num">'+fmt(net)+r.unit+'</td>'
-      +'<td class="num"><b>'+fmt(tot)+r.unit+'</b> '+stk+'</td>'
-      +'<td class="l">'+where+'</td></tr>';
+  var ha='', cS=0, cM=0, cL=0, prev='';
+  rows.forEach(function(r){
+    var bg=bag(r.nm);
+    if(bg==='소') cS+=pax; else if(bg==='중') cM+=pax; else cL+=pax;
+    var kb = r.kind==='소스팩' ? '<span class="badge b-warn">소스팩</span>' : '<span class="badge b-ok">소분팩</span>';
+    var mcell = (r.menu===prev) ? '' : r.menu; prev=r.menu;
+    ha+='<tr><td class="l"><b>'+mcell+'</b></td><td class="l">'+r.nm+'</td>'
+      +'<td>'+kb+'</td><td class="num">'+r.per+r.unit+'</td><td>'+(r.sp||'—')+'</td><td class="num"><b>'+pax+'개</b></td>'
+      +'<td><span class="badge '+(bg==='소'?'b-cold':(bg==='중'?'b-room':'b-warn'))+'">'+bg+'</span></td></tr>';
   });
-  document.getElementById('tbJam').innerHTML=hj;
-  document.getElementById('dCup').textContent=(pax*3);
+  document.getElementById('tbAll').innerHTML=ha;
+  document.getElementById('kS').textContent=cS;
+  document.getElementById('kM').textContent=cM+cL;
+  document.getElementById('kAll').textContent=cS+cM+cL;
 
-  /* 재고 대비 */
-  var SUGAR_JAM=300*pax;   /* 수제청용 */
+  /* ---- 소스팩 : 배합 ---- */
+  var net=MIX.per*pax, tot=net*(1+MIX.buf), hm='';
+  MIX.parts.forEach(function(q){
+    var n2=q.per*pax, t2=n2*(1+MIX.buf);
+    hm+='<tr><td class="l">'+q.nm+'</td><td class="num">'+q.per+'g</td><td>'+q.sp+'</td>'
+      +'<td class="num">'+(q.per/MIX.per*100).toFixed(1)+'%</td>'
+      +'<td class="num">'+fmt(n2)+'g</td><td class="num"><b>'+fmt(t2)+'g</b></td></tr>';
+  });
+  hm+='<tr class="tot"><td class="l">합계</td><td class="num">'+MIX.per+'g</td><td>—</td><td class="num">100%</td>'
+     +'<td class="num">'+fmt(net)+'g</td><td class="num">'+fmt(tot)+'g</td></tr>';
+  document.getElementById('tbMix').innerHTML=hm;
+  document.getElementById('mNet').textContent=fmt(net);
+  document.getElementById('mTot').textContent=fmt(tot);
+  var sp=document.getElementById('mSpare'); if(sp) sp.textContent=fmt(tot-net);
+  var g=function(i){return fmt(MIX.parts[i].per*pax*(1+MIX.buf));};
+  document.getElementById('mk1').textContent='식초 '+g(0)+'g에 설탕 '+g(1)+'g을 넣고 완전히 녹을 때까지 젓습니다. 이 단계를 건너뛰면 알갱이가 가라앉습니다.';
+  document.getElementById('mk2').textContent='레몬즙 '+g(3)+'g. 고르게 섞이도록 저어줍니다.';
+  document.getElementById('mk3').textContent='홀그레인머스타드 '+g(2)+'g. 덩어리 없이 풀어질 때까지 저으세요.';
+  document.getElementById('mk4').textContent='완성 약 '+fmt(tot)+'g. 실제 무게를 재서 크게 모자라면 비율대로 보충합니다.';
+  document.getElementById('mk5').textContent='1인 '+MIX.per+'g씩 '+pax+'개. '+bag(MIX.nm)+' 봉투를 씁니다.';
+
+  /* ---- 소분팩 ---- */
+
+  /* ---- 재료 재고 (메뉴별) ---- */
+  var B=1.05;
+  var STK=[
+   {nm:'설탕',            have:13000, unit:'g',  m:{'복숭아청':300*pax, '복숭아 조림':100*pax, '브리치즈 샐러드':13*pax}},
+   {nm:'레몬즙',          have:2000,  unit:'ml', m:{'복숭아 조림':30*pax, '브리치즈 샐러드':8*pax}},
+   {nm:'사과식초',        have:900,   unit:'ml', m:{'브리치즈 샐러드':15*pax}},
+   {nm:'홀그레인머스타드', have:420,   unit:'g',  m:{'브리치즈 샐러드':8*pax}},
+   {nm:'올리브오일',      have:2000,  unit:'ml', m:{'브리치즈 샐러드':41*pax}}
+  ];
+  /* ---- 입고 현황 ---- */
+  var INB=[
+   {nm:'천도복숭아',       in1:null, in2:15000, wait:null, unit:'g',  memo:'1차 수량 확인 필요'},
+   {nm:'설탕',            in1:4000, in2:9000,  wait:0,    unit:'g',  memo:'1차 = 재고 3kg + 입고 1kg'},
+   {nm:'레몬즙 (드레싱용)', in1:1000, in2:0,     wait:0,    unit:'ml', memo:''},
+   {nm:'레몬즙 (조림용)',   in1:0,    in2:0,     wait:1000, unit:'ml', memo:'미도착'},
+   {nm:'사과식초',         in1:0,    in2:900,   wait:0,    unit:'ml', memo:''},
+   {nm:'홀그레인머스타드',   in1:210,  in2:210,   wait:0,    unit:'g',  memo:''},
+   {nm:'올리브오일',       in1:1000, in2:1000,  wait:0,    unit:'ml', memo:''},
+   {nm:'로메인',          in1:0,    in2:1600,  wait:0,    unit:'g',  memo:''},
+   {nm:'와일드 루꼴라',     in1:0,    in2:1000,  wait:0,    unit:'g',  memo:''},
+   {nm:'브리치즈',         in1:875,  in2:0,     wait:0,    unit:'g',  memo:''},
+   {nm:'유리병 500ml',    in1:30,   in2:6,     wait:0,    unit:'개', memo:''}
+  ];
+  var hi='';
+  INB.forEach(function(r){
+    function c(v){ return (v===null)?'<span style="color:var(--warn)">?</span>':(v?fmt(v)+r.unit:'<span style="color:var(--wait)">—</span>'); }
+    var got=(r.in1||0)+(r.in2||0);
+    var st = (r.in1===null) ? '<span class="badge b-warn">확인 필요</span>'
+           : (r.wait ? '<span class="badge b-warn">미도착 있음</span>' : '<span class="badge b-ok">입고 완료</span>');
+    hi+='<tr><td class="l"><b>'+r.nm+'</b>'+(r.memo?'<span class="q">'+r.memo+'</span>':'')+'</td>'
+      +'<td class="num">'+c(r.in1)+'</td><td class="num">'+c(r.in2)+'</td>'
+      +'<td class="num" style="color:'+(r.wait?'var(--warn)':'var(--wait)')+'">'+(r.wait?fmt(r.wait)+r.unit:'—')+'</td>'
+      +'<td class="num"><b>'+(r.in1===null?'?':fmt(got)+r.unit)+'</b></td>'
+      +'<td>'+st+'</td></tr>';
+  });
+  var tin=document.getElementById('tbIn'); if(tin) tin.innerHTML=hi;
+
   var hs='';
-  BASE.concat([OIL]).forEach(function(r){
-    var tot=r.per*pax*(1+buf);
-    var stock=r.stock, other=0, label='—';
-    if(r.nm==='설탕'){ stock=10000; other=SUGAR_JAM; label=fmt(SUGAR_JAM)+'g'; }
-    var left=stock-tot-other;
-    var ok=left>=0;
-    hs+='<tr><td class="l">'+r.nm+'</td><td class="num">'+fmt(stock)+r.unit+'</td>'
-      +'<td class="num">'+fmt(tot)+r.unit+'</td><td class="num">'+label+'</td>'
-      +'<td class="num">'+fmt(left)+r.unit+'</td>'
-      +'<td><span class="badge '+(ok?'b-ok':'b-warn')+'">'+(ok?'충족':'부족')+'</span></td></tr>';
+  STK.forEach(function(r){
+    var c=(r.m['복숭아청']||0)*B, j2=(r.m['복숭아 조림']||0)*B, sd=(r.m['브리치즈 샐러드']||0)*B;
+    var t=c+j2+sd, left=r.have-t, ok=left>=0;
+    function cell(v){ return v?('<td class="num">'+fmt(v)+'</td>'):'<td class="num" style="color:var(--wait)">—</td>'; }
+    hs+='<tr><td class="l"><b>'+r.nm+'</b></td><td class="num">'+fmt(r.have)+r.unit+'</td>'
+      +cell(c)+cell(j2)+cell(sd)
+      +'<td class="num"><b>'+fmt(t)+'</b></td>'
+      +'<td class="num" style="color:'+(ok?'var(--ok)':'var(--warn)')+'"><b>'+(left>=0?'+':'')+fmt(left)+'</b></td>'
+      +'<td><span class="badge '+(ok?'b-ok':'b-warn')+'">'+(ok?'충분':'부족')+'</span></td></tr>';
   });
   document.getElementById('tbStock').innerHTML=hs;
 }
-document.getElementById('ipax').addEventListener('input',calc);
-document.getElementById('ibuf').addEventListener('input',calc);
+document.querySelectorAll('.stab:not(.rt):not(.pk):not(.st):not(.pp)').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.stab:not(.rt):not(.pk):not(.st):not(.pp)').forEach(function(x){x.classList.remove('on');});
+    document.querySelectorAll('.sub').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');
+    var el=document.getElementById(b.dataset.s); if(el) el.classList.add('on');
+  });
+});
+['ipax'].forEach(function(id){
+  var el=document.getElementById(id); if(el) el.addEventListener('input',calc);
+});
 calc();
 
-/* 체크리스트 */
-var CK=[
- ['09:00','재료 입고 확인','수요일 새벽 도착분 8품목 · 상태 및 수량 대조'],
- ['09:30','엑셀 주소 입력 (31행)','선생님 포함 · 관리자 주문 화면과 대조'],
- ['10:00','toms 업로드 → 송장 출력','프린터 세로·맞춤'],
- ['10:30','관리자 송장번호 저장 → 배송대기중','' ],
- ['11:00','소스 베이스 제조','설탕을 식초에 먼저 녹이기 → 레몬즙 → 머스타드'],
- ['12:00','소스 소분 + 라벨 부착','베이스 44g · 오일 41g · 조림용 레몬즙 30g → 소스팩 3봉'],
- ['12:40','설탕 소분','청용 300g · 조림용 100g → 지퍼백 2장 (합치지 않기)'],
- ['13:00','① 종이봉투 — 설탕 지퍼백을 병에 넣고 에어캡','에어캡 도착 확인 후 진행'],
- ['14:00','② 냉장봉투 — 복숭아 5개씩','물러진 것 골라내기 · 여유 7~13개'],
- ['15:00','③ 냉장봉투 — 채소·치즈·소스팩 3봉','가장 마지막 · 상온 노출 최소화'],
- ['15:30','박스 조립 → 디바이더 → 적재','① 아래 · ②③ + 아이스팩 위 · 레시피카드 최상단'],
- ['16:00','사진 촬영','인스타·유튜브용'],
- ['16:15','박싱 → 송장 부착 → 취급주의 스티커',''],
- ['16:30','관리자 배송대기중 → 배송중 처리','알림 발송됨'],
- ['16:45','차량 적재',''],
- ['17:00','출발 → 물류센터 입고','']
+document.querySelectorAll('.stab.rt').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.stab.rt').forEach(function(x){x.classList.remove('on');});
+    document.querySelectorAll('.rsub').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');
+    var el=document.getElementById(b.dataset.r); if(el) el.classList.add('on');
+  });
+});
+
+/* 체크리스트 — 미리 / 당일 · 종류별 그룹 */
+var PRE=[
+ ['🧊 전날 밤', [
+   ['아이스팩 62개 냉동','당일 아침에 넣으면 안 업니다'],
+   ['포장 소모품 재고 확인 · 부족분 주문','소 봉투 124 · 중 31 · 종이봉투 35 · 냉장봉투 70 · 디바이더 35 · 박스 35'],
+   ['식재료 재고 확인','설탕 부족분 확인']
+ ]],
+ ['📋 명단 · 송장', [
+   ['수강생 명단 수령 · 선생님 주소 확보','31행'],
+   ['새벽배송 가능 지역 확인','컬리 toms · 불가 지역 나오면 즉시 대응'],
+   ['엑셀 주소 입력 → toms 업로드 → 송장 <b>출력</b>','프린터 세로·맞춤 · 출력만 해두고 부착은 당일'],
+   ['관리자 송장번호 저장 → 배송대기중','']
+ ]],
+ ['🖨 인쇄물', [
+   ['레시피카드 35장','A4 양면 · 여백 없음 · 배경 그래픽 켜기 · 긴 쪽 넘기기'],
+   ['소스라벨 출력','드레싱 소스 · 올리브오일 · 조림용 레몬즙']
+ ]],
+ ['✂ 포장재 손질', [
+   ['박스 <b>접어두기</b> · 바닥 테이프 보강','조립만 해두면 당일엔 담기만 하면 됩니다'],
+   ['봉투에 번호 수기 표기','①②③ · 93장'],
+   ['유리병 에어캡 포장 31개','에어캡 도착 후']
+ ]],
+ ['🥄 소스 · 설탕 소분', [
+   ['드레싱 소스 제조 1,432g → 44g씩 31개','설탕을 식초에 먼저 녹이기 → 레몬즙 → 머스타드'],
+   ['올리브오일 41g · 조림용 레몬즙 30g 소분','계량만 · 각 31개'],
+   ['설탕 소분 — 청용 300g · 조림용 100g','합치지 않기 · 62개'],
+   ['소스라벨 부착','소분팩 155개 전체']
+ ]],
+ ['🛍 ① 종이봉투 완성', [
+   ['유리병 + 설탕 2봉 담기 31장','실온품이라 미리 만들어 쌓아둘 수 있습니다']
+ ]]
 ];
-document.getElementById('ckList').innerHTML=CK.map(function(r,i){
-  return '<div class="chk"><input type="checkbox" id="c'+i+'">'
-    +'<label for="c'+i+'">'+r[1]+(r[2]?'<span class="d2">'+r[2]+'</span>':'')+'</label>'
-    +'<span class="t">'+r[0]+'</span></div>';
-}).join('');
+var DAY=[
+ ['📥 입고', [
+   ['냉장 재료 입고 확인','복숭아 · 로메인 · 루꼴라 · 브리치즈 상태 및 수량 대조']
+ ]],
+ ['🥬 냉장 소분', [
+   ['② 냉장봉투 — 복숭아 5개씩','물러진 것 골라내기 · 여유 7~13개'],
+   ['③ 냉장봉투 — 채소 · 치즈 + 소스 3종','소스는 어제 소분해둔 것을 넣습니다 · 가장 마지막에 담기']
+ ]],
+ ['📦 박스에 담기', [
+   ['접어둔 박스에 적재','냉장 2봉 + 아이스팩 → 디바이더 → ① 종이봉투 → 레시피카드'],
+   ['사진 촬영','인스타·유튜브용'],
+   ['박스 테이핑 → 송장 <b>부착</b> → 취급주의 스티커','송장은 어제 출력해둔 것']
+ ]],
+ ['🚛 출고', [
+   ['관리자 배송대기중 → 배송중 처리','알림 발송됨'],
+   ['차량 적재 → 17:00 출발 → 물류센터 입고','']
+ ]]
+];
+function ck(groups,el,pfx){
+  var t=document.getElementById(el); if(!t) return;
+  var n=0, h='';
+  groups.forEach(function(g){
+    h+='<div class="ckg"><div class="ckgh">'+g[0]+' <span>'+g[1].length+'</span></div>';
+    g[1].forEach(function(r){
+      h+='<div class="chk"><input type="checkbox" id="'+pfx+(n)+'">'
+        +'<label for="'+pfx+(n)+'">'+r[0]+(r[1]?'<span class="d2">'+r[1]+'</span>':'')+'</label></div>';
+      n++;
+    });
+    h+='</div>';
+  });
+  t.innerHTML=h;
+}
+ck(PRE,'ckPre','pre_'); ck(DAY,'ckDay','day_');
+
+document.querySelectorAll('.stab.pk').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.stab.pk').forEach(function(x){x.classList.remove('on');});
+    document.querySelectorAll('.ksub').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');
+    var el=document.getElementById(b.dataset.k); if(el) el.classList.add('on');
+  });
+});
+
+document.querySelectorAll('.stab.st').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.stab.st').forEach(function(x){x.classList.remove('on');});
+    document.querySelectorAll('.gsub').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');
+    var el=document.getElementById(b.dataset.g); if(el) el.classList.add('on');
+  });
+});
+
+document.querySelectorAll('.stab.pp').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.stab.pp').forEach(function(x){x.classList.remove('on');});
+    document.querySelectorAll('.psub').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');
+    var el=document.getElementById(b.dataset.p); if(el) el.classList.add('on');
+  });
+});
 </script>
 </body></html>
