@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v26">
+<meta name="version" content="v27">
 <meta name="updated" content="2026.07.22 01:00">
 <title>패킹 운영</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
@@ -25,6 +25,31 @@ body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,
 .hero .lead{margin-top:6px;color:var(--sub);font-size:14.5px}
 h2{font-family:Hahmlet,"Gowun Batang",serif;font-size:19px;font-weight:700;margin:0}
 h3{font-size:14.5px;font-weight:700;margin:0}
+
+.tabrow{display:flex;align-items:flex-end;gap:12px;border-bottom:1px solid var(--line);margin-top:18px}
+.tabrow .tabs{flex:1;border-bottom:none;margin-top:0}
+.prbtn{flex:0 0 auto;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--sub);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 13px;cursor:pointer;margin-bottom:7px;white-space:nowrap}
+.prbtn:hover{border-color:var(--point);color:var(--point)}
+.prhead{display:none}
+@media print{
+  @page{size:A4;margin:12mm}
+  body{background:#fff;padding:0}
+  .topbar,.tabrow,.foot,.prbtn{display:none!important}
+  .hero{display:none!important}
+  .prhead{display:block!important;font-size:10pt;color:#241F1B;border-bottom:1.5px solid #241F1B;padding-bottom:5mm;margin-bottom:6mm}
+  .prhead #prTab{display:block;font-size:15pt;font-weight:700;margin-top:2mm}
+  .panel{display:none!important}
+  .panel.on{display:block!important}
+  .sub,.rsub,.ksub,.gsub,.psub{display:block!important}
+  .block,.ckg,.mcard,.env{break-inside:avoid;page-break-inside:avoid;box-shadow:none;border-color:#CFC6B4}
+  .ctrl,.alert.info{display:none!important}
+  table{font-size:9pt}
+  th,td{padding:4px 6px}
+  .chk{padding:6px 0}
+  .chk input{width:15px;height:15px}
+  a{text-decoration:none;color:inherit}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
 .tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line);margin-top:18px;padding-bottom:0}
 .tab{flex:0 0 auto;font-family:inherit;font-size:14px;font-weight:600;color:var(--sub);background:none;border:none;border-bottom:2px solid transparent;padding:11px 14px;cursor:pointer;white-space:nowrap;transition:.12s}
 .tab:hover{color:var(--ink)}
@@ -143,6 +168,8 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 <p class="lead">GS-2607 · 제철 복숭아로 만드는 복숭아청과 브리치즈 샐러드 · 경기도지식 온라인</p>
 </header>
 
+<div class="prhead"><b>GS-2607</b> 제철 복숭아로 만드는 복숭아청과 브리치즈 샐러드 · 7/24(금) 16:00 · 31세트<span id="prTab"></span></div>
+<div class="tabrow">
 <div class="tabs">
 <button class="tab on" data-t="t1">개요</button>
 <button class="tab" data-t="tR">레시피</button>
@@ -156,6 +183,9 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 </div>
 
 <!-- ===== 1 개요 ===== -->
+<button class="prbtn" onclick="printTab()">🖨 이 탭 인쇄</button>
+</div>
+
 <div class="panel on" id="t1">
 <section class="block">
 <div class="bh"><span class="n">01</span><h2>수업 정보</h2><span class="s">31세트 = 수강생 30 + 선생님 1</span></div>
@@ -954,5 +984,12 @@ document.querySelectorAll('.stab.pp').forEach(function(b){
     var el=document.getElementById(b.dataset.p); if(el) el.classList.add('on');
   });
 });
+
+function printTab(){
+  var on=document.querySelector('.tab.on');
+  var el=document.getElementById('prTab');
+  if(el) el.textContent=(on?on.textContent.replace('★','').trim():'');
+  window.print();
+}
 </script>
 </body></html>
