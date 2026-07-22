@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v27">
+<meta name="version" content="v29">
 <meta name="updated" content="2026.07.22 01:00">
 <title>패킹 운영</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
@@ -68,6 +68,16 @@ h3{font-size:14.5px;font-weight:700;margin:0}
 .d .k{font-size:12px;color:var(--sub);font-weight:500}
 .d .v{font-family:"DM Mono",monospace;font-size:22px;font-weight:700;margin-top:3px;line-height:1.15}
 .d .u{font-size:11.5px;color:var(--wait);margin-top:2px}
+th.col-tm{width:58px}th.col-mn{width:56px}
+td.tm{font-family:"DM Mono",monospace;font-size:12px;font-weight:700;white-space:nowrap;color:var(--point)}
+tr.sch-h td{background:#F0EAD9;font-weight:700;font-size:12px;text-align:left;letter-spacing:.02em}
+tr.sch-w td{background:#FFF6E6}
+tr.sch-e td{background:#E9F2EA;font-weight:600}
+.lnkrow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.lnk{display:flex;flex-direction:column;gap:2px;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px 16px;min-width:180px;flex:1}
+.lnk:hover{border-color:var(--point);background:#FFFDF6}
+.lnk b{font-size:14px;color:var(--point)}
+.lnk span{font-size:12px;color:var(--wait)}
 .subtabs{display:flex;gap:5px;flex-wrap:wrap;margin-top:16px;background:#F4EFE3;padding:5px;border-radius:11px}
 .stab{font-family:inherit;font-size:13px;font-weight:600;color:var(--sub);background:none;border:none;border-radius:8px;padding:8px 15px;cursor:pointer}
 .stab:hover{color:var(--ink)}
@@ -507,11 +517,49 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 <div class="panel" id="tP">
 
 <div class="subtabs">
-<button class="stab pp on" data-p="p1">미리 해둘 것</button>
+<button class="stab pp on" data-p="p0">오늘 스케줄</button>
+<button class="stab pp" data-p="p1">미리 해둘 것</button>
 <button class="stab pp" data-p="p2">당일에만 할 것</button>
 </div>
 
-<div class="psub on" id="p1">
+<div class="psub on" id="p0">
+<p class="note" style="margin-top:14px">7/22(수) 12:00 시작 · <b>17:00 완료</b> → 17:30 차량 적재 → 18:00 물류센터 입고. 실제 소요 시간을 적어두면 다음 회차 배분에 씁니다.</p>
+
+<div class="tbl-wrap"><table>
+<thead><tr><th class="col-tm">시각</th><th>작업</th><th class="col-mn">예상</th><th class="col-mn">실제</th><th>메모</th></tr></thead>
+<tbody>
+<tr class="sch-h"><td colspan="5">준비 · 12:00–13:00</td></tr>
+<tr><td class="tm">12:00</td><td class="l"><b>문자 2통 발송</b><span class="q">경기도지식(문윤정 도로명) · 이영미 선생님(연락처)</span></td><td class="num">5분</td><td></td><td></td></tr>
+<tr><td class="tm">12:05</td><td class="l"><b>컬리 송장 준비 · 시스템 테스트</b><span class="q">29건 선업로드 → 통과 확인 · 미확정 2건은 나중에 추가</span></td><td class="num">25분</td><td></td><td></td></tr>
+<tr><td class="tm">12:30</td><td class="l"><b>레시피카드 제작 · 출력 35장</b><span class="q">망고보드 · A4 양면 · 긴 쪽 넘기기</span></td><td class="num">30분</td><td></td><td></td></tr>
+
+<tr class="sch-h"><td colspan="5">소스 · 소분 · 13:00–14:32</td></tr>
+<tr><td class="tm">13:00</td><td class="l"><b>드레싱 소스 제조 1,432g</b><span class="q">식초 488 + 설탕 423 → 레몬즙 260 → 머스타드 260</span></td><td class="num">20분</td><td></td><td></td></tr>
+<tr><td class="tm">13:20</td><td class="l">청용 설탕 300g × 31<span class="q">계량컵 애벌 + 저울 보정 · 중 봉투</span></td><td class="num">14분</td><td></td><td></td></tr>
+<tr><td class="tm">13:34</td><td class="l">조림용 설탕 100g × 31<span class="q">청용과 합치지 않기</span></td><td class="num">13분</td><td></td><td></td></tr>
+<tr><td class="tm">13:47</td><td class="l">조림용 레몬즙 30g × 31<span class="q">드레싱용 8g과 다름</span></td><td class="num">13분</td><td></td><td></td></tr>
+<tr><td class="tm">14:00</td><td class="l">드레싱 소스 44g × 31<span class="q">담기 전 한 번 젓기</span></td><td class="num">16분</td><td></td><td></td></tr>
+<tr><td class="tm">14:16</td><td class="l">올리브오일 41g × 31</td><td class="num">16분</td><td></td><td></td></tr>
+
+<tr class="sch-h"><td colspan="5">봉투 · 14:32–16:01</td></tr>
+<tr><td class="tm">14:32</td><td class="l"><b>① 종이봉투</b> — 설탕 2봉 + 레시피카드<span class="q">유리병은 아직 넣지 않음</span></td><td class="num">20분</td><td></td><td></td></tr>
+<tr><td class="tm">14:52</td><td class="l"><b>② 냉장봉투</b> — 복숭아 5개<span class="q">물러진 것 선별 · 여유 7~13개</span></td><td class="num">16분</td><td></td><td></td></tr>
+<tr><td class="tm">15:08</td><td class="l"><b>③ 냉장봉투</b> — 채소 한 봉 + 브리치즈 + 소스 3봉<span class="q">로메인·루꼴라 같이 · 가장 마지막</span></td><td class="num">28분</td><td></td><td></td></tr>
+<tr class="sch-w"><td class="tm">15:36</td><td class="l"><b>유리병 에어캡</b> → ① 봉투에 투입<span class="q">⚠ 에어캡 미도착 시 이 단계만 뒤로</span></td><td class="num">25분</td><td></td><td></td></tr>
+
+<tr class="sch-h"><td colspan="5">박싱 · 출고 · 16:01–17:00</td></tr>
+<tr><td class="tm">16:01</td><td class="l"><b>박스 적재</b><span class="q">냉장 2봉 + 아이스팩 → 디바이더 → ① 종이봉투 → 레시피카드</span></td><td class="num">30분</td><td></td><td></td></tr>
+<tr><td class="tm">16:31</td><td class="l">테이핑 → 송장 부착 → 취급주의 스티커</td><td class="num">25분</td><td></td><td></td></tr>
+<tr class="sch-e"><td class="tm">17:00</td><td class="l"><b>완료</b> · 관리자 배송중 처리 → 17:30 차량 적재 → 18:00 입고</td><td class="num">—</td><td></td><td></td></tr>
+</tbody>
+</table></div>
+
+<div class="alert"><h3>사진은 틈틈이</h3><p>별도 시간을 안 잡았습니다. 소분·봉투·박싱 중간중간 찍으세요. 최소한 <b>구성 전체 컷</b>과 <b>박스 완성 컷</b> 두 장은 확보하시면 됩니다.</p></div>
+
+<div class="alert"><h3>이 시간표는 예비가 없습니다</h3><p>필요 301분 / 가용 300분입니다. <b>소분 라벨 생략</b>(유성펜 표기), <b>복숭아 5개 한 봉투</b>, <b>로메인·루꼴라 한 봉투</b>를 전제로 계산했습니다. 하나라도 되돌리면 초과합니다.</p></div>
+</div>
+
+<div class="psub" id="p1">
 <p class="note" style="margin-top:14px">냉장품이 아닌 것은 전부 미리 끝낼 수 있습니다. 미리 해두면 당일 작업이 <b>15단계에서 8단계로</b> 줄어듭니다.</p>
 <div id="ckPre"></div>
 </div>
@@ -655,7 +703,16 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 <!-- ===== 6 송장·배송 ===== -->
 <div class="panel" id="t6">
 <section class="block">
-<div class="bh"><span class="n">01</span><h2>진행 순서</h2><span class="s">명단 → 배송가능 확인 → 송장</span></div>
+<div class="bh"><span class="n">01</span><h2>바로가기</h2><span class="s">작업에 쓰는 사이트</span></div>
+<div class="lnkrow">
+<a class="lnk" href="https://kls.kurly.com/login" target="_blank" rel="noopener"><b>컬리 KLS</b><span>송장 업로드 · 출력</span></a>
+<a class="lnk" href="https://www.juso.go.kr/" target="_blank" rel="noopener"><b>도로명주소 안내시스템</b><span>지번 → 도로명 변환 확인</span></a>
+</div>
+<p class="note">컬리는 <b>도로명 주소만</b> 등록됩니다. 명단에 지번 주소가 있으면 juso.go.kr에서 변환해 넣으세요. 같은 지번에 도로명이 여러 개 걸리는 경우가 있으니 <b>수강생 본인 확인</b>이 가장 정확합니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>진행 순서</h2><span class="s">명단 → 배송가능 확인 → 송장</span></div>
 <ol class="steps">
 <li><b>경기도지식에서 수강생 명단 수령</b><span>이름 · 연락처 · 우편번호 · 주소 · 배송장소 · 출입방법</span></li>
 <li><b>선생님(이영미) 주소 수령</b><span>31번째 행. 오늘 안에 받아두지 않으면 내일 송장에서 빠집니다.</span></li>
@@ -670,7 +727,7 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 </section>
 
 <section class="block">
-<div class="bh"><span class="n">02</span><h2>현재 상태</h2></div>
+<div class="bh"><span class="n">03</span><h2>현재 상태</h2></div>
 <div class="dash">
 <div class="d"><div class="k">수강생 명단</div><div class="v" style="color:var(--warn)">미수령</div><div class="u">경기도지식 요청 필요</div></div>
 <div class="d"><div class="k">선생님 주소</div><div class="v" style="color:var(--warn)">미수령</div><div class="u">오늘 안에</div></div>
