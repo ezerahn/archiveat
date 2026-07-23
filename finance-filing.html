@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="version" content="v2"><meta name="updated" content="2026.07.21 20:10">
+<meta name="version" content="v3"><meta name="updated" content="2026.07.23 10:00">
 <title>finance-filing</title>
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
@@ -58,6 +58,7 @@ td.v{font-weight:700;white-space:nowrap}
 td.v.ok{color:var(--sage)}td.v.no{color:var(--taupe)}td.v.na{color:var(--line)}
 td.st{font-size:11px;font-weight:700;white-space:nowrap}
 td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
+tr.fixed{background:rgba(44,123,182,.06)}td.st.fixed{color:var(--blue)}
 .note{font-size:11px;color:#a8481a;margin-top:3px;line-height:1.5}
 .stage{display:flex;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:15px 17px;margin-bottom:8px}
 .stage.wait{opacity:.6;border-style:dashed}
@@ -70,7 +71,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 .sdesc{font-size:13.5px}
 .fgroup{margin-bottom:20px}
 .ftitle{font-size:12.5px;font-weight:700;color:var(--muted);margin-bottom:7px;padding-left:2px}
-.ftitle.samhwa{color:var(--blue)}.ftitle.etax{color:#3f6b62}
+.ftitle.samhwa{color:var(--blue)}.ftitle.etax{color:#3f6b62}.ftitle.samhwa1{color:var(--taupe)}
 .frow{display:flex;align-items:center;gap:11px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 15px;margin-bottom:6px;flex-wrap:wrap}
 .fico{font-size:15px}
 .fnm{flex:1 1 220px;font-size:13.5px}
@@ -97,17 +98,17 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <div class="qtabs"><button class="qtab">26년 1기</button><button class="qtab off" disabled>26년 2기</button></div>
 
 <div class="sumbar">
-    <div class="calc"><span>매출세액</span> <b>1,713,234</b> <span class="op">−</span> <span>매입세액</span> <b>2,619,375</b></div>
+    <div class="calc"><span>매출세액</span> <b>1,713,239</b> <span class="op">−</span> <span>매입세액</span> <b>2,639,829</b></div>
     <div class="res">
-      <div class="rlbl">환급 예상</div>
-      <div class="rval">926,595<span style="font-size:15px"> 원</span></div>
-      <div class="rst"><span class="dot"></span>신고 7/25 · 최종본 대기</div>
+      <div class="rlbl">환급 확정</div>
+      <div class="rval">926,590<span style="font-size:15px"> 원</span></div>
+      <div class="rst done"><span class="dot"></span>2026.07.27 신고 완료 · 입금 대기</div>
     </div>
   </div>
 
   <div class="tabs">
   <button class="tab" data-t="p0">① 증빙서철</button>
-  <button class="tab on" data-t="p1">② 대조·검증 <span class="tn">6</span></button>
+  <button class="tab on" data-t="p1">② 대조·검증 <span class="tn">5</span></button>
   <button class="tab" data-t="p2">③ 신고 이력</button>
   <button class="tab" data-t="p3">④ 자료실</button>
 </div>
@@ -121,18 +122,19 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
   <div class="kpis">
     <div class="kpi"><div class="k">대조 건수</div><div class="v">84</div></div>
     <div class="kpi g"><div class="k">동일</div><div class="v">78</div></div>
-    <div class="kpi c"><div class="k">확인 필요</div><div class="v">6</div></div>
+    <div class="kpi c"><div class="k">삼화 판정</div><div class="v">5</div></div>
+    <div class="kpi"><div class="k">정정 반영</div><div class="v" style="color:#2C7BB6">1</div></div>
   </div>
-  <div class="box warm"><b>보는 법</b> — 우리 판정과 삼화 판정이 같으면 <b>동일</b> 한 글자만 표시됩니다. 다른 건만 배경색이 들어가고 아래에 사유가 붙습니다. <b>최종</b> 열은 신고 후 삼화 최종본을 받으면 채웁니다.</div>
+  <div class="box warm"><b>보는 법</b> — 우리 판정과 삼화 최종이 같으면 <b>동일</b>. 다른 건만 배경색이 들어가고 아래에 사유가 붙습니다. <b>삼화 1차</b>는 7/21 수신본, <b>최종</b>은 7/27 신고분입니다.</div>
   <table>
-    <tr><th>날짜</th><th class="c">카드</th><th>내역</th><th style="text-align:right">금액</th><th style="text-align:right">부가세</th><th class="c">우리</th><th class="c">삼화</th><th class="c">최종</th><th class="c">상태</th></tr>
+    <tr><th>날짜</th><th class="c">카드</th><th>내역</th><th style="text-align:right">금액</th><th style="text-align:right">부가세</th><th class="c">우리</th><th class="c">삼화 1차</th><th class="c">최종</th><th class="c">상태</th></tr>
     <tr class="same">
 <td class="dt">01-01</td><td class="cd c국민">국민</td>
 <td class="nm">아카이빗몰 1초 회원가입 서비스</td>
 <td class="num">54,890</td><td class="num tax">4,990</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">01-09</td><td class="cd c국민">국민</td>
@@ -140,7 +142,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">203,500</td><td class="num tax">18,500</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">01-09</td><td class="cd c국민">국민</td>
@@ -148,7 +150,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">140,000</td><td class="num tax">12,727</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">01-12</td><td class="cd c신한">신한</td>
@@ -156,7 +158,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">52,800</td><td class="num tax">4,800</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">01-14</td><td class="cd c국민">국민</td>
@@ -164,7 +166,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">26,200</td><td class="num tax">0</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">01-14</td><td class="cd c국민">국민</td>
@@ -172,7 +174,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">39,700</td><td class="num tax">0</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">01-16</td><td class="cd c국민">국민</td>
@@ -180,15 +182,15 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">10,000</td><td class="num tax">909</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">01-19</td><td class="cd c국민">국민</td>
 <td class="nm">온라인클래스재료(시금치외)</td>
 <td class="num">39,380</td><td class="num tax">809</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">01-19</td><td class="cd c신한">신한</td>
@@ -196,7 +198,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">24,750</td><td class="num tax">2,250</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">01-20</td><td class="cd c신한">신한</td>
@@ -204,7 +206,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">31,350</td><td class="num tax">2,850</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">01-22</td><td class="cd c신한">신한</td>
@@ -212,7 +214,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">57,750</td><td class="num tax">5,250</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">01-26</td><td class="cd c신한">신한</td>
@@ -220,23 +222,23 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">36,300</td><td class="num tax">3,300</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
-<tr class="diff">
+<tr class="fixed">
 <td class="dt">01-26</td><td class="cd c국민">국민</td>
-<td class="nm">벤처기업확인수수료<div class="note">벤처기업확인기관 398-82-00505 일반과세자 확인 · 삼화 정정 예정</div></td>
+<td class="nm">벤처기업확인수수료<div class="note">벤처기업확인기관 398-82-00505 일반과세자 확인 → 삼화 공제로 정정</div></td>
 <td class="num">225,000</td><td class="num tax">20,454</td>
 <td class="v ok">공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
-<td class="st diff">확인</td></tr>
+<td class="v ok">공제</td>
+<td class="st fixed">정정 반영</td></tr>
 <tr class="same">
 <td class="dt">01-28</td><td class="cd c국민">국민</td>
 <td class="nm">박스</td>
 <td class="num">31,150</td><td class="num tax">2,831</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">01-29</td><td class="cd c국민">국민</td>
@@ -244,119 +246,119 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">36,000</td><td class="num tax">3,272</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="diff">
 <td class="dt">01-30</td><td class="cd c신한">신한</td>
-<td class="nm">카다이프면취소<div class="note">판정 상이</div></td>
+<td class="nm">카다이프면취소<div class="note">2/18 반품 완료 · 매입·취소 상계로 세액 영향 없음</div></td>
 <td class="num">-169,000</td><td class="num tax">-15,363</td>
 <td class="v ok">공제</td>
-<td class="v no">불공제</td>
 <td class="v na">—</td>
-<td class="st diff">확인</td></tr>
+<td class="v no">불공제</td>
+<td class="st diff">삼화 판정</td></tr>
 <tr class="diff">
 <td class="dt">01-30</td><td class="cd c신한">신한</td>
-<td class="nm">카다이프면<div class="note">판정 상이</div></td>
+<td class="nm">카다이프면<div class="note">2/18 반품 완료 · 매입·취소 상계로 세액 영향 없음</div></td>
 <td class="num">169,000</td><td class="num tax">15,363</td>
 <td class="v ok">공제</td>
-<td class="v no">불공제</td>
 <td class="v na">—</td>
-<td class="st diff">확인</td></tr>
+<td class="v no">불공제</td>
+<td class="st diff">삼화 판정</td></tr>
 <tr class="same">
 <td class="dt">01-30</td><td class="cd c국민">국민</td>
 <td class="nm">홈페이지인증서발급비</td>
 <td class="num">38,500</td><td class="num tax">3,500</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">01-30</td><td class="cd c신한">신한</td>
 <td class="nm">피스타치오크림</td>
 <td class="num">128,900</td><td class="num tax">11,718</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">01-30</td><td class="cd c신한">신한</td>
 <td class="nm">코코아가루</td>
 <td class="num">71,600</td><td class="num tax">6,509</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">01-30</td><td class="cd c신한">신한</td>
 <td class="nm">피스타치오크림</td>
 <td class="num">34,000</td><td class="num tax">3,091</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="diff">
 <td class="dt">01-30</td><td class="cd c신한">신한</td>
 <td class="nm">탈지분유<div class="note">탈지분유는 면세 품목</div></td>
 <td class="num">14,000</td><td class="num tax">1,273</td>
 <td class="v ok">공제</td>
-<td class="v no">불공제</td>
 <td class="v na">—</td>
-<td class="st diff">확인</td></tr>
+<td class="v no">불공제</td>
+<td class="st diff">삼화 판정</td></tr>
 <tr class="same">
 <td class="dt">02-01</td><td class="cd c국민">국민</td>
 <td class="nm">아카이빗몰 1초 회원가입 서비스</td>
 <td class="num">54,890</td><td class="num tax">4,990</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">02-01</td><td class="cd c신한">신한</td>
 <td class="nm">온라인클래스재료(마시멜로우)</td>
 <td class="num">87,650</td><td class="num tax">7,968</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">02-03</td><td class="cd c신한">신한</td>
 <td class="nm">온라인클래스재료(초콜렛외)</td>
 <td class="num">61,000</td><td class="num tax">5,545</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="diff">
 <td class="dt">02-04</td><td class="cd c신한">신한</td>
-<td class="nm">온라인클래스재료(두쫀쿠)캐나다구입<div class="note">판매자 캐나다 사업자(Healthvisor) · 국외 거래</div></td>
+<td class="nm">온라인클래스재료(두쫀쿠)캐나다구입<div class="note">판매자 캐나다 Healthvisor · 국외 거래</div></td>
 <td class="num">311,700</td><td class="num tax">28,337</td>
 <td class="v ok">공제</td>
-<td class="v no">불공제</td>
 <td class="v na">—</td>
-<td class="st diff">확인</td></tr>
+<td class="v no">불공제</td>
+<td class="st diff">삼화 판정</td></tr>
 <tr class="same">
 <td class="dt">02-10</td><td class="cd c신한">신한</td>
 <td class="nm">백상지</td>
 <td class="num">8,430</td><td class="num tax">766</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">02-10</td><td class="cd c신한">신한</td>
 <td class="nm">쿠킹박스재료(대파외)</td>
 <td class="num">86,040</td><td class="num tax">1,373</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">02-11</td><td class="cd c국민">국민</td>
 <td class="nm">서버비</td>
 <td class="num">203,500</td><td class="num tax">18,500</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">02-11</td><td class="cd c신한">신한</td>
@@ -364,39 +366,39 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">52,800</td><td class="num tax">4,800</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">02-11</td><td class="cd c신한">신한</td>
 <td class="nm">쿠킹박스재료(깐족파외)</td>
 <td class="num">47,420</td><td class="num tax">1,200</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="diff">
 <td class="dt">02-20</td><td class="cd c국민">국민</td>
-<td class="nm">소스용봉투<div class="note">상대가 간이과세자</div></td>
+<td class="nm">소스용봉투<div class="note">상대가 간이과세자 (이 건으로 매입장 수정)</div></td>
 <td class="num">17,710</td><td class="num tax">1,610</td>
 <td class="v ok">공제</td>
-<td class="v no">불공제</td>
 <td class="v na">—</td>
-<td class="st diff">확인</td></tr>
+<td class="v no">불공제</td>
+<td class="st diff">삼화 판정</td></tr>
 <tr class="same">
 <td class="dt">02-20</td><td class="cd c국민">국민</td>
 <td class="nm">아이스팩</td>
 <td class="num">16,600</td><td class="num tax">1,509</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">02-20</td><td class="cd c국민">국민</td>
 <td class="nm">특허연차등록료</td>
 <td class="num">334,000</td><td class="num tax">30,363</td>
 <td class="v no">불공제</td>
-<td class="v no">불공제</td>
 <td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">02-22</td><td class="cd c신한">신한</td>
@@ -404,7 +406,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">57,750</td><td class="num tax">5,250</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">02-23</td><td class="cd c신한">신한</td>
@@ -412,31 +414,31 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">24,750</td><td class="num tax">2,250</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">02-23</td><td class="cd c국민">국민</td>
 <td class="nm">건전지</td>
 <td class="num">1,650</td><td class="num tax">150</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">02-23</td><td class="cd c국민">국민</td>
 <td class="nm">버터</td>
 <td class="num">18,980</td><td class="num tax">1,725</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">02-23</td><td class="cd c신한">신한</td>
 <td class="nm">쓰레기봉투</td>
 <td class="num">8,470</td><td class="num tax">770</td>
 <td class="v no">불공제</td>
-<td class="v no">불공제</td>
 <td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">02-23</td><td class="cd c신한">신한</td>
@@ -444,7 +446,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">31,350</td><td class="num tax">2,850</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">02-26</td><td class="cd c신한">신한</td>
@@ -452,7 +454,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">36,300</td><td class="num tax">3,300</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">03-01</td><td class="cd c국민">국민</td>
@@ -460,7 +462,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">54,890</td><td class="num tax">4,990</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">03-11</td><td class="cd c신한">신한</td>
@@ -468,7 +470,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">52,800</td><td class="num tax">4,800</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">03-13</td><td class="cd c신한">신한</td>
@@ -476,7 +478,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">203,500</td><td class="num tax">18,500</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">03-18</td><td class="cd c신한">신한</td>
@@ -484,7 +486,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">24,750</td><td class="num tax">2,250</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">03-18</td><td class="cd c신한">신한</td>
@@ -492,7 +494,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">31,350</td><td class="num tax">2,850</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">03-22</td><td class="cd c신한">신한</td>
@@ -500,15 +502,15 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">57,750</td><td class="num tax">5,250</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">03-26</td><td class="cd c신한">신한</td>
 <td class="nm">쿠킹박스재료</td>
 <td class="num">57,290</td><td class="num tax">1,289</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">03-26</td><td class="cd c신한">신한</td>
@@ -516,15 +518,15 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">36,300</td><td class="num tax">3,300</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">03-27</td><td class="cd c신한">신한</td>
 <td class="nm">쿠킹박스재료</td>
 <td class="num">22,730</td><td class="num tax">1,015</td>
 <td class="v ok">공제</td>
-<td class="v ok">공제</td>
 <td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">04-01</td><td class="cd c국민">국민</td>
@@ -532,7 +534,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">54,890</td><td class="num tax">4,990</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">04-02</td><td class="cd c신한">신한</td>
@@ -540,7 +542,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">20,240</td><td class="num tax">1,116</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">04-13</td><td class="cd c신한">신한</td>
@@ -548,7 +550,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">52,800</td><td class="num tax">4,800</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">04-13</td><td class="cd c신한">신한</td>
@@ -556,7 +558,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">203,500</td><td class="num tax">18,500</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">04-15</td><td class="cd c신한">신한</td>
@@ -564,7 +566,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">140,000</td><td class="num tax">12,727</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">04-15</td><td class="cd c신한">신한</td>
@@ -572,7 +574,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">264,280</td><td class="num tax">1,171</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">04-15</td><td class="cd c신한">신한</td>
@@ -580,7 +582,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">21,970</td><td class="num tax">1,997</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">04-20</td><td class="cd c신한">신한</td>
@@ -588,7 +590,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">31,380</td><td class="num tax">2,852</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">04-20</td><td class="cd c신한">신한</td>
@@ -596,7 +598,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">24,750</td><td class="num tax">2,250</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">04-21</td><td class="cd c신한">신한</td>
@@ -604,7 +606,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">109,410</td><td class="num tax">1,950</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">04-22</td><td class="cd c신한">신한</td>
@@ -612,7 +614,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">57,750</td><td class="num tax">5,250</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">04-26</td><td class="cd c신한">신한</td>
@@ -620,7 +622,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">36,300</td><td class="num tax">3,300</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">04-29</td><td class="cd c국민">국민</td>
@@ -628,7 +630,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">1,884,820</td><td class="num tax">171,347</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">04-29</td><td class="cd c국민">국민</td>
@@ -636,7 +638,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">663,170</td><td class="num tax">60,288</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">05-01</td><td class="cd c국민">국민</td>
@@ -644,7 +646,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">54,890</td><td class="num tax">4,990</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">05-11</td><td class="cd c신한">신한</td>
@@ -652,7 +654,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">203,500</td><td class="num tax">18,500</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">05-11</td><td class="cd c신한">신한</td>
@@ -660,7 +662,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">52,800</td><td class="num tax">4,800</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">05-12</td><td class="cd c신한">신한</td>
@@ -668,7 +670,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">80,000</td><td class="num tax">7,272</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">05-14</td><td class="cd c신한">신한</td>
@@ -676,7 +678,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">246,400</td><td class="num tax">22,400</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">05-15</td><td class="cd c신한">신한</td>
@@ -684,7 +686,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">44,800</td><td class="num tax">4,073</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">05-18</td><td class="cd c신한">신한</td>
@@ -692,7 +694,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">99,030</td><td class="num tax">9,002</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">05-18</td><td class="cd c신한">신한</td>
@@ -700,7 +702,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">24,750</td><td class="num tax">2,250</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">05-19</td><td class="cd c신한">신한</td>
@@ -708,7 +710,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">236,173</td><td class="num tax">21,470</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">05-19</td><td class="cd c신한">신한</td>
@@ -716,7 +718,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">29,900</td><td class="num tax">2,718</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">05-20</td><td class="cd c신한">신한</td>
@@ -724,7 +726,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">31,350</td><td class="num tax">2,850</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">05-22</td><td class="cd c신한">신한</td>
@@ -732,7 +734,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">57,750</td><td class="num tax">5,250</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">05-26</td><td class="cd c신한">신한</td>
@@ -740,7 +742,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">36,300</td><td class="num tax">3,300</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">06-01</td><td class="cd c국민">국민</td>
@@ -748,7 +750,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">54,890</td><td class="num tax">4,990</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">06-11</td><td class="cd c신한">신한</td>
@@ -756,7 +758,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">52,800</td><td class="num tax">4,800</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">06-16</td><td class="cd c신한">신한</td>
@@ -764,7 +766,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">203,500</td><td class="num tax">18,500</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">06-18</td><td class="cd c신한">신한</td>
@@ -772,7 +774,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">33,000</td><td class="num tax">3,000</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">06-18</td><td class="cd c신한">신한</td>
@@ -780,7 +782,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">31,350</td><td class="num tax">2,850</td>
 <td class="v no">불공제</td>
 <td class="v no">불공제</td>
-<td class="v na">—</td>
+<td class="v no">불공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">06-22</td><td class="cd c신한">신한</td>
@@ -788,7 +790,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">57,750</td><td class="num tax">5,250</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
 <tr class="same">
 <td class="dt">06-26</td><td class="cd c신한">신한</td>
@@ -796,7 +798,7 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <td class="num">36,300</td><td class="num tax">3,300</td>
 <td class="v ok">공제</td>
 <td class="v ok">공제</td>
-<td class="v na">—</td>
+<td class="v ok">공제</td>
 <td class="st same">동일</td></tr>
   </table>
 </section>
@@ -804,22 +806,19 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <section class="panel" id="p2">
   <div class="stage done"><div class="sno">①</div><div class="sbody">
 <div class="shead"><b>우리 정리본</b><span class="sdt">2026.04 · 07.20</span><span class="sst done">완료</span></div>
-<p class="sdesc">홈택스 원본에 상세내역(O열)과 의견(P열)을 채워 전달</p></div></div>
-<div class="stage done"><div class="sno">②</div><div class="sbody">
-<div class="shead"><b>삼화 정리본</b><span class="sdt">2026.07.21 수령</span><span class="sst done">완료</span></div>
-<p class="sdesc">증빙서철을 보고 M열(공제여부결정) 확정 · 쿠팡 묶음 결제를 판매자별로 분해</p></div></div>
-<div class="stage done"><div class="sno">③</div><div class="sbody">
+<p class="sdesc">홈택스 원본에 상세내역(O열)과 의견(P열)을 채워 전달</p></div></div><div class="stage done"><div class="sno">②</div><div class="sbody">
+<div class="shead"><b>삼화 1차본</b><span class="sdt">2026.07.21 수령</span><span class="sst done">완료</span></div>
+<p class="sdesc">증빙서철을 보고 M열(공제여부결정) 확정 · 쿠팡 묶음 결제를 판매자별로 분해</p></div></div><div class="stage done"><div class="sno">③</div><div class="sbody">
 <div class="shead"><b>우리 대조</b><span class="sdt">2026.07.21</span><span class="sst done">완료</span></div>
-<p class="sdesc">홈택스 전자세금계산서 목록·통장·PG 원본과 전건 대조 → 확인 필요 6건 도출</p></div></div>
-<div class="stage done"><div class="sno">④</div><div class="sbody">
+<p class="sdesc">홈택스 전자세금계산서 목록·통장·PG 원본과 전건 대조 → 확인 필요 6건 도출</p></div></div><div class="stage done"><div class="sno">④</div><div class="sbody">
 <div class="shead"><b>삼화 회신</b><span class="sdt">2026.07.21 수령</span><span class="sst done">완료</span></div>
-<p class="sdesc">불공제 4건 사유 확인 · 벤처기업확인수수료는 사업자번호 확인 후 공제로 정정 예정</p></div></div>
-<div class="stage wait"><div class="sno">⑤</div><div class="sbody">
-<div class="shead"><b>최종 신고</b><span class="sdt">2026.07.25</span><span class="sst wait">대기</span></div>
-<p class="sdesc">신고 완료 후 최종본 수령 → 이 표의 최종 열을 채우고 환급액 확정</p></div></div>
-  <div class="box"><b>1기 부가세 — 삼화 장부 기준</b><br>
-  매출세액 1,713,234 − 매입세액 2,619,375 = <b>환급 906,141원</b><br>
-  벤처기업확인수수료(20,454원)가 공제로 정정되면 <b>926,595원</b>이 됩니다. 최종 신고서로 확정합니다.</div>
+<p class="sdesc">불공제 4건 사유 확인(면세·간이과세자·국외) · 벤처기업확인기관 사업자번호 398-82-00505 전달</p></div></div><div class="stage done"><div class="sno">⑤</div><div class="sbody">
+<div class="shead"><b>최종 신고</b><span class="sdt">2026.07.27 신고</span><span class="sst done">완료</span></div>
+<p class="sdesc">신고서·최종 매출입장·카드공제내역 수령 → 전건 대조 완료 · 환급 926,590원 확정</p></div></div>
+  <div class="box"><b>1기 부가세 — 최종 신고 결과</b><br>
+  매출세액 1,713,239 − 매입세액 2,639,829 = <b>환급 926,590원</b> · 환급계좌 신한 100031421870<br>
+  신고서 각 항목이 최종 매출·매입장과 전건 일치합니다. 매출세액 5원 차이는 신고서가 공급가액 총액에 10%를 적용해 계산한 결과입니다.</div>
+  <div class="box warm"><b>다음 할 일</b> — 환급금은 신고 후 30일 이내 입금됩니다. 통장(신한 421870)에 입금되면 이 화면에 기록합니다.</div>
 </section>
 
 <section class="panel" id="p3">
@@ -827,11 +826,16 @@ td.st.same{color:var(--taupe)}td.st.diff{color:var(--coral)}
 <div class="frow"><span class="fico">📊</span><span class="fnm">카드공제내역 판정본 (1~6월)<code>vat-2026-1q-card-ours.xlsx</code></span><span class="fdt">2026.07.21 발송</span><a class="dl" href="vat-2026-1q-card-ours.xlsx" download>받기</a></div>
 <div class="frow"><span class="fico">📊</span><span class="fnm">카드공제내역 정리본 (4~6월)<code>vat-2026-1q-card-ours-q2.xlsx</code></span><span class="fdt">2026.07.20 발송</span><a class="dl" href="vat-2026-1q-card-ours-q2.xlsx" download>받기</a></div>
 </div>
-<div class="fgroup"><div class="ftitle samhwa">삼화가 보낸 것</div>
-<div class="frow"><span class="fico">📊</span><span class="fnm">카드공제내역 (1~6월)<code>vat-2026-1q-card-samhwa.xls</code></span><span class="fdt">2026.07.21 수령</span><a class="dl" href="vat-2026-1q-card-samhwa.xls" download>받기</a></div>
+<div class="fgroup"><div class="ftitle samhwa">삼화 최종본 · 신고분</div>
+<div class="frow"><span class="fico">📊</span><span class="fnm">부가세 신고서<code>vat-2026-1q-return.pdf</code></span><span class="fdt">2026.07.27 신고</span><a class="dl" href="vat-2026-1q-return.pdf" download>받기</a></div>
+<div class="frow"><span class="fico">📊</span><span class="fnm">카드공제내역 (공제여부 확정)<code>vat-2026-1q-card-final.xls</code></span><span class="fdt">2026.07.27 수령</span><a class="dl" href="vat-2026-1q-card-final.xls" download>받기</a></div>
+<div class="frow"><span class="fico">📊</span><span class="fnm">매출장 최종<code>vat-2026-1q-sales-final.xlsx</code></span><span class="fdt">2026.07.27 수령</span><a class="dl" href="vat-2026-1q-sales-final.xlsx" download>받기</a></div>
+<div class="frow"><span class="fico">📊</span><span class="fnm">매입장 최종<code>vat-2026-1q-purchase-final.xlsx</code></span><span class="fdt">2026.07.27 수령</span><a class="dl" href="vat-2026-1q-purchase-final.xlsx" download>받기</a></div>
+</div>
+<div class="fgroup"><div class="ftitle samhwa1">삼화 1차본 (7/21)</div>
+<div class="frow"><span class="fico">📊</span><span class="fnm">카드공제내역<code>vat-2026-1q-card-samhwa.xls</code></span><span class="fdt">2026.07.21 수령</span><a class="dl" href="vat-2026-1q-card-samhwa.xls" download>받기</a></div>
 <div class="frow"><span class="fico">📊</span><span class="fnm">매출장<code>vat-2026-1q-sales.xlsx</code></span><span class="fdt">2026.07.21 수령</span><a class="dl" href="vat-2026-1q-sales.xlsx" download>받기</a></div>
 <div class="frow"><span class="fico">📊</span><span class="fnm">매입장<code>vat-2026-1q-purchase.xlsx</code></span><span class="fdt">2026.07.21 수령</span><a class="dl" href="vat-2026-1q-purchase.xlsx" download>받기</a></div>
-<div class="frow"><span class="fico">📊</span><span class="fnm">부가세 신고서<code>vat-2026-1q-return.pdf</code></span><span class="fdt">신고 후 수령</span><span class="dl off">대기 중</span></div>
 </div>
 <div class="fgroup"><div class="ftitle etax">홈택스 원본</div>
 <div class="frow"><span class="fico">📊</span><span class="fnm">전자세금계산서 · 매출 (1~3월)<code>vat-2026-1q-etax-sales-q1.xls</code></span><span class="fdt">2026.07.21</span><a class="dl" href="vat-2026-1q-etax-sales-q1.xls" download>받기</a></div>
