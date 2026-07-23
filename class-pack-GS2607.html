@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v32">
+<meta name="version" content="v34">
 <meta name="updated" content="2026.07.22 01:00">
 <title>패킹 운영</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
@@ -203,10 +203,10 @@ ol.steps li span{color:var(--sub);font-size:12.5px}
 <button class="tab" data-t="tR">레시피</button>
 <button class="tab" data-t="t2">소스 배합</button>
 <button class="tab" data-t="t3">패킹 구성</button>
-<button class="tab" data-t="tP"><span class="star">★</span> 준비·패킹</button>
-<button class="tab" data-t="t4">재고</button>
+<button class="tab" data-t="t4">소모품</button>
 <button class="tab" data-t="t6">송장·배송</button>
 <button class="tab" data-t="t7">수업 준비</button>
+<button class="tab" data-t="tP"><span class="star">★</span> 준비·패킹</button>
 </div>
 
 <!-- ===== 1 개요 ===== -->
@@ -762,33 +762,11 @@ Step 3. 마무리
 <div class="panel" id="t4">
 
 <div class="subtabs">
-<button class="stab st on" data-g="g1">식재료</button>
-<button class="stab st" data-g="g2">포장 소모품</button>
 </div>
 
-<div class="gsub on" id="g1">
-
-<div class="block" style="margin-top:14px">
-<div class="bh"><span class="n">01</span><h2>입고 현황</h2><span class="s">차수별 · 기억에 의존하지 않도록</span></div>
-<div class="tbl-wrap"><table>
-<thead><tr><th>재료</th><th>1차 입고<br><span style="font-weight:400">7/21</span></th><th>2차 입고<br><span style="font-weight:400">7/22</span></th><th>미도착</th><th>확보</th><th>상태</th></tr></thead>
-<tbody id="tbIn"></tbody>
-</table></div>
-<div class="alert"><h3>아직 안 온 것 두 가지</h3><p><b>조림용 레몬즙 1L</b> — 이게 없으면 조림용 소분 31개를 만들 수 없습니다.<br><b>에어캡 50m</b> — 유리병 31개 포장이 막힙니다. ① 종이봉투 작업을 뒤로 미룰 수 있게 준비해 두세요.<br><br>복숭아는 1차 9kg(5kg×1+2kg×2) + 2차 15kg(5kg×1+2kg×5) = <b>24kg 전량 확보</b>됐습니다.</p></div>
-</div>
-
-<div class="block" style="margin-top:14px">
-<div class="bh"><span class="n">02</span><h2>메뉴별 소요와 잔여</h2><span class="s">메뉴별 소요량 · 예비 5% 포함</span></div>
-<div class="tbl-wrap"><table>
-<thead><tr><th>재료</th><th>보유</th><th>복숭아청</th><th>복숭아 조림</th><th>브리치즈 샐러드</th><th>총 소요</th><th>잔여</th><th>판정</th></tr></thead>
-<tbody id="tbStock"></tbody>
-</table></div>
-<p class="note">봉투 수량 산출 근거는 <b>「소스 배합 → 한눈에」</b>에 있습니다. 봉투·박스 등 포장재는 옆 <b>「포장 소모품」</b> 탭에서 봅니다.</p>
-</div>
-</div>
-
-<div class="gsub" id="g2">
+<div class="gsub on" id="g2">
 <section class="block">
+<p class="note" style="margin-top:14px">식재료 재고·발주는 <b><a href="class.html">클래스 홈 → 회차 상세 → 발주·입고</a></b>에서 봅니다. 여기는 봉투·박스 등 포장재만 다룹니다.</p>
 <div class="bh"><span class="n">01</span><h2>포장 소모품 소요량</h2><span class="s">31세트 · 예비 포함</span></div>
 <div class="tbl-wrap"><table>
 <thead><tr><th>소모품</th><th>규격</th><th>1세트</th><th>31세트</th><th>준비 수량</th><th>상태</th></tr></thead>
