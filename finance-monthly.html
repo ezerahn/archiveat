@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="version" content="v11"><meta name="updated" content="2026.07.23 14:30">
+<meta name="version" content="v12"><meta name="updated" content="2026.07.23 14:45">
 <title>finance-monthly</title>
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
@@ -68,8 +68,10 @@ td.day{font-family:Pretendard;font-size:11.5px;color:var(--muted);text-align:lef
 .dl{font-size:12.5px;font-weight:600;color:var(--sage);padding:6px 14px;border:1px solid var(--line);border-radius:999px;text-decoration:none;background:var(--cream);white-space:nowrap}
 .dl:hover{border-color:var(--sage)}
 .ast{color:var(--coral);font-weight:700;margin-left:2px}
+.ast2{color:var(--blue);font-weight:700;margin-left:2px;font-size:11px}
 .note{background:rgba(255,80,25,.05);border:1px solid rgba(255,80,25,.16);border-radius:10px;padding:13px 16px;margin:12px 0 0;font-size:12.5px;line-height:1.85;color:#7c4426}
 .note b{color:var(--coral)}
+.note .ast2{font-size:12px}
 .foot{margin-top:26px;padding-top:17px;border-top:1px solid var(--line);text-align:center;font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted)}
 @media print{.tabs,.back{display:none}.panel{display:block!important}}
 </style></head><body><div class="wrap">
@@ -139,10 +141,11 @@ td.day{font-family:Pretendard;font-size:11.5px;color:var(--muted);text-align:lef
   <div class="scroll"><table id="tci"></table></div>
   <div class="scroll" style="margin-top:10px"><table id="tco"></table></div>
   <p class="note">
-    <b>*</b> 표시는 <b>손익(요약·지출 탭)에는 잡히지 않는 항목</b>입니다.<br>
-    <b>대표 입금</b> 빌린 돈이라 매출이 아닙니다. 나중에 갚아야 합니다.<br>
-    <b>퇴직금</b> 미리 쌓아둔 부채를 정산한 것이라 그 달의 비용이 아닙니다.<br>
-    <b>카드대금</b> 결제 수단이라 항목이 아닙니다. 무엇을 샀는지는 지출 탭에 있습니다.
+    <b>*</b> <b>손익에 잡히지 않는 항목</b>입니다.<br>
+    &nbsp;&nbsp;<b>대표 입금</b> 빌린 돈이라 매출이 아닙니다. 나중에 갚아야 합니다.<br>
+    &nbsp;&nbsp;<b>퇴직금</b> 미리 쌓아둔 부채를 정산한 것이라 그 달의 비용이 아닙니다.<br>
+    <span class="ast2">※</span> <b>손익에도 잡히지만 모양이 다른 항목</b>입니다.<br>
+    &nbsp;&nbsp;<b>카드대금</b> 손익에는 산 날짜에 항목별로(식재료·통신비·서버비) 들어가고, 여기에는 결제일에 한 덩어리로 나옵니다.
   </p>
   <h2 class="sec">건별 내역</h2>
   <p class="lead">통장 421870 · 월을 골라 보세요</p>
@@ -287,7 +290,7 @@ tbl('tall',['갈래'].concat(AM.map(m=>m.slice(5)+'월')).concat(['누계']),r);
   const gt=ks.reduce((a,k)=>a+M.reduce((b,m)=>b+(CF.co2[m][k]||0),0),0);
   r+=`<tr class="grp"><td>${g}</td><td></td>`+M.map(()=>'<td></td>').join('')+`<td>${f(gt)}</td></tr>`;
   ks.forEach(k=>{const t=M.reduce((a,m)=>a+(CF.co2[m][k]||0),0);
-   r+=`<tr><td>${k}${(k==='카드대금'||k==='퇴직금')?'<span class="ast">*</span>':''}</td><td class="day">${CF.grp[k][1]}</td>`+M.map(m=>{const v=CF.co2[m][k]||0;return `<td class="${v?'':'zero'}">${f(v)}</td>`;}).join('')+`<td>${f(t)}</td></tr>`;});});
+   r+=`<tr><td>${k}${k==='퇴직금'?'<span class="ast">*</span>':(k==='카드대금'?'<span class="ast2">※</span>':'')}</td><td class="day">${CF.grp[k][1]}</td>`+M.map(m=>{const v=CF.co2[m][k]||0;return `<td class="${v?'':'zero'}">${f(v)}</td>`;}).join('')+`<td>${f(t)}</td></tr>`;});});
  r+=`<tr class="sum"><td>합계</td><td></td>`+M.map(m=>`<td>${f(Object.values(CF.co[m]).reduce((a,b)=>a+b,0))}</td>`).join('')+`<td>${f(TO)}</td></tr>`;
  tbl('tco',['나간 돈','나가는 날'].concat(M.map(m=>m.slice(5)+'월')).concat(['누계']),r);
 
