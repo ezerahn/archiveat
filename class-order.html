@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="version" content="v1">
+<meta name="updated" content="2026.07.21 11:20">
+<title>재료 발주·입고 현황</title>
+<link rel="apple-touch-icon" href="app-icon.png">
+<link rel="icon" href="app-icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;
+--point:#B4A032;--online:#2C7BB6;--offline:#C2570E;--open:#2E7D32;--short:#E2611B;--wait:#9A8F7C;--warn:#B44A1E;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:90px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
+.tb-left{display:flex;align-items:center;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:13px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 13px;transition:.12s}
+.pill:hover{border-color:var(--point);color:var(--point)}
+.tb-right{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--wait);text-align:right}
+.crumb{color:var(--wait)}.tb-sep{color:#CFC5B2}
+.updated{font-family:"DM Mono",monospace;font-size:12px;color:var(--wait)}
+.hero{padding:28px 0 6px}
+.hero h1{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:700;font-size:38px;letter-spacing:-.02em}
+.hero .lead{margin-top:7px;color:var(--sub);font-size:15px}
+h2{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-size:19px;font-weight:700;margin:0}
+.block{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:18px}
+.bh{display:flex;align-items:baseline;gap:9px;margin-bottom:14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.bh .n{font-family:"DM Mono",monospace;font-size:12px;color:var(--point);font-weight:500}
+.bh .s{font-size:12px;color:var(--wait);margin-left:auto}
+
+/* 클래스 정보 줄 */
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--sub)}
+.meta b{color:var(--ink);font-weight:600}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;background:#EAF3FA;color:var(--online)}
+
+/* 요약 대시보드 */
+.dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.d{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 15px}
+.d .k{font-size:12px;color:var(--sub);font-weight:500}
+.d .v{font-family:"DM Mono",monospace;font-size:23px;font-weight:700;margin-top:4px;line-height:1.15}
+.d .u{font-size:12px;color:var(--wait);margin-top:3px}
+.d.in .v{color:var(--open)}
+.d.todo .v{color:var(--short)}
+.d.sum .v{color:var(--online)}
+.d.save .v{color:var(--open)}
+
+/* 표 */
+.tbl-wrap{overflow-x:auto;margin:0 -4px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:13px}
+th,td{border:1px solid var(--line);padding:7px 8px;text-align:center;white-space:nowrap}
+th{background:#F4EFE3;font-size:11.5px;font-weight:700;color:var(--sub)}
+td.l{text-align:left;white-space:normal;min-width:210px}
+td.num{font-family:"DM Mono",monospace;text-align:right}
+tr.sub td{background:#F7F3E9;font-weight:700}
+tr.tot td{background:#EFE7D4;font-weight:700}
+.ok{color:var(--open);font-weight:700}
+.no{color:var(--short);font-weight:700}
+.mid{color:var(--warn);font-weight:700}
+.q{font-size:11px;color:var(--wait);display:block;margin-top:2px;white-space:normal}
+
+/* 게이지 */
+.gwrap{display:inline-block;width:74px;height:7px;background:#EEE9DD;border-radius:4px;position:relative;vertical-align:middle;margin-right:6px}
+.gfill{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+.gfill.g-ok{background:var(--open)}.gfill.g-mid{background:var(--warn)}.gfill.g-no{background:var(--short)}
+
+/* 주의 박스 */
+.alert{background:#FBEAE0;border:1px solid #F0D2C0;border-radius:12px;padding:14px 16px;margin-top:12px}
+.alert h3{font-size:14px;font-weight:700;color:var(--warn);margin-bottom:5px}
+.alert p{font-size:13px;color:var(--sub);line-height:1.6}
+.alert+.alert{margin-top:10px}
+
+/* 예산 */
+.brow{display:flex;justify-content:space-between;font-size:13.5px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.brow .v{font-family:"DM Mono",monospace}
+.brow.big{border-bottom:none;padding-top:11px}
+.brow.big .k{font-weight:700}.brow.big .v{font-size:17px;font-weight:700;color:var(--open)}
+
+/* 복사바 */
+.copybar{position:fixed;bottom:0;left:0;right:0;background:rgba(250,245,236,.96);border-top:1px solid var(--line);padding:12px 20px;backdrop-filter:blur(6px)}
+.copybar .inner{max-width:1080px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:flex-end}
+.copybar .hint{font-size:12px;color:var(--wait);margin-right:auto}
+.btn{font-family:inherit;font-size:14px;font-weight:600;padding:11px 22px;border-radius:10px;border:none;cursor:pointer;transition:.12s}
+.btn.copy{background:var(--point);color:#fff}
+.btn.copy:hover{filter:brightness(1.06)}
+.btn.ghost{background:var(--card);border:1px solid var(--line);color:var(--ink)}
+.note{font-size:12px;color:var(--wait);margin-top:9px;line-height:1.6}
+.foot{margin-top:28px;font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
+@media(max-width:520px){.hero h1{font-size:29px}.topbar{align-items:flex-start}.tb-right{flex-direction:column;align-items:flex-end;gap:2px}.tb-sep{display:none}}
+</style></head><body><div class="wrap">
+
+<div class="topbar">
+<div class="tb-left">
+<a class="pill" href="class.html">← 클래스 홈</a>
+<a class="pill" href="https://claude.ai/chat/dce33b2f-5756-4005-9648-0eb426113e53" target="_blank" rel="noopener">💬 작업 대화</a>
+</div>
+<div class="tb-right"><span class="crumb">AI 워크스페이스 › 클래스 › 재료 발주·입고</span><span class="tb-sep">|</span><span class="updated" id="upd"></span></div>
+</div>
+
+<header class="hero"><h1>재료 발주·입고</h1><p class="lead">클래스별 재료 발주 계획과 실제 입고 상황을 대조합니다. 부족분은 주문 목록으로 바로 복사됩니다.</p></header>
+
+<!-- 클래스 정보 -->
+<section class="block">
+<div class="bh"><span class="n">GS-2607</span><h2>제철 복숭아로 만드는 복숭아청과 브리치즈 샐러드</h2><span class="s">경기도지식 · 온라인</span></div>
+<div class="meta">
+<span><span class="tag">온라인</span></span>
+<span>선생님 <b>이영미 전문가</b></span>
+<span>수업일 <b>2026.07.24 (금) 16:00</b></span>
+<span>인원 <b>30명</b> 사전확정</span>
+<span>1인 복숭아 배분 <b>5개</b> (5kg박스 2 + 2kg박스 3)</span>
+</div>
+</section>
+
+<!-- 요약 -->
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>요약</h2><span class="s">2026.07.21 기준</span></div>
+<div class="dash">
+<div class="d in"><div class="k">입고 완료</div><div class="v">136,460</div><div class="u">원 · 7품목</div></div>
+<div class="d todo"><div class="k">추가 주문 필요</div><div class="v">243,280</div><div class="u">원 · 11품목</div></div>
+<div class="d sum"><div class="k">총 재료비</div><div class="v">379,740</div><div class="u">원 · 1인 12,658원</div></div>
+<div class="d save"><div class="k">견적 대비</div><div class="v">−1,830</div><div class="u">원 · 예산 내</div></div>
+</div>
+<p class="note">견적 기준 발주총액은 381,570원입니다. 복숭아를 1인 5개로 늘렸지만, 레몬즙 발주수량이 견적 4개 → 실제 1개로 줄어 상쇄됐습니다.</p>
+</section>
+
+<!-- 입고 완료 -->
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>입고 완료</h2><span class="s">7/20 주문 → 7/21(화) 도착 · 문앞 전달</span></div>
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>품목</th><th>규격</th><th>수량</th><th>입고량</th><th>30명 필요</th><th>충족률</th><th>금액</th></tr></thead>
+<tbody>
+<tr>
+<td class="l">경성리빙테크 원형 유리병</td><td>500ml · 15개입</td><td>2개</td>
+<td class="num">30개</td><td class="num">30개</td>
+<td><span class="gwrap"><span class="gfill g-ok" style="width:100%"></span></span><span class="ok">100%</span></td>
+<td class="num">29,400</td>
+</tr>
+<tr>
+<td class="l">당찬 천도복숭아</td><td>5kg 박스</td><td>1박스</td>
+<td class="num">32~35개</td><td class="num">60개</td>
+<td><span class="gwrap"><span class="gfill g-no" style="width:56%"></span></span><span class="no">56%</span></td>
+<td class="num">29,800</td>
+</tr>
+<tr>
+<td class="l">옹골찬 GAP 경산 천도복숭아</td><td>2kg 박스 · 14개입</td><td>2박스</td>
+<td class="num">28개</td><td class="num">90개</td>
+<td><span class="gwrap"><span class="gfill g-no" style="width:31%"></span></span><span class="no">31%</span></td>
+<td class="num">24,410</td>
+</tr>
+<tr class="sub">
+<td class="l">└ 복숭아 소계</td><td>9kg</td><td>3박스</td>
+<td class="num">60~63개</td><td class="num">150개</td>
+<td><span class="gwrap"><span class="gfill g-no" style="width:41%"></span></span><span class="no">41%</span></td>
+<td class="num">54,210</td>
+</tr>
+<tr>
+<td class="l">백설 하얀설탕</td><td>1kg</td><td>1개</td>
+<td class="num">1,000g</td><td class="num">9,390g</td>
+<td><span class="gwrap"><span class="gfill g-no" style="width:11%"></span></span><span class="no">11%</span></td>
+<td class="num">3,360</td>
+</tr>
+<tr>
+<td class="l">데체코 엑스트라 버진 올리브오일</td><td>1L</td><td>1개</td>
+<td class="num">1,000ml</td><td class="num">1,230ml</td>
+<td><span class="gwrap"><span class="gfill g-mid" style="width:81%"></span></span><span class="mid">81%</span></td>
+<td class="num">18,820</td>
+</tr>
+<tr>
+<td class="l">보르니에르 홀그레인 머스타드</td><td>210g</td><td>1개</td>
+<td class="num">210g</td><td class="num">240g</td>
+<td><span class="gwrap"><span class="gfill g-mid" style="width:88%"></span></span><span class="mid">88%</span></td>
+<td class="num">5,770</td>
+</tr>
+<tr>
+<td class="l">코스트코 미니 브리치즈<span class="q">25g × 15개입 · 개별포장 · 배송상태 미확인</span></td><td>375g</td><td>1개</td>
+<td class="num">15개</td><td class="num">30개</td>
+<td><span class="gwrap"><span class="gfill g-no" style="width:50%"></span></span><span class="no">50%</span></td>
+<td class="num">24,900</td>
+</tr>
+<tr class="tot"><td class="l" colspan="6">입고 소계</td><td class="num">136,460</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- 미주문 -->
+<section class="block">
+<div class="bh"><span class="n">03</span><h2>추가 주문 목록</h2><span class="s">오늘(화) 결제 → 내일(수) 새벽 도착</span></div>
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>품목</th><th>규격</th><th>수량</th><th>사유</th><th>금액</th></tr></thead>
+<tbody>
+<tr><td class="l">당찬 천도복숭아</td><td>5kg 박스</td><td>1박스</td><td>부족분 (60개 중 32~35개만 입고)</td><td class="num">29,800</td></tr>
+<tr><td class="l">옹골찬 GAP 경산 천도복숭아</td><td>2kg 박스</td><td>3박스</td><td>장바구니에 담긴 상태 · 미결제</td><td class="num">36,610</td></tr>
+<tr><td class="l">옹골찬 GAP 경산 천도복숭아</td><td>2kg 박스</td><td>2박스</td><td>부족분 (90개 채우려면 총 7박스)</td><td class="num">24,410</td></tr>
+<tr><td class="l">백설 하얀설탕</td><td>1kg</td><td>9개</td><td>수제청 9,000g + 소스 390g 필요</td><td class="num">30,240</td></tr>
+<tr><td class="l">로메인</td><td>200g</td><td>8개</td><td>전량 미주문</td><td class="num">27,840</td></tr>
+<tr><td class="l">와일드 루꼴라</td><td>100g</td><td>10개</td><td>전량 미주문</td><td class="num">32,200</td></tr>
+<tr><td class="l">코스트코 미니 브리치즈</td><td>375g (25g×15)</td><td>1개</td><td>30인 = 정확히 2팩</td><td class="num">24,900</td></tr>
+<tr><td class="l">식초</td><td>900ml</td><td>1개</td><td>전량 미주문</td><td class="num">3,280</td></tr>
+<tr><td class="l">보르니에르 홀그레인 머스타드</td><td>210g</td><td>1개</td><td>30g 부족</td><td class="num">5,770</td></tr>
+<tr><td class="l">데체코 엑스트라 버진 올리브오일</td><td>1L</td><td>1개</td><td>230ml 부족</td><td class="num">18,820</td></tr>
+<tr><td class="l">레몬즙</td><td>1개</td><td>1개</td><td>전량 미주문 (240g만 사용)</td><td class="num">9,410</td></tr>
+<tr class="tot"><td class="l" colspan="4">추가 주문 소계 · 11품목</td><td class="num">243,280</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note">수업이 7/24(금) 16:00입니다. 오늘 결제 → 수요일 새벽 도착 → 목요일 패킹 → 금요일 새벽 도착 일정이라 하루도 여유가 없습니다.</p>
+</section>
+
+<!-- 주의 -->
+<section class="block">
+<div class="bh"><span class="n">04</span><h2>확인이 필요한 것</h2><span class="s">3건</span></div>
+
+<div class="alert">
+<h3>설탕이 가장 급합니다</h3>
+<p>1kg 한 봉만 입고됐는데 수제청용으로만 9,000g(1인 300g × 30명)이 필요합니다. 소스용 390g까지 하면 총 9,390g. <b>1kg 9개를 반드시 추가 주문</b>하세요.</p>
+</div>
+
+<div class="alert">
+<h3>유리병은 여유가 0입니다</h3>
+<p>30개 필요에 정확히 30개 입고됐습니다. 운송 중 파손이나 열탕 소독 중 파손이 하나라도 생기면 즉시 모자랍니다. 15개입 1팩(14,700원)을 예비로 두시길 권합니다.</p>
+</div>
+
+<div class="alert">
+<h3>브리치즈 배송 상태가 확인되지 않습니다</h3>
+<p>다른 6품목은 "배송완료"가 찍혀 있는데 코스트코 미니 브리치즈만 상태 표시가 없습니다. 실물 입고 여부를 확인해 주세요. 25g 개별포장 15개입이므로 30명이면 정확히 2팩입니다.</p>
+</div>
+</section>
+
+<!-- 예산 -->
+<section class="block">
+<div class="bh"><span class="n">05</span><h2>예산 검증</h2><span class="s">30명 기준</span></div>
+<div class="brow"><span class="k">입고 완료분</span><span class="v">136,460원</span></div>
+<div class="brow"><span class="k">추가 주문분</span><span class="v">243,280원</span></div>
+<div class="brow"><span class="k">총 재료비</span><span class="v">379,740원 · 1인 12,658원</span></div>
+<div class="brow"><span class="k">견적 기준 발주총액</span><span class="v">381,570원</span></div>
+<div class="brow big"><span class="k">차이</span><span class="v">−1,830원 · 예산 내</span></div>
+<p class="note">복숭아 단가는 5kg 박스 851~931원/개, 2kg 박스 872원/개로 상한 1,200원 안쪽입니다. 상한을 박스가로 환산하면 5kg(33개입) 39,600원, 2kg(14개입) 16,800원까지 가능합니다.</p>
+</section>
+
+<!-- 운영 안내 -->
+<section class="block">
+<div class="bh"><span class="n">※</span><h2>운영 안내</h2></div>
+<p class="note" style="margin-top:0">
+이 화면은 보기·대조만 합니다.<br>
+· 데이터를 고칠 땐 → 마스터(엑셀/대화창)에서<br>
+· 볼 땐 → 이 화면에서<br>
+· 모든 파일은 같은 폴더(github)에 두어야 링크가 작동합니다.
+</p>
+</section>
+
+<div class="foot" id="foot"></div>
+</div>
+
+<div class="copybar"><div class="inner">
+<span class="hint">추가 주문 목록을 복사해 채팅창이나 메모에 붙여넣으세요</span>
+<button class="btn ghost" onclick="window.print()">🖨 인쇄</button>
+<button class="btn copy" id="cpBtn" onclick="copyOrder()">📋 주문 목록 복사</button>
+</div></div>
+
+<script>
+(function(){
+  var u=document.querySelector('meta[name=updated]'),v=document.querySelector('meta[name=version]');
+  var t='업데이트 '+((u&&u.content)||'')+' · '+((v&&v.content)||'');
+  var e=document.getElementById('upd'); if(e)e.textContent=t;
+  var f=document.getElementById('foot'); if(f)f.textContent='재료 발주·입고 현황 · '+t;
+})();
+
+var ORDER=[
+ ['당찬 천도복숭아 5kg 박스','1박스','29,800원'],
+ ['옹골찬 GAP 경산 천도복숭아 2kg 박스','3박스 (장바구니)','36,610원'],
+ ['옹골찬 GAP 경산 천도복숭아 2kg 박스','2박스','24,410원'],
+ ['백설 하얀설탕 1kg','9개','30,240원'],
+ ['로메인 200g','8개','27,840원'],
+ ['와일드 루꼴라 100g','10개','32,200원'],
+ ['코스트코 미니 브리치즈 375g (25g×15개입)','1개','24,900원'],
+ ['식초 900ml','1개','3,280원'],
+ ['보르니에르 홀그레인 머스타드 210g','1개','5,770원'],
+ ['데체코 엑스트라 버진 올리브오일 1L','1개','18,820원'],
+ ['레몬즙','1개','9,410원']
+];
+
+function copyOrder(){
+  var s='[GS-2607 복숭아청·브리치즈 샐러드] 추가 주문 목록\n';
+  s+='수업 2026.07.24(금) 16:00 · 30명 · 오늘 결제 → 수요일 새벽 도착\n\n';
+  ORDER.forEach(function(r,i){ s+=(i+1)+'. '+r[0]+' — '+r[1]+' — '+r[2]+'\n'; });
+  s+='\n합계 11품목 243,280원\n';
+  s+='(입고분 136,460원 포함 총 재료비 379,740원 · 1인 12,658원)\n';
+  s+='\n※ 예비 권장: 유리병 500ml 15개입 1팩 14,700원';
+  var btn=document.getElementById('cpBtn'), old=btn.textContent;
+  function done(){ btn.textContent='✓ 복사됨'; setTimeout(function(){btn.textContent=old;},1400); }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(s).then(done,fallback);
+  } else { fallback(); }
+  function fallback(){
+    var ta=document.createElement('textarea'); ta.value=s;
+    ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){ alert('복사에 실패했습니다. 화면의 표를 직접 선택해 복사해 주세요.'); }
+    document.body.removeChild(ta);
+  }
+}
+</script>
+</body></html>
