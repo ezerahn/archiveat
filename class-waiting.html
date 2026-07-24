@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v1">
+<meta name="version" content="v2">
 <meta name="updated" content="2026.07.24 15:50">
 <title>온라인 수업 대기화면</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
@@ -18,6 +18,14 @@ body{background:#EDE9E4;color:var(--ink);font-family:Pretendard,-apple-system,"A
 .bar .f label{display:block;font-size:11px;font-weight:600;color:#6B6256;margin-bottom:3px}
 .bar input{font-family:inherit;font-size:13px;padding:7px 10px;border:1px solid #D6CCC2;border-radius:8px;background:#fff;min-width:220px}
 .bar input.sm{min-width:150px}
+.segx{display:flex;gap:3px;background:#E4DFD8;padding:3px;border-radius:8px}
+.segx button{font-family:inherit;font-size:12.5px;font-weight:600;color:#6B6256;background:none;border:none;border-radius:6px;padding:5px 11px;cursor:pointer}
+.segx button.on{background:#fff;color:var(--coral);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.c-end{display:none}
+.scr-end{display:none}
+body.mode-end .scr-start{display:none}
+body.mode-end .scr-end{display:flex}
+body.mode-end .c-end{display:block}
 .bar .sp{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .bar button{font-family:inherit;font-size:13px;font-weight:600;padding:8px 15px;border-radius:8px;border:1px solid #D6CCC2;background:#fff;color:#4A3A32;cursor:pointer}
 .bar button.pr{background:var(--coral);border-color:var(--coral);color:#fff}
@@ -49,6 +57,19 @@ body{background:#EDE9E4;color:var(--ink);font-family:Pretendard,-apple-system,"A
 .stp .cap2{margin-top:1.5%;text-align:center;font-size:1.25cqw;line-height:1.45;color:var(--sub);flex-shrink:0}
 .stp .cap2 b{display:block;color:var(--ink);font-weight:700;margin-top:.3cqw}
 
+/* 마무리 화면 */
+.ecard{background:#fff;border:1px solid var(--line);border-radius:1.1cqw;padding:1.9% 2.2%;display:flex;flex-direction:column;min-height:0}
+.ecard .et{text-align:center;font-size:1.5cqw;font-weight:700;color:var(--ink);flex-shrink:0}
+.ecard .ebody{flex:1;display:flex;flex-direction:column;justify-content:center;gap:1.6cqw;min-height:0}
+.erow{text-align:center}
+.erow .lb{display:inline-block;font-family:"DM Mono",monospace;font-size:.9cqw;font-weight:500;color:#fff;background:var(--point);border-radius:2cqw;padding:.3cqw 1.1cqw;letter-spacing:.06em}
+.erow p{font-size:1.25cqw;color:var(--sub);margin-top:.7cqw;line-height:1.5}
+.erow p b{color:var(--coral);font-weight:700}
+.ecard .enote{text-align:center;font-size:1.02cqw;color:var(--wait);padding-top:1.1cqw;border-top:1px dashed var(--line);flex-shrink:0}
+.ecard .enote::before{content:"✓ ";color:var(--point);font-weight:700}
+.eclose{text-align:center;font-size:1.5cqw;font-weight:700;color:var(--ink);margin-top:2%;flex-shrink:0}
+.eclose b{color:var(--coral)}
+.notes.scr-start{}
 /* 하단 고지 */
 .notes{margin-top:2.2%;position:relative;z-index:2;flex-shrink:0}
 .notes div{display:flex;gap:.9cqw;align-items:flex-start;font-size:1.15cqw;color:var(--sub);padding:.35cqw 0}
@@ -76,6 +97,10 @@ body.full .stage{max-width:none;margin:0;height:100vh;border-radius:0;box-shadow
 <div class="f"><label>강의명</label><input id="iT" value="여름 제철 과일로 만드는 수제청과 샐러드"></div>
 <div class="f"><label>일시</label><input id="iD" class="sm" value="2026.07.24 (금) 16:00 ~ 17:30"></div>
 <div class="f"><label>캐치프레이즈</label><input id="iC" class="sm" value="오늘의 아카이빗 온라인 클래스"></div>
+<div class="f"><label>화면</label>
+<div class="segx" id="scr"><button data-s="start" class="on">시작 안내</button><button data-s="end">마무리 안내</button></div></div>
+<div class="f c-end"><label>발주처</label>
+<div class="segx" id="org"><button data-o="gseek" class="on">경기도지식</button><button data-o="ours">아카이빗몰</button></div></div>
 <div class="sp">
 <button onclick="document.body.classList.toggle('full')">⛶ 전체화면</button>
 <button class="pr" onclick="window.print()">🖨 이미지로 저장</button>
@@ -104,7 +129,7 @@ body.full .stage{max-width:none;margin:0;height:100vh;border-radius:0;box-shadow
     <div class="dt" id="oD">2026.07.24 (금) 16:00 ~ 17:30</div>
   </div>
 
-  <div class="panel">
+  <div class="panel scr-start">
     <h2><span>✿</span> 수업 시작 전 확인해 주세요</h2>
     <div class="steps">
 
@@ -179,7 +204,33 @@ body.full .stage{max-width:none;margin:0;height:100vh;border-radius:0;box-shadow
     </div>
   </div>
 
-  <div class="notes">
+    <div class="panel scr-end" style="flex-direction:column">
+    <h2><span>✿</span> <span id="endTitle">만족도조사 &amp; 이용후기 안내</span></h2>
+    <div class="steps" style="grid-template-columns:1fr 1fr">
+
+      <div class="ecard">
+        <div class="et" id="e1t">만족도조사 참여방법</div>
+        <div class="ebody">
+          <div class="erow"><span class="lb">STEP 01</span><p id="e1s1">강의 종료 후<br><b>[내공간 &gt; 화상학습내역]</b> 클릭</p></div>
+          <div class="erow"><span class="lb">STEP 02</span><p id="e1s2">해당 강좌의<br><b>[만족도조사]</b> 버튼 클릭</p></div>
+        </div>
+        <div class="enote" id="e1n">[만족도조사] 버튼은 수료 처리 후 활성화됩니다.</div>
+      </div>
+
+      <div class="ecard">
+        <div class="et" id="e2t">이용후기 참여방법</div>
+        <div class="ebody">
+          <div class="erow"><span class="lb">STEP 01</span><p id="e2s1">지식(GSEEK) 메인 화면<br>우측 상단 <b>[이용후기]</b> 클릭</p></div>
+          <div class="erow"><span class="lb">STEP 02</span><p id="e2s2">하단 <b>[후기작성하기]</b> 클릭 후<br>내용 기재</p></div>
+        </div>
+        <div class="enote" id="e2n">분야 : 화상학습후기 · 제목 : 참여 수업명 기재</div>
+      </div>
+
+    </div>
+    <div class="eclose" id="eClose">서비스 발전 및 강의 질 향상을 위한 <b>소중한 의견</b> 부탁드립니다.</div>
+  </div>
+
+<div class="notes">
     <div>수업 중 <b>보호자께서 함께해 주세요.</b> 칼 사용과 끓는 물을 다루는 과정이 있습니다.</div>
     <div>재료는 <b>냉장 보관</b> 후 수업 직전에 꺼내 주세요. 실온 봉투는 그대로 두시면 됩니다.</div>
     <div>궁금한 점은 <b>채팅창</b>에 남겨주시면 진행 중에 답해 드립니다.</div>
@@ -198,5 +249,42 @@ function bind(inp,out){
   i.addEventListener('input',function(){o.textContent=i.value;});
 }
 bind('iT','oT'); bind('iD','oD'); bind('iC','oC');
+
+var ORG={
+ gseek:{t:'만족도조사 & 이용후기 안내',
+  a:'만족도조사 참여방법', a1:'강의 종료 후<br><b>[내공간 &gt; 화상학습내역]</b> 클릭', a2:'해당 강좌의<br><b>[만족도조사]</b> 버튼 클릭',
+  an:'[만족도조사] 버튼은 수료 처리 후 활성화됩니다.',
+  b:'이용후기 참여방법', b1:'지식(GSEEK) 메인 화면<br>우측 상단 <b>[이용후기]</b> 클릭', b2:'하단 <b>[후기작성하기]</b> 클릭 후<br>내용 기재',
+  bn:'분야 : 화상학습후기 · 제목 : 참여 수업명 기재',
+  c:'서비스 발전 및 강의 질 향상을 위한 <b>소중한 의견</b> 부탁드립니다.'},
+ ours:{t:'후기 작성 & 다음 클래스 안내',
+  a:'후기 남기기', a1:'아카이빗 공식몰 접속 후<br><b>[마이페이지 &gt; 주문내역]</b> 클릭', a2:'해당 상품의<br><b>[후기 작성]</b> 버튼 클릭',
+  an:'사진 후기를 남겨주시면 적립금을 드립니다.',
+  b:'다음 클래스 만나기', b1:'아카이빗 공식몰<br>상단 <b>[클래스]</b> 탭 클릭', b2:'제철 메뉴로 매달 새 클래스가<br>열립니다',
+  bn:'인스타그램 @archiveat.kr 에서도 소식을 전해드려요.',
+  c:'오늘 만드신 요리, <b>#아카이빗</b> 으로 자랑해 주세요.'}
+};
+function setOrg(k){
+  var o=ORG[k];
+  document.querySelectorAll('#org button').forEach(function(x){x.classList.toggle('on',x.dataset.o===k);});
+  document.getElementById('endTitle').innerHTML=o.t;
+  document.getElementById('e1t').innerHTML=o.a;
+  document.getElementById('e1s1').innerHTML=o.a1;
+  document.getElementById('e1s2').innerHTML=o.a2;
+  document.getElementById('e1n').innerHTML=o.an;
+  document.getElementById('e2t').innerHTML=o.b;
+  document.getElementById('e2s1').innerHTML=o.b1;
+  document.getElementById('e2s2').innerHTML=o.b2;
+  document.getElementById('e2n').innerHTML=o.bn;
+  document.getElementById('eClose').innerHTML=o.c;
+}
+document.querySelectorAll('#org button').forEach(function(b){b.addEventListener('click',function(){setOrg(b.dataset.o);});});
+document.querySelectorAll('#scr button').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('#scr button').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');
+    document.body.classList.toggle('mode-end', b.dataset.s==='end');
+  });
+});
 </script>
 </body></html>
