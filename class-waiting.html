@@ -22,9 +22,6 @@ body{background:#EDE9E4;color:var(--ink);font-family:Pretendard,-apple-system,"A
 .segx button{font-family:inherit;font-size:12.5px;font-weight:600;color:#6B6256;background:none;border:none;border-radius:6px;padding:5px 11px;cursor:pointer}
 .segx button.on{background:#fff;color:var(--coral);box-shadow:0 1px 2px rgba(0,0,0,.08)}
 .c-end{display:none}
-.scr-end{display:none}
-body.mode-end .scr-start{display:none}
-body.mode-end .scr-end{display:flex}
 body.mode-end .c-end{display:block}
 .bar .sp{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .bar button{font-family:inherit;font-size:13px;font-weight:600;padding:8px 15px;border-radius:8px;border:1px solid #D6CCC2;background:#fff;color:#4A3A32;cursor:pointer}
@@ -58,6 +55,7 @@ body.mode-end .c-end{display:block}
 .stp .cap2 b{display:block;color:var(--ink);font-weight:700;margin-top:.3cqw}
 
 /* 마무리 화면 */
+.egrid{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:2.6%;margin-top:2.4%;min-height:0}
 .ecard{background:#fff;border:1px solid var(--line);border-radius:1.1cqw;padding:1.9% 2.2%;display:flex;flex-direction:column;min-height:0}
 .ecard .et{text-align:center;font-size:1.5cqw;font-weight:700;color:var(--ink);flex-shrink:0}
 .ecard .ebody{flex:1;display:flex;flex-direction:column;justify-content:center;gap:1.6cqw;min-height:0}
@@ -69,7 +67,11 @@ body.mode-end .c-end{display:block}
 .ecard .enote::before{content:"✓ ";color:var(--point);font-weight:700}
 .eclose{text-align:center;font-size:1.5cqw;font-weight:700;color:var(--ink);margin-top:2%;flex-shrink:0}
 .eclose b{color:var(--coral)}
-.notes.scr-start{}
+/* 화면 전환 — .panel 이후에 와야 우선순위가 잡힘 */
+.panel.scr-end{display:none}
+body.mode-end .panel.scr-start{display:none}
+body.mode-end .panel.scr-end{display:flex}
+body.mode-end .notes.scr-start{display:none}
 /* 하단 고지 */
 .notes{margin-top:2.2%;position:relative;z-index:2;flex-shrink:0}
 .notes div{display:flex;gap:.9cqw;align-items:flex-start;font-size:1.15cqw;color:var(--sub);padding:.35cqw 0}
@@ -206,7 +208,7 @@ body.full .stage{max-width:none;margin:0;height:100vh;border-radius:0;box-shadow
 
     <div class="panel scr-end" style="flex-direction:column">
     <h2><span>✿</span> <span id="endTitle">만족도조사 &amp; 이용후기 안내</span></h2>
-    <div class="steps" style="grid-template-columns:1fr 1fr">
+    <div class="egrid">
 
       <div class="ecard">
         <div class="et" id="e1t">만족도조사 참여방법</div>
@@ -230,7 +232,7 @@ body.full .stage{max-width:none;margin:0;height:100vh;border-radius:0;box-shadow
     <div class="eclose" id="eClose">서비스 발전 및 강의 질 향상을 위한 <b>소중한 의견</b> 부탁드립니다.</div>
   </div>
 
-<div class="notes">
+<div class="notes scr-start">
     <div>수업 중 <b>보호자께서 함께해 주세요.</b> 칼 사용과 끓는 물을 다루는 과정이 있습니다.</div>
     <div>재료는 <b>냉장 보관</b> 후 수업 직전에 꺼내 주세요. 실온 봉투는 그대로 두시면 됩니다.</div>
     <div>궁금한 점은 <b>채팅창</b>에 남겨주시면 진행 중에 답해 드립니다.</div>
