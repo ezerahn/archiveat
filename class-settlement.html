@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="version" content="v7">
+<meta name="updated" content="2026.07.23 17:30">
+<title>정산 구조 기준표</title>
+<link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;
+--point:#B4A032;--ok:#2E7D32;--warn:#B44A1E;--wait:#9A8F7C;--mute:#ADA294}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
+.tb-left{display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:13px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 13px}
+.pill:hover{border-color:var(--point);color:var(--point)}
+.tb-right{font-size:12px;color:var(--wait);font-family:"DM Mono",monospace}
+.hero{padding:26px 0 4px}
+.hero h1{font-family:Hahmlet,serif;font-weight:700;font-size:34px;letter-spacing:-.02em}
+.hero .lead{margin-top:6px;color:var(--sub);font-size:14.5px}
+
+.ctrl{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;background:#F7F3E9;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:18px}
+.ctrl label{display:block;font-size:11.5px;color:var(--sub);font-weight:600;margin-bottom:4px}
+.ctrl input{font-family:"DM Mono",monospace;font-size:14px;font-weight:700;width:96px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+.ctrl .hint{font-size:12px;color:var(--wait);margin-left:auto;max-width:340px;line-height:1.6}
+
+.tabs{display:flex;gap:5px;margin-top:18px;background:#F4EFE3;padding:5px;border-radius:11px;max-width:320px}
+.tab{flex:1;font-family:inherit;font-size:14px;font-weight:600;color:var(--sub);background:none;border:none;border-radius:8px;padding:10px 16px;cursor:pointer}
+.tab:hover{color:var(--ink)}
+.tab.on{background:#fff;color:var(--point);box-shadow:0 1px 3px rgba(0,0,0,.07)}
+.block{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.bh{display:flex;align-items:baseline;gap:9px;margin-bottom:12px;padding-bottom:9px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.bh .n{font-family:"DM Mono",monospace;font-size:12px;color:var(--point);font-weight:500}
+.bh h2{font-family:Hahmlet,serif;font-size:18px;font-weight:700}
+.bh .s{font-size:12px;color:var(--wait);margin-left:auto}
+
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:13px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:right;white-space:nowrap}
+th{background:#F4EFE3;font-size:11.5px;font-weight:700;color:var(--sub);text-align:center}
+td.c{text-align:center}
+td.num{font-family:"DM Mono",monospace}
+tr.good td{background:#F2F8F2}
+tr.warn td{background:#FFF8E8}
+tr.bad td{background:#EFEDEA;color:var(--mute)}
+tr.bad td.num{color:var(--mute)}
+tr.bad{text-decoration:none}
+.mg{font-weight:700}
+tr.good .mg{color:var(--ok)}
+tr.warn .mg{color:#B4780E}
+tr.bad .mg{color:var(--mute)}
+.star{color:var(--warn);font-weight:700}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;border-radius:5px;padding:2px 7px}
+.t-ok{background:#E6F2E7;color:var(--ok)}
+.t-wn{background:#FBF0DC;color:#B4780E}
+.t-bd{background:#E4E1DC;color:var(--mute)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--sub);margin-top:12px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:22px;height:12px;border-radius:3px;border:1px solid var(--line);display:inline-block}
+.note{font-size:12.5px;color:var(--wait);margin-top:10px;line-height:1.65}
+.foot{margin-top:26px;font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
+@media(max-width:560px){.hero h1{font-size:26px}.ctrl .hint{margin-left:0;width:100%}}
+@media print{@page{size:A4 landscape;margin:12mm}.topbar,.ctrl{display:none}body{background:#fff}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style></head><body><div class="wrap">
+
+<div class="topbar">
+<div class="tb-left">
+<a class="pill" href="class.html">← 클래스 홈</a>
+<a class="pill" href="https://claude.ai/chat/dce33b2f-5756-4005-9648-0eb426113e53" target="_blank" rel="noopener">💬 작업 대화</a>
+</div>
+<div class="tb-right" id="upd"></div>
+</div>
+
+<header class="hero">
+<h1>정산 구조 기준표</h1>
+<p class="lead">유형별 · 인원별 마진 시뮬레이션. 조건을 바꾸면 전체가 다시 계산됩니다.</p>
+</header>
+
+<div class="ctrl">
+<div><label>클래스 가격 (부가세 별도)</label><input type="number" id="iP" value="50000"></div>
+<div><label>재료비 (1인)</label><input type="number" id="iM" value="15000"></div>
+<div><label>패킹비 (1인)</label><input type="number" id="iK" value="5000"></div>
+<div><label>배송비 (1인)</label><input type="number" id="iS" value="5000"></div>
+<div><label>강사료 (1인)</label><input type="number" id="iT" value="10000"></div>
+<div><label>강사료 최소보장</label><input type="number" id="iG" value="100000"></div>
+<div><label>오프라인 최소 마진액</label><input type="number" id="iF" value="100000"></div>
+<span class="hint">제휴 수수료는 <b>공급가(부가세 별도) 기준</b>입니다. 계약서에 "공급가액 기준"을 명시하세요.<br>오프라인은 우리 몫이 <b>정률</b>이라 인원이 늘어도 비율이 같습니다. 개최 판단은 <b>절대 금액</b>으로 합니다.</span>
+</div>
+
+<div class="tabs">
+<button class="tab on" data-m="off">오프라인</button>
+<button class="tab" data-m="on">온라인</button>
+</div>
+<div id="out"></div>
+
+<div class="block">
+<div class="bh"><span class="n">기준</span><h2>판정 기준</h2></div>
+<div class="legend">
+<span><i class="sw" style="background:#F2F8F2"></i> <b>권장</b> — 마진 20% 이상</span>
+<span><i class="sw" style="background:#FFF8E8"></i> <b>가능</b> — 마진 10~20%</span>
+<span><i class="sw" style="background:#EFEDEA"></i> <b>비추천</b> — 마진 10% 미만</span>
+<span><i class="star">★</i> 강사료 최소보장 적용 구간</span>
+</div>
+<p class="note"><b>온라인</b>은 마진 비율로, <b>오프라인</b>은 절대 금액으로 판정합니다. 오프라인은 우리 몫이 정률이라 인원이 늘어도 비율이 같기 때문입니다.<br>
+위 표는 <b>1회차 변동비만</b> 반영한 값입니다. 회차 고정비(기획·촬영·줌·잡비)는 포함되어 있지 않으니, 실제 개최 여부는 고정비를 더해 판단하세요.</p>
+</div>
+
+<div class="block">
+<div class="bh"><span class="n">정리</span><h2>유형별 요약</h2></div>
+<div class="tw"><table style="min-width:620px">
+<thead><tr><th>구분</th><th>수업 형태</th><th>재료 준비</th><th>강사료</th><th>우리 몫</th><th>최소 개최</th></tr></thead>
+<tbody id="sumbody"></tbody>
+</table></div>
+<p class="note"><b>계산식은 하나입니다.</b><br>
+클래스 가격(부가세 별도) − 제휴 수수료 − 재료비 · 패킹비 · 배송비 − 강사료 = 우리 마진<br><br>
+<b>오프라인</b>은 선생님이 재료와 공간을 직접 준비합니다. 우리 몫이 정률(6% 또는 20%)이고, <b>나머지 전부가 선생님에게 갑니다. 이 금액에는 재료비가 포함</b>되어 있어 순수 강사 인건비는 그보다 적습니다.<br>
+<b>온라인</b>은 우리가 재료·패킹·배송을 맡으므로 강사료가 인당 정액이고, 남는 것이 전부 우리 몫입니다. 재료를 잘 사면 그만큼 마진이 올라갑니다.</p>
+</div>
+
+<div class="foot" id="foot"></div>
+</div>
+
+<script>
+(function(){var u=document.querySelector('meta[name=updated]').content,v=document.querySelector('meta[name=version]').content;
+document.getElementById('upd').textContent='업데이트 '+u+' · '+v;
+var _f=document.getElementById('foot'); if(_f) _f.textContent='정산 구조 기준표 · '+u+' · '+v;})();
+
+var NS=[5,8,10,15,20,30];
+var MODE='off';
+function f(n){return Math.round(n).toLocaleString();}
+function V(id){return +document.getElementById(id).value||0;}
+
+/* 유형 정의
+   mode 'off' = 오프라인 · 선생님이 재료 준비 · 우리 몫 정률
+   mode 'on'  = 온라인   · 우리가 재료·패킹·배송 · 강사료 인당 정액 · 우리 몫 잔여 */
+var TYPES=[
+ {t:'B2C 오프라인 (공공의주방몰)', s:'선생님이 자기 수업을 올림 · 우리는 자리와 결제만',            mode:'off', share:6,  fee:0, free:true},
+ {t:'B2B 오프라인',             s:'지자체 · 기업 출강 · 우리가 따온 건',                      mode:'off', share:20, fee:0},
+ {t:'B2B2C 오프라인 제휴 5%', s:'갤러리아 · 신세계 매장 · 20% 안에서 제휴사 배분',            mode:'off', share:20, fee:5},
+ {t:'B2B2C 오프라인 제휴 10%',s:'갤러리아 · 신세계 매장 · 20% 안에서 제휴사 배분',            mode:'off', share:20, fee:10},
+ {t:'B2B2C 오프라인 제휴 15%',s:'갤러리아 · 신세계 매장 · 20% 안에서 제휴사 배분',            mode:'off', share:20, fee:15},
+ {t:'B2C 온라인 (아카이빗몰)',   s:'줌 실시간 + 쿠킹박스 배송',                              mode:'on',  share:0,  fee:0},
+ {t:'B2B 온라인',              s:'경기도지식 · 지자체 · 기업 · 사전모집 + 쿠킹박스 배송',        mode:'on',  share:0,  fee:0},
+ {t:'B2B2C 온라인 제휴 5%',   s:'제휴 수수료 = 클래스 가격(부가세 별도)의 5%',                mode:'on',  share:0,  fee:5},
+ {t:'B2B2C 온라인 제휴 10%',  s:'제휴 수수료 = 클래스 가격(부가세 별도)의 10%',               mode:'on',  share:0,  fee:10},
+ {t:'B2B2C 온라인 제휴 15%',  s:'제휴 수수료 = 클래스 가격(부가세 별도)의 15%',               mode:'on',  share:0,  fee:15}
+];
+
+function render(){
+  var P=V('iP'),M=V('iM'),K=V('iK'),S=V('iS'),T=V('iT'),G=V('iG'),F=V('iF');
+  var out='';
+
+  TYPES.filter(function(y){return y.mode===MODE;}).forEach(function(y){
+    var on=(y.mode==='on');
+    out+='<div class="block"><div class="bh"><span class="n">'+(on?'온라인':'오프라인')+'</span><h2>'+y.t+'</h2><span class="s">'+y.s+'</span></div>'
+      +'<div class="tw"><table><thead><tr><th>인원</th><th>클래스 가격</th><th>재료비</th><th>패킹비</th><th>배송비</th><th>'
+      +(on?'강사료':'강사료<br><span style="font-weight:400">재료비 포함</span>')+'</th><th>제휴사</th><th>우리 마진</th><th>비율</th><th>판정</th></tr></thead><tbody>';
+    NS.forEach(function(n){
+      var rev=P*n, m=0,k=0,sh=0,tch=0,fee=0,mg=0,mark='';
+      if(on){
+        m=M*n; k=K*n; sh=S*n;
+        var raw=T*n; tch=Math.max(raw,G); if(tch>raw) mark=' <span class="star">★</span>';
+        fee=Math.round(rev*y.fee/100);
+        mg=rev-m-k-sh-tch-fee;
+      }else{
+        var ours=Math.round(rev*y.share/100);
+        fee=Math.round(rev*y.fee/100);
+        mg=ours-fee;
+        tch=rev-ours;
+      }
+      var pc=rev?mg/rev*100:0, cls, tag;
+      if(on){
+        if(pc>=20){cls='good';tag='<span class="tag t-ok">권장</span>';}
+        else if(pc>=10){cls='warn';tag='<span class="tag t-wn">가능</span>';}
+        else{cls='bad';tag='<span class="tag t-bd">비추천</span>';}
+      }else if(y.free){
+        cls='good';tag='<span class="tag t-ok">제한 없음</span>';
+      }else{
+        if(mg>=F){cls='good';tag='<span class="tag t-ok">권장</span>';}
+        else if(mg>=F*0.5){cls='warn';tag='<span class="tag t-wn">가능</span>';}
+        else{cls='bad';tag='<span class="tag t-bd">비추천</span>';}
+      }
+      out+='<tr class="'+cls+'"><td class="c">'+n+'명</td><td class="num">'+f(rev)+'</td>'
+        +'<td class="num">'+(on?f(m):'<span style="color:var(--wait)">선생님</span>')+'</td><td class="num">'+(on?f(k):'—')+'</td><td class="num">'+(on?f(sh):'—')+'</td>'
+        +'<td class="num">'+f(tch)+mark+'</td><td class="num">'+(fee?f(fee):'—')+'</td>'
+        +'<td class="num mg">'+f(mg)+'</td><td class="num mg">'+pc.toFixed(1)+'%</td><td class="c">'+tag+'</td></tr>';
+    });
+    out+='</tbody></table></div></div>';
+  });
+  document.getElementById('out').innerHTML=out;
+
+  /* 최소 개최 인원 요약 */
+  function minOn(fee){
+    for(var i=0;i<NS.length;i++){var n=NS[i],rev=P*n,t=Math.max(T*n,G);
+      var mg=rev-(M+K+S)*n-t-Math.round(rev*fee/100);
+      if(rev&&mg/rev>=0.20) return n+'명';}
+    return '해당 없음';
+  }
+  function minOff(share,fee){
+    for(var i=0;i<NS.length;i++){var n=NS[i],rev=P*n,mg=Math.round(rev*share/100)-Math.round(rev*fee/100);
+      if(mg>=F) return n+'명';}
+    return '30명 초과';
+  }
+  var sm=document.getElementById('sumbody');
+  if(sm) sm.innerHTML=
+     rowS('B2C 오프라인 (공공의주방몰)','오프라인','선생님','94% <span style="color:var(--wait)">재료비 포함</span>','6% 고정','제한 없음')
+    +rowS('B2B 오프라인','오프라인','선생님','80% <span style="color:var(--wait)">재료비 포함</span>','20% 고정',minOff(20,0))
+    +rowS('B2B2C 오프라인 제휴','오프라인','선생님','80% <span style="color:var(--wait)">재료비 포함</span>','20% 중 제휴 차감',minOff(20,10)+' (제휴10%)')
+    +rowS('B2C 온라인 (아카이빗몰)','온라인','우리','인당 '+f(T),'나머지 전부',minOn(0))
+    +rowS('B2B 온라인','온라인','우리','인당 '+f(T),'나머지 전부',minOn(0))
+    +rowS('B2B2C 온라인 제휴','온라인','우리','인당 '+f(T),'나머지 − 제휴%',minOn(10)+' (제휴10%)');
+}
+function rowS(a,b,c,d,e,g){
+  return '<tr><td class="c">'+a+'</td><td class="c">'+b+'</td><td class="c">'+c+'</td><td class="c">'+d+'</td><td class="c">'+e+'</td><td class="c"><b>'+g+'</b></td></tr>';
+}
+['iP','iM','iK','iS','iT','iG','iF'].forEach(function(id){document.getElementById(id).addEventListener('input',render);});
+document.querySelectorAll('.tab').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on'); MODE=b.dataset.m; render();
+  });
+});
+render();
+</script>
+</body></html>
