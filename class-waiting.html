@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="version" content="v1">
+<meta name="updated" content="2026.07.24 15:50">
+<title>온라인 수업 대기화면</title>
+<link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;
+--point:#B4A032;--coral:#FF5019;--wait:#9A8F7C}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#EDE9E4;color:var(--ink);font-family:Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+
+/* ── 편집 바 (화면에만) ── */
+.bar{position:sticky;top:0;z-index:20;background:rgba(237,233,228,.96);border-bottom:1px solid #DDD5CC;padding:12px 20px;display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.bar .f label{display:block;font-size:11px;font-weight:600;color:#6B6256;margin-bottom:3px}
+.bar input{font-family:inherit;font-size:13px;padding:7px 10px;border:1px solid #D6CCC2;border-radius:8px;background:#fff;min-width:220px}
+.bar input.sm{min-width:150px}
+.bar .sp{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.bar button{font-family:inherit;font-size:13px;font-weight:600;padding:8px 15px;border-radius:8px;border:1px solid #D6CCC2;background:#fff;color:#4A3A32;cursor:pointer}
+.bar button.pr{background:var(--coral);border-color:var(--coral);color:#fff}
+.bar .tip{font-size:11.5px;color:#8A7B72;width:100%;line-height:1.6}
+
+/* ── 16:9 무대 ── */
+.stage{width:100%;max-width:1280px;margin:20px auto;aspect-ratio:16/9;background:var(--bg);position:relative;overflow:hidden;box-shadow:0 3px 18px rgba(0,0,0,.14);border-radius:10px}
+.inner{position:absolute;inset:0;padding:3.4% 4.2%;display:flex;flex-direction:column}
+
+/* 배경 장식 */
+.deco{position:absolute;inset:0;pointer-events:none;opacity:.5}
+
+/* 헤더 */
+.hd{text-align:center;position:relative;z-index:2;flex-shrink:0}
+.hd .cap{font-family:Hahmlet,serif;font-size:2.9cqw;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.hd .ttl{font-size:2.05cqw;font-weight:700;color:var(--coral);margin-top:1.1%}
+.hd .dt{font-family:"DM Mono",monospace;font-size:1.45cqw;color:var(--sub);margin-top:.8%}
+
+/* 카드 */
+.panel{flex:1;background:var(--card);border:1px solid var(--line);border-radius:1.4cqw;margin-top:2.4%;padding:2.6% 3%;display:flex;flex-direction:column;position:relative;z-index:2;min-height:0}
+.panel h2{text-align:center;font-size:1.75cqw;font-weight:700;color:var(--ink);flex-shrink:0}
+.panel h2 span{color:var(--point)}
+
+.steps{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:2.4%;margin-top:2.4%;min-height:0}
+.stp{display:flex;flex-direction:column;align-items:center;min-height:0}
+.stp .lb{font-family:"DM Mono",monospace;font-size:.95cqw;font-weight:500;color:#fff;background:var(--ink);border-radius:2cqw;padding:.35cqw 1.3cqw;letter-spacing:.06em;flex-shrink:0}
+.stp .shot{flex:1;width:100%;margin-top:1.4%;background:#2B2B33;border-radius:.9cqw;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:0}
+.stp .shot svg{width:100%;height:100%;display:block}
+.stp .cap2{margin-top:1.5%;text-align:center;font-size:1.25cqw;line-height:1.45;color:var(--sub);flex-shrink:0}
+.stp .cap2 b{display:block;color:var(--ink);font-weight:700;margin-top:.3cqw}
+
+/* 하단 고지 */
+.notes{margin-top:2.2%;position:relative;z-index:2;flex-shrink:0}
+.notes div{display:flex;gap:.9cqw;align-items:flex-start;font-size:1.15cqw;color:var(--sub);padding:.35cqw 0}
+.notes div::before{content:"✓";color:var(--point);font-weight:700;flex-shrink:0}
+.notes b{color:var(--ink);font-weight:600}
+
+.logo{position:absolute;right:4.2%;bottom:3%;z-index:3;display:flex;align-items:center;gap:.7cqw}
+.logo img{height:2.1cqw;display:block}
+.logo .txt{font-family:"DM Mono",monospace;font-size:1cqw;letter-spacing:.14em;color:var(--coral);font-weight:500}
+
+.stage{container-type:inline-size}
+
+@media print{
+  @page{size:A4 landscape;margin:0}
+  body{background:#fff}
+  .bar{display:none}
+  .stage{max-width:none;width:100%;margin:0;box-shadow:none;border-radius:0}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+body.full .bar{display:none}
+body.full .stage{max-width:none;margin:0;height:100vh;border-radius:0;box-shadow:none}
+</style></head><body>
+
+<div class="bar">
+<div class="f"><label>강의명</label><input id="iT" value="여름 제철 과일로 만드는 수제청과 샐러드"></div>
+<div class="f"><label>일시</label><input id="iD" class="sm" value="2026.07.24 (금) 16:00 ~ 17:30"></div>
+<div class="f"><label>캐치프레이즈</label><input id="iC" class="sm" value="오늘의 아카이빗 온라인 클래스"></div>
+<div class="sp">
+<button onclick="document.body.classList.toggle('full')">⛶ 전체화면</button>
+<button class="pr" onclick="window.print()">🖨 이미지로 저장</button>
+</div>
+<p class="tip">줌 화면공유로 띄우거나, 인쇄 → PDF 저장 후 이미지로 변환해 쓰세요. <b>전체화면</b>을 누르면 편집 바가 사라집니다. 다시 누르면 돌아옵니다.</p>
+</div>
+
+<div class="stage">
+<svg class="deco" viewBox="0 0 1280 720" preserveAspectRatio="none">
+  <g fill="#FF5019" opacity=".10">
+    <circle cx="72" cy="96" r="46"/>
+    <circle cx="1206" cy="180" r="30"/>
+    <circle cx="1160" cy="640" r="54"/>
+    <circle cx="120" cy="612" r="24"/>
+  </g>
+  <g fill="#B4A032" opacity=".12">
+    <circle cx="150" cy="180" r="16"/>
+    <circle cx="1120" cy="90" r="20"/>
+  </g>
+</svg>
+
+<div class="inner">
+  <div class="hd">
+    <div class="cap" id="oC">오늘의 아카이빗 온라인 클래스</div>
+    <div class="ttl" id="oT">여름 제철 과일로 만드는 수제청과 샐러드</div>
+    <div class="dt" id="oD">2026.07.24 (금) 16:00 ~ 17:30</div>
+  </div>
+
+  <div class="panel">
+    <h2><span>✿</span> 수업 시작 전 확인해 주세요</h2>
+    <div class="steps">
+
+      <div class="stp">
+        <span class="lb">STEP 01</span>
+        <div class="shot">
+          <svg viewBox="0 0 300 200">
+            <rect width="300" height="200" fill="#2B2B33"/>
+            <g font-family="Pretendard,sans-serif" font-size="11" fill="#C9C9D2">
+              <text x="22" y="38">내 오디오 음소거 해제</text>
+              <text x="22" y="60">비디오 시작</text>
+              <line x1="16" y1="74" x2="284" y2="74" stroke="#43434F"/>
+              <text x="22" y="96">내 배경 흐리게</text>
+              <text x="22" y="118">가상 배경 선택…</text>
+              <text x="22" y="140">프로필 사진 추가</text>
+            </g>
+            <rect x="14" y="152" width="272" height="32" rx="5" fill="#FFFDF9" stroke="#FF5019" stroke-width="2"/>
+            <text x="30" y="173" font-family="Pretendard,sans-serif" font-size="13" font-weight="700" fill="#241F1B">이름 바꾸기</text>
+          </svg>
+        </div>
+        <div class="cap2">수강신청 시 등록한 이름으로<b>[이름 바꾸기]</b></div>
+      </div>
+
+      <div class="stp">
+        <span class="lb">STEP 02</span>
+        <div class="shot">
+          <svg viewBox="0 0 300 200">
+            <rect width="300" height="200" fill="#2B2B33"/>
+            <rect x="42" y="52" width="94" height="96" rx="8" fill="#35353F" stroke="#FF5019" stroke-width="2"/>
+            <g transform="translate(89,92)">
+              <path d="M-9 -16 a9 9 0 0 1 18 0 v14 a9 9 0 0 1 -18 0 z" fill="#E8E8EE"/>
+              <path d="M-16 -2 a16 16 0 0 0 32 0" stroke="#E8E8EE" stroke-width="3" fill="none"/>
+              <line x1="0" y1="14" x2="0" y2="22" stroke="#E8E8EE" stroke-width="3"/>
+              <line x1="-20" y1="-24" x2="20" y2="24" stroke="#FF5019" stroke-width="4" stroke-linecap="round"/>
+            </g>
+            <text x="89" y="136" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="11" fill="#C9C9D2">음소거 해제</text>
+            <rect x="164" y="52" width="94" height="96" rx="8" fill="#35353F"/>
+            <g transform="translate(211,92)">
+              <rect x="-20" y="-13" width="30" height="26" rx="4" fill="#E8E8EE"/>
+              <path d="M12 -7 l10 -7 v28 l-10 -7 z" fill="#E8E8EE"/>
+            </g>
+            <text x="211" y="136" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="11" fill="#C9C9D2">비디오 시작</text>
+          </svg>
+        </div>
+        <div class="cap2">마이크는 음소거,<b>비디오(카메라) 켜기</b></div>
+      </div>
+
+      <div class="stp">
+        <span class="lb">STEP 03</span>
+        <div class="shot">
+          <svg viewBox="0 0 300 200">
+            <rect width="300" height="200" fill="#2B2B33"/>
+            <g fill="#3C3C47">
+              <rect x="24" y="24" width="120" height="70" rx="6"/>
+              <rect x="156" y="24" width="120" height="70" rx="6"/>
+              <rect x="24" y="106" width="120" height="70" rx="6"/>
+              <rect x="156" y="106" width="120" height="70" rx="6"/>
+            </g>
+            <g fill="#54545F">
+              <circle cx="84" cy="50" r="13"/><path d="M64 82 a20 20 0 0 1 40 0 z"/>
+              <circle cx="216" cy="50" r="13"/><path d="M196 82 a20 20 0 0 1 40 0 z"/>
+              <circle cx="84" cy="132" r="13"/><path d="M64 164 a20 20 0 0 1 40 0 z"/>
+              <circle cx="216" cy="132" r="13"/><path d="M196 164 a20 20 0 0 1 40 0 z"/>
+            </g>
+            <circle cx="150" cy="100" r="46" fill="none" stroke="#FF5019" stroke-width="9" opacity=".92"/>
+            <line x1="118" y1="68" x2="182" y2="132" stroke="#FF5019" stroke-width="9" stroke-linecap="round" opacity=".92"/>
+          </svg>
+        </div>
+        <div class="cap2">개인정보 보호를 위해<b>사진·영상 촬영 금지</b></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="notes">
+    <div>수업 중 <b>보호자께서 함께해 주세요.</b> 칼 사용과 끓는 물을 다루는 과정이 있습니다.</div>
+    <div>재료는 <b>냉장 보관</b> 후 수업 직전에 꺼내 주세요. 실온 봉투는 그대로 두시면 됩니다.</div>
+    <div>궁금한 점은 <b>채팅창</b>에 남겨주시면 진행 중에 답해 드립니다.</div>
+  </div>
+
+  <div class="logo">
+    <img src="logo-archiveat.png" alt="ARCHIVEAT" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="txt" style="display:none">ARCHIVEAT</span>
+  </div>
+</div>
+</div>
+
+<script>
+function bind(inp,out){
+  var i=document.getElementById(inp),o=document.getElementById(out);
+  i.addEventListener('input',function(){o.textContent=i.value;});
+}
+bind('iT','oT'); bind('iD','oD'); bind('iC','oC');
+</script>
+</body></html>
