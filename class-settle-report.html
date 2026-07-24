@@ -1,0 +1,274 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="version" content="v39"><meta name="updated" content="2026.07.24 18:09">
+<title>정산 리포트</title>
+<link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;
+--point:#B4A032;--ok:#2E7D32;--warn:#B44A1E;--wait:#9A8F7C;--mute:#ADA294;--in:#2C7BB6;--par:#C2570E}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
+.tb-left{display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:13px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 13px}
+.pill:hover{border-color:var(--point);color:var(--point)}
+.tb-right{font-size:12px;color:var(--wait);font-family:"DM Mono",monospace}
+.hero{padding:26px 0 4px}
+.hero h1{font-family:Hahmlet,serif;font-weight:700;font-size:34px;letter-spacing:-.02em}
+.hero .lead{margin-top:6px;color:var(--sub);font-size:14.5px}
+.dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:11px;margin-top:18px}
+.d{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.d .k{font-size:12px;color:var(--sub)}
+.d .v{font-family:"DM Mono",monospace;font-size:21px;font-weight:700;margin-top:3px}
+.d .u{font-size:11.5px;color:var(--wait);margin-top:2px}
+.tabs{display:flex;gap:5px;margin-top:20px;background:#F4EFE3;padding:5px;border-radius:11px;max-width:420px}
+.tab{flex:1;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--sub);background:none;border:none;border-radius:8px;padding:9px 12px;cursor:pointer}
+.tab.on{background:#fff;color:var(--point);box-shadow:0 1px 3px rgba(0,0,0,.07)}
+.panel{display:none}.panel.on{display:block}
+.ctrl{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;background:#F7F3E9;border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-top:14px}
+.ctrl label{display:block;font-size:11.5px;font-weight:600;color:var(--sub);margin-bottom:4px}
+.ctrl select{font-family:"DM Mono",monospace;font-size:15px;font-weight:700;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+.ctrl .hint{font-size:12px;color:var(--wait);margin-left:auto;max-width:400px;line-height:1.6}
+
+.grp{margin-top:22px}
+.grp-h{display:flex;align-items:baseline;gap:10px;padding-bottom:8px;border-bottom:2px solid var(--ink);flex-wrap:wrap}
+.grp-h h2{font-family:Hahmlet,serif;font-size:19px;font-weight:700}
+.grp-h .sub{font-size:12.5px;color:var(--wait)}
+.grp-h .amt{margin-left:auto;font-family:"DM Mono",monospace;font-size:15px;font-weight:700;color:var(--point)}
+
+.sgrp{margin-top:16px}
+.sgrp-h{display:flex;align-items:baseline;gap:9px;font-size:14px;font-weight:700;color:var(--sub);padding:6px 0}
+.sgrp-h .c{font-family:"DM Mono",monospace;font-size:12px;color:var(--wait);font-weight:500}
+.sgrp-h .a{margin-left:auto;font-family:"DM Mono",monospace;font-size:13px;color:var(--point)}
+
+.rc{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-top:9px}
+.rc.warnrow{border-color:#E8C4B0;background:#FFF9F6}
+.rc-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:3px}
+.rc-h .cid{font-family:"DM Mono",monospace;font-size:12px;color:var(--wait)}
+.rc-h .dt{font-family:"DM Mono",monospace;font-size:12px;color:var(--sub);background:#F4EFE3;border-radius:6px;padding:2px 8px}
+.rc-h .more{margin-left:auto;font-family:inherit;font-size:12px;color:var(--sub);background:none;border:1px solid var(--line);border-radius:7px;padding:3px 10px;cursor:pointer}
+.rc-h .more:hover{border-color:var(--point);color:var(--point)}
+.rc-nm{font-size:15px;font-weight:700;margin-bottom:9px}
+.bd{display:inline-block;font-size:10.5px;font-weight:700;border-radius:5px;padding:2px 8px;white-space:nowrap}
+.b-on{background:#E8F1F9;color:var(--in)}
+.b-off{background:#F3EEE2;color:#8A7A4E}
+.b-biz{background:#EFEAF7;color:#6B5AA8}
+.b-ok{background:#E6F2E7;color:var(--ok)}
+.b-wt{background:#F0EDE5;color:var(--wait)}
+.b-wn{background:#FBF0DC;color:#B4780E}
+.b-no{background:#FBEAE0;color:var(--warn)}
+.b-par{background:#FBEEE3;color:var(--par)}
+
+.flow{border-top:1px dashed var(--line)}
+.fr{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:13.5px;flex-wrap:wrap}
+.fr:last-child{border-bottom:none}
+.fr .ico{width:22px;text-align:center;flex-shrink:0}
+.fr .who{min-width:150px;color:var(--sub)}
+.fr .who b{color:var(--ink)}
+.fr .amt{margin-left:auto;font-family:"DM Mono",monospace;font-weight:700;white-space:nowrap}
+.fr.in .amt{color:var(--in)}
+.fr.outT .amt{color:var(--ink)}
+.fr.outP .amt{color:var(--par)}
+.det{display:none;margin-top:11px;padding:12px 14px;background:#F7F3E9;border-radius:10px;font-size:12.5px}
+.det.on{display:block}
+.det table{width:100%;border-collapse:collapse}
+.det td{padding:4px 0;border-bottom:1px dotted var(--line)}
+.det td:last-child{text-align:right;font-family:"DM Mono",monospace}
+.det tr:last-child td{border-bottom:none;font-weight:700;padding-top:7px}
+.det .mt{font-size:11.5px;color:var(--wait);margin-top:8px;line-height:1.6}
+.alertline{background:#FFF6F2;border-left:3px solid var(--warn);border-radius:0 8px 8px 0;padding:7px 11px;margin-top:9px;font-size:12.5px;color:var(--sub)}
+.empty{padding:22px;text-align:center;color:var(--wait);font-size:13px;background:var(--card);border:1px dashed var(--line);border-radius:12px;margin-top:9px}
+.note{font-size:12.5px;color:var(--wait);margin-top:12px;line-height:1.7}
+.foot{margin-top:28px;font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
+@media print{@page{size:A4;margin:12mm}.topbar,.tabs,.ctrl{display:none}.panel{display:block!important}.det{display:block!important}body{background:#fff}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media(max-width:620px){.hero h1{font-size:26px}.ctrl .hint{margin-left:0;width:100%}.fr .who{min-width:0}}
+</style></head><body><div class="wrap">
+<div class="topbar">
+<div class="tb-left"><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="class-list.html">📋 전체 목록</a>
+<a class="pill" href="class-settlement.html">💰 정산 구조 기준표</a>
+<a class="pill" href="https://claude.ai/chat/dce33b2f-5756-4005-9648-0eb426113e53" target="_blank" rel="noopener">💬 작업 대화</a></div>
+<div class="tb-right" id="upd"></div></div>
+<header class="hero"><h1>정산 리포트</h1><p class="lead">지급일은 <b>수업일 기준</b>으로 자동 계산됩니다. 1~15일 수업은 당월 25일, 16~말일 수업은 익월 10일입니다.</p></header>
+<div class="dash" id="dash"></div>
+<div class="tabs">
+<button class="tab on" data-t="p2">유형별 전체</button>
+<button class="tab" data-t="p3">받을 돈</button>
+<button class="tab" data-t="p1">지급 일정</button>
+</div>
+<div class="panel on" id="p2"></div>
+<div class="panel" id="p3"></div>
+<div class="panel" id="p1">
+  <div class="ctrl">
+    <div><label>지급월</label><select id="ym"></select></div>
+    <span class="hint">선택한 달에 <b>나가야 할 돈</b>을 지급일별로 묶습니다. 각 줄에 <b>수업일</b>이 표시되니 왜 이 달에 나가는지 확인하실 수 있습니다.</span>
+  </div>
+  <div id="sched"></div>
+</div>
+<div class="foot" id="foot"></div>
+</div>
+<script>
+var S=[{"cid": "GS-2607", "name": "제철 복숭아로 만드는 복숭아청과 브리치즈 샐러드", "orderer": "경기도지식", "kind": "온라인", "biz": "B2B 온라인", "date": "2026-07-24", "state": "확정", "pax": 30, "rev": 1500000.0, "teach": 300000.0, "teacher": "이영미", "partner": "", "partamt": 0, "rule": "발주처입금연동", "payday": "2026-08-31", "payer": "휴넷", "paymode": "해당없음", "struct": "A", "paidin": "입금대기", "paidout": "지급대기", "partpay": "해당없음"}, {"cid": "GS-2604", "name": "냉이 꽃게탕", "orderer": "경기도지식", "kind": "온라인", "biz": "B2B 온라인", "date": "2026-04-24", "state": "수업완료", "pax": 30, "rev": 1500000.0, "teach": 300000.0, "teacher": "김은영", "partner": "", "partamt": 0, "rule": "발주처입금연동", "payday": "2026-05-31", "payer": "휴넷", "paymode": "해당없음", "struct": "A", "paidin": "입금완료", "paidout": "지급완료", "partpay": "해당없음"}];
+(function(){var u=document.querySelector('meta[name=updated]').content,v=document.querySelector('meta[name=version]').content;
+document.getElementById('upd').textContent='업데이트 '+u+' · '+v;
+document.getElementById('foot').textContent='정산 리포트 · '+u+' · '+v;})();
+function won(n){return (n||0).toLocaleString();}
+function T(){return new Date().toISOString().slice(0,10);}
+function wd(ds){if(!ds)return '';var d=new Date(ds+'T00:00:00');return '월화수목금토일'[(d.getDay()+6)%7];}
+function fdt(ds){return ds? ds.slice(5).replace('-','.')+' ('+wd(ds)+')' : '—';}
+function badge(v){
+  if(v==='입금완료'||v==='지급완료') return '<span class="bd b-ok">'+v+'</span>';
+  if(v==='해당없음') return '<span class="bd b-wt">해당없음</span>';
+  return '<span class="bd b-wn">'+v+'</span>';
+}
+function typeBadges(r){
+  var on=(r.kind==='온라인');
+  var h='<span class="bd '+(on?'b-on':'b-off')+'">'+(on?'온라인':'오프라인')+'</span>';
+  h+=' <span class="bd b-biz">'+(r.biz||'유형미정')+'</span>';
+  if(r.partner) h+=' <span class="bd b-par">'+(r.paymode==='전액입금'?'전액입금':(r.paymode==='수수료차감'?'수수료차감':'수금방식 미정'))+'</span>';
+  if(r.rule==='발주처입금연동') h+=' <span class="bd b-wn">발주처 입금 연동</span>';
+  return h;
+}
+/* 회차 카드 — 돈 흐름 */
+function card(r,ctx){
+  var late=(r.payday&&r.payday<T()&&r.paidout!=='지급완료');
+  var blocked=(r.rule==='발주처입금연동'&&r.paidin!=='입금완료'&&r.paidout!=='지급완료');
+  var h='<div class="rc'+((late||blocked)?' warnrow':'')+'">'
+   +'<div class="rc-h"><span class="cid">'+r.cid+'</span>'
+   +(ctx==='sched'?'<span class="dt">수업 '+fdt(r.date)+'</span>':'<span class="dt">'+fdt(r.date)+'</span>')
+   +typeBadges(r)
+   +'<button class="more" onclick="tg(this)">세부 ▾</button></div>'
+   +'<div class="rc-nm">'+r.name+'</div><div class="flow">';
+  h+='<div class="fr in"><span class="ico">📥</span><span class="who">받음 · <b>'+(r.orderer||'—')+'</b> → 우리</span>'
+    +badge(r.paidin)+'<span class="amt">'+won(r.rev)+'</span></div>';
+  h+='<div class="fr outT"><span class="ico">👤</span><span class="who">줄 돈 · 우리 → <b>'+(r.teacher||'선생님')+'</b></span>'
+    +badge(r.paidout)+'<span class="amt">'+won(r.teach)+'</span></div>';
+  if(r.partner&&r.paymode==='전액입금'){
+    h+='<div class="fr outP"><span class="ico">🤝</span><span class="who">줄 돈 · 우리 → <b>'+r.partner+'</b></span>'
+      +badge(r.partpay)+'<span class="amt">'+won(r.partamt)+'</span></div>';
+  }
+  h+='</div>';
+  if(blocked) h+='<div class="alertline">⚠️ <b>발주처 입금 연동</b> — '+(r.payer||r.orderer)+' 입금 확인 후 지급합니다. 아직 입금되지 않았습니다.</div>';
+  else if(late) h+='<div class="alertline">⚠️ 지급 예정일('+fdt(r.payday)+')이 지났습니다.</div>';
+  h+='<div class="det"><table>'
+   +'<tr><td>클래스 총액</td><td>'+won(r.rev)+'</td></tr>'
+   +(r.partner&&r.paymode==='수수료차감'?'<tr><td>− 제휴사 수수료 (차감 후 입금)</td><td>'+won(r.partamt)+'</td></tr>':'')
+   +'<tr><td>− 선생님 정산액</td><td>'+won(r.teach)+'</td></tr>'
+   +(r.partner&&r.paymode==='전액입금'?'<tr><td>− 제휴사 수수료 (우리가 송금)</td><td>'+won(r.partamt)+'</td></tr>':'')
+   +'<tr><td>우리 매출 (실제 입금액)</td><td>'+won(r.paymode==='수수료차감'?(r.rev-(r.partamt||0)):r.rev)+'</td></tr>'
+   +'</table><div class="mt">지급 예정일 <b>'+fdt(r.payday)+'</b> · 정산기준 '+(r.rule||'자체기준')
+   +(r.payer?' · 지급주체 '+r.payer:'')+'<br>세부 내역은 <a href="class.html" style="color:var(--point)">클래스 홈 → 회차 상세 → 정산 탭</a>에서 확인하세요.</div></div></div>';
+  return h;
+}
+function tg(b){var d=b.closest('.rc').querySelector('.det');d.classList.toggle('on');b.textContent=d.classList.contains('on')?'세부 ▴':'세부 ▾';}
+
+/* 지급월 목록 */
+function months(){
+  var set={};
+  S.forEach(function(r){ if(r.payday) set[r.payday.slice(0,7)]=1; });
+  var ks=Object.keys(set).sort();
+  if(!ks.length){var d=new Date();ks=[d.toISOString().slice(0,7)];}
+  return ks;
+}
+function renderSched(){
+  var ym=document.getElementById('ym').value;
+  var rows=S.filter(function(r){return r.payday&&r.payday.slice(0,7)===ym;});
+  var g={};
+  rows.forEach(function(r){ (g[r.payday]=g[r.payday]||[]).push(r); });
+  var days=Object.keys(g).sort();
+  var h='';
+  if(!days.length){ h='<div class="empty">'+ym.replace('-','.')+'에 지급할 건이 없습니다.</div>'; }
+  days.forEach(function(d){
+    var list=g[d], sum=0;
+    list.forEach(function(r){ sum+=r.teach+((r.paymode==='전액입금')?(r.partamt||0):0); });
+    var dd=d.slice(8), lbl;
+    if(dd==='10') lbl='전달 16일~말일 수업';
+    else if(dd==='25') lbl='당월 1~15일 수업';
+    else lbl='발주처 입금 연동';
+    h+='<div class="grp"><div class="grp-h"><h2>'+fdt(d)+' 지급</h2><span class="sub">'+lbl+' · '+list.length+'건</span><span class="amt">'+won(sum)+'원</span></div>';
+    list.forEach(function(r){ h+=card(r,'sched'); });
+    h+='</div>';
+  });
+  document.getElementById('sched').innerHTML=h;
+}
+/* 유형별 전체 — 기준표와 같은 순서 */
+var ORDER=[
+ ['오프라인',['B2C 오프라인','B2B 오프라인','B2B2C 오프라인']],
+ ['온라인',  ['B2C 온라인','B2B 온라인','B2B2C 온라인']]
+];
+function renderType(){
+  var h='';
+  ORDER.forEach(function(sec){
+    h+='<div class="grp"><div class="grp-h"><h2>'+sec[0]+'</h2></div>';
+    sec[1].forEach(function(t){
+      var list=S.filter(function(r){return (r.biz||'').indexOf(t)===0;});
+      var sum=0; list.forEach(function(r){sum+=r.rev;});
+      h+='<div class="sgrp"><div class="sgrp-h">'+t+' <span class="c">'+list.length+'건</span>'
+        +(list.length?'<span class="a">매출 '+won(sum)+'원</span>':'')+'</div>';
+      if(list.length) list.forEach(function(r){ h+=card(r,'type'); });
+      else h+='<div class="empty">해당 회차가 없습니다.</div>';
+      h+='</div>';
+    });
+    h+='</div>';
+  });
+  var etc=S.filter(function(r){return !r.biz;});
+  if(etc.length){
+    h+='<div class="grp"><div class="grp-h"><h2>유형 미지정</h2><span class="sub">마스터 회차 시트의 유형 칸을 채워주세요</span></div>';
+    etc.forEach(function(r){h+=card(r,'type');});h+='</div>';
+  }
+  document.getElementById('p2').innerHTML=h;
+}
+function renderIn(){
+  var h='<div class="grp"><div class="grp-h"><h2>발주처 입금</h2><span class="sub">받을 돈</span></div>';
+  var w=S.filter(function(r){return r.paidin!=='입금완료';});
+  var dn=S.filter(function(r){return r.paidin==='입금완료';});
+  h+='<div class="sgrp"><div class="sgrp-h">미입금 <span class="c">'+w.length+'건</span></div>';
+  if(w.length) w.forEach(function(r){h+=card(r,'in');}); else h+='<div class="empty">미입금 건이 없습니다.</div>';
+  h+='</div><div class="sgrp"><div class="sgrp-h">입금완료 <span class="c">'+dn.length+'건</span></div>';
+  if(dn.length) dn.forEach(function(r){h+=card(r,'in');}); else h+='<div class="empty">없습니다.</div>';
+  h+='</div></div>';
+  document.getElementById('p3').innerHTML=h;
+}
+function renderDash(){
+  var t=T(),outT=0,outP=0,inW=0,late=0,blocked=0;
+  S.forEach(function(r){
+    if(r.paidout!=='지급완료') outT+=r.teach;
+    if(r.paymode==='전액입금'&&r.partpay!=='지급완료') outP+=(r.partamt||0);
+    if(r.paidin!=='입금완료') inW+=r.rev;
+    if(r.payday&&r.payday<t&&r.paidout!=='지급완료') late++;
+    if(r.rule==='발주처입금연동'&&r.paidin!=='입금완료'&&r.paidout!=='지급완료') blocked++;
+  });
+  document.getElementById('dash').innerHTML=
+    c('줄 돈 · 선생님',won(outT),'원 · 미지급',outT?'var(--warn)':'var(--ok)')
+   +c('줄 돈 · 제휴사',won(outP),'원 · 미지급','var(--par)')
+   +c('받을 돈',won(inW),'원 · 미입금',inW?'var(--in)':'var(--ok)')
+   +c('지급일 경과',late,'건',late?'var(--warn)':'var(--ok)')
+   +c('입금 대기로 보류',blocked,'건',blocked?'var(--warn)':'var(--ok)');
+}
+function c(k,v,u,col){return '<div class="d"><div class="k">'+k+'</div><div class="v" style="color:'+col+'">'+v+'</div><div class="u">'+u+'</div></div>';}
+(function init(){
+  var sel=document.getElementById('ym'),ms=months(),now=new Date().toISOString().slice(0,7);
+  /* 기본값 = 오늘 이후 가장 가까운 지급월, 없으면 마지막 달 */
+  var pick=now;
+  if(ms.indexOf(now)<0){
+    var fut=ms.filter(function(m){return m>=now;});
+    pick=fut.length?fut[0]:ms[ms.length-1];
+  }
+  sel.innerHTML=ms.map(function(m){
+    var n=S.filter(function(r){return r.payday&&r.payday.slice(0,7)===m&&r.paidout!=='지급완료';}).length;
+    return '<option value="'+m+'"'+(m===pick?' selected':'')+'>'+m.replace('-','.')+(n?'  · 미지급 '+n+'건':'')+'</option>';
+  }).join('');
+  sel.value=pick;
+  sel.addEventListener('change',renderSched);
+  renderDash(); renderSched(); renderType(); renderIn();
+})();
+document.querySelectorAll('.tab').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});
+    document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');document.getElementById(b.dataset.t).classList.add('on');
+  });
+});
+</script></body></html>
