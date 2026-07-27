@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="version" content="v10">
+<meta name="updated" content="2026.07.28 00:43">
+<title>레시피카드 · 복숭아청 &amp; 브리치즈 샐러드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --coral:#FF5019;
+  --bg:#F4C8A8;          /* 커버 배경 — 여름 복숭아 톤 */
+  --mark:#FBE3D4;        /* Recipe 제목 형광 */
+  --line:#E3D5CC;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#EDE9E4;font-family:Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+
+.bar{position:sticky;top:0;z-index:9;background:rgba(237,233,228,.96);border-bottom:1px solid #DDD5CC;padding:11px 20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.bar .t{font-size:13px;font-weight:700;color:#5A4A42}
+.bar .h{font-size:12px;color:#8A7B72;margin-right:auto}
+.bar button,.bar a{font-family:inherit;font-size:13px;font-weight:600;padding:8px 15px;border-radius:8px;border:1px solid #D6CCC2;background:#fff;color:#4A3A32;cursor:pointer;text-decoration:none}
+.bar button.pr{background:var(--coral);border-color:var(--coral);color:#fff}
+
+.page{width:210mm;height:297mm;margin:18px auto;background:#fff;position:relative;overflow:hidden;box-shadow:0 2px 14px rgba(0,0,0,.13)}
+
+/* ===== 커버 ===== */
+.cv{background:var(--bg);width:100%;height:100%;padding:14mm 12mm;display:flex;flex-direction:column;align-items:center;position:relative}
+.cv .deco{position:absolute;inset:0;z-index:1;pointer-events:none}
+.cv>*{position:relative;z-index:2}
+.cv .logo{width:172mm;margin-top:3mm;display:flex;justify-content:center}
+.cv .logo img{width:100%;height:auto;display:block}
+.cv .logo.txt{font-family:'Poiret One',cursive;font-size:62pt;letter-spacing:.03em;color:var(--coral);line-height:1;white-space:nowrap;display:block;text-align:center}
+.cv .logo.txt::after{content:'ARCHIVEAT'}
+.cv .tag-en{margin-top:8mm;font-size:12pt;font-weight:700;color:var(--coral);text-align:center}
+.cv .tag-ko{margin-top:1.5mm;font-size:11.5pt;font-weight:700;color:var(--coral);text-align:center}
+.cv .menu{margin-top:9mm;font-size:24pt;font-weight:800;color:var(--coral);text-align:center;line-height:1.42;letter-spacing:-.01em}
+.cv .photo{margin-top:9mm;width:132mm;height:132mm;border-radius:50%;overflow:hidden;box-shadow:0 2mm 8mm rgba(150,70,40,.22)}
+.cv .photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ===== 레시피 ===== */
+.rp{padding:14mm 13mm 12mm;height:100%;display:flex;flex-direction:column}
+.rhead{display:flex;align-items:flex-start;gap:6mm;padding-bottom:6mm}
+.rhead .bm{font-family:'Jost',sans-serif;font-size:15.5pt;font-weight:400;color:var(--coral);line-height:1.2;white-space:nowrap;padding-top:1mm}
+.rhead .tt{flex:1;text-align:center;padding-top:1mm}
+.rhead .tt h1{font-size:19pt;font-weight:800;color:var(--coral);line-height:1.4;letter-spacing:-.01em}
+.rhead .qr{width:27mm;text-align:center}
+.rhead .qr .qrsvg{width:22mm;height:22mm;display:block;margin:0 auto;shape-rendering:crispEdges}
+.rhead .qr .cap{font-size:7.5pt;font-weight:600;color:var(--coral);margin-top:1.5mm;line-height:1.4}
+.rule{border-top:1.1px solid var(--line)}
+
+.cols{display:flex;gap:7mm;flex:1;padding-top:5mm;min-height:0}
+.colL{width:76mm;flex-shrink:0;display:flex;flex-direction:column}
+.colR{flex:1;border-left:1.1px solid var(--line);padding-left:7mm;min-width:0}
+.sec-t{font-family:'Jost',sans-serif;font-size:12.5pt;font-weight:400;color:var(--coral);margin-bottom:3mm}
+.pro p{font-size:10pt;color:var(--coral);margin-bottom:3.5mm;line-height:1.65}
+.divL{border-top:1.1px solid var(--line);margin:6mm 0}
+.ing{display:flex;gap:5mm}
+.ing .c1{flex:1}.ing .c2{width:30mm;flex-shrink:0}
+.ing .c2 ul{min-height:34mm}
+.ing ul{list-style:none}
+.ing li{font-size:9.5pt;color:var(--coral);line-height:1.78}
+.ing li.sm{font-size:8.3pt;line-height:1.5;opacity:.82}
+
+.rtitle{display:inline-block;font-size:11pt;font-weight:700;color:var(--coral);background:var(--mark);padding:1mm 2mm;margin-bottom:3mm}
+.rtitle.mt{margin-top:5mm}
+.step{margin-bottom:3.5mm}
+.step h3{font-size:10.5pt;font-weight:700;color:var(--coral);margin-bottom:1mm}
+.step p{font-size:9.8pt;color:var(--coral);line-height:1.62}
+.tip{margin-top:5mm}
+.tip h3{font-size:10.5pt;font-weight:700;color:var(--coral);margin-bottom:1.5mm}
+.tip p{font-size:9.5pt;color:var(--coral);line-height:1.62;margin-bottom:1.5mm}
+.allergy{margin-top:auto;padding-top:3mm;border-top:1.1px solid var(--line);font-size:7.4pt;color:#B29A8E;line-height:1.5}
+
+@media print{
+  @page{size:A4;margin:0}
+  body{background:#fff}
+  .bar{display:none}
+  .page{margin:0;box-shadow:none;page-break-after:always;break-after:page}
+  .page:last-child{page-break-after:auto}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style></head><body>
+
+<div class="bar">
+<span class="t">레시피카드 · GS-2607-01</span>
+<span class="h">A4 2장 · 인쇄 시 여백 "없음", 배경 그래픽 "켜기"</span>
+<a href="class-pack-GS260701.html">← 패킹 운영</a>
+<button class="pr" onclick="window.print()">🖨 인쇄 / PDF 저장</button>
+</div>
+
+<!-- ===== 1p 커버 ===== -->
+<div class="page">
+<div class="cv">
+  <svg class="deco" viewBox="0 0 210 297" preserveAspectRatio="none">
+    <g fill="#EE6A3E" opacity=".85">
+      <path d="M18 108c-7 9-8 20-2 27 6 6 15 5 19-3 4-9 0-19-7-24z"/>
+      <path d="M24 138c-4 26-5 52-2 78 1 7 8 7 9 0 3-26 2-52-3-78z"/>
+      <path d="M188 96c8 7 11 18 6 26-5 8-14 8-19 1-6-8-3-20 5-27z"/>
+      <path d="M185 128c6 25 8 51 6 77-1 7-8 7-9 0-4-26-4-52-1-77z"/>
+      <path d="M36 232c-8 6-13 15-9 23 4 8 13 10 18 3 7-7 5-19-3-26z"/>
+      <path d="M176 236c9 5 14 14 11 22-3 8-12 11-17 4-6-7-4-19 2-26z"/>
+    </g>
+  </svg>
+
+  <div class="logo"><img src="logo-archiveat.png" alt="ARCHIVEAT"
+       onerror="this.parentNode.classList.add('txt');this.remove();"></div>
+  <div class="tag-en">This recipe paper is specially arranged by Archiveat</div>
+  <div class="tag-ko">나만의 요리로 나만의 아카이브를 만들어 보세요</div>
+  <div class="menu">복숭아청<br>&amp; 브리치즈 샐러드</div>
+  <div class="photo"><img src="class-cover-GS260701.png" alt="복숭아청과 브리치즈 샐러드"></div>
+</div>
+</div>
+
+<!-- ===== 2p 레시피 ===== -->
+<div class="page">
+<div class="rp">
+
+<div class="rhead">
+  <div class="bm">Archiveat<br>Recipe</div>
+  <div class="tt"><h1>제철 복숭아로 만드는 복숭아청<br>&amp; 복숭아조림 브리치즈 샐러드</h1></div>
+  <div class="qr"><a href="https://www.archiveat.kr/"><svg class="qrsvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37"><path stroke="#111" d="M2 2.5h7m2 0h1m1 0h1m2 0h2m3 0h4m1 0h1m1 0h7m-33 1h1m5 0h1m1 0h1m1 0h1m2 0h4m4 0h1m4 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h6m1 0h1m1 0h1m1 0h3m2 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m3 0h1m1 0h1m1 0h4m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m3 0h2m3 0h2m1 0h5m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h2m5 0h2m2 0h1m1 0h1m2 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-24 1h4m5 0h1m-17 1h1m2 0h5m1 0h3m3 0h1m1 0h2m1 0h2m1 0h1m1 0h5m-32 1h1m3 0h2m3 0h1m3 0h2m2 0h1m3 0h1m1 0h5m1 0h1m1 0h2m-33 1h2m1 0h1m2 0h2m1 0h1m3 0h1m2 0h2m2 0h1m2 0h1m3 0h3m2 0h1m-32 1h2m1 0h1m2 0h2m1 0h1m3 0h4m1 0h3m1 0h1m2 0h2m1 0h1m1 0h2m-33 1h3m2 0h2m4 0h1m6 0h1m1 0h2m2 0h1m1 0h4m2 0h1m-33 1h2m2 0h2m1 0h5m2 0h1m1 0h2m1 0h3m1 0h2m1 0h5m1 0h1m-33 1h1m1 0h1m1 0h1m1 0h2m3 0h1m1 0h3m1 0h3m3 0h2m1 0h2m1 0h1m2 0h1m-32 1h4m2 0h6m2 0h3m1 0h2m1 0h2m3 0h5m-32 1h1m2 0h1m1 0h2m1 0h1m1 0h2m2 0h2m1 0h4m1 0h2m1 0h2m2 0h3m-29 1h3m1 0h1m2 0h2m1 0h3m2 0h4m1 0h1m2 0h2m2 0h1m-31 1h1m1 0h1m1 0h1m1 0h2m1 0h1m1 0h3m1 0h1m2 0h6m1 0h2m1 0h5m-30 1h2m2 0h1m2 0h1m2 0h1m1 0h3m1 0h1m3 0h1m1 0h1m3 0h1m-28 1h5m2 0h1m1 0h1m1 0h3m1 0h3m3 0h5m3 0h2m-32 1h1m2 0h1m3 0h1m1 0h2m1 0h2m2 0h5m2 0h2m3 0h1m1 0h2m-33 1h2m1 0h1m2 0h1m1 0h1m1 0h1m1 0h4m4 0h1m3 0h3m5 0h1m-30 1h1m1 0h1m3 0h8m1 0h1m1 0h1m1 0h3m2 0h1m1 0h1m1 0h1m-32 1h4m2 0h2m1 0h1m1 0h1m1 0h2m1 0h3m2 0h2m1 0h5m2 0h1m-24 1h6m2 0h4m4 0h1m3 0h2m1 0h2m-33 1h7m1 0h2m3 0h3m2 0h5m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m-33 1h1m5 0h1m1 0h3m1 0h1m2 0h4m1 0h1m1 0h3m3 0h2m1 0h2m-33 1h1m1 0h3m1 0h1m5 0h2m1 0h2m1 0h1m1 0h10m-30 1h1m1 0h3m1 0h1m2 0h2m3 0h1m2 0h1m2 0h3m1 0h2m1 0h2m2 0h1m-32 1h1m1 0h3m1 0h1m1 0h4m1 0h1m5 0h1m1 0h1m6 0h1m1 0h3m-33 1h1m5 0h1m2 0h1m1 0h4m3 0h1m1 0h1m2 0h2m-25 1h7m5 0h3m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1"/></svg></a><div class="cap">아카이빗 공식몰<br>바로가기</div></div>
+</div>
+<div class="rule"></div>
+
+<div class="cols">
+  <div class="colL">
+    <div class="pro">
+      <div class="sec-t">Prologue</div>
+      <p>여름 한철에만 만날 수 있는 천도복숭아를 두 가지 방식으로 담아낸 한 상입니다.</p>
+      <p>설탕에 켜켜이 재운 복숭아청은 하루만 뒤집어 두면 향과 즙이 그대로 맑은 청이 되고, 시럽에 살짝 조린 복숭아는 부드러운 브리치즈와 쌉쌀한 루꼴라 사이에서 단맛을 잡아줍니다.</p>
+      <p>홀그레인머스타드 드레싱이 전체를 이어주어, 여름 저녁 한 접시로도 충분한 샐러드가 됩니다.</p>
+    </div>
+
+    <div class="divL"></div>
+
+    <div class="ing">
+      <div class="c1">
+        <div class="sec-t" style="font-size:11pt">ingredients</div>
+        <ul>
+          <li class="g">복숭아청</li>
+          <li>천도복숭아 3개 <span class="sm">손질 후 300g</span></li>
+          <li>설탕 300g</li>
+          <li>유리병 500ml 1개</li>
+          <li class="g">복숭아 조림</li>
+          <li>천도복숭아 2개</li>
+          <li>설탕 100g <span class="sm">1/2컵</span></li>
+          <li>조림용 레몬즙 30g <span class="sm">2큰술</span></li>
+          <li class="g">브리치즈 샐러드</li>
+          <li>로메인 50g <span class="sm">3잎</span></li>
+          <li>와일드 루꼴라 30g</li>
+          <li>브리치즈 25g</li>
+          <li>드레싱 소스 44g</li>
+          <li>올리브오일 41g <span class="sm">3큰술</span></li>
+        </ul>
+      </div>
+      <div class="c2">
+        <div class="sec-t" style="font-size:11pt">At home</div>
+        <ul>
+          <li>물 (병 소독용)</li>
+          <li>물 1컵</li>
+          <li>소금 한 꼬집</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="colR">
+    <div class="rtitle">Recipe &nbsp;-&nbsp; 복숭아청</div>
+
+    <div class="step">
+      <h3>Step 1. 유리병 소독</h3>
+      <p>끓는 물에 병을 거꾸로 넣어 1분간 끓인 뒤 꺼내 완전히 식힙니다.</p>
+    </div>
+    <div class="step">
+      <h3>Step 2. 켜켜이 담기</h3>
+      <p>복숭아를 씻어 껍질을 벗기고 잘게 깍둑썰기 합니다. 병에 설탕 → 복숭아 → 설탕 순으로 켜켜이 넣습니다.</p>
+    </div>
+    <div class="step">
+      <h3>Step 3. 숙성</h3>
+      <p>뚜껑을 닫고 1일 실온에 두며 반나절마다 뒤집습니다. 설탕이 녹으면 냉장 보관합니다.</p>
+    </div>
+
+    <div class="rtitle mt">Recipe &nbsp;-&nbsp; 복숭아조림 브리치즈 샐러드</div>
+
+    <div class="step">
+      <h3>Step 1. 복숭아 조림</h3>
+      <p>조림용 설탕과 물 1컵을 끓여 시럽을 만듭니다. 껍질 벗겨 웨지로 썬 복숭아를 넣고 약불에서 10분 조린 뒤, 불을 끄고 레몬즙을 넣어 식힙니다.</p>
+    </div>
+    <div class="step">
+      <h3>Step 2. 재료 손질과 드레싱</h3>
+      <p>로메인·루꼴라는 씻어 물기를 털고 브리치즈와 함께 먹기 좋게 썹니다. 드레싱 소스에 올리브오일과 소금 한 꼬집을 넣고 30초간 흔들어 섞습니다.</p>
+    </div>
+    <div class="step">
+      <h3>Step 3. 마무리</h3>
+      <p>접시에 채소 → 복숭아 조림 → 브리치즈를 올리고 드레싱을 뿌립니다.</p>
+    </div>
+
+    <div class="tip" style="margin-top:4mm">
+      <h3>드레싱 소스 — 직접 만들기</h3>
+      <p>식초 1T · 설탕 1T · 홀그레인머스타드 1/2T · 레몬즙 1/2T · 소금 한 꼬집</p>
+    </div>
+
+    <div class="tip">
+      <h3>TIP</h3>
+      <p>- 소독한 병은 물기가 완전히 마른 뒤 사용해야 청이 상하지 않습니다</p>
+      <p>- 오일이 뿌옇게 굳어 있어도 괜찮습니다. 실온에 잠시 두면 원래대로 돌아옵니다</p>
+      <p>- 조림은 완전히 식혀서 올려야 채소가 숨이 죽지 않습니다</p>
+      <p>- 드레싱에 양파다짐 1큰술을 더하면 알싸한 맛이 살아납니다</p>
+    </div>
+
+    <div class="allergy">*알레르기 유발물질: 복숭아, 우유(브리치즈)</div>
+  </div>
+</div>
+</div>
+</div>
+
+</body></html>

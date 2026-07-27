@@ -1,451 +1,213 @@
 <!DOCTYPE html><html lang="ko"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v45"><meta name="updated" content="2026.07.27 20:26">
-<title>전체 클래스 목록</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="version" content="v49"><meta name="updated" content="2026.07.28 00:50">
+<title>클래스 목록</title>
+<link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
 <style>
-:root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;--point:#B4A032;--online:#2C7BB6;--offline:#C2570E;--open:#2E7D32;--short:#E2611B;--wait:#9A8F7C;--coral:#FF5019;}
+:root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;
+--coral:#FF5019;--point:#B4A032;--wait:#9A8F7C;--mute:#ADA294;--ok:#5E7360}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.55;padding-bottom:60px}
-.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
-.topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
-.tb-left{display:flex;gap:8px}
-.pill{display:inline-flex;align-items:center;gap:4px;font-size:13px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 13px}
+body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif;
+line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:70px;font-size:15px}
+.wrap{max-width:1400px;margin:0 auto;padding:0 20px}
+.topbar{display:flex;justify-content:space-between;align-items:flex-start;padding:18px 0;gap:12px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:13px;text-decoration:none;color:var(--ink);
+background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 13px;margin-right:8px}
 .pill:hover{border-color:var(--point);color:var(--point)}
-.tb-right{font-size:12px;color:var(--wait);text-align:right}.crumb{color:var(--wait)}.tb-sep{color:#CFC5B2}.updated{font-family:"DM Mono",monospace;font-size:12px;color:var(--wait)}
-.hero{padding:28px 0 6px}
-.hero h1{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:700;font-size:38px;letter-spacing:-.02em}
-.hero .lead{margin-top:7px;color:var(--sub);font-size:15px}
-.filters{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 8px;align-items:center}
-.filters input,.filters select{font-family:inherit;font-size:13.5px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
-.filters input{flex:1;min-width:180px}
-.filters input:focus,.filters select:focus{outline:none;border-color:var(--point)}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff}
-.seg button{font-family:inherit;font-size:13px;padding:9px 14px;border:none;background:none;cursor:pointer;color:var(--sub)}
-.seg button.on{background:var(--point);color:#fff;font-weight:600}
-.count{font-size:12.5px;color:var(--wait);margin:6px 2px 0}
-.listwrap{margin-top:12px;overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
-table.lt{width:100%;border-collapse:collapse;font-size:13px;min-width:720px}
-table.lt>thead>tr>th,table.lt>tbody>tr.mainrow>td{padding:11px 13px;border-bottom:1px solid var(--line);text-align:left}
-table.lt>thead>tr>th{background:#F4EFE3;font-size:12px;color:var(--sub);font-weight:700;cursor:pointer;user-select:none;white-space:nowrap}
-table.lt>thead>tr>th:hover{color:var(--point)}
-tr.mainrow{cursor:pointer}
-tr.mainrow:hover{background:#FBF8EF}
-tr.mainrow.open{background:#F4EFE3}
-.ln{font-weight:600}.rt{text-align:center;font-family:"DM Mono",monospace}
-.lt-thumb-wrap{display:inline-block;vertical-align:middle;margin-right:9px}
-.lt-thumb{width:34px;height:34px;border-radius:7px;object-fit:cover;vertical-align:middle;background:#EEE9DD}
-.lt-ph{align-items:center;justify-content:center;font-size:15px;color:#B8AE98}
-.arrow{display:inline-block;transition:.2s;color:var(--point);font-size:11px;margin-right:6px}
-tr.mainrow.open .arrow{transform:rotate(90deg)}
-.badge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:"DM Mono",monospace;white-space:nowrap}
-.st-prop{background:#F1EFE9;color:#6B6256}
-.st-기획중{background:#F1EFE9;color:#6B6256}.st-모집중{background:#FFE7DF;color:var(--coral)}
-.st-확정{background:#FFE7DF;color:var(--coral)}.st-미달{background:#EFEDEA;color:#B44A1E;text-decoration:line-through}
-.st-정산완료{background:#E4EAE2;color:#5E7360}.st-보류{background:#EFEDEA;color:#ADA294}
-.kind{font-size:11px;padding:2px 7px;border-radius:8px}
-.paychip{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:"DM Mono",monospace;white-space:nowrap}
-.pc-done{background:#E4EAE2;color:#5E7360}.pc-wait{background:#F5B21F;color:#4A3405;font-weight:500}
-.rt b{font-family:"DM Mono",monospace}
-.pax-mini{font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:8px;font-family:"DM Mono",monospace;margin-left:2px}
-.pm-fix{background:#F1EFE9;color:#6B6256}.pm-ing{background:#FFF1EB;color:#C2570E}
-.pm-open{background:#FFE7DF;color:var(--coral);font-weight:500}.pm-short{background:#EFEDEA;color:#B44A1E}
-.legend{margin-top:16px;padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px}
-.lg-t{font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:9px}
-.lg-r{font-size:12px;color:var(--sub);line-height:1.9}
-.lg-r b{color:var(--ink)}.lg-x{color:var(--wait)}
-.k-온라인,.k-오프라인{background:transparent;color:var(--sub);padding:0;font-weight:500}
-.detailrow>td{padding:0;background:#FBF8F0;border-bottom:1px solid var(--line)}
-.dwrap{padding:4px 20px 22px}
-.dhead{display:flex;justify-content:space-between;align-items:center;padding:14px 0 10px}
-.dhead h3{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-size:20px;font-weight:700}
-.d-edit{font-size:12.5px;text-decoration:none;color:#fff;background:var(--point);border-radius:8px;padding:7px 13px;white-space:nowrap;border:none;cursor:pointer;font-family:inherit}
-.d-pack{font-size:12.5px;text-decoration:none;color:var(--point);background:#FFFDF9;border:1px solid var(--point);border-radius:8px;padding:6px 12px;white-space:nowrap;margin-left:auto;margin-right:6px}
-.d-pack:hover{background:var(--point);color:#fff}
-.dtabs{display:flex;gap:2px;border-bottom:1px solid var(--line);overflow-x:auto}
-.dtab{font-family:inherit;font-size:13px;color:var(--sub);background:none;border:none;border-bottom:2px solid transparent;padding:10px 13px;cursor:pointer;white-space:nowrap;margin-bottom:-1px}
-.dtab:hover{color:var(--ink)}.dtab.on{color:var(--point);border-bottom-color:var(--point);font-weight:700}
-.dbody{padding:16px 2px}
-.dpane{display:none}.dpane.on{display:block}
-.drow{display:flex;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
-.drow:last-child{border-bottom:none}.drow .k{color:var(--sub);min-width:110px;flex-shrink:0}.drow .v{color:var(--ink);font-weight:500;white-space:pre-wrap}.drow .v.mono{font-family:"DM Mono",monospace}
-.dsub{font-size:12px;color:var(--point);font-weight:700;margin:16px 0 5px}.dsub:first-child{margin-top:0}
-.dtext{white-space:pre-wrap;font-size:13.5px;line-height:1.65;color:var(--ink);margin-top:2px}
-.dempty{color:var(--wait);font-size:13px;padding:8px 0}
-.dnote{margin-top:14px;font-size:12px;color:var(--wait);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
-.dcopy{display:inline-flex;align-items:center;gap:5px;font-family:inherit;font-size:12.5px;color:#fff;background:var(--point);border:none;border-radius:8px;padding:8px 14px;cursor:pointer;margin-bottom:12px}
-.dcopy:hover{filter:brightness(1.06)}
-table.mat{border-collapse:collapse;width:100%;min-width:820px;font-size:12px;margin-top:4px}
-table.mat th,table.mat td{border:1px solid var(--line);padding:5px 7px;text-align:center;white-space:nowrap}
-table.mat th{background:#F4EFE3;font-size:11px;color:var(--sub);font-weight:700}
-table.mat th.grp{background:#EFE7D4}
-table.mat td.tl{text-align:left;font-weight:600}
-table.mat td.rt{text-align:right;font-family:"DM Mono",monospace}
-table.mat td.a{background:#F3F7FA;color:var(--online)}
-table.mat td.p{background:#EAF3FA;font-weight:700}
-table.mat tr.subtot td{background:#F0EADB;font-weight:700;color:var(--sub);border-top:1.5px solid #D8CDB4}
-table.mat tr.subtot td.tl{text-align:right;padding-right:10px}
-table.mat tr.subtot td.p{background:#E4EDD9;color:var(--open)}
-table.mat a{color:var(--point);text-decoration:none}
-.ship-note{font-size:9.5px;color:var(--offline);font-weight:600}
-.matsum{margin-top:10px;text-align:right;font-family:"DM Mono",monospace;font-size:14px}.matsum b{font-size:17px;color:var(--online)}
-.ordsec{margin-top:22px;padding-top:18px;border-top:2px solid var(--line)}
-.ordh{font-family:Hahmlet,serif;font-size:16px;font-weight:700;margin-bottom:12px}.ordh .s{font-family:Pretendard;font-size:11.5px;color:var(--wait);font-weight:400;margin-left:8px}
-.ordwrap{overflow-x:auto}
-table.ord{width:100%;border-collapse:collapse;font-size:11px;table-layout:auto}
-table.ord th{background:#F1EADB;padding:6px 7px;border:1px solid var(--line);font-weight:600;color:var(--sub);font-size:10.5px}
-table.ord td{padding:5px 7px;border:1px solid var(--line);white-space:nowrap}
-table.ord th{white-space:nowrap}
-.nw{white-space:nowrap}.mut{color:#CFC5B2}
-.gu-mini{font-size:8.5px;background:#EFEADD;color:var(--wait);padding:1px 5px;border-radius:6px;font-weight:600}
-table.ord .tl{text-align:left}table.ord .rt{text-align:right;font-family:"DM Mono",monospace}
-table.ord .ck{text-align:center;font-size:13px}table.ord .sm{font-size:10.5px;color:var(--wait)}
-table.ord a{text-decoration:none}
-.kp{font-size:10px;font-weight:700;padding:2px 7px;border-radius:9px;font-family:"DM Mono",monospace}
-.kp-frz{background:#E4EEF6;color:var(--online)}.kp-cool{background:#E6F4E6;color:var(--open)}.kp-room{background:#EEE9DD;color:var(--wait)}.kp-none{background:transparent;color:#CFC5B2}
-.stk{font-size:9.5px;background:#EFEADD;color:var(--point);padding:1px 6px;border-radius:8px;font-weight:700}
-.ordnote-h{font-weight:700;margin-bottom:5px}
-.mgl{padding:3px 0;font-size:11.5px;line-height:1.55}
-.mgt{font-family:'DM Mono',monospace;font-weight:700;color:var(--point)}
-.mgd{color:#9A8F7C}
-td.mcell{font-weight:700;font-size:11.5px;white-space:nowrap;vertical-align:top}
-table.mat tr.mstart td,table.ord tr.mstart td{border-top:2px solid #C9BB9B}
-.ordnote{font-size:11.5px;color:var(--offline);margin-top:9px;font-weight:600}
-.ordnote2{font-size:11px;color:var(--wait);margin-top:10px;line-height:1.6}
-.cmpwrap{margin-top:14px}
-table.cmp{border-collapse:collapse;font-size:12.5px;min-width:340px}
-table.cmp th{background:#F1EADB;padding:8px 14px;border:1px solid var(--line);font-weight:700}
-table.cmp td{padding:8px 14px;border:1px solid var(--line)}
-table.cmp .tl{text-align:left}table.cmp .rt{text-align:right;font-family:"DM Mono",monospace}
-table.cmp .cmp-net td{font-weight:700;background:#FBF8EF}table.cmp .cmp-net .rt{color:var(--open)}
-.pend{font-size:11px;color:var(--wait);font-style:italic}
-.cmpsub{font-size:9.5px;color:var(--wait);font-weight:400;display:block}
-.plan2{display:block;font-size:9px;color:var(--wait);font-weight:400}
-table.ord tr.rw-wait td{background:#FFF6E6}
-table.ord tr.rw-wait td:first-child{box-shadow:inset 3px 0 0 #E0A93B}
-table.ord tr.rw-part td{background:#FFF0E2}
-table.ord tr.rw-part td:first-child{box-shadow:inset 3px 0 0 #C2570E}
-.stkuse{display:inline-block;font-size:10.5px;font-weight:700;color:#2C7BB6;background:#DCEAF6;border-radius:5px;padding:2px 7px;white-space:nowrap}
-.ost{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:9px;white-space:nowrap}
-.ost-ok{background:#E6F4E6;color:var(--open)}
-.ost-short{background:#FFE7DF;color:var(--coral)}
-.ost-stock{background:#E4EEF6;color:var(--online)}
-.ost-none{background:transparent;color:#CFC5B2;font-weight:400}
-.sm2{color:var(--wait);font-size:10.5px}
-.dfsave{color:var(--open);font-weight:700}
-.dfover{color:var(--coral);font-weight:700}
-.df0{color:var(--wait)}
-.matwrap{overflow-x:auto}
-.flow{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:4px}
-.flow-sec{border-bottom:1px solid var(--line)}.flow-sec:last-child{border-bottom:none}
-.flow-h{background:#F4EFE3;padding:8px 14px;font-size:12px;font-weight:700;color:var(--sub)}
-.flow-h2{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.fh-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:"DM Mono",monospace}
-.fhb-done{background:#E4EAE2;color:#5E7360}.fhb-wait{background:#F5B21F;color:#4A3405;font-weight:500}
-.d-photo{margin-bottom:14px}
-.d-photo img{width:100%;height:150px;object-fit:cover;border-radius:12px;display:block}
-.flow-r{display:flex;justify-content:space-between;padding:8px 14px;font-size:13.5px;border-top:1px dashed var(--line)}
-.flow-r:first-of-type{border-top:none}.flow-r .fv{font-family:"DM Mono",monospace}
-.flow-r.tot{font-weight:700;background:#FBFAF6}.flow-r.tot .fv{font-size:15px}
-.flow-r.pos .fv{color:var(--open)}.flow-r.neg .fv{color:var(--short)}
-.bigpay{display:flex;justify-content:space-between;align-items:center;background:#EEF6EE;border:1px solid #CBE5CB;border-radius:10px;padding:13px 16px;margin:4px 0 12px}
-.bigpay .bk{font-size:13px;color:var(--open);font-weight:600}.bigpay .bv{font-family:"DM Mono",monospace;font-size:20px;font-weight:700;color:var(--open)}
-.empty{padding:40px;text-align:center;color:var(--wait)}
-.foot{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
-@media(max-width:520px){.hero h1{font-size:29px}.topbar{align-items:flex-start}}
+.crumb{font-size:12px;color:var(--mute);text-align:right;line-height:1.7}
+.crumb .meta{font-family:"DM Mono",monospace;font-size:11px}
+.head{padding:14px 0 22px;border-bottom:1px solid var(--line);margin-bottom:20px}
+h1{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:800;font-size:40px;letter-spacing:-.02em}
+.lead{font-size:15px;color:var(--sub);margin-top:12px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:11px;margin-bottom:20px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.c .k{font-size:12.5px;color:var(--sub)}
+.c .v{font-family:"DM Mono",monospace;font-size:22px;font-weight:700;margin-top:4px;letter-spacing:-.02em}
+.c .u{font-size:11.5px;color:var(--wait);margin-top:2px}
+.bar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.bar b{font-size:12px;color:var(--mute);font-weight:500;min-width:44px}
+.chip{font-size:13px;padding:4px 12px;border-radius:20px;border:1px solid var(--line);
+background:#fff;color:var(--sub);cursor:pointer;font-family:inherit}
+.chip.on{background:var(--coral);border-color:var(--coral);color:#fff}
+.srch{font-family:inherit;font-size:13.5px;padding:7px 12px;border:1px solid var(--line);
+border-radius:9px;background:#fff;color:var(--ink);width:280px}
+.cnt{font-family:"DM Mono",monospace;font-size:12px;color:var(--mute);margin:10px 0}
+.tw{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:12.5px;min-width:1180px}
+th{background:#F1EFE9;font-size:11px;font-weight:700;color:var(--sub);padding:8px 6px;
+text-align:center;white-space:nowrap;line-height:1.3;position:sticky;top:0;z-index:2;cursor:pointer;user-select:none}
+th:hover{color:var(--coral)}
+td{padding:7px 6px;border-top:1px solid #F0EADC;vertical-align:top}
+td.n{font-family:"DM Mono",monospace;text-align:right;white-space:nowrap}
+td.c{text-align:center;white-space:nowrap}
+tr.off td{color:var(--mute)}
+tr:hover td{background:#F7F3E9}
+tr.tot td{background:#F1EFE9;font-weight:700;border-top:1.5px solid var(--line)}
+.bd{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.b-mut{background:#F1EFE9;color:#6B6256}
+.b-cor{background:#FFE7DF;color:var(--coral);font-weight:500}
+.b-lit{background:#FFF1EB;color:#C2570E}
+.b-yel{background:#F5B21F;color:#4A3405;font-weight:500}
+.b-grn{background:#E4EAE2;color:var(--ok)}
+.b-off{background:#EFEDEA;color:var(--mute)}
+.note{font-size:12.5px;color:var(--wait);margin-top:11px;line-height:1.75}
+.files{padding:24px 0 10px;border-top:1px solid var(--line);margin-top:28px}
+.files-l{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--mute);margin-bottom:10px}
+.fbtn{display:inline-flex;align-items:center;gap:7px;font-size:13px;padding:10px 16px;border-radius:10px;
+border:1px solid var(--line);background:#fff;color:var(--sub);text-decoration:none;margin-right:8px}
+.fbtn:hover{border-color:var(--coral);color:var(--coral)}
+.foot{margin-top:22px;font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
+@media(max-width:820px){h1{font-size:29px}.crumb{text-align:left}.srch{width:100%}}
 </style></head><body><div class="wrap">
-<div class="topbar"><div class="tb-left"><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">💬 작업 대화</a></div>
-<div class="tb-right"><span class="crumb">AI 워크스페이스 › 클래스 › 전체 목록</span><span class="tb-sep"> | </span><span class="updated" id="upd"></span></div></div>
-<header class="hero"><h1>전체 클래스 목록</h1><p class="lead">행을 클릭하면 아래로 6탭 상세가 열립니다. 상태·발주처·형태로 걸러 보고 검색하세요.</p></header>
-<div class="filters">
-<input id="q" placeholder="🔍 수업명·발주처·선생님 검색" oninput="render()">
-<select id="fState" onchange="render()"><option value="">상태 전체</option><option value="기획중">기획중</option><option value="모집중">모집중</option><option value="확정">개강확정</option><option value="미달">폐강</option><option value="수업완료">수업완료</option><option value="정산완료">정산완료</option><option value="보류">보류</option></select>
-<select id="fOrd" onchange="render()"><option value="">발주처 전체</option></select>
-<div class="seg" id="fKind"><button class="on" data-k="">전체</button><button data-k="온라인">온라인</button><button data-k="오프라인">오프라인</button></div>
+
+<div class="topbar">
+<div><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">💬 작업 대화</a></div>
+<div class="crumb">AI 워크스페이스 › 클래스 › 클래스 목록<br><span class="meta">업데이트 2026.07.28 00:50 · v49</span></div>
 </div>
-<div class="count" id="count"></div>
-<div class="listwrap"><table class="lt"><thead><tr>
-<th onclick="sortBy('date')">수업일</th><th onclick="sortBy('orderer')">발주처</th><th onclick="sortBy('name')">수업명</th>
-<th onclick="sortBy('kind')">형태</th><th onclick="sortBy('state')">수업상태</th><th onclick="sortBy('applied')">인원</th><th onclick="sortBy('teacher')">선생님</th><th onclick="sortBy('paidin')">입금</th><th onclick="sortBy('paidout')">지급</th>
+
+<div class="head">
+<h1>클래스 목록</h1>
+<p class="lead">우리가 해온 <b>모든 클래스</b>입니다. 클래스 마스터와 제휴사 마스터를 함께 읽습니다. 제휴사별 상세는 <a href="class-partner.html" style="color:var(--coral)">제휴사별 실적</a>에서 봅니다.</p>
+</div>
+
+<div class="cards" id="cards"></div>
+
+<div class="bar" id="fP"><b>제휴사</b></div>
+<div class="bar" id="fY"><b>연도</b></div>
+<div class="bar" id="fK"><b>구분</b></div>
+<div class="bar" id="fT"><b>선생님</b></div>
+<div class="bar" id="fH"><b>개최</b></div>
+<div class="bar" style="margin-top:4px"><input class="srch" id="q" placeholder="수업명 · 날짜 · 선생님 · 회차ID 검색"></div>
+<div class="cnt" id="cnt"></div>
+
+<div class="tw"><table>
+<thead><tr>
+<th data-k="id">회차ID</th><th data-k="partner">제휴사</th><th data-k="dt">수업일</th>
+<th data-k="kind">구분</th><th data-k="ty">유형</th><th data-k="name">수업명</th>
+<th data-k="teacher">선생님</th><th data-k="state">상태</th><th data-k="pax">인원</th>
+<th data-k="rev">클래스매출</th><th data-k="fee">제휴 수수료</th><th data-k="cost">우리 부담<br>원가</th>
+<th data-k="pay">선생님 지급</th><th data-k="ours">우리 몫<br>(부가세 제외)</th>
 </tr></thead><tbody id="tb"></tbody></table></div>
-<div class="legend">
-  <div class="lg-t">📖 열 설명</div>
-  <div class="lg-r"><b>수업상태</b> — 기획중 → 모집중 → 개강확정 → 수업완료 <span class="lg-x">(모객 클래스가 최소 인원 미달이면 <b>폐강</b>)</span></div>
-  <div class="lg-r"><b>인원</b> — <b>사전확정</b>: 경기도지식 등 정해진 인원(모집 안 함) / <b>모객</b>: 신청/최대 인원 + 개폐강(신청중·확정·폐강)</div>
-  <div class="lg-r"><b>개폐강 기준</b> — 모객 클래스는 수업일 4일 전(D-4) 자정 마감 → 신청이 최소 인원 이상이면 <b>확정</b>, 미만이면 <b>폐강</b></div>
-  <div class="lg-r"><b>입금</b> — 발주처 → 우리 (받을 돈)　·　<b>지급</b> — 우리 → 선생님 (줄 돈)</div>
+
+<p class="note">※ <b>열 제목을 클릭하면 정렬</b>됩니다. 한 번 더 누르면 역순.<br>
+※ <b>우리 몫(부가세 제외)</b> = 공급가 매출 − 제휴 수수료 − 우리 부담 원가 − 선생님 지급. 마스터가 달라도 같은 기준으로 계산합니다.<br>
+※ 온라인은 재료·패킹·배송을 우리가 부담해 <b>원가</b>가 있고, 오프라인 제휴는 선생님이 재료를 준비해 <b>제휴 수수료</b>가 있습니다.</p>
+
+<div class="files">
+<div class="files-l">📦 원본 파일</div>
+<a class="fbtn" href="#" id="dlh">📄 이 화면 HTML 받기</a>
+<a class="fbtn" href="#" id="dlx">📊 목록 CSV 받기</a>
+<a class="fbtn" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">💬 대화창에서 전체 받기</a>
 </div>
-<div class="foot">전체 클래스 목록 · v45 · 클래스 홈 도구</div>
+<div class="foot">클래스 목록 · 2026.07.28 00:50 · v49</div>
 </div>
 <script>
-var DATA=[{"cid": "GS-2604", "name": "냉이 꽃게탕", "orderer": "경기도지식", "kind": "온라인", "date": "2026-04-24", "datef": "2026.4.24 (금) 16:00", "mtype": "A", "mn": 30, "mx": 30, "applied": 0, "openst": "사전확정", "state": "수업완료", "teacher": "김은영", "profit": 9916.0, "paidin": "입금완료", "paidout": "지급완료", "settled": true}, {"cid": "GS-2607", "name": "제철 복숭아로 만드는 복숭아청과 브리치즈 샐러드", "orderer": "경기도지식", "kind": "온라인", "date": "2026-07-24", "datef": "2026.7.24 (금) 16:00", "mtype": "A", "mn": 30, "mx": 30, "applied": 0, "openst": "사전확정", "state": "확정", "teacher": "이영미", "profit": 14868.0, "paidin": "입금대기", "paidout": "지급대기", "settled": false}];var ORDS=["경기도지식"];var DETAIL={"GS-2604": {"name": "냉이 꽃게탕", "orderer": "경기도지식", "kind": "온라인", "mtype": "A", "date": "2026.4.24 (금)", "time": "16:00", "place": "온라인 줌+배송", "state": "수업완료", "mn": 30, "mx": 30, "applied": 0, "openst": "사전확정", "signupdue": "4/20", "confirmday": "-", "refundday": "-", "refundsrc": "", "price": 50000.0, "vat": "포함", "struct": "A", "mat": 15539.0, "pack": 5000.0, "ship": 5000.0, "teach": 10000.0, "profit": 9916.0, "rate": 0.218, "teacher": "김은영", "ttype": "개인", "feeway": "인당1만", "feerate": null, "settle": 300000.0, "taxto": "휴넷", "payer": "휴넷", "paywhen": "익월 말일", "paydate": "2026-05-31", "paidin": "입금완료", "paidout": "지급완료", "packfile": "", "biztype": "", "partner": "", "partrate": null, "payrule": "자체기준", "partamt": null, "partpay": "해당없음", "paymode": "해당없음", "order": {}, "content": {"강의명": "봄향기 가득, 시원하고 깊은 맛의 '냉이 꽃게탕'", "소개문": "봄 제철 식재료인 냉이를 활용해 집에서도 전문점처럼 깊은 국물 맛을 낼 수 있는 꽃게탕 조리법을 배우는 수업입니다.", "강의내용": "봄 제철 식재료인 냉이를 활용해\n집에서도 전문점처럼 깊은 국물 맛을 낼 수 있는\n꽃게탕 조리법을 배우는 수업입니다.\n\n손질된 절단 꽃게를 사용하여 비린내 없이\n깔끔하고 시원한 국물을 만드는 핵심 포인트를 익히고,\n된장과 고추장 베이스 육수의 균형 잡는 법을 배웁니다.\n애호박, 두부, 대파, 청양고추 등을 더해\n재료의 단맛과 감칠맛을 살리고\n마지막에 냉이(또는 봄철 채소)를 넣어 향긋함을 완성합니다.\n\n봄철 집밥 메뉴로 바로 활용할 수 있는\n실전 요리 중심 클래스입니다.", "대상": "성인", "선발방식": "선발", "소요시간": "약 1시간 30분 (16:00~17:30)", "키트구성품": "- 절단 손질 꽃게 1마리 (약 300g)\n- 두부\n- 애호박\n- 청양고추\n- 대파\n- 냉이\n- 꽃게탕 특제 양념장 (된장·고추장·고춧가루·맛술·마늘 배합)", "개별준비물": "- 냄비 (중간 크기 이상)\n- 국자, 계량컵(또는 종이컵)\n- 도마, 칼, 키친타월, 비닐장갑, 앞치마\n- 접시 (완성 후 담기용)", "강사이력": "스타필드 고양점 출강\n이마트 컬처클럽(청계천/의정부/남양주/포천/양주/월계점) 출강\n전) 현대백화점 천호점 출강\n전) 현대스페이스원 더 테라스 출강", "해시태그": "", "배송안내": "키트 배송 시 신선식품이 있어 새벽배송 가능 지역으로 발송됩니다. 선발 후 주소 기입 시 공동현관 비밀번호도 작성해 주시면 좋습니다.", "참여안내": "본 수업은 성인 대상 수업입니다.\n재료는 신선 식재료이므로 수령 후 냉장 보관해 주세요.\n냉이는 제철 수급 상황에 따라 봄 채소로 대체 제공될 수 있습니다.\n\n[GSEEK 화상학습 참여]\n로그인 > 마이페이지 > 화상학습현황 > 학습중 > 해당 강좌 확인 후 \"입장\" 버튼\n학습 시작 2~3일 전 화상학습 참여방법을 문자로 안내드립니다.", "장소상세": "", "동반인규정": "", "재료구성": "· 꽃게 300g — 1인 8,380원\n· 두부 — 1인 2,280원\n· 애호박 — 1인 1,256원\n· 청양고추 — 1인 225원\n· 대파 — 1인 102원\n· 냉이 — 1인 1,606원\n· 된장 — 1인 461원\n· 고추장 — 1인 185원\n· 고춧가루 — 1인 497원\n· 맛술 — 1인 96원\n· 마늘 — 1인 451원\n합계(1인) 15,539원", "줌링크": "", "견적코드": "QDATA:eyJtb2RlIjogIm9ubGluZSIsICJ2YXQiOiAiaW5jbCIsICJ0aXRsZSI6ICLrg4nsnbQg6r2D6rKM7YOVIiwgIm9yZGVyZXIiOiAi6rK96riw64+E7KeA7IudIiwgInByaWNlIjogIjUwMDAwIiwgInBheCI6ICIzMSIsICJwYWNrIjogIjUwMDAiLCAic2hpcCI6ICI1MDAwIiwgInRlYWNoIjogIjEwMDAwIiwgImZlZVJhdGUiOiAiMjAiLCAicm93cyI6IFt7Imd1IjogIuq1rOyEse2SiCIsICJubSI6ICLqvYPqsowiLCAiYmEiOiAiMzAwZyIsICJsayI6ICIiLCAidjEiOiAiMzAwIiwgInUxIjogImciLCAicHYiOiAiMzAwIiwgInB1IjogImciLCAicG0iOiAiODM4MCIsICJvdSI6ICIzMSJ9LCB7Imd1IjogIuq1rOyEse2SiCIsICJubSI6ICLrkZDrtoAiLCAiYmEiOiAiMS8y66qoIiwgImxrIjogIiIsICJ2MSI6ICIxIiwgInUxIjogIuqwnCIsICJwdiI6ICIxIiwgInB1IjogIuqwnCIsICJwbSI6ICIyMjgwIiwgIm91IjogIjMxIn0sIHsiZ3UiOiAi6rWs7ISx7ZKIIiwgIm5tIjogIuyVoO2YuOuwlSIsICJiYSI6ICIxMDBnIiwgImxrIjogIiIsICJ2MSI6ICIxMDAiLCAidTEiOiAiZyIsICJwdiI6ICIzMDAiLCAicHUiOiAiZyIsICJwbSI6ICIzNTQwIiwgIm91IjogIjExIn0sIHsiZ3UiOiAi6rWs7ISx7ZKIIiwgIm5tIjogIuyyreyWkeqzoOy2lCIsICJiYSI6ICIx6rCcIiwgImxrIjogIiIsICJ2MSI6ICIxIiwgInUxIjogIuqwnCIsICJwdiI6ICIxMCIsICJwdSI6ICLqsJwiLCAicG0iOiAiMjMyMCIsICJvdSI6ICIzIn0sIHsiZ3UiOiAi6rWs7ISx7ZKIIiwgIm5tIjogIuuMgO2MjCIsICJiYSI6ICIzMGciLCAibGsiOiAiIiwgInYxIjogIjMwIiwgInUxIjogImciLCAicHYiOiAiMTAwMCIsICJwdSI6ICJnIiwgInBtIjogIjMxNjAiLCAib3UiOiAiMSJ9LCB7Imd1IjogIuq1rOyEse2SiCIsICJubSI6ICLrg4nsnbQiLCAiYmEiOiAiNTBnIiwgImxrIjogIiIsICJ2MSI6ICI1MCIsICJ1MSI6ICJnIiwgInB2IjogIjE1MCIsICJwdSI6ICJnIiwgInBtIjogIjQ5ODAiLCAib3UiOiAiMTAifSwgeyJndSI6ICLshozsiqQiLCAibm0iOiAi65Cc7J6lIiwgImJhIjogIjPtgbDsiKAiLCAibGsiOiAiIiwgInYxIjogIjYwIiwgInUxIjogImciLCAicHYiOiAiNTAwIiwgInB1IjogImciLCAicG0iOiAiMzU3MCIsICJvdSI6ICI0In0sIHsiZ3UiOiAi7IaM7IqkIiwgIm5tIjogIuqzoOy2lOyepSIsICJiYSI6ICIx7YGw7IigIiwgImxrIjogIiIsICJ2MSI6ICIyMCIsICJ1MSI6ICJnIiwgInB2IjogIjUwMCIsICJwdSI6ICJnIiwgInBtIjogIjM4MzAiLCAib3UiOiAiMS41In0sIHsiZ3UiOiAi7IaM7IqkIiwgIm5tIjogIuqzoOy2p+qwgOujqCIsICJiYSI6ICIx7YGw7IigIiwgImxrIjogIiIsICJ2MSI6ICI2IiwgInUxIjogImciLCAicHYiOiAiMjAwIiwgInB1IjogImciLCAicG0iOiAiMTU0MDAiLCAib3UiOiAiMSJ9LCB7Imd1IjogIuyGjOyKpCIsICJubSI6ICLrp5vsiKAiLCAiYmEiOiAiMe2BsOyIoCIsICJsayI6ICIiLCAidjEiOiAiMTUiLCAidTEiOiAiZyIsICJwdiI6ICI4MzAiLCAicHUiOiAibWwiLCAicG0iOiAiMjk4MCIsICJvdSI6ICIxIn0sIHsiZ3UiOiAi7IaM7IqkIiwgIm5tIjogIuuniOuKmCIsICJiYSI6ICIxLjXtgbDsiKAiLCAibGsiOiAiIiwgInYxIjogIjE2IiwgInUxIjogImciLCAicHYiOiAiNTUwIiwgInB1IjogImciLCAicG0iOiAiMTM5ODAiLCAib3UiOiAiMSJ9XSwgImNvbnRlbnQiOiB7ImNfdGl0bGUyIjogIuu0hO2Wpeq4sCDqsIDrk50sIOyLnOybkO2VmOqzoCDquYrsnYAg66eb7J2YICfrg4nsnbQg6r2D6rKM7YOVJyIsICJjX3RlYWNoZXIiOiAi6rmA7J2A7JiBIn19", "레시피": "", "강의정보링크": "", "리허설안내": "", "선생님전달문구": ""}}, "GS-2607": {"name": "제철 복숭아로 만드는 복숭아청과 브리치즈 샐러드", "orderer": "경기도지식", "kind": "온라인", "mtype": "A", "date": "2026.7.24 (금)", "time": "16:00", "place": "온라인 줌+배송", "state": "확정", "mn": 30, "mx": 30, "applied": 0, "openst": "사전확정", "signupdue": "7/20", "confirmday": "-", "refundday": "-", "refundsrc": "", "price": 50000.0, "vat": "포함", "struct": "A", "mat": 10586.0, "pack": 5000.0, "ship": 5000.0, "teach": 10000.0, "profit": 14868.0, "rate": 0.327, "teacher": "이영미", "ttype": "개인", "feeway": "인당1만", "feerate": null, "settle": 300000.0, "taxto": "휴넷", "payer": "휴넷", "paywhen": "익월 말일", "paydate": "", "paidin": "입금대기", "paidout": "지급대기", "packfile": "class-pack-GS2607.html", "biztype": "", "partner": "", "partrate": null, "payrule": "자체기준", "partamt": null, "partpay": "해당없음", "paymode": "해당없음", "order": {"브리치즈": {"keep": "냉장", "store": "쿠팡", "odate": "2026-07-16", "idate": "2026-07-21", "ordered": true, "arrived": true, "arrtxt": "완료", "qty": "875", "realamt": "57650", "stock": false, "hist": [{"odate": "2026-07-16", "idate": "2026-07-21", "qty": "875", "realamt": "57650", "arrived": true, "arrtxt": "완료"}]}, "천도복숭아(수제청)": {"keep": "냉장", "store": "쿠팡", "odate": "2026-07-20 · 2026-07-21", "idate": "2026-07-21 · 2026-07-22", "ordered": true, "arrived": true, "arrtxt": "완료", "qty": "20000", "realamt": "120858", "stock": false, "hist": [{"odate": "2026-07-20", "idate": "2026-07-21", "qty": "9000", "realamt": "54386", "arrived": true, "arrtxt": "완료"}, {"odate": "2026-07-21", "idate": "2026-07-22", "qty": "11000", "realamt": "66472", "arrived": true, "arrtxt": "완료"}]}, "천도복숭아(조림)": {"keep": "냉장", "store": "쿠팡", "odate": "2026-07-21", "idate": "2026-07-22", "ordered": true, "arrived": true, "arrtxt": "완료", "qty": "4000", "realamt": "24172", "stock": false, "hist": [{"odate": "2026-07-21", "idate": "2026-07-22", "qty": "4000", "realamt": "24172", "arrived": true, "arrtxt": "완료"}]}, "설탕(수제청)": {"keep": "실온", "store": "쿠팡", "odate": "2026-07-20 · 2026-07-21", "idate": "2026-07-21 · 2026-07-22", "ordered": true, "arrived": true, "arrtxt": "완료", "qty": "10000", "realamt": "22500", "stock": false, "hist": [{"odate": "2026-07-20", "idate": "2026-07-21", "qty": "1000", "realamt": "3360", "arrived": true, "arrtxt": "완료"}, {"odate": "2026-07-21", "idate": "2026-07-22", "qty": "9000", "realamt": "19140", "arrived": true, "arrtxt": "완료"}]}, "설탕(소스)": {"keep": "실온", "store": "", "odate": "", "idate": "", "ordered": false, "arrived": false, "arrtxt": "", "qty": "", "realamt": "", "stock": true, "hist": [{"odate": "", "idate": "", "qty": "", "realamt": "", "arrived": false, "arrtxt": ""}]}, "유리병 500ml": {"keep": "실온", "store": "쿠팡", "odate": "2026-07-20 · 2026-07-21", "idate": "2026-07-21 · 2026-07-22", "ordered": true, "arrived": true, "arrtxt": "완료", "qty": "36", "realamt": "36300", "stock": false, "hist": [{"odate": "2026-07-20", "idate": "2026-07-21", "qty": "30", "realamt": "29400", "arrived": true, "arrtxt": "완료"}, {"odate": "2026-07-21", "idate": "2026-07-22", "qty": "6", "realamt": "6900", "arrived": true, "arrtxt": "완료"}]}, "올리브오일": {"keep": "실온", "store": "쿠팡", "odate": "2026-07-20 · 2026-07-21", "idate": "2026-07-21 · 2026-07-22", "ordered": true, "arrived": true, "arrtxt": "완료", "qty": "2000", "realamt": "29940", "stock": false, "hist": [{"odate": "2026-07-20", "idate": "2026-07-21", "qty": "1000", "realamt": "18820", "arrived": true, "arrtxt": "완료"}, {"odate": "2026-07-21", "idate": "2026-07-22", "qty": "1000", "realamt": "11120", "arrived": true, "arrtxt": "완료"}]}, "홀그레인머스타드": {"keep": "냉장", "store": "쿠팡", "odate": "2026-07-20 · 2026-07-21", "idate": "2026-07-21 · 2026-07-22", "ordered": true, "arrived": true, "arrtxt": "완료", "qty": "420", "realamt": "11540", "stock": false, "hist": [{"odate": "2026-07-20", "idate": "2026-07-21", "qty": "210", "realamt": "5770", "arrived": true, "arrtxt": "완료"}, {"odate": "2026-07-21", "idate": "2026-07-22", "qty": "210", "realamt": "5770", "arrived": true, "arrtxt": "완료"}]}, "레몬즙": {"keep": "실온", "store": "쿠팡", "odate": "2026-07-20", "idate": "2026-07-21", "ordered": true, "arrived": true, "arrtxt": "완료", "qty": "1000", "realamt": "6000", "stock": false, "hist": [{"odate": "2026-07-20", "idate": "2026-07-21", "qty": "1000", "realamt": "6000", "arrived": true, "arrtxt": "완료"}]}, "로메인": {"keep": "냉장", "store": "쿠팡", "odate": "2026-07-21", "idate": "2026-07-22", "ordered": true, "arrived": true, "arrtxt": "완료", "qty": "1600", "realamt": "28760", "stock": false, "hist": [{"odate": "2026-07-21", "idate": "2026-07-22", "qty": "1600", "realamt": "28760", "arrived": true, "arrtxt": "완료"}]}, "와일드 루꼴라": {"keep": "냉장", "store": "쿠팡", "odate": "2026-07-21", "idate": "2026-07-22", "ordered": true, "arrived": true, "arrtxt": "완료", "qty": "1000", "realamt": "31610", "stock": false, "hist": [{"odate": "2026-07-21", "idate": "2026-07-22", "qty": "1000", "realamt": "31610", "arrived": true, "arrtxt": "완료"}]}, "식초": {"keep": "실온", "store": "쿠팡", "odate": "2026-07-21", "idate": "2026-07-22", "ordered": true, "arrived": true, "arrtxt": "완료", "qty": "900", "realamt": "3280", "stock": false, "hist": [{"odate": "2026-07-21", "idate": "2026-07-22", "qty": "900", "realamt": "3280", "arrived": true, "arrtxt": "완료"}]}, "설탕(조림)": {"keep": "실온", "store": "", "odate": "", "idate": "", "ordered": false, "arrived": true, "arrtxt": "완료", "qty": "", "realamt": "", "stock": true, "hist": [{"odate": "", "idate": "", "qty": "", "realamt": "", "arrived": true, "arrtxt": "완료"}]}, "레몬즙(조림)": {"keep": "실온", "store": "쿠팡", "odate": "2026-07-21", "idate": "2026-07-22", "ordered": true, "arrived": false, "arrtxt": "", "qty": "1000", "realamt": "6980", "stock": false, "hist": [{"odate": "2026-07-21", "idate": "2026-07-22", "qty": "1000", "realamt": "6980", "arrived": false, "arrtxt": ""}]}}, "content": {"강의명": "제철 복숭아로 만드는 복숭아청과 브리치즈 샐러드", "소개문": "복숭아청은 숙성하고, 복숭아조림은 샐러드로 바로 즐기는 7월 제철 과일 클래스", "강의내용": "1. 7월 제철 복숭아의 특징과 복숭아청·복숭아조림의 차이를 알아봅니다.\n2. 유리병을 안전하게 소독하고, 복숭아청을 담그는 방법을 배웁니다.\n3. 복숭아와 설탕을 활용해 숙성용 복숭아청을 완성합니다.\n4. 복숭아를 시럽에 가볍게 조려 바로 활용 가능한 복숭아조림을 만듭니다.\n5. 로메인, 와일드 루꼴라, 브리치즈, 드레싱을 활용해 복숭아 브리치즈 샐러드를 완성합니다.\n\n[강의를 듣고 나면]\n1. 제철 복숭아를 활용해 가정에서 복숭아청과 복숭아조림을 만들 수 있습니다.\n2. 과일청과 과일조림의 차이를 이해하고, 각각의 보관법과 활용법을 익힐 수 있습니다.\n3. 브리치즈와 제철 과일을 활용한 간단하면서도 근사한 샐러드를 완성할 수 있습니다.\n4. 복숭아청을 숙성 후 음료, 디저트, 홈카페 메뉴로 응용할 수 있습니다.", "대상": "초등학생 (보호자 동반 필수)", "선발방식": "선발", "소요시간": "약 1시간 30분", "키트구성품": "[수제청 만들기]\n- 제철 복숭아\n- 설탕\n- 수제청용 유리병\n\n[복숭아 조림 & 브리치즈 샐러드]\n- 복숭아 (조림용)\n- 프렌치 미니 브리치즈\n- 와일드 루꼴라, 로메인 등 신선 샐러드 채소\n- 시그니처 드레싱, 보조 양념(레몬즙 등)\n\n※ 본 키트는 제철 식재료로 구성되어 일부 품목이 시즌 및 산지 상황에 따라 동일·유사 등급의 상품으로 변동될 수 있습니다.", "개별준비물": "- 냄비 (유리병 열탕 소독과 복숭아조림때)\n- 도마, 칼, 계량컵 또는 종이컵\n- 볼 1~2개 (복숭아손질), 주걱 또는 숟가락, 집게, 샐러드 접시\n- 키친타월, 앞치마\n- 가열 가능한 조리 환경 (가스레인지 또는 인덕션)", "강사이력": "이영미 전문가", "해시태그": "#복숭아수제청 #복숭아조림 #브리치즈샐러드 #여름디저트 #여름홈쿠킹", "배송안내": "키트 배송 시 신선식품이 있어 새벽배송 가능 지역으로 발송됩니다. 선발 후 주소 기입 시 공동현관 비밀번호도 작성해 주시면 좋습니다.", "참여안내": "본 과정은 칼 사용과 유리병 열탕 소독 과정이 포함되어 있어, 보호자 동반 참여가 필수입니다.\n재료는 신선 식재료이므로 수령 즉시 냉장 보관해 주세요. (실온 봉투는 실온 보관)\n수업 시작 30분 전 줌 접속을 부탁드립니다.", "장소상세": "", "동반인규정": "보호자 1인 동반 필수 · 칼 사용과 열탕 소독 단계는 보호자가 진행", "재료구성": "[수제청] 천도복숭아·설탕·유리병500ml\n[조림&샐러드] 천도복숭아·로메인·와일드루꼴라·브리치즈\n[소스] 식초·설탕·홀그레인머스타드·올리브오일·레몬즙\n※ 양파다짐 별도(소량)\n\n재료비 합계(1인) 10,586원 (엑셀 7/24 이영미 기준·검산완료)", "줌링크": "https://vo.la/qCqpLHf (회의 ID·암호는 안내 문자 참조)", "견적코드": "QDATA:eyJtb2RlIjogIm9ubGluZSIsICJ2YXQiOiAiaW5jbCIsICJtdHlwZSI6ICJBIiwgInRpdGxlIjogIuygnOyyoCDrs7XsiK3slYTroZwg66eM65Oc64qUIOuzteyIreyVhOyyreqzvCDruIzrpqzsuZjspogg7IOQ65+s65OcIiwgIm9yZGVyZXIiOiAi6rK96riw64+E7KeA7IudIiwgInByaWNlIjogIjUwMDAwIiwgInBheCI6ICIzMSIsICJwYWNrIjogIjUwMDAiLCAic2hpcCI6ICI1MDAwIiwgInRlYWNoIjogIjEwMDAwIiwgImZlZVJhdGUiOiAiMjAiLCAicm93cyI6IFt7Imd1IjogIuq1rOyEse2SiCIsICJubSI6ICLsspzrj4Trs7XsiK3slYQo7IiY7KCc7LKtKSIsICJiYSI6ICIz6rCcICjshpDsp4gg7ZuEIDMwMGcpIiwgImxrIjogImh0dHBzOi8vd3d3LmNvdXBhbmcuY29tL3ZwL3Byb2R1Y3RzLzU4MTU2MDUxNTk/aXRlbUlkPTE5MjMzNDIzMTQwJnZlbmRvckl0ZW1JZD04NjM0OTg4NjA4NCIsICJ2MSI6ICI1MDAiLCAidTEiOiAiZyIsICJwdiI6ICI0MDAwIiwgInB1IjogImciLCAicG0iOiAiMjMxNjAiLCAib3UiOiAiNCIsICJtdSI6ICLrs7XsiK3slYTssq0iLCAib2QiOiAxfSwgeyJndSI6ICLqtazshLHtkogiLCAibm0iOiAi7Jyg66as67ORIDUwMG1sIiwgImJhIjogIjHqsJwiLCAibGsiOiAiaHR0cHM6Ly93d3cuY291cGFuZy5jb20vdnAvcHJvZHVjdHMvNzU3NTI5MTAyMT9pdGVtSWQ9MjgwNjg0NTg1MTImdmVuZG9ySXRlbUlkPTk1MDI1MTAwMTAwIiwgInYxIjogIjEiLCAidTEiOiAi6rCcIiwgInB2IjogIjE1IiwgInB1IjogIuqwnCIsICJwbSI6ICIxNDcwMCIsICJvdSI6ICIyIiwgIm11IjogIuuzteyIreyVhOyyrSIsICJvZCI6IDJ9LCB7Imd1IjogIuyGjOu2hO2MqSIsICJubSI6ICLshKTtg5Uo7IiY7KCc7LKtKSIsICJiYSI6ICIzMDBnIiwgImxrIjogImh0dHBzOi8vd3d3LmNvdXBhbmcuY29tL3ZwL3Byb2R1Y3RzLzk0OTg5NDg3ODk/aXRlbUlkPTI4Mjk3MjI4NTAxJnZlbmRvckl0ZW1JZD05NTI1MDA0MDcwOCIsICJ2MSI6ICIzMDAiLCAidTEiOiAiZyIsICJwdiI6ICIxMDAwIiwgInB1IjogImciLCAicG0iOiAiMzM2MCIsICJvdSI6ICIxMiIsICJtdSI6ICLrs7XsiK3slYTssq0iLCAib2QiOiAzfSwgeyJndSI6ICLqtazshLHtkogiLCAibm0iOiAi7LKc64+E67O17Iit7JWEKOyhsOumvCkiLCAiYmEiOiAiMuqwnCIsICJsayI6ICJodHRwczovL3d3dy5jb3VwYW5nLmNvbS92cC9wcm9kdWN0cy81ODE1NjA1MTU5P2l0ZW1JZD0xOTIzMzQyMzE0MCZ2ZW5kb3JJdGVtSWQ9ODYzNDk4ODYwODQiLCAidjEiOiAiMTAwIiwgInUxIjogImciLCAicHYiOiAiNDAwMCIsICJwdSI6ICJnIiwgInBtIjogIjIzMTYwIiwgIm91IjogIjEiLCAibXUiOiAi67O17Iit7JWEIOyhsOumvCIsICJvZCI6IDR9LCB7Imd1IjogIuyGjOu2hO2MqSIsICJubSI6ICLshKTtg5Uo7KGw66a8KSIsICJiYSI6ICIxLzLsu7UgKDEwMGcpIiwgImxrIjogIiIsICJ2MSI6ICIxMDAiLCAidTEiOiAiZyIsICJwdiI6ICIxMDAwIiwgInB1IjogImciLCAicG0iOiAiMzM2MCIsICJvdSI6ICI0IiwgIm11IjogIuuzteyIreyVhCDsobDrprwiLCAib2QiOiA1fSwgeyJndSI6ICLshozrtoTtjKkiLCAibm0iOiAi66CI66qs7KaZKOyhsOumvCkiLCAiYmEiOiAiMu2BsOyIoCAoMzBnKSIsICJsayI6ICIiLCAidjEiOiAiMzAiLCAidTEiOiAiZyIsICJwdiI6ICIxMDAwIiwgInB1IjogImciLCAicG0iOiAiNjk4MCIsICJvdSI6ICIxIiwgIm11IjogIuuzteyIreyVhCDsobDrprwiLCAib2QiOiA2fSwgeyJndSI6ICLqtazshLHtkogiLCAibm0iOiAi66Gc66mU7J24IiwgImJhIjogIjPsno4oNTBnKSIsICJsayI6ICJodHRwczovL3d3dy5jb3VwYW5nLmNvbS92cC9wcm9kdWN0cy82Nzg5NjE3NDI4P2l0ZW1JZD0xNTk5MzMwNzM0OCZ2ZW5kb3JJdGVtSWQ9ODMxOTg3MDQ4MDAiLCAidjEiOiAiNTAiLCAidTEiOiAiZyIsICJwdiI6ICIyMDAiLCAicHUiOiAiZyIsICJwbSI6ICIzNDgwIiwgIm91IjogIjgiLCAibXUiOiAi67iM66as7LmY7KaIIOyDkOufrOuTnCIsICJvZCI6IDd9LCB7Imd1IjogIuq1rOyEse2SiCIsICJubSI6ICLsmYDsnbzrk5wg66Oo6ry06528IiwgImJhIjogIjMwZyIsICJsayI6ICJodHRwczovL3d3dy5jb3VwYW5nLmNvbS92cC9wcm9kdWN0cy82MzA4NTk3ODgyP2l0ZW1JZD0yNDUxNTYyMzg2OCZ2ZW5kb3JJdGVtSWQ9OTE1Mjg0NjM5NTkiLCAidjEiOiAiMzAiLCAidTEiOiAiZyIsICJwdiI6ICIxMDAiLCAicHUiOiAiZyIsICJwbSI6ICIzMjIwIiwgIm91IjogIjEwIiwgIm11IjogIuu4jOumrOy5mOymiCDsg5Drn6zrk5wiLCAib2QiOiA4fSwgeyJndSI6ICLqtazshLHtkogiLCAibm0iOiAi67iM66as7LmY7KaIIiwgImJhIjogIjI1ZyIsICJsayI6ICJodHRwczovL3d3dy5jb3VwYW5nLmNvbS92cC9wcm9kdWN0cy82MzY4MjA1NzcyP2l0ZW1JZD0yNDM1MzIyODc2OCZ2ZW5kb3JJdGVtSWQ9OTEzMzgzOTUzODciLCAidjEiOiAiMjUiLCAidTEiOiAiZyIsICJwdiI6ICI1MDAiLCAicHUiOiAiZyIsICJwbSI6ICIzMjc1MCIsICJvdSI6ICIyIiwgIm11IjogIuu4jOumrOy5mOymiCDsg5Drn6zrk5wiLCAib2QiOiA5fSwgeyJndSI6ICLshozsiqTtjKkiLCAibm0iOiAi7Iud7LSIIiwgImJhIjogIjFUIiwgImxrIjogImh0dHBzOi8vd3d3LmNvdXBhbmcuY29tL3ZwL3Byb2R1Y3RzLzcwMzgzNzQ2MjY/aXRlbUlkPTE3Mzk3NTIyNjU0JnZlbmRvckl0ZW1JZD04NDU2Njk4MDgyOSIsICJ2MSI6ICIxNSIsICJ1MSI6ICJnIiwgInB2IjogIjkwMCIsICJwdSI6ICJtbCIsICJwbSI6ICIzMjgwIiwgIm91IjogIjEiLCAibXUiOiAi67iM66as7LmY7KaIIOyDkOufrOuTnCIsICJvZCI6IDEwfSwgeyJndSI6ICLshozsiqTtjKkiLCAibm0iOiAi7ISk7YOVKOyGjOyKpCkiLCAiYmEiOiAiMVQiLCAibGsiOiAiaHR0cHM6Ly93d3cuY291cGFuZy5jb20vdnAvcHJvZHVjdHMvOTQ5ODk0ODc4OT9pdGVtSWQ9MjgyOTcyMjg1MDEmdmVuZG9ySXRlbUlkPTk1MjUwMDQwNzA4IiwgInYxIjogIjEzIiwgInUxIjogImciLCAicHYiOiAiNDAwIiwgInB1IjogImciLCAicG0iOiAiMTY4MCIsICJvdSI6ICI0IiwgIm11IjogIuu4jOumrOy5mOymiCDsg5Drn6zrk5wiLCAib2QiOiAxMX0sIHsiZ3UiOiAi7IaM7Iqk7YypIiwgIm5tIjogIu2ZgOq3uOugiOyduOuouOyKpO2DgOuTnCIsICJiYSI6ICIxLzJUIiwgImxrIjogImh0dHBzOi8vd3d3LmNvdXBhbmcuY29tL3ZwL3Byb2R1Y3RzLzY2NTkxODU4NjU/aXRlbUlkPTE1MjgxNTAyMTI5JnZlbmRvckl0ZW1JZD04MjUwMTk5MzIyMyIsICJ2MSI6ICI4IiwgInUxIjogImciLCAicHYiOiAiMjEwIiwgInB1IjogImciLCAicG0iOiAiNTc3MCIsICJvdSI6ICIxIiwgIm11IjogIuu4jOumrOy5mOymiCDsg5Drn6zrk5wiLCAib2QiOiAxMn0sIHsiZ3UiOiAi7IaM7Iqk7YypIiwgIm5tIjogIuugiOuqrOymmSIsICJiYSI6ICIxLzJUIiwgImxrIjogImh0dHBzOi8vd3d3LmNvdXBhbmcuY29tL3ZwL3Byb2R1Y3RzLzUzNzkxNjQ2MzM/aXRlbUlkPTE5MDM2NjU2MDEwJnZlbmRvckl0ZW1JZD05MzExODM1NjMyOCIsICJ2MSI6ICI4IiwgInUxIjogImciLCAicHYiOiAiMTAwMCIsICJwdSI6ICJnIiwgInBtIjogIjk0MTAiLCAib3UiOiAiMSIsICJtdSI6ICLruIzrpqzsuZjspogg7IOQ65+s65OcIiwgIm9kIjogMTN9LCB7Imd1IjogIuyGjOu2hO2MqSIsICJubSI6ICLsmKzrpqzruIzsmKTsnbwiLCAiYmEiOiAiM1QiLCAibGsiOiAiaHR0cHM6Ly93d3cuY291cGFuZy5jb20vdnAvcHJvZHVjdHMvNjI0NTkzNjM/aXRlbUlkPTEzMTA1NTQyMDY1JnZlbmRvckl0ZW1JZD05MjIyMDAwOTc3MiIsICJ2MSI6ICI0MSIsICJ1MSI6ICJnIiwgInB2IjogIjEwMDAiLCAicHUiOiAibWwiLCAicG0iOiAiMTcxMDAiLCAib3UiOiAiMSIsICJtdSI6ICLruIzrpqzsuZjspogg7IOQ65+s65OcIiwgIm9kIjogMTR9XSwgImNvbnRlbnQiOiB7ImNfdGl0bGUyIjogIuygnOyyoCDrs7XsiK3slYTroZwg66eM65Oc64qUIOuzteyIreyVhOyyreqzvCDruIzrpqzsuZjspogg7IOQ65+s65OcIiwgImNfdGVhY2hlciI6ICLsnbTsmIHrr7gifX0=", "레시피": "[제목]\n제철 복숭아로 만드는 복숭아청 & 복숭아조림 브리치즈 샐러드\n\n[Prologue]\n여름 한철에만 만날 수 있는 천도복숭아를 두 가지 방식으로 담아낸 한 상입니다.\n설탕에 켜켜이 재운 복숭아청은 하루만 뒤집어 두면 향과 즙이 그대로 맑은 청이 되고, 시럽에 살짝 조린 복숭아는 부드러운 브리치즈와 쌉쌀한 루꼴라 사이에서 단맛을 잡아줍니다.\n홀그레인머스타드 드레싱이 전체를 이어주어, 여름 저녁 한 접시로도 충분한 샐러드가 됩니다.\n\n[ingredients]\n<복숭아청> 천도복숭아 3개(손질 후 300g) · 설탕 300g · 유리병 500ml 1개\n<복숭아 조림> 천도복숭아 2개 · 설탕 100g · 조림용 레몬즙 2큰술\n<브리치즈 샐러드> 로메인 3잎 · 와일드 루꼴라 30g · 브리치즈 25g · 드레싱 소스 44g · 올리브오일 3큰술\n\n[At home]\n물(병 소독용) · 물 1컵 · 소금 한 꼬집\n\n[알레르기]\n*알레르기 유발물질: 복숭아, 우유(브리치즈)\n\n[Recipe — 복숭아청]\nStep 1. 유리병 소독 — 끓는 물에 병을 거꾸로 넣어 1분간 끓인 뒤 꺼내 완전히 식힙니다.\nStep 2. 켜켜이 담기 — 복숭아를 씻어 껍질을 벗기고 잘게 깍둑썰기 합니다. 병에 설탕 → 복숭아 → 설탕 순으로 켜켜이 넣습니다.\nStep 3. 숙성 — 뚜껑을 닫고 1일 실온에 두며 반나절마다 뒤집습니다. 설탕이 녹으면 냉장 보관합니다.\n\n[Recipe — 복숭아조림 브리치즈 샐러드]\nStep 1. 복숭아 조림 — 조림용 설탕과 물 1컵을 끓여 시럽을 만듭니다. 껍질 벗겨 웨지로 썬 복숭아를 넣고 약불에서 10분 조린 뒤, 불을 끄고 레몬즙을 넣어 식힙니다.\nStep 2. 재료 손질과 드레싱 — 로메인·루꼴라는 씻어 물기를 털고 브리치즈와 함께 먹기 좋게 썹니다. 드레싱 소스에 올리브오일과 소금 한 꼬집을 넣고 30초간 흔들어 섞습니다.\nStep 3. 마무리 — 접시에 채소 → 복숭아 조림 → 브리치즈를 올리고 드레싱을 뿌립니다.\n\n[드레싱 소스 — 직접 만들기]\n식초 1T · 설탕 1T · 홀그레인머스타드 1/2T · 레몬즙 1/2T · 소금 한 꼬집\n\n[QR] https://www.archiveat.kr/ — 아카이빗 공식몰 바로가기\n[앞장 태그라인] This recipe paper is specially arranged by Archiveat / 나만의 요리로 나만의 아카이브를 만들어 보세요", "강의정보링크": "https://vo.la/etJn4vQ", "리허설안내": "15:30 줌 접속 → 운영 매니저와 리허설 (화면공유·마이크 점검, 약 10분) · 16:00 수업 시작", "선생님전달문구": "선생님 안녕하세요, 공공의주방입니다.\n7/24(금) 수업 안내드립니다.\n\n[수업 정보]\n· 강의명: 여름 제철 과일로 만드는 수제청과 샐러드\n· 일시: 7/24(금) 16:00 ~ 17:30 (90분)\n· 대상: 경기도지식 회원 초등학생 30명 (보호자 동반 필수)\n· 형식: 줌 온라인 + 재료 사전 배송\n\n[줌 접속]\n· 회의 링크·ID·암호는 경기도지식 안내 문자를 확인해 주세요.\n· 15:30 접속 → 운영 매니저와 리허설 (화면공유·마이크, 약 10분)\n· 시작 전 안내 멘트는 운영 매니저가 진행합니다.\n\n[재료]\n· 7/23(목) 새벽 문 앞 도착입니다.\n· 냉장봉투 2개는 수령 즉시 냉장고에 넣어주세요. 종이봉투는 실온 보관입니다.\n· 구성: ① 유리병·설탕 2봉·레시피카드 ② 복숭아 5개 ③ 채소·브리치즈·소스 3종\n\n[수업 진행 시 안내 부탁드립니다]\n· 유리병 열탕 소독과 칼 사용은 보호자가 맡도록 안내해 주세요.\n· 시럽은 약불로 유지해 끓어 넘치지 않도록 해주세요.\n· 복숭아는 청용 3개, 조림용 2개로 나눠 사용합니다.\n· 드레싱은 소스팩과 올리브오일을 합쳐 흔들면 됩니다.\n\n감사합니다."}}};var CHAT="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306";
-var KIND="";var SORT="date";var DIR=1;var OPEN=null;
-(function(){var u=document.querySelector('meta[name=updated]'),v=document.querySelector('meta[name=version]');document.getElementById('upd').textContent='업데이트 '+((u&&u.content)||'')+' · '+((v&&v.content)||'');
-var sel=document.getElementById('fOrd');ORDS.forEach(function(o){var op=document.createElement('option');op.textContent=o;sel.appendChild(op);});})();
-document.getElementById('fKind').addEventListener('click',function(e){if(e.target.tagName!=='BUTTON')return;KIND=e.target.dataset.k;this.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.dataset.k===KIND);});render();});
-function sortBy(k){if(SORT===k)DIR=-DIR;else{SORT=k;DIR=1;}render();}
-function esc(v){return v==null?'':String(v).replace(/</g,'&lt;').replace(/"/g,'&quot;');}
-function payChip(v,kind){var done=(v===(kind+'완료'));return '<span class="paychip '+(done?'pc-done':'pc-wait')+'">'+(done?'✓ 완료':'대기')+'</span>';}
-function stLabel(s){return {'확정':'개강확정','미달':'폐강'}[s]||s;}
-function paxCell(r){
-  if(r.mtype==='A'){return '<b>'+(r.mx||r.mn||0)+'</b>명 <span class="pax-mini pm-fix">사전확정</span>';}
-  var op={'신청중':'pm-ing','확정':'pm-open','미달':'pm-short'}[r.openst]||'pm-ing';
-  return '<b>'+(r.applied||0)+'</b>/'+(r.mx||0)+' <span class="pax-mini '+op+'">'+(r.openst||'')+'</span>';
-}
-function fmtN(n){if(n==null||n==='')return '';return Math.round(n).toLocaleString();}
-function won(n){if(n==null||n==='')return '-';return Math.round(Number(n)).toLocaleString()+'원';}
-function pct(n){if(n==null||n==='')return '-';return (Math.round(n*1000)/10)+'%';}
-function num(v){v=parseFloat((''+v).replace(/,/g,''));return isNaN(v)?0:v;}
-function parseQ(code){if(!code)return null;var m=(''+code).match(/QDATA:([A-Za-z0-9+\/=]+)/);if(!m)return null;try{var d=JSON.parse(decodeURIComponent(escape(atob(m[1]))));return d;}catch(e){return null;}}
-function render(){
-  var q=(document.getElementById('q').value||'').toLowerCase();
-  var st=document.getElementById('fState').value;var od=document.getElementById('fOrd').value;
-  var rows=DATA.filter(function(r){
-    if(st&&r.state!==st)return false;if(od&&r.orderer!==od)return false;if(KIND&&r.kind!==KIND)return false;
-    if(q){var hay=((r.name||'')+(r.orderer||'')+(r.teacher||'')).toLowerCase();if(hay.indexOf(q)<0)return false;}
-    return true;});
-  rows.sort(function(a,b){var x=a[SORT],y=b[SORT];if(x==null)x='';if(y==null)y='';if(typeof x==='number'||typeof y==='number'){return (Number(x)-Number(y))*DIR;}return String(x).localeCompare(String(y),'ko')*DIR;});
-  document.getElementById('count').textContent=rows.length+'건'+(rows.length!==DATA.length?(' (전체 '+DATA.length+')'):'');
-  var tb=document.getElementById('tb');
-  if(!rows.length){tb.innerHTML='<tr><td colspan="9" class="empty">조건에 맞는 클래스가 없습니다.</td></tr>';return;}
-  var html='';
-  rows.forEach(function(r){
-    html+='<tr class="mainrow'+(OPEN===r.cid?' open':'')+'" onclick="toggle(\''+r.cid+'\')">'
-      +'<td><span class="arrow">▶</span>'+(r.datef||'-')+'</td><td>'+esc(r.orderer)+'</td>'
-      +'<td class="ln"><span class="lt-thumb-wrap"><img class="lt-thumb" src="class-images/'+esc(r.cid)+'.jpg" alt="" loading="lazy" onerror="this.style.display=&quot;none&quot;;this.nextElementSibling.style.display=&quot;inline-flex&quot;"><span class="lt-thumb lt-ph" style="display:none">🍽</span></span>'+esc(r.name)+'</td>'
-      +'<td><span class="kind k-'+esc(r.kind)+'">'+esc(r.kind)+'</span></td>'
-      +'<td><span class="badge st-'+esc(r.state)+'">'+stLabel(r.state)+'</span></td>'
-      +'<td class="rt">'+paxCell(r)+'</td><td>'+esc(r.teacher)+'</td>'
-      +'<td>'+payChip(r.paidin,'입금')+'</td><td>'+payChip(r.paidout,'지급')+'</td></tr>';
-    if(OPEN===r.cid){html+='<tr class="detailrow"><td colspan="9">'+buildDetail(r.cid)+'</td></tr>';}
-  });
-  tb.innerHTML=html;
-}
-function toggle(cid){OPEN=(OPEN===cid?null:cid);render();
-  if(OPEN){setTimeout(function(){var el=document.querySelector('tr.mainrow.open');if(el)el.scrollIntoView({block:'nearest',behavior:'smooth'});},50);}}
-function tabTo(cid,i,btn){var wrap=btn.closest('.dwrap');wrap.querySelectorAll('.dtab').forEach(function(t,j){t.classList.toggle('on',j===i);});wrap.querySelectorAll('.dpane').forEach(function(p,j){p.classList.toggle('on',j===i);});}
-function drow(k,v,mono){if(v==null||v===''||v==='-')return '';return '<div class="drow"><span class="k">'+k+'</span><span class="v'+(mono?' mono':'')+'">'+esc(v)+'</span></div>';}
-function blk(label,text){return '<div class="dsub">'+label+'</div>'+(text?('<div class="dtext">'+esc(text)+'</div>'):'<div class="dempty">미입력</div>');}
-function matTable(code,paxFallback){
-  var d=parseQ(code);if(!d||!d.rows||!d.rows.length)return '<div class="dempty">재료 정보가 없습니다. 계산기에서 등록하면 채워집니다.</div>';
-  var pax=num(d.pax)||paxFallback||1;var body='',tot=0,cur=null,sub=0;
-  var subRow=function(g,st){return '<tr class="subtot"><td colspan="14" class="tl">'+esc(g||'기타')+' 소계 (1인)</td><td class="rt p">'+fmtN(st)+'</td></tr>';};
-  d.rows.forEach(function(r){
-    var g=r.mu||r.gu||'';
-    if(cur!==null&&g!==cur){body+=subRow(cur,sub);sub=0;}
-    var newMenu=(g!==cur);
-    cur=g;
-    var v1=num(r.v1),pv=num(r.pv),pm=num(r.pm),ou=num(r.ou);
-    var sh=num(r.sh);var need=v1*pax,ord=ou*pv,total=pm*ou+sh;var per=(pax>0&&ord>0)?total/pax*(need/ord):0;tot+=per;sub+=per;
-    body+='<tr'+(newMenu?' class="mstart"':'')+'><td class="mcell">'+(newMenu?esc(r.mu||''):'')+'</td><td>'+esc(r.gu)+'</td><td class="tl">'+esc(r.nm)+(sh>0?' <span class="ship-note">+배송 '+fmtN(sh)+'</span>':'')+'</td><td>'+esc(r.ba)+'</td>'
-      +'<td>'+(r.lk?'<a href="'+esc(r.lk)+'" target="_blank">링크</a>':'')+'</td>'
-      +'<td class="rt">'+esc(r.v1)+'</td><td>'+esc(r.u1)+'</td><td class="rt">'+esc(r.pv)+'</td><td>'+esc(r.pu)+'</td><td class="rt">'+fmtN(pm)+'</td>'
-      +'<td class="rt a">'+fmtN(need)+'</td><td class="rt">'+esc(r.ou)+'</td><td class="rt a">'+fmtN(ord)+'</td><td class="rt a">'+fmtN(total)+'</td><td class="rt p">'+fmtN(per)+'</td></tr>';
-  });
-  if(cur!==null)body+=subRow(cur,sub);
-  return '<div class="matwrap"><table class="mat"><thead><tr>'
-    +'<th rowspan="2">메뉴</th><th rowspan="2">구분</th><th rowspan="2">구성품</th><th rowspan="2">레시피<br>기준량</th><th rowspan="2">구매처</th>'
-    +'<th class="grp" colspan="2">1인 기준</th><th class="grp" colspan="3">판매 기준단위</th>'
-    +'<th rowspan="2">총<br>필요량</th><th rowspan="2">주문<br>단위</th><th rowspan="2">주문<br>총량</th><th rowspan="2">총금액</th><th rowspan="2">1인<br>금액</th></tr>'
-    +'<tr><th>용량</th><th>단위</th><th>용량</th><th>단위</th><th>금액</th></tr></thead><tbody>'+body+'</tbody></table></div>'
-    +'<div class="matsum">재료비 합계(1인) <b>'+fmtN(tot)+'</b> 원 · 기준 인원 '+pax+'명</div>';
-}
-function keepBadge(k){var m={'냉동':'kp-frz','냉장':'kp-cool','실온':'kp-room'};if(!k||!m[k])return '<span class="kp kp-none">—</span>';return '<span class="kp '+m[k]+'">'+k+'</span>';}
-function diffCell(diff){if(diff===0)return '<span class="df0">0</span>';if(diff<0)return '<span class="dfsave">▼'+fmtN(-diff)+'</span>';return '<span class="dfover">▲'+fmtN(diff)+'</span>';}
-function inbCell(o,i,unit){
-  var h=(o&&o.hist)||[];
-  if(!h.length) return '<span class="mut">—</span>';
-  if(i>=h.length) return '<span class="mut">—</span>';
-  var x=h[i];
-  var q=(x.qty!=null&&x.qty!=='')?fmtN(num(x.qty))+(unit||''):'';
-  var mark=x.arrived?'<b style="color:#2E7D32">📦</b>':(x.arrtxt?'<span style="color:#B44A1E">🟡</span>':'<span class="mut">⬜</span>');
-  return mark+' '+(x.idate?String(x.idate).replace(/^2026-/,''):'?')+(q?'<br><span class="mut">'+q+'</span>':'');
-}
-function orderTable(code,od){
-  var d=parseQ(code);if(!d||!d.rows||!d.rows.length)return '';
-  var pax=num(d.pax)||1;
-  var body='',planTot=0,realTot=0,hasReal=false,merge={},__prevMu=null;
-  d.rows.forEach(function(r){
-    var _mu=r.mu||'';var newMenu=(_mu!==__prevMu);__prevMu=_mu;
-    var v1=num(r.v1),ou=num(r.ou),pv=num(r.pv),pm=num(r.pm),sh=num(r.sh);
-    var total=pm*ou+sh;planTot+=total;
-    var need=v1*pax;
-    var plan=fmtN(ou)+'×'+fmtN(pv)+(r.pu||'');
-    var base=(r.nm||'').replace(/\s*\(.*$/,'').trim();merge[base]=(merge[base]||0)+ou;
-    var o=(od&&od[r.nm])||{};
-    var qty=(o.qty!=null&&o.qty!=='')?num(o.qty):null;
-    var real=(o.realamt!=null&&o.realamt!=='')?num(o.realamt):null;
-    if(real!=null){realTot+=real;hasReal=true;}
-    var stat;
-    if(o.stock)stat='<span class="ost ost-stock">🔵 재고</span>';
-    else if(qty==null)stat='<span class="ost ost-none">—</span>';
-    else if(qty>=need)stat='<span class="ost ost-ok">✅ 충족</span>';
-    else{var lack=need-qty;var more=pv>0?Math.ceil(lack/pv):0;stat='<span class="ost ost-short">⚠️ '+fmtN(lack)+(r.pu||'')+' 부족'+(more>0?' ('+more+'개↑)':'')+'</span>';}
-    var stockTag=o.stock?' <span class="stk">재고</span>':'';
-    var partial=(o.hist||[]).some(function(h){return h.arrived;});
-    var rwc = (!o.stock && o.ordered && !o.arrived) ? (partial?' class="rw-part"':' class="rw-wait"') : '';
-    body+='<tr'+rwc+'>'
-      +'<td class="mcell">'+(newMenu?esc(r.mu||''):'')+'</td>'
-      +'<td class="tl"><span class="gu-mini">'+esc(r.gu)+'</span> '+esc(r.nm)+(r.lk?' <a href="'+esc(r.lk)+'" target="_blank">🔗</a>':'')+'</td>'
-      +'<td class="rt nw"><b>'+fmtN(need)+(r.pu||'')+'</b> / '+(qty!=null?fmtN(qty)+(r.pu||''):'<span class="mut">—</span>')+'</td>'
-      +'<td>'+stat+'</td>'
-      +'<td>'+keepBadge(o.keep)+'</td>'
-      +'<td class="sm">'+(o.store?esc(o.store):'—')+'</td>'
-      +'<td class="sm nw">'+inbCell(o,0,r.pu)+'</td>'
-      +'<td class="sm nw">'+inbCell(o,1,r.pu)+'</td>'
-      +'<td class="ck nw">'+(o.stock?'<span class="stkuse">재고사용</span>':((o.ordered?'✅':'⬜')+(o.arrived?'📦':(partial?'🟡':'⬜'))))+'</td>'
-      +'<td class="rt nw"><span class="sm2">'+fmtN(total)+'</span> / '+(real!=null?fmtN(real)+stockTag:(o.stock?'<span class="stk">재고</span>':'<span class="mut">—</span>'))+'</td>'
-      +'<td class="rt">'+(real!=null?diffCell(real-total):(o.stock?'<span class="stk">재고</span>':'<span class="mut">—</span>'))+'</td>'
-      +'</tr>';
-  });
-  var byBase={};
-  d.rows.forEach(function(r){
-    var b=(r.nm||'').replace(/\s*\(.*$/,'').trim();
-    (byBase[b]=byBase[b]||[]).push({mu:r.mu||'',need:num(r.v1)*pax,pu:r.pu||'',ou:num(r.ou)});
-  });
-  var lines=[];
-  for(var b in byBase){
-    var g=byBase[b]; if(g.length<2) continue;
-    var sum=0,parts=[];
-    g.forEach(function(x){sum+=x.need;parts.push((x.mu||'기타')+' '+fmtN(x.need));});
-    lines.push('<div class="mgl"><b>'+b+'</b> <span class="mgt">'+fmtN(sum)+(g[0].pu||'')+'</span> <span class="mgd">= '+parts.join(' + ')+'</span></div>');
-  }
-  var mergeNote=lines.length?('<div class="ordnote"><div class="ordnote-h">※ 여러 메뉴에 쓰이는 재료 — 발주는 합산</div>'+lines.join('')+'</div>'):'';
-  var supply=num(d.price);if((d.vat||'')==='incl')supply=Math.round(supply/1.1);
-  var pack=num(d.pack),ship2=num(d.ship),teach=num(d.teach);
-  // 계획 원가(1인) = 사용량 기준 = 원가표와 동일
-  var useTot=0;
-  d.rows.forEach(function(r){var v1=num(r.v1),pv2=num(r.pv),pm2=num(r.pm),ou2=num(r.ou),sh2=num(r.sh);var need=v1*pax,ord=ou2*pv2,tt=pm2*ou2+sh2;if(pax>0&&ord>0)useTot+=tt/pax*(need/ord);});
-  var planMat=Math.round(useTot);var planNet=supply-planMat-pack-ship2-teach;
-  var realPer=hasReal?Math.round(realTot/pax):null;
-  var realNet=hasReal?(supply-realPer-pack-ship2-teach):null;
-  var cmp='<div class="cmpwrap"><table class="cmp"><thead><tr><th>구분</th><th>계획(원가)</th><th>실제(발주)</th></tr></thead><tbody>'
-    +'<tr><td class="tl">발주 총액 <span class="cmpsub">전체·구매기준</span></td><td class="rt">'+fmtN(planTot)+'</td><td class="rt">'+(hasReal?fmtN(realTot):'<span class="pend">발주 후 입력</span>')+'</td></tr>'
-    +'<tr><td class="tl">재료비(1인) <span class="cmpsub">계획=사용 / 실제=지출</span></td><td class="rt">'+fmtN(planMat)+'</td><td class="rt">'+(hasReal?fmtN(realPer):'—')+'</td></tr>'
-    +'<tr class="cmp-net"><td class="tl">순이익(1인)</td><td class="rt">'+fmtN(planNet)+'</td><td class="rt">'+(hasReal?fmtN(realNet):'—')+'</td></tr>'
-    +'</tbody></table></div>';
-  return '<div class="ordsec"><div class="ordh">📦 발주 · 입고 <span class="s">필요량 대비 주문량 · 부족분 · 실제 비용</span></div>'
-    +'<div class="ordwrap"><table class="ord"><thead><tr>'
-    +'<th>메뉴</th><th>재료</th><th>필요 / 주문</th><th>상태</th><th>보관</th><th>발주처</th><th>1차 입고</th><th>2차 입고</th><th>주문/입고</th><th>계획 / 실제</th><th>차액</th>'
-    +'</tr></thead><tbody>'+body+'</tbody></table></div>'+mergeNote+cmp
-    +'<div class="ordnote2">필요량 = 1인 사용량 × 인원 · 주문량이 필요량 이상이면 ✅충족, 미만이면 ⚠️부족(더 살 개수 표시). 발주 정보는 실제 발주하며 채팅으로 알려주시면 채워집니다.</div></div>';
-}
-function buildDetail(cid){
-  var d=DETAIL[cid];if(!d)return '<div class="dempty">상세 정보 없음</div>';
-  var c=d.content||{};
-  // ① 정보
-  var photo='<div class="d-photo"><img src="class-images/'+esc(cid)+'.jpg" alt="" '
-    +'onerror="this.parentElement.style.display=&quot;none&quot;"></div>';
-  var p1=photo+drow('수업명',d.name)+drow('강의명',c['강의명'])+drow('발주처',d.orderer)+drow('구분',d.kind)
-    +drow('수업일',d.date)+drow('시각',d.time)+drow('장소/배송',d.place)
-    +drow('대상',c['대상'])+drow('선발방식',c['선발방식'])+drow('소요시간',c['소요시간'])+drow('줌 링크',c['줌링크'])+drow('리허설',c['리허설안내'])+drow('강의정보',c['강의정보링크'])+drow('상태',d.state);
-  // ② 과정개요서
-  var p2='<button class="dcopy" onclick="copyOverview(\''+cid+'\',this)">📋 과정개요서 전체 복사</button>'
-    +blk('강의명',c['강의명'])+blk('소개문',c['소개문'])+blk('강의내용',c['강의내용'])
-    +blk('키트 구성품',c['키트구성품'])+blk('개별 준비물',c['개별준비물'])
-    +(d.kind==='온라인'?(blk('배송 안내',c['배송안내'])+blk('참여 안내',c['참여안내'])):(blk('장소',c['장소상세'])+blk('동반인 규정',c['동반인규정'])))
-    +blk('강사 이력',c['강사이력'])+blk('해시태그',c['해시태그'])
-    +(c['선생님전달문구']?('<div class="tmsg"><div class="tmsg-h">선생님 전달 문구</div><pre>'+esc(c['선생님전달문구'])+'</pre></div>'):'')+'<div class="dnote">수강신청 확인사항·GSEEK 참여안내 등 고정 문구는 채널로 낼 때 자동으로 붙습니다.</div>';
-  // ③ 레시피 (조리법 · 레시피 카드용)
-  var pRec=(c['레시피']?'<button class="dcopy" onclick="copyRecipe(\''+cid+'\',this)">📋 레시피 전체 복사</button>':'')
-    +blk('조리법',c['레시피'])
-    +'<div class="dnote">레시피 카드 제작용 조리법입니다. 들어가는 재료·단가는 [구성품(원가)] 탭에서 봅니다.</div>';
-  // ④ 구성품(원가) (견적 표)
-  var p3=matTable(c['견적코드'],d.applied||d.mn);
-  var p3o=orderTable(c['견적코드'],d.order);
-  // ④ 가격·정산 (단가 + 부가세금액 + 강사료 분리 + 공급가 기준 손익)
-  var vatAmt=null,supply=null;
-  if(d.price!=null){if(d.vat==='포함'){supply=d.price/1.1;vatAmt=d.price-supply;}else if(d.vat==='별도'){supply=d.price;vatAmt=d.price*0.1;}else{supply=d.price;}}
-  var costEx=(d.mat||0)+(d.pack||0)+(d.ship||0);
-  var ap4=d.applied||d.mn||0;
-  var recv4=(supply!=null&&ap4)?supply*ap4:null;
-  var take4=(recv4!=null&&ap4)?(recv4-costEx*ap4-(d.settle||0)):null;
-  var p4='<div class="flow">'
-    +'<div class="flow-sec"><div class="flow-h">단가 (인당)</div>'
-    +'<div class="flow-r"><span>판매가</span><span class="fv">'+won(d.price)+'</span></div>'
-    +(vatAmt!=null?('<div class="flow-r"><span>부가세 ('+(d.vat||'')+')</span><span class="fv">'+won(vatAmt)+'</span></div>'
-      +'<div class="flow-r"><span>'+(d.vat==='포함'?'공급가 (부가세 제외)':'합계 (부가세 포함)')+'</span><span class="fv">'+won(d.vat==='포함'?supply:(d.price+vatAmt))+'</span></div>'):'')
-    +'</div>'
-    +'<div class="flow-sec"><div class="flow-h">원가 (인당) · 쿠킹박스</div>'
-    +'<div class="flow-r"><span>재료비</span><span class="fv">'+won(d.mat)+'</span></div>'
-    +(d.kind==='온라인'?('<div class="flow-r"><span>패킹비</span><span class="fv">'+won(d.pack)+'</span></div>'
-      +'<div class="flow-r"><span>배송비</span><span class="fv">'+won(d.ship)+'</span></div>'):'')
-    +'<div class="flow-r tot"><span>원가 합</span><span class="fv">'+won(costEx)+'</span></div></div>'
-    +((d.teach)?('<div class="flow-sec"><div class="flow-h">강사료 (인당) · 별도</div>'
-      +'<div class="flow-r"><span>강사료 (선생님 인건비)</span><span class="fv">'+won(d.teach)+'</span></div></div>'):'')
-    +'<div class="flow-sec"><div class="flow-r tot pos"><span>수익 (인당)</span><span class="fv">'+won(d.profit)+'</span></div>'
-    +'<div class="flow-r"><span>수익률</span><span class="fv">'+pct(d.rate)+'</span></div></div>'
-    +(take4!=null?('<div class="flow-sec"><div class="flow-h">이 클래스 전체 손익 (신청 '+ap4+'명 기준)</div>'
-      +'<div class="flow-r"><span>받을 것 ('+(d.vat==='포함'?'공급가':'판매가')+' × '+ap4+'명)</span><span class="fv">'+won(recv4)+'</span></div>'
-      +'<div class="flow-r neg"><span>− 원가 ('+won(costEx)+' × '+ap4+'명)</span><span class="fv">-'+fmtN(costEx*ap4)+'원</span></div>'
-      +'<div class="flow-r neg"><span>− 선생님 정산액 (강사료)</span><span class="fv">-'+fmtN(d.settle||0)+'원</span></div>'
-      +'<div class="flow-r tot pos"><span>순이익</span><span class="fv">'+won(take4)+'</span></div></div>'):'')
-    +'</div>'
-    +'<div class="dnote">부가세 제외(공급가) 기준 손익입니다. 강사료는 원가와 분리해 별도 차감합니다. 정산구조: '+(d.struct==='A'?'A · 주최수금':(d.struct==='B'?'B · 우리수금':'-'))+'</div>';
-  // ⑦ 모집 현황
-  var mtype=d.mtype==='A'?'A · 사전확정':(d.mtype==='B'?'B · 모객':'-');
-  var p5=drow('모집유형',mtype);
-  if(d.mtype==='A'){p5+=drow('확정 인원',(d.applied||d.mn)+'명 (사전확정)');}
-  else{p5+=drow('신청 현황','신청 '+(d.applied||0)+'명 · 최소 '+d.mn+' · 최대 '+d.mx)+drow('개폐강',d.openst);}
-  if(d.signupdue&&d.mtype!=='A'){p5+='<div class="dsub">개최 문자 알림</div><div class="drow"><span class="k">📩 발송 예정</span><span class="v mono">'+esc(d.signupdue)+' 09:00 · 선생님·수강생에게 개최 여부 통보</span></div>';}
-  p5+=drow('확정기준일',d.confirmday)+drow('환불마감일',d.refundday)+drow('환불규칙',d.refundsrc);
-  if(d.kind==='온라인'){p5+='<div class="dsub">배송 현황</div><div class="dempty">배송 집계는 완전판 마스터(수강생 시트)에서 관리합니다.</div>';}
-  p5+='<div class="dnote">수강생 명단(연락처·주소·송장)은 개인정보라 표시하지 않습니다. 완전판 마스터(채팅창)에서 확인하세요.</div>';
-  // ⑥ 정산 (선생님 지급에 집중 · 우리 몫은 ④에)
-  var applied=d.applied||d.mn||0;
-  var kitTotal=(d.price!=null&&applied)?d.price*applied:null;
-  var settle=d.settle;var payReal=null,payNote='';
-  if(settle!=null&&settle!==''){
-    if(d.ttype==='개인'){var tax=Math.round(settle*0.033);payReal=settle-tax;payNote='정산액 '+won(settle)+' − 원천세 3.3% '+won(tax);}
-    else if(d.ttype==='사업자'){payReal=settle;payNote='세금계산서 발행 · 원천징수 없음';}
-    else payReal=settle;
-  }
-  var p6='';
-  if(payReal!=null)p6+='<div class="bigpay"><span class="bk">👩‍🍳 선생님께 입금할 금액</span><span class="bv">'+won(payReal)+'</span></div>'+(payNote?'<div class="dnote" style="margin-top:-6px;margin-bottom:12px">'+payNote+'</div>':'');
-  p6+='<div class="flow">'
-    +'<div class="flow-sec"><div class="flow-h flow-h2"><span>우리가 받을 것 (발주처 → 우리)</span>'+payBadge(d.paidin,'입금')+'</div>'
-    +'<div class="flow-r"><span>판매가 × 신청 '+(applied||0)+'명</span><span class="fv">'+won(kitTotal)+'</span></div>'
-    +drowFlow('세금계산서 발행처',d.taxto)+drowFlow('지급주체',d.payer)+drowFlow('지급시기',d.paywhen)+drowFlow('정산예정일',d.paydate)+'</div>'
-    +'<div class="flow-sec"><div class="flow-h flow-h2"><span>우리가 줄 것 (우리 → 선생님)</span>'+payBadge(d.paidout,'지급')+'</div>'
-    +'<div class="flow-r"><span>정산방식</span><span class="fv">'+(d.feeway==='인당1만'?'인당 1만원':(d.feeway==='수수료%'?('수수료 '+pct(d.feerate)):'-'))+'</span></div>'
-    +'<div class="flow-r"><span>선생님 정산액</span><span class="fv">'+won(settle)+'</span></div>'
-    +'<div class="flow-r"><span>선생님 유형</span><span class="fv">'+(d.ttype==='개인'?'개인(원천세 3.3%)':(d.ttype==='사업자'?'사업자(계산서)':'-'))+'</span></div>'
-    +'<div class="flow-r neg tot"><span>실지급액</span><span class="fv">'+won(payReal)+'</span></div></div>'
-    +'</div>'
-    +'<div class="dnote">💳 선생님 계좌·은행은 개인정보라 표시하지 않습니다. <b>완전판 마스터(채팅창)</b>에서 확인하세요.</div>';
+document.getElementById('dlh').addEventListener('click',function(ev){ev.preventDefault();
+var b=new Blob(['<!DOCTYPE html>'+document.documentElement.outerHTML],{type:'text/html'});
+var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='class-list.html';a.click();});
 
-  return '<div class="dwrap">'
-    +'<div class="dhead"><h3>'+esc(d.name)+'</h3>'
-    +(d.packfile?('<a class="d-pack" href="'+esc(d.packfile)+'">📦 패킹 운영</a>'):'')
-    +'<button class="d-edit" onclick="editClass(\''+cid+'\',this)">✏ 클래스 수정</button></div>'
-    +'<div class="dtabs">'
-    +'<button class="dtab on" onclick="tabTo(\''+cid+'\',0,this)">정보</button>'
-    +'<button class="dtab" onclick="tabTo(\''+cid+'\',1,this)">과정개요서</button>'
-    +'<button class="dtab" onclick="tabTo(\''+cid+'\',2,this)">레시피</button>'
-    +'<button class="dtab" onclick="tabTo(\''+cid+'\',3,this)">구성품(원가)</button>'
-    +'<button class="dtab" onclick="tabTo(\''+cid+'\',4,this)">발주·입고</button>'
-    +'<button class="dtab" onclick="tabTo(\''+cid+'\',5,this)">수익 구조</button>'
-    +'<button class="dtab" onclick="tabTo(\''+cid+'\',6,this)">선생님 정산</button>'
-    +'<button class="dtab" onclick="tabTo(\''+cid+'\',7,this)">모집 현황</button></div>'
-    +'<div class="dbody">'
-    +'<div class="dpane on">'+p1+'</div><div class="dpane">'+p2+'</div><div class="dpane">'+pRec+'</div>'
-    +'<div class="dpane">'+p3+'</div><div class="dpane">'+p3o+'</div><div class="dpane">'+p4+'</div><div class="dpane">'+p6+'</div><div class="dpane">'+p5+'</div></div></div>';
+var D=[{"id": "GL-2403-01", "partner": "갤러리아광교", "dt": "2024-03-16", "name": "북해도식 스프카레 x 농심", "kind": "오프라인", "ty": "원데이", "teacher": "최진", "held": "개최", "pax": 12, "rev": 420000, "fee": 42000, "recv": 378000, "pay": 276924, "cost": 0, "ours": 57273, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2403-02", "partner": "갤러리아광교", "dt": "2024-03-23", "name": "에그타르트", "kind": "오프라인", "ty": "원데이", "teacher": "박은정", "held": "개최", "pax": 12, "rev": 420000, "fee": 42000, "recv": 378000, "pay": 276924, "cost": 0, "ours": 57273, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2404-01", "partner": "갤러리아광교", "dt": "2024-04-02", "name": "해물김치솥밥&배추된장국", "kind": "오프라인", "ty": "원데이", "teacher": "김희경", "held": "개최", "pax": 7, "rev": 280000, "fee": 28000, "recv": 252000, "pay": 184619, "cost": 0, "ours": 38182, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2404-02", "partner": "갤러리아광교", "dt": "2024-04-09", "name": "소고기양념구이&달걀말이", "kind": "오프라인", "ty": "원데이", "teacher": "김희경", "held": "개최", "pax": 4, "rev": 160000, "fee": 16000, "recv": 144000, "pay": 105501, "cost": 0, "ours": 21818, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2404-03", "partner": "갤러리아광교", "dt": "2024-04-14", "name": "마들렌", "kind": "오프라인", "ty": "원데이", "teacher": "일호실", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2404-04", "partner": "갤러리아광교", "dt": "2024-04-16", "name": "돼지고기수육조림&가지구이", "kind": "오프라인", "ty": "원데이", "teacher": "김희경", "held": "개최", "pax": 11, "rev": 440000, "fee": 44000, "recv": 396000, "pay": 290100, "cost": 0, "ours": 60000, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2404-05", "partner": "갤러리아광교", "dt": "2024-04-21", "name": "바나나푸딩", "kind": "오프라인", "ty": "원데이", "teacher": "일호실", "held": "개최", "pax": 5, "rev": 220000, "fee": 22000, "recv": 198000, "pay": 145050, "cost": 0, "ours": 30000, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2405-01", "partner": "갤러리아광교", "dt": "2024-05-04", "name": "온가족 브런치", "kind": "오프라인", "ty": "원데이", "teacher": "최진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2405-02", "partner": "갤러리아광교", "dt": "2024-05-07", "name": "연어수란&소고기쯔유샐러드", "kind": "오프라인", "ty": "원데이", "teacher": "김희경", "held": "개최", "pax": 3, "rev": 120000, "fee": 12000, "recv": 108000, "pay": 79128, "cost": 0, "ours": 16364, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2405-03", "partner": "갤러리아광교", "dt": "2024-05-12", "name": "크랜베리 스콘", "kind": "오프라인", "ty": "원데이", "teacher": "일호실", "held": "개최", "pax": 5, "rev": 220000, "fee": 22000, "recv": 198000, "pay": 145050, "cost": 0, "ours": 30000, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2405-04", "partner": "갤러리아광교", "dt": "2024-05-14", "name": "석박지&밤선", "kind": "오프라인", "ty": "원데이", "teacher": "김희경", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2405-05", "partner": "갤러리아광교", "dt": "2024-05-21", "name": "새우콩나물밥&소고기달걀장조림", "kind": "오프라인", "ty": "원데이", "teacher": "김희경", "held": "개최", "pax": 3, "rev": 120000, "fee": 12000, "recv": 108000, "pay": 79128, "cost": 0, "ours": 16364, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2405-06", "partner": "갤러리아광교", "dt": "2024-05-28", "name": "떡갈비&오이탕탕이", "kind": "오프라인", "ty": "원데이", "teacher": "임수진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2406-01", "partner": "갤러리아광교", "dt": "2024-06-04", "name": "브로컬리깨무침&미소연어구이", "kind": "오프라인", "ty": "원데이", "teacher": "김희경", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2406-02", "partner": "갤러리아광교", "dt": "2024-06-09", "name": "르뱅쿠키", "kind": "오프라인", "ty": "원데이", "teacher": "일호실", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2406-03", "partner": "갤러리아광교", "dt": "2024-06-11", "name": "소고기감자탕", "kind": "오프라인", "ty": "원데이", "teacher": "임수진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2406-04", "partner": "갤러리아광교", "dt": "2024-06-15", "name": "버터밀크 팬케이크", "kind": "오프라인", "ty": "원데이", "teacher": "최진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2406-05", "partner": "갤러리아광교", "dt": "2024-06-16", "name": "애플파운드 케이크", "kind": "오프라인", "ty": "원데이", "teacher": "일호실", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2406-06", "partner": "갤러리아광교", "dt": "2024-06-18", "name": "쯔유&쟁반모밀", "kind": "오프라인", "ty": "원데이", "teacher": "김희경", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2406-07", "partner": "갤러리아광교", "dt": "2024-06-25", "name": "오색소보로비빔밥&보리열무김치", "kind": "오프라인", "ty": "원데이", "teacher": "임수진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2406-08", "partner": "갤러리아광교", "dt": "2024-06-29", "name": "피타브레드&후무스", "kind": "오프라인", "ty": "원데이", "teacher": "최진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2407-01", "partner": "갤러리아광교", "dt": "2024-07-02", "name": "오색소보로덮밥 & 오이피클", "kind": "오프라인", "ty": "원데이", "teacher": "김희경", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2407-02", "partner": "갤러리아광교", "dt": "2024-07-09", "name": "두부튀김(간모도끼)+ 메밀국수", "kind": "오프라인", "ty": "원데이", "teacher": "김희경", "held": "개최", "pax": 7, "rev": 280000, "fee": 28000, "recv": 252000, "pay": 184619, "cost": 0, "ours": 38182, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2407-03", "partner": "갤러리아광교", "dt": "2024-07-14", "name": "르뱅쿠키", "kind": "오프라인", "ty": "원데이", "teacher": "일호실", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2407-04", "partner": "갤러리아광교", "dt": "2024-07-16", "name": "소고기감자탕&감자전", "kind": "오프라인", "ty": "원데이", "teacher": "임수진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2407-05", "partner": "갤러리아광교", "dt": "2024-07-20", "name": "소고기 아롱사태 수육", "kind": "오프라인", "ty": "원데이", "teacher": "이상은", "held": "개최", "pax": 5, "rev": 225000, "fee": 22500, "recv": 202500, "pay": 168750, "cost": 0, "ours": 30682, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2407-06", "partner": "갤러리아광교", "dt": "2024-07-23", "name": "팟타이 & 똠양꿍", "kind": "오프라인", "ty": "원데이", "teacher": "김희경", "held": "개최", "pax": 11, "rev": 440000, "fee": 44000, "recv": 396000, "pay": 290100, "cost": 0, "ours": 60000, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2407-07", "partner": "갤러리아광교", "dt": "2024-07-28", "name": "애플 파운드 케이크", "kind": "오프라인", "ty": "원데이", "teacher": "일호실", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2407-08", "partner": "갤러리아광교", "dt": "2024-07-30", "name": "초계탕 + 오이무침", "kind": "오프라인", "ty": "원데이", "teacher": "김희경", "held": "개최", "pax": 8, "rev": 320000, "fee": 32000, "recv": 288000, "pay": 210992, "cost": 0, "ours": 43636, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2408-01", "partner": "갤러리아광교", "dt": "2024-08-17", "name": "참소라삼합&황태찹쌀구이", "kind": "오프라인", "ty": "원데이", "teacher": "이상은", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2408-02", "partner": "갤러리아광교", "dt": "2024-08-18", "name": "복숭아 타르트", "kind": "오프라인", "ty": "원데이", "teacher": "일호실", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2408-03", "partner": "갤러리아광교", "dt": "2024-08-20", "name": "열무김치", "kind": "오프라인", "ty": "원데이", "teacher": "임수진", "held": "개최", "pax": 6, "rev": 264000, "fee": 26400, "recv": 237600, "pay": 174060, "cost": 0, "ours": 36000, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2408-04", "partner": "갤러리아광교", "dt": "2024-08-24", "name": "누들냉채&팔보채", "kind": "오프라인", "ty": "원데이", "teacher": "이상은", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2408-05", "partner": "갤러리아광교", "dt": "2024-08-25", "name": "레몬 파운드 케이크", "kind": "오프라인", "ty": "원데이", "teacher": "일호실", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2408-06", "partner": "갤러리아광교", "dt": "2024-08-27", "name": "백김치", "kind": "오프라인", "ty": "원데이", "teacher": "임수진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2409-01", "partner": "갤러리아광교", "dt": "2024-09-10", "name": "나박김치 만들기", "kind": "오프라인", "ty": "원데이", "teacher": "김희경", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2409-02", "partner": "갤러리아광교", "dt": "2024-09-21", "name": "후토마키 만들기", "kind": "오프라인", "ty": "원데이", "teacher": "박소진", "held": "개최", "pax": 6, "rev": 300000, "fee": 30000, "recv": 270000, "pay": 225000, "cost": 0, "ours": 40909, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2409-03", "partner": "갤러리아광교", "dt": "2024-09-24", "name": "깻잎말이&소고기오이볶음", "kind": "오프라인", "ty": "원데이", "teacher": "김희경", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2409-04", "partner": "갤러리아광교", "dt": "2024-09-28", "name": "노오븐 티라미슈", "kind": "오프라인", "ty": "원데이", "teacher": "일호실", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2410-01", "partner": "갤러리아광교", "dt": "2024-10-12", "name": "연잎밥과 세가지 가을반찬", "kind": "오프라인", "ty": "원데이", "teacher": "박소진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2410-02", "partner": "갤러리아광교", "dt": "2024-10-13", "name": "평양식 어복쟁반", "kind": "오프라인", "ty": "원데이", "teacher": "박소진", "held": "개최", "pax": 3, "rev": 165000, "fee": 16500, "recv": 148500, "pay": 123750, "cost": 0, "ours": 22500, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2410-03", "partner": "갤러리아광교", "dt": "2024-10-19", "name": "고추장 만들기", "kind": "오프라인", "ty": "원데이", "teacher": "박소진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2410-04", "partner": "갤러리아광교", "dt": "2024-10-22", "name": "무배깍두기와 좁쌀깍두기", "kind": "오프라인", "ty": "원데이", "teacher": "임수진", "held": "개최", "pax": 4, "rev": 192000, "fee": 19200, "recv": 172800, "pay": 126599, "cost": 0, "ours": 26182, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2410-05", "partner": "갤러리아광교", "dt": "2024-10-26", "name": "스테이크솥밥과 제철과일채소물김치", "kind": "오프라인", "ty": "원데이", "teacher": "박소진", "held": "개최", "pax": 7, "rev": 385000, "fee": 38500, "recv": 346500, "pay": 288750, "cost": 0, "ours": 52500, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2410-06", "partner": "갤러리아광교", "dt": "2024-10-27", "name": "페투치네 파스타와 제철과채 트러플샐러드", "kind": "오프라인", "ty": "원데이", "teacher": "박소진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2410-07", "partner": "갤러리아광교", "dt": "2024-10-29", "name": "새우장과 새우탕", "kind": "오프라인", "ty": "원데이", "teacher": "임수진", "held": "개최", "pax": 5, "rev": 240000, "fee": 24000, "recv": 216000, "pay": 158246, "cost": 0, "ours": 32727, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2411-02", "partner": "갤러리아광교", "dt": "2024-11-16", "name": "겨울잠 곰돌이 파이", "kind": "오프라인", "ty": "원데이", "teacher": "박지수", "held": "개최", "pax": 7, "rev": 266000, "fee": 26600, "recv": 239400, "pay": 175384, "cost": 0, "ours": 36273, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2411-01", "partner": "갤러리아광교", "dt": "2024-11-16", "name": "지라시스시", "kind": "오프라인", "ty": "원데이", "teacher": "박소진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2411-03", "partner": "갤러리아광교", "dt": "2024-11-19", "name": "백김치", "kind": "오프라인", "ty": "원데이", "teacher": "임수진", "held": "개최", "pax": 5, "rev": 275000, "fee": 27500, "recv": 247500, "pay": 181320, "cost": 0, "ours": 37500, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2411-04", "partner": "갤러리아광교", "dt": "2024-11-23", "name": "아몬드 스콘", "kind": "오프라인", "ty": "원데이", "teacher": "일호실", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2411-05", "partner": "갤러리아광교", "dt": "2024-11-26", "name": "꼬막무침&꼬막덮밥", "kind": "오프라인", "ty": "원데이", "teacher": "임수진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2411-06", "partner": "갤러리아광교", "dt": "2024-11-30", "name": "후토마끼", "kind": "오프라인", "ty": "원데이", "teacher": "박소진", "held": "개최", "pax": 7, "rev": 350000, "fee": 35000, "recv": 315000, "pay": 262500, "cost": 0, "ours": 47727, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2412-01", "partner": "갤러리아광교", "dt": "2024-12-01", "name": "어복쟁반", "kind": "오프라인", "ty": "원데이", "teacher": "박소진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2412-02", "partner": "갤러리아광교", "dt": "2024-12-03", "name": "김장 만능 양념", "kind": "오프라인", "ty": "원데이", "teacher": "임수진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2412-03", "partner": "갤러리아광교", "dt": "2024-12-10", "name": "굴튀김샐러드&깐풍드레싱", "kind": "오프라인", "ty": "원데이", "teacher": "임수진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2412-04", "partner": "갤러리아광교", "dt": "2024-12-22", "name": "부쉬드 노엘 케이크", "kind": "오프라인", "ty": "원데이", "teacher": "일호실", "held": "개최", "pax": 5, "rev": 220000, "fee": 22000, "recv": 198000, "pay": 145050, "cost": 0, "ours": 30000, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2412-05", "partner": "갤러리아광교", "dt": "2024-12-28", "name": "스노우볼 쿠키", "kind": "오프라인", "ty": "원데이", "teacher": "박지수", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2412-06", "partner": "갤러리아광교", "dt": "2024-12-28", "name": "크리스마스 도넛", "kind": "오프라인", "ty": "원데이", "teacher": "박지수", "held": "개최", "pax": 5, "rev": 195000, "fee": 19500, "recv": 175500, "pay": 128585, "cost": 0, "ours": 26591, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2502-01", "partner": "갤러리아광교", "dt": "2025-02-01", "name": "돼지고기 묵은지 김치찜", "kind": "오프라인", "ty": "원데이", "teacher": "박소진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2502-02", "partner": "갤러리아광교", "dt": "2025-02-03", "name": "바지락냉이솥밥+바지락술국+해물파전", "kind": "오프라인", "ty": "원데이", "teacher": "임수진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2502-03", "partner": "갤러리아광교", "dt": "2025-02-08", "name": "약밥 & 수정과", "kind": "오프라인", "ty": "원데이", "teacher": "박소진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2502-04", "partner": "갤러리아광교", "dt": "2025-02-10", "name": "파국+파오징어강회+대파김치", "kind": "오프라인", "ty": "원데이", "teacher": "임수진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2502-05", "partner": "갤러리아광교", "dt": "2025-02-15", "name": "[키즈] 곰돌이 스모어 쿠키", "kind": "오프라인", "ty": "키즈", "teacher": "박지수", "held": "개최", "pax": 10, "rev": 390000, "fee": 39000, "recv": 351000, "pay": 257149, "cost": 0, "ours": 53182, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2502-06", "partner": "갤러리아광교", "dt": "2025-02-15", "name": "[키즈] 러브팝 케이크", "kind": "오프라인", "ty": "키즈", "teacher": "박지수", "held": "개최", "pax": 9, "rev": 351000, "fee": 35100, "recv": 315900, "pay": 231438, "cost": 0, "ours": 47864, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2502-07", "partner": "갤러리아광교", "dt": "2025-02-17", "name": "콩비지탕+콩나물잡채+재래식두부조림", "kind": "오프라인", "ty": "원데이", "teacher": "임수진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2502-08", "partner": "갤러리아광교", "dt": "2025-02-22", "name": "코다리 강정", "kind": "오프라인", "ty": "원데이", "teacher": "박소진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2502-09", "partner": "갤러리아광교", "dt": "2025-02-23", "name": "고등어 무조림", "kind": "오프라인", "ty": "원데이", "teacher": "박소진", "held": "개최", "pax": 5, "rev": 225000, "fee": 22500, "recv": 202500, "pay": 168750, "cost": 0, "ours": 30682, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2502-10", "partner": "갤러리아광교", "dt": "2025-02-24", "name": "대구탕+대구크로켓", "kind": "오프라인", "ty": "원데이", "teacher": "임수진", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2503-01", "partner": "갤러리아광교", "dt": "2025-03-10", "name": "[정규1회차] 영양갈비찜&참나물장떡&김조림", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 11, "rev": 379000, "fee": 33000, "recv": 346000, "pay": 284250, "cost": 0, "ours": 56136, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2503-02", "partner": "갤러리아광교", "dt": "2025-03-11", "name": "[정규1회차] 들기름두부솥밥&강된장쌈밥&봄나물무침", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 8, "rev": 274000, "fee": 24000, "recv": 250000, "pay": 180678, "cost": 0, "ours": 40455, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2503-03", "partner": "갤러리아광교", "dt": "2025-03-17", "name": "[정규2회차] 참나물불고기&미나리오징어전&양파장", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 8, "rev": 278000, "fee": 24000, "recv": 254000, "pay": 208500, "cost": 0, "ours": 41364, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2503-04", "partner": "갤러리아광교", "dt": "2025-03-18", "name": "[정규2회차] 고추장담그기&전라도식애호박찌개&기름떡볶이", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 8, "rev": 274000, "fee": 24000, "recv": 250000, "pay": 180678, "cost": 0, "ours": 40455, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2503-05", "partner": "갤러리아광교", "dt": "2025-03-24", "name": "[정규3회차] 비주얼샌드위치&대파스프&보틀모둠콩샐러드", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 8, "rev": 278000, "fee": 24000, "recv": 254000, "pay": 208500, "cost": 0, "ours": 41364, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2503-06", "partner": "갤러리아광교", "dt": "2025-03-25", "name": "[정규3회차] 보양식두릅밥&부추김치&고수무침", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 7, "rev": 241000, "fee": 21000, "recv": 220000, "pay": 158918, "cost": 0, "ours": 35682, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2503-07", "partner": "갤러리아광교", "dt": "2025-03-29", "name": "[키즈] M&M 머핀 만들기", "kind": "오프라인", "ty": "키즈", "teacher": "박지수", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2503-08", "partner": "갤러리아광교", "dt": "2025-03-29", "name": "[키즈] 텃밭 브라우니 만들기", "kind": "오프라인", "ty": "키즈", "teacher": "박지수", "held": "개최", "pax": 12, "rev": 468000, "fee": 46800, "recv": 421200, "pay": 308571, "cost": 0, "ours": 63818, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2503-09", "partner": "갤러리아광교", "dt": "2025-03-31", "name": "[정규4회차] 함박스테이크&양파처트니&봄나물샐러드", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 8, "rev": 278000, "fee": 24000, "recv": 254000, "pay": 208500, "cost": 0, "ours": 41364, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2504-01", "partner": "갤러리아광교", "dt": "2025-04-07", "name": "[정규5회차] 연어스테이크&병아리콩샐러드&과일샐러드", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 8, "rev": 278000, "fee": 24000, "recv": 254000, "pay": 208500, "cost": 0, "ours": 41364, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2504-02", "partner": "갤러리아광교", "dt": "2025-04-08", "name": "[정규4회차] 치즈해물그라탕&키조개오렌지샐러드", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 7, "rev": 241000, "fee": 21000, "recv": 220000, "pay": 158918, "cost": 0, "ours": 35682, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2504-03", "partner": "갤러리아광교", "dt": "2025-04-13", "name": "유자폰즈닭가슴살냉채&두름튀김", "kind": "오프라인", "ty": "원데이", "teacher": "이예린", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2504-04", "partner": "갤러리아광교", "dt": "2025-04-15", "name": "[정규5회차] 더덕불고기&명이나물장아찌&모듬야채피클", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 7, "rev": 241000, "fee": 21000, "recv": 220000, "pay": 158918, "cost": 0, "ours": 35682, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2504-05", "partner": "갤러리아광교", "dt": "2025-04-21", "name": "[정규6회차] 제육돈부리&아게다시도후&우엉튀각", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 11, "rev": 383000, "fee": 33000, "recv": 350000, "pay": 287250, "cost": 0, "ours": 57045, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2504-06", "partner": "갤러리아광교", "dt": "2025-04-22", "name": "[정규6회차] 게살스프&양념게장&오이탕탕이", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 15, "rev": 521000, "fee": 45000, "recv": 476000, "pay": 343537, "cost": 0, "ours": 77500, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2504-07", "partner": "갤러리아광교", "dt": "2025-04-26", "name": "[키즈] 공룡 화석 케이크", "kind": "오프라인", "ty": "키즈", "teacher": "박지수", "held": "개최", "pax": 10, "rev": 400000, "fee": 40000, "recv": 360000, "pay": 263737, "cost": 0, "ours": 54545, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2504-08", "partner": "갤러리아광교", "dt": "2025-04-26", "name": "[키즈] 짜장면 케이크", "kind": "오프라인", "ty": "키즈", "teacher": "박지수", "held": "개최", "pax": 3, "rev": 117000, "fee": 11700, "recv": 105300, "pay": 77153, "cost": 0, "ours": 15955, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2504-09", "partner": "갤러리아광교", "dt": "2025-04-27", "name": "버섯다시마솥밥&봄나물오징어초무침", "kind": "오프라인", "ty": "원데이", "teacher": "이예린", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2504-10", "partner": "갤러리아광교", "dt": "2025-04-28", "name": "[정규7회차] 후토마끼&하와이안무스비&미소된장국", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 10, "rev": 348000, "fee": 30000, "recv": 318000, "pay": 261000, "cost": 0, "ours": 51818, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2504-11", "partner": "갤러리아광교", "dt": "2025-04-29", "name": "[정규7회차] 소고기찹쌀구이&치킨강정&알배추겉절이샐러드", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 15, "rev": 521000, "fee": 45000, "recv": 476000, "pay": 343537, "cost": 0, "ours": 77500, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2505-01", "partner": "갤러리아광교", "dt": "2025-05-12", "name": "[정규8회차] 바베큐보쌈&무보쌈김치&깻잎양배추피클", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 9, "rev": 313000, "fee": 27000, "recv": 286000, "pay": 234750, "cost": 0, "ours": 46591, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2505-02", "partner": "갤러리아광교", "dt": "2025-05-13", "name": "[정규8회차] 멸치청양송송장&잔치국수&묵은지멸치쌈밥", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 15, "rev": 521000, "fee": 45000, "recv": 476000, "pay": 343537, "cost": 0, "ours": 77500, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2505-03", "partner": "갤러리아광교", "dt": "2025-05-19", "name": "[정규9회차] 도미솥밥&달래양념장&육전", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 9, "rev": 313000, "fee": 27000, "recv": 286000, "pay": 234750, "cost": 0, "ours": 46591, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2505-04", "partner": "갤러리아광교", "dt": "2025-05-20", "name": "[정규9회차] 비프크로켓&나폴리소스&토마토절임", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 15, "rev": 521000, "fee": 45000, "recv": 476000, "pay": 343537, "cost": 0, "ours": 77500, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2505-05", "partner": "갤러리아광교", "dt": "2025-05-24", "name": "[키즈] 무지개 머핀 만들기", "kind": "오프라인", "ty": "키즈", "teacher": "박지수", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2505-06", "partner": "갤러리아광교", "dt": "2025-05-24", "name": "[키즈] 화산 구겔호프 만들기", "kind": "오프라인", "ty": "키즈", "teacher": "박지수", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2505-07", "partner": "갤러리아광교", "dt": "2025-05-27", "name": "[정규10회차] 죽순고기찜&크림카레우동", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 15, "rev": 521000, "fee": 45000, "recv": 476000, "pay": 343537, "cost": 0, "ours": 77500, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2506-01", "partner": "갤러리아광교", "dt": "2025-06-10", "name": "[정규1회차] [감자] 떡갈비/감자채전&수란/감자곰국", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 19, "rev": 651000, "fee": 57000, "recv": 594000, "pay": 429254, "cost": 0, "ours": 96136, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2506-02", "partner": "갤러리아광교", "dt": "2025-06-15", "name": "[아동] 노오븐 티라미슈", "kind": "오프라인", "ty": "키즈", "teacher": "일호실", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2506-03", "partner": "갤러리아광교", "dt": "2025-06-17", "name": "[정규2회차] [매실] 매실청/매실토마토절임", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 19, "rev": 651000, "fee": 57000, "recv": 594000, "pay": 429254, "cost": 0, "ours": 96136, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2506-04", "partner": "갤러리아광교", "dt": "2025-06-21", "name": "[아동] 레몬 마들렌", "kind": "오프라인", "ty": "키즈", "teacher": "일호실", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2506-05", "partner": "갤러리아광교", "dt": "2025-06-24", "name": "[정규3회차] [보리] 보리타락죽/보리열무김치/애호박볶음", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 19, "rev": 651000, "fee": 57000, "recv": 594000, "pay": 429254, "cost": 0, "ours": 96136, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2507-01", "partner": "갤러리아광교", "dt": "2025-07-01", "name": "[정규4회차] [양파] 스테이크김밥/화이타/과카몰리", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 19, "rev": 651000, "fee": 57000, "recv": 594000, "pay": 429254, "cost": 0, "ours": 96136, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2507-02", "partner": "갤러리아광교", "dt": "2025-07-08", "name": "[정규5회차] [여름김치] 여름물김치/오이소박이/양배추김치", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 19, "rev": 651000, "fee": 57000, "recv": 594000, "pay": 429254, "cost": 0, "ours": 96136, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2507-03", "partner": "갤러리아광교", "dt": "2025-07-15", "name": "[정규6회차] [메밀] 수제쯔유&메밀소바/옛날 돈까스", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 19, "rev": 651000, "fee": 57000, "recv": 594000, "pay": 429254, "cost": 0, "ours": 96136, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2507-04", "partner": "갤러리아광교", "dt": "2025-07-22", "name": "[정규7회차] [닭] 크림후추치킨/매콤치킨단호박", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 11, "rev": 371000, "fee": 33000, "recv": 338000, "pay": 244635, "cost": 0, "ours": 54318, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2508-01", "partner": "갤러리아광교", "dt": "2025-08-05", "name": "[정규8회차] [복날특집] 삼계탕/전복장", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 11, "rev": 371000, "fee": 33000, "recv": 338000, "pay": 244635, "cost": 0, "ours": 54318, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2508-02", "partner": "갤러리아광교", "dt": "2025-08-12", "name": "[정규9회차] [제철병조림] 복숭아병조림/옥수수병조림/포도병조림", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 10, "rev": 336000, "fee": 30000, "recv": 306000, "pay": 221561, "cost": 0, "ours": 49091, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2508-03", "partner": "갤러리아광교", "dt": "2025-08-19", "name": "[정규10회차] [고구마] 고구마순고등어조림/고구마빠스/치자밥", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 10, "rev": 336000, "fee": 30000, "recv": 306000, "pay": 221561, "cost": 0, "ours": 49091, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2508-04", "partner": "갤러리아광교", "dt": "2025-08-26", "name": "[정규11회차] [가지] 라따뚜이/가지멘보샤", "kind": "오프라인", "ty": "정규", "teacher": "임수진", "held": "개최", "pax": 10, "rev": 336000, "fee": 30000, "recv": 306000, "pay": 221561, "cost": 0, "ours": 49091, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2509-01", "partner": "갤러리아광교", "dt": "2025-09-01", "name": "[정규1회차] LA 갈비 / 고기완자전 / 도라지 나물", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 12, "rev": 408000, "fee": 36000, "recv": 372000, "pay": 306000, "cost": 0, "ours": 60000, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2509-02", "partner": "갤러리아광교", "dt": "2025-09-08", "name": "[정규2회차] 쇠고기 곰탕국 / 잡채 / 생선전", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 11, "rev": 375000, "fee": 33000, "recv": 342000, "pay": 281250, "cost": 0, "ours": 55227, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2509-03", "partner": "갤러리아광교", "dt": "2025-09-13", "name": "[키즈] 낙엽쿠키", "kind": "오프라인", "ty": "키즈", "teacher": "박지수", "held": "개최", "pax": 12, "rev": 456000, "fee": 45600, "recv": 410400, "pay": 300659, "cost": 0, "ours": 62182, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2509-04", "partner": "갤러리아광교", "dt": "2025-09-13", "name": "[키즈] 알밤 휘낭시에", "kind": "오프라인", "ty": "키즈", "teacher": "박지수", "held": "개최", "pax": 12, "rev": 468000, "fee": 46800, "recv": 421200, "pay": 308571, "cost": 0, "ours": 63818, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2509-05", "partner": "갤러리아광교", "dt": "2025-09-15", "name": "[정규3회차] 갈비찜 / 나박김치 / 숙주나물", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 11, "rev": 375000, "fee": 33000, "recv": 342000, "pay": 281250, "cost": 0, "ours": 55227, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2509-06", "partner": "갤러리아광교", "dt": "2025-09-16", "name": "들깨버섯솥밥 / 들깨표고된장찌개 / 들기름가지조림", "kind": "오프라인", "ty": "원데이", "teacher": "이예린", "held": "개최", "pax": 4, "rev": 220000, "fee": 22000, "recv": 198000, "pay": 165000, "cost": 0, "ours": 30000, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2509-07", "partner": "갤러리아광교", "dt": "2025-09-22", "name": "[정규4회차] 송편 빚기 / 쇠고기 꼬치전 / 더덕 양념구이", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 11, "rev": 375000, "fee": 33000, "recv": 342000, "pay": 281250, "cost": 0, "ours": 55227, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2509-08", "partner": "갤러리아광교", "dt": "2025-09-27", "name": "[키즈] 꽃 생크림 케이크", "kind": "오프라인", "ty": "키즈", "teacher": "이민영", "held": "개최", "pax": 6, "rev": 270000, "fee": 27000, "recv": 243000, "pay": 178021, "cost": 0, "ours": 36818, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2509-09", "partner": "갤러리아광교", "dt": "2025-09-27", "name": "[키즈] 땅콩쿠키", "kind": "오프라인", "ty": "키즈", "teacher": "이민영", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2509-10", "partner": "갤러리아광교", "dt": "2025-09-29", "name": "[정규5회차] 쇠고기 산적 / 녹두전 / 고사리 나물", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 11, "rev": 375000, "fee": 33000, "recv": 342000, "pay": 281250, "cost": 0, "ours": 55227, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2509-11", "partner": "갤러리아광교", "dt": "2025-09-30", "name": "고구마호박스프 / 베이컨버섯크림또띠아롤 / 비트&양파피클", "kind": "오프라인", "ty": "원데이", "teacher": "이예린", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2510-01", "partner": "갤러리아광교", "dt": "2025-10-11", "name": "[키즈] 중장비 케이크", "kind": "오프라인", "ty": "키즈", "teacher": "박지수", "held": "개최", "pax": 10, "rev": 410000, "fee": 41000, "recv": 369000, "pay": 270335, "cost": 0, "ours": 55909, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2510-02", "partner": "갤러리아광교", "dt": "2025-10-11", "name": "[키즈] 한과 휘낭시에", "kind": "오프라인", "ty": "키즈", "teacher": "박지수", "held": "개최", "pax": 12, "rev": 468000, "fee": 46800, "recv": 421200, "pay": 308571, "cost": 0, "ours": 63818, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2510-03", "partner": "갤러리아광교", "dt": "2025-10-13", "name": "[정규6회차] 전복장 / 전복 버터구이 / 전복초무침", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 7, "rev": 237000, "fee": 21000, "recv": 216000, "pay": 177750, "cost": 0, "ours": 34773, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2510-04", "partner": "갤러리아광교", "dt": "2025-10-14", "name": "간장버터우삼겹덮밥 / 단호박고로케 / 깻잎들깨무침", "kind": "오프라인", "ty": "원데이", "teacher": "이예린", "held": "개최", "pax": 8, "rev": 440000, "fee": 44000, "recv": 396000, "pay": 330000, "cost": 0, "ours": 60000, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2510-05", "partner": "갤러리아광교", "dt": "2025-10-20", "name": "[정규7회차] 꽃게장 / 양념꽂게 무침 / 꽃게탕", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 7, "rev": 237000, "fee": 21000, "recv": 216000, "pay": 177750, "cost": 0, "ours": 34773, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2510-06", "partner": "갤러리아광교", "dt": "2025-10-25", "name": "[키즈] 레인보우 케이크", "kind": "오프라인", "ty": "키즈", "teacher": "이민영", "held": "개최", "pax": 6, "rev": 270000, "fee": 27000, "recv": 243000, "pay": 178021, "cost": 0, "ours": 36818, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2510-07", "partner": "갤러리아광교", "dt": "2025-10-25", "name": "[키즈] 비건 호두 크럼블 파운드 케이크", "kind": "오프라인", "ty": "키즈", "teacher": "이민영", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2510-08", "partner": "갤러리아광교", "dt": "2025-10-27", "name": "[정규8회차] 새우양념장 / 새우구이 / 새우 냉채", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 7, "rev": 237000, "fee": 21000, "recv": 216000, "pay": 177750, "cost": 0, "ours": 34773, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2510-09", "partner": "갤러리아광교", "dt": "2025-10-28", "name": "굴두부전 / 미역오이냉국 / 꽈리고추멸치볶음", "kind": "오프라인", "ty": "원데이", "teacher": "이예린", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2511-01", "partner": "갤러리아광교", "dt": "2025-11-03", "name": "[정규9회차] 보양식 꼬리곰탕 / 깍두기 / 양배추김치", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 7, "rev": 237000, "fee": 21000, "recv": 216000, "pay": 177750, "cost": 0, "ours": 34773, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2511-02", "partner": "갤러리아광교", "dt": "2025-11-08", "name": "[키즈] 빼낭시에", "kind": "오프라인", "ty": "키즈", "teacher": "박지수", "held": "개최", "pax": 12, "rev": 468000, "fee": 46800, "recv": 421200, "pay": 308571, "cost": 0, "ours": 63818, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2511-03", "partner": "갤러리아광교", "dt": "2025-11-08", "name": "[키즈] 오싹 팬티 케이크", "kind": "오프라인", "ty": "키즈", "teacher": "박지수", "held": "개최", "pax": 11, "rev": 440000, "fee": 44000, "recv": 396000, "pay": 290100, "cost": 0, "ours": 60000, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2511-04", "partner": "갤러리아광교", "dt": "2025-11-10", "name": "[정규10회차] 김장김치 / 돼지고기보쌈 / 보쌈 무김치", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 7, "rev": 237000, "fee": 21000, "recv": 216000, "pay": 177750, "cost": 0, "ours": 34773, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2511-05", "partner": "갤러리아광교", "dt": "2025-11-11", "name": "특별 비법 소고기뭇국 / 들기름김밥 / 단호박허니머스터드샐러드", "kind": "오프라인", "ty": "원데이", "teacher": "이예린", "held": "개최", "pax": 5, "rev": 275000, "fee": 27500, "recv": 247500, "pay": 206250, "cost": 0, "ours": 37500, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2511-06", "partner": "갤러리아광교", "dt": "2025-11-17", "name": "[정규11회차] 낙지 명란 연포탕 / 낙지볶음 / 낙지젓 명란 파스타", "kind": "오프라인", "ty": "정규", "teacher": "박소진", "held": "개최", "pax": 7, "rev": 237000, "fee": 21000, "recv": 216000, "pay": 177750, "cost": 0, "ours": 34773, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2511-07", "partner": "갤러리아광교", "dt": "2025-11-22", "name": "[키즈] 당근 케이크", "kind": "오프라인", "ty": "키즈", "teacher": "이민영", "held": "개최", "pax": 6, "rev": 270000, "fee": 27000, "recv": 243000, "pay": 178021, "cost": 0, "ours": 36818, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2511-08", "partner": "갤러리아광교", "dt": "2025-11-22", "name": "[키즈] 바나나 푸딩", "kind": "오프라인", "ty": "키즈", "teacher": "이민영", "held": "폐강", "pax": 0, "rev": 0, "fee": 0, "recv": 0, "pay": 0, "cost": 0, "ours": 0, "state": "폐강", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GL-2511-09", "partner": "갤러리아광교", "dt": "2025-11-25", "name": "트러플버섯리조또 / 리코타루꼴라샐러드 / 귤유자크로스티니", "kind": "오프라인", "ty": "원데이", "teacher": "이예린", "held": "개최", "pax": 11, "rev": 605000, "fee": 60500, "recv": 544500, "pay": 453750, "cost": 0, "ours": 82500, "state": "수업완료", "paid_in": "", "paid_out": "", "src": "갤러리아광교"}, {"id": "GS-2604-01", "partner": "경기도지식", "dt": "2026-04-24", "name": "냉이 꽃게탕", "kind": "온라인", "ty": "단일", "teacher": "김은영", "held": "개최", "pax": 30, "rev": 1500000, "fee": 0, "recv": 1500000, "pay": 300000, "cost": 766170, "ours": 297466, "state": "수업완료", "paid_in": "입금완료", "paid_out": "지급완료", "src": "클래스 마스터"}, {"id": "GS-2607-01", "partner": "경기도지식", "dt": "2026-07-24", "name": "제철 복숭아로 만드는 복숭아청과 브리치즈 샐러드", "kind": "온라인", "ty": "단일", "teacher": "이영미", "held": "개최", "pax": 30, "rev": 1500000, "fee": 0, "recv": 1500000, "pay": 300000, "cost": 617580, "ours": 446056, "state": "확정", "paid_in": "입금대기", "paid_out": "지급대기", "src": "클래스 마스터"}];
+var n=function(v){var x=Math.round(Number(v)||0);return x?x.toLocaleString('ko-KR'):'—';};
+var e=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+var F={p:'전체',y:'전체',k:'전체',t:'전체',h:'전체',q:''};
+var SORT={key:'dt',asc:true};
+function tyB(t){if(!t||t==='단일')return '';
+  var c=t==='정규'?'b-cor':(t==='키즈'?'b-lit':'b-mut');
+  return '<span class="bd '+c+'">'+e(t)+'</span>';}
+function stB(s){
+  if(!s)return '';
+  var m={'수업완료':'b-grn','정산완료':'b-grn','확정':'b-cor','모집중':'b-cor','개강':'b-cor',
+         '신청중':'b-lit','기획중':'b-mut','제안중':'b-mut','검토중':'b-mut','미달':'b-off','폐강':'b-off','보류':'b-off'};
+  return '<span class="bd '+(m[s]||'b-mut')+'">'+e(s)+'</span>';}
+function filt(){
+  return D.filter(function(x){
+    if(F.p!=='전체'&&x.partner!==F.p)return false;
+    if(F.y!=='전체'&&String(x.dt).slice(0,4)!==F.y)return false;
+    if(F.k!=='전체'&&x.kind!==F.k)return false;
+    if(F.t!=='전체'&&x.teacher!==F.t)return false;
+    if(F.h!=='전체'&&x.held!==F.h)return false;
+    if(F.q){var q=F.q.toLowerCase();
+      if((x.name+' '+x.dt+' '+x.teacher+' '+x.id+' '+x.partner).toLowerCase().indexOf(q)<0)return false;}
+    return true;});
 }
-function drowFlow(k,v){if(v==null||v==='')return '';return '<div class="flow-r"><span>'+k+'</span><span class="fv">'+esc(v)+'</span></div>';}
-function payBadge(v,kind){if(!v)return '';var done=(v===kind+'완료');return '<span class="fh-badge '+(done?'fhb-done':'fhb-wait')+'">'+esc(v)+'</span>';}
-function copyRecipe(cid,btn){var d=DETAIL[cid];if(!d)return;var c=d.content||{};if(!c['레시피'])return;var NL=String.fromCharCode(10);var txt='[레시피] '+(d.name||'')+NL+NL+c['레시피'];
-  var ok=function(){var o=btn.textContent;btn.textContent='✓ 복사됨';setTimeout(function(){btn.textContent=o;},1500);};
-  if(navigator.clipboard)navigator.clipboard.writeText(txt).then(ok,function(){var t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();ok();});}
-function copyOverview(cid,btn){var d=DETAIL[cid];if(!d)return;var c=d.content||{};var NL=String.fromCharCode(10);var L=['[과정개요서] '+(d.name||'')];
-  var add=function(k,v){if(v)L.push(NL+'◆ '+k+NL+v);};
-  add('강의명',c['강의명']);add('소개문',c['소개문']);add('강의내용',c['강의내용']);add('키트 구성품',c['키트구성품']);add('개별 준비물',c['개별준비물']);
-  if(d.kind==='온라인'){add('배송 안내',c['배송안내']);add('참여 안내',c['참여안내']);}else{add('장소',c['장소상세']);add('동반인 규정',c['동반인규정']);}
-  add('강사 이력',c['강사이력']);add('해시태그',c['해시태그']);
-  var txt=L.join(NL);var ok=function(){var o=btn.textContent;btn.textContent='✓ 복사됨';setTimeout(function(){btn.textContent=o;},1500);};
-  if(navigator.clipboard)navigator.clipboard.writeText(txt).then(ok,function(){var t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();ok();});}
-function editClass(cid,btn){var d=DETAIL[cid];var s=(d?d.name:'')+'('+cid+') 계산기 불러오기 코드 만들어줘';
-  if(navigator.clipboard)navigator.clipboard.writeText(s).catch(function(){});
-  var o=btn.textContent;btn.textContent='✓ 문장 복사됨 → 대화창';setTimeout(function(){btn.textContent=o;},2200);window.open(CHAT,'_blank');}
+function render(){
+  var L=filt().slice();
+  var k=SORT.key, a=SORT.asc?1:-1;
+  L.sort(function(x,y){
+    var vx=x[k],vy=y[k];
+    if(typeof vx==='number'||typeof vy==='number'){return ((vx||0)-(vy||0))*a;}
+    return String(vx).localeCompare(String(vy),'ko')*a;});
+  var t={rev:0,fee:0,recv:0,pay:0,cost:0,ours:0,pax:0};
+  var h='';
+  L.forEach(function(x){
+    for(var key in t) t[key]+=+x[key]||0;
+    h+='<tr'+(x.held==='폐강'?' class="off"':'')+'>'+
+      '<td class="c" style="font-family:\'DM Mono\',monospace;font-size:11px;color:var(--mute)">'+e(x.id)+'</td>'+
+      '<td class="c">'+e(x.partner)+'</td><td class="c">'+e(x.dt)+'</td>'+
+      '<td class="c">'+e(x.kind)+'</td><td class="c">'+tyB(x.ty)+'</td>'+
+      '<td>'+e(x.name)+'</td><td class="c">'+e(x.teacher)+'</td>'+
+      '<td class="c">'+stB(x.state)+'</td><td class="c">'+(x.pax||'—')+'</td>'+
+      '<td class="n">'+n(x.rev)+'</td><td class="n">'+n(x.fee)+'</td>'+
+      '<td class="n">'+n(x.cost)+'</td><td class="n">'+n(x.pay)+'</td>'+
+      '<td class="n" style="font-weight:600">'+n(x.ours)+'</td></tr>';});
+  h+='<tr class="tot"><td colspan="8" class="c">합계 '+L.length+'건</td><td class="c">'+t.pax+'</td>'+
+     '<td class="n">'+n(t.rev)+'</td><td class="n">'+n(t.fee)+'</td><td class="n">'+n(t.cost)+
+     '</td><td class="n">'+n(t.pay)+'</td><td class="n">'+n(t.ours)+'</td></tr>';
+  document.getElementById('tb').innerHTML=h;
+  document.getElementById('cnt').textContent=L.length+'건 / 전체 '+D.length+'건';
+  cards(L);
+}
+function cards(L){
+  var o=L.filter(function(x){return x.held==='개최';});
+  var s={rev:0,fee:0,recv:0,pay:0,cost:0,ours:0};
+  o.forEach(function(x){for(var k in s)s[k]+=+x[k]||0;});
+  var sup=s.rev/1.1;
+  document.getElementById('cards').innerHTML=
+   '<div class="c"><div class="k">개최 회차</div><div class="v">'+o.length+'</div><div class="u">전체 '+L.length+'건 중</div></div>'+
+   '<div class="c"><div class="k">클래스매출</div><div class="v" style="font-size:19px">'+n(s.rev)+'</div><div class="u">부가세 포함</div></div>'+
+   '<div class="c"><div class="k">제휴 수수료</div><div class="v" style="font-size:19px">'+n(s.fee)+'</div><div class="u">제휴사 몫</div></div>'+
+   '<div class="c"><div class="k">우리 부담 원가</div><div class="v" style="font-size:19px">'+n(s.cost)+'</div><div class="u">재료·패킹·배송</div></div>'+
+   '<div class="c"><div class="k">선생님 지급</div><div class="v" style="font-size:19px">'+n(s.pay)+'</div><div class="u">강사료</div></div>'+
+   '<div class="c" style="border-color:var(--coral)"><div class="k">우리 몫 (부가세 제외)</div>'+
+   '<div class="v" style="font-size:19px;color:var(--coral)">'+n(s.ours)+'</div>'+
+   '<div class="u">공급가 매출 대비 '+(sup?(s.ours/sup*100).toFixed(1):'0')+'%</div></div>';
+}
+function mkChips(id,arr,key){
+  var el=document.getElementById(id);
+  el.innerHTML=el.innerHTML+arr.map(function(v,i){
+    return '<button class="chip'+(i===0?' on':'')+'" data-v="'+e(v)+'">'+e(v)+'</button>';}).join('');
+  el.addEventListener('click',function(ev){var b=ev.target.closest('.chip');if(!b)return;
+    this.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');F[key]=b.dataset.v;render();});
+}
+var uniq=function(f){return ['전체'].concat(Array.from(new Set(D.map(f).filter(Boolean))).sort());};
+mkChips('fP',uniq(function(x){return x.partner;}),'p');
+mkChips('fY',uniq(function(x){return String(x.dt).slice(0,4);}),'y');
+mkChips('fK',uniq(function(x){return x.kind;}),'k');
+mkChips('fT',uniq(function(x){return x.teacher;}),'t');
+mkChips('fH',['전체','개최','폐강'],'h');
+document.getElementById('q').addEventListener('input',function(){F.q=this.value;render();});
+document.querySelectorAll('th[data-k]').forEach(function(th){
+  th.addEventListener('click',function(){
+    var k=th.dataset.k;
+    if(SORT.key===k)SORT.asc=!SORT.asc; else {SORT.key=k;SORT.asc=true;}
+    render();});
+});
+document.getElementById('dlx').addEventListener('click',function(ev){ev.preventDefault();
+  var C=[['회차ID','id'],['제휴사','partner'],['수업일','dt'],['구분','kind'],['유형','ty'],['수업명','name'],
+    ['선생님','teacher'],['상태','state'],['개최','held'],['인원','pax'],['클래스매출','rev'],
+    ['제휴 수수료','fee'],['우리 수령','recv'],['우리 부담 원가','cost'],['선생님 지급','pay'],
+    ['우리 몫(부가세 제외)','ours'],['출처','src']];
+  var q=function(v){v=String(v==null?'':v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
+  var rows=[C.map(function(c){return c[0];}).join(',')];
+  filt().forEach(function(x){rows.push(C.map(function(c){return q(x[c[1]]);}).join(','));});
+  var b=new Blob(['\ufeff'+rows.join('\r\n')],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='클래스목록.csv';a.click();});
 render();
+
 </script></body></html>
