@@ -14,8 +14,8 @@ SRC = sys.argv[1] if len(sys.argv) > 1 else "class-master-all-v2.xlsx"
 TODAY = datetime.date.today()
 KST = datetime.timezone(datetime.timedelta(hours=9))
 UPDATED = datetime.datetime.now(KST).strftime("%Y.%m.%d %H:%M")
-CHAT_URL = "https://claude.ai/chat/dce33b2f-5756-4005-9648-0eb426113e53"
-VERSION = "v19"
+CHAT_URL = "https://claude.ai/chat/9dbf9bcf-a82d-4ceb-8ee2-8c75b2590b7f"
+VERSION = "v44"
 
 ACTIVE = ["검토중","개요서","확정","모집중","개강"]   # 1층 진행 중
 def to_date(v):
@@ -53,7 +53,8 @@ if wcon:
         content_map[str(ccid).strip()]=dict(강의명=cg(2),소개문=cg(3),강의내용=cg(4),대상=cg(5),
             선발방식=cg(6),소요시간=cg(7),키트구성품=cg(8),개별준비물=cg(9),강사이력=cg(10),
             해시태그=cg(11),배송안내=cg(12),참여안내=cg(13),장소상세=cg(14),동반인규정=cg(15),
-            재료구성=cg(16),줌링크=cg(17),견적코드=cg(18),레시피=cg(19))
+            재료구성=cg(16),줌링크=cg(17),견적코드=cg(18),레시피=cg(19),
+            강의정보링크=cg(20),리허설안내=cg(21),선생님전달문구=cg(22))
 
 # 발주 시트 → 회차ID별 재료별 발주 정보
 order_map={}
@@ -65,11 +66,35 @@ if "발주" in wb.sheetnames:
         if not ocid or not onm: continue
         og=lambda c: word.cell(row=r,column=c).value
         def _s(v): return "" if v is None else str(v).strip()
+        def _n(v):
+            try: return float(str(v).replace(",",""))
+            except: return 0.0
         rec=dict(keep=_s(og(3)),store=_s(og(4)),odate=_s(og(5)),idate=_s(og(6)),
                  ordered=(_s(og(7)) in("완료","O","o","✓","true","True","1")),
                  arrived=(_s(og(8)) in("완료","O","o","✓","true","True","1")),
+                 arrtxt=_s(og(8)),
                  qty=_s(og(9)),realamt=_s(og(10)),stock=(_s(og(11)) in("재고","O","o","✓","true","True","1")))
-        order_map.setdefault(str(ocid).strip(),{})[_s(onm)]=rec
+        _k=str(ocid).strip(); _m=_s(onm)
+        _bucket=order_map.setdefault(_k,{})
+        if _m in _bucket:
+            # 같은 재료의 분할 입고 — 수량·금액 합산, 이력 누적
+            prev=_bucket[_m]
+            prev["hist"].append(dict(odate=rec["odate"],idate=rec["idate"],qty=rec["qty"],
+                                     realamt=rec["realamt"],arrived=rec["arrived"],arrtxt=rec["arrtxt"]))
+            q=_n(prev["qty"])+_n(rec["qty"]); a=_n(prev["realamt"])+_n(rec["realamt"])
+            prev["qty"]=("%g"%q) if q else ""
+            prev["realamt"]=("%g"%a) if a else ""
+            prev["ordered"]=prev["ordered"] and rec["ordered"]
+            prev["arrived"]=prev["arrived"] and rec["arrived"]
+            prev["stock"]=prev["stock"] or rec["stock"]
+            ds=[d for d in (prev["odate"],rec["odate"]) if d]
+            prev["odate"]=" · ".join(dict.fromkeys(ds))
+            ids=[d for d in (prev["idate"],rec["idate"]) if d]
+            prev["idate"]=" · ".join(dict.fromkeys(ids))
+        else:
+            rec["hist"]=[dict(odate=rec["odate"],idate=rec["idate"],qty=rec["qty"],
+                              realamt=rec["realamt"],arrived=rec["arrived"],arrtxt=rec["arrtxt"])]
+            _bucket[_m]=rec
 
 sessions=[]
 for r in range(2,ws.max_row+1):
@@ -113,6 +138,8 @@ for r in range(2,ws.max_row+1):
         state=state or "기획중",
         paidin=(g(38) or "입금대기").strip(),paidout=(g(39) or "지급대기").strip(),
         packfile=(g(40) or "").strip(),
+        biztype=(g(41) or "").strip(),partner=(g(42) or "").strip(),partrate=N(43),
+        payrule=(g(44) or "자체기준").strip(),partamt=N(45),partpay=(g(46) or "해당없음").strip(),paymode=(g(47) or "해당없음").strip(),
         memo=g(35),content=content_map.get(cid,{})))
 def sk(s):
     if s["date"] is None: return (1,datetime.date.max)
@@ -122,6 +149,7 @@ sessions.sort(key=sk)
 
 # 1층: 상태 기준 그룹 (온/오프 구분 없음)
 def is_settled(s): return s["state"]=="수업완료" and s["paidin"]=="입금완료" and s["paidout"]=="지급완료"
+propose=[s for s in sessions if s["state"]=="제안중"]
 plan=[s for s in sessions if s["state"]=="기획중"]
 recruit=[s for s in sessions if s["state"]=="모집중"]
 confirmed=[s for s in sessions if s["state"]=="확정"]
@@ -134,11 +162,13 @@ n_stu=sum(s["applied"] for s in sessions)
 def rep_badge(s):
     """색 체계: 기획중=회색 / 진행중(모집중·개강확정)=코랄 / 정산남음=주황 / 정산완료=초록 / 폐강=묻힘"""
     st=s["state"]
+    if st=="제안중": return ("제안중","st-prop")
     if st=="기획중": return ("기획중","st-plan")
     if st=="모집중": return ("모집중","st-live")
     if st=="확정":   return ("개강확정","st-live")
     if st=="미달":   return ("폐강","st-off")
     if st=="보류":   return ("보류","st-off")
+    if st in ("무산","취소","안함"): return ("무산","st-off")
     # 수업완료 이후 → 정산 진행 (주황), 다 끝나면 초록
     if s["paidin"]!="입금완료": return ("입금대기","st-wait")
     if s["paidout"]!="지급완료": return ("지급대기","st-wait")
@@ -197,19 +227,22 @@ def group(title,sub,items):
     if not items: return ""
     body='<div class="grid">'+"".join(card(s) for s in items)+'</div>'
     return f'<div class="grp"><div class="grp-h"><h3>{title}</h3><span>{sub}</span></div>{body}</div>'
-layer1=group("기획중","개설·준비 중",plan)+group("모집 중","신청 받는 중",recruit)+group("곧 수업","확정 · 준비",confirmed)+group("정산 예정","수업 완료 · 정산 전",settle_wait)
+layer1=group("제안중","견적 제출 · 확정 전",propose)+group("기획중","개설·준비 중",plan)+group("모집 중","신청 받는 중",recruit)+group("곧 수업","확정 · 준비",confirmed)+group("정산 예정","수업 완료 · 정산 전",settle_wait)
 if not layer1: layer1='<div class="empty">진행 중인 클래스가 없습니다. 계산기로 등록하세요.</div>'
 
 # 2층 주요 기능
 feat_cards=(
  '<a class="feat" href="class-list.html"><div class="ft-t">전체 클래스 목록</div><div class="ft-d">'+str(len(sessions))+'건 · 필터·검색</div><div class="ft-go">열기 →</div></a>'
- '<a class="feat soon" href="#"><div class="ft-t">정산 리포트</div><div class="ft-d">받을 돈·줄 돈·지급 예정</div><span class="tag">준비 중</span></a>'
+ '<a class="feat" href="class-settle-report.html"><div class="ft-t">정산 리포트</div><div class="ft-d">받을 돈·줄 돈·지급 예정</div><div class="ft-go">열기 →</div></a>'
 )
 # 3층 도구
-tools=[("재료비·수익률 계산기","등록·견적·수정 겸용","class-quote.html",False),
+tools=[("정산 구조 기준표","유형별·인원별 마진 시뮬레이션","class-settlement.html",False),
+ ("선생님 온라인 클래스 가이드","준비물·줌 설정·진행·돌발 상황","class-teacher-guide.html",False),
+ ("온라인 수업 대기화면","줌 화면공유용 · 강의명만 바꿔 사용","class-waiting.html",False),
+ ("재료비·수익률 계산기","등록·견적·수정 겸용","class-quote.html",False),
  ("설계 가이드","클래스 구조·정산·콘텐츠","class-guide.html",False),
  ("컬리 송장 변환","경기도지식 명단 → 컬리","#",True),
- ("메뉴 레퍼런스","수업별 메뉴·레시피","#",True),
+ ("메뉴 지식 사전","한과·한식디저트 37종 · 제약·온라인 판단","class-menu.html",False),
  ("사진 관리","대표·후기 사진","#",True)]
 tool_cards="".join(
  (f'<a class="tool{" soon" if soon else ""}" href="{href}"'+("" if soon else' ')+'>'
@@ -266,11 +299,12 @@ body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,
 .c-src{font-size:12px;color:var(--sub);font-weight:600;background:#F4EFE3;padding:4px 10px;border-radius:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* c-src 온/오프 색 제거 — 기본 회색 유지 */
 .badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;font-family:"DM Mono",monospace;white-space:nowrap;flex-shrink:0}
-.st-plan{background:#F3ECD7;color:#A08A4E}
+.st-prop{background:#F1EFE9;color:#6B6256;border:1px solid #E2DED4}
+.st-plan{background:#F1EFE9;color:#6B6256}
 .st-live{background:#FFE7DF;color:var(--coral)}
-.st-wait{background:#E4EEF6;color:var(--online)}
-.st-done{background:#EAE6DE;color:#B0A794}
-.st-off{background:#EAE6DE;color:#BFB6A6;text-decoration:line-through}
+.st-wait{background:#F5B21F;color:#4A3405;font-weight:500}
+.st-done{background:#E4EAE2;color:#5E7360}
+.st-off{background:#EFEDEA;color:#ADA294;text-decoration:line-through}
 .c-name{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-size:19px;font-weight:700;margin:2px 0 8px}
 .c-info{font-size:12.5px;color:var(--sub);line-height:1.7}
 .c-info .c-day{font-family:"DM Mono",monospace;font-size:12px;color:var(--ink)}
@@ -278,8 +312,8 @@ body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,
 .c-pax{font-size:13px;color:var(--ink);display:flex;align-items:center;flex-wrap:wrap;gap:6px}
 .pax-lim{font-size:11.5px;color:var(--wait);font-family:"DM Mono",monospace}
 .pax-tag{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:"DM Mono",monospace}
-.pt-fix{background:#EEE9DD;color:var(--sub)}.pt-ing{background:#E8F1F8;color:var(--online)}
-.pt-open{background:#E6F4E6;color:var(--open)}.pt-short{background:#F6DDD2;color:#B44A1E}
+.pt-fix{background:#F1EFE9;color:#6B6256}.pt-ing{background:#FFF1EB;color:#C2570E}
+.pt-open{background:#FFE7DF;color:var(--coral);font-weight:500}.pt-short{background:#EFEDEA;color:#B44A1E}
 .c-fin{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:11px;padding-top:10px;border-top:1px solid var(--line);font-family:"DM Mono",monospace;font-size:12px;color:var(--sub)}
 .c-fin .fsep{color:#CFC5B2}.c-fin .net{color:var(--open);font-weight:700}
 .empty{padding:26px;text-align:center;color:var(--wait);font-size:13.5px;background:var(--card);border:1px dashed var(--line);border-radius:12px}
@@ -302,7 +336,6 @@ table.list tr:last-child td{border-bottom:none}
 table.list .ln{font-weight:600}.table .rt,.list .rt{text-align:center;font-family:"DM Mono",monospace}
 table.list .st{color:var(--online);font-size:12px}
 .badge2{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:10px;font-family:"DM Mono",monospace}
-.badge2.b-open{background:#E6F4E6;color:var(--open)}.badge2.b-short{background:#FCE8DD;color:var(--short)}.badge2.b-wait{background:#EEE9DD;color:var(--wait)}
 .backup-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
 .bk-btn{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-family:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;cursor:pointer;transition:.12s;text-decoration:none}
 .bk-btn:hover{border-color:var(--point);color:var(--point)}
@@ -342,7 +375,29 @@ table.list .st{color:var(--online);font-size:12px}
 .modal-tabs{display:flex;gap:2px;padding:0 22px;border-bottom:1px solid var(--line);overflow-x:auto}
 .mtab{font-family:inherit;font-size:13px;color:var(--sub);background:none;border:none;border-bottom:2px solid transparent;padding:11px 12px;cursor:pointer;white-space:nowrap;margin-bottom:-1px}
 .mtab:hover{color:var(--ink)}
+.tmsg{border:1px solid var(--line);border-radius:12px;background:#FFFDF9;margin-top:14px;overflow:hidden}
+.tmsg-h{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12.5px;font-weight:700;color:var(--sub);background:#F4EFE3;padding:8px 13px}
+.tmsg pre{margin:0;padding:13px 15px;font-family:Pretendard,-apple-system,sans-serif;font-size:12.5px;line-height:1.75;white-space:pre-wrap;word-break:break-word;color:var(--ink)}
+.dcopy.sm{font-size:11.5px;padding:4px 11px}
 .mtab.on{color:var(--point);border-bottom-color:var(--point);font-weight:700}
+.modal-head{gap:12px}
+.modal-head>div:first-child{min-width:0;flex:1}
+.modal-head h2{word-break:keep-all;line-height:1.32}
+.modal-tabs{-webkit-overflow-scrolling:touch;scrollbar-width:thin;flex-wrap:nowrap;flex-shrink:0}
+.modal-tabs::-webkit-scrollbar{height:3px}
+.modal-tabs::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+@media(max-width:640px){
+  .modal-panel{width:96vw;max-height:94vh;border-radius:14px}
+  .modal-head{padding:12px 14px 10px;flex-wrap:wrap;align-items:center}
+  .modal-head>div:first-child{flex:1 1 100%;order:2}
+  .m-actions{order:1;width:100%;justify-content:flex-end;gap:6px}
+  .modal-head h2{font-size:19px;margin-top:2px}
+  .m-orderer{font-size:11px}
+  .m-actions .m-edit,.m-actions .m-pack{font-size:12px;padding:6px 11px}
+  .m-close{width:32px;height:32px}
+  .modal-tabs{padding:0 12px}
+  .mtab{font-size:12.5px;padding:12px 10px}
+}
 .modal-body{padding:18px 22px 24px;overflow-y:auto;flex:1;scrollbar-gutter:stable}
 .mpanel{display:none}.mpanel.on{display:block}
 .drow{display:flex;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
@@ -389,6 +444,12 @@ table.ord a{text-decoration:none}
 .kp{font-size:10px;font-weight:700;padding:2px 7px;border-radius:9px;font-family:"DM Mono",monospace}
 .kp-frz{background:#E4EEF6;color:var(--online)}.kp-cool{background:#E6F4E6;color:var(--open)}.kp-room{background:#EEE9DD;color:var(--wait)}.kp-none{background:transparent;color:#CFC5B2}
 .stk{font-size:9.5px;background:#EFEADD;color:var(--point);padding:1px 6px;border-radius:8px;font-weight:700}
+.ordnote-h{font-weight:700;margin-bottom:5px}
+.mgl{padding:3px 0;font-size:11.5px;line-height:1.55}
+.mgt{font-family:'DM Mono',monospace;font-weight:700;color:var(--point)}
+.mgd{color:#9A8F7C}
+td.mcell{font-weight:700;font-size:11.5px;white-space:nowrap;vertical-align:top}
+table.mat tr.mstart td,table.ord tr.mstart td{border-top:2px solid #C9BB9B}
 .ordnote{font-size:11.5px;color:var(--offline);margin-top:9px;font-weight:600}
 .ordnote2{font-size:11px;color:var(--wait);margin-top:10px;line-height:1.6}
 .cmpwrap{margin-top:14px}
@@ -400,6 +461,11 @@ table.cmp .cmp-net td{font-weight:700;background:#FBF8EF}table.cmp .cmp-net .rt{
 .pend{font-size:11px;color:var(--wait);font-style:italic}
 .cmpsub{font-size:9.5px;color:var(--wait);font-weight:400;display:block}
 .plan2{display:block;font-size:9px;color:var(--wait);font-weight:400}
+table.ord tr.rw-wait td{background:#FFF6E6}
+table.ord tr.rw-wait td:first-child{box-shadow:inset 3px 0 0 #E0A93B}
+table.ord tr.rw-part td{background:#FFF0E2}
+table.ord tr.rw-part td:first-child{box-shadow:inset 3px 0 0 #C2570E}
+.stkuse{display:inline-block;font-size:10.5px;font-weight:700;color:#2C7BB6;background:#DCEAF6;border-radius:5px;padding:2px 7px;white-space:nowrap}
 .ost{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:9px;white-space:nowrap}
 .ost-ok{background:#E6F4E6;color:var(--open)}
 .ost-short{background:#FFE7DF;color:var(--coral)}
@@ -415,7 +481,7 @@ table.cmp .cmp-net td{font-weight:700;background:#FBF8EF}table.cmp .cmp-net .rt{
 .flow-h{background:#F4EFE3;padding:8px 14px;font-size:12px;font-weight:700;color:var(--sub)}
 .flow-h2{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .fh-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:"DM Mono",monospace}
-.fhb-done{background:#E6F4E6;color:var(--open)}.fhb-wait{background:#EEE9DD;color:var(--wait)}
+.fhb-done{background:#E4EAE2;color:#5E7360}.fhb-wait{background:#F5B21F;color:#4A3405;font-weight:500}
 .d-photo{margin-bottom:14px}
 .d-photo img{width:100%;height:150px;object-fit:cover;border-radius:12px;display:block}
 .flow-r{display:flex;justify-content:space-between;padding:8px 14px;font-size:13.5px;border-top:1px dashed var(--line)}
@@ -451,21 +517,22 @@ function parseQ(code){if(!code)return null;var m=(''+code).match(/QDATA:([A-Za-z
 function matTable(code,paxFallback){
   var d=parseQ(code);if(!d||!d.rows||!d.rows.length)return '<div class="dempty">재료 정보가 없습니다. 계산기에서 등록하면 채워집니다.</div>';
   var pax=num(d.pax)||paxFallback||1;var body='',tot=0,cur=null,sub=0;
-  var subRow=function(g,st){return '<tr class="subtot"><td colspan="13" class="tl">'+esc2(g||'기타')+' 소계 (1인)</td><td class="rt p">'+fmtN(st)+'</td></tr>';};
+  var subRow=function(g,st){return '<tr class="subtot"><td colspan="14" class="tl">'+esc2(g||'기타')+' 소계 (1인)</td><td class="rt p">'+fmtN(st)+'</td></tr>';};
   d.rows.forEach(function(r){
-    var g=r.gu||'';
+    var g=r.mu||r.gu||'';
     if(cur!==null&&g!==cur){body+=subRow(cur,sub);sub=0;}
+    var newMenu=(g!==cur);
     cur=g;
     var v1=num(r.v1),pv=num(r.pv),pm=num(r.pm),ou=num(r.ou);
     var sh=num(r.sh);var need=v1*pax,ord=ou*pv,total=pm*ou+sh;var per=(pax>0&&ord>0)?total/pax*(need/ord):0;tot+=per;sub+=per;
-    body+='<tr><td>'+esc2(r.gu)+'</td><td class="tl">'+esc2(r.nm)+(sh>0?' <span class="ship-note">+배송 '+fmtN(sh)+'</span>':'')+'</td><td>'+esc2(r.ba)+'</td>'
+    body+='<tr'+(newMenu?' class="mstart"':'')+'><td class="mcell">'+(newMenu?esc2(r.mu||''):'')+'</td><td>'+esc2(r.gu)+'</td><td class="tl">'+esc2(r.nm)+(sh>0?' <span class="ship-note">+배송 '+fmtN(sh)+'</span>':'')+'</td><td>'+esc2(r.ba)+'</td>'
       +'<td>'+(r.lk?'<a href="'+esc2(r.lk)+'" target="_blank">링크</a>':'')+'</td>'
       +'<td class="rt">'+esc2(r.v1)+'</td><td>'+esc2(r.u1)+'</td><td class="rt">'+esc2(r.pv)+'</td><td>'+esc2(r.pu)+'</td><td class="rt">'+fmtN(pm)+'</td>'
       +'<td class="rt a">'+fmtN(need)+'</td><td class="rt">'+esc2(r.ou)+'</td><td class="rt a">'+fmtN(ord)+'</td><td class="rt a">'+fmtN(total)+'</td><td class="rt p">'+fmtN(per)+'</td></tr>';
   });
   if(cur!==null)body+=subRow(cur,sub);
   return '<div class="matwrap"><table class="mat"><thead><tr>'
-    +'<th rowspan="2">구분</th><th rowspan="2">구성품</th><th rowspan="2">레시피<br>기준량</th><th rowspan="2">구매처</th>'
+    +'<th rowspan="2">메뉴</th><th rowspan="2">구분</th><th rowspan="2">구성품</th><th rowspan="2">레시피<br>기준량</th><th rowspan="2">구매처</th>'
     +'<th class="grp" colspan="2">1인 기준</th><th class="grp" colspan="3">판매 기준단위</th>'
     +'<th rowspan="2">총<br>필요량</th><th rowspan="2">주문<br>단위</th><th rowspan="2">주문<br>총량</th><th rowspan="2">총금액</th><th rowspan="2">1인<br>금액</th></tr>'
     +'<tr><th>용량</th><th>단위</th><th>용량</th><th>단위</th><th>금액</th></tr></thead><tbody>'+body+'</tbody></table></div>'
@@ -473,11 +540,21 @@ function matTable(code,paxFallback){
 }
 function keepBadge(k){var m={'냉동':'kp-frz','냉장':'kp-cool','실온':'kp-room'};if(!k||!m[k])return '<span class="kp kp-none">—</span>';return '<span class="kp '+m[k]+'">'+k+'</span>';}
 function diffCell(diff){if(diff===0)return '<span class="df0">0</span>';if(diff<0)return '<span class="dfsave">▼'+fmtN(-diff)+'</span>';return '<span class="dfover">▲'+fmtN(diff)+'</span>';}
+function inbCell(o,i,unit){
+  var h=(o&&o.hist)||[];
+  if(!h.length) return '<span class="mut">—</span>';
+  if(i>=h.length) return '<span class="mut">—</span>';
+  var x=h[i];
+  var q=(x.qty!=null&&x.qty!=='')?fmtN(num(x.qty))+(unit||''):'';
+  var mark=x.arrived?'<b style="color:#2E7D32">📦</b>':(x.arrtxt?'<span style="color:#B44A1E">🟡</span>':'<span class="mut">⬜</span>');
+  return mark+' '+(x.idate?String(x.idate).replace(/^2026-/,''):'?')+(q?'<br><span class="mut">'+q+'</span>':'');
+}
 function orderTable(code,od){
   var d=parseQ(code);if(!d||!d.rows||!d.rows.length)return '';
   var pax=num(d.pax)||1;
-  var body='',planTot=0,realTot=0,hasReal=false,merge={};
+  var body='',planTot=0,realTot=0,hasReal=false,merge={},__prevMu=null;
   d.rows.forEach(function(r){
+    var _mu=r.mu||'';var newMenu=(_mu!==__prevMu);__prevMu=_mu;
     var v1=num(r.v1),ou=num(r.ou),pv=num(r.pv),pm=num(r.pm),sh=num(r.sh);
     var total=pm*ou+sh;planTot+=total;
     var need=v1*pax;
@@ -493,22 +570,36 @@ function orderTable(code,od){
     else if(qty>=need)stat='<span class="ost ost-ok">✅ 충족</span>';
     else{var lack=need-qty;var more=pv>0?Math.ceil(lack/pv):0;stat='<span class="ost ost-short">⚠️ '+fmtN(lack)+(r.pu||'')+' 부족'+(more>0?' ('+more+'개↑)':'')+'</span>';}
     var stockTag=o.stock?' <span class="stk">재고</span>':'';
-    body+='<tr>'
+    var partial=(o.hist||[]).some(function(h){return h.arrived;});
+    var rwc = (!o.stock && o.ordered && !o.arrived) ? (partial?' class="rw-part"':' class="rw-wait"') : '';
+    body+='<tr'+rwc+'>'
+      +'<td class="mcell">'+(newMenu?esc2(r.mu||''):'')+'</td>'
       +'<td class="tl"><span class="gu-mini">'+esc2(r.gu)+'</span> '+esc2(r.nm)+(r.lk?' <a href="'+esc2(r.lk)+'" target="_blank">🔗</a>':'')+'</td>'
       +'<td class="rt nw"><b>'+fmtN(need)+(r.pu||'')+'</b> / '+(qty!=null?fmtN(qty)+(r.pu||''):'<span class="mut">—</span>')+'</td>'
       +'<td>'+stat+'</td>'
       +'<td>'+keepBadge(o.keep)+'</td>'
       +'<td class="sm">'+(o.store?esc2(o.store):'—')+'</td>'
-      +'<td class="sm nw">'+((o.odate||o.idate)?(esc2(o.odate||'?')+' → '+esc2(o.idate||'?')):'—')+'</td>'
-      +'<td class="ck nw">'+(o.ordered?'✅':'⬜')+(o.arrived?'📦':'⬜')+'</td>'
+      +'<td class="sm nw">'+inbCell(o,0,r.pu)+'</td>'
+      +'<td class="sm nw">'+inbCell(o,1,r.pu)+'</td>'
+      +'<td class="ck nw">'+(o.stock?'<span class="stkuse">재고사용</span>':((o.ordered?'✅':'⬜')+(o.arrived?'📦':(partial?'🟡':'⬜'))))+'</td>'
       +'<td class="rt nw"><span class="sm2">'+fmtN(total)+'</span> / '+(real!=null?fmtN(real)+stockTag:(o.stock?'<span class="stk">재고</span>':'<span class="mut">—</span>'))+'</td>'
       +'<td class="rt">'+(real!=null?diffCell(real-total):(o.stock?'<span class="stk">재고</span>':'<span class="mut">—</span>'))+'</td>'
       +'</tr>';
   });
   // 합산 코멘트 (2회 이상 나온 재료)
-  var cnt={};d.rows.forEach(function(r){var b=(r.nm||'').replace(/\s*\(.*$/,'').trim();cnt[b]=(cnt[b]||0)+1;});
-  var notes=[];for(var b in cnt){if(cnt[b]>1)notes.push(b+' 총 '+fmtN(merge[b])+'개 발주');}
-  var mergeNote=notes.length?'<div class="ordnote">※ 합산 발주: '+notes.join(' · ')+' (같은 상품은 한 번에 주문)</div>':'';
+  var byBase={};
+  d.rows.forEach(function(r){
+    var b=(r.nm||'').replace(/\s*\(.*$/,'').trim();
+    (byBase[b]=byBase[b]||[]).push({mu:r.mu||'',need:num(r.v1)*pax,pu:r.pu||'',ou:num(r.ou)});
+  });
+  var lines=[];
+  for(var b in byBase){
+    var g=byBase[b]; if(g.length<2) continue;
+    var sum=0,parts=[];
+    g.forEach(function(x){sum+=x.need;parts.push((x.mu||'기타')+' '+fmtN(x.need));});
+    lines.push('<div class="mgl"><b>'+b+'</b> <span class="mgt">'+fmtN(sum)+(g[0].pu||'')+'</span> <span class="mgd">= '+parts.join(' + ')+'</span></div>');
+  }
+  var mergeNote=lines.length?('<div class="ordnote"><div class="ordnote-h">※ 여러 메뉴에 쓰이는 재료 — 발주는 합산</div>'+lines.join('')+'</div>'):'';
   // 손익 비교
   var supply=num(d.price);if((d.vat||'')==='incl')supply=Math.round(supply/1.1);
   var pack=num(d.pack),ship2=num(d.ship),teach=num(d.teach);
@@ -524,7 +615,7 @@ function orderTable(code,od){
     +'</tbody></table></div>';
   return '<div class="ordsec"><div class="ordh">📦 발주 · 입고 <span class="s">필요량 대비 주문량 · 부족분 · 실제 비용</span></div>'
     +'<div class="ordwrap"><table class="ord"><thead><tr>'
-    +'<th>재료</th><th>필요 / 주문</th><th>상태</th><th>보관</th><th>발주처</th><th>발주 → 입고</th><th>주문/입고</th><th>계획 / 실제</th><th>차액</th>'
+    +'<th>메뉴</th><th>재료</th><th>필요 / 주문</th><th>상태</th><th>보관</th><th>발주처</th><th>1차 입고</th><th>2차 입고</th><th>주문/입고</th><th>계획 / 실제</th><th>차액</th>'
     +'</tr></thead><tbody>'+body+'</tbody></table></div>'+mergeNote
     +cmp
     +'<div class="ordnote2">필요량 = 1인 사용량 × 인원 · 주문량이 필요량 이상이면 ✅충족, 미만이면 ⚠️부족(더 살 개수 표시). 발주 정보는 실제 발주하며 채팅으로 알려주시면 채워집니다.</div></div>';
@@ -539,7 +630,7 @@ function openDetail(cid){
     '<div class="d-photo"><img src="class-images/'+CUR+'.jpg" alt="" onerror="this.parentElement.style.display=&quot;none&quot;"></div>'
     +row('수업명',d.name)+row('강의명',c.강의명)+row('발주처',d.orderer)+row('구분',d.kind)
     +row('수업일',d.date)+row('시각',d.time)+row('장소/배송',d.place)
-    +row('대상',c.대상)+row('선발방식',c.선발방식)+row('소요시간',c.소요시간)+row('줌 링크',c.줌링크)+row('상태',d.state);
+    +row('대상',c.대상)+row('선발방식',c.선발방식)+row('소요시간',c.소요시간)+row('줌 링크',c.줌링크)+row('리허설',c.리허설안내)+row('강의정보',c.강의정보링크)+row('상태',d.state);
   // ② 과정개요서
   document.getElementById('d2').innerHTML=
     '<button class="dcopy" onclick="copyOverview()">📋 과정개요서 전체 복사</button>'
@@ -547,6 +638,7 @@ function openDetail(cid){
     +blk('키트 구성품',c.키트구성품)+blk('개별 준비물',c.개별준비물)
     +(d.kind==='온라인'?(blk('배송 안내',c.배송안내)+blk('참여 안내',c.참여안내)):(blk('장소',c.장소상세)+blk('동반인 규정',c.동반인규정)))
     +blk('강사 이력',c.강사이력)+blk('해시태그',c.해시태그)
+    +(c.선생님전달문구?('<div class="tmsg"><div class="tmsg-h">선생님 전달 문구<button class="dcopy sm" onclick="copyTeach()">📋 복사</button></div><pre id="teachMsg">'+esc2(c.선생님전달문구)+'</pre></div>'):'')
     +'<div class="dnote">수강신청 확인사항·GSEEK 참여안내 등 고정 문구는 채널로 낼 때 자동으로 붙습니다.</div>';
   // ③ 레시피 (조리법 · 레시피 카드용)
   document.getElementById('d3').innerHTML=
@@ -634,6 +726,14 @@ function openDetail(cid){
   document.getElementById('modal').classList.add('on');
   document.body.style.overflow='hidden';
 }
+
+function copyTeach(){
+  var el=document.getElementById('teachMsg'); if(!el) return;
+  var t=el.innerText;
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t);}
+  else{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);}
+  var b=event&&event.target; if(b){var o=b.textContent;b.textContent='복사됨';setTimeout(function(){b.textContent=o;},1400);}
+}
 function copyOverview(){
   var d=D[CUR];if(!d)return;var c=d.content||{};var NL=String.fromCharCode(10);
   var L=['[과정개요서] '+(d.name||'')];
@@ -686,9 +786,43 @@ for s in sessions:
         paywhen=s["paywhen"] or "",paydate=dv2(s["paydate"]),
         paidin=s["paidin"],paidout=s["paidout"],
         packfile=s.get("packfile",""),
+        biztype=s.get("biztype",""),partner=s.get("partner",""),partrate=s.get("partrate"),
+        payrule=s.get("payrule",""),partamt=s.get("partamt"),partpay=s.get("partpay",""),paymode=s.get("paymode",""),
         order=order_map.get(s["cid"],{}),
         content={k:(v or "") for k,v in (s["content"] or {}).items()})
 DETAIL=json.dumps(detail,ensure_ascii=False)
+
+# ── 정산 리포트 데이터 ──
+import datetime as _dt
+def _ymd(d): return "" if not d else d.isoformat()
+def _payday(d, rule):
+    if not d: return None
+    if rule=="발주처입금연동":
+        nxt=(d.replace(day=28)+_dt.timedelta(days=4)).replace(day=1)
+        return (nxt.replace(day=28)+_dt.timedelta(days=4)).replace(day=1)-_dt.timedelta(days=1)
+    if d.day<=15: return d.replace(day=25)
+    nxt=(d.replace(day=28)+_dt.timedelta(days=4)).replace(day=1)
+    return nxt.replace(day=10)
+
+_set=[]
+for _s in sessions:
+    if _s["state"] in ("제안중","무산","취소","안함","보류"): continue
+    _n=_s["applied"] or _s["mn"] or 0
+    _price=_s["price"] or 0
+    _rev=_price*_n
+    _rule=_s.get("payrule") or "자체기준"
+    _pd=_payday(_s["date"], _rule)
+    _set.append(dict(
+        cid=_s["cid"], name=_s["name"], orderer=_s["orderer"], kind=_s["kind"],
+        biz=_s.get("biztype") or "", date=_ymd(_s["date"]), state=_s["state"],
+        pax=_n, rev=_rev,
+        teach=_s["settle"] or 0, teacher=_s["teacher"] or "",
+        partner=_s.get("partner") or "", partamt=_s.get("partamt") or 0,
+        rule=_rule, payday=_ymd(_pd), payer=_s["payer"] or "", paymode=_s.get("paymode") or "해당없음",
+        struct=_s.get("struct") or "",
+        paidin=_s["paidin"], paidout=_s["paidout"], partpay=_s.get("partpay") or "해당없음"))
+SETTLE=json.dumps(_set,ensure_ascii=False)
+
 
 # ── 이번 주 패킹 배너 (진행중 + 패킹파일 있음 + 수업일 D-7 이내) ──
 _pb=[]
@@ -824,16 +958,17 @@ tr.mainrow.open{background:#F4EFE3}
 .arrow{display:inline-block;transition:.2s;color:var(--point);font-size:11px;margin-right:6px}
 tr.mainrow.open .arrow{transform:rotate(90deg)}
 .badge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:"DM Mono",monospace;white-space:nowrap}
-.st-기획중{background:#F3ECD7;color:#A08A4E}.st-모집중{background:#FFE7DF;color:var(--coral)}
-.st-확정{background:#FFE7DF;color:var(--coral)}.st-미달{background:#EAE6DE;color:#BFB6A6;text-decoration:line-through}
-.st-수업완료{background:#E4EEF6;color:var(--online)}.st-정산완료{background:#EAE6DE;color:#B0A794}.st-보류{background:#EAE6DE;color:#BFB6A6}
+.st-prop{background:#F1EFE9;color:#6B6256}
+.st-기획중{background:#F1EFE9;color:#6B6256}.st-모집중{background:#FFE7DF;color:var(--coral)}
+.st-확정{background:#FFE7DF;color:var(--coral)}.st-미달{background:#EFEDEA;color:#B44A1E;text-decoration:line-through}
+.st-정산완료{background:#E4EAE2;color:#5E7360}.st-보류{background:#EFEDEA;color:#ADA294}
 .kind{font-size:11px;padding:2px 7px;border-radius:8px}
 .paychip{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:"DM Mono",monospace;white-space:nowrap}
-.pc-done{background:#E6F4E6;color:var(--open)}.pc-wait{background:#EEE9DD;color:var(--wait)}
+.pc-done{background:#E4EAE2;color:#5E7360}.pc-wait{background:#F5B21F;color:#4A3405;font-weight:500}
 .rt b{font-family:"DM Mono",monospace}
 .pax-mini{font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:8px;font-family:"DM Mono",monospace;margin-left:2px}
-.pm-fix{background:#EEE9DD;color:var(--wait)}.pm-ing{background:#E8F1F8;color:var(--online)}
-.pm-open{background:#E6F4E6;color:var(--open)}.pm-short{background:#F6DDD2;color:#B44A1E}
+.pm-fix{background:#F1EFE9;color:#6B6256}.pm-ing{background:#FFF1EB;color:#C2570E}
+.pm-open{background:#FFE7DF;color:var(--coral);font-weight:500}.pm-short{background:#EFEDEA;color:#B44A1E}
 .legend{margin-top:16px;padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px}
 .lg-t{font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:9px}
 .lg-r{font-size:12px;color:var(--sub);line-height:1.9}
@@ -888,6 +1023,12 @@ table.ord a{text-decoration:none}
 .kp{font-size:10px;font-weight:700;padding:2px 7px;border-radius:9px;font-family:"DM Mono",monospace}
 .kp-frz{background:#E4EEF6;color:var(--online)}.kp-cool{background:#E6F4E6;color:var(--open)}.kp-room{background:#EEE9DD;color:var(--wait)}.kp-none{background:transparent;color:#CFC5B2}
 .stk{font-size:9.5px;background:#EFEADD;color:var(--point);padding:1px 6px;border-radius:8px;font-weight:700}
+.ordnote-h{font-weight:700;margin-bottom:5px}
+.mgl{padding:3px 0;font-size:11.5px;line-height:1.55}
+.mgt{font-family:'DM Mono',monospace;font-weight:700;color:var(--point)}
+.mgd{color:#9A8F7C}
+td.mcell{font-weight:700;font-size:11.5px;white-space:nowrap;vertical-align:top}
+table.mat tr.mstart td,table.ord tr.mstart td{border-top:2px solid #C9BB9B}
 .ordnote{font-size:11.5px;color:var(--offline);margin-top:9px;font-weight:600}
 .ordnote2{font-size:11px;color:var(--wait);margin-top:10px;line-height:1.6}
 .cmpwrap{margin-top:14px}
@@ -899,6 +1040,11 @@ table.cmp .cmp-net td{font-weight:700;background:#FBF8EF}table.cmp .cmp-net .rt{
 .pend{font-size:11px;color:var(--wait);font-style:italic}
 .cmpsub{font-size:9.5px;color:var(--wait);font-weight:400;display:block}
 .plan2{display:block;font-size:9px;color:var(--wait);font-weight:400}
+table.ord tr.rw-wait td{background:#FFF6E6}
+table.ord tr.rw-wait td:first-child{box-shadow:inset 3px 0 0 #E0A93B}
+table.ord tr.rw-part td{background:#FFF0E2}
+table.ord tr.rw-part td:first-child{box-shadow:inset 3px 0 0 #C2570E}
+.stkuse{display:inline-block;font-size:10.5px;font-weight:700;color:#2C7BB6;background:#DCEAF6;border-radius:5px;padding:2px 7px;white-space:nowrap}
 .ost{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:9px;white-space:nowrap}
 .ost-ok{background:#E6F4E6;color:var(--open)}
 .ost-short{background:#FFE7DF;color:var(--coral)}
@@ -914,7 +1060,7 @@ table.cmp .cmp-net td{font-weight:700;background:#FBF8EF}table.cmp .cmp-net .rt{
 .flow-h{background:#F4EFE3;padding:8px 14px;font-size:12px;font-weight:700;color:var(--sub)}
 .flow-h2{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .fh-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;font-family:"DM Mono",monospace}
-.fhb-done{background:#E6F4E6;color:var(--open)}.fhb-wait{background:#EEE9DD;color:var(--wait)}
+.fhb-done{background:#E4EAE2;color:#5E7360}.fhb-wait{background:#F5B21F;color:#4A3405;font-weight:500}
 .d-photo{margin-bottom:14px}
 .d-photo img{width:100%;height:150px;object-fit:cover;border-radius:12px;display:block}
 .flow-r{display:flex;justify-content:space-between;padding:8px 14px;font-size:13.5px;border-top:1px dashed var(--line)}
@@ -1002,21 +1148,22 @@ function blk(label,text){return '<div class="dsub">'+label+'</div>'+(text?('<div
 function matTable(code,paxFallback){
   var d=parseQ(code);if(!d||!d.rows||!d.rows.length)return '<div class="dempty">재료 정보가 없습니다. 계산기에서 등록하면 채워집니다.</div>';
   var pax=num(d.pax)||paxFallback||1;var body='',tot=0,cur=null,sub=0;
-  var subRow=function(g,st){return '<tr class="subtot"><td colspan="13" class="tl">'+esc(g||'기타')+' 소계 (1인)</td><td class="rt p">'+fmtN(st)+'</td></tr>';};
+  var subRow=function(g,st){return '<tr class="subtot"><td colspan="14" class="tl">'+esc(g||'기타')+' 소계 (1인)</td><td class="rt p">'+fmtN(st)+'</td></tr>';};
   d.rows.forEach(function(r){
-    var g=r.gu||'';
+    var g=r.mu||r.gu||'';
     if(cur!==null&&g!==cur){body+=subRow(cur,sub);sub=0;}
+    var newMenu=(g!==cur);
     cur=g;
     var v1=num(r.v1),pv=num(r.pv),pm=num(r.pm),ou=num(r.ou);
     var sh=num(r.sh);var need=v1*pax,ord=ou*pv,total=pm*ou+sh;var per=(pax>0&&ord>0)?total/pax*(need/ord):0;tot+=per;sub+=per;
-    body+='<tr><td>'+esc(r.gu)+'</td><td class="tl">'+esc(r.nm)+(sh>0?' <span class="ship-note">+배송 '+fmtN(sh)+'</span>':'')+'</td><td>'+esc(r.ba)+'</td>'
+    body+='<tr'+(newMenu?' class="mstart"':'')+'><td class="mcell">'+(newMenu?esc(r.mu||''):'')+'</td><td>'+esc(r.gu)+'</td><td class="tl">'+esc(r.nm)+(sh>0?' <span class="ship-note">+배송 '+fmtN(sh)+'</span>':'')+'</td><td>'+esc(r.ba)+'</td>'
       +'<td>'+(r.lk?'<a href="'+esc(r.lk)+'" target="_blank">링크</a>':'')+'</td>'
       +'<td class="rt">'+esc(r.v1)+'</td><td>'+esc(r.u1)+'</td><td class="rt">'+esc(r.pv)+'</td><td>'+esc(r.pu)+'</td><td class="rt">'+fmtN(pm)+'</td>'
       +'<td class="rt a">'+fmtN(need)+'</td><td class="rt">'+esc(r.ou)+'</td><td class="rt a">'+fmtN(ord)+'</td><td class="rt a">'+fmtN(total)+'</td><td class="rt p">'+fmtN(per)+'</td></tr>';
   });
   if(cur!==null)body+=subRow(cur,sub);
   return '<div class="matwrap"><table class="mat"><thead><tr>'
-    +'<th rowspan="2">구분</th><th rowspan="2">구성품</th><th rowspan="2">레시피<br>기준량</th><th rowspan="2">구매처</th>'
+    +'<th rowspan="2">메뉴</th><th rowspan="2">구분</th><th rowspan="2">구성품</th><th rowspan="2">레시피<br>기준량</th><th rowspan="2">구매처</th>'
     +'<th class="grp" colspan="2">1인 기준</th><th class="grp" colspan="3">판매 기준단위</th>'
     +'<th rowspan="2">총<br>필요량</th><th rowspan="2">주문<br>단위</th><th rowspan="2">주문<br>총량</th><th rowspan="2">총금액</th><th rowspan="2">1인<br>금액</th></tr>'
     +'<tr><th>용량</th><th>단위</th><th>용량</th><th>단위</th><th>금액</th></tr></thead><tbody>'+body+'</tbody></table></div>'
@@ -1024,11 +1171,21 @@ function matTable(code,paxFallback){
 }
 function keepBadge(k){var m={'냉동':'kp-frz','냉장':'kp-cool','실온':'kp-room'};if(!k||!m[k])return '<span class="kp kp-none">—</span>';return '<span class="kp '+m[k]+'">'+k+'</span>';}
 function diffCell(diff){if(diff===0)return '<span class="df0">0</span>';if(diff<0)return '<span class="dfsave">▼'+fmtN(-diff)+'</span>';return '<span class="dfover">▲'+fmtN(diff)+'</span>';}
+function inbCell(o,i,unit){
+  var h=(o&&o.hist)||[];
+  if(!h.length) return '<span class="mut">—</span>';
+  if(i>=h.length) return '<span class="mut">—</span>';
+  var x=h[i];
+  var q=(x.qty!=null&&x.qty!=='')?fmtN(num(x.qty))+(unit||''):'';
+  var mark=x.arrived?'<b style="color:#2E7D32">📦</b>':(x.arrtxt?'<span style="color:#B44A1E">🟡</span>':'<span class="mut">⬜</span>');
+  return mark+' '+(x.idate?String(x.idate).replace(/^2026-/,''):'?')+(q?'<br><span class="mut">'+q+'</span>':'');
+}
 function orderTable(code,od){
   var d=parseQ(code);if(!d||!d.rows||!d.rows.length)return '';
   var pax=num(d.pax)||1;
-  var body='',planTot=0,realTot=0,hasReal=false,merge={};
+  var body='',planTot=0,realTot=0,hasReal=false,merge={},__prevMu=null;
   d.rows.forEach(function(r){
+    var _mu=r.mu||'';var newMenu=(_mu!==__prevMu);__prevMu=_mu;
     var v1=num(r.v1),ou=num(r.ou),pv=num(r.pv),pm=num(r.pm),sh=num(r.sh);
     var total=pm*ou+sh;planTot+=total;
     var need=v1*pax;
@@ -1044,21 +1201,35 @@ function orderTable(code,od){
     else if(qty>=need)stat='<span class="ost ost-ok">✅ 충족</span>';
     else{var lack=need-qty;var more=pv>0?Math.ceil(lack/pv):0;stat='<span class="ost ost-short">⚠️ '+fmtN(lack)+(r.pu||'')+' 부족'+(more>0?' ('+more+'개↑)':'')+'</span>';}
     var stockTag=o.stock?' <span class="stk">재고</span>':'';
-    body+='<tr>'
+    var partial=(o.hist||[]).some(function(h){return h.arrived;});
+    var rwc = (!o.stock && o.ordered && !o.arrived) ? (partial?' class="rw-part"':' class="rw-wait"') : '';
+    body+='<tr'+rwc+'>'
+      +'<td class="mcell">'+(newMenu?esc(r.mu||''):'')+'</td>'
       +'<td class="tl"><span class="gu-mini">'+esc(r.gu)+'</span> '+esc(r.nm)+(r.lk?' <a href="'+esc(r.lk)+'" target="_blank">🔗</a>':'')+'</td>'
       +'<td class="rt nw"><b>'+fmtN(need)+(r.pu||'')+'</b> / '+(qty!=null?fmtN(qty)+(r.pu||''):'<span class="mut">—</span>')+'</td>'
       +'<td>'+stat+'</td>'
       +'<td>'+keepBadge(o.keep)+'</td>'
       +'<td class="sm">'+(o.store?esc(o.store):'—')+'</td>'
-      +'<td class="sm nw">'+((o.odate||o.idate)?(esc(o.odate||'?')+' → '+esc(o.idate||'?')):'—')+'</td>'
-      +'<td class="ck nw">'+(o.ordered?'✅':'⬜')+(o.arrived?'📦':'⬜')+'</td>'
+      +'<td class="sm nw">'+inbCell(o,0,r.pu)+'</td>'
+      +'<td class="sm nw">'+inbCell(o,1,r.pu)+'</td>'
+      +'<td class="ck nw">'+(o.stock?'<span class="stkuse">재고사용</span>':((o.ordered?'✅':'⬜')+(o.arrived?'📦':(partial?'🟡':'⬜'))))+'</td>'
       +'<td class="rt nw"><span class="sm2">'+fmtN(total)+'</span> / '+(real!=null?fmtN(real)+stockTag:(o.stock?'<span class="stk">재고</span>':'<span class="mut">—</span>'))+'</td>'
       +'<td class="rt">'+(real!=null?diffCell(real-total):(o.stock?'<span class="stk">재고</span>':'<span class="mut">—</span>'))+'</td>'
       +'</tr>';
   });
-  var cnt={};d.rows.forEach(function(r){var b=(r.nm||'').replace(/\s*\(.*$/,'').trim();cnt[b]=(cnt[b]||0)+1;});
-  var notes=[];for(var b in cnt){if(cnt[b]>1)notes.push(b+' 총 '+fmtN(merge[b])+'개 발주');}
-  var mergeNote=notes.length?'<div class="ordnote">※ 합산 발주: '+notes.join(' · ')+' (같은 상품은 한 번에 주문)</div>':'';
+  var byBase={};
+  d.rows.forEach(function(r){
+    var b=(r.nm||'').replace(/\s*\(.*$/,'').trim();
+    (byBase[b]=byBase[b]||[]).push({mu:r.mu||'',need:num(r.v1)*pax,pu:r.pu||'',ou:num(r.ou)});
+  });
+  var lines=[];
+  for(var b in byBase){
+    var g=byBase[b]; if(g.length<2) continue;
+    var sum=0,parts=[];
+    g.forEach(function(x){sum+=x.need;parts.push((x.mu||'기타')+' '+fmtN(x.need));});
+    lines.push('<div class="mgl"><b>'+b+'</b> <span class="mgt">'+fmtN(sum)+(g[0].pu||'')+'</span> <span class="mgd">= '+parts.join(' + ')+'</span></div>');
+  }
+  var mergeNote=lines.length?('<div class="ordnote"><div class="ordnote-h">※ 여러 메뉴에 쓰이는 재료 — 발주는 합산</div>'+lines.join('')+'</div>'):'';
   var supply=num(d.price);if((d.vat||'')==='incl')supply=Math.round(supply/1.1);
   var pack=num(d.pack),ship2=num(d.ship),teach=num(d.teach);
   // 계획 원가(1인) = 사용량 기준 = 원가표와 동일
@@ -1074,7 +1245,7 @@ function orderTable(code,od){
     +'</tbody></table></div>';
   return '<div class="ordsec"><div class="ordh">📦 발주 · 입고 <span class="s">필요량 대비 주문량 · 부족분 · 실제 비용</span></div>'
     +'<div class="ordwrap"><table class="ord"><thead><tr>'
-    +'<th>재료</th><th>필요 / 주문</th><th>상태</th><th>보관</th><th>발주처</th><th>발주 → 입고</th><th>주문/입고</th><th>계획 / 실제</th><th>차액</th>'
+    +'<th>메뉴</th><th>재료</th><th>필요 / 주문</th><th>상태</th><th>보관</th><th>발주처</th><th>1차 입고</th><th>2차 입고</th><th>주문/입고</th><th>계획 / 실제</th><th>차액</th>'
     +'</tr></thead><tbody>'+body+'</tbody></table></div>'+mergeNote+cmp
     +'<div class="ordnote2">필요량 = 1인 사용량 × 인원 · 주문량이 필요량 이상이면 ✅충족, 미만이면 ⚠️부족(더 살 개수 표시). 발주 정보는 실제 발주하며 채팅으로 알려주시면 채워집니다.</div></div>';
 }
@@ -1086,14 +1257,14 @@ function buildDetail(cid){
     +'onerror="this.parentElement.style.display=&quot;none&quot;"></div>';
   var p1=photo+drow('수업명',d.name)+drow('강의명',c['강의명'])+drow('발주처',d.orderer)+drow('구분',d.kind)
     +drow('수업일',d.date)+drow('시각',d.time)+drow('장소/배송',d.place)
-    +drow('대상',c['대상'])+drow('선발방식',c['선발방식'])+drow('소요시간',c['소요시간'])+drow('줌 링크',c['줌링크'])+drow('상태',d.state);
+    +drow('대상',c['대상'])+drow('선발방식',c['선발방식'])+drow('소요시간',c['소요시간'])+drow('줌 링크',c['줌링크'])+drow('리허설',c['리허설안내'])+drow('강의정보',c['강의정보링크'])+drow('상태',d.state);
   // ② 과정개요서
   var p2='<button class="dcopy" onclick="copyOverview(\''+cid+'\',this)">📋 과정개요서 전체 복사</button>'
     +blk('강의명',c['강의명'])+blk('소개문',c['소개문'])+blk('강의내용',c['강의내용'])
     +blk('키트 구성품',c['키트구성품'])+blk('개별 준비물',c['개별준비물'])
     +(d.kind==='온라인'?(blk('배송 안내',c['배송안내'])+blk('참여 안내',c['참여안내'])):(blk('장소',c['장소상세'])+blk('동반인 규정',c['동반인규정'])))
     +blk('강사 이력',c['강사이력'])+blk('해시태그',c['해시태그'])
-    +'<div class="dnote">수강신청 확인사항·GSEEK 참여안내 등 고정 문구는 채널로 낼 때 자동으로 붙습니다.</div>';
+    +(c['선생님전달문구']?('<div class="tmsg"><div class="tmsg-h">선생님 전달 문구</div><pre>'+esc(c['선생님전달문구'])+'</pre></div>'):'')+'<div class="dnote">수강신청 확인사항·GSEEK 참여안내 등 고정 문구는 채널로 낼 때 자동으로 붙습니다.</div>';
   // ③ 레시피 (조리법 · 레시피 카드용)
   var pRec=(c['레시피']?'<button class="dcopy" onclick="copyRecipe(\''+cid+'\',this)">📋 레시피 전체 복사</button>':'')
     +blk('조리법',c['레시피'])
@@ -1200,3 +1371,283 @@ listdoc = (LISTTMPL.replace("__VER__",VERSION).replace("__UPD__",UPDATED).replac
     .replace("__LISTDATA__",LISTDATA).replace("__ORDS__",ORDS).replace("__DETAIL__",DETAIL))
 open("class-list.html","w",encoding="utf-8").write(listdoc)
 print(f"class-list.html {VERSION} — 아코디언 7탭 목록 {len(sessions)}건")
+
+# ══════════════════════ 정산 리포트 ══════════════════════
+RPTTMPL = r"""<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="version" content="__VER__"><meta name="updated" content="__UPD__">
+<title>정산 리포트</title>
+<link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;
+--point:#B4A032;--ok:#2E7D32;--warn:#B44A1E;--wait:#9A8F7C;--mute:#ADA294;--in:#2C7BB6;--par:#C2570E}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
+.tb-left{display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:13px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 13px}
+.pill:hover{border-color:var(--point);color:var(--point)}
+.tb-right{font-size:12px;color:var(--wait);font-family:"DM Mono",monospace}
+.hero{padding:26px 0 4px}
+.hero h1{font-family:Hahmlet,serif;font-weight:700;font-size:34px;letter-spacing:-.02em}
+.hero .lead{margin-top:6px;color:var(--sub);font-size:14.5px}
+.dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:11px;margin-top:18px}
+.d{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.d .k{font-size:12px;color:var(--sub)}
+.d .v{font-family:"DM Mono",monospace;font-size:21px;font-weight:700;margin-top:3px}
+.d .u{font-size:11.5px;color:var(--wait);margin-top:2px}
+.tabs{display:flex;gap:5px;margin-top:20px;background:#F4EFE3;padding:5px;border-radius:11px;max-width:420px}
+.tab{flex:1;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--sub);background:none;border:none;border-radius:8px;padding:9px 12px;cursor:pointer}
+.tab.on{background:#fff;color:var(--point);box-shadow:0 1px 3px rgba(0,0,0,.07)}
+.panel{display:none}.panel.on{display:block}
+.ctrl{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;background:#F7F3E9;border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-top:14px}
+.ctrl label{display:block;font-size:11.5px;font-weight:600;color:var(--sub);margin-bottom:4px}
+.ctrl select{font-family:"DM Mono",monospace;font-size:15px;font-weight:700;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+.ctrl .hint{font-size:12px;color:var(--wait);margin-left:auto;max-width:400px;line-height:1.6}
+
+.grp{margin-top:22px}
+.grp-h{display:flex;align-items:baseline;gap:10px;padding-bottom:8px;border-bottom:2px solid var(--ink);flex-wrap:wrap}
+.grp-h h2{font-family:Hahmlet,serif;font-size:19px;font-weight:700}
+.grp-h .sub{font-size:12.5px;color:var(--wait)}
+.grp-h .amt{margin-left:auto;font-family:"DM Mono",monospace;font-size:15px;font-weight:700;color:var(--point)}
+
+.sgrp{margin-top:16px}
+.sgrp-h{display:flex;align-items:baseline;gap:9px;font-size:14px;font-weight:700;color:var(--sub);padding:6px 0}
+.sgrp-h .c{font-family:"DM Mono",monospace;font-size:12px;color:var(--wait);font-weight:500}
+.sgrp-h .a{margin-left:auto;font-family:"DM Mono",monospace;font-size:13px;color:var(--point)}
+
+.rc{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-top:9px}
+.rc.warnrow{border-color:#E8C4B0;background:#FFF9F6}
+.rc-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:3px}
+.rc-h .cid{font-family:"DM Mono",monospace;font-size:12px;color:var(--wait)}
+.rc-h .dt{font-family:"DM Mono",monospace;font-size:12px;color:var(--sub);background:#F4EFE3;border-radius:6px;padding:2px 8px}
+.rc-h .more{margin-left:auto;font-family:inherit;font-size:12px;color:var(--sub);background:none;border:1px solid var(--line);border-radius:7px;padding:3px 10px;cursor:pointer}
+.rc-h .more:hover{border-color:var(--point);color:var(--point)}
+.rc-nm{font-size:15px;font-weight:700;margin-bottom:9px}
+.bd{display:inline-block;font-size:10.5px;font-weight:700;border-radius:5px;padding:2px 8px;white-space:nowrap}
+.b-on{background:#F1EFE9;color:#6B6256}
+.b-off{background:#F1EFE9;color:#6B6256}
+.b-biz{background:#F1EFE9;color:#6B6256}
+.b-ok{background:#E4EAE2;color:#5E7360}
+.b-wt{background:#EFEDEA;color:#ADA294}
+.b-wn{background:#F5B21F;color:#4A3405;font-weight:500}.b-lnk{background:#F1EFE9;color:#6B6256}
+
+.b-par{background:#F1EFE9;color:#6B6256}
+
+.flow{border-top:1px dashed var(--line)}
+.fr{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:13.5px;flex-wrap:wrap}
+.fr:last-child{border-bottom:none}
+.fr .ico{width:22px;text-align:center;flex-shrink:0}
+.fr .who{min-width:150px;color:var(--sub)}
+.fr .who b{color:var(--ink)}
+.fr .amt{margin-left:auto;font-family:"DM Mono",monospace;font-weight:700;white-space:nowrap}
+.fr.in .amt{color:var(--in)}
+.fr.outT .amt{color:var(--ink)}
+.fr.outP .amt{color:var(--par)}
+.det{display:none;margin-top:11px;padding:12px 14px;background:#F7F3E9;border-radius:10px;font-size:12.5px}
+.det.on{display:block}
+.det table{width:100%;border-collapse:collapse}
+.det td{padding:4px 0;border-bottom:1px dotted var(--line)}
+.det td:last-child{text-align:right;font-family:"DM Mono",monospace}
+.det tr:last-child td{border-bottom:none;font-weight:700;padding-top:7px}
+.det .mt{font-size:11.5px;color:var(--wait);margin-top:8px;line-height:1.6}
+.alertline{background:#FFF6F2;border-left:3px solid var(--warn);border-radius:0 8px 8px 0;padding:7px 11px;margin-top:9px;font-size:12.5px;color:var(--sub)}
+.empty{padding:22px;text-align:center;color:var(--wait);font-size:13px;background:var(--card);border:1px dashed var(--line);border-radius:12px;margin-top:9px}
+.note{font-size:12.5px;color:var(--wait);margin-top:12px;line-height:1.7}
+.foot{margin-top:28px;font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
+@media print{@page{size:A4;margin:12mm}.topbar,.tabs,.ctrl{display:none}.panel{display:block!important}.det{display:block!important}body{background:#fff}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media(max-width:620px){.hero h1{font-size:26px}.ctrl .hint{margin-left:0;width:100%}.fr .who{min-width:0}}
+</style></head><body><div class="wrap">
+<div class="topbar">
+<div class="tb-left"><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="class-list.html">📋 전체 목록</a>
+<a class="pill" href="class-settlement.html">💰 정산 구조 기준표</a>
+<a class="pill" href="__CHAT__" target="_blank" rel="noopener">💬 작업 대화</a></div>
+<div class="tb-right" id="upd"></div></div>
+<header class="hero"><h1>정산 리포트</h1><p class="lead">지급일은 <b>수업일 기준</b>으로 자동 계산됩니다. 1~15일 수업은 당월 25일, 16~말일 수업은 익월 10일입니다.</p></header>
+<div class="dash" id="dash"></div>
+<div class="tabs">
+<button class="tab on" data-t="p2">유형별 전체</button>
+<button class="tab" data-t="p3">받을 돈</button>
+<button class="tab" data-t="p1">지급 일정</button>
+</div>
+<div class="panel on" id="p2"></div>
+<div class="panel" id="p3"></div>
+<div class="panel" id="p1">
+  <div class="ctrl">
+    <div><label>지급월</label><select id="ym"></select></div>
+    <span class="hint">선택한 달에 <b>나가야 할 돈</b>을 지급일별로 묶습니다. 각 줄에 <b>수업일</b>이 표시되니 왜 이 달에 나가는지 확인하실 수 있습니다.</span>
+  </div>
+  <div id="sched"></div>
+</div>
+<div class="foot" id="foot"></div>
+</div>
+<script>
+var S=__SETTLE__;
+(function(){var u=document.querySelector('meta[name=updated]').content,v=document.querySelector('meta[name=version]').content;
+document.getElementById('upd').textContent='업데이트 '+u+' · '+v;
+document.getElementById('foot').textContent='정산 리포트 · '+u+' · '+v;})();
+function won(n){return (n||0).toLocaleString();}
+function T(){return new Date().toISOString().slice(0,10);}
+function wd(ds){if(!ds)return '';var d=new Date(ds+'T00:00:00');return '월화수목금토일'[(d.getDay()+6)%7];}
+function fdt(ds){return ds? ds.slice(5).replace('-','.')+' ('+wd(ds)+')' : '—';}
+function badge(v){
+  if(v==='입금완료'||v==='지급완료') return '<span class="bd b-ok">'+v+'</span>';
+  if(v==='해당없음') return '<span class="bd b-wt">해당없음</span>';
+  return '<span class="bd b-wn">'+v+'</span>';
+}
+function typeBadges(r){
+  var on=(r.kind==='온라인');
+  var h='<span class="bd '+(on?'b-on':'b-off')+'">'+(on?'온라인':'오프라인')+'</span>';
+  h+=' <span class="bd b-biz">'+(r.biz||'유형미정')+'</span>';
+  if(r.partner) h+=' <span class="bd b-par">'+(r.paymode==='전액입금'?'전액입금':(r.paymode==='수수료차감'?'수수료차감':'수금방식 미정'))+'</span>';
+  if(r.rule==='발주처입금연동') h+=' <span class="bd b-lnk">발주처 입금 연동</span>';
+  return h;
+}
+/* 회차 카드 — 돈 흐름 */
+function card(r,ctx){
+  var late=(r.payday&&r.payday<T()&&r.paidout!=='지급완료');
+  var blocked=(r.rule==='발주처입금연동'&&r.paidin!=='입금완료'&&r.paidout!=='지급완료');
+  var h='<div class="rc'+((late||blocked)?' warnrow':'')+'">'
+   +'<div class="rc-h"><span class="cid">'+r.cid+'</span>'
+   +(ctx==='sched'?'<span class="dt">수업 '+fdt(r.date)+'</span>':'<span class="dt">'+fdt(r.date)+'</span>')
+   +typeBadges(r)
+   +'<button class="more" onclick="tg(this)">세부 ▾</button></div>'
+   +'<div class="rc-nm">'+r.name+'</div><div class="flow">';
+  h+='<div class="fr in"><span class="ico">📥</span><span class="who">받음 · <b>'+(r.orderer||'—')+'</b> → 우리</span>'
+    +badge(r.paidin)+'<span class="amt">'+won(r.rev)+'</span></div>';
+  h+='<div class="fr outT"><span class="ico">👤</span><span class="who">줄 돈 · 우리 → <b>'+(r.teacher||'선생님')+'</b></span>'
+    +badge(r.paidout)+'<span class="amt">'+won(r.teach)+'</span></div>';
+  if(r.partner&&r.paymode==='전액입금'){
+    h+='<div class="fr outP"><span class="ico">🤝</span><span class="who">줄 돈 · 우리 → <b>'+r.partner+'</b></span>'
+      +badge(r.partpay)+'<span class="amt">'+won(r.partamt)+'</span></div>';
+  }
+  h+='</div>';
+  if(blocked) h+='<div class="alertline">⚠️ <b>발주처 입금 연동</b> — '+(r.payer||r.orderer)+' 입금 확인 후 지급합니다. 아직 입금되지 않았습니다.</div>';
+  else if(late) h+='<div class="alertline">⚠️ 지급 예정일('+fdt(r.payday)+')이 지났습니다.</div>';
+  h+='<div class="det"><table>'
+   +'<tr><td>클래스 총액</td><td>'+won(r.rev)+'</td></tr>'
+   +(r.partner&&r.paymode==='수수료차감'?'<tr><td>− 제휴사 수수료 (차감 후 입금)</td><td>'+won(r.partamt)+'</td></tr>':'')
+   +'<tr><td>− 선생님 정산액</td><td>'+won(r.teach)+'</td></tr>'
+   +(r.partner&&r.paymode==='전액입금'?'<tr><td>− 제휴사 수수료 (우리가 송금)</td><td>'+won(r.partamt)+'</td></tr>':'')
+   +'<tr><td>우리 매출 (실제 입금액)</td><td>'+won(r.paymode==='수수료차감'?(r.rev-(r.partamt||0)):r.rev)+'</td></tr>'
+   +'</table><div class="mt">지급 예정일 <b>'+fdt(r.payday)+'</b> · 정산기준 '+(r.rule||'자체기준')
+   +(r.payer?' · 지급주체 '+r.payer:'')+'<br>세부 내역은 <a href="class.html" style="color:var(--point)">클래스 홈 → 회차 상세 → 정산 탭</a>에서 확인하세요.</div></div></div>';
+  return h;
+}
+function tg(b){var d=b.closest('.rc').querySelector('.det');d.classList.toggle('on');b.textContent=d.classList.contains('on')?'세부 ▴':'세부 ▾';}
+
+/* 지급월 목록 */
+function months(){
+  var set={};
+  S.forEach(function(r){ if(r.payday) set[r.payday.slice(0,7)]=1; });
+  var ks=Object.keys(set).sort();
+  if(!ks.length){var d=new Date();ks=[d.toISOString().slice(0,7)];}
+  return ks;
+}
+function renderSched(){
+  var ym=document.getElementById('ym').value;
+  var rows=S.filter(function(r){return r.payday&&r.payday.slice(0,7)===ym;});
+  var g={};
+  rows.forEach(function(r){ (g[r.payday]=g[r.payday]||[]).push(r); });
+  var days=Object.keys(g).sort();
+  var h='';
+  if(!days.length){ h='<div class="empty">'+ym.replace('-','.')+'에 지급할 건이 없습니다.</div>'; }
+  days.forEach(function(d){
+    var list=g[d], sum=0;
+    list.forEach(function(r){ sum+=r.teach+((r.paymode==='전액입금')?(r.partamt||0):0); });
+    var dd=d.slice(8), lbl;
+    if(dd==='10') lbl='전달 16일~말일 수업';
+    else if(dd==='25') lbl='당월 1~15일 수업';
+    else lbl='발주처 입금 연동';
+    h+='<div class="grp"><div class="grp-h"><h2>'+fdt(d)+' 지급</h2><span class="sub">'+lbl+' · '+list.length+'건</span><span class="amt">'+won(sum)+'원</span></div>';
+    list.forEach(function(r){ h+=card(r,'sched'); });
+    h+='</div>';
+  });
+  document.getElementById('sched').innerHTML=h;
+}
+/* 유형별 전체 — 기준표와 같은 순서 */
+var ORDER=[
+ ['오프라인',['B2C 오프라인','B2B 오프라인','B2B2C 오프라인']],
+ ['온라인',  ['B2C 온라인','B2B 온라인','B2B2C 온라인']]
+];
+function renderType(){
+  var h='';
+  ORDER.forEach(function(sec){
+    h+='<div class="grp"><div class="grp-h"><h2>'+sec[0]+'</h2></div>';
+    sec[1].forEach(function(t){
+      var list=S.filter(function(r){return (r.biz||'').indexOf(t)===0;});
+      var sum=0; list.forEach(function(r){sum+=r.rev;});
+      h+='<div class="sgrp"><div class="sgrp-h">'+t+' <span class="c">'+list.length+'건</span>'
+        +(list.length?'<span class="a">매출 '+won(sum)+'원</span>':'')+'</div>';
+      if(list.length) list.forEach(function(r){ h+=card(r,'type'); });
+      else h+='<div class="empty">해당 회차가 없습니다.</div>';
+      h+='</div>';
+    });
+    h+='</div>';
+  });
+  var etc=S.filter(function(r){return !r.biz;});
+  if(etc.length){
+    h+='<div class="grp"><div class="grp-h"><h2>유형 미지정</h2><span class="sub">마스터 회차 시트의 유형 칸을 채워주세요</span></div>';
+    etc.forEach(function(r){h+=card(r,'type');});h+='</div>';
+  }
+  document.getElementById('p2').innerHTML=h;
+}
+function renderIn(){
+  var h='<div class="grp"><div class="grp-h"><h2>발주처 입금</h2><span class="sub">받을 돈</span></div>';
+  var w=S.filter(function(r){return r.paidin!=='입금완료';});
+  var dn=S.filter(function(r){return r.paidin==='입금완료';});
+  h+='<div class="sgrp"><div class="sgrp-h">미입금 <span class="c">'+w.length+'건</span></div>';
+  if(w.length) w.forEach(function(r){h+=card(r,'in');}); else h+='<div class="empty">미입금 건이 없습니다.</div>';
+  h+='</div><div class="sgrp"><div class="sgrp-h">입금완료 <span class="c">'+dn.length+'건</span></div>';
+  if(dn.length) dn.forEach(function(r){h+=card(r,'in');}); else h+='<div class="empty">없습니다.</div>';
+  h+='</div></div>';
+  document.getElementById('p3').innerHTML=h;
+}
+function renderDash(){
+  var t=T(),outT=0,outP=0,inW=0,late=0,blocked=0;
+  S.forEach(function(r){
+    if(r.paidout!=='지급완료') outT+=r.teach;
+    if(r.paymode==='전액입금'&&r.partpay!=='지급완료') outP+=(r.partamt||0);
+    if(r.paidin!=='입금완료') inW+=r.rev;
+    if(r.payday&&r.payday<t&&r.paidout!=='지급완료') late++;
+    if(r.rule==='발주처입금연동'&&r.paidin!=='입금완료'&&r.paidout!=='지급완료') blocked++;
+  });
+  document.getElementById('dash').innerHTML=
+    c('줄 돈 · 선생님',won(outT),'원 · 미지급',outT?'var(--warn)':'var(--ok)')
+   +c('줄 돈 · 제휴사',won(outP),'원 · 미지급','var(--par)')
+   +c('받을 돈',won(inW),'원 · 미입금',inW?'var(--in)':'var(--ok)')
+   +c('지급일 경과',late,'건',late?'var(--warn)':'var(--ok)')
+   +c('입금 대기로 보류',blocked,'건',blocked?'var(--warn)':'var(--ok)');
+}
+function c(k,v,u,col){return '<div class="d"><div class="k">'+k+'</div><div class="v" style="color:'+col+'">'+v+'</div><div class="u">'+u+'</div></div>';}
+(function init(){
+  var sel=document.getElementById('ym'),ms=months(),now=new Date().toISOString().slice(0,7);
+  /* 기본값 = 오늘 이후 가장 가까운 지급월, 없으면 마지막 달 */
+  var pick=now;
+  if(ms.indexOf(now)<0){
+    var fut=ms.filter(function(m){return m>=now;});
+    pick=fut.length?fut[0]:ms[ms.length-1];
+  }
+  sel.innerHTML=ms.map(function(m){
+    var n=S.filter(function(r){return r.payday&&r.payday.slice(0,7)===m&&r.paidout!=='지급완료';}).length;
+    return '<option value="'+m+'"'+(m===pick?' selected':'')+'>'+m.replace('-','.')+(n?'  · 미지급 '+n+'건':'')+'</option>';
+  }).join('');
+  sel.value=pick;
+  sel.addEventListener('change',renderSched);
+  renderDash(); renderSched(); renderType(); renderIn();
+})();
+document.querySelectorAll('.tab').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});
+    document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');document.getElementById(b.dataset.t).classList.add('on');
+  });
+});
+</script></body></html>"""
+rptdoc = (RPTTMPL.replace("__VER__",VERSION).replace("__UPD__",UPDATED)
+    .replace("__CHAT__",CHAT_URL).replace("__SETTLE__",SETTLE))
+open("class-settle-report.html","w",encoding="utf-8").write(rptdoc)
+print(f"class-settle-report.html {VERSION} — 정산 {len(_set)}건")

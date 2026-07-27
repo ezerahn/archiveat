@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v5">
-<meta name="updated" content="2026.07.21 10:56">
+<meta name="version" content="v6">
+<meta name="updated" content="2026.07.24 14:40">
 <title>클래스 견적 계산기</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -119,7 +119,7 @@ details.content summary .s{font-size:12px;color:var(--wait);margin-left:auto;fon
 <div class="topbar">
 <div class="tb-left">
 <a class="pill" href="class.html">← 클래스 홈</a>
-<a class="pill" href="https://claude.ai/chat/dce33b2f-5756-4005-9648-0eb426113e53" target="_blank" rel="noopener">💬 작업 대화</a>
+<a class="pill" href="https://claude.ai/chat/9dbf9bcf-a82d-4ceb-8ee2-8c75b2590b7f" target="_blank" rel="noopener">💬 작업 대화</a>
 </div>
 <div class="tb-right"><span class="crumb">AI 워크스페이스 › 클래스 › 견적 계산기</span><span class="tb-sep">|</span><span class="updated" id="upd"></span></div>
 </div>
@@ -145,9 +145,14 @@ details.content summary .s{font-size:12px;color:var(--wait);margin-left:auto;fon
 <div class="grid">
 <div class="f"><label>클래스명</label><input id="title" placeholder="예: 냉이 꽃게탕"></div>
 <div class="f"><label>발주처</label><input id="orderer" placeholder="예: 경기도지식"></div>
+<div class="f"><label>유형</label>
+<div class="seg biz" id="biz"><button data-b="B2C" class="on">B2C</button><button data-b="B2B">B2B</button><button data-b="B2B2C">B2B2C</button></div>
+</div>
 <div class="f"><label>형태</label>
 <div class="seg mode" id="mode"><button data-m="online" class="on">온라인</button><button data-m="offline" class="off">오프라인</button></div>
 </div>
+<div class="f c-b2b2c"><label>제휴처</label><input id="partner" placeholder="예: 갤러리아광교"></div>
+<div class="f c-b2b2c"><label>제휴 수수료율 (%)</label><input id="partRate" type="number" inputmode="numeric" value="10" oninput="calc()"></div>
 <div class="f"><label>판매가(인당, 원)</label><input id="price" type="number" inputmode="numeric" value="50000" oninput="calc()"></div>
 <div class="f"><label>부가세</label>
 <div class="seg vat" id="vat"><button data-v="excl" class="on">별도</button><button data-v="incl">포함</button></div>
@@ -199,7 +204,7 @@ details.content summary .s{font-size:12px;color:var(--wait);margin-left:auto;fon
 <div class="grid">
 <div class="f"><label>우리 수수료율 (%)</label><input id="feeRate" type="number" inputmode="numeric" value="20" oninput="calc()"></div>
 </div>
-<p class="note">기본 20%. 발주처·조건에 따라 수정하세요. 오프라인은 재료비를 선생님이 부담하므로 우리 원가에서 제외됩니다.</p>
+<p class="note"><b>B2C(공공의주방몰) 6% · B2B/B2B2C 20%</b>가 기본입니다. 유형을 바꾸면 자동으로 채워집니다. 오프라인은 선생님이 재료·공간을 준비하므로 우리 원가에서 제외되고, 강사료에 재료비가 포함됩니다. <b>B2B2C는 이 수수료 안에서 제휴사 몫을 뺍니다.</b></p>
 </section>
 
 <!-- ③-2 정산·선생님 (접이식 · 입력 전용) -->
@@ -235,6 +240,7 @@ details.content summary .s{font-size:12px;color:var(--wait);margin-left:auto;fon
 <div class="fixed">
 <div class="f"><label>패킹운영비</label><input id="pack" type="number" value="5000" oninput="calc()"></div>
 <div class="f"><label>배송비</label><input id="ship" type="number" value="5000" oninput="calc()"></div>
+<div class="f c-online"><label>강사료 최소보장</label><input id="teachMin" type="number" inputmode="numeric" value="100000" oninput="calc()"></div>
 <div class="f"><label>강사비(인당)</label><input id="teach" type="number" value="10000" oninput="calc()"></div>
 </div>
 </div>
@@ -248,6 +254,7 @@ details.content summary .s{font-size:12px;color:var(--wait);margin-left:auto;fon
 <div class="rrow" id="rShipRow"><span class="k">− 배송비</span><span class="v" id="rShip">0</span></div>
 <div class="rrow" id="rTeachRow"><span class="k">− 강사비</span><span class="v" id="rTeach">0</span></div>
 <div class="rrow" id="rFeeRow" style="display:none"><span class="k">우리 몫(수수료)</span><span class="v" id="rFee">0</span></div>
+<div class="r" id="rPartRow" style="display:none"><span class="k">− 제휴사</span><span class="v" id="rPart">0</span></div>
 <div class="rrow big"><span class="k" id="rProfitK">수익(인당)</span><span class="v" id="rProfit">0</span></div>
 </div>
 <div class="verdict ok" id="verdict">
@@ -325,6 +332,7 @@ function addRow(n){n=n||1;var b=document.getElementById('matBody');for(var i=0;i
 function delRow(el){el.closest('tr').remove();calc();}
 function lkUpd(inp){var a=inp.parentNode.querySelector('a');if(inp.value.trim()){a.href=inp.value.trim();a.style.display='inline';}else{a.style.display='none';}}
 
+var BIZ='B2C';
 function calc(){
   var pax=num(document.getElementById('pax').value)||1;
   var price=num(document.getElementById('price').value);
@@ -351,13 +359,21 @@ function calc(){
   document.getElementById('rPrice').textContent=won(price);
   document.getElementById('rNet').textContent=won(net);
 
+  var partRate=(BIZ==='B2B2C')?num(document.getElementById('partRate').value):0;
   if(MODE==='online'){
     var pack=num(document.getElementById('pack').value);
     var ship=num(document.getElementById('ship').value);
-    var teach=num(document.getElementById('teach').value);
-    var cost=matTotal+pack+ship+teach;
+    var tMin=num(document.getElementById('teachMin').value);
+    var tUnit=num(document.getElementById('teach').value);
+    var teach=(pax>0)?Math.max(tUnit*pax,tMin)/pax:tUnit;   // 1인 환산 (최소보장 반영)
+    var partFee=net*partRate/100;
+    var cost=matTotal+pack+ship+teach+partFee;
     var profit=net-cost;
     var rate=net>0?profit/net*100:0;
+    var tr=document.getElementById('rTeach');
+    if(tr) tr.textContent=won(teach)+((tUnit*pax<tMin)?' ★':'');
+    var pf=document.getElementById('rPartRow');
+    if(pf){pf.style.display=(BIZ==='B2B2C')?'flex':'none';document.getElementById('rPart').textContent=won(partFee);}
     document.getElementById('rMat').textContent=won(matTotal);
     document.getElementById('rPack').textContent=won(pack);
     document.getElementById('rShip').textContent=won(ship);
@@ -367,21 +383,42 @@ function calc(){
     setVerdict(rate);
   } else {
     var feeRate=num(document.getElementById('feeRate').value);
-    var our=net*feeRate/100;
-    document.getElementById('rFee').textContent=won(our);
+    var gross=net*feeRate/100;
+    var partFee2=net*partRate/100;
+    var our=gross-partFee2;                    // B2B2C는 수수료 안에서 제휴사 몫 차감
+    document.getElementById('rFee').textContent=won(gross);
+    var pf2=document.getElementById('rPartRow');
+    if(pf2){pf2.style.display=(BIZ==='B2B2C')?'flex':'none';document.getElementById('rPart').textContent=won(partFee2);}
     document.getElementById('rProfitK').textContent='우리 몫(인당)';
     document.getElementById('rProfit').textContent=won(our);
-    setVerdict(feeRate);  // 오프라인은 수수료율 자체를 판정선에 표시
+    setVerdict(net>0?our/net*100:0);
   }
 }
 function setVerdict(rate){
   var v=document.getElementById('verdict'),f=document.getElementById('vFill');
   document.getElementById('vRate').textContent=(Math.round(rate*10)/10)+'%';
-  var ok=rate>=20;
+  var base, lbl;
+  if(MODE==='offline'&&BIZ==='B2C'){ base=6;  lbl='공공의주방몰 6% 고정'; }
+  else if(MODE==='offline'){         base=20; lbl='오프라인 기준 20%'; }
+  else {                             base=20; lbl='온라인 기준 20%'; }
+  var ok=rate>=base-0.05, warn=(rate>=base*0.5&&rate<base);
   v.className='verdict '+(ok?'ok':'no');
-  document.getElementById('vLbl').textContent=ok?'진행 가능 (20% 이상)':'기준 미달 (20% 미만)';
+  document.getElementById('vLbl').textContent=(ok?'진행 가능 — ':(warn?'검토 필요 — ':'기준 미달 — '))+lbl;
   f.style.width=Math.max(0,Math.min(100,rate))+'%';
 }
+
+// 유형 전환
+function setBiz(b){
+  BIZ=b;
+  document.querySelectorAll('#biz button').forEach(function(x){x.classList.toggle('on',x.dataset.b===BIZ);});
+  document.querySelectorAll('.c-b2b2c').forEach(function(x){x.style.display=(BIZ==='B2B2C')?'':'none';});
+  var fr=document.getElementById('feeRate');
+  if(fr) fr.value=(BIZ==='B2C')?6:20;      // 공공의주방몰 6% · 나머지 20%
+  calc();
+}
+document.querySelectorAll('#biz button').forEach(function(b){
+  b.addEventListener('click',function(){setBiz(b.dataset.b);});
+});
 
 // 모드 전환
 function setMode(m){
@@ -428,7 +465,8 @@ function copyOut(){
   var lines=[];
   lines.push('[클래스 등록]');
   lines.push('클래스명: '+(g('title')||'(미입력)'));
-  lines.push('발주처: '+(g('orderer')||'(미입력)')+' / '+(MODE==='online'?'온라인':'오프라인'));
+  lines.push('발주처: '+(g('orderer')||'(미입력)')+' / '+BIZ+' '+(MODE==='online'?'온라인':'오프라인'));
+  if(BIZ==='B2B2C'){ lines.push('제휴처: '+(g('partner')||'(미입력)')+' / 수수료 '+g('partRate')+'% (공급가 기준)'); }
   lines.push('판매가(인당): '+won(num(price))+'원 (부가세 '+(VAT==='incl'?'포함':'별도')+')');
   lines.push('인원: '+pax+'명');
   // 일정·모집

@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v39"><meta name="updated" content="2026.07.24 18:09">
+<meta name="version" content="v44"><meta name="updated" content="2026.07.27 20:14">
 <title>정산 리포트</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
@@ -53,14 +53,14 @@ body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,
 .rc-h .more:hover{border-color:var(--point);color:var(--point)}
 .rc-nm{font-size:15px;font-weight:700;margin-bottom:9px}
 .bd{display:inline-block;font-size:10.5px;font-weight:700;border-radius:5px;padding:2px 8px;white-space:nowrap}
-.b-on{background:#E8F1F9;color:var(--in)}
-.b-off{background:#F3EEE2;color:#8A7A4E}
-.b-biz{background:#EFEAF7;color:#6B5AA8}
-.b-ok{background:#E6F2E7;color:var(--ok)}
-.b-wt{background:#F0EDE5;color:var(--wait)}
-.b-wn{background:#FBF0DC;color:#B4780E}
-.b-no{background:#FBEAE0;color:var(--warn)}
-.b-par{background:#FBEEE3;color:var(--par)}
+.b-on{background:#F1EFE9;color:#6B6256}
+.b-off{background:#F1EFE9;color:#6B6256}
+.b-biz{background:#F1EFE9;color:#6B6256}
+.b-ok{background:#E4EAE2;color:#5E7360}
+.b-wt{background:#EFEDEA;color:#ADA294}
+.b-wn{background:#F5B21F;color:#4A3405;font-weight:500}.b-lnk{background:#F1EFE9;color:#6B6256}
+
+.b-par{background:#F1EFE9;color:#6B6256}
 
 .flow{border-top:1px dashed var(--line)}
 .fr{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:13.5px;flex-wrap:wrap}
@@ -89,7 +89,7 @@ body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,
 <div class="topbar">
 <div class="tb-left"><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="class-list.html">📋 전체 목록</a>
 <a class="pill" href="class-settlement.html">💰 정산 구조 기준표</a>
-<a class="pill" href="https://claude.ai/chat/dce33b2f-5756-4005-9648-0eb426113e53" target="_blank" rel="noopener">💬 작업 대화</a></div>
+<a class="pill" href="https://claude.ai/chat/9dbf9bcf-a82d-4ceb-8ee2-8c75b2590b7f" target="_blank" rel="noopener">💬 작업 대화</a></div>
 <div class="tb-right" id="upd"></div></div>
 <header class="hero"><h1>정산 리포트</h1><p class="lead">지급일은 <b>수업일 기준</b>으로 자동 계산됩니다. 1~15일 수업은 당월 25일, 16~말일 수업은 익월 10일입니다.</p></header>
 <div class="dash" id="dash"></div>
@@ -110,7 +110,7 @@ body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,
 <div class="foot" id="foot"></div>
 </div>
 <script>
-var S=[{"cid": "GS-2607", "name": "제철 복숭아로 만드는 복숭아청과 브리치즈 샐러드", "orderer": "경기도지식", "kind": "온라인", "biz": "B2B 온라인", "date": "2026-07-24", "state": "확정", "pax": 30, "rev": 1500000.0, "teach": 300000.0, "teacher": "이영미", "partner": "", "partamt": 0, "rule": "발주처입금연동", "payday": "2026-08-31", "payer": "휴넷", "paymode": "해당없음", "struct": "A", "paidin": "입금대기", "paidout": "지급대기", "partpay": "해당없음"}, {"cid": "GS-2604", "name": "냉이 꽃게탕", "orderer": "경기도지식", "kind": "온라인", "biz": "B2B 온라인", "date": "2026-04-24", "state": "수업완료", "pax": 30, "rev": 1500000.0, "teach": 300000.0, "teacher": "김은영", "partner": "", "partamt": 0, "rule": "발주처입금연동", "payday": "2026-05-31", "payer": "휴넷", "paymode": "해당없음", "struct": "A", "paidin": "입금완료", "paidout": "지급완료", "partpay": "해당없음"}];
+var S=[{"cid": "GS-2604", "name": "냉이 꽃게탕", "orderer": "경기도지식", "kind": "온라인", "biz": "", "date": "2026-04-24", "state": "수업완료", "pax": 30, "rev": 1500000.0, "teach": 300000.0, "teacher": "김은영", "partner": "", "partamt": 0, "rule": "자체기준", "payday": "2026-05-10", "payer": "휴넷", "paymode": "해당없음", "struct": "A", "paidin": "입금완료", "paidout": "지급완료", "partpay": "해당없음"}, {"cid": "GS-2607", "name": "제철 복숭아로 만드는 복숭아청과 브리치즈 샐러드", "orderer": "경기도지식", "kind": "온라인", "biz": "", "date": "2026-07-24", "state": "확정", "pax": 30, "rev": 1500000.0, "teach": 300000.0, "teacher": "이영미", "partner": "", "partamt": 0, "rule": "자체기준", "payday": "2026-08-10", "payer": "휴넷", "paymode": "해당없음", "struct": "A", "paidin": "입금대기", "paidout": "지급대기", "partpay": "해당없음"}];
 (function(){var u=document.querySelector('meta[name=updated]').content,v=document.querySelector('meta[name=version]').content;
 document.getElementById('upd').textContent='업데이트 '+u+' · '+v;
 document.getElementById('foot').textContent='정산 리포트 · '+u+' · '+v;})();
@@ -128,7 +128,7 @@ function typeBadges(r){
   var h='<span class="bd '+(on?'b-on':'b-off')+'">'+(on?'온라인':'오프라인')+'</span>';
   h+=' <span class="bd b-biz">'+(r.biz||'유형미정')+'</span>';
   if(r.partner) h+=' <span class="bd b-par">'+(r.paymode==='전액입금'?'전액입금':(r.paymode==='수수료차감'?'수수료차감':'수금방식 미정'))+'</span>';
-  if(r.rule==='발주처입금연동') h+=' <span class="bd b-wn">발주처 입금 연동</span>';
+  if(r.rule==='발주처입금연동') h+=' <span class="bd b-lnk">발주처 입금 연동</span>';
   return h;
 }
 /* 회차 카드 — 돈 흐름 */
