@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v44"><meta name="updated" content="2026.07.27 20:14">
+<meta name="version" content="v45"><meta name="updated" content="2026.07.27 20:26">
 <title>클래스 홈</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -240,7 +240,7 @@ table.ord tr.rw-part td:first-child{box-shadow:inset 3px 0 0 #C2570E}
 .bigpay{display:flex;justify-content:space-between;align-items:center;background:#EEF6EE;border:1px solid #CBE5CB;border-radius:10px;padding:13px 16px;margin:4px 0 12px}
 .bigpay .bk{font-size:13px;color:var(--open);font-weight:600}.bigpay .bv{font-family:"DM Mono",monospace;font-size:20px;font-weight:700;color:var(--open)}
 </style></head><body><div class="wrap">
-<div class="topbar"><div class="tb-left"><a class="pill" href="index.html">← 공공의주방 홈</a><a class="pill" href="https://claude.ai/chat/9dbf9bcf-a82d-4ceb-8ee2-8c75b2590b7f" target="_blank" rel="noopener">💬 작업 대화</a></div>
+<div class="topbar"><div class="tb-left"><a class="pill" href="index.html">← 공공의주방 홈</a><a class="pill" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">💬 작업 대화</a></div>
 <div class="tb-right"><span class="crumb">AI 워크스페이스 › 클래스</span><span class="tb-sep">|</span><span class="updated" id="upd"></span></div></div>
 <header class="hero"><h1>클래스 홈</h1><p class="lead">온라인·오프라인 수업 일정과 정산을 관리합니다.</p></header>
 <div class="summary">
@@ -266,16 +266,16 @@ table.ord tr.rw-part td:first-child{box-shadow:inset 3px 0 0 #C2570E}
 <button class="bk-btn" onclick="saveHTML()">📄 이 화면 HTML 받기</button>
 <button class="bk-btn" onclick="saveXLSX()">📊 엑셀 마스터 파일 받기 <span class="bk-tag">개인정보 뺀 공개용</span></button>
 </div>
-<p class="backup-note">위 엑셀은 개인정보(연락처·주소·수강생 이름)를 뺀 <b>회차·인원 정보(공개용)</b>입니다. → <code>class-master-open_날짜.xlsx</code><br>※ <b>완전판</b>(연락처·주소 포함 원본)은 <a href="https://claude.ai/chat/9dbf9bcf-a82d-4ceb-8ee2-8c75b2590b7f" target="_blank" rel="noopener">채팅창</a>에서 받으세요. → <code>class-master-all-v2.xlsx</code></p></section>
+<p class="backup-note">위 엑셀은 개인정보(연락처·주소·수강생 이름)를 뺀 <b>회차·인원 정보(공개용)</b>입니다. → <code>class-master-open_날짜.xlsx</code><br>※ <b>완전판</b>(연락처·주소 포함 원본)은 <a href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">채팅창</a>에서 받으세요. → <code>class-master-all-v2.xlsx</code></p></section>
 
 <div class="ops-note">※ <b>홈은 보기·이동만 합니다.</b><br>· 데이터를 고칠 땐 → 마스터(엑셀/대화창)에서<br>· 볼 땐 → 이 홈에서<br>· 모든 파일은 같은 폴더(github)에 두어야 링크가 작동합니다.</div>
-<div class="foot">클래스 홈 · v44 · 마스터에서 자동 생성 (gen_class.py)</div>
+<div class="foot">클래스 홈 · v45 · 마스터에서 자동 생성 (gen_class.py)</div>
 </div>
 
 <div class="modal" id="modal"><div class="modal-bg" onclick="closeDetail()"></div>
 <div class="modal-panel">
 <div class="modal-head"><div><span class="m-orderer" id="mOrderer"></span><h2 id="mName"></h2></div>
-<div class="m-actions"><a class="m-pack" id="mPack" href="#" style="display:none">📦 패킹 운영</a><a class="m-edit" id="mEdit" href="https://claude.ai/chat/9dbf9bcf-a82d-4ceb-8ee2-8c75b2590b7f" target="_blank" rel="noopener">✏ 클래스 수정</a><button class="m-close" onclick="closeDetail()">✕</button></div></div>
+<div class="m-actions"><a class="m-pack" id="mPack" href="#" style="display:none">📦 패킹 운영</a><a class="m-edit" id="mEdit" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">✏ 클래스 수정</a><button class="m-close" onclick="closeDetail()">✕</button></div></div>
 <div class="modal-tabs">
 <button class="mtab on" data-t="d1">정보</button><button class="mtab" data-t="d2">과정개요서</button>
 <button class="mtab" data-t="d3">레시피</button><button class="mtab" data-t="d4">구성품(원가)</button>

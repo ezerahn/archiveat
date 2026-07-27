@@ -14,8 +14,8 @@ SRC = sys.argv[1] if len(sys.argv) > 1 else "class-master-all-v2.xlsx"
 TODAY = datetime.date.today()
 KST = datetime.timezone(datetime.timedelta(hours=9))
 UPDATED = datetime.datetime.now(KST).strftime("%Y.%m.%d %H:%M")
-CHAT_URL = "https://claude.ai/chat/9dbf9bcf-a82d-4ceb-8ee2-8c75b2590b7f"
-VERSION = "v44"
+CHAT_URL = "https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306"
+VERSION = "v45"
 
 ACTIVE = ["검토중","개요서","확정","모집중","개강"]   # 1층 진행 중
 def to_date(v):

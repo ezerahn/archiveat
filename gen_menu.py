@@ -10,8 +10,8 @@ from openpyxl import load_workbook
 
 KST=datetime.timezone(datetime.timedelta(hours=9))
 UPDATED=datetime.datetime.now(KST).strftime("%Y.%m.%d %H:%M")
-VERSION="v40"
-CHAT_URL="https://claude.ai/chat/9dbf9bcf-a82d-4ceb-8ee2-8c75b2590b7f"
+VERSION="v41"
+CHAT_URL="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306"
 ICON={"튀김":"🔥","도구":"🔧","조림":"♨️","굳힘":"⏱️","건조":"☀️","조형":"🌸","없음":"○"}
 
 IMGDIR="menu-images"
