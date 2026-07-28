@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="version" content="v52"><meta name="updated" content="2026.07.28 12:43">
+<meta name="version" content="v53"><meta name="updated" content="2026.07.28 12:48">
 <title>클래스 목록</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif;
 line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:70px;font-size:15px}
-.wrap{max-width:1400px;margin:0 auto;padding:0 20px}
+.wrap{max-width:1520px;margin:0 auto;padding:0 20px}
 .topbar{display:flex;justify-content:space-between;align-items:flex-start;padding:18px 0;gap:12px;flex-wrap:wrap}
 .pill{display:inline-flex;align-items:center;gap:4px;font-size:13px;text-decoration:none;color:var(--ink);
 background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 13px;margin-right:8px}
@@ -49,13 +49,16 @@ tr.clk:hover td{background:#F7F3E9}
 tr.clk.opened td{background:#FFF1EB}
 tr.clk.opened .cx{color:var(--coral)}
 .cx{color:var(--mute);font-size:10px}
-table{border-collapse:collapse;width:100%;font-size:12.5px;min-width:1180px}
-th{background:#F1EFE9;font-size:11px;font-weight:700;color:var(--sub);padding:8px 6px;
+table{border-collapse:collapse;width:100%;font-size:12.5px;min-width:1320px}
+th{background:#F1EFE9;font-size:11px;font-weight:700;color:var(--sub);padding:7px 6px;
 text-align:center;white-space:nowrap;line-height:1.3;position:sticky;top:0;z-index:2;cursor:pointer;user-select:none}
 th:hover{color:var(--coral)}
-td{padding:7px 6px;border-top:1px solid #F0EADC;vertical-align:top}
-td.n{font-family:"DM Mono",monospace;text-align:right;white-space:nowrap}
+td{padding:6px 7px;border-top:1px solid #F0EADC;vertical-align:middle;line-height:1.4}
+td.n{font-family:"DM Mono",monospace;text-align:right;white-space:nowrap;font-size:12px}
 td.c{text-align:center;white-space:nowrap}
+td.nm{max-width:270px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+th{vertical-align:middle}
+table{table-layout:auto}
 tr.off td{color:var(--mute)}
 tr:hover td{background:#F7F3E9}
 tr.tot td{background:#F1EFE9;font-weight:700;border-top:1.5px solid var(--line)}
@@ -78,7 +81,7 @@ border:1px solid var(--line);background:#fff;color:var(--sub);text-decoration:no
 
 <div class="topbar">
 <div><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">💬 작업 대화</a></div>
-<div class="crumb">AI 워크스페이스 › 클래스 › 클래스 목록<br><span class="meta">업데이트 2026.07.28 12:43 · v52</span></div>
+<div class="crumb">AI 워크스페이스 › 클래스 › 클래스 목록<br><span class="meta">업데이트 2026.07.28 12:48 · v53</span></div>
 </div>
 
 <div class="head">
@@ -130,7 +133,7 @@ border:1px solid var(--line);background:#fff;color:var(--sub);text-decoration:no
 <a class="fbtn" href="#" id="dlx">📊 목록 CSV 받기</a>
 <a class="fbtn" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">💬 대화창에서 전체 받기</a>
 </div>
-<div class="foot">클래스 목록 · 2026.07.28 12:43 · v52</div>
+<div class="foot">클래스 목록 · 2026.07.28 12:48 · v53</div>
 </div>
 <script>
 document.getElementById('dlh').addEventListener('click',function(ev){ev.preventDefault();
@@ -142,7 +145,7 @@ var n=function(v){var x=Math.round(Number(v)||0);return x?x.toLocaleString('ko-K
 var sn=function(v){var x=Math.round(Number(v)||0);return x?(x<0?'−'+Math.abs(x).toLocaleString('ko-KR'):x.toLocaleString('ko-KR')):'—';};
 var e=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){
  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
-var F={p:'전체',y:'전체',k:'전체',t:'전체',w:'전체',h:'전체',q:''};
+var F={p:'전체',y:'전체',k:'전체',t:'전체',w:'전체',h:'개최',q:''};
 var SORT={key:'dt',asc:true}, OPEN={};
 function pkB(k){
   if(!k||k==='—'||k==='미확인')return '<span class="bd b-yel">미확인</span>';
@@ -203,7 +206,7 @@ function render(){
       '<td class="c" style="font-family:\'DM Mono\',monospace;font-size:11px;color:var(--mute)">'+
       (many?'<span class="cx">'+(op?'▾':'▸')+'</span> ':'')+e(x.id)+'</td>'+
       '<td class="c">'+e(x.partner)+'</td><td class="c">'+e(x.dt)+'</td>'+
-      '<td class="c">'+tyB(x.ty)+'</td><td>'+e(x.name)+'</td>'+
+      '<td class="c">'+tyB(x.ty)+'</td><td class="nm" title="'+e(x.name)+'">'+e(x.name)+'</td>'+
       '<td class="c">'+e(x.teacher)+'</td><td class="c">'+pkB(x.paykind)+'</td>'+
       '<td class="c">'+stB(x.state)+'</td><td class="c">'+(x.pax||'—')+'</td>'+
       '<td class="n">'+n(x.rev)+'</td>'+
@@ -233,6 +236,14 @@ function cards(L){
    '<div class="v" style="font-size:19px;color:var(--coral)">'+n(s.ours)+'</div>'+
    '<div class="u">클래스매출(VAT제외) 대비 '+(s.rev?(s.ours/(s.rev/1.1)*100).toFixed(1):'0')+'%</div></div>';
 }
+function mkChipsSel(id,arr,key,sel){
+  var el=document.getElementById(id);
+  el.innerHTML=el.innerHTML+arr.map(function(v){
+    return '<button class="chip'+(v===sel?' on':'')+'" data-v="'+e(v)+'">'+e(v)+'</button>';}).join('');
+  el.addEventListener('click',function(ev){var b=ev.target.closest('.chip');if(!b)return;
+    this.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');F[key]=b.dataset.v;OPEN={};render();});
+}
 function mkChips(id,arr,key){
   var el=document.getElementById(id);
   el.innerHTML=el.innerHTML+arr.map(function(v,i){
@@ -247,7 +258,7 @@ mkChips('fY',uniq(function(x){return String(x.dt).slice(0,4);}),'y');
 mkChips('fK',uniq(function(x){return x.kind;}),'k');
 mkChips('fT',uniq(function(x){return x.teacher;}),'t');
 mkChips('fW',uniq(function(x){return x.paykind;}),'w');
-mkChips('fH',['전체','개최','폐강'],'h');
+mkChipsSel('fH',['전체','개최','폐강'],'h','개최');
 document.getElementById('q').addEventListener('input',function(){F.q=this.value;OPEN={};render();});
 document.querySelectorAll('th[data-k]').forEach(function(th){
   th.addEventListener('click',function(){
