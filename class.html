@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v50"><meta name="updated" content="2026.07.28 15:35">
+<meta name="version" content="v50"><meta name="updated" content="2026.07.28 16:08">
 <title>클래스 홈</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -252,7 +252,7 @@ table.ord tr.rw-part td:first-child{box-shadow:inset 3px 0 0 #C2570E}
 
 
 <section class="layer"><div class="layer-h"><h2>진행 중인 클래스</h2><span class="ls">기획·모집·확정·정산</span><span class="bar"></span></div>
-<div class="grp"><div class="grp-h"><h3>곧 수업</h3><span>확정 · 준비</span></div><div class="grid"><article class="card k-online" onclick="openDetail('GS-2607-01')"><header class="c-head"><span class="c-src">경기도지식 · 온라인</span><span class="badge st-live">개강확정</span></header><div class="c-top"><div class="c-thumb-wrap"><img class="c-thumb" src="class-images/GS-2607-01.jpg" alt="" loading="lazy" onerror="this.style.display=&quot;none&quot;;this.nextElementSibling.style.display=&quot;flex&quot;"><div class="c-thumb c-thumb-ph" style="display:none">🍽</div></div><div class="c-main"><div class="c-name">제철 복숭아로 만드는 복숭아청과 브리치즈 샐러드</div><div class="c-info"><div class="c-tea">👤 이영미</div><div class="c-day">📅 수업일 2026.7.24 (금) 16:00</div></div></div></div><div class="c-div"></div><div class="c-pax">👥 30명 <span class="pax-tag pt-fix">사전확정</span></div><div class="c-fin"><span class="fi">총매출 1,363,636원</span><span class="fsep">|</span><span class="fi">원가 617,580원</span><span class="fsep">|</span><span class="fi net">순이익 446,056원 (32.7%)</span></div></article></div></div>
+<div class="grp"><div class="grp-h"><h3>곧 수업</h3><span>확정 · 준비</span></div><div class="grid"><article class="card k-online" onclick="openDetail('GS-2607-01')"><header class="c-head"><span class="c-src">경기도지식 · 온라인</span><span class="badge st-live">개강확정</span></header><div class="c-top"><div class="c-thumb-wrap"><img class="c-thumb" src="class-images/class-cover-GS260701.jpg" alt="" loading="lazy" onerror="this.style.display=&quot;none&quot;;this.nextElementSibling.style.display=&quot;flex&quot;"><div class="c-thumb c-thumb-ph" style="display:none">🍽</div></div><div class="c-main"><div class="c-name">제철 복숭아로 만드는 복숭아청과 브리치즈 샐러드</div><div class="c-info"><div class="c-tea">👤 이영미</div><div class="c-day">📅 수업일 2026.7.24 (금) 16:00</div></div></div></div><div class="c-div"></div><div class="c-pax">👥 30명 <span class="pax-tag pt-fix">사전확정</span></div><div class="c-fin"><span class="fi">총매출 1,363,636원</span><span class="fsep">|</span><span class="fi">원가 617,580원</span><span class="fsep">|</span><span class="fi net">순이익 446,056원 (32.7%)</span></div></article></div></div>
 </section>
 
 <section class="layer"><div class="layer-h"><h2>주요 기능</h2><span class="ls">목록·리포트</span><span class="bar"></span></div>
@@ -422,7 +422,7 @@ function openDetail(cid){
   var c=d.content||{};
   // ① 정보
   document.getElementById('d1').innerHTML=
-    '<div class="d-photo"><img src="class-images/'+CUR+'.jpg" alt="" onerror="this.parentElement.style.display=&quot;none&quot;"></div>'
+    '<div class="d-photo"><img src="class-images/class-cover-'+CUR.replace(/-/g,'')+'.jpg" alt="" onerror="this.parentElement.style.display=&quot;none&quot;"></div>'
     +row('수업명',d.name)+row('강의명',c.강의명)+row('발주처',d.orderer)+row('구분',d.kind)
     +row('수업일',d.date)+row('시각',d.time)+row('장소/배송',d.place)
     +row('대상',c.대상)+row('선발방식',c.선발방식)+row('소요시간',c.소요시간)+row('줌 링크',c.줌링크)+row('리허설',c.리허설안내)+row('강의정보',c.강의정보링크)+row('상태',d.state);
