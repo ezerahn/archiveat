@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="version" content="v84"><meta name="updated" content="2026.07.28 15:06">
+<meta name="version" content="v85"><meta name="updated" content="2026.07.28 15:35">
 <title>클래스 목록</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -155,7 +155,7 @@ border:1px solid var(--line);background:#fff;color:var(--sub);text-decoration:no
 
 <div class="topbar">
 <div><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">💬 작업 대화</a></div>
-<div class="crumb">AI 워크스페이스 › 클래스 › 클래스 목록<br><span class="meta">업데이트 2026.07.28 15:06 · v84</span></div>
+<div class="crumb">AI 워크스페이스 › 클래스 › 클래스 목록<br><span class="meta">업데이트 2026.07.28 15:35 · v85</span></div>
 </div>
 
 <div class="head">
@@ -167,6 +167,7 @@ border:1px solid var(--line);background:#fff;color:var(--sub);text-decoration:no
 
 <div class="bar" id="fP"><b>제휴사</b></div>
 <div class="bar" id="fY"><b>연도</b></div>
+<div class="bar" id="fMo"><b>월</b></div>
 <div class="bar" id="fK"><b>구분</b></div>
 <div class="bar" id="fM"><b>테마</b></div>
 <div class="bar" id="fT"><b>선생님</b></div>
@@ -205,8 +206,8 @@ border:1px solid var(--line);background:#fff;color:var(--sub);text-decoration:no
 
 <p class="note">※ <b>▸ 표시가 있는 행을 클릭하면 과금 항목별로 펼쳐집니다.</b> 정규는 강사료·재료비로 나뉩니다.<br>
 ※ <b>열 제목을 클릭하면 정렬</b>됩니다. 한 번 더 누르면 역순.<br>
-※ <b>회사 이익</b> = 공급가 매출 − 제휴 수수료 − 재료·배송비 − 선생님 지급(계약 기준). <b>모든 금액은 부가세를 뺀 기준</b>이며, 인건비·임대료 같은 고정비는 아직 빼지 않은 금액입니다.<br>
-※ <b>선생님 지급</b>이 두 열인 이유 — <b>계약 기준</b>은 드리기로 한 금액(공급가의 일정 비율), <b>실지급</b>은 통장에서 실제로 나간 금액입니다.
+※ <b>PK 수익</b> = 공급가 매출 − 제휴 수수료 − 재료·배송비 − 선생님 정산(계약 기준). <b>모든 금액은 VAT를 뺀 기준</b>이며, 인건비·임대료 같은 고정비는 아직 빼지 않은 금액입니다.<br>
+※ <b>선생님 정산</b>이 두 열인 이유 — <b>계약 기준</b>은 드리기로 한 금액(공급가의 일정 비율), <b>실지급</b>은 통장에서 실제로 나간 금액입니다.
 사업자 선생님은 부가세가 얹혀 더 나가고(나중에 매입세액공제로 환급), 프리랜서 선생님은 원천세를 떼고 나갑니다(우리가 대신 납부).
 <b>손익 계산에는 계약 기준을 씁니다.</b> <b>지급방식</b> 열로 어느 쪽인지 구분됩니다 — <span class="bd b-cor">사업자</span> 부가세 가산 · <span class="bd b-mut">3.3%</span> 원천세 공제.<br>
 ※ 온라인은 재료·패킹·배송을 우리가 부담해 <b>재료·배송비</b>가 있고, 오프라인 제휴는 선생님이 재료를 준비해 <b>제휴 수수료</b>가 있습니다.</p>
@@ -217,7 +218,7 @@ border:1px solid var(--line);background:#fff;color:var(--sub);text-decoration:no
 <a class="fbtn" href="#" id="dlx">📊 목록 CSV 받기</a>
 <a class="fbtn" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">💬 대화창에서 전체 받기</a>
 </div>
-<div class="foot">클래스 목록 · 2026.07.28 15:06 · v84</div>
+<div class="foot">클래스 목록 · 2026.07.28 15:35 · v85</div>
 </div>
 <script>
 document.getElementById('dlh').addEventListener('click',function(ev){ev.preventDefault();
@@ -229,7 +230,7 @@ var n=function(v){var x=Math.round(Number(v)||0);return x?x.toLocaleString('ko-K
 var sn=function(v){var x=Math.round(Number(v)||0);return x?(x<0?'−'+Math.abs(x).toLocaleString('ko-KR'):x.toLocaleString('ko-KR')):'—';};
 var e=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){
  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
-var F={p:'전체',y:'전체',k:'전체',m:'전체',t:'전체',w:'전체',h:'개최',q:''};
+var F={p:'전체',y:'전체',mo:'전체',k:'전체',m:'전체',t:'전체',w:'전체',h:'개최',q:''};
 var SORT={key:'dt',asc:true}, OPEN={}, OPEN2={};
 function pkB(k){
   if(!k||k==='—'||k==='미확인')return '<span class="bd b-yel">미확인</span>';
@@ -248,6 +249,7 @@ function filt(){
   return D.filter(function(x){
     if(F.p!=='전체'&&x.partner!==F.p)return false;
     if(F.y!=='전체'&&String(x.dt).slice(0,4)!==F.y)return false;
+    if(F.mo!=='전체'&&String(x.dt).slice(5,7)+'월'!==F.mo)return false;
     if(F.k!=='전체'&&x.kind!==F.k)return false;
     if(F.m!=='전체'&&x.theme!==F.m)return false;
     if(F.t!=='전체'&&x.teacher!==F.t)return false;
@@ -366,7 +368,7 @@ function blk(title,desc,v,isOn,rows0,key){
   if(v.fee) rows.push(['','− 제휴사 수수료',-v.fee,-(v.base-v.recvx),'정규 강사료 30% · 재료비 0% / 원데이 전체 10%',0,'']);
   rows.push(['','= 제휴사 입금',v.recv,v.recvx,v.fee?'클래스매출 − 제휴사 수수료':'제휴사 수수료 없음',1,'']);
   if(v.pay) rows.push(['지출','− 선생님 정산',null,-v.pay,isOn?'인당 정액 × 인원':'클래스매출(VAT제외) × 75%',2,'pay']);
-  if(v.cost) rows.push(['','− 재료·배송비',null,-v.cost,'패킹비(인당 5,000) + 배송비(인당 5,000) + 재료비(실제 구매가 · 부가세 포함)',2,'']);
+  if(v.cost) rows.push(['','− 재료·배송비',null,-v.cost,'패킹비(인당 5,000) + 배송비(인당 5,000) + 재료비(실제 구매가 · VAT 포함)',2,'']);
   rows.push(['수익','= PK 수익',null,v.ours,'매출 대비 '+(v.base?(v.ours/v.base*100).toFixed(1):'0')+'%',3,'']);
   var span={};
   rows.forEach(function(r,i){ if(r[0]){ span[i]=1; for(var j=i+1;j<rows.length&&!rows[j][0];j++) span[i]++; }});
@@ -436,6 +438,7 @@ function mkChips(id,arr,key){
 var uniq=function(f){return ['전체'].concat(Array.from(new Set(D.map(f).filter(Boolean))).sort());};
 mkChips('fP',uniq(function(x){return x.partner;}),'p');
 mkChips('fY',uniq(function(x){return String(x.dt).slice(0,4);}),'y');
+mkChips('fMo',['전체'].concat(Array.from(new Set(D.map(function(x){return String(x.dt).slice(5,7);}).filter(Boolean))).sort().map(function(m){return m+'월';})),'mo');
 mkChips('fK',uniq(function(x){return x.kind;}),'k');
 mkChips('fM',uniq(function(x){return x.theme;}),'m');
 mkChips('fT',uniq(function(x){return x.teacher;}),'t');
