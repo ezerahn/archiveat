@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="version" content="v73"><meta name="updated" content="2026.07.28 14:26">
+<meta name="version" content="v82"><meta name="updated" content="2026.07.28 14:57">
 <title>클래스 목록</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,11 +42,19 @@ border:1px solid var(--line);border-radius:14px;padding:14px 20px;margin-bottom:
 .blk-h span{font-size:12px;color:var(--wait)}
 .blk-h .cnt2{font-family:"DM Mono",monospace;font-size:12.5px;color:#4A4038;
 background:#F1EFE9;padding:2px 10px;border-radius:20px}
-.blkt{width:100%;border-collapse:collapse;font-size:13px;min-width:0}
+.blkt{width:100%;border-collapse:collapse;font-size:13px;min-width:0;table-layout:fixed}
+.blkt th.gcol,.blkt td.gcol{width:58px;text-align:center;font-weight:700}
+.blkt th:nth-child(2),.blkt td:nth-child(2){width:150px}
+.blkt th.vatgrp{width:300px}
+.blkt tr.sub2 th:nth-child(3),.blkt tr.sub2 th:nth-child(4){width:150px}
+.blkt td.g1{background:#F7F3E9;color:#4A4038}
+.blkt td.g2{background:#F1EFE9;color:#6B6256}
+.blkt td.g3{background:#FFE7DF;color:var(--coral)}
+.blkt th:last-child,.blkt td:last-child{width:auto}
 .blkt th{background:#F1EFE9;font-size:11px;font-weight:700;color:var(--sub);padding:6px 9px;text-align:center;position:static}
 .blkt th:first-child,.blkt th:last-child{text-align:left}
 .blkt td{padding:6px 9px;border-top:1px solid #F0EADC}
-.blkt td.n{font-family:"DM Mono",monospace;text-align:right;white-space:nowrap;width:130px}
+.blkt td.n{font-family:"DM Mono",monospace;text-align:right;white-space:nowrap;width:150px;padding-right:14px}
 .blkt td.b{font-weight:700}
 .blkt td.rule{font-size:11.5px;color:var(--wait);white-space:normal}
 .blkt .dash{color:#D8D2C4}
@@ -55,13 +63,15 @@ background:#F1EFE9;padding:2px 10px;border-radius:20px}
 .blkt tr.fin td.b,.blkt tr.fin td.na2{color:var(--coral)}
 .blkt th.vatgrp{border-bottom:1px solid var(--line)}
 .blkt tr.sub2 th{padding:5px 9px;font-size:10.5px}
-.blkt td.na2{background:#F7F3E9;text-align:right;font-weight:700;width:260px;position:relative}
+.blkt td.na2{background:#F7F3E9;text-align:right;font-weight:700;width:300px;position:relative;padding-right:14px}
 .blkt tr.na td{color:var(--ink)}
 .blkt tr.clk2{cursor:pointer}
 .blkt tr.clk2:hover td{background:#F7F3E9}
 .blkt tr.clk2.opened td{background:#FFF1EB}
 .blkt tr.clk2.opened .cx{color:var(--coral)}
 .blkt tr.sub td{background:#F7F3E9;padding:0 0 0 20px;border-top:none}
+.drill tr.tot2 td{background:#F1EFE9;border-top:1.5px solid var(--line);font-weight:400}
+.drill tr.tot2 td:first-child{font-weight:700}
 .blk-f{font-size:11.5px;color:var(--wait);margin-top:8px;line-height:1.7}
 .blk-f b{color:var(--sub)}
 .bar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
@@ -73,11 +83,14 @@ background:#fff;color:var(--sub);cursor:pointer;font-family:inherit}
 border-radius:9px;background:#fff;color:var(--ink);width:280px}
 .cnt{font-family:"DM Mono",monospace;font-size:12px;color:var(--mute);margin:10px 0}
 .tw{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px}
+tr.grp0 th{background:#E4DFD0;font-size:12px;font-weight:700;color:#3A322A;
+border-bottom:1px solid var(--line);border-right:1.5px solid #CFC6B0}
+tr.grp0 th:last-child{border-right:none}
 tr.grp th{background:#EDE9DE;font-size:11.5px;color:#4A4038;border-bottom:1px solid var(--line);
 border-right:1.5px solid #D6CFBC}
 tr.grp th:last-child{border-right:none}
-thead tr:nth-child(2) th{border-right:1px solid var(--line)}
-thead tr:nth-child(2) th:last-child{border-right:none}
+thead tr:nth-child(3) th{border-right:1px solid var(--line)}
+thead tr:nth-child(3) th:last-child{border-right:none}
 tbody td{border-right:1px solid #F4EFE3}
 tbody td:last-child{border-right:none}
 th.g,td.g{border-right:1.5px solid #D6CFBC !important}
@@ -100,7 +113,7 @@ tr.clk.opened .cx{color:var(--coral)}
 .cx{color:var(--mute);font-size:10px}
 table{border-collapse:collapse;width:100%;font-size:12.5px;min-width:1260px}
 th{background:#F1EFE9;font-size:11px;font-weight:700;color:var(--sub);padding:7px 6px;
-text-align:center;white-space:nowrap;line-height:1.3;position:sticky;top:0;z-index:2;cursor:pointer;user-select:none}
+text-align:center;white-space:nowrap;line-height:1.3;cursor:pointer;user-select:none}
 th:hover{color:var(--coral)}
 td{padding:6px 7px;border-top:1px solid #F0EADC;vertical-align:middle;line-height:1.4}
 td.n{font-family:"DM Mono",monospace;text-align:right;white-space:nowrap;font-size:12px}
@@ -116,6 +129,8 @@ tr.tot td{background:#F1EFE9;font-weight:700;border-top:1.5px solid var(--line)}
 th.pk,td.pk{position:sticky;right:0;z-index:3;background:var(--card);
 box-shadow:-6px 0 8px -6px rgba(0,0,0,.10)}
 th.pk{background:#F1EFE9;z-index:4}
+tr.grp0 th.pk{background:#E4DFD0}
+tr.grp th.pk{background:#EDE9DE}
 tr.tot td.pk{background:#F1EFE9}
 tr:hover td.pk{background:#F7F3E9}
 tr.off td.pk{background:var(--card)}
@@ -140,7 +155,7 @@ border:1px solid var(--line);background:#fff;color:var(--sub);text-decoration:no
 
 <div class="topbar">
 <div><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">💬 작업 대화</a></div>
-<div class="crumb">AI 워크스페이스 › 클래스 › 클래스 목록<br><span class="meta">업데이트 2026.07.28 14:26 · v73</span></div>
+<div class="crumb">AI 워크스페이스 › 클래스 › 클래스 목록<br><span class="meta">업데이트 2026.07.28 14:57 · v82</span></div>
 </div>
 
 <div class="head">
@@ -162,20 +177,29 @@ border:1px solid var(--line);background:#fff;color:var(--sub);text-decoration:no
 
 <div class="tw"><table>
 <thead>
-<tr class="grp">
+<tr class="grp0">
 <th colspan="10">클래스</th>
-<th colspan="2">매출</th>
-<th colspan="3">제휴사 정산</th>
+<th colspan="5">매출</th>
+<th colspan="3">지출</th>
+<th class="pk">수익</th>
+</tr>
+<tr class="grp">
+<th colspan="10"></th>
+<th colspan="2">클래스매출</th>
+<th colspan="3">제휴사 입금</th>
 <th colspan="2">선생님 정산</th>
-<th>PK 수익</th>
+<th>재료·배송비</th>
+<th class="pk">PK 수익</th>
 </tr>
 <tr>
 <th data-k="id">회차ID</th><th data-k="partner">제휴사</th><th data-k="dt">수업일</th>
-<th data-k="ty">유형</th><th data-k="theme">테마</th><th data-k="name">클래스명</th><th data-k="teacher">선생님</th>
-<th data-k="paykind">지급방식</th><th data-k="state">상태</th><th data-k="pax" class="g">인원</th>
+<th data-k="ty">유형</th><th data-k="theme">테마</th><th data-k="name">클래스명</th>
+<th data-k="teacher">선생님</th><th data-k="paykind">지급방식</th><th data-k="state">상태</th>
+<th data-k="pax" class="g">인원</th>
 <th data-k="rev">VAT 포함</th><th data-k="base" class="g">VAT 제외</th>
 <th data-k="rate">수수료</th><th data-k="recv">VAT 포함</th><th data-k="recvx" class="g">VAT 제외</th>
-<th data-k="base">정산기준</th><th data-k="pay" class="g">계</th>
+<th data-k="base">정산기준</th><th data-k="pay">계</th>
+<th data-k="cost" class="g">합계</th>
 <th data-k="ours" class="pk">VAT 제외</th>
 </tr></thead><tbody id="tb"></tbody></table></div>
 
@@ -193,7 +217,7 @@ border:1px solid var(--line);background:#fff;color:var(--sub);text-decoration:no
 <a class="fbtn" href="#" id="dlx">📊 목록 CSV 받기</a>
 <a class="fbtn" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">💬 대화창에서 전체 받기</a>
 </div>
-<div class="foot">클래스 목록 · 2026.07.28 14:26 · v73</div>
+<div class="foot">클래스 목록 · 2026.07.28 14:57 · v82</div>
 </div>
 <script>
 document.getElementById('dlh').addEventListener('click',function(ev){ev.preventDefault();
@@ -236,7 +260,7 @@ function filt(){
 function detail(x){
   var L=IT[x.id]||[];
   if(L.length<2) return '';
-  var h='<tr class="sub"><td colspan="18"><div class="drill">'+
+  var h='<tr class="sub"><td colspan="19"><div class="drill">'+
     '<div class="drill-h">'+e(x.id)+' &nbsp;·&nbsp; 과금 항목 '+L.length+'건</div>'+
     '<table><tr><th>항목</th><th>단가(VAT제외)</th><th class="g">단가(VAT포함)</th><th class="g">인원</th>'+
     '<th>매출(VAT포함)</th><th class="g">매출(VAT제외)</th>'+
@@ -277,20 +301,24 @@ function render(){
       '<td class="c" style="font-family:\'DM Mono\',monospace;font-size:11px;color:var(--mute)">'+
       (many?'<span class="cx">'+(op?'▾':'▸')+'</span> ':'')+e(x.id)+'</td>'+
       '<td class="c">'+e(x.partner)+'</td><td class="c">'+e(x.dt)+'</td>'+
-      '<td class="c">'+tyB(x.ty)+'</td><td class="nm" title="'+e(x.name)+'">'+e(x.name)+'</td>'+
+      '<td class="c">'+tyB(x.ty)+'</td>'+
+      '<td class="c">'+(x.theme?'<span class="bd b-lit">'+e(x.theme)+'</span>':'')+'</td>'+
+      '<td class="nm" title="'+e(x.name)+'">'+e(x.name)+'</td>'+
       '<td class="c">'+e(x.teacher)+'</td><td class="c">'+pkB(x.paykind)+'</td>'+
       '<td class="c">'+stB(x.state)+'</td><td class="c g">'+(x.pax||'—')+'</td>'+
       '<td class="n">'+n(x.rev)+'</td><td class="n g">'+n(x.base)+'</td>'+
       '<td class="c" style="color:var(--sub)"'+(many?' title="'+e(x.st||'')+' — 클릭하면 항목별로 펼쳐집니다"':'')+'>'+
       (x.rate?x.rate+'%'+(many?' <span class="cx">▾</span>':''):'—')+'</td>'+
       '<td class="n">'+n(x.recv)+'</td><td class="n g">'+n(x.recvx)+'</td>'+
-      '<td class="n">'+n(x.base)+'</td><td class="n g">'+n(x.pay)+'</td>'+
+      '<td class="n">'+n(x.base)+'</td><td class="n">'+n(x.pay)+'</td>'+
+      '<td class="n g">'+n(x.cost)+'</td>'+
       '<td class="n pk" style="font-weight:600">'+sn(x.ours)+'</td></tr>';
     if(op) h+=detail(x);});
   h+='<tr class="tot"><td colspan="10" class="c g">합계 '+L.length+'건</td>'+
      '<td class="n">'+n(t.rev)+'</td><td class="n g">'+n(t.base)+'</td><td></td>'+
      '<td class="n">'+n(t.recv)+'</td><td class="n g">'+n(t.recvx)+'</td>'+
-     '<td class="n">'+n(t.base)+'</td><td class="n g">'+n(t.pay)+'</td><td class="n pk">'+n(t.ours)+'</td></tr>';
+     '<td class="n">'+n(t.base)+'</td><td class="n">'+n(t.pay)+'</td>'+
+     '<td class="n g">'+n(t.cost)+'</td><td class="n pk">'+n(t.ours)+'</td></tr>';
   document.getElementById('tb').innerHTML=h;
   document.getElementById('cnt').textContent=L.length+'건 / 전체 '+D.length+'건';
   cards(L);
@@ -323,7 +351,7 @@ function cards(L){
      (pend.length?'<div class="pend">예정 '+pend.length+'회 제외</div>':'')+
    '</div>'+
    '<div class="bnote">실적은 <b>수업완료·정산완료</b> 회차만 집계합니다. '+
-   '<b>매출 구간</b>(클래스매출~실제 입금)만 VAT 포함·제외가 나뉘고, '+
+   '<b>매출 구간</b>(클래스매출~제휴사 입금)만 VAT 포함·제외가 나뉘고, '+
    '<b>선생님 정산·재료비</b>는 VAT 구분 없이 한 가지 금액입니다. '+
    '수수료율 판단을 위한 <b>실제 현금 기준</b>이며, 매입세액공제 등 세무 처리는 반영하지 않습니다.</div>';
   var offR=o.filter(function(x){return x.kind!=='온라인';});
@@ -334,26 +362,30 @@ function cards(L){
 }
 function blk(title,desc,v,isOn,rows0,key){
   var rows=[];
-  rows.push(['클래스매출',v.rev,v.base,'판매가 × 인원',0,'']);
-  if(v.fee) rows.push(['− 제휴사 수수료',-v.fee,-(v.base-v.recvx),'정규 강사료 30% · 재료비 0% / 원데이 전체 10%',0,'']);
-  rows.push(['= 실제 입금',v.recv,v.recvx,v.fee?'클래스매출 − 제휴사 수수료':'제휴사 수수료 없음',1,'']);
-  if(v.pay) rows.push(['− 선생님 정산',null,-v.pay,isOn?'인당 정액 × 인원':'클래스매출(VAT제외) × 75%',2,'pay']);
-  if(v.cost) rows.push(['− 재료·배송비',null,-v.cost,'패킹비(인당 5,000) + 배송비(인당 5,000) + 재료비(실제 구매가 · 부가세 포함)',2,'']);
-  rows.push(['= PK 수익',null,v.ours,'매출 대비 '+(v.base?(v.ours/v.base*100).toFixed(1):'0')+'%',3,'']);
+  rows.push(['매출','클래스매출',v.rev,v.base,'판매가 × 인원',0,'']);
+  if(v.fee) rows.push(['','− 제휴사 수수료',-v.fee,-(v.base-v.recvx),'정규 강사료 30% · 재료비 0% / 원데이 전체 10%',0,'']);
+  rows.push(['','= 제휴사 입금',v.recv,v.recvx,v.fee?'클래스매출 − 제휴사 수수료':'제휴사 수수료 없음',1,'']);
+  if(v.pay) rows.push(['지출','− 선생님 정산',null,-v.pay,isOn?'인당 정액 × 인원':'클래스매출(VAT제외) × 75%',2,'pay']);
+  if(v.cost) rows.push(['','− 재료·배송비',null,-v.cost,'패킹비(인당 5,000) + 배송비(인당 5,000) + 재료비(실제 구매가 · 부가세 포함)',2,'']);
+  rows.push(['수익','= PK 수익',null,v.ours,'매출 대비 '+(v.base?(v.ours/v.base*100).toFixed(1):'0')+'%',3,'']);
+  var span={};
+  rows.forEach(function(r,i){ if(r[0]){ span[i]=1; for(var j=i+1;j<rows.length&&!rows[j][0];j++) span[i]++; }});
   var h='<div class="blk"><div class="blk-h"><b>'+e(title)+'</b>'+
     '<span class="cnt2">'+rows0.length+'회 · '+n(v.pax)+'명</span>'+
     '<span>'+e(desc)+'</span></div>'+
-    '<table class="blkt"><tr><th>단계</th><th colspan="2" class="vatgrp">매출 구간 · VAT 기준</th><th>계산 기준</th></tr>'+
-    '<tr class="sub2"><th></th><th>VAT 포함</th><th>VAT 제외</th><th></th></tr>';
-  rows.forEach(function(r){
-    var k=r[4], hasD=r[5]==='pay', op=OPEN2[key];
+    '<table class="blkt"><tr><th class="gcol">구분</th><th>단계</th><th colspan="2" class="vatgrp">매출 구간 · VAT 기준</th><th>계산 기준</th></tr>'+
+    '<tr class="sub2"><th></th><th></th><th>VAT 포함</th><th>VAT 제외</th><th></th></tr>';
+  rows.forEach(function(r,i){
+    var k=r[5], hasD=r[6]==='pay', op=OPEN2[key];
     var cls=(k===3?'fin':(k===1?'eq':(k===2?'na':'')))+(hasD?' clk2'+(op?' opened':''):'');
-    h+='<tr class="'+cls+'"'+(hasD?' onclick="tog2(\''+key+'\')"':'')+'><td>'+
-      (hasD?'<span class="cx">'+(op?'▾':'▸')+'</span> ':'')+e(r[0])+'</td>'+
+    h+='<tr class="'+cls+'">'+
+      (span[i]?'<td class="gcol g'+(r[0]==='매출'?'1':(r[0]==='지출'?'2':'3'))+'" rowspan="'+span[i]+'">'+e(r[0])+'</td>':'')+
+      '<td'+(hasD?' onclick="tog2(\''+key+'\')" style="cursor:pointer"':'')+'>'+
+      (hasD?'<span class="cx">'+(op?'▾':'▸')+'</span> ':'')+e(r[1])+'</td>'+
       (k>=2
-        ? '<td class="n na2" colspan="2">'+(r[2]<0?'−'+n(-r[2]):n(r[2]))+'</td>'
-        : '<td class="n">'+(r[1]<0?'−'+n(-r[1]):n(r[1]))+'</td><td class="n b">'+(r[2]<0?'−'+n(-r[2]):n(r[2]))+'</td>')+
-      '<td class="rule">'+e(r[3])+'</td></tr>';
+        ? '<td class="n na2" colspan="2">'+(r[3]<0?'−'+n(-r[3]):n(r[3]))+'</td>'
+        : '<td class="n">'+(r[2]<0?'−'+n(-r[2]):n(r[2]))+'</td><td class="n b">'+(r[3]<0?'−'+n(-r[3]):n(r[3]))+'</td>')+
+      '<td class="rule">'+e(r[4])+'</td></tr>';
     if(hasD&&op) h+=paydetail(rows0);});
   return h+'</table></div>';
 }
@@ -367,7 +399,7 @@ function paydetail(o){
            '프리랜서':'원천세 3.3% 공제 후 지급 · 우리가 대납',
            '미확인':'지급 방식 미확인'};
   var T={pay:0,payout:0,n:0};
-  var h='<tr class="sub"><td colspan="4"><div class="drill">'+
+  var h='<tr class="sub"><td colspan="5"><div class="drill">'+
     '<div class="drill-h">선생님 정산 — 지급 방식별 내역</div>'+
     '<table><tr><th>구분</th><th>회차</th><th>정산 계</th><th>실지급</th><th>차이</th><th>설명</th></tr>';
   Object.keys(g).forEach(function(k){
@@ -378,10 +410,10 @@ function paydetail(o){
       '<td class="n" style="color:var(--sub)">'+n(v.payout)+'</td>'+
       '<td class="n" style="color:var(--sub)">'+(d?(d>0?'+':'−')+n(Math.abs(d)):'0')+'</td>'+
       '<td style="font-size:11.5px;color:var(--wait)">'+e(lab[k]||'')+'</td></tr>';});
-  h+='<tr class="tot"><td>합계</td><td class="c">'+T.n+'</td>'+
-     '<td class="n" style="color:var(--coral)">'+n(T.pay)+'</td>'+
-     '<td class="n">'+n(T.payout)+'</td>'+
-     '<td class="n">'+((T.payout-T.pay)?(T.payout-T.pay>0?'+':'−')+n(Math.abs(T.payout-T.pay)):'0')+'</td>'+
+  h+='<tr class="tot2"><td>합계</td><td class="c">'+T.n+'</td>'+
+     '<td class="n" style="font-weight:700">'+n(T.pay)+'</td>'+
+     '<td class="n" style="font-weight:400;color:var(--sub)">'+n(T.payout)+'</td>'+
+     '<td class="n" style="font-weight:400;color:var(--sub)">'+((T.payout-T.pay)?(T.payout-T.pay>0?'+':'−')+n(Math.abs(T.payout-T.pay)):'0')+'</td>'+
      '<td style="font-size:11.5px;color:var(--wait);font-weight:400">위 「선생님 정산」 금액과 같습니다</td></tr>';
   return h+'</table></div></td></tr>';
 }
@@ -420,7 +452,7 @@ document.getElementById('dlx').addEventListener('click',function(ev){ev.preventD
   var C=[['회차ID','id'],['제휴사','partner'],['수업일','dt'],['유형','ty'],['클래스명','name'],
     ['선생님','teacher'],['지급방식','paykind'],['상태','state'],['개최','held'],['인원','pax'],
     ['클래스매출','rev'],['갤러리아정산 VAT포함','recv'],['갤러리아정산 VAT제외','recvx'],
-    ['선생님 정산기준','base'],['선생님정산 계','pay'],['최종정산금액','payout'],['PK 수익','ours'],['출처','src']];
+    ['선생님 정산기준','base'],['선생님정산 계','pay'],['재료·배송비','cost'],['최종정산금액','payout'],['PK 수익','ours'],['출처','src']];
   var q=function(v){v=String(v==null?'':v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
   var rows=[C.map(function(c){return c[0];}).join(',')];
   filt().forEach(function(x){rows.push(C.map(function(c){return q(x[c[1]]);}).join(','));});
