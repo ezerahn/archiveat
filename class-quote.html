@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v7">
+<meta name="version" content="v8">
 <meta name="updated" content="2026.07.27 20:26">
 <title>클래스 견적 계산기</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
@@ -301,6 +301,20 @@ details.content summary .s{font-size:12px;color:var(--wait);margin-left:auto;fon
 </div></div>
 
 <script>
+/* 클립보드 — 안전한 복사(구형·HTTP 환경 대비 폴백) */
+function copyText(txt, ok, ng){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(ok, ng||ok); return;
+  }
+  try{
+    var t=document.createElement('textarea'); t.value=txt;
+    t.style.position='fixed'; t.style.opacity='0';
+    document.body.appendChild(t); t.select();
+    document.execCommand('copy'); t.remove(); ok&&ok();
+  }catch(e){ (ng||ok)&&(ng||ok)(); }
+}
+</script>
+<script>
 var MODE="online", VAT="excl";
 var COLS=[["구분","txt","예: 구성품"],["구성품","txt","냉이"],["기준량","txt","50g"],["link","link",""],
 ["1인용량","num",""],["1인단위","unit","g"],["판매용량","num",""],["판매단위","unit","g"],["판매금액","num",""],["주문단위","num2",""]];
@@ -532,10 +546,10 @@ function copyOut(){
   lines.push('---(수정용 복원코드 · 이 줄은 지우지 마세요)---');
   lines.push('QDATA:'+code);
   var txt=lines.join('\n');
-  navigator.clipboard.writeText(txt).then(function(){
+  copyText(txt, function(){
     var b=document.querySelector('.btn.copy');var o=b.textContent;b.textContent='✓ 복사됨';setTimeout(function(){b.textContent=o;},1500);
   },function(){
-    var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();
+    try{var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();}catch(e){}
     var b=document.querySelector('.btn.copy');var o=b.textContent;b.textContent='✓ 복사됨';setTimeout(function(){b.textContent=o;},1500);
   });
 }

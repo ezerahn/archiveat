@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v53"><meta name="updated" content="2026.07.29 15:43">
+<meta name="version" content="v54"><meta name="updated" content="2026.07.29 15:56">
 <title>클래스 홈</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -274,7 +274,7 @@ table.ord tr.rw-part td:first-child{box-shadow:inset 3px 0 0 #C2570E}
 <p class="backup-note">위 엑셀은 개인정보(연락처·주소·수강생 이름)를 뺀 <b>회차·인원 정보(공개용)</b>입니다. → <code>class-master-open_날짜.xlsx</code><br>※ <b>완전판</b>(연락처·주소 포함 원본)은 <a href="class-chat.html" target="_blank" rel="noopener">채팅창</a>에서 받으세요. → <code>class-master-all-v2.xlsx</code></p></section>
 
 <div class="ops-note">※ <b>홈은 보기·이동만 합니다.</b><br>· 데이터를 고칠 땐 → 마스터(엑셀/대화창)에서<br>· 볼 땐 → 이 홈에서<br>· 모든 파일은 같은 폴더(github)에 두어야 링크가 작동합니다.</div>
-<div class="foot">클래스 홈 · v53 · 마스터에서 자동 생성 (gen_class.py)</div>
+<div class="foot">클래스 홈 · v54 · 마스터에서 자동 생성 (gen_class.py)</div>
 </div>
 
 <div class="modal" id="modal"><div class="modal-bg" onclick="closeDetail()"></div>
@@ -515,7 +515,7 @@ function openDetail(cid){
   var h7=row('모집유형',mtype);
   if(d.mtype==='A'){h7+=row('확정 인원',(d.applied||d.mn)+'명 (사전확정)');}
   else{h7+=row('신청 현황','신청 '+(d.applied||0)+'명 · 최소 '+d.mn+' · 최대 '+d.mx)+row('개폐강',openLabel);}
-  if(d.signupdue&&d.mtype!=='A'){h7+='<div class="dsub">개최 문자 알림</div><div class="drow"><span class="k">📩 발송 예정</span><span class="v mono">'+esc(d.signupdue)+' 09:00 · 선생님·수강생에게 개최 여부 통보</span></div>';}
+  if(d.signupdue&&d.mtype!=='A'){h7+='<div class="dsub">개최 문자 알림</div><div class="drow"><span class="k">📩 발송 예정</span><span class="v mono">'+esc2(d.signupdue)+' 09:00 · 선생님·수강생에게 개최 여부 통보</span></div>';}
   h7+=row('확정기준일',d.confirmday)+row('환불마감일',d.refundday)+row('환불규칙',d.refundsrc);
   if(d.kind==='온라인'){h7+='<div class="dsub">배송 현황</div><div class="dempty">배송 집계는 완전판 마스터(수강생 시트)에서 관리합니다.</div>';}
   h7+='<div class="dnote">수강생 명단(연락처·주소·송장)은 개인정보라 표시하지 않습니다. 완전판 마스터(채팅창)에서 확인하세요.</div>';
