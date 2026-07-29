@@ -5,6 +5,13 @@
 출력: class.html (3층 구조: 진행중 / 주요기능 / 도구)
 사용법: python gen_class.py class-master-all-v2.xlsx
 개인정보: 수강생 연락처·주소·이름은 굽지 않음. 인원 집계만.
+
+════════════════════════════════════════════════════════════════
+★ 수정 전 반드시 class-guide.html 을 읽으세요. 확정 규칙이 거기 있습니다.
+   회차ID·파일명 규칙 / 매출·지출·수익 구분 / 부가세 기준 /
+   선생님 정산 계약기준·실지급 / 유형은 정산구조·테마는 별도 /
+   실적은 수업완료·정산완료만 / 표기 규칙(굵기·이름통일·축약금지)
+════════════════════════════════════════════════════════════════
 """
 import sys, html, json, datetime
 from collections import Counter
@@ -15,7 +22,7 @@ TODAY = datetime.date.today()
 KST = datetime.timezone(datetime.timedelta(hours=9))
 UPDATED = datetime.datetime.now(KST).strftime("%Y.%m.%d %H:%M")
 CHAT_URL = "https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306"
-VERSION = "v45"
+VERSION = "v51"
 
 ACTIVE = ["검토중","개요서","확정","모집중","개강"]   # 1층 진행 중
 def to_date(v):
@@ -200,20 +207,20 @@ def card(s):
         pax=(f'<div class="c-pax">👥 신청 {s["applied"]}명 '
              f'<span class="pax-lim">(최소 {s["mn"]} · 최대 {s["mx"]})</span> '
              f'<span class="pax-tag {opcls}">{s["openst"]}</span></div>')
-    # 맨 아래: 총매출 · 원가 · 순이익 (전체 기준, 공급가)
+    # 맨 아래: 클래스매출 · 재료·배송비 · PK 수익  ※ class-guide.html 용어 사전 기준
+    # PK 수익 = 제휴사 입금(VAT 포함) − 선생님 정산 − 재료·배송비
     fin=""
-    supply=(s["price"]/1.1 if s["vat"]=="포함" else s["price"]) if s["price"] else None
     n=s["applied"] or s["mn"] or 0
-    if supply and n:
-        rev=supply*n
+    if s["price"] and n:
+        rev=s["price"]*n if s["vat"]=="포함" else s["price"]*n*1.1
         cost=((s["mat"] or 0)+(s["pack"] or 0)+(s["ship"] or 0))*n
         net=rev-cost-(s["settle"] or 0)
         rt=f" ({round(net/rev*100,1)}%)" if rev else ""
-        fin=(f'<div class="c-fin"><span class="fi">총매출 {int(round(rev)):,}원</span>'
-             f'<span class="fsep">|</span><span class="fi">원가 {int(round(cost)):,}원</span>'
-             f'<span class="fsep">|</span><span class="fi net">순이익 {int(round(net)):,}원{rt}</span></div>')
+        fin=(f'<div class="c-fin"><span class="fi">클래스매출 {int(round(rev)):,}원</span>'
+             f'<span class="fsep">|</span><span class="fi">재료·배송비 {int(round(cost)):,}원</span>'
+             f'<span class="fsep">|</span><span class="fi net">PK 수익 {int(round(net)):,}원{rt}</span></div>')
     cid=esc(s["cid"])
-    thumb=(f'<img class="c-thumb" src="class-images/{cid}.jpg" alt="" loading="lazy" '
+    thumb=(f'<img class="c-thumb" src="class-images/class-cover-{cid.replace(chr(45),"")}.jpg" alt="" loading="lazy" '
            f'onerror="this.style.display=&quot;none&quot;;this.nextElementSibling.style.display=&quot;flex&quot;">'
            f'<div class="c-thumb c-thumb-ph" style="display:none">🍽</div>')
     return (f'<article class="card {kc}" onclick="openDetail(\'{cid}\')">'
@@ -232,8 +239,9 @@ if not layer1: layer1='<div class="empty">진행 중인 클래스가 없습니�
 
 # 2층 주요 기능
 feat_cards=(
- '<a class="feat" href="class-list.html"><div class="ft-t">전체 클래스 목록</div><div class="ft-d">'+str(len(sessions))+'건 · 필터·검색</div><div class="ft-go">열기 →</div></a>'
+ '<a class="feat" href="class-list.html"><div class="ft-t">클래스 목록</div><div class="ft-d">전체 클래스 · 제휴사·연도 필터</div><div class="ft-go">열기 →</div></a>'
  '<a class="feat" href="class-settle-report.html"><div class="ft-t">정산 리포트</div><div class="ft-d">받을 돈·줄 돈·지급 예정</div><div class="ft-go">열기 →</div></a>'
+ '<a class="feat" href="class-partner.html"><div class="ft-t">제휴사별 실적</div><div class="ft-d">갤러리아광교 · 클래스콕 · 회차·정산·구조</div><div class="ft-go">열기 →</div></a>'
 )
 # 3층 도구
 tools=[("정산 구조 기준표","유형별·인원별 마진 시뮬레이션","class-settlement.html",False),
@@ -611,7 +619,7 @@ function orderTable(code,od){
   var cmp='<div class="cmpwrap"><table class="cmp"><thead><tr><th>구분</th><th>계획(원가)</th><th>실제(발주)</th></tr></thead><tbody>'
     +'<tr><td class="tl">발주 총액 <span class="cmpsub">전체·구매기준</span></td><td class="rt">'+fmtN(planTot)+'</td><td class="rt">'+(hasReal?fmtN(realTot):'<span class="pend">발주 후 입력</span>')+'</td></tr>'
     +'<tr><td class="tl">재료비(1인) <span class="cmpsub">계획=사용 / 실제=지출</span></td><td class="rt">'+fmtN(planMat)+'</td><td class="rt">'+(hasReal?fmtN(realPer):'—')+'</td></tr>'
-    +'<tr class="cmp-net"><td class="tl">순이익(1인)</td><td class="rt">'+fmtN(planNet)+'</td><td class="rt">'+(hasReal?fmtN(realNet):'—')+'</td></tr>'
+    +'<tr class="cmp-net"><td class="tl">PK 수익(1인)</td><td class="rt">'+fmtN(planNet)+'</td><td class="rt">'+(hasReal?fmtN(realNet):'—')+'</td></tr>'
     +'</tbody></table></div>';
   return '<div class="ordsec"><div class="ordh">📦 발주 · 입고 <span class="s">필요량 대비 주문량 · 부족분 · 실제 비용</span></div>'
     +'<div class="ordwrap"><table class="ord"><thead><tr>'
@@ -627,7 +635,7 @@ function openDetail(cid){
   var c=d.content||{};
   // ① 정보
   document.getElementById('d1').innerHTML=
-    '<div class="d-photo"><img src="class-images/'+CUR+'.jpg" alt="" onerror="this.parentElement.style.display=&quot;none&quot;"></div>'
+    '<div class="d-photo"><img src="class-images/class-cover-'+CUR.replace(/-/g,'')+'.jpg" alt="" onerror="this.parentElement.style.display=&quot;none&quot;"></div>'
     +row('수업명',d.name)+row('강의명',c.강의명)+row('발주처',d.orderer)+row('구분',d.kind)
     +row('수업일',d.date)+row('시각',d.time)+row('장소/배송',d.place)
     +row('대상',c.대상)+row('선발방식',c.선발방식)+row('소요시간',c.소요시간)+row('줌 링크',c.줌링크)+row('리허설',c.리허설안내)+row('강의정보',c.강의정보링크)+row('상태',d.state);
@@ -660,24 +668,24 @@ function openDetail(cid){
     +'<div class="flow-sec"><div class="flow-h">단가 (인당)</div>'
     +'<div class="flow-r"><span>판매가</span><span class="fv">'+won(d.price)+'</span></div>'
     +(vatAmt!=null?('<div class="flow-r"><span>부가세 ('+(d.vat||'')+')</span><span class="fv">'+won(vatAmt)+'</span></div>'
-      +'<div class="flow-r"><span>'+(d.vat==='포함'?'공급가 (부가세 제외)':'합계 (부가세 포함)')+'</span><span class="fv">'+won(d.vat==='포함'?supply:(d.price+vatAmt))+'</span></div>'):'')
+      +'<div class="flow-r"><span>'+(d.vat==='포함'?'공급가 (VAT 제외)':'합계 (VAT 포함)')+'</span><span class="fv">'+won(d.vat==='포함'?supply:(d.price+vatAmt))+'</span></div>'):'')
     +'</div>'
-    +'<div class="flow-sec"><div class="flow-h">원가 (인당) · 쿠킹박스</div>'
+    +'<div class="flow-sec"><div class="flow-h">재료·배송비 (인당) · 쿠킹박스</div>'
     +'<div class="flow-r"><span>재료비</span><span class="fv">'+won(d.mat)+'</span></div>'
     +(d.kind==='온라인'?('<div class="flow-r"><span>패킹비</span><span class="fv">'+won(d.pack)+'</span></div>'
       +'<div class="flow-r"><span>배송비</span><span class="fv">'+won(d.ship)+'</span></div>'):'')
-    +'<div class="flow-r tot"><span>원가 합</span><span class="fv">'+won(costEx)+'</span></div></div>'
+    +'<div class="flow-r tot"><span>재료·배송비 합</span><span class="fv">'+won(costEx)+'</span></div></div>'
     +((d.teach)?('<div class="flow-sec"><div class="flow-h">강사료 (인당) · 별도</div>'
       +'<div class="flow-r"><span>강사료 (선생님 인건비)</span><span class="fv">'+won(d.teach)+'</span></div></div>'):'')
     +'<div class="flow-sec"><div class="flow-r tot pos"><span>수익 (인당)</span><span class="fv">'+won(d.profit)+'</span></div>'
     +'<div class="flow-r"><span>수익률</span><span class="fv">'+pct(d.rate)+'</span></div></div>'
     +(take4!=null?('<div class="flow-sec"><div class="flow-h">이 클래스 전체 손익 (신청 '+ap4+'명 기준)</div>'
       +'<div class="flow-r"><span>받을 것 ('+(d.vat==='포함'?'공급가':'판매가')+' × '+ap4+'명)</span><span class="fv">'+won(recv4)+'</span></div>'
-      +'<div class="flow-r neg"><span>− 원가 ('+won(costEx)+' × '+ap4+'명)</span><span class="fv">-'+fmtN(costEx*ap4)+'원</span></div>'
+      +'<div class="flow-r neg"><span>− 재료·배송비 ('+won(costEx)+' × '+ap4+'명)</span><span class="fv">-'+fmtN(costEx*ap4)+'원</span></div>'
       +'<div class="flow-r neg"><span>− 선생님 정산액 (강사료)</span><span class="fv">-'+fmtN(d.settle||0)+'원</span></div>'
-      +'<div class="flow-r tot pos"><span>순이익</span><span class="fv">'+won(take4)+'</span></div></div>'):'')
+      +'<div class="flow-r tot pos"><span>PK 수익</span><span class="fv">'+won(take4)+'</span></div></div>'):'')
     +'</div>'
-    +'<div class="dnote">부가세 제외(공급가) 기준 손익입니다. 강사료는 원가와 분리해 별도 차감합니다. 정산구조: '+(d.struct==='A'?'A · 주최수금':(d.struct==='B'?'B · 우리수금':'-'))+'</div>';
+    +'<div class="dnote">VAT 제외(공급가) 기준 손익입니다. 강사료는 원가와 분리해 별도 차감합니다. 정산구조: '+(d.struct==='A'?'A · 주최수금':(d.struct==='B'?'B · 우리수금':'-'))+'</div>';
   // ⑦ 모집 현황
   var mtype=d.mtype==='A'?'A · 사전확정':(d.mtype==='B'?'B · 모객':'-');
   var openLabel={'사전확정':'사전확정','신청중':'신청중','확정':'확정','미달':'미달'}[d.openst]||d.openst;
@@ -689,7 +697,7 @@ function openDetail(cid){
   if(d.kind==='온라인'){h7+='<div class="dsub">배송 현황</div><div class="dempty">배송 집계는 완전판 마스터(수강생 시트)에서 관리합니다.</div>';}
   h7+='<div class="dnote">수강생 명단(연락처·주소·송장)은 개인정보라 표시하지 않습니다. 완전판 마스터(채팅창)에서 확인하세요.</div>';
   document.getElementById('d7').innerHTML=h7;
-  // ⑥ 정산 (선생님 지급에 집중 · 우리 몫은 ④에)
+  // ⑥ 정산 (선생님 정산에 집중 · PK 수익은 ④에)
   var applied=d.applied||d.mn||0;
   var kitTotal=(d.price!=null&&applied)?d.price*applied:null;
   var settle=d.settle;var payReal=null,payNote='';
@@ -919,7 +927,7 @@ ORDS=json.dumps(orderers,ensure_ascii=False)
 LISTTMPL = r"""<!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="version" content="__VER__"><meta name="updated" content="__UPD__">
-<title>전체 클래스 목록</title>
+<title>클래스 목록</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -1075,7 +1083,7 @@ table.ord tr.rw-part td:first-child{box-shadow:inset 3px 0 0 #C2570E}
 </style></head><body><div class="wrap">
 <div class="topbar"><div class="tb-left"><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="__CHAT__" target="_blank" rel="noopener">💬 작업 대화</a></div>
 <div class="tb-right"><span class="crumb">AI 워크스페이스 › 클래스 › 전체 목록</span><span class="tb-sep"> | </span><span class="updated" id="upd"></span></div></div>
-<header class="hero"><h1>전체 클래스 목록</h1><p class="lead">행을 클릭하면 아래로 6탭 상세가 열립니다. 상태·발주처·형태로 걸러 보고 검색하세요.</p></header>
+<header class="hero"><h1>클래스 목록</h1><p class="lead">행을 클릭하면 아래로 6탭 상세가 열립니다. 상태·발주처·형태로 걸러 보고 검색하세요.</p></header>
 <div class="filters">
 <input id="q" placeholder="🔍 수업명·발주처·선생님 검색" oninput="render()">
 <select id="fState" onchange="render()"><option value="">상태 전체</option><option value="기획중">기획중</option><option value="모집중">모집중</option><option value="확정">개강확정</option><option value="미달">폐강</option><option value="수업완료">수업완료</option><option value="정산완료">정산완료</option><option value="보류">보류</option></select>
@@ -1094,7 +1102,7 @@ table.ord tr.rw-part td:first-child{box-shadow:inset 3px 0 0 #C2570E}
   <div class="lg-r"><b>개폐강 기준</b> — 모객 클래스는 수업일 4일 전(D-4) 자정 마감 → 신청이 최소 인원 이상이면 <b>확정</b>, 미만이면 <b>폐강</b></div>
   <div class="lg-r"><b>입금</b> — 발주처 → 우리 (받을 돈)　·　<b>지급</b> — 우리 → 선생님 (줄 돈)</div>
 </div>
-<div class="foot">전체 클래스 목록 · __VER__ · 클래스 홈 도구</div>
+<div class="foot">클래스 목록 · __VER__ · 클래스 홈 도구</div>
 </div>
 <script>
 var DATA=__LISTDATA__;var ORDS=__ORDS__;var DETAIL=__DETAIL__;var CHAT="__CHAT__";
@@ -1131,7 +1139,7 @@ function render(){
   rows.forEach(function(r){
     html+='<tr class="mainrow'+(OPEN===r.cid?' open':'')+'" onclick="toggle(\''+r.cid+'\')">'
       +'<td><span class="arrow">▶</span>'+(r.datef||'-')+'</td><td>'+esc(r.orderer)+'</td>'
-      +'<td class="ln"><span class="lt-thumb-wrap"><img class="lt-thumb" src="class-images/'+esc(r.cid)+'.jpg" alt="" loading="lazy" onerror="this.style.display=&quot;none&quot;;this.nextElementSibling.style.display=&quot;inline-flex&quot;"><span class="lt-thumb lt-ph" style="display:none">🍽</span></span>'+esc(r.name)+'</td>'
+      +'<td class="ln"><span class="lt-thumb-wrap"><img class="lt-thumb" src="class-images/class-cover-'+esc(r.cid).replace(/-/g,'')+'.jpg" alt="" loading="lazy" onerror="this.style.display=&quot;none&quot;;this.nextElementSibling.style.display=&quot;inline-flex&quot;"><span class="lt-thumb lt-ph" style="display:none">🍽</span></span>'+esc(r.name)+'</td>'
       +'<td><span class="kind k-'+esc(r.kind)+'">'+esc(r.kind)+'</span></td>'
       +'<td><span class="badge st-'+esc(r.state)+'">'+stLabel(r.state)+'</span></td>'
       +'<td class="rt">'+paxCell(r)+'</td><td>'+esc(r.teacher)+'</td>'
@@ -1241,7 +1249,7 @@ function orderTable(code,od){
   var cmp='<div class="cmpwrap"><table class="cmp"><thead><tr><th>구분</th><th>계획(원가)</th><th>실제(발주)</th></tr></thead><tbody>'
     +'<tr><td class="tl">발주 총액 <span class="cmpsub">전체·구매기준</span></td><td class="rt">'+fmtN(planTot)+'</td><td class="rt">'+(hasReal?fmtN(realTot):'<span class="pend">발주 후 입력</span>')+'</td></tr>'
     +'<tr><td class="tl">재료비(1인) <span class="cmpsub">계획=사용 / 실제=지출</span></td><td class="rt">'+fmtN(planMat)+'</td><td class="rt">'+(hasReal?fmtN(realPer):'—')+'</td></tr>'
-    +'<tr class="cmp-net"><td class="tl">순이익(1인)</td><td class="rt">'+fmtN(planNet)+'</td><td class="rt">'+(hasReal?fmtN(realNet):'—')+'</td></tr>'
+    +'<tr class="cmp-net"><td class="tl">PK 수익(1인)</td><td class="rt">'+fmtN(planNet)+'</td><td class="rt">'+(hasReal?fmtN(realNet):'—')+'</td></tr>'
     +'</tbody></table></div>';
   return '<div class="ordsec"><div class="ordh">📦 발주 · 입고 <span class="s">필요량 대비 주문량 · 부족분 · 실제 비용</span></div>'
     +'<div class="ordwrap"><table class="ord"><thead><tr>'
@@ -1283,24 +1291,24 @@ function buildDetail(cid){
     +'<div class="flow-sec"><div class="flow-h">단가 (인당)</div>'
     +'<div class="flow-r"><span>판매가</span><span class="fv">'+won(d.price)+'</span></div>'
     +(vatAmt!=null?('<div class="flow-r"><span>부가세 ('+(d.vat||'')+')</span><span class="fv">'+won(vatAmt)+'</span></div>'
-      +'<div class="flow-r"><span>'+(d.vat==='포함'?'공급가 (부가세 제외)':'합계 (부가세 포함)')+'</span><span class="fv">'+won(d.vat==='포함'?supply:(d.price+vatAmt))+'</span></div>'):'')
+      +'<div class="flow-r"><span>'+(d.vat==='포함'?'공급가 (VAT 제외)':'합계 (VAT 포함)')+'</span><span class="fv">'+won(d.vat==='포함'?supply:(d.price+vatAmt))+'</span></div>'):'')
     +'</div>'
-    +'<div class="flow-sec"><div class="flow-h">원가 (인당) · 쿠킹박스</div>'
+    +'<div class="flow-sec"><div class="flow-h">재료·배송비 (인당) · 쿠킹박스</div>'
     +'<div class="flow-r"><span>재료비</span><span class="fv">'+won(d.mat)+'</span></div>'
     +(d.kind==='온라인'?('<div class="flow-r"><span>패킹비</span><span class="fv">'+won(d.pack)+'</span></div>'
       +'<div class="flow-r"><span>배송비</span><span class="fv">'+won(d.ship)+'</span></div>'):'')
-    +'<div class="flow-r tot"><span>원가 합</span><span class="fv">'+won(costEx)+'</span></div></div>'
+    +'<div class="flow-r tot"><span>재료·배송비 합</span><span class="fv">'+won(costEx)+'</span></div></div>'
     +((d.teach)?('<div class="flow-sec"><div class="flow-h">강사료 (인당) · 별도</div>'
       +'<div class="flow-r"><span>강사료 (선생님 인건비)</span><span class="fv">'+won(d.teach)+'</span></div></div>'):'')
     +'<div class="flow-sec"><div class="flow-r tot pos"><span>수익 (인당)</span><span class="fv">'+won(d.profit)+'</span></div>'
     +'<div class="flow-r"><span>수익률</span><span class="fv">'+pct(d.rate)+'</span></div></div>'
     +(take4!=null?('<div class="flow-sec"><div class="flow-h">이 클래스 전체 손익 (신청 '+ap4+'명 기준)</div>'
       +'<div class="flow-r"><span>받을 것 ('+(d.vat==='포함'?'공급가':'판매가')+' × '+ap4+'명)</span><span class="fv">'+won(recv4)+'</span></div>'
-      +'<div class="flow-r neg"><span>− 원가 ('+won(costEx)+' × '+ap4+'명)</span><span class="fv">-'+fmtN(costEx*ap4)+'원</span></div>'
+      +'<div class="flow-r neg"><span>− 재료·배송비 ('+won(costEx)+' × '+ap4+'명)</span><span class="fv">-'+fmtN(costEx*ap4)+'원</span></div>'
       +'<div class="flow-r neg"><span>− 선생님 정산액 (강사료)</span><span class="fv">-'+fmtN(d.settle||0)+'원</span></div>'
-      +'<div class="flow-r tot pos"><span>순이익</span><span class="fv">'+won(take4)+'</span></div></div>'):'')
+      +'<div class="flow-r tot pos"><span>PK 수익</span><span class="fv">'+won(take4)+'</span></div></div>'):'')
     +'</div>'
-    +'<div class="dnote">부가세 제외(공급가) 기준 손익입니다. 강사료는 원가와 분리해 별도 차감합니다. 정산구조: '+(d.struct==='A'?'A · 주최수금':(d.struct==='B'?'B · 우리수금':'-'))+'</div>';
+    +'<div class="dnote">VAT 제외(공급가) 기준 손익입니다. 강사료는 원가와 분리해 별도 차감합니다. 정산구조: '+(d.struct==='A'?'A · 주최수금':(d.struct==='B'?'B · 우리수금':'-'))+'</div>';
   // ⑦ 모집 현황
   var mtype=d.mtype==='A'?'A · 사전확정':(d.mtype==='B'?'B · 모객':'-');
   var p5=drow('모집유형',mtype);
@@ -1310,7 +1318,7 @@ function buildDetail(cid){
   p5+=drow('확정기준일',d.confirmday)+drow('환불마감일',d.refundday)+drow('환불규칙',d.refundsrc);
   if(d.kind==='온라인'){p5+='<div class="dsub">배송 현황</div><div class="dempty">배송 집계는 완전판 마스터(수강생 시트)에서 관리합니다.</div>';}
   p5+='<div class="dnote">수강생 명단(연락처·주소·송장)은 개인정보라 표시하지 않습니다. 완전판 마스터(채팅창)에서 확인하세요.</div>';
-  // ⑥ 정산 (선생님 지급에 집중 · 우리 몫은 ④에)
+  // ⑥ 정산 (선생님 정산에 집중 · PK 수익은 ④에)
   var applied=d.applied||d.mn||0;
   var kitTotal=(d.price!=null&&applied)?d.price*applied:null;
   var settle=d.settle;var payReal=null,payNote='';
@@ -1369,8 +1377,8 @@ render();
 </script></body></html>"""
 listdoc = (LISTTMPL.replace("__VER__",VERSION).replace("__UPD__",UPDATED).replace("__CHAT__",CHAT_URL)
     .replace("__LISTDATA__",LISTDATA).replace("__ORDS__",ORDS).replace("__DETAIL__",DETAIL))
-open("class-list.html","w",encoding="utf-8").write(listdoc)
-print(f"class-list.html {VERSION} — 아코디언 7탭 목록 {len(sessions)}건")
+# class-list.html 은 gen_list.py 가 생성합니다 (클래스 마스터 + 제휴사 마스터 통합)
+# open("class-list.html","w",encoding="utf-8").write(listdoc)
 
 # ══════════════════════ 정산 리포트 ══════════════════════
 RPTTMPL = r"""<!DOCTYPE html><html lang="ko"><head>
@@ -1649,5 +1657,5 @@ document.querySelectorAll('.tab').forEach(function(b){
 </script></body></html>"""
 rptdoc = (RPTTMPL.replace("__VER__",VERSION).replace("__UPD__",UPDATED)
     .replace("__CHAT__",CHAT_URL).replace("__SETTLE__",SETTLE))
-open("class-settle-report.html","w",encoding="utf-8").write(rptdoc)
-print(f"class-settle-report.html {VERSION} — 정산 {len(_set)}건")
+# class-settle-report.html 은 gen_settle.py 가 생성합니다
+# open("class-settle-report.html","w",encoding="utf-8").write(rptdoc)

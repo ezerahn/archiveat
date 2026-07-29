@@ -1,13 +1,12 @@
-<!DOCTYPE html><html lang="ko"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<meta name="version" content="v4"><meta name="updated" content="2026.07.29 11:18">
-<title>클래스 설계 가이드</title>
-<link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
-<style>
+# -*- coding: utf-8 -*-
+"""class-guide.html 전면 개편 — 오늘 확정한 규칙 반영"""
+import re, datetime
+
+KST=datetime.timezone(datetime.timedelta(hours=9))
+UPDATED=datetime.datetime.now(KST).strftime("%Y.%m.%d %H:%M")
+CHAT="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306"
+
+CSS = """
 :root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;
 --coral:#FF5019;--point:#B4A032;--wait:#9A8F7C;--mute:#ADA294;--ok:#5E7360}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -64,21 +63,15 @@ tr.hi td{background:#FFF1EB}
 .foot{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);
 font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
 @media(max-width:820px){h1{font-size:29px}.crumb{text-align:left}}
-</style></head><body><div class="wrap">
+"""
 
-<div class="topbar">
-<div><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">💬 작업 대화</a></div>
-<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.07.29 11:18 · v3</span></div>
-</div>
+S=[]
+def sec(no,title,desc,body,tab="기본"):
+    S.append((no,title,desc,body,tab))
 
-<div class="head">
-<h1>클래스 설계 가이드</h1>
-<p class="lead">클래스 영역의 <b>확정된 규칙</b>을 담은 문서입니다. 새 대화창에서 작업을 시작할 때 이 문서를 먼저 읽고,
-새로 정해진 규칙은 반드시 여기에 기록합니다.</p>
-</div>
-
-<div class="tabs"><button class="tab on" data-t="시작">시작하기</button><button class="tab" data-t="규칙">기본 규칙</button><button class="tab" data-t="돈">돈의 흐름</button><button class="tab" data-t="상태">전체 흐름</button><button class="tab" data-t="화면">화면 표기</button><button class="tab" data-t="확장">확장·미해결</button></div>
-<div class="pane on" data-t="시작"><h2 id="s01"><span class="n">01</span>이 문서를 먼저 읽으세요</h2><p class="h2d">새 대화창에서 클래스 작업을 시작할 때 가장 먼저 볼 문서입니다</p>
+sec("01","이 문서를 먼저 읽으세요",
+ "새 대화창에서 클래스 작업을 시작할 때 가장 먼저 볼 문서입니다",
+"""
 <div class="box key">
 <p><b>클래스 영역의 모든 규칙이 여기 있습니다.</b> 화면을 만들거나 고칠 때, 새 제휴사 자료를 붙일 때
 이 문서의 규칙을 따릅니다. 대화에서 정한 것은 창이 바뀌면 사라지므로, 확정된 규칙은 반드시 여기에 기록합니다.</p>
@@ -100,7 +93,11 @@ gen_list가 모든 마스터를 읽으므로 반드시 마지막에 돌립니다
 안전장치를 넣어 사진이 없으면 중단되며, <code>--force</code>를 붙여야만 강행됩니다.
 <b>메뉴 사전을 고칠 일이 없으면 아예 돌리지 마세요.</b></p>
 </div>
-</div><div class="pane" data-t="규칙"><div class="toc"><a href="#s02">02 회차ID · 파일명 규칙</a><a href="#s03">03 유형 · 테마</a></div><h2 id="s02"><span class="n">02</span>회차ID · 파일명 규칙</h2><p class="h2d">2026-07-28 확정. 한번 정하면 바꾸지 않습니다</p>
+""","시작")
+
+sec("02","회차ID · 파일명 규칙",
+ "2026-07-28 확정. 한번 정하면 바꾸지 않습니다",
+"""
 <div class="rule"><b>회차ID</b> = <code>[제휴사코드]-[연도2자리][월2자리]-[일련2자리]</code></div>
 <table>
 <tr><th>제휴사</th><th>코드</th><th>예</th></tr>
@@ -123,7 +120,11 @@ gen_list가 모든 마스터를 읽으므로 반드시 마지막에 돌립니다
 </table>
 <p>GitHub Pages는 저장소 하나에 모든 영역 파일이 섞이므로 클래스 파일은 전부 <code>class</code>로 시작해야 합니다.
 엑셀 마스터는 GitHub에 올리지 않으므로 한글 이름을 유지합니다.</p>
-<h2 id="s03"><span class="n">03</span>유형 · 테마</h2><p class="h2d">유형은 정산 구조로 정하고, 성격은 테마로 분리합니다</p>
+""","규칙")
+
+sec("03","유형 · 테마",
+ "유형은 정산 구조로 정하고, 성격은 테마로 분리합니다",
+"""
 <div class="rule"><b>유형은 이름이 아니라 정산 구조가 정합니다.</b></div>
 <table>
 <tr><th>명세 행수</th><th>유형</th><th>뜻</th></tr>
@@ -135,7 +136,11 @@ gen_list가 모든 마스터를 읽으므로 반드시 마지막에 돌립니다
 <li>테마는 클래스명 앞머리(<code>[키즈]</code> <code>[아동]</code>)에서 자동 추출하며, 한식·베이킹 등은 나중에 마스터에 직접 채웁니다</li>
 <li>테마 필터로 「어떤 주제가 잘 열렸나」를 봅니다</li>
 </ul>
-</div><div class="pane" data-t="돈"><div class="toc"><a href="#s04">04 돈의 흐름 — 매출 · 지출 · 수익</a><a href="#s05">05 부가세 — 어디에 쓰고 어디에 안 쓰는가</a><a href="#s06">06 선생님 정산 — 계약 기준과 실지급</a></div><h2 id="s04"><span class="n">04</span>돈의 흐름 — 매출 · 지출 · 수익</h2><p class="h2d">모든 화면이 이 3단 구분을 따릅니다</p>
+""","규칙")
+
+sec("04","돈의 흐름 — 매출 · 지출 · 수익",
+ "모든 화면이 이 3단 구분을 따릅니다",
+"""
 <table>
 <tr><th>구분</th><th>단계</th><th>뜻</th></tr>
 <tr><td rowspan="3" class="c"><b>매출</b></td><td>클래스매출</td><td>수강생이 낸 돈 · 판매가 × 인원</td></tr>
@@ -162,7 +167,11 @@ gen_list가 모든 마스터를 읽으므로 반드시 마지막에 돌립니다
 <li>갤 0% → 25% · 갤 10% → 15% · <b>갤 30% → −5%(역마진)</b></li>
 <li>수수료율을 정할 때 쓰는 <b>참고값</b>입니다. 화면의 PK 수익은 실지급 기준이라 이보다 큽니다</li>
 </ul>
-<h2 id="s05"><span class="n">05</span>부가세 — 어디에 쓰고 어디에 안 쓰는가</h2><p class="h2d">가장 자주 헷갈리는 지점입니다</p>
+""","돈")
+
+sec("05","부가세 — 어디에 쓰고 어디에 안 쓰는가",
+ "가장 자주 헷갈리는 지점입니다",
+"""
 <table>
 <tr><th>단계</th><th>VAT 포함</th><th>VAT 제외</th></tr>
 <tr><td>클래스매출</td><td class="c">○</td><td class="c">○</td></tr>
@@ -180,7 +189,11 @@ gen_list가 모든 마스터를 읽으므로 반드시 마지막에 돌립니다
 <li>재료비는 <b>실제 구매가(부가세 포함)</b> 그대로 씁니다. 매입세액공제 등 세무 처리는 이 화면에서 다루지 않습니다</li>
 <li>손익은 전부 <b>부가세를 뺀 기준</b>으로 봅니다</li>
 </ul>
-<h2 id="s06"><span class="n">06</span>선생님 정산 — 계약 기준과 실지급</h2><p class="h2d">같은 수업인데 통장 숫자가 다른 이유</p>
+""","돈")
+
+sec("06","선생님 정산 — 계약 기준과 실지급",
+ "같은 수업인데 통장 숫자가 다른 이유",
+"""
 <table>
 <tr><th>구분</th><th>계약 기준</th><th>실지급</th><th>차이</th></tr>
 <tr><td><span class="bd b-cor">사업자</span></td><td class="n">153,409</td><td class="n">168,750</td><td>부가세 +10% 가산</td></tr>
@@ -203,7 +216,11 @@ gen_list가 모든 마스터를 읽으므로 반드시 마지막에 돌립니다
 <p>이체 명의가 선생님 성함과 다를 수 있습니다 — 박소진 → <b>이도현</b>, 일호실 → <b>이민영</b>.
 지급내역의 <code>이체 명의</code> 칸에 반드시 기록합니다. 없으면 「이체 내역이 없다」고 헤매게 됩니다.</p>
 </div>
-</div><div class="pane" data-t="상태"><div class="toc"><a href="#s07">07 전체 흐름 — 클래스 하나가 지나는 길</a><a href="#s08">08 실적 집계 기준</a></div><h2 id="s07"><span class="n">07</span>전체 흐름 — 클래스 하나가 지나는 길</h2><p class="h2d">기획부터 정산 완료까지. 화면이 어떻게 갈라지는지</p>
+""","돈")
+
+sec("07","전체 흐름 — 클래스 하나가 지나는 길",
+ "기획부터 정산 완료까지. 화면이 어떻게 갈라지는지",
+"""
 <div class="rule"><b>수업 상태</b>와 <b>정산 상태</b>는 별개입니다. 섞어 쓰면 「정산완료인데 수업은 언제 했지?」가 됩니다.</div>
 <h3>수업 상태 — 「상태」 열</h3>
 <table>
@@ -241,7 +258,11 @@ gen_list가 모든 마스터를 읽으므로 반드시 마지막에 돌립니다
 </table>
 <p>갤러리아 자금 흐름 3단계 — ① 월 초(5~9일) 우리 사이트 결제분을 갤러리아에 송금 →
 ② <b>월 10일</b> 갤러리아가 수수료 뗀 정산금 입금 → ③ <b>익월 25일</b> 선생님께 지급.</p>
-<h2 id="s08"><span class="n">08</span>실적 집계 기준</h2><p class="h2d">무엇을 실적으로 셀 것인가</p>
+""","상태")
+
+sec("08","실적 집계 기준",
+ "무엇을 실적으로 셀 것인가",
+"""
 <div class="rule">실적은 <b>수업완료</b> 회차만 집계합니다.</div>
 <h3>★ 상태는 두 갈래 — 섞지 말 것</h3>
 <table>
@@ -261,7 +282,11 @@ gen_list가 모든 마스터를 읽으므로 반드시 마지막에 돌립니다
 <li>정규는 한 회차가 3항목으로 쪼개지므로 <b>강사료 행의 인원</b>이 실제 수강생입니다</li>
 <li>재료비 두 항목의 인원 합 = 강사료 인원 (41회차 전부 일치)</li>
 </ul>
-</div><div class="pane" data-t="화면"><div class="toc"><a href="#s09">09 용어 사전 — 이 말만 씁니다</a><a href="#s10">10 화면 표기 규칙</a></div><h2 id="s09"><span class="n">09</span>용어 사전 — 이 말만 씁니다</h2><p class="h2d">같은 것을 두 이름으로 부르면 나중에 반드시 헷갈립니다</p>
+""","상태")
+
+sec("09","용어 사전 — 이 말만 씁니다",
+ "같은 것을 두 이름으로 부르면 나중에 반드시 헷갈립니다",
+"""
 <div class="rule">왼쪽 표현은 <b>쓰지 않습니다.</b> 오른쪽으로만 씁니다.</div>
 <h3>돈</h3>
 <table>
@@ -306,7 +331,11 @@ gen_list가 모든 마스터를 읽으므로 반드시 마지막에 돌립니다
 <p><b>축약하지 않습니다.</b> <code>갤정산</code>·<code>쌤정산</code>처럼 줄이면 나중에 본 사람이 못 알아봅니다.
 길어도 <code>제휴사 입금</code>·<code>선생님 정산</code>으로 씁니다.</p>
 </div>
-<h2 id="s10"><span class="n">10</span>화면 표기 규칙</h2><p class="h2d">만들 때마다 다시 묻지 않도록</p>
+""","화면")
+
+sec("10","화면 표기 규칙",
+ "만들 때마다 다시 묻지 않도록",
+"""
 <h3>표 머리글 3단</h3>
 <table>
 <tr><th>1단</th><td>클래스</td><td>매출</td><td>지출</td><td>수익</td></tr>
@@ -330,7 +359,11 @@ gen_list가 모든 마스터를 읽으므로 반드시 마지막에 돌립니다
 <tr><td><span class="bd b-grn">회녹</span></td><td>완료</td><td>수업완료 · 정산완료</td></tr>
 <tr><td><span class="bd b-yel">노랑</span></td><td>확인 필요</td><td>미확인 · 대상 미상</td></tr>
 </table>
-</div><div class="pane" data-t="확장"><div class="toc"><a href="#s11">11 새 제휴사 자료를 붙일 때</a><a href="#s12">12 미해결 · 확인 대기</a></div><h2 id="s11"><span class="n">11</span>새 제휴사 자료를 붙일 때</h2><p class="h2d">클래스콕 · 경기도지식 등</p>
+""","화면")
+
+sec("11","새 제휴사 자료를 붙일 때",
+ "클래스콕 · 경기도지식 등",
+"""
 <div class="rule">공통 12항목만 맞추면 <code>gen_list.py</code>에 파일명 한 줄 추가로 붙습니다.</div>
 <table>
 <tr><th>#</th><th>항목</th><th>비고</th></tr>
@@ -348,7 +381,11 @@ gen_list가 모든 마스터를 읽으므로 반드시 마지막에 돌립니다
 <tr class="hi"><td class="c">12</td><td><b>PK 수익</b></td><td>VAT 제외 · 비교 기준</td></tr>
 </table>
 <p>부가 항목 — 제휴사 입금 · 선생님 정산(계약/실지급) · 재료·배송비 · 지급방식 · 테마 · 수업상태</p>
-<h2 id="s12"><span class="n">12</span>미해결 · 확인 대기</h2><p class="h2d">다음에 이어서 할 것</p>
+""","확장")
+
+sec("12","미해결 · 확인 대기",
+ "다음에 이어서 할 것",
+"""
 <table>
 <tr><th>항목</th><th>내용</th></tr>
 <tr><td>갤러리아 이체 6건</td><td>대응 회차 없음 · 지급내역 U-01~U-06 · 1,808,641원</td></tr>
@@ -357,11 +394,23 @@ gen_list가 모든 마스터를 읽으므로 반드시 마지막에 돌립니다
 <tr><td>클래스콕</td><td>자료 확보 후 제휴사 탭 추가</td></tr>
 <tr><td>정산 리포트 2단계</td><td>세금계산서 발행·원천세 신고 포함</td></tr>
 </table>
-</div>
+""","확장")
 
-<div class="foot">클래스 설계 가이드 · 2026.07.29 11:18 · v4</div>
-</div>
-<script>
+TABS=[("시작","시작하기"),("규칙","기본 규칙"),("돈","돈의 흐름"),
+      ("상태","전체 흐름"),("화면","화면 표기"),("확장","확장·미해결")]
+tabbtn="".join(f'<button class="tab{" on" if i==0 else ""}" data-t="{k}">{lab}</button>'
+               for i,(k,lab) in enumerate(TABS))
+panes=""
+for i,(k,lab) in enumerate(TABS):
+    items=[x for x in S if x[4]==k]
+    toc="".join(f'<a href="#s{no}">{no} {t}</a>' for no,t,_,_,_ in items) if len(items)>1 else ""
+    body="".join(
+      f'<h2 id="s{no}"><span class="n">{no}</span>{t}</h2><p class="h2d">{d}</p>{b}'
+      for no,t,d,b,_ in items)
+    panes+=f'<div class="pane{" on" if i==0 else ""}" data-t="{k}">'+ \
+           (f'<div class="toc">{toc}</div>' if toc else '')+body+'</div>'
+
+JS = """
 document.querySelector('.tabs').addEventListener('click',function(ev){
   var b=ev.target.closest('.tab'); if(!b)return;
   var t=b.dataset.t;
@@ -376,4 +425,37 @@ document.querySelectorAll('.toc a').forEach(function(a){
     if(el)window.scrollTo({top:el.offsetTop-70,behavior:'smooth'});
   });
 });
-</script></body></html>
+"""
+
+doc=f"""<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="version" content="v4"><meta name="updated" content="{UPDATED}">
+<title>클래스 설계 가이드</title>
+<link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<style>{CSS}</style></head><body><div class="wrap">
+
+<div class="topbar">
+<div><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="{CHAT}" target="_blank" rel="noopener">💬 작업 대화</a></div>
+<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 {UPDATED} · v3</span></div>
+</div>
+
+<div class="head">
+<h1>클래스 설계 가이드</h1>
+<p class="lead">클래스 영역의 <b>확정된 규칙</b>을 담은 문서입니다. 새 대화창에서 작업을 시작할 때 이 문서를 먼저 읽고,
+새로 정해진 규칙은 반드시 여기에 기록합니다.</p>
+</div>
+
+<div class="tabs">{tabbtn}</div>
+{panes}
+
+<div class="foot">클래스 설계 가이드 · {UPDATED} · v4</div>
+</div>
+<script>{JS}</script></body></html>"""
+
+open("class-guide.html","w",encoding="utf-8").write(doc)
+import os
+print(f"class-guide.html v4 — {len(S)}개 장 · {os.path.getsize('class-guide.html')/1024:.0f}KB")
