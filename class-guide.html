@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="version" content="v7"><meta name="updated" content="2026.07.29 15:43">
+<meta name="version" content="v8"><meta name="updated" content="2026.07.29 15:50">
 <title>클래스 설계 가이드</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,7 +68,7 @@ font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:cent
 
 <div class="topbar">
 <div><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="class-chat.html" target="_blank" rel="noopener">💬 작업 대화</a></div>
-<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.07.29 15:43 · v7</span></div>
+<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.07.29 15:50 · v8</span></div>
 </div>
 
 <div class="head">
@@ -94,10 +94,23 @@ font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:cent
 <tr><td>생성기</td><td><code>gen_settle.py</code></td><td><b>class-settle-report.html</b> — 여러 마스터 통합</td></tr>
 <tr><td>생성기</td><td><code>gen_guide.py</code></td><td>class-guide.html — 규칙이 바뀔 때만</td></tr>
 <tr><td>생성기</td><td><code>gen_menu.py</code></td><td>class-menu.html — <b>menu-images/ 필수</b></td></tr>
+<tr><td>도구</td><td><code>xlsx_patch.py</code></td><td>엑셀 안전 수정 — 수식의 계산값을 보존</td></tr>
+<tr><td>도구</td><td><code>prep_image.py</code></td><td>메뉴 사진 규격화(280×280 WebP)</td></tr>
+<tr><td>화면</td><td><code>class-chat.html</code></td><td><b>작업 대화창 주소는 이 파일 한 곳에만</b></td></tr>
 </table>
 <div class="rule"><b>실행 순서</b> — gen_class → gen_partner → gen_settle → <b>gen_list(마지막)</b><br>
 <span style="font-size:12.5px;color:var(--wait)">gen_guide 는 규칙이 바뀔 때만 · gen_menu 는 메뉴 사전을 고칠 때만</span></div>
 <p>gen_list 와 gen_settle 이 모든 마스터를 읽으므로 gen_list 를 마지막에 돌립니다.</p>
+<h3>작업 대화창 링크 — 파일 하나로 관리</h3>
+<div class="box key">
+<p>모든 화면의 💬 는 <code>class-chat.html</code> 을 가리킵니다.
+<b>실제 주소는 그 파일 한 곳에만</b> 있습니다.</p>
+<p>새 대화창을 열면 <b><code>class-chat.html</code> 한 줄만 고쳐 올리면 끝</b>입니다.
+다른 파일도, 생성기도 건드리지 않습니다.
+예전에는 같은 주소가 17개 파일 23곳에 박혀 있어서 창이 바뀔 때마다 전부 다시 올려야 했습니다.</p>
+<p><b>생성기 상수에 URL 을 직접 넣지 않습니다.</b> 각 <code>gen</code> 파일의 <code>CHAT_URL</code> 은
+<code>"class-chat.html"</code> 로 두고, 옆에 경고 주석이 붙어 있습니다.</p>
+</div>
 <div class="box warn">
 <p><b>마스터를 못 찾으면 생성기가 멈춥니다</b> — 예전에는 「없음 — 건너뜀」 한 줄만 찍고
 <b>회차가 통째로 빠진 반쪽 파일</b>을 그냥 만들었습니다. 지금은 <code>find_master()</code> 가 중단시킵니다.
@@ -134,6 +147,17 @@ font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:cent
 </ul>
 <div class="rule"><b>계산식</b> — PK 수익 = 클래스매출 − 수수료 − 선생님 정산(실지급) − 재료·배송비<br>
 VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <code>"제외"</code> 로 (4개 파일 모두)</div>
+<h3>★ 마스터의 열은 「이름」으로 읽는다</h3>
+<div class="box key">
+<p><b>열 번호로 읽지 않습니다.</b> 번호로 읽으면 마스터에 열을 하나 추가하는 순간
+엉뚱한 값이 그 자리로 들어옵니다.</p>
+<p><b>실제로 벌어진 일</b> — 클래스 마스터 41번 열에 <code>유형</code> 을 추가했더니
+<code>gen_class.py</code> 가 그 자리를 <code>사업유형</code> 으로 읽어 카드 배지가 「원데이」로 바뀌었습니다.
+화면을 자세히 안 봤으면 모르고 지나갔을 오류입니다.</p>
+<p>지금은 네 생성기 모두 <b>머리글 이름으로</b> 찾습니다. 없는 이름은 빈 값이 되고,
+클래스 마스터에 없는 열은 실행할 때 안내가 뜹니다.</p>
+<p><b>새 열은 항상 맨 끝에 붙입니다.</b> 중간에 끼우면 사람이 헷갈립니다.</p>
+</div>
 <h3>다시 만드는 순서</h3>
 <div class="rule">gen_class → gen_partner → gen_settle → <b>gen_list (마지막)</b></div>
 <p>gen_list 가 모든 마스터를 읽으므로 반드시 마지막에 돌립니다.</p>
@@ -156,7 +180,7 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 <tr><th>용도</th><th>예</th></tr>
 <tr><td>패킹</td><td><code>class-pack-GS260701.html</code></td></tr>
 <tr><td>레시피</td><td><code>class-recipe-GS260701.html</code></td></tr>
-<tr><td>커버 이미지</td><td><code>class-cover-GS260701.png</code></td></tr>
+<tr><td>커버 이미지</td><td><code>class-cover-GS260701.jpg</code> · <code>class-images/</code> 폴더</td></tr>
 </table>
 <p>GitHub Pages는 저장소 하나에 모든 영역 파일이 섞이므로 클래스 파일은 전부 <code>class</code>로 시작해야 합니다.
 엑셀 마스터는 GitHub에 올리지 않으므로 한글 이름을 유지합니다.</p>
@@ -463,7 +487,7 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 </table>
 </div>
 
-<div class="foot">클래스 설계 가이드 · 2026.07.29 15:43 · v7</div>
+<div class="foot">클래스 설계 가이드 · 2026.07.29 15:50 · v8</div>
 </div>
 <script>
 document.querySelector('.tabs').addEventListener('click',function(ev){
