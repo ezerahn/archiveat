@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="version" content="v4"><meta name="updated" content="2026.07.29 13:32">
+<meta name="version" content="v5"><meta name="updated" content="2026.07.29 13:47">
 <title>클래스 설계 가이드</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,7 +68,7 @@ font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:cent
 
 <div class="topbar">
 <div><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">💬 작업 대화</a></div>
-<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.07.29 13:32 · v3</span></div>
+<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.07.29 13:47 · v5</span></div>
 </div>
 
 <div class="head">
@@ -88,13 +88,16 @@ font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:cent
 <tr><th>구분</th><th>파일</th><th>역할</th></tr>
 <tr><td>마스터</td><td><code>class-master-all-v3.xlsx</code></td><td>클래스 회차 (온라인·자체)</td></tr>
 <tr><td>마스터</td><td><code>갤러리아_강좌이력.xlsx</code></td><td>제휴사별 아카이브</td></tr>
-<tr><td>생성기</td><td><code>gen_class.py</code></td><td>class.html · class-settle-report.html</td></tr>
+<tr><td>생성기</td><td><code>gen_class.py</code></td><td>class.html</td></tr>
 <tr><td>생성기</td><td><code>gen_list.py</code></td><td><b>class-list.html</b> — 여러 마스터 통합</td></tr>
 <tr><td>생성기</td><td><code>gen_partner.py</code></td><td>class-partner.html</td></tr>
+<tr><td>생성기</td><td><code>gen_settle.py</code></td><td><b>class-settle-report.html</b> — 여러 마스터 통합</td></tr>
+<tr><td>생성기</td><td><code>gen_guide.py</code></td><td>class-guide.html — 규칙이 바뀔 때만</td></tr>
 <tr><td>생성기</td><td><code>gen_menu.py</code></td><td>class-menu.html — <b>menu-images/ 필수</b></td></tr>
 </table>
-<div class="rule"><b>실행 순서</b> — gen_class → gen_partner → <b>gen_list(마지막)</b>.
-gen_list가 모든 마스터를 읽으므로 반드시 마지막에 돌립니다.</div>
+<div class="rule"><b>실행 순서</b> — gen_class → gen_partner → gen_settle → <b>gen_list(마지막)</b><br>
+<span style="font-size:12.5px;color:var(--wait)">gen_guide 는 규칙이 바뀔 때만 · gen_menu 는 메뉴 사전을 고칠 때만</span></div>
+<p>gen_list 와 gen_settle 이 모든 마스터를 읽으므로 gen_list 를 마지막에 돌립니다.</p>
 <div class="box warn">
 <p><b>gen_menu.py 주의</b> — <code>menu-images/</code> 폴더 없이 돌리면 class-menu.html의 사진 44장이 사라집니다.
 안전장치를 넣어 사진이 없으면 중단되며, <code>--force</code>를 붙여야만 강행됩니다.
@@ -409,7 +412,7 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 </table>
 </div>
 
-<div class="foot">클래스 설계 가이드 · 2026.07.29 13:32 · v4</div>
+<div class="foot">클래스 설계 가이드 · 2026.07.29 13:47 · v5</div>
 </div>
 <script>
 document.querySelector('.tabs').addEventListener('click',function(ev){
