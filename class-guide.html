@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="version" content="v4"><meta name="updated" content="2026.07.29 12:34">
+<meta name="version" content="v4"><meta name="updated" content="2026.07.29 13:07">
 <title>클래스 설계 가이드</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,7 +68,7 @@ font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:cent
 
 <div class="topbar">
 <div><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">💬 작업 대화</a></div>
-<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.07.29 12:34 · v3</span></div>
+<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.07.29 13:07 · v3</span></div>
 </div>
 
 <div class="head">
@@ -249,6 +249,26 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 <tr><td>입금</td><td><span class="bd b-yel">입금대기</span> → <span class="bd b-grn">입금완료</span></td><td>제휴사가 우리에게 정산금을 보냈는가</td></tr>
 <tr><td>지급</td><td><span class="bd b-yel">지급대기</span> → <span class="bd b-grn">지급완료</span></td><td>우리가 선생님께 보냈는가</td></tr>
 </table>
+<h3>어느 화면이 어느 마스터를 읽나</h3>
+<table>
+<tr><th>화면</th><th>읽는 마스터</th></tr>
+<tr><td>클래스 홈</td><td><b>모든 마스터</b> — 진행 중인 회차만 카드로</td></tr>
+<tr><td>클래스 목록</td><td><b>모든 마스터</b></td></tr>
+<tr><td>정산 리포트</td><td><b>모든 마스터</b></td></tr>
+<tr><td>제휴사별 실적</td><td>해당 제휴사만</td></tr>
+</table>
+<div class="rule"><b>회차를 다루는 화면은 모든 마스터를 읽는다.</b> 제휴사별 실적만 예외.</div>
+<h3>클래스 홈 대시보드 = 「지금 챙길 것」</h3>
+<table>
+<tr><th>카드</th><th>뜻</th></tr>
+<tr><td>기획·제안 · 모집 중 · 확정</td><td>수업 전 단계</td></tr>
+<tr><td>정산 예정</td><td>수업 끝 · 돈이 남은 회차</td></tr>
+<tr class="hi"><td>받을 돈 · 줄 돈</td><td>정산 리포트와 같은 값</td></tr>
+</table>
+<p><b>누적 실적(수업 수·수강생·매출)은 클래스 목록에서 봅니다.</b> 두 화면에 같은 지표를 두지 않습니다.</p>
+<h3>인원 판정 순서</h3>
+<div class="rule">수강생 명단 → <b>신청인원</b> → <b>최소인원</b></div>
+<p>명단은 개인정보 문제로 비어 있는 경우가 많아, 비면 신청인원으로, 그것도 비면 최소인원으로 내려갑니다.</p>
 <h3>화면별로 어디에 나타나나</h3>
 <table>
 <tr><th>단계</th><th>클래스 홈</th><th>정산 리포트</th><th>클래스 목록</th></tr>
@@ -387,7 +407,7 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 </table>
 </div>
 
-<div class="foot">클래스 설계 가이드 · 2026.07.29 12:34 · v4</div>
+<div class="foot">클래스 설계 가이드 · 2026.07.29 13:07 · v4</div>
 </div>
 <script>
 document.querySelector('.tabs').addEventListener('click',function(ev){
