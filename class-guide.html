@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="version" content="v8"><meta name="updated" content="2026.07.29 15:50">
+<meta name="version" content="v10"><meta name="updated" content="2026.07.29 16:43">
 <title>클래스 설계 가이드</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,7 +68,7 @@ font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:cent
 
 <div class="topbar">
 <div><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="class-chat.html" target="_blank" rel="noopener">💬 작업 대화</a></div>
-<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.07.29 15:50 · v8</span></div>
+<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.07.29 16:43 · v10</span></div>
 </div>
 
 <div class="head">
@@ -200,6 +200,8 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 <table>
 <tr><th>마스터</th><th>열</th><th>뜻</th></tr>
 <tr><td>제휴사 (회차)</td><td><code>수업상태</code></td><td>수업완료 / 폐강 — <b>개최 여부와 별개</b>. 미래 수업이 실적에 잡히지 않게 함</td></tr>
+<tr><td>둘 다</td><td><code>세금계산서상태</code> <code>세금계산서발행일</code></td>
+<td>발행완료 / 해당없음 / 빈칸(미발행). 발급 기한은 <b>공급일 다음 달 10일</b>로 자동 계산</td></tr>
 <tr><td>클래스 (회차)</td><td><code>유형</code></td><td>정규 / 원데이 — 제휴사 마스터와 이름·값 통일</td></tr>
 <tr><td>제휴사 (회차)</td><td><code>참고-옛기준R</code> <code>참고-옛기준S</code></td><td><b>화면이 읽지 않는 옛 계산값</b>(R=VAT 포함 / S=계약 기준). 지우면 다른 수식이 깨질 수 있어 이름만 바꿔 남겨둠. 새 열이 필요하면 이 두 열을 먼저 검토</td></tr>
 <tr><td>제휴사 (회차)</td><td><code>모집유형</code> <code>최소인원</code> <code>최대인원</code> <code>신청인원</code></td>
@@ -302,6 +304,25 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 <tr class="hi"><td><span class="bd b-grn">수업완료</span></td><td>수업이 끝남</td><td><b>정산 예정</b> 그룹</td></tr>
 <tr><td><span class="bd b-off">폐강</span></td><td>최소 인원 미달 등으로 취소</td><td>안 보임</td></tr>
 </table>
+<h3>세금계산서 — 「받을 돈」의 앞단계</h3>
+<div class="box key">
+<p>돈은 이 순서로 움직입니다.
+<b>수업완료 → 세금계산서 발행 → 입금 → 지급</b></p>
+<p>발행했는지를 기록하지 않으면 <b>했는지 안 했는지 알 수가 없습니다.</b>
+그래서 마스터에 <code>세금계산서상태</code>·<code>세금계산서발행일</code> 두 칸을 둡니다.</p>
+</div>
+<table>
+<tr><th>값</th><th>배지</th><th>뜻</th></tr>
+<tr><td>발행완료</td><td>회녹 「계산서발행완료」</td><td>발행일에 마우스를 올리면 언제 끊었는지 보입니다</td></tr>
+<tr><td>(빈칸)</td><td>노랑 「계산서미발행」</td><td>정산 대기 표에 나왔다 = 아직 챙길 것이 있다</td></tr>
+<tr class="hi"><td>(빈칸) · 기한 지남</td><td><b>빨강 「계산서기한초과」</b></td><td>발급 기한을 넘김</td></tr>
+<tr><td>해당없음</td><td>없음</td><td>발행 대상이 아닌 회차</td></tr>
+</table>
+<div class="box warn">
+<p><b>발급 기한 = 공급일(수업일) 다음 달 10일.</b> 화면이 자동으로 계산해 넘기면 빨갛게 알려줍니다.
+<b>작성일자는 공급일(수업일)</b>이지 발행한 날이 아닙니다.</p>
+<p>과거 138건은 비워둡니다. 정산이 끝난 회차는 이 표에 안 나오므로 영향이 없습니다.</p>
+</div>
 <h3>정산 상태 — 「입금」·「지급」 배지</h3>
 <table>
 <tr><th>구분</th><th>값</th><th>뜻</th></tr>
@@ -487,7 +508,7 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 </table>
 </div>
 
-<div class="foot">클래스 설계 가이드 · 2026.07.29 15:50 · v8</div>
+<div class="foot">클래스 설계 가이드 · 2026.07.29 16:43 · v10</div>
 </div>
 <script>
 document.querySelector('.tabs').addEventListener('click',function(ev){
