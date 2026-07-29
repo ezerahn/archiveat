@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="version" content="v89"><meta name="updated" content="2026.07.29 12:33">
+<meta name="version" content="v93"><meta name="updated" content="2026.07.29 13:19">
 <title>클래스 목록</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,15 +35,13 @@ border:1px solid var(--line);border-radius:14px;padding:14px 20px;margin-bottom:
 .row1 .th .fk{color:#C2570E}
 .row1 .pend{margin-left:auto;font-size:11.5px;color:#B44A1E;background:#FFF1EB;padding:3px 10px;border-radius:20px}
 .btabs{display:flex;gap:6px;margin-bottom:10px}
-.btab{font-family:inherit;font-size:14px;font-weight:600;padding:9px 18px;border-radius:11px 11px 0 0;
-border:1px solid var(--line);border-bottom:none;background:#F1EFE9;color:var(--wait);cursor:pointer;
-display:flex;align-items:baseline;gap:9px;transition:.12s}
-.btab:hover{color:var(--sub)}
-.btab.on{background:var(--card);color:var(--ink);border-color:var(--line);
-box-shadow:0 -1px 0 var(--coral) inset,0 2px 0 var(--card)}
-.btab.on{border-top:2px solid var(--coral);padding-top:8px}
-.btab .bt-n{font-family:"DM Mono",monospace;font-size:11.5px;font-weight:400;color:var(--wait)}
-.btab.on .bt-n{color:var(--sub)}
+.btab{font-family:inherit;font-size:14px;font-weight:600;padding:10px 20px;border-radius:11px 11px 0 0;
+border:1px solid var(--line);border-bottom:none;background:#F1EFE9;color:#8A8072;cursor:pointer;
+display:flex;align-items:baseline;gap:9px;transition:.14s}
+.btab:hover{background:#E9E4D6;color:var(--sub)}
+.btab.on{background:var(--coral);border-color:var(--coral);color:#fff}
+.btab .bt-n{font-family:"DM Mono",monospace;font-size:11.5px;font-weight:400;color:#A69B88}
+.btab.on .bt-n{color:#FFE0D5}
 .btabs+.blk{border-radius:0 14px 14px 14px;margin-top:-1px}
 .bnote{font-size:11.5px;color:var(--wait);margin:0 0 10px 2px}
 .bnote b{color:var(--sub)}
@@ -116,7 +114,10 @@ border-right:1px solid var(--line)}
 .drill td{border-right:1px solid #F4EFE3}
 .drill td:last-child{border-right:none}
 .drill th.g,.drill td.g{border-right:1.5px solid #D6CFBC}
-.drill tr.tot td{background:#F1EFE9;font-weight:700;border-top:1.5px solid var(--line)}
+.drill tr.tot td{background:#EDE9DE;font-weight:700;border-top:none;
+border-bottom:2px solid #B8AC93;color:#3A322A}
+tbody tr.tot:first-child td.pk{background:#EDE9DE;
+box-shadow:inset 1.5px 0 0 #B8AC93,-6px 0 8px -6px rgba(0,0,0,.10)}
 tr.clk{cursor:pointer}
 tr.clk:hover td{background:#F7F3E9}
 tr.clk.opened td{background:#FFF1EB}
@@ -137,13 +138,16 @@ th{vertical-align:middle}
 table{table-layout:auto}
 tr.off td{color:var(--mute)}
 tr:hover td{background:#F7F3E9}
-tr.tot td{background:#F1EFE9;font-weight:700;border-top:1.5px solid var(--line)}
+tr.tot td{background:#EDE9DE;font-weight:700;border-top:none;
+border-bottom:2px solid #B8AC93;color:#3A322A}
+tbody tr.tot:first-child td.pk{background:#EDE9DE;
+box-shadow:inset 1.5px 0 0 #B8AC93,-6px 0 8px -6px rgba(0,0,0,.10)}
 th.pk,td.pk{position:sticky;right:0;z-index:3;background:var(--card);
-box-shadow:-6px 0 8px -6px rgba(0,0,0,.10)}
+box-shadow:inset 1.5px 0 0 #B8AC93, -6px 0 8px -6px rgba(0,0,0,.10)}
 th.pk{background:#F1EFE9;z-index:4}
 tr.grp0 th.pk{background:#E4DFD0}
 tr.grp th.pk{background:#EDE9DE}
-tr.tot td.pk{background:#F1EFE9}
+tr.tot td.pk{background:#EDE9DE}
 tr:hover td.pk{background:#F7F3E9}
 tr.off td.pk{background:var(--card)}
 tr.clk.opened td.pk{background:#FFF1EB}
@@ -167,7 +171,7 @@ border:1px solid var(--line);background:#fff;color:var(--sub);text-decoration:no
 
 <div class="topbar">
 <div><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">💬 작업 대화</a></div>
-<div class="crumb">AI 워크스페이스 › 클래스 › 클래스 목록<br><span class="meta">업데이트 2026.07.29 12:33 · v89</span></div>
+<div class="crumb">AI 워크스페이스 › 클래스 › 클래스 목록<br><span class="meta">업데이트 2026.07.29 13:19 · v93</span></div>
 </div>
 
 <div class="head">
@@ -211,7 +215,7 @@ border:1px solid var(--line);background:#fff;color:var(--sub);text-decoration:no
 <th data-k="pax" class="g">인원</th>
 <th data-k="rev">VAT 포함</th><th data-k="base" class="g">VAT 제외</th>
 <th data-k="rate">수수료</th><th data-k="recv">VAT 포함</th><th data-k="recvx" class="g">VAT 제외</th>
-<th data-k="base">정산기준</th><th data-k="payout">계<span class="sub2">실지급</span></th>
+<th data-k="base">정산기준</th><th data-k="payout" class="g">계<span class="sub2">실지급</span></th>
 <th data-k="cost" class="g">계</th>
 <th data-k="ours" class="pk">VAT 제외</th>
 </tr></thead><tbody id="tb"></tbody></table></div>
@@ -230,7 +234,7 @@ border:1px solid var(--line);background:#fff;color:var(--sub);text-decoration:no
 <a class="fbtn" href="#" id="dlx">📊 목록 CSV 받기</a>
 <a class="fbtn" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">💬 대화창에서 전체 받기</a>
 </div>
-<div class="foot">클래스 목록 · 2026.07.29 12:33 · v89</div>
+<div class="foot">클래스 목록 · 2026.07.29 13:19 · v93</div>
 </div>
 <script>
 document.getElementById('dlh').addEventListener('click',function(ev){ev.preventDefault();
@@ -324,16 +328,17 @@ function render(){
       '<td class="c" style="color:var(--sub)"'+(many?' title="'+e(x.st||'')+' — 클릭하면 항목별로 펼쳐집니다"':'')+'>'+
       (x.rate?x.rate+'%'+(many?' <span class="cx">▾</span>':''):'—')+'</td>'+
       '<td class="n">'+n(x.recv)+'</td><td class="n g">'+n(x.recvx)+'</td>'+
-      '<td class="n">'+n(x.base)+'</td><td class="n">'+n(x.payout)+'</td>'+
+      '<td class="n">'+n(x.base)+'</td><td class="n g">'+n(x.payout)+'</td>'+
       '<td class="n g">'+n(x.cost)+'</td>'+
       '<td class="n pk" style="font-weight:600">'+sn(x.ours)+'</td></tr>';
     if(op) h+=detail(x);});
-  h+='<tr class="tot"><td colspan="10" class="c g">합계 '+L.length+'건</td>'+
+  // 합계행은 표 맨 위에 둔다 — 필터 걸고 위 요약과 바로 대조하기 위해
+  var tot='<tr class="tot"><td colspan="10" class="c g">합계 '+L.length+'건</td>'+
      '<td class="n">'+n(t.rev)+'</td><td class="n g">'+n(t.base)+'</td><td></td>'+
      '<td class="n">'+n(t.recv)+'</td><td class="n g">'+n(t.recvx)+'</td>'+
-     '<td class="n">'+n(t.base)+'</td><td class="n">'+n(t.payout)+'</td>'+
+     '<td class="n">'+n(t.base)+'</td><td class="n g">'+n(t.payout)+'</td>'+
      '<td class="n g">'+n(t.cost)+'</td><td class="n pk">'+n(t.ours)+'</td></tr>';
-  document.getElementById('tb').innerHTML=h;
+  document.getElementById('tb').innerHTML=tot+h;
   document.getElementById('cnt').textContent=L.length+'건 / 전체 '+D.length+'건';
   cards(L);
 }
