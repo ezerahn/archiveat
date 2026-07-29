@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="version" content="v4"><meta name="updated" content="2026.07.29 13:07">
+<meta name="version" content="v4"><meta name="updated" content="2026.07.29 13:32">
 <title>클래스 설계 가이드</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,7 +68,7 @@ font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:cent
 
 <div class="topbar">
 <div><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="https://claude.ai/chat/909e7f28-5718-4bde-8997-e37348632306" target="_blank" rel="noopener">💬 작업 대화</a></div>
-<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.07.29 13:07 · v3</span></div>
+<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.07.29 13:32 · v3</span></div>
 </div>
 
 <div class="head">
@@ -179,8 +179,9 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 <code>제휴사 정산</code>처럼 방향이 안 보이는 말은 쓰지 않습니다.</p>
 </div>
 <h3>우리 몫 공식 (오프라인 제휴)</h3>
-<div class="rule"><b>PK 수익 = 제휴사 입금 − 선생님 정산(실지급) − 재료·배송비</b></div>
-<p>모두 <b>실제로 오간 금액</b>입니다. 선생님 정산은 계약 기준이 아니라 <b>통장에서 나간 실지급액</b>을 씁니다
+<div class="rule"><b>PK 수익 = 제휴사 입금(VAT 제외) − 선생님 정산(실지급) − 재료·배송비</b></div>
+<p><b>매출에 붙은 부가세는 국세청에 낼 돈이라 수익이 아닙니다.</b> 그래서 VAT 제외 기준으로 봅니다.
+지출 쪽(선생님 정산·재료비)은 부가세를 분리하지 않아 그만큼 <b>보수적으로 잡힙니다</b>. 선생님 정산은 계약 기준이 아니라 <b>통장에서 나간 실지급액</b>을 씁니다
 (사업자는 부가세를 얹어서, 프리랜서는 원천세를 떼고 나갑니다).</p>
 <h3>참고 — 계약 기준으로 본 배분 구조</h3>
 <div class="rule">계약 기준 몫(공급가 매출 대비 %) = <b>25% − 제휴사 수수료율</b></div>
@@ -198,7 +199,7 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 <tr><td>제휴사 입금</td><td class="c">○</td><td class="c">○</td></tr>
 <tr><td>선생님 정산</td><td class="c">—</td><td class="c">○</td></tr>
 <tr><td>재료·배송비</td><td class="c">—</td><td class="c">○</td></tr>
-<tr class="hi"><td>PK 수익</td><td class="c">—</td><td class="c">○</td></tr>
+<tr class="hi"><td><b>PK 수익</b></td><td class="c">—</td><td class="c"><b>○ ★ 기준</b></td></tr>
 </table>
 <div class="rule"><b>매출 구간</b>(클래스매출~제휴사 입금)만 VAT 포함·제외가 나뉩니다.
 <b>선생님 정산·재료비</b>는 VAT 구분 없이 한 가지 금액입니다.</div>
@@ -206,7 +207,8 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 <li>제휴사 수수료는 <b>부가세 포함 매출</b>에 수수료율을 곱합니다 (세금계산서도 그 금액 기준)</li>
 <li>선생님 정산은 <b>공급가 매출</b>(부가세 제외)의 75%입니다. 제휴사가 뗀 뒤 금액이 아닙니다</li>
 <li>재료비는 <b>실제 구매가(부가세 포함)</b> 그대로 씁니다. 매입세액공제 등 세무 처리는 이 화면에서 다루지 않습니다</li>
-<li>손익은 전부 <b>부가세를 뺀 기준</b>으로 봅니다</li>
+<li><b>PK 수익은 VAT 제외 기준</b> — 매출의 부가세를 빼고 봅니다 (2026-07-29 확정)</li>
+<li>생성기의 <code>VAT_BASE</code> 를 <code>"포함"</code> 으로 바꾸면 전환되지만, 그러면 부가세가 수익에 섞입니다</li>
 </ul>
 <h2 id="s07"><span class="n">07</span>선생님 정산 — 계약 기준과 실지급</h2><p class="h2d">같은 수업인데 통장 숫자가 다른 이유</p>
 <table>
@@ -407,7 +409,7 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 </table>
 </div>
 
-<div class="foot">클래스 설계 가이드 · 2026.07.29 13:07 · v4</div>
+<div class="foot">클래스 설계 가이드 · 2026.07.29 13:32 · v4</div>
 </div>
 <script>
 document.querySelector('.tabs').addEventListener('click',function(ev){
