@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="version" content="v13">
-<meta name="updated" content="2026.07.31 00:30">
+<meta name="version" content="v16">
+<meta name="updated" content="2026.07.31 01:35">
 <title>finance-investor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,14 +62,14 @@ body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Ne
 
 /* 분기 블록 */
 .qb{background:var(--surface);border:1px solid var(--line);border-radius:16px;margin-bottom:14px;overflow:hidden}
-.qb.now{border-color:var(--slate);box-shadow:0 0 0 1px rgba(74,78,105,.18)}
+.qb.now{border-color:rgba(74,78,105,.55);box-shadow:0 0 0 1px rgba(74,78,105,.2)}
 .qb.empty{border-style:dashed;background:transparent}
-.qh{display:flex;align-items:center;gap:11px;padding:13px 18px;background:rgba(36,31,27,.13);border-bottom:1px solid rgba(36,31,27,.18);flex-wrap:wrap}
-.qb.now .qh{background:rgba(36,31,27,.19)}
-.qb.empty .qh{background:rgba(36,31,27,.05);border-bottom-style:dashed}
-.qh .qn{font-family:Hahmlet,serif;font-size:20px;font-weight:700;letter-spacing:-.01em}
-.qh .qd{font-family:"DM Mono",monospace;font-size:12px;color:var(--muted)}
-.qh .qc{margin-left:auto;font-family:"DM Mono",monospace;font-size:12px;color:#3A332C;font-weight:500}
+.qh{display:flex;align-items:center;gap:11px;padding:13px 18px;background:rgba(74,78,105,.13);border-bottom:1px solid rgba(74,78,105,.26);flex-wrap:wrap}
+.qb.now .qh{background:rgba(74,78,105,.21)}
+.qb.empty .qh{background:rgba(74,78,105,.06);border-bottom-style:dashed}
+.qh .qn{font-family:Hahmlet,serif;font-size:20px;font-weight:700;letter-spacing:-.01em;color:#2F3346}
+.qh .qd{font-family:"DM Mono",monospace;font-size:12px;color:#5A5E78}
+.qh .qc{margin-left:auto;font-family:"DM Mono",monospace;font-size:12px;color:#3C4056;font-weight:600}
 .qb.empty .qh .qc{color:var(--muted)}
 
 .qr{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:16px;padding:14px 18px;border-bottom:1px solid var(--line)}
@@ -91,21 +91,23 @@ body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Ne
 .ig.first .igh{border-top:none}
 .igh .ign{font-size:14px;font-weight:700;letter-spacing:.01em}
 .igh .igc{font-size:11.5px;color:var(--muted);font-weight:400}
-.igh .st{font-size:11px;padding:2px 8px}
+.igh .st{font-size:11px;padding:2px 8px;font-weight:600}
 
 /* 요청 자료 칩 — 3색만 */
 .docs{display:flex;flex-wrap:wrap;gap:6px}
 .doc{display:inline-block;font-size:12px;padding:4px 10px;border-radius:7px;line-height:1.4;white-space:nowrap}
 .doc.todo{background:rgba(255,80,25,.10);color:#A8461F;border:1px solid rgba(255,80,25,.30);font-weight:600}
-.doc.done{background:var(--surface);color:#241F1B;border:1px solid #241F1B;font-weight:600}
-.doc.gray{background:transparent;color:#9C9487;border:1px dashed #D3CBBB}
+.doc.done{background:var(--surface);color:#5C544A;border:1px solid #B8AE9E;font-weight:600}
+.doc.gray{background:transparent;color:#A9A196;border:1px dashed #DCD4C4}
+.doc.miss{background:transparent;color:#8C857A;border:1px solid #DCD4C4}
 .doc i{font-style:normal;font-size:10.5px;opacity:.7;margin-left:3px;font-weight:400}
 
 /* 상태 — 제출 / 미제출 / 예정 */
 .st{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:6px;white-space:nowrap}
-.st.done{background:#241F1B;color:#FAF5EC}
+.st.done{background:transparent;color:#5C544A;border:1px solid #B8AE9E}
 .st.todo{background:var(--coral);color:#fff}
-.st.plan{background:#F1EFE9;color:#8C857A;border:1px solid #E0D8C7}
+.st.plan{background:transparent;color:#A9A196;border:1px dashed #DCD4C4}
+.st.miss{background:transparent;color:#8C857A;border:1px solid #DCD4C4}
 
 /* 배지 */
 .b{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
@@ -215,7 +217,7 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
   </div>
 
   <div class="tabs">
-    <button class="tab on" data-p="p26">2026 보고<span class="cnt">남은 일 5건</span></button>
+    <button class="tab on" data-p="p26">2026 보고<span class="cnt">남은 일 4건</span></button>
     <button class="tab" data-p="p25">2025 히스토리<span class="cnt">14건</span></button>
     <button class="tab" data-p="pg">가이드</button>
   </div>
@@ -224,7 +226,7 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
   <div class="pane on" id="p26">
 
     <section class="qb">
-      <div class="qh"><span class="qn">1Q</span><span class="qd">기준일 2026.03.31</span><span class="qc">남은 일 1건</span></div>
+      <div class="qh"><span class="qn">1Q</span><span class="qd">기준일 2026.03.31</span><span class="qc">지난 미제출 1건</span></div>
     <div class="ig first">
       <div class="igh"><span class="ign">더웰스</span></div>
       <div class="qr">
@@ -234,12 +236,12 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
         </div>
         <div>
           <div class="docs">
-            <span class="doc todo">보고현황 양식</span>
-            <span class="doc todo">가결산 재무제표</span>
-            <span class="doc todo">등기부등본</span>
-            <span class="doc todo">주주명부</span>
+            <span class="doc miss">보고현황 양식</span>
+            <span class="doc miss">가결산 재무제표</span>
+            <span class="doc miss">등기부등본</span>
+            <span class="doc miss">주주명부</span>
           </div>
-          <div class="rt"><span class="st todo">미제출</span><span style="font-size:11.5px;color:var(--muted)">기한 지남</span></div>
+          <div class="rt"><span class="st miss">미제출</span><span style="font-size:11.5px;color:var(--muted)">메일을 확인하지 못해 제출하지 못한 건 · 2Q 회신 때 함께 처리 가능</span></div>
         </div>
       </div>
     </div>
@@ -595,7 +597,7 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
     </div>
     </section>
     <section class="qb">
-      <div class="qh"><span class="qn">2Q</span><span class="qd">기준일 2025.06.30</span><span class="qc">4건 · 남은 일 1건</span></div>
+      <div class="qh"><span class="qn">2Q</span><span class="qd">기준일 2025.06.30</span><span class="qc">4건 · 지난 미제출 1건</span></div>
     <div class="ig first">
       <div class="igh"><span class="ign">더웰스</span><span class="st done">✓ 제출완료</span></div>
       <div class="qr">
@@ -632,14 +634,14 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
         </div>
         <div>
           <div class="docs">
-            <span class="doc todo">등기부등본<i>말소포함·최근 1개월 이내</i></span>
-            <span class="doc todo">가결산 재무제표</span>
-            <span class="doc todo">주주명부<i>날인본</i></span>
-            <span class="doc todo">4대사회보험가입자명부<i>최근 기준</i></span>
-            <span class="doc todo">회사현황<i>제출 링크에서 작성</i></span>
-            <span class="doc gray">인증 증빙<i>해당 시</i></span>
+            <span class="doc miss">등기부등본<i>말소포함·최근 1개월 이내</i></span>
+            <span class="doc miss">가결산 재무제표</span>
+            <span class="doc miss">주주명부<i>날인본</i></span>
+            <span class="doc miss">4대사회보험가입자명부<i>최근 기준</i></span>
+            <span class="doc miss">회사현황<i>제출 링크에서 작성</i></span>
+            <span class="doc miss">인증 증빙<i>해당 시</i></span>
           </div>
-          <div class="rt"><span class="st todo">미제출</span><span style="font-size:11.5px;color:var(--muted)">부가세 마감 신고 사유로 저쪽이 기한을 1주 연장</span></div>
+          <div class="rt"><span class="st miss">미제출</span><span style="font-size:11.5px;color:var(--muted)">저쪽이 기한을 1주 연장해 줬으나 제출 기록 없음</span></div>
         </div>
       </div>
       <div class="qr">
@@ -702,7 +704,7 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
     </div>
     </section>
     <section class="qb">
-      <div class="qh"><span class="qn">4Q</span><span class="qd">기준일 2025.12.31</span><span class="qc">6건 · 남은 일 2건</span></div>
+      <div class="qh"><span class="qn">4Q</span><span class="qd">기준일 2025.12.31</span><span class="qc">6건 · 지난 미제출 2건</span></div>
     <div class="ig first">
       <div class="igh"><span class="ign">더웰스</span><span class="st done">✓ 제출완료</span></div>
       <div class="qr">
@@ -745,14 +747,14 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
         </div>
         <div>
           <div class="docs">
-            <span class="doc todo">등기부등본<i>말소포함·최근 1개월 이내</i></span>
-            <span class="doc todo">가결산 재무제표</span>
-            <span class="doc todo">주주명부<i>날인본</i></span>
-            <span class="doc todo">4대사회보험가입자명부<i>최근 기준</i></span>
-            <span class="doc todo">회사현황<i>제출 링크에서 작성</i></span>
-            <span class="doc gray">인증 증빙<i>해당 시</i></span>
+            <span class="doc miss">등기부등본<i>말소포함·최근 1개월 이내</i></span>
+            <span class="doc miss">가결산 재무제표</span>
+            <span class="doc miss">주주명부<i>날인본</i></span>
+            <span class="doc miss">4대사회보험가입자명부<i>최근 기준</i></span>
+            <span class="doc miss">회사현황<i>제출 링크에서 작성</i></span>
+            <span class="doc miss">인증 증빙<i>해당 시</i></span>
           </div>
-          <div class="rt"><span class="st todo">미제출</span></div>
+          <div class="rt"><span class="st miss">미제출</span><span style="font-size:11.5px;color:var(--muted)">제출 기록 없음</span></div>
         </div>
       </div>
       <div class="qr">
@@ -778,9 +780,9 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
         </div>
         <div>
           <div class="docs">
-            <span class="doc todo">표준재무제표증명원<i>또는 주총승인 최종재무제표(인감)</i></span>
+            <span class="doc miss">표준재무제표증명원<i>또는 주총승인 최종재무제표(인감)</i></span>
           </div>
-          <div class="rt"><span class="st todo">미제출</span><span style="font-size:11.5px;color:var(--muted)">가결산으로 냈기 때문에 온 요청</span></div>
+          <div class="rt"><span class="st miss">미제출</span><span style="font-size:11.5px;color:var(--muted)">가결산으로 냈기 때문에 온 요청 · 제출 기록 없음</span></div>
         </div>
       </div>
       <div class="qr">
@@ -804,7 +806,7 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
     </div>
     </section>
     <section class="qb empty">
-      <div class="qh"><span class="qn">그 이전</span><span class="qd">기준일 2024.12.31</span><span class="qc">3건 · 기록 일부</span></div>
+      <div class="qh"><span class="qn">그 이전</span><span class="qd">기준일 2024.12.31</span><span class="qc">3건 · 지난 미제출 1건</span></div>
     <div class="ig first">
       <div class="igh"><span class="ign">더웰스</span><span class="st done">✓ 제출완료</span></div>
       <div class="qr">
@@ -846,10 +848,10 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
         </div>
         <div>
           <div class="docs">
-            <span class="doc todo">4대보험 가입자명부<i>최근 발급본</i></span>
-            <span class="doc todo">고용현황 인원수<i>메일 본문에 작성</i></span>
+            <span class="doc miss">4대보험 가입자명부<i>최근 발급본</i></span>
+            <span class="doc miss">고용현황 인원수<i>메일 본문에 작성</i></span>
           </div>
-          <div class="rt"><span class="st todo">미제출</span><span style="font-size:11.5px;color:var(--muted)">타사 회신 메일에 인용된 원문으로 확인</span></div>
+          <div class="rt"><span class="st miss">미제출</span><span style="font-size:11.5px;color:var(--muted)">타사 회신 메일에 인용된 원문으로 확인 · 제출 기록 없음</span></div>
         </div>
       </div>
     </div>
@@ -1139,10 +1141,12 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
   </div>
 
   <p class="legend">
-    칩 색 — <span class="doc todo">준비할 자료</span> 아직 안 보낸 것 &nbsp;·&nbsp;
-    <span class="doc done">✓ 제출한 자료</span> 이미 보낸 것 &nbsp;·&nbsp;
-    <span class="doc gray">미확인</span> 원본 메일이 필요하거나 해당 없음<br>
-    상태 — <span class="st done">✓ 제출</span> &nbsp; <span class="st todo">미제출</span> &nbsp; <span class="st plan">예정</span>
+    칩 — <span class="doc todo">준비할 자료</span> 이번에 보낼 것 &nbsp;
+    <span class="doc done">✓ 제출한 자료</span> 보낸 것 &nbsp;
+    <span class="doc miss">지난 미제출</span> 기한 지난 것 &nbsp;
+    <span class="doc gray">미확인</span> 아직 모르는 것<br>
+    상태 — <span class="st done">✓ 제출</span> 보낸 것 &nbsp; <span class="st todo">미제출</span> <b>이번 회차에 보낼 것</b> &nbsp; <span class="st miss">미제출</span> 기한이 지난 것 &nbsp; <span class="st plan">예정</span> 아직 요청이 안 온 것<br>
+    기한이 지난 미제출 건은 색을 뺐습니다. 지금 할 일은 <b>코랄</b>만 보시면 됩니다. 나중에 보내면 칩에 ✓를 붙이고 상태를 ✓ 제출로 바꿉니다.
   </p>
 
   <p class="opnote">
@@ -1156,7 +1160,7 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
     <div class="fl"><div class="fn"><b>작업 대화에서 전체 받기</b><span>claude.ai/chat/17924d1e…</span></div><a class="dl" href="https://claude.ai/chat/17924d1e-fd45-4cc2-b0df-e3ce10789c88" target="_blank" rel="noopener">열기</a></div>
   </div>
 
-  <div class="foot">finance-investor · <span id="footver">v13</span> · 주식회사 공공의주방 · archiveat.kr · 2026</div>
+  <div class="foot">finance-investor · <span id="footver">v16</span> · 주식회사 공공의주방 · archiveat.kr · 2026</div>
 
 </div>
 <script>
