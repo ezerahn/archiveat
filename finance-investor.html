@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="version" content="v16">
-<meta name="updated" content="2026.07.31 01:35">
+<meta name="version" content="v18">
+<meta name="updated" content="2026.07.31 02:35">
 <title>finance-investor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,6 +59,21 @@ body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Ne
 .tab.on .cnt{color:var(--slate)}
 .pane{display:none}
 .pane.on{display:block}
+/* 안쪽 탭 (가이드) */
+.tabs2{display:flex;gap:5px;flex-wrap:wrap;margin:22px 0 18px;padding-bottom:0;border-bottom:1px solid var(--line)}
+.tab2{appearance:none;background:none;border:none;font-family:inherit;font-size:13px;font-weight:600;color:var(--muted);
+      padding:8px 14px;cursor:pointer;border-radius:9px 9px 0 0;position:relative;top:1px;border-bottom:2px solid transparent;transition:.15s}
+.tab2:hover{color:var(--ink);background:rgba(74,78,105,.05)}
+.tab2.on{color:#2F3346;border-bottom-color:rgba(74,78,105,.7);background:var(--surface)}
+.tab2 .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--coral);margin-left:6px;vertical-align:1px}
+.pane2{display:none}
+.pane2.on{display:block}
+/* 요약 고정 박스 */
+.sumbox{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px 14px;margin-bottom:4px}
+.sumbox h3{margin:0 0 10px;font-family:Hahmlet,serif;font-size:18px;font-weight:700}
+.sumbox .tw{margin-bottom:4px}
+/* 투자사 요약 세로표 */
+table.vt th{width:120px;background:rgba(74,78,105,.05);white-space:nowrap}
 
 /* 분기 블록 */
 .qb{background:var(--surface);border:1px solid var(--line);border-radius:16px;margin-bottom:14px;overflow:hidden}
@@ -92,6 +107,7 @@ body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Ne
 .igh .ign{font-size:14px;font-weight:700;letter-spacing:.01em}
 .igh .igc{font-size:11.5px;color:var(--muted);font-weight:400}
 .igh .st{font-size:11px;padding:2px 8px;font-weight:600}
+.igh .st.done{background:#241F1B;color:#FAF5EC;border-color:#241F1B}
 
 /* 요청 자료 칩 — 3색만 */
 .docs{display:flex;flex-wrap:wrap;gap:6px}
@@ -225,6 +241,14 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
   <!-- ============ 2026 ============ -->
   <div class="pane on" id="p26">
 
+    <div class="tabs2">
+      <button class="tab2" data-p2="q26-0">1Q</button>
+      <button class="tab2 on" data-p2="q26-1">2Q<span class="dot"></span></button>
+      <button class="tab2" data-p2="q26-2">3Q</button>
+      <button class="tab2" data-p2="q26-3">4Q</button>
+    </div>
+
+    <div class="pane2" id="q26-0">
     <section class="qb">
       <div class="qh"><span class="qn">1Q</span><span class="qd">기준일 2026.03.31</span><span class="qc">지난 미제출 1건</span></div>
     <div class="ig first">
@@ -266,6 +290,9 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
       <div class="igh"><span class="ign">액트너랩</span><span class="igc">해당 없음 — 반기(2Q·4Q)만 요청</span></div>
     </div>
     </section>
+    </div>
+
+    <div class="pane2 on" id="q26-1">
     <section class="qb now">
       <div class="qh"><span class="qn">2Q</span><span class="qd">기준일 2026.06.30</span><span class="qc">남은 일 4건 · 진행 중</span></div>
     <div class="ig first">
@@ -371,6 +398,9 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
       </div>
     </div>
     </section>
+    </div>
+
+    <div class="pane2" id="q26-2">
     <section class="qb empty">
       <div class="qh"><span class="qn">3Q</span><span class="qd">기준일 2026.09.30</span><span class="qc">예정</span></div>
     <div class="ig first">
@@ -411,6 +441,9 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
       <div class="igh"><span class="ign">액트너랩</span><span class="igc">해당 없음 — 반기(2Q·4Q)만 요청</span></div>
     </div>
     </section>
+    </div>
+
+    <div class="pane2" id="q26-3">
     <section class="qb empty">
       <div class="qh"><span class="qn">4Q</span><span class="qd">기준일 2026.12.31</span><span class="qc">예정 · 5건</span></div>
     <div class="ig first">
@@ -498,8 +531,9 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
       </div>
     </div>
     </section>
+    </div>
 
-    <details>
+        <details>
       <summary>이번 회차 준비 체크리스트<span class="sc">12항목</span></summary>
       <div class="dbody ck">
         <label class="row" onchange="this.classList.toggle('done',this.querySelector('input').checked)">
@@ -558,6 +592,15 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
   <!-- ============ 2025 ============ -->
   <div class="pane" id="p25">
 
+    <div class="tabs2">
+      <button class="tab2" data-p2="q25-0">1Q</button>
+      <button class="tab2" data-p2="q25-1">2Q</button>
+      <button class="tab2" data-p2="q25-2">3Q</button>
+      <button class="tab2 on" data-p2="q25-3">4Q</button>
+      <button class="tab2" data-p2="q25-4">그 이전</button>
+    </div>
+
+    <div class="pane2" id="q25-0">
     <section class="qb">
       <div class="qh"><span class="qn">1Q</span><span class="qd">기준일 2025.03.31</span><span class="qc">2건</span></div>
     <div class="ig first">
@@ -596,6 +639,9 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
       <div class="igh"><span class="ign">액트너랩</span><span class="igc">해당 없음 — 반기(2Q·4Q)만 요청</span></div>
     </div>
     </section>
+    </div>
+
+    <div class="pane2" id="q25-1">
     <section class="qb">
       <div class="qh"><span class="qn">2Q</span><span class="qd">기준일 2025.06.30</span><span class="qc">4건 · 지난 미제출 1건</span></div>
     <div class="ig first">
@@ -662,6 +708,9 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
       <div class="igh"><span class="ign">액트너랩</span><span class="igc">해당 없음 — 반기(2Q·4Q)만 요청</span></div>
     </div>
     </section>
+    </div>
+
+    <div class="pane2" id="q25-2">
     <section class="qb">
       <div class="qh"><span class="qn">3Q</span><span class="qd">기준일 2025.09.30</span><span class="qc">2건</span></div>
     <div class="ig first">
@@ -703,6 +752,9 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
       <div class="igh"><span class="ign">액트너랩</span><span class="igc">해당 없음 — 반기(2Q·4Q)만 요청</span></div>
     </div>
     </section>
+    </div>
+
+    <div class="pane2 on" id="q25-3">
     <section class="qb">
       <div class="qh"><span class="qn">4Q</span><span class="qd">기준일 2025.12.31</span><span class="qc">6건 · 지난 미제출 2건</span></div>
     <div class="ig first">
@@ -805,6 +857,9 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
       </div>
     </div>
     </section>
+    </div>
+
+    <div class="pane2" id="q25-4">
     <section class="qb empty">
       <div class="qh"><span class="qn">그 이전</span><span class="qd">기준일 2024.12.31</span><span class="qc">3건 · 지난 미제출 1건</span></div>
     <div class="ig first">
@@ -859,284 +914,267 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
       <div class="igh"><span class="ign">액트너랩</span><span class="igc">요청 메일 기록 없음 — "예년과 같이"라는 문구로 존재만 확인</span></div>
     </div>
     </section>
+    </div>
+
+
   </div>
 
   <!-- ============ 가이드 ============ -->
   <div class="pane" id="pg">
 
-    <h2><span class="n">01</span>분기 패턴</h2>
-    <div class="hline"></div>
-    <p class="lead" style="margin-bottom:14px"><b>날짜 읽는 법</b> — 블록 제목의 <b>기준일</b>은 투자사가 묻는 시점, <b>받은 날</b>은 요청 메일이 온 날, <b>회신 기한</b>은 그 메일에 적힌 마감입니다. 기준일이 12/31인 회차는 요청·회신이 이듬해 1~2월에 벌어지므로 연도를 꼭 함께 봅니다.</p>
+  <div class="sumbox">
+    <h3>분기 패턴</h3>
+    <p class="lead" style="margin-bottom:10px"><b>날짜 읽는 법</b> — 블록 제목의 <b>기준일</b>은 투자사가 묻는 시점, <b>받은 날</b>은 요청 메일이 온 날, <b>회신 기한</b>은 그 메일에 적힌 마감입니다. 기준일이 12/31인 회차는 요청·회신이 이듬해 1~2월에 벌어지므로 연도를 꼭 함께 봅니다.</p>
     <p class="lead">세 곳이 모두 매분기 뭔가를 요청합니다. 다만 <b>2Q·4Q(반기)에 건수와 서류가 몰립니다.</b></p>
     <div class="tw">
     <table>
-      <tr><th>분기</th><th class="c">액트너랩</th><th class="c">더웰스</th><th class="c">MYSC</th><th>합계</th></tr>
-      <tr><td class="num"><b>1Q</b> 3/31</td><td class="c dash">—</td><td class="c">메일 1통 · 4종</td><td class="c">고용현황<br><span style="font-size:11px;color:#8C857A">명부 1장</span></td><td>2건 · 가벼움</td></tr>
-      <tr class="hi"><td class="num"><b>2Q</b> 6/30</td><td class="c yes">6종</td><td class="c"><b>메일 2통</b> · 4종 + 양식</td><td class="c"><b>고용현황<br>+ 반기결산 5종</b></td><td><b>5건 · 무거움</b></td></tr>
-      <tr><td class="num"><b>3Q</b> 9/30</td><td class="c dash">—</td><td class="c">메일 1통 · 4종</td><td class="c">고용현황<br><span style="font-size:11px;color:#8C857A">명부 1장</span></td><td>2건 · 가벼움</td></tr>
-      <tr class="hi"><td class="num"><b>4Q</b> 12/31</td><td class="c yes">6종</td><td class="c"><b>메일 2통</b> · 4종 + 양식</td><td class="c"><b>고용현황<br>+ 온기결산 5종</b></td><td><b>5건 · 무거움</b></td></tr>
+      <tr><th>분기</th><th class="c">더웰스</th><th class="c">MYSC</th><th class="c">액트너랩</th><th>합계</th></tr>
+      <tr><td class="num"><b>1Q</b> 3/31</td><td class="c">메일 1통 · 4종</td><td class="c">고용현황<br><span style="font-size:11px;color:#8C857A">명부 1장</span></td><td class="c dash">—</td><td>2건 · 가벼움</td></tr>
+      <tr class="hi"><td class="num"><b>2Q</b> 6/30</td><td class="c"><b>메일 2통</b> · 4종 + 양식</td><td class="c"><b>고용현황<br>+ 반기결산 5종</b></td><td class="c yes">6종</td><td><b>5건 · 무거움</b></td></tr>
+      <tr><td class="num"><b>3Q</b> 9/30</td><td class="c">메일 1통 · 4종</td><td class="c">고용현황<br><span style="font-size:11px;color:#8C857A">명부 1장</span></td><td class="c dash">—</td><td>2건 · 가벼움</td></tr>
+      <tr class="hi"><td class="num"><b>4Q</b> 12/31</td><td class="c"><b>메일 2통</b> · 4종 + 양식</td><td class="c"><b>고용현황<br>+ 온기결산 5종</b></td><td class="c yes">6종</td><td><b>5건 · 무거움</b></td></tr>
     </table>
     <caption>여기에 액트너랩 최종결산 재요청이 이듬해 6월에 한 번 더 붙습니다. 연 14건 + 재요청 1건.</caption>
     </div>
+  </div>
+
+  <div class="tabs2">
+    <button class="tab2 on" data-p2="g-dw">더웰스</button>
+    <button class="tab2" data-p2="g-my">MYSC</button>
+    <button class="tab2" data-p2="g-ac">액트너랩</button>
+    <button class="tab2" data-p2="g-doc">서류 · 규칙</button>
+  </div>
+
+  <div class="pane2 on" id="g-dw">
+    <div class="tw">
+    <table class="vt">
+      <tr><th>주기</th><td>분기 · 연 4회 — 회차마다 <b>메일 1~2통</b></td></tr>
+      <tr><th>제출 방법</th><td>메일 회신 (첨부)</td></tr>
+      <tr><th>보고 양식</th><td><b>있음</b> — 전용 xls를 요청 메일에 첨부해 보냄</td></tr>
+      <tr><th>인감날인</th><td>주주명부 (날인본)</td></tr>
+      <tr><th>등기부등본</th><td>조건 명시 없음</td></tr>
+      <tr><th>4대보험명부</th><td><b>세부 개인정보 미포함</b></td></tr>
+      <tr><th>기한 조정</th><td>기한 초과 시 <b>사전 연락하면 조정</b> · 최근일자 자료로 우선 제출 허용</td></tr>
+    </table>
+    </div>
 
     <div class="card">
-      <h4>더웰스 — 1Q·3Q는 같고, 2Q·4Q에 4대보험명부가 붙습니다</h4>
+      <h4>1Q·3Q는 같고, 2Q·4Q에 4대보험명부가 붙습니다</h4>
       <p>1Q와 3Q는 <b>보고현황 양식 · 가결산재무제표 · 등기부등본 · 주주명부</b> 4종으로 동일합니다. 2Q·4Q는 조합 반기보고가 걸려 메일이 두 통으로 갈리고 <b>4대보험 가입자명부</b>가 추가됩니다.</p>
       <p><b>제목으로 구분하면 틀립니다.</b> 3Q는 제목이 "자료 요청의 건"인데 양식 제출형이고, 2026 1Q는 "사후관리보고서 요청의 건"인데 같은 4종입니다. <b>메일이 몇 통 오는지</b>로 봐야 합니다.</p>
+      <p>(A) 자료 요청을 기한 안에 내면 (B) 사후관리보고서는 <b>양식 하나</b>로 끝납니다.</p>
     </div>
 
-    <div class="card">
-      <h4>MYSC — 두 갈래가 따로 옵니다</h4>
-      <p><b>고용현황 보고</b>는 매분기, 제목이 <code>[엠와이소셜컴퍼니] 26년 2분기 고용현황 보고(4대 사회보험 가입자 명부 제출)</code> 형태입니다. 4대보험 가입자명부 1장 + 메일 본문에 인원수(전체/만39세 미만 청년, 대표자 포함)만 쓰면 끝납니다. <b>기한 내 미제출 시 고용현황 0명으로 보고된다</b>고 명시돼 있습니다.</p>
-      <p><b>결산·회사현황보고</b>는 반기(6/30·12/31 기준)로, 제목이 <code>2026년 반기 가결산 재무제표 및 회사현황보고 제출 요청</code> 형태입니다. 서류 5종이고, <b>메일 회신이 아니라 제출 링크에 업로드</b>합니다. 회사현황도 링크에서 작성합니다(2024년까지는 xls 서식 첨부였습니다).</p>
-    </div>
-
-    <h2><span class="n">02</span>투자사 정보</h2>
-    <div class="hline"></div>
+    <h3>연락처</h3>
     <div class="tw">
     <table>
-      <tr><th></th><th>액트너랩제1호개인투자조합</th><th>더웰스인베스트먼트</th><th>MYSC (엠와이소셜컴퍼니)</th></tr>
-      <tr><td><b>주기</b></td><td>반기 · 연 2회<br>온기(12/31) · 상반기(6/30)</td><td>분기 · 연 4회<br>회차마다 메일 1~2통</td><td><b>두 갈래</b><br>고용현황 분기 · 결산 반기</td></tr>
-      <tr><td><b>제출 방법</b></td><td>메일 회신 (첨부)</td><td>메일 회신 (첨부)</td><td><b>결산=제출 링크 업로드</b><br>고용현황=메일 회신</td></tr>
-      <tr><td><b>보고 양식</b></td><td>없음 — 메일 본문에 영업보고</td><td><b>있음</b> — 전용 xls 발송</td><td><b>있음</b> — 제출 링크에서 작성</td></tr>
-      <tr><td><b>인감날인</b></td><td>재무제표 · 주주명부 <b>必</b></td><td>주주명부 (날인본)</td><td>주주명부 (날인본)<br>동의서는 전자서명 권장</td></tr>
-      <tr><td><b>등기부등본 조건</b></td><td>말소포함 · <b>기준일 이후</b> 발급본</td><td>조건 명시 없음</td><td>말소포함 · <b>최근 1개월 이내</b> 발급본</td></tr>
-      <tr><td><b>특이사항</b></td><td>가결산으로 내면 이듬해 6월에 최종본 재요청</td><td>4대보험명부 세부 개인정보 미포함 · 기한 초과 시 사전 연락하면 조정</td><td>부가세 신고와 겹쳐 기한이 연장된 전례 2회 · 미제출 시 고용현황 0명 보고</td></tr>
+      <tr><th class="c">구분</th><th>이름</th><th>직위</th><th>이메일</th><th>전화</th></tr>
+      <tr><td class="c"><span class="st todo">수신</span></td><td><b>박유민</b><br><span style="font-size:11.5px;color:#8C857A">Yumin Park</span></td><td>대리 · 관리팀</td><td class="num">yumin@investwells.com</td><td class="num">070-4443-0270<br>02-552-1203(대표)</td></tr>
+      <tr><td class="c"><span class="st miss">참조</span></td><td><b>정한철</b><br><span style="font-size:11.5px;color:#8C857A">Han-Cheol Jeong</span></td><td>전무</td><td class="num">jeong@investwells.com</td><td class="dash">—</td></tr>
+      <tr><td class="c"><span class="st plan">바뀜</span></td><td>김윤경 <span style="font-size:11.5px;color:#8C857A">Yunkyung Kim</span></td><td>과장 · ~2026.05</td><td class="num">kyk@investwells.com</td><td class="dash">회신처로 쓰지 말 것</td></tr>
+    </table>
+    <caption>주소 — 서울 강남구 테헤란로 87길 22, 도심공항터미널 419호 (06164)</caption>
+    </div>
+
+    <h3>보낸 파일명 이력</h3>
+    <div class="tw">
+    <table>
+      <tr><th>보낸 날</th><th>건</th><th>첨부 파일명</th></tr>
+      <tr class="hi"><td class="num">2026.07.10</td><td>2Q 자료</td><td class="num" style="font-size:11.5px">4대보험사업자가입자명부.pdf · 161.0KB<br>등기부등본.pdf · 2.5MB<br>주주명부_공공의주방.pdf · 65.3KB<br><span style="color:#A8461F">순번 없음 · 회사명은 주주명부에만</span></td></tr>
+      <tr><td class="num">2026.02.02</td><td>25년 4Q 보고서</td><td class="num" style="font-size:11.5px">25년 가결산 재무제표_공공의주방.pdf · 335.1KB<br>공공의주방_2025년 4분기 보고.xls · 217.5KB</td></tr>
+      <tr><td class="num">2026.01.02</td><td>25년 4Q 자료</td><td class="num" style="font-size:11.5px">01 4대보험가입자명부_공공의주방.pdf · 163.8KB<br>02 주주명부_공공의주방.pdf · 60.9KB<br>03 법인등기부등본_공공의주방.pdf · 2.2MB<br>04 가결산 재무제표(25.09.30)_공공의주방.pdf · 336.1KB</td></tr>
+    </table>
+    </div>
+  </div>
+
+  <div class="pane2" id="g-my">
+    <div class="tw">
+    <table class="vt">
+      <tr><th>주기</th><td><b>두 갈래</b> — 고용현황 <b>분기</b> · 결산 <b>반기</b></td></tr>
+      <tr><th>제출 방법</th><td>결산 = <b>제출 링크 업로드</b> (메일 회신 아님)<br>고용현황 = 요청 메일에 회신</td></tr>
+      <tr><th>보고 양식</th><td><b>있음</b> — 제출 링크에서 회사현황 작성 (2024년까지는 xls 서식)</td></tr>
+      <tr><th>인감날인</th><td>주주명부 (날인본) · 동의서·의결서는 <b>전자서명 권장</b></td></tr>
+      <tr><th>등기부등본</th><td>말소사항 포함 · <b>최근 1개월 이내</b> 발급본 ← 세 곳 중 가장 엄격</td></tr>
+      <tr><th>기한 조정</th><td>부가세 신고와 겹쳐 <b>저쪽이 기한을 연장한 전례 2회</b> (2025·2026)</td></tr>
+      <tr><th>주의</th><td>고용현황 기한 내 미제출 시 <b>고용현황 0명으로 보고</b>된다고 명시</td></tr>
     </table>
     </div>
 
-    <h3>메일 보낼 곳 — 수신 · 참조</h3>
-    <div class="tw">
-    <table>
-      <tr><th>투자사</th><th class="c">구분</th><th>이름</th><th>직위 · 소속</th><th>이메일</th><th>전화</th></tr>
-
-      <tr><td rowspan="2"><span class="inv ac">액트너랩</span></td>
-        <td class="c"><span class="b b-need">수신</span></td>
-        <td><b>조영래</b><br><span style="font-size:11.5px;color:#8C857A">Sarah Cho</span></td>
-        <td>투자심사역 · 과장</td>
-        <td class="num">yrae@actnerlab.com</td>
-        <td class="num">02-6257-6257</td></tr>
-      <tr><td class="c"><span class="b b-no">참조</span></td>
-        <td><b>조인제</b></td><td>의장</td>
-        <td class="num">je7432@actnerlab.com</td><td class="dash">—</td></tr>
-
-      <tr><td rowspan="2"><span class="inv dw">더웰스</span></td>
-        <td class="c"><span class="b b-need">수신</span></td>
-        <td><b>박유민</b><br><span style="font-size:11.5px;color:#8C857A">Yumin Park</span></td>
-        <td>대리 · 관리팀</td>
-        <td class="num">yumin@investwells.com</td>
-        <td class="num">070-4443-0270<br>02-552-1203(대표)</td></tr>
-      <tr><td class="c"><span class="b b-no">참조</span></td>
-        <td><b>정한철</b><br><span style="font-size:11.5px;color:#8C857A">Han-Cheol Jeong</span></td>
-        <td>전무</td>
-        <td class="num">jeong@investwells.com</td><td class="dash">—</td></tr>
-
-      <tr><td rowspan="2"><span class="inv my">MYSC</span></td>
-        <td class="c"><span class="b b-need">수신</span></td>
-        <td><b>강현주</b><br><span style="font-size:11.5px;color:#8C857A">Hyunjoo Kang · 헤일리</span></td>
-        <td>책임연구원 · 투자센터 투자관리팀</td>
-        <td class="num">hjkang0907@mysc.co.kr</td>
-        <td class="num">070-4858-9695</td></tr>
-      <tr><td class="c"><span class="b b-no">참조</span></td>
-        <td><b>투자관리팀</b></td><td>팀 계정 · 전자서명 요청도 이 주소</td>
-        <td class="num">impact@mysc.co.kr</td><td class="dash">—</td></tr>
-
-      <tr><td rowspan="3"><span class="b b-no">우리 쪽</span><br><span style="font-size:11.5px;color:#8C857A">세 곳 공통</span></td>
-        <td class="c"><span class="b b-no">참조</span></td>
-        <td><b>안상미</b></td><td>대표</td>
-        <td class="num">ceo@acvt.kr</td><td class="dash">—</td></tr>
-      <tr><td class="c"><span class="b b-no">참조</span></td>
-        <td><b>최성제</b></td><td>부대표</td>
-        <td class="num">dchoi@acvt.kr</td><td class="dash">—</td></tr>
-      <tr><td class="c"><span class="b b-no">발신</span></td>
-        <td><b>최주애</b></td><td>경영기획 과장</td>
-        <td class="num">juae@acvt.kr</td><td class="dash">—</td></tr>
-    </table>
-    <caption>지난 회차는 최주애 과장이 발신하고 대표·부대표를 참조에 넣었습니다. 대표님이 직접 보내실 때는 발신자만 바뀌고 참조 구성은 같습니다.</caption>
-    </div>
-
-    <h3>바뀐 담당자 — 회신처로 쓰지 말 것</h3>
-    <div class="tw">
-    <table>
-      <tr><th>투자사</th><th>이름</th><th>이메일</th><th>기간</th></tr>
-      <tr><td><span class="inv dw">더웰스</span></td><td>김윤경 <span style="font-size:11.5px;color:#8C857A">Yunkyung Kim · 과장</span></td><td class="num">kyk@investwells.com</td><td class="num">~ 2026.05</td></tr>
-      <tr><td><span class="inv my">MYSC</span></td><td>윤지수 <span style="font-size:11.5px;color:#8C857A">Jisu Yoon · 팀장</span></td><td class="num">jsyoon@mysc.co.kr</td><td class="num">2025.01 무렵</td></tr>
-      <tr><td><span class="inv my">MYSC</span></td><td>신예진 <span style="font-size:11.5px;color:#8C857A">Yeajin Shin · 연구원</span></td><td class="num">yjshin@mysc.co.kr</td><td class="num">2024</td></tr>
-    </table>
-    <caption>담당자는 조용히 교체됩니다. 회신 전에 <b>가장 최근 요청 메일의 발신자</b>를 다시 확인하세요.</caption>
+    <div class="card">
+      <h4>두 갈래가 따로 옵니다</h4>
+      <p><b>고용현황 보고</b>는 매분기, 제목이 <code>[엠와이소셜컴퍼니] 26년 2분기 고용현황 보고(4대 사회보험 가입자 명부 제출)</code> 형태입니다. 4대보험 가입자명부 1장 + <b>메일 본문에 인원수</b>(전체 임직원수 / 만39세 미만 청년, 대표자 포함)를 적으면 끝납니다.</p>
+      <p><b>결산·회사현황보고</b>는 반기(6/30·12/31 기준)로, 제목이 <code>2026년 반기 가결산 재무제표 및 회사현황보고 제출 요청</code> 형태입니다. 서류 5종이고 제출 링크에 업로드합니다.</p>
     </div>
 
     <div class="card">
-      <h4>보낼 곳이 메일이 아닌 경우 — MYSC 결산</h4>
-      <p>MYSC <b>반기·온기 결산</b>은 메일 회신이 아니라 <b>요청 메일에 있는 제출 링크에 업로드</b>합니다. 회사현황도 링크에서 작성합니다. 위 연락처는 문의·조율용입니다.</p>
-      <p>MYSC <b>분기 고용현황</b>은 요청 메일에 그대로 회신하면 됩니다.</p>
+      <h4>동의서·의결서는 전자서명으로</h4>
+      <p>MYSC가 2026.07.07 메일에서 안내한 내용입니다. 등기 변경 등으로 <b>반드시 실물 조합인감 날인과 동의서 원본이 필요한 경우가 아니라면</b>, 모두싸인·도큐싸인 등 전자서명 플랫폼을 통한 전자서명으로 날인을 요청해 달라고 했습니다. 요청 메일 주소는 <code>impact@mysc.co.kr</code>입니다.</p>
+      <p style="color:var(--muted);font-size:12.5px">※ 정기주주총회 관련 왕복은 이 화면에서 다루지 않습니다. 별도로 정리합니다.</p>
+    </div>
+
+    <h3>연락처</h3>
+    <div class="tw">
+    <table>
+      <tr><th class="c">구분</th><th>이름</th><th>직위 · 소속</th><th>이메일</th><th>전화</th></tr>
+      <tr><td class="c"><span class="st todo">수신</span></td><td><b>강현주</b><br><span style="font-size:11.5px;color:#8C857A">Hyunjoo Kang · 헤일리</span></td><td>책임연구원 · 투자센터 투자관리팀</td><td class="num">hjkang0907@mysc.co.kr</td><td class="num">070-4858-9695</td></tr>
+      <tr><td class="c"><span class="st miss">참조</span></td><td><b>투자관리팀</b></td><td>팀 계정 · 전자서명 요청도 이 주소</td><td class="num">impact@mysc.co.kr</td><td class="dash">—</td></tr>
+      <tr><td class="c"><span class="st plan">바뀜</span></td><td>윤지수 <span style="font-size:11.5px;color:#8C857A">Jisu Yoon</span></td><td>팀장 · 2025.01 무렵</td><td class="num">jsyoon@mysc.co.kr</td><td class="dash">회신처로 쓰지 말 것</td></tr>
+      <tr><td class="c"><span class="st plan">바뀜</span></td><td>신예진 <span style="font-size:11.5px;color:#8C857A">Yeajin Shin</span></td><td>연구원 · 2024</td><td class="num">yjshin@mysc.co.kr</td><td class="dash">회신처로 쓰지 말 것</td></tr>
+    </table>
+    <caption>주소 — 서울시 성동구 연무장13길 8, 메리히어 4층 401호 (04783)</caption>
+    </div>
+
+    <h3>보낸 파일명 이력</h3>
+    <div class="tw">
+    <table>
+      <tr><th>보낸 날</th><th>건</th><th>첨부 파일명</th></tr>
+      <tr class="hi"><td class="num">2026.06.30</td><td>26년 2Q 고용현황</td><td class="num" style="font-size:11.5px">Report.pdf · 161.0KB<br><span style="color:#A8461F">발급 사이트 기본 파일명 그대로 — 받는 쪽이 무슨 파일인지 알 수 없음</span></td></tr>
+      <tr class="hi"><td class="num">2026.04.04</td><td>26년 1Q 고용현황</td><td class="num" style="font-size:11.5px">(주)공공의주방_4대보험가입자명부.pdf · 161.0KB<br><span style="color:#A8461F">회사명이 앞으로 · (주) 표기 추가</span></td></tr>
+      <tr><td class="num">2025 분기 4회</td><td>고용현황</td><td class="num" style="font-size:11.5px">4대 보험 가입자 명부_공공의주방.pdf · 163.7~163.8KB</td></tr>
+    </table>
+    <caption>결산은 제출 링크 업로드 방식이라 첨부 파일명 기록이 남지 않습니다.</caption>
+    </div>
+  </div>
+
+  <div class="pane2" id="g-ac">
+    <div class="tw">
+    <table class="vt">
+      <tr><th>주기</th><td>반기 · 연 2회 — 온기(12/31 기준) · 상반기(6/30 기준)</td></tr>
+      <tr><th>제출 방법</th><td>메일 회신 (첨부)</td></tr>
+      <tr><th>보고 양식</th><td><b>없음</b> — 메일 본문에 영업보고 4~5줄 이상</td></tr>
+      <tr><th>인감날인</th><td>재무제표 · 주주명부 <b>必</b> ← 세 곳 중 유일</td></tr>
+      <tr><th>등기부등본</th><td>말소사항 포함 · <b>기준일 이후</b> 발급본</td></tr>
+      <tr><th>추가 요구</th><td>자본금 변동내역 (변동 시 투자자·금액·단가·수량·날짜)</td></tr>
+      <tr><th>주의</th><td>가결산으로 내면 <b>이듬해 6월에 최종본 재요청</b>이 옵니다</td></tr>
+    </table>
     </div>
 
     <div class="card">
-      <h4>휴대폰 번호는 넣지 않았습니다</h4>
-      <p>메일 서명에 담당자 휴대폰 번호가 적혀 있지만, 이 화면은 <b>공개 저장소(GitHub)</b>에 올라갑니다. 타사 담당자의 개인 연락처가 공개되는 셈이라 회사 유선번호와 이메일만 남겼습니다.</p>
-      <p>급할 때 쓰실 수 있게 넣는 편이 좋으시면 말씀해 주세요. 다만 그 경우 이 화면을 공개 저장소에서 빼고 드롭박스에만 두는 쪽을 권합니다.</p>
+      <h4>가결산으로 내면 최종본을 다시 요청받습니다</h4>
+      <p>2026.01.30에 <b>가결산</b> 재무제표를 보냈고, 2026.06.15에 조합 자산가치 재평가를 이유로 <b>최종 확정</b> 결산자료를 다시 요청받았습니다. 요청 메일에 "금년부터 매 반기 시행하는 모태펀드 자조합 가치평가 업무가 변경되어"라고 적혀 있어, 앞으로 매년 반복될 요청입니다.</p>
+      <p><b>3월 법인세 신고 직후 국세청 표준재무제표증명원을 미리 받아두면</b> 이 왕복이 사라집니다.</p>
     </div>
 
-    <h2><span class="n">03</span>매 회차 반복되는 서류</h2>
-    <div class="hline"></div>
+    <h3>연락처</h3>
+    <div class="tw">
+    <table>
+      <tr><th class="c">구분</th><th>이름</th><th>직위</th><th>이메일</th><th>전화</th></tr>
+      <tr><td class="c"><span class="st todo">수신</span></td><td><b>조영래</b><br><span style="font-size:11.5px;color:#8C857A">Sarah Cho</span></td><td>투자심사역 · 과장</td><td class="num">yrae@actnerlab.com</td><td class="num">02-6257-6257</td></tr>
+      <tr><td class="c"><span class="st miss">참조</span></td><td><b>조인제</b></td><td>의장</td><td class="num">je7432@actnerlab.com</td><td class="dash">—</td></tr>
+    </table>
+    <caption>주소 — 서울시 강남구 역삼로 165 해성빌딩 6층 · 조합명은 액트너랩제1호개인투자조합</caption>
+    </div>
+
+    <h3>보낸 파일명 이력</h3>
+    <div class="tw">
+    <table>
+      <tr><th>보낸 날</th><th>건</th><th>첨부 파일명</th></tr>
+      <tr><td class="num">2026.01.30</td><td>25년 온기</td><td class="num" style="font-size:11.5px">01 법인등기부등본_공공의주방.pdf · 2.5MB<br>02 25년 가결산 재무제표_공공의주방.pdf · 398.1KB<br>03 주주명부_공공의주방.pdf · 60.9KB<br>04 4대 보험 가입자 명부_공공의주방.pdf · 163.8KB</td></tr>
+    </table>
+    <caption>메일 본문에 영업보고를 함께 적어 보냈습니다.</caption>
+    </div>
+  </div>
+
+  <div class="pane2" id="g-doc">
+
+    <h3>매 회차 반복되는 서류</h3>
     <p class="lead">조건이 다를 땐 <b>가장 엄격한 쪽</b>에 맞춰 한 부만 만들어 세 곳에 나눠 씁니다.</p>
     <div class="tw">
     <table>
-      <tr><th class="num">#</th><th>서류</th><th class="c">액트너랩</th><th class="c">더웰스</th><th class="c">MYSC</th><th>맞춰야 할 조건</th><th>어디서</th></tr>
-      <tr><td class="num">1</td><td><b>법인등기부등본</b></td><td class="c yes">●</td><td class="c yes">●</td><td class="c yes">●</td><td><b>말소사항 포함 + 최근 1개월 이내 + 기준일 이후</b></td><td>인터넷등기소</td></tr>
-      <tr><td class="num">2</td><td><b>가결산 재무제표</b><br><span style="font-size:11.5px;color:#8C857A">재무상태표 · 손익계산서</span></td><td class="c yes">●</td><td class="c yes">●</td><td class="c yes">●</td><td><b>인감날인</b> (액트너랩만 요구)</td><td><b>삼화 → 날인</b></td></tr>
-      <tr><td class="num">3</td><td><b>주주명부</b></td><td class="c yes">●</td><td class="c yes">●</td><td class="c yes">●</td><td><b>인감날인</b></td><td>자체 → 날인</td></tr>
-      <tr><td class="num">4</td><td><b>4대보험 가입자명부</b></td><td class="c yes">●</td><td class="c">2Q·4Q</td><td class="c yes"><b>매분기</b></td><td>세부 개인정보 미포함 · 최근 발급본</td><td>4대사회보험 정보연계센터</td></tr>
-      <tr><td class="num">5</td><td>자본금 변동내역</td><td class="c yes">●</td><td class="c dash">—</td><td class="c dash">—</td><td>변동 시 투자자·금액·단가·수량·날짜</td><td>자체</td></tr>
-      <tr><td class="num">6</td><td>영업보고 문구</td><td class="c yes">●</td><td class="c dash">—</td><td class="c dash">—</td><td>4~5줄 이상 · 형식 자유</td><td>자체 (메일 본문)</td></tr>
-      <tr><td class="num">7</td><td>분기 보고현황</td><td class="c dash">—</td><td class="c yes">●</td><td class="c dash">—</td><td>더웰스 전용 xls 양식</td><td>메일 첨부 양식 작성</td></tr>
-      <tr><td class="num">8</td><td>회사현황</td><td class="c dash">—</td><td class="c dash">—</td><td class="c yes">●</td><td>제출 링크에서 직접 작성</td><td>MYSC 제출 링크</td></tr>
-      <tr><td class="num">9</td><td>고용현황 인원수</td><td class="c dash">—</td><td class="c dash">—</td><td class="c yes"><b>매분기</b></td><td>전체 임직원수 / 만39세 미만 청년 (대표자 포함)</td><td>자체 (메일 본문)</td></tr>
-      <tr><td class="num">10</td><td>인증 관련 증빙</td><td class="c dash">—</td><td class="c dash">—</td><td class="c yes">●</td><td>(해당 시) 그 해 추가된 인증만</td><td>자체</td></tr>
+      <tr><th class="num">#</th><th>서류</th><th class="c">더웰스</th><th class="c">MYSC</th><th class="c">액트너랩</th><th>맞춰야 할 조건</th></tr>
+      <tr><td class="num">1</td><td><b>법인등기부등본</b></td><td class="c yes">●</td><td class="c yes">●</td><td class="c yes">●</td><td><b>말소사항 포함 + 최근 1개월 이내 + 기준일 이후</b></td></tr>
+      <tr><td class="num">2</td><td><b>가결산 재무제표</b><br><span style="font-size:11.5px;color:#8C857A">재무상태표 · 손익계산서</span></td><td class="c yes">●</td><td class="c yes">●</td><td class="c yes">●</td><td><b>인감날인</b> (액트너랩만 요구)</td></tr>
+      <tr><td class="num">3</td><td><b>주주명부</b></td><td class="c yes">●</td><td class="c yes">●</td><td class="c yes">●</td><td><b>인감날인</b></td></tr>
+      <tr><td class="num">4</td><td><b>4대보험 가입자명부</b></td><td class="c">2Q·4Q</td><td class="c yes"><b>매분기</b></td><td class="c yes">●</td><td>세부 개인정보 미포함 · 최근 발급본</td></tr>
+      <tr><td class="num">5</td><td>자본금 변동내역</td><td class="c dash">—</td><td class="c dash">—</td><td class="c yes">●</td><td>변동 시 투자자·금액·단가·수량·날짜</td></tr>
+      <tr><td class="num">6</td><td>영업보고 문구</td><td class="c dash">—</td><td class="c dash">—</td><td class="c yes">●</td><td>4~5줄 이상 · 형식 자유</td></tr>
+      <tr><td class="num">7</td><td>분기 보고현황</td><td class="c yes">●</td><td class="c dash">—</td><td class="c dash">—</td><td>더웰스 전용 xls 양식</td></tr>
+      <tr><td class="num">8</td><td>회사현황</td><td class="c dash">—</td><td class="c yes">●</td><td class="c dash">—</td><td>제출 링크에서 직접 작성</td></tr>
+      <tr><td class="num">9</td><td>고용현황 인원수</td><td class="c dash">—</td><td class="c yes"><b>매분기</b></td><td class="c dash">—</td><td>전체 임직원수 / 만39세 미만 청년 (대표자 포함)</td></tr>
+      <tr><td class="num">10</td><td>인증 관련 증빙</td><td class="c dash">—</td><td class="c yes">●</td><td class="c dash">—</td><td>(해당 시) 그 해 추가된 인증만</td></tr>
     </table>
     <caption>● 요청 확인됨 · — 해당 없음</caption>
     </div>
 
-    <h2><span class="n">04</span>첨부 파일명</h2>
-    <div class="hline"></div>
-    <p class="lead">기본 형태는 <b>[순번] [서류명]_공공의주방.pdf</b>이고, 순번은 요청 메일에 적힌 순서를 따랐습니다. 그래서 같은 서류가 회차마다 다른 번호를 받습니다. MYSC 고용현황 회신 때는 순번 없이 <code>4대 보험 가입자 명부_공공의주방.pdf</code> 한 장만 보냈습니다.</p>
+    <h3>서류 어디서 받나</h3>
     <div class="tw">
     <table>
-      <tr><th>보낸 날</th><th>받는 곳</th><th>첨부 파일명</th></tr>
-      <tr><td class="num">2026.01.02</td><td><span class="inv dw">더웰스</span> 자료</td>
-        <td class="num" style="font-size:11.5px">01 4대보험가입자명부_공공의주방.pdf · 163.8KB<br>02 주주명부_공공의주방.pdf · 60.9KB<br>03 법인등기부등본_공공의주방.pdf · 2.2MB<br>04 가결산 재무제표(25.09.30)_공공의주방.pdf · 336.1KB</td></tr>
-      <tr><td class="num">2026.01.30</td><td><span class="inv ac">액트너랩</span> 온기</td>
-        <td class="num" style="font-size:11.5px">01 법인등기부등본_공공의주방.pdf · 2.5MB<br>02 25년 가결산 재무제표_공공의주방.pdf · 398.1KB<br>03 주주명부_공공의주방.pdf · 60.9KB<br>04 4대 보험 가입자 명부_공공의주방.pdf · 163.8KB</td></tr>
-      <tr><td class="num">2026.02.02</td><td><span class="inv dw">더웰스</span> 보고서</td>
-        <td class="num" style="font-size:11.5px">25년 가결산 재무제표_공공의주방.pdf · 335.1KB<br>공공의주방_2025년 4분기 보고.xls · 217.5KB</td></tr>
-      <tr class="hi"><td class="num">2026.07.10</td><td><span class="inv dw">더웰스</span> 자료</td>
-        <td class="num" style="font-size:11.5px">4대보험사업자가입자명부.pdf · 161.0KB<br>등기부등본.pdf · 2.5MB<br>주주명부_공공의주방.pdf · 65.3KB<br><span style="color:#B4231C">순번 없음 · 회사명은 주주명부에만</span></td></tr>
-      <tr><td class="num">2025 분기 4회</td><td><span class="inv">MYSC</span> 고용현황</td>
-        <td class="num" style="font-size:11.5px">4대 보험 가입자 명부_공공의주방.pdf · 163.7~163.8KB</td></tr>
-      <tr class="hi"><td class="num">2026.04.04</td><td><span class="inv">MYSC</span> 1Q 고용현황</td>
-        <td class="num" style="font-size:11.5px">(주)공공의주방_4대보험가입자명부.pdf · 161.0KB<br><span style="color:#A8461F">회사명이 앞으로 · (주) 표기 추가</span></td></tr>
-      <tr class="hi"><td class="num">2026.06.30</td><td><span class="inv">MYSC</span> 2Q 고용현황</td>
-        <td class="num" style="font-size:11.5px">Report.pdf · 161.0KB<br><span style="color:#A8461F">발급 사이트 기본 파일명 그대로 — 받는 쪽이 무슨 파일인지 알 수 없음</span></td></tr>
+      <tr><th>서류</th><th>받는 곳</th><th>맞춰야 할 조건</th></tr>
+      <tr><td><b>법인등기부등본</b></td><td>인터넷등기소 <span class="num">iros.go.kr</span><br><span style="font-size:11.5px;color:#8C857A">법인 열람·발급 → 등기사항전부증명서</span></td><td><b>말소사항 포함</b> 선택 필수<br>제출용은 열람이 아니라 <b>발급</b></td></tr>
+      <tr><td><b>가결산 재무제표</b></td><td><b>삼화회계법인</b> 요청 → 법인인감 날인 → 스캔</td><td>기준일(6/30·12/31) 기준 · 확정본 아니어도 무방</td></tr>
+      <tr><td><b>4대보험 가입자명부</b></td><td>4대사회보험 정보연계센터 <span class="num">4insure.or.kr</span><br><span style="font-size:11.5px;color:#8C857A">사업장 가입자명부</span></td><td>최근 발급본 · 세부 개인정보 미포함</td></tr>
+      <tr><td><b>주주명부</b></td><td>자체 작성 → 법인인감 날인 → 스캔</td><td>기준일 기준 · 자본금 변동 없으면 전기와 동일</td></tr>
+      <tr><td>자본금 변동내역 · 영업보고 · 고용현황</td><td>자체 작성 (메일 본문 또는 별지)</td><td>—</td></tr>
+      <tr><td>더웰스 보고현황 양식</td><td><b>요청 메일 첨부 xls</b> — 매 회차 새로 옴</td><td>지난 회차 작성본을 기준선으로</td></tr>
+      <tr><td>MYSC 회사현황</td><td><b>요청 메일의 제출 링크</b> 안에서 작성</td><td>—</td></tr>
     </table>
-    <caption>MYSC 결산은 제출 링크 업로드 방식이라 첨부 파일명 기록이 남지 않습니다.</caption>
+    <caption>실제 발급 경로는 대표님이 쓰시는 방식으로 확정해 넣습니다. 등기부등본을 인터넷등기소에서 PDF로 바로 받으시는지, 출력 후 스캔하시는지 알려주시면 고정하겠습니다.</caption>
     </div>
 
+    <h3>파일명 규칙</h3>
+    <p class="lead">기본 형태는 <b>[순번] [서류명]_공공의주방.pdf</b>이고, 순번은 요청 메일에 적힌 순서를 따랐습니다. 그래서 같은 서류가 회차마다 다른 번호를 받습니다.</p>
     <div class="card">
-      <h4>표기가 흔들린 곳 — 규칙으로 고정할 후보</h4>
+      <h4>표기가 흔들린 곳 다섯 가지</h4>
       <ul>
         <li>띄어쓰기 — <code>4대보험가입자명부</code> vs <code>4대 보험 가입자 명부</code></li>
         <li>기준일 표기 — <code>가결산 재무제표(25.09.30)</code>는 있고 <code>25년 가결산 재무제표</code>는 없음</li>
-        <li>회사명 위치 — PDF는 뒤(<code>_공공의주방</code>), 더웰스 양식 xls는 앞(<code>공공의주방_</code>)</li>
-        <li><b>순번 유무</b> — 2026.07.10 회신은 순번을 안 붙였고 회사명도 주주명부에만 붙였습니다</li>
-        <li><b>회사명 표기</b> — <code>_공공의주방</code> · <code>(주)공공의주방_</code> 두 형태가 섞였습니다</li>
-        <li><b>기본 파일명 그대로 보낸 사례</b> — 2026.06.30 MYSC 회신의 <code>Report.pdf</code></li>
+        <li>회사명 위치 — <code>_공공의주방</code> vs <code>(주)공공의주방_</code> vs 더웰스 양식은 <code>공공의주방_</code></li>
+        <li>순번 유무 — 2026.07.10 회신은 순번을 안 붙였고 회사명도 주주명부에만 붙였습니다</li>
+        <li>기본 파일명 그대로 — 2026.06.30 MYSC 회신의 <code>Report.pdf</code></li>
       </ul>
-      <p style="margin-top:8px">순번은 받는 쪽이 확인하기 편하니 그대로 두고, <b>서류명과 기준일 표기만 고정</b>하는 쪽을 추천합니다. 예: <code>02 가결산재무제표(26.06.30)_공공의주방.pdf</code>. xls는 저쪽이 <code>(회사명)_…</code>로 보내니 앞에 두는 게 맞습니다.</p>
+      <p style="margin-top:8px">순번은 받는 쪽이 확인하기 편하니 그대로 두고, <b>서류명과 기준일 표기만 고정</b>하는 쪽을 추천합니다. 예: <code>02 가결산재무제표(26.06.30)_공공의주방.pdf</code>. 더웰스 양식 xls는 저쪽이 <code>(회사명)_…</code>로 보내니 앞에 두는 게 맞습니다.</p>
     </div>
 
-    <h2><span class="n">05</span>있었던 일 → 다음엔</h2>
-    <div class="hline"></div>
+    <h3>우리 쪽 참조 구성</h3>
+    <div class="tw">
+    <table>
+      <tr><th>이름</th><th>직위</th><th>이메일</th><th>비고</th></tr>
+      <tr><td><b>안상미</b></td><td>대표</td><td class="num">ceo@acvt.kr</td><td>2026년부터 <b>직접 발신</b></td></tr>
+      <tr><td><b>최성제</b></td><td>부대표</td><td class="num">dchoi@acvt.kr</td><td>참조</td></tr>
+      <tr><td>최주애</td><td>경영기획 과장</td><td class="num">juae@acvt.kr</td><td>2026.03 퇴직 · 이전 발신자</td></tr>
+    </table>
+    <caption>메일 서명에 있는 담당자 휴대폰 번호는 이 화면에 넣지 않았습니다. 공개 저장소에 올라가는 파일이라 타사 담당자 개인 연락처가 공개되기 때문입니다.</caption>
+    </div>
+
+    <h3>있었던 일 → 다음엔</h3>
     <div class="tw">
     <table>
       <tr><th class="num">#</th><th>있었던 일</th><th>다음엔</th></tr>
-      <tr>
-        <td class="num">1</td>
-        <td>기준일이 지나고 요청을 기다렸다가 움직여 마감에 몰렸다</td>
-        <td>6/30·12/31이 지나면 <b>요청 전에</b> 등기부등본·주주명부·4대보험명부를 먼저 발급해 둔다</td>
-      </tr>
-      <tr>
-        <td class="num">2</td>
-        <td>더웰스 2Q 자료 요청(기한 7/6·7/10)을 놓쳐 7/31 마감에 5건이 몰렸다</td>
-        <td>기준일 직후 <b>1주 안에 4종 제출</b>을 정기업무로 잡는다. 자료를 내면 보고서는 양식 하나</td>
-      </tr>
-      <tr>
-        <td class="num">3</td>
-        <td>MYSC 반기 마감(7/28)을 놓쳐 리마인드 메일로 7/31까지 연장받았다</td>
-        <td>MYSC 반기 요청은 <b>7월 초에 온다.</b> 부가세 신고와 겹치는 시기이므로 6월 말에 미리 준비를 시작한다</td>
-      </tr>
-      <tr>
-        <td class="num">4</td>
-        <td>MYSC 고용현황은 요청 받은 날 <b>10~20분 안에</b> 회신했다 (2025년 4회 모두)</td>
-        <td><b>이 패턴은 유지한다.</b> 4대보험명부 1장 + 인원수만 있으면 되는 건이라, 미루면 오히려 잊는다</td>
-      </tr>
-      <tr>
-        <td class="num">5</td>
-        <td>액트너랩에 가결산을 내고(1/30) 6월에 최종본을 다시 요청받았다(6/15)</td>
-        <td>3월 법인세 신고 직후 <b>국세청 표준재무제표증명원</b>을 미리 받아둔다</td>
-      </tr>
-      <tr>
-        <td class="num">6</td>
-        <td>12월 가결산이 안 나와 9월말분으로 먼저 내고, 문의해서 2월 초까지 양해를 받았다</td>
-        <td>제때 못 낼 것 같으면 <b>먼저 연락한다.</b> 세 곳 다 사전 연락 시 조정해 준 전례가 있다</td>
-      </tr>
-      <tr>
-        <td class="num">7</td>
-        <td>투자자 보고용 재무제표와 정산·신고용 계정별원장을 따로 요청했다</td>
-        <td>삼화 요청은 기준일 직후 <b>한 통</b>으로 묶는다</td>
-      </tr>
-      <tr>
-        <td class="num">8</td>
-        <td>담당자가 조용히 교체됐다 (더웰스 김윤경→박유민, MYSC 신예진→윤지수→강현주)</td>
-        <td>회신 전 <b>가장 최근 요청 메일의 회신처</b>를 다시 확인한다</td>
-      </tr>
-      <tr>
-        <td class="num">9</td>
-        <td>2026.01.02 회신 본문에 <code>가결산 재무제표(2024년 9월 말)</code>로 적었지만 실제 첨부는 <code>(25.09.30)</code>이었다</td>
-        <td>보내기 전 <b>본문 목록 ↔ 첨부 파일명</b>을 한 번 대조한다</td>
-      </tr>
-      <tr>
-        <td class="num">10</td>
-        <td>더웰스 2Q 자료 3종은 7/10에 냈는데 재무제표를 "차주 내"로 약속하고 3주가 지났다</td>
-        <td>일부만 먼저 낼 때는 <b>남은 항목의 날짜를 못박고</b> 그날 업무일지에 등록한다. 약속한 날에 못 내면 그전에 다시 연락한다</td>
-      </tr>
-      <tr>
-        <td class="num">11</td>
-        <td>관리팀 담당자 요청을 놓치자 <b>임원(전무)이 직접</b> 재요청 메일을 보냈다 (7/30)</td>
-        <td>담당자 선에서 끝낼 일을 임원까지 올라가게 하지 않는다. 기준일 직후 1주 안에 처리하면 이 단계가 생기지 않는다</td>
-      </tr>
-      <tr>
-        <td class="num">12</td>
-        <td>MYSC 고용현황 회신에서 <b>본문 인원수를 2026년 두 회차 모두 빠뜨렸다</b> (2025년엔 매번 적었음)</td>
-        <td>요청 메일이 "고용현황은 메일 본문에 작성하여 명부와 함께 회신"을 명시합니다. 명부만 보내면 저쪽이 인원을 못 세니 <b>총 N명 / 청년 N명</b>을 반드시 본문에 적는다</td>
-      </tr>
-      <tr>
-        <td class="num">13</td>
-        <td>첨부를 <code>Report.pdf</code>로 그대로 보낸 회차가 있다 (2026.06.30 MYSC)</td>
-        <td>발급 사이트에서 받은 기본 파일명은 <b>보내기 전에 바꾼다.</b> 받는 쪽 담당자가 파일만 보고 무엇인지 알 수 있어야 한다</td>
-      </tr>
-      <tr>
-        <td class="num">14</td>
-        <td>세 곳 마감이 7월말~8월초에 몰리고 부가세 신고까지 겹친다</td>
-        <td>업무일지 연간탭 <b>대외보고</b>에 세 곳 · 연 14건을 등록해 앞리드를 넉넉히 둔다</td>
-      </tr>
+      <tr><td class="num">1</td><td>기준일이 지나고 요청을 기다렸다가 움직여 마감에 몰렸다</td><td>6/30·12/31이 지나면 <b>요청 전에</b> 등기부등본·주주명부·4대보험명부를 먼저 발급해 둔다</td></tr>
+      <tr><td class="num">2</td><td>더웰스 2Q 자료 요청(기한 7/6·7/10)을 놓쳐 7/31 마감에 몰렸다</td><td>기준일 직후 <b>1주 안에 4종 제출</b>을 정기업무로 잡는다. 자료를 내면 보고서는 양식 하나</td></tr>
+      <tr><td class="num">3</td><td>더웰스 2Q 자료 3종은 7/10에 냈는데 재무제표를 "차주 내"로 약속하고 3주가 지났다</td><td>일부만 먼저 낼 때는 <b>남은 항목의 날짜를 못박고</b> 그날 업무일지에 등록한다</td></tr>
+      <tr><td class="num">4</td><td>관리팀 담당자 요청을 놓치자 <b>임원(전무)이 직접</b> 재요청 메일을 보냈다 (7/30)</td><td>담당자 선에서 끝낼 일을 임원까지 올라가게 하지 않는다</td></tr>
+      <tr><td class="num">5</td><td>MYSC 반기 마감(7/28)을 놓쳐 리마인드로 7/31까지 연장받았다</td><td>MYSC 반기 요청은 <b>7월 초에 온다.</b> 부가세 신고와 겹치니 6월 말에 미리 시작한다</td></tr>
+      <tr><td class="num">6</td><td>MYSC 고용현황은 요청 받은 날 <b>10~20분 안에</b> 회신했다 (2025년 4회 모두)</td><td><b>이 패턴은 유지한다.</b> 명부 1장 + 인원수면 되는 건이라 미루면 오히려 잊는다</td></tr>
+      <tr><td class="num">7</td><td>MYSC 고용현황 회신에서 <b>본문 인원수를 2026년 두 회차 모두 빠뜨렸다</b></td><td>요청 메일이 본문 작성을 명시합니다. <b>총 N명 / 청년 N명</b>을 반드시 본문에 적는다</td></tr>
+      <tr><td class="num">8</td><td>액트너랩에 가결산을 내고 6월에 최종본을 다시 요청받았다</td><td>3월 법인세 신고 직후 <b>국세청 표준재무제표증명원</b>을 미리 받아둔다</td></tr>
+      <tr><td class="num">9</td><td>12월 가결산이 안 나와 9월말분으로 먼저 내고, 문의해서 2월 초까지 양해를 받았다</td><td>제때 못 낼 것 같으면 <b>먼저 연락한다.</b> 세 곳 다 조정해 준 전례가 있다</td></tr>
+      <tr><td class="num">10</td><td>투자자 보고용 재무제표와 정산·신고용 계정별원장을 따로 요청했다</td><td>삼화 요청은 기준일 직후 <b>한 통</b>으로 묶는다</td></tr>
+      <tr><td class="num">11</td><td>담당자가 조용히 교체됐다 (더웰스 김윤경→박유민, MYSC 신예진→윤지수→강현주)</td><td>회신 전 <b>가장 최근 요청 메일의 발신자</b>를 다시 확인한다</td></tr>
+      <tr><td class="num">12</td><td>2026.01.02 회신 본문에 <code>(2024년 9월 말)</code>로 적었지만 첨부는 <code>(25.09.30)</code>이었다</td><td>보내기 전 <b>본문 목록 ↔ 첨부 파일명</b>을 한 번 대조한다</td></tr>
+      <tr><td class="num">13</td><td>첨부를 <code>Report.pdf</code>로 그대로 보낸 회차가 있다</td><td>발급 사이트 기본 파일명은 <b>보내기 전에 바꾼다</b></td></tr>
+      <tr><td class="num">14</td><td>세 곳 마감이 7월말~8월초에 몰리고 부가세 신고까지 겹친다</td><td>업무일지 연간탭 <b>대외보고</b>에 세 곳 · 연 14건을 등록해 앞리드를 넉넉히 둔다</td></tr>
     </table>
     </div>
 
-    <h2><span class="n">06</span>채워야 할 빈칸</h2>
-    <div class="hline"></div>
+    <h3>채워야 할 빈칸</h3>
     <p class="lead">원본 메일을 주시면 그대로 채웁니다. 8월에 한 번에 정리하기로 한 항목들입니다.</p>
     <div class="tw">
     <table>
       <tr><th>무엇</th><th>왜 필요한가</th><th class="c">언제</th></tr>
-      <tr class="hi"><td><b>2026년 새로 취득한 인증이 있는지</b></td><td>MYSC 5번째 서류. 있으면 내일 함께 올려야 함</td><td class="c"><span class="b b-hot">지금</span></td></tr>
-      <tr><td>MYSC 26년 1Q·2Q 고용현황 <b>본문 인원수 재요청 여부</b></td><td>명부만 보내서 저쪽이 인원수를 다시 물었을 수 있음</td><td class="c"><span class="b b-no">8월</span></td></tr>
-      <tr><td><b>더웰스 2026 1Q 회신 여부·첨부</b></td><td>바로 앞 회차라 이번 회차 첨부의 기준선</td><td class="c"><span class="b b-need">이번 회차</span></td></tr>
-      <tr><td><b>액트너랩 2026.06.15 재요청 회신 여부</b></td><td>회신했으면 기록, 안 했으면 이번에 함께 처리</td><td class="c"><span class="b b-need">이번 회차</span></td></tr>
-      <tr><td>MYSC 2025 반기·온기 결산 제출 여부·첨부</td><td>제출 링크 방식이라 회신 메일이 없어 확인이 안 됨</td><td class="c"><span class="b b-no">8월</span></td></tr>
-      <tr><td>더웰스 2025 1Q·2Q 요청 본문 3건</td><td>요청 자료 칩이 "본문 미확인"으로 비어 있음</td><td class="c"><span class="b b-no">8월</span></td></tr>
-      <tr><td>더웰스 2025 3Q·4Q 회신 메일</td><td>회신일과 첨부 파일명이 비어 있음</td><td class="c"><span class="b b-no">8월</span></td></tr>
-      <tr><td>더웰스 2025 4Q 자료 요청 기한</td><td>2024년도분은 1/7이었으나 2025년도분은 미확인</td><td class="c"><span class="b b-no">8월</span></td></tr>
-      <tr><td>액트너랩 2024년 이전 회차</td><td>"예년과 같이"라는 문구로 존재만 확인됨</td><td class="c"><span class="b b-no">8월</span></td></tr>
-      <tr><td>MYSC 2024 온기 회신 첨부</td><td>2025.02.05 회신은 확인됐으나 첨부 미확인</td><td class="c"><span class="b b-no">8월</span></td></tr>
+      <tr class="hi"><td><b>2026년 새로 취득한 인증이 있는지</b></td><td>MYSC 5번째 서류. 있으면 이번에 함께 올려야 함</td><td class="c"><span class="st todo">지금</span></td></tr>
+      <tr class="hi"><td><b>7/10 더웰스에 보낸 3종의 발급일</b></td><td>액트너랩·MYSC에 재사용 가능한지가 여기서 갈림</td><td class="c"><span class="st todo">지금</span></td></tr>
+      <tr class="hi"><td><b>상반기 자본금 변동 여부</b></td><td>액트너랩 5번 항목</td><td class="c"><span class="st todo">지금</span></td></tr>
+      <tr><td>등기부등본 실제 발급 경로</td><td>가이드에 고정하려면 필요 (인터넷등기소 PDF vs 출력·스캔)</td><td class="c"><span class="st miss">이번 회차</span></td></tr>
+      <tr><td>MYSC 26년 1Q·2Q 고용현황 본문 인원수 재요청 여부</td><td>명부만 보내서 저쪽이 인원수를 다시 물었을 수 있음</td><td class="c"><span class="st plan">8월</span></td></tr>
+      <tr><td>더웰스 2025 1Q·2Q 요청 본문 3건</td><td>요청 자료 칩이 "미확인"으로 비어 있음</td><td class="c"><span class="st plan">8월</span></td></tr>
+      <tr><td>더웰스 2025 3Q·4Q 회신 메일</td><td>회신일과 첨부 파일명이 비어 있음</td><td class="c"><span class="st plan">8월</span></td></tr>
+      <tr><td>더웰스 2025 4Q 자료 요청 기한</td><td>2024년도분은 1/7이었으나 2025년도분은 미확인</td><td class="c"><span class="st plan">8월</span></td></tr>
+      <tr><td>액트너랩 2024년 이전 회차</td><td>"예년과 같이"라는 문구로 존재만 확인됨</td><td class="c"><span class="st plan">8월</span></td></tr>
+      <tr><td>MYSC 2024 온기 회신 첨부</td><td>2025.02.05 회신은 확인됐으나 첨부 미확인</td><td class="c"><span class="st plan">8월</span></td></tr>
     </table>
     </div>
-
-    <div class="card">
-      <h4>MYSC 동의서·의결서는 전자서명으로</h4>
-      <p>MYSC가 2026.07.07 메일에서 안내한 내용입니다. 등기 변경 등으로 <b>반드시 실물 조합인감 날인과 동의서 원본이 필요한 경우가 아니라면</b>, 모두싸인·도큐싸인 등 전자서명 플랫폼을 통한 전자서명으로 날인을 요청해 달라고 했습니다. 요청 메일 주소는 impact@mysc.co.kr입니다.</p>
-      <p style="color:var(--muted);font-size:12.5px">※ 정기주주총회 관련 왕복은 이 화면에서 다루지 않습니다. 별도로 정리합니다.</p>
-    </div>
+  </div>
 
   </div>
 
@@ -1160,7 +1198,7 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
     <div class="fl"><div class="fn"><b>작업 대화에서 전체 받기</b><span>claude.ai/chat/17924d1e…</span></div><a class="dl" href="https://claude.ai/chat/17924d1e-fd45-4cc2-b0df-e3ce10789c88" target="_blank" rel="noopener">열기</a></div>
   </div>
 
-  <div class="foot">finance-investor · <span id="footver">v16</span> · 주식회사 공공의주방 · archiveat.kr · 2026</div>
+  <div class="foot">finance-investor · <span id="footver">v18</span> · 주식회사 공공의주방 · archiveat.kr · 2026</div>
 
 </div>
 <script>
@@ -1178,6 +1216,19 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
       var ts=document.querySelectorAll('.tab'), ps=document.querySelectorAll('.pane');
       for(var j=0;j<ts.length;j++) ts[j].classList.remove('on');
       for(var k=0;k<ps.length;k++) ps[k].classList.remove('on');
+      this.classList.add('on');
+      var p=document.getElementById(id); if(p) p.classList.add('on');
+    });
+  }
+
+  var t2=document.querySelectorAll('.tab2');
+  for(var a=0;a<t2.length;a++){
+    t2[a].addEventListener('click',function(){
+      var id=this.getAttribute('data-p2');
+      var scope=this.closest('.pane')||document;
+      var ts=scope.querySelectorAll('.tab2'), ps=scope.querySelectorAll('.pane2');
+      for(var b=0;b<ts.length;b++) ts[b].classList.remove('on');
+      for(var c=0;c<ps.length;c++) ps[c].classList.remove('on');
       this.classList.add('on');
       var p=document.getElementById(id); if(p) p.classList.add('on');
     });
