@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="version" content="v4">
+<meta name="updated" content="2026.07.31 08:10">
+<title>finance-investor-2026q2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--cream:#FAF5EC;--surface:#FFFDF8;--ink:#241F1B;--muted:#8C857A;--line:#E7DCC8;
+      --coral:#FF5019;--taupe:#C2B190;--sage:#5E9087;--slate:#4A4E69}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+     background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+.wrap{max-width:1000px;margin:0 auto;padding:22px 20px 60px}
+
+.top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;gap:12px;flex-wrap:wrap}
+.navleft{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#a8552f;text-decoration:none;
+      padding:5px 13px;border:1px solid rgba(255,80,25,.22);border-radius:20px;background:rgba(255,80,25,.07);transition:.15s}
+.back:hover{background:rgba(255,80,25,.13);border-color:rgba(255,80,25,.4);color:var(--coral)}
+.metaline{margin-left:auto;text-align:right;font-size:12px;color:var(--muted);line-height:1.65}
+.metaline .bar{color:var(--line);margin:0 7px}
+.metaline .upd{font-family:"DM Mono",monospace}
+.crumb{color:var(--coral);font-size:11.5px}
+@media(max-width:640px){.metaline{width:100%;text-align:left}.metaline .bar{display:none}.metaline .crumb,.metaline .upd{display:block}}
+
+.hero{margin-bottom:18px}
+.hero h1{font-family:Hahmlet,"Apple SD Gothic Neo",serif;font-weight:700;font-size:34px;letter-spacing:-.02em;line-height:1.15}
+.hero p{margin-top:10px;font-size:14.5px;color:var(--muted);max-width:680px}
+@media(max-width:640px){.hero h1{font-size:26px}.wrap{padding:18px 14px 44px}}
+
+.factbar{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:14px}
+@media(max-width:820px){.factbar{grid-template-columns:1fr 1fr}}
+.fb{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:13px 15px}
+.fb .k{font-size:11.5px;color:var(--muted)}
+.fb .v{font-family:"DM Mono",monospace;font-size:16px;font-weight:500;margin-top:4px}
+.fb.hot{border-color:var(--coral);background:rgba(255,80,25,.06)}
+.fb.hot .v{color:var(--coral)}
+
+details.chkbox{background:var(--surface);border:1px solid var(--coral);border-radius:14px;margin-bottom:22px;overflow:hidden}
+details.chkbox summary{padding:13px 18px;cursor:pointer;font-size:13.5px;font-weight:700;list-style:none;
+  display:flex;align-items:center;gap:9px;background:rgba(255,80,25,.06)}
+details.chkbox summary::-webkit-details-marker{display:none}
+details.chkbox summary::before{content:"\25B8";color:var(--coral);font-size:12px;transition:.15s}
+details.chkbox[open] summary::before{transform:rotate(90deg)}
+details.chkbox summary .cnt{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;color:var(--coral);font-weight:600}
+.chk{padding:2px 18px 8px}
+.chk .row{display:flex;gap:11px;padding:11px 2px;border-bottom:1px solid var(--line)}
+.chk .row:last-child{border-bottom:none}
+.chk .no{font-family:"DM Mono",monospace;font-size:12px;color:var(--coral);font-weight:600;flex:none;min-width:20px}
+.chk .tx{flex:1;font-size:13.5px}
+.chk .tx .memo{display:block;font-size:12px;color:var(--muted);margin-top:3px;line-height:1.7}
+.chk .tx code{font-family:"DM Mono",monospace;font-size:11px;color:#5C544A;background:#F1EFE9;padding:1px 6px;border-radius:4px}
+
+.tabs{display:flex;gap:5px;flex-wrap:wrap;border-bottom:2px solid var(--line);margin-bottom:20px}
+.tab{appearance:none;background:none;border:none;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--muted);
+     padding:10px 15px;cursor:pointer;border-radius:10px 10px 0 0;position:relative;top:2px;
+     border-bottom:2px solid transparent;transition:.15s}
+.tab:hover{color:var(--ink);background:rgba(74,78,105,.05)}
+.tab.on{color:#2F3346;border-bottom-color:rgba(74,78,105,.75);background:var(--surface)}
+.tab .sn{font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted);margin-right:5px}
+.tab.on .sn{color:var(--slate)}
+.pane{display:none}
+.pane.on{display:block}
+
+h3{font-family:Hahmlet,"Apple SD Gothic Neo",serif;font-size:16.5px;font-weight:700;margin:26px 0 10px;
+   padding-bottom:7px;border-bottom:1px solid var(--line);letter-spacing:-.01em}
+.pane > h3:first-child{margin-top:2px}
+h3 .sub{font-size:12px;font-weight:400;color:var(--muted);margin-left:7px}
+p.lead{font-size:13.5px;color:#5b5447;margin-bottom:12px}
+
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);
+      border-radius:12px;overflow:hidden;font-size:13px}
+th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:rgba(74,78,105,.07);font-weight:700;font-size:12px;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.num,th.num{font-family:"DM Mono",monospace;white-space:nowrap;text-align:right}
+td.cell,th.cell{font-family:"DM Mono",monospace;font-size:11px;color:#9C9487;white-space:nowrap}
+tr.hi td{background:rgba(255,80,25,.05)}
+tr.tot td{background:rgba(74,78,105,.05);font-weight:700}
+.dash{color:#c9c2b4}
+.cap{font-size:11.5px;color:var(--muted);line-height:1.75;margin:7px 2px 18px}
+.cap code{font-family:"DM Mono",monospace;font-size:11px;background:#F1EFE9;padding:1px 5px;border-radius:4px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px}
+.card.warn{border-color:var(--coral);background:rgba(255,80,25,.05)}
+.card h4{font-size:14px;font-weight:700;margin-bottom:7px}
+.card p{font-size:13.5px;color:#4d463d;margin-bottom:6px}
+.card p:last-child{margin-bottom:0}
+
+.txtbox{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:14px;overflow:hidden}
+.txthead{display:flex;align-items:center;gap:10px;padding:11px 16px;background:rgba(74,78,105,.06);
+         border-bottom:1px solid var(--line);flex-wrap:wrap}
+.txthead .t{font-size:13.5px;font-weight:700}
+.txthead .c{font-family:"DM Mono",monospace;font-size:11px;color:#9C9487}
+.txthead button{margin-left:auto;font-family:inherit;font-size:12px;font-weight:600;color:var(--sage);
+  background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;transition:.15s}
+.txthead button:hover{border-color:var(--sage);background:rgba(94,144,135,.08)}
+.txthead button.done{color:#fff;background:var(--sage);border-color:var(--sage)}
+.txtbody{padding:14px 18px;font-size:13px;line-height:1.85;white-space:pre-wrap;word-break:keep-all}
+
+.opnote{margin-top:30px;font-size:12px;color:var(--muted);line-height:1.75}
+.files{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px 16px;margin-top:10px}
+.files .fl{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 2px;border-bottom:1px solid var(--line)}
+.files .fl:last-child{border-bottom:none}
+.files .fn{font-size:13.5px}
+.files .fn span{display:block;font-family:"DM Mono",monospace;font-size:11px;color:var(--muted);margin-top:3px}
+.dl{font-size:12.5px;color:var(--sage);text-decoration:none;font-weight:600;white-space:nowrap;padding:8px 16px;
+    border:1px solid var(--line);border-radius:999px;background:var(--surface);cursor:pointer;font-family:inherit}
+.dl:hover{border-color:var(--sage);background:rgba(94,144,135,.08)}
+.foot{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);text-align:center;
+      font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted);letter-spacing:.03em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="navleft">
+      <a class="back" href="finance-investor.html">← 투자자 보고</a>
+      <a class="back" href="https://claude.ai/chat/17924d1e-fd45-4cc2-b0df-e3ce10789c88" target="_blank" rel="noopener">💬 작업 대화</a>
+    </div>
+    <div class="metaline">
+      <span class="crumb">AI 워크스페이스 › 정산·신고 › 투자자 보고 › 2026 2분기</span>
+      <span class="bar">|</span>
+      <span class="upd">업데이트 <span id="updstamp"></span></span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>2026년 2분기 보고 · 더웰스</h1>
+    <p>탭이 엑셀 시트와 같은 순서입니다. 표 오른쪽 회색 글자가 <b>셀 위치</b>이고, 긴 서술은 복사 버튼으로 그대로 가져갈 수 있습니다.</p>
+  </div>
+
+  <div class="factbar">
+    <div class="fb hot"><div class="k">회신 기한</div><div class="v">7/31</div></div>
+    <div class="fb"><div class="k">기준일</div><div class="v">2026.06.30</div></div>
+    <div class="fb"><div class="k">회신처</div><div class="v" style="font-size:13px">박유민 대리</div></div>
+    <div class="fb"><div class="k">양식 파일</div><div class="v" style="font-size:12px">2분기 보고(양식).xls</div></div>
+  </div>
+
+  <details class="chkbox">
+    <summary>⚠️ 먼저 확인할 것<span class="cnt">3건</span></summary>
+    <div class="chk">
+      <div class="row"><span class="no">1</span><span class="tx"><b>2026년 실적 예상 — 계산 방식 협의 중</b><span class="memo">현재 매출 40 · 영업익 −95로 임시 입력했습니다. 2025년 분기 구성이 상반기 29% : 하반기 71%이고 전년 동기 대비 성장률이 1.22배라, 두 방식 모두 <b>연간 59백만원</b>이 나옵니다. 하반기 영업 성과를 반영한 목표는 100 수준입니다. 판관비는 상반기와 같은 71을 하반기에도 적용하면 연간 142이고, 매출 59면 영업익 −83, 매출 100이면 −42입니다. &nbsp;<code>2.요약재무정보 G63 · I63</code></span></span></div>
+      <div class="row"><span class="no">2</span><span class="tx"><b>기술보증기금 보증을 차입금 담보 열에 적을지</b><span class="memo">신한은행 차입 150 · 50이 기보 보증서를 담보로 한 대출이면 <code>3.자금관리 F36 · F37</code>(질권 및 담보제공)에 "기술보증기금 보증서"를 적는 것이 정확합니다. 2025년 4개 회차는 모두 비워져 있었습니다. 보증 내용이 확인되면 채웁니다.</span></span></div>
+      <div class="row"><span class="no">3</span><span class="tx"><b>통장 잔액에 88,037원 차이가 있습니다</b><span class="memo">계정별원장 보통예금 6/30 잔액 7,217,142원, 통장 기록 7,129,105원. 백만원 단위 보고에는 영향이 없어 그대로 두었고 마지막에 확인합니다.</span></span></div>
+    </div>
+  </details>
+
+  <div class="tabs">
+    <button class="tab on" data-p="s1"><span class="sn">1</span>기업현황</button>
+    <button class="tab" data-p="s2"><span class="sn">2</span>요약재무정보</button>
+    <button class="tab" data-p="s3"><span class="sn">3</span>자금관리</button>
+    <button class="tab" data-p="s4"><span class="sn">4</span>매출현황</button>
+    <button class="tab" data-p="s5"><span class="sn">5</span>지급보증 등</button>
+  </div>
+
+  <!-- ============ 1 ============ -->
+  <div class="pane on" id="s1">
+
+    <h3>함께 보낼 서류 준비 현황</h3>
+    <div class="tw">
+    <table>
+      <tr><th>서류</th><th>상태</th><th>확인 내용</th></tr>
+      <tr><td><b>4대보험 가입자명부</b></td><td>✅ 준비 완료</td><td>2026.06.30 16:16 발급 · 안상미 1명 · 취득일 2018.11.01</td></tr>
+      <tr><td><b>주주명부</b></td><td>✅ 준비 완료</td><td>2026.06.30 기준 · 법인인감 날인 · 14,061주 / 7,030,500원 · 지분율 100%</td></tr>
+      <tr><td><b>벤처기업확인서</b></td><td>✅ 준비 완료</td><td>2026.02.24 발급 · 유효 2026.03.14~2029.03.13 · MYSC 인증 증빙에 해당</td></tr>
+      <tr class="hi"><td><b>법인등기부등본</b></td><td>내일 재발급</td><td>보유분은 2026.04.07 발급이라 액트너랩(6/30 이후)·MYSC(최근 1개월) 조건 미충족 · <b>말소사항 포함</b> 선택 필수</td></tr>
+      <tr class="hi"><td><b>가결산 재무제표</b></td><td>삼화 대기</td><td>6/30 기준 · 수령 후 법인인감 날인·스캔</td></tr>
+    </table>
+    <p class="cap">등기부등본·주주명부·4대보험명부는 세 곳에 같은 파일을 씁니다. 조건이 가장 엄격한 쪽(말소사항 포함 · 최근 1개월 이내 · 기준일 이후)에 맞춰 한 부만 만들면 됩니다.</p>
+    </div>
+
+    <h3>회사 개요</h3>
+    <div class="tw">
+    <table>
+      <tr><th>항목</th><th>값</th><th class="cell">셀</th><th>항목</th><th>값</th><th class="cell">셀</th></tr>
+      <tr><td>회사명</td><td>주식회사 공공의주방</td><td class="cell">C12</td><td>주소</td><td>경기도 용인시 수지구 포은대로59번길 37, 1층 113호</td><td class="cell">J12</td></tr>
+      <tr><td>전화번호</td><td class="num">070-4680-5910</td><td class="cell">C13</td><td>팩스번호</td><td class="num">0504-082-1018</td><td class="cell">J13</td></tr>
+      <tr><td>홈페이지</td><td class="num">www.public-kitchen.com<br>www.archiveat.kr</td><td class="cell">Q13</td><td>설립일</td><td class="num">2016. 04. 05</td><td class="cell">C14</td></tr>
+      <tr><td>자본금 총액</td><td class="num">7,030,500</td><td class="cell">J14</td><td>액면가액</td><td class="num">500</td><td class="cell">Q14</td></tr>
+      <tr class="hi"><td>수권주식수</td><td class="num">100,000,000</td><td class="cell">C15</td><td>발행주식총수</td><td class="num">14,061</td><td class="cell">J15</td></tr>
+      <tr><td>법인등록번호</td><td class="num">110111-6022399</td><td class="cell">Q15</td><td class="dash">—</td><td class="dash">—</td><td class="cell">—</td></tr>
+      <tr><td>벤처인증유형</td><td>벤처투자유형</td><td class="cell">C17</td><td>사업자번호</td><td class="num">368-81-00400</td><td class="cell">Q18</td></tr>
+      <tr><td>벤처인증일</td><td class="num">2026. 03. 14</td><td class="cell">J17</td><td>벤처인증기간</td><td class="num">2029. 03. 13</td><td class="cell">Q17</td></tr>
+      <tr><td>주요제품</td><td colspan="4">요리 동영상 레시피 콘텐츠 / 쿠킹박스 / 온라인·오프라인 쿠킹클래스 / 케이터링</td><td class="cell">C19</td></tr>
+      <tr><td>주요 매출처</td><td colspan="4">자사 플랫폼·자사몰 / 기업·기관(B2B)</td><td class="cell">J19</td></tr>
+    </table>
+    <p class="cap">상장주관사·외부감사인·이노비즈·메인비즈는 해당 없음으로 공란입니다.<br>
+    <b>수권주식수 100,000,000주를 새로 넣었습니다.</b> 등기부등본의 "발행할 주식의 총수"입니다. 2025년 보고서에는 공란이었는데 양식에 칸이 있고 근거가 명확해 채웠습니다.<br>
+    <b>벤처기업확인이 갱신되어 반영했습니다.</b> 2026.02.24 발급(제20260224010011호), 확인유형 벤처투자유형, 유효기간 2026.03.14~2029.03.13. 기존 인증 만료(2026.03.13) 다음 날부터 3년 연장되어 공백이 없습니다. <b>MYSC가 요청한 "26년 추가된 인증 관련 증빙"에도 이 확인서가 해당합니다.</b></p>
+    </div>
+
+    <h3>Contact Point · 이사회</h3>
+    <div class="tw">
+    <table>
+      <tr><th>구분</th><th>성명</th><th>전화 · 선임일</th><th>E-mail · 관계</th><th class="cell">셀</th></tr>
+      <tr><td>대표이사</td><td>안 상 미</td><td class="num">010-2770-5538</td><td class="num">ceo@acvt.kr</td><td class="cell">C24 H24 L24</td></tr>
+      <tr><td>담당자</td><td>안 상 미</td><td class="num">010-2770-5538</td><td class="num">ceo@acvt.kr</td><td class="cell">C25 H25 L25</td></tr>
+      <tr><td>사내이사</td><td>안 상 미</td><td class="num">2016. 04. 05</td><td>대표이사</td><td class="cell">C31 E31 H31</td></tr>
+      <tr><td>감사</td><td>주 순 옥</td><td class="num">2016. 04. 05</td><td>감사</td><td class="cell">C41 E41 H41</td></tr>
+    </table>
+    <p class="cap">담당자를 최주애 과장에서 대표님으로 바꿨습니다. 2025년 보고서에는 최주애 과장으로 되어 있었습니다.</p>
+    </div>
+
+    <h3>종업원수 <span class="sub">4대보험 사업장 가입자명부로 확정 · 2026.06.30 발급</span></h3>
+    <div class="tw">
+    <table>
+      <tr><th>구분</th><th class="num">2023년말</th><th class="num">2024년말</th><th class="num">2025년말</th><th class="num">3월말</th><th class="num">6월말</th><th class="cell">셀</th></tr>
+      <tr><td>관리</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="cell">C51 E51 H51 K51 L51</td></tr>
+      <tr><td>영업</td><td class="num">1</td><td class="dash num">—</td><td class="dash num">—</td><td class="dash num">—</td><td class="dash num">—</td><td class="cell">C52</td></tr>
+      <tr class="tot"><td>합계</td><td class="num">2</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td class="cell">자동</td></tr>
+    </table>
+    <p class="cap"><b>첨부하는 4대보험 명부에 안상미 1명</b>(취득일 2018.11.01)이 기재되어 있어 3월말·6월말을 1명으로 맞췄습니다. 최주애 과장은 상실 처리가 완료되어 명부에서 빠졌고, 부대표는 4대보험 가입 대상이 아니라 종업원에 포함하지 않습니다.<br>
+    과거 열(2023~2025년말)은 작년 보고서 값을 그대로 두었습니다. 바꾸면 지난 보고서와 달라져 설명이 필요해집니다.</p>
+    </div>
+
+    <h3>지분현황 <span class="sub">2025년말과 동일 · 상반기 변동 없음</span></h3>
+    <div class="tw">
+    <table>
+      <tr><th>주주명</th><th class="num">보통주</th><th class="num">지분율</th><th class="cell">셀</th></tr>
+      <tr><td>안상미</td><td class="num">8,000</td><td class="num">56.89%</td><td class="cell">B63 F63</td></tr>
+      <tr><td>최규진</td><td class="num">1,000</td><td class="num">7.11%</td><td class="cell">B64 F64</td></tr>
+      <tr><td>최규현</td><td class="num">1,000</td><td class="num">7.11%</td><td class="cell">B65 F65</td></tr>
+      <tr><td>액트너랩제1호개인투자조합</td><td class="num">935</td><td class="num">6.65%</td><td class="cell">B66 F66</td></tr>
+      <tr class="hi"><td>더웰스도시재생투자조합</td><td class="num">2,657</td><td class="num">18.90%</td><td class="cell">B67 F67</td></tr>
+      <tr><td>엑스트라마일 임팩트 5호 벤처투자조합</td><td class="num">469</td><td class="num">3.34%</td><td class="cell">B68 F68</td></tr>
+      <tr class="tot"><td>합계</td><td class="num">14,061</td><td class="num">100%</td><td class="cell">자동</td></tr>
+    </table>
+    <p class="cap">우선주는 없으므로 I열은 모두 0입니다. 지분율은 양식이 자동 계산합니다.</p>
+    </div>
+
+    <h3>자본금 변동현황</h3>
+    <div class="tw">
+    <table>
+      <tr><th>일자</th><th>종류</th><th class="num">변동 주식수</th><th class="num">최종 주식수</th><th class="num">증자단가</th><th class="cell">행</th></tr>
+      <tr><td>설립시</td><td>보통주</td><td class="num">10,000</td><td class="num">10,000</td><td class="num">500</td><td class="cell">82</td></tr>
+      <tr><td class="num">2018. 08. 17</td><td>보통주</td><td class="num">715</td><td class="num">10,715</td><td class="num">280,000</td><td class="cell">83</td></tr>
+      <tr><td class="num">2020. 04. 03 ~ 06. 01</td><td>보통주</td><td class="num">220</td><td class="num">10,935</td><td class="num">466,635</td><td class="cell">84</td></tr>
+      <tr class="hi"><td class="num">2021. 11. 09</td><td>보통주</td><td class="num">2,657</td><td class="num">13,592</td><td class="num">640,000</td><td class="cell">85</td></tr>
+      <tr><td class="num">2022. 04. 05</td><td>보통주</td><td class="num">469</td><td class="num">14,061</td><td class="num">640,000</td><td class="cell">86</td></tr>
+    </table>
+    <p class="cap">열은 <code>A</code>일자 · <code>C</code>종류 · <code>E</code>변동 주식수 · <code>G</code>최종 주식수 · <code>L</code>증자단가입니다. 나머지 열은 자동 계산됩니다.<br>
+    양식에 행이 5줄뿐이라 2020년 두 건(04.03 · 06.01)을 한 줄로 합쳤습니다. 양식 안내에도 "투자 이후 시점은 일별로, 그 이전은 일괄 합계로 표시해도 된다"고 되어 있습니다. 최근 거래내역과 주식연계사채는 해당 없음으로 공란입니다.</p>
+    </div>
+  </div>
+
+  <!-- ============ 2 ============ -->
+  <div class="pane" id="s2">
+
+    <h3>요약 재무상태표 <span class="sub">단위 백만원</span></h3>
+    <div class="tw">
+    <table>
+      <tr><th>구분</th><th class="num">2023년말</th><th class="num">2024년말</th><th class="num">2025년말</th><th class="num">3월말</th><th class="num">6월말</th><th class="cell">행</th></tr>
+      <tr><td>유동자산</td><td class="num">40</td><td class="num">38</td><td class="num">4</td><td class="num">2</td><td class="num">9</td><td class="cell">12</td></tr>
+      <tr><td>비유동자산</td><td class="num">603</td><td class="num">402</td><td class="num">148</td><td class="num">132</td><td class="num">116</td><td class="cell">13</td></tr>
+      <tr class="tot"><td>자산총계</td><td class="num">643</td><td class="num">440</td><td class="num">152</td><td class="num">134</td><td class="num">125</td><td class="cell">자동</td></tr>
+      <tr><td>유동부채</td><td class="num">490</td><td class="num">414</td><td class="num">356</td><td class="num">374</td><td class="num">393</td><td class="cell">15</td></tr>
+      <tr class="hi"><td>비유동부채</td><td class="num">30</td><td class="num">278</td><td class="num">268</td><td class="num">266</td><td class="num">265</td><td class="cell">16</td></tr>
+      <tr class="tot"><td>부채총계</td><td class="num">520</td><td class="num">692</td><td class="num">624</td><td class="num">640</td><td class="num">658</td><td class="cell">자동</td></tr>
+      <tr><td>자본금</td><td class="num">7</td><td class="num">7</td><td class="num">7</td><td class="num">7</td><td class="num">7</td><td class="cell">18</td></tr>
+      <tr><td>자본잉여금</td><td class="num">2,301</td><td class="num">2,301</td><td class="num">2,301</td><td class="num">2,301</td><td class="num">2,301</td><td class="cell">19</td></tr>
+      <tr><td>이익잉여금</td><td class="num">−2,185</td><td class="num">−2,560</td><td class="num">−2,780</td><td class="num">−2,814</td><td class="num">−2,841</td><td class="cell">20</td></tr>
+      <tr class="tot"><td>자본총계</td><td class="num">123</td><td class="num">−252</td><td class="num">−472</td><td class="num">−506</td><td class="num">−533</td><td class="cell">자동</td></tr>
+    </table>
+    <p class="cap">열은 <code>D</code>2023년말 · <code>F</code>2024년말 · <code>H</code>2025년말 · <code>J</code>3월말 · <code>L</code>6월말입니다. 6월말 유동자산은 <code>L12</code>입니다.<br>
+    <b>2025년말 비유동부채를 267 → 268로 바꿨습니다.</b> 2025년 4분기 보고서는 자산 152 vs 부채+자본 151로 양식의 검증식에 <code>error</code>가 떠 있었습니다. 268로 두면 부채가 624가 되어 검증이 통과합니다.</p>
+    </div>
+
+    <h3>요약 손익계산서 <span class="sub">단위 백만원 · 분기는 3개월 실적</span></h3>
+    <div class="tw">
+    <table>
+      <tr><th>구분</th><th class="num">2023년말</th><th class="num">2024년말</th><th class="num">2025년말</th><th class="num">1분기</th><th class="num">2분기</th><th class="cell">행</th></tr>
+      <tr><td>매출액 (국내)</td><td class="num">119</td><td class="num">104</td><td class="num">48</td><td class="num">7</td><td class="num">11</td><td class="cell">37</td></tr>
+      <tr><td>매출원가</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="cell">39</td></tr>
+      <tr><td>판매비와 관리비</td><td class="num">788</td><td class="num">448</td><td class="num">229</td><td class="num">36</td><td class="num">35</td><td class="cell">41</td></tr>
+      <tr class="tot"><td>영업이익</td><td class="num">−669</td><td class="num">−344</td><td class="num">−181</td><td class="num">−29</td><td class="num">−24</td><td class="cell">자동</td></tr>
+      <tr><td>비영업수익</td><td class="num">23</td><td class="num">2</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="cell">43</td></tr>
+      <tr><td>비영업비용</td><td class="num">16</td><td class="num">34</td><td class="num">38</td><td class="num">3</td><td class="num">4</td><td class="cell">44</td></tr>
+      <tr class="tot"><td>당기순이익</td><td class="num">−662</td><td class="num">−376</td><td class="num">−219</td><td class="num">−32</td><td class="num">−28</td><td class="cell">자동</td></tr>
+      <tr><td>감가상각비</td><td class="num">81</td><td class="num">43</td><td class="num">7</td><td class="num">1</td><td class="num">1</td><td class="cell">48</td></tr>
+      <tr><td>무형자산상각비</td><td class="num">97</td><td class="num">106</td><td class="num">106</td><td class="num">15</td><td class="num">15</td><td class="cell">49</td></tr>
+      <tr class="tot"><td>EBITDA</td><td class="num">−491</td><td class="num">−195</td><td class="num">−68</td><td class="num">−13</td><td class="num">−8</td><td class="cell">자동</td></tr>
+    </table>
+    <p class="cap">열은 재무상태표와 같습니다. 2분기 판관비는 <code>L41</code>입니다. 법인세비용과 해외매출은 0입니다.</p>
+    </div>
+
+    <div class="card">
+      <h4>전년 동기와 비교하면</h4>
+      <p>상반기 기준으로 <b>매출 14.0 → 17.1백만원(+22.4%)</b>, <b>판관비 119.5 → 71.0백만원(−40.5%)</b>, <b>영업손실 −105.5 → −53.9백만원(48.9% 축소)</b>입니다. EBITDA 손실도 −48 → −23백만원으로 줄었습니다. 이 숫자가 아래 영업현황 서술의 근거입니다.</p>
+    </div>
+
+    <h3>영업 및 시장·산업 현황</h3>
+    <p class="lead">아래 네 상자는 각각 엑셀 <b>한 칸</b>에 들어갑니다. 복사 버튼을 누르면 줄바꿈까지 그대로 복사됩니다.</p>
+
+    <div class="txtbox">
+      <div class="txthead"><span class="t">영업현황 — 당분기까지 현황</span><span class="c">E60</span><button onclick="cp(this,'t1')">복사</button></div>
+      <div class="txtbody" id="t1">* 매출 성장과 손실 축소를 동시에 달성
+- 2026년 상반기 매출 17.1백만원 (2025년 상반기 14.0백만원 대비 +22.4%)
+- 판관비 71.0백만원으로 2025년 상반기 119.5백만원 대비 40.5% 절감
+- 영업손실 △53.9백만원으로 2025년 상반기 △105.5백만원 대비 48.9% 축소, EBITDA 손실도 △48백만원 → △23백만원으로 개선
+
+* B2B 케이터링이 새로운 매출 축으로 자리매김
+- 상반기 케이터링 매출 6.7백만원으로 전체 매출의 39% (2025년 상반기 0원)
+- 3월 아시안스퀘어, 6월 디캠프 스타트업 OI(프리미어플랜), 6월 머니투데이 행사 수행
+- 현장 운영은 협력사(파티본)와 건별 협업 구조로 진행하여 고정비 증가 없이 수주 대응
+
+* 기업 대상 온라인 쿠킹클래스 반복 거래 확보
+- ㈜휴넷과 2월·4월·5월 3회에 걸쳐 온라인 쿠킹클래스 진행 (상반기 4.1백만원)
+- 단발 판매가 아닌 반복 발주 구조로, 하반기 확대를 협의 중
+
+* 경영관리 업무의 시스템화와 조직 효율화
+- 경영기획 담당자 퇴직에 따라 관련 업무를 매뉴얼화하고 AI 기반 업무 시스템으로 전환하여 처리
+- 세무(삼화회계법인)·법무 등 전문 영역은 외부 협업 체계로 운영하여 업무 공백 없이 지속
+- 퇴직금 및 퇴직급여충당금 정산은 2026년 상반기 중 완료
+- 인건비는 분기 3백만원 → 1백만원으로 절감했으며, 등록 요리 전문가 네트워크(약 120명)와 건별 협업하는 구조로 클래스·케이터링 수요에 대응
+
+* 온라인 판매 채널 운영 지속
+- 아카이빗몰(archiveat.kr)에서 쿠킹박스·레시피 상품군 판매, 토스·컬리 새벽배송 채널 병행
+- 유튜브 채널(@archiveat365) 구독자 2,440명, 편집 완료 영상 2,623편 확보(누적 DB 2,738편)
+
+* 자금
+- 대표이사 가수금 367백만원으로 운영자금을 조달하며 사업을 지속
+- 금융기관 차입금 260백만원 유지(상반기 원금 상환 없음), 부가가치세 2026년 1기 환급 0.9백만원 확정</div>
+    </div>
+
+    <div class="txtbox">
+      <div class="txthead"><span class="t">영업현황 — 향후 계획</span><span class="c">E64</span><button onclick="cp(this,'t2')">복사</button></div>
+      <div class="txtbody" id="t2">* 하반기 B2B 아웃바운드 영업 본격화
+- 케이터링·기업 클래스 제안을 위한 콘텐츠·제안 체계를 구축하고 거래처 발굴을 시작
+- 상반기 수행 실적(디캠프 스타트업 OI, 머니투데이 등)을 레퍼런스로 활용
+
+* 반복 거래처 고정화
+- ㈜휴넷 등 기업 클래스 반복 발주를 연간 단위 계약 형태로 전환 협의
+
+* 쿠킹박스 판매 채널 확대
+- 아카이빗몰과 컬리 새벽배송을 병행하고, 유튜브 콘텐츠와 연계한 판매를 강화
+
+* 손익 구조 개선
+- 상반기에 반영된 고정비 절감 효과가 하반기에 온기로 작용하여 영업손실 추가 축소 예상</div>
+    </div>
+
+    <div class="tw">
+    <table>
+      <tr><th>2026년 실적 (예상)</th><th class="num">매출</th><th class="num">영업익</th><th>비고</th><th class="cell">셀</th></tr>
+      <tr class="hi"><td>연간</td><td class="num">40</td><td class="num">−95</td><td>쿠킹클래스(B2B 포함), 케이터링, 쿠킹박스</td><td class="cell">G63 I63 K63</td></tr>
+    </table>
+    <p class="cap"><b>임시 입력값입니다.</b> 계절성·성장률로 계산하면 59, 하반기 영업 성과를 반영한 목표는 100 수준입니다. 확정되면 함께 고칩니다.</p>
+    </div>
+
+    <div class="txtbox">
+      <div class="txthead"><span class="t">최근 시장·산업 현황</span><span class="c">E67</span><button onclick="cp(this,'t3')">복사</button></div>
+      <div class="txtbody" id="t3">* 고물가로 집밥 수요는 유지되나, 간편식 시장은 양적 성장에서 질적 재편 국면
+- 외식물가 상승이 이어지며 가정 내 조리 수요는 견조하게 유지되고 있음
+- 반면 밀키트 시장은 팬데믹 시기의 고성장을 지나 정체·재편 단계로, 단순 편의성보다 건강과 취향을 중시하는 방향으로 이동
+
+* B2B·단체 수요의 상대적 확대
+- 기업·기관의 임직원 대상 프로그램, 행사 케이터링 등 단체 단위 수요가 개인 소비보다 안정적으로 유지
+- 당사가 상반기 케이터링·기업 클래스에서 매출을 확보한 배경
+
+* 요리 콘텐츠와 상품의 결합 흐름
+- 레시피 콘텐츠가 구매로 이어지는 커머스 결합 모델이 확대되고 있으며, 당사가 보유한 레시피·영상 자산의 활용 여지가 있음</div>
+    </div>
+
+    <div class="txtbox">
+      <div class="txthead"><span class="t">향후 시장·산업 전망</span><span class="c">E68</span><button onclick="cp(this,'t4')">복사</button></div>
+      <div class="txtbody" id="t4">* 시장은 규모 확장보다 수익성·재구매율 중심으로 전환
+- 국내 간편식·밀키트 시장은 완만한 성장 국면에서 안정화될 전망이며, 기업들은 외형보다 내실에 집중
+
+* 초개인화·기능성 수요가 성장 축
+- 저염식·고령친화식 등 목적형 식단과 구독형 서비스가 성장 영역으로 부상
+- 당사의 전문가 네트워크와 레시피 DB는 목적형 식단 구성에 활용 가능한 기반
+
+* 당사 대응 방향
+- 개인 소비 시장의 변동성을 B2B(기업·기관) 수요로 보완하고, 콘텐츠 자산을 판매와 연결하는 구조를 강화</div>
+    </div>
+    <p class="cap">시장·산업 두 칸은 2025년 4분기 보고 내용을 기반으로 다시 쓴 것입니다. 2026년 상반기 최신 통계가 필요하면 말씀해 주세요. 기술개발·연구 현황(E69 · E70)은 해당 없음으로 공란입니다.</p>
+  </div>
+
+  <!-- ============ 3 ============ -->
+  <div class="pane" id="s3">
+
+    <h3>예적금 현황 <span class="sub">단위 백만원</span></h3>
+    <div class="tw">
+    <table>
+      <tr><th>구분</th><th class="num">2025년말</th><th class="num">3월말</th><th class="num">6월말</th><th class="cell">셀</th></tr>
+      <tr><td>보통예금</td><td class="num">4</td><td class="num">2</td><td class="num">7</td><td class="cell">B12 C12 D12</td></tr>
+      <tr><td>사용제한</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="cell">B17 C17 D17</td></tr>
+      <tr class="tot"><td>가용현금</td><td class="num">4</td><td class="num">2</td><td class="num">7</td><td class="cell">자동</td></tr>
+    </table>
+    <p class="cap">정기예적금·단기투자자산·기타는 모두 0입니다.</p>
+    </div>
+
+    <h3>차입금 현황 <span class="sub">단위 백만원</span></h3>
+    <div class="tw">
+    <table>
+      <tr><th>구분</th><th class="num">2025년말</th><th class="num">3월말</th><th class="num">6월말</th><th class="cell">셀</th></tr>
+      <tr><td>기초차입금</td><td class="num">272</td><td class="num">260</td><td class="num">260</td><td class="cell">B28 · 이후 자동</td></tr>
+      <tr><td>차입금상환</td><td class="num">12</td><td class="num">0</td><td class="num">0</td><td class="cell">B29 C29 D29</td></tr>
+      <tr><td>차입금증가</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="cell">B30 C30 D30</td></tr>
+      <tr class="tot"><td>기말차입금</td><td class="num">260</td><td class="num">260</td><td class="num">260</td><td class="cell">자동</td></tr>
+    </table>
+    <p class="cap">2026년 상반기에는 원금 상환이 없었습니다. 2025년에는 분기마다 4백만원씩 상환했습니다.<br>
+    <b>양식의 헤더 수식이 xls 변환 과정에서 <code>00:00:00</code>으로 깨져 문자열로 고쳤습니다.</b> B26 · C26 · C27 · D27에 각각 2025년말 · 2026년 · 3월말 · 6월말을 직접 넣었습니다.</p>
+    </div>
+
+    <div class="tw">
+    <table>
+      <tr><th>차입처</th><th class="num">금액</th><th>이자율</th><th>만기일</th><th class="cell">행</th></tr>
+      <tr><td>신한은행</td><td class="num">150</td><td class="dash">공란</td><td class="dash">공란</td><td class="cell">36</td></tr>
+      <tr><td>신한은행</td><td class="num">50</td><td class="dash">공란</td><td class="dash">공란</td><td class="cell">37</td></tr>
+      <tr><td>개인(대표 특수관계인)</td><td class="num">60</td><td class="dash">공란</td><td class="dash">공란</td><td class="cell">38</td></tr>
+      <tr class="tot"><td>합계</td><td class="num">260</td><td class="dash">—</td><td class="dash">—</td><td class="cell">자동</td></tr>
+    </table>
+    <p class="cap">열은 <code>A</code>은행명 · <code>C</code>금액 · <code>D</code>이자율 · <code>E</code>만기일 · <code>F</code>질권·담보제공입니다.<br>
+    <b>이자율·만기일은 2025년 4개 회차 모두 비워져 있어 동일하게 공란으로 두었습니다.</b> 상환스케쥴(행 47~49)에도 금액만 넣고 연도 열은 비웠는데, 이것도 2025년 4분기와 같은 방식입니다.<br>
+    참고로 2025년 1·2분기에는 <code>신한은행 8</code> · <code>신한은행 4</code>가 한 줄 더 있었고 3분기부터 사라졌습니다. 그 해 안에 완제된 소액 대출로 보입니다.</p>
+    </div>
+
+    <h3>분기별 운전자금 소요액 <span class="sub">단위 백만원</span></h3>
+    <div class="tw">
+    <table>
+      <tr><th>구분</th><th class="num">2025년 평균</th><th class="num">1분기</th><th class="num">2분기</th><th class="cell">행</th></tr>
+      <tr><td>인건비</td><td class="num">4</td><td class="num">3</td><td class="num">1</td><td class="cell">59</td></tr>
+      <tr><td>임차료·관리비</td><td class="num">7</td><td class="num">5</td><td class="num">5</td><td class="cell">60</td></tr>
+      <tr><td>개발비</td><td class="num">2</td><td class="num">1</td><td class="num">1</td><td class="cell">61</td></tr>
+      <tr><td>기타 비용</td><td class="num">16</td><td class="num">11</td><td class="num">13</td><td class="cell">62</td></tr>
+      <tr class="hi"><td>일시 지출 (퇴직금·가수금 상환)</td><td class="num">38</td><td class="num">18</td><td class="num">0</td><td class="cell">63</td></tr>
+      <tr class="tot"><td>합계</td><td class="num">67</td><td class="num">38</td><td class="num">20</td><td class="cell">자동</td></tr>
+    </table>
+    <p class="cap">양식의 기본 항목명(임원급여 · 임원 외 급여 · 원재료 · 기타비용)을 2025년 보고서와 같은 방식으로 바꿔 적었습니다. <b>A열 항목명도 함께 덮어써야 합니다.</b><br>
+    1분기 일시 지출 18백만원은 3월 25일 지급한 퇴직금(퇴직중간정산분 15,944,793원 + 퇴직최종정산분 1,840,361원)입니다.</p>
+    </div>
+  </div>
+
+  <!-- ============ 4 ============ -->
+  <div class="pane" id="s4">
+
+    <h3>매출채권 현황 <span class="sub">단위 백만원</span></h3>
+    <div class="tw">
+    <table>
+      <tr><th>거래처명</th><th class="num">금액</th><th class="num">3개월</th><th>비고</th><th class="cell">셀</th></tr>
+      <tr><td>PG 정산 미수(토스)</td><td class="num">0.1</td><td class="num">0.1</td><td>6월말 잔액 90,448원</td><td class="cell">A12 B12</td></tr>
+      <tr><td>대손예상액</td><td colspan="2">해당사항 없음</td><td class="dash">—</td><td class="cell">B17</td></tr>
+    </table>
+    <p class="cap"><code>A17</code>은 "대손예상액" 라벨이므로 건드리지 말고 <code>B17</code>에 적습니다. 대손상각비 설정내역은 <code>A32</code>에 "해당사항 없음"으로 넣었습니다(A31은 라벨).</p>
+    </div>
+
+    <div class="tw">
+    <table>
+      <tr><th>구분</th><th class="num">매출액</th><th class="num">회수</th><th class="num">대손</th><th class="num">채권잔액</th><th class="cell">행</th></tr>
+      <tr><td>2025년 전체</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="cell">24</td></tr>
+      <tr><td>2026년 1분기</td><td class="num">7</td><td class="num">7</td><td class="num">0</td><td class="num">0</td><td class="cell">25</td></tr>
+      <tr class="hi"><td>2026년 2분기</td><td class="num">12</td><td class="num">12</td><td class="num">0</td><td class="num">0</td><td class="cell">26</td></tr>
+    </table>
+    <p class="cap">열은 <code>B</code>매출액 · <code>C</code>회수 · <code>D</code>대손이고 <code>E</code>채권잔액은 자동입니다.<br>
+    <b>양식의 수식 오류를 고쳤습니다.</b> 채권잔액 계산식이 <code>=전기+매출+회수+대손</code>으로 되어 있어 회수액이 더해지는 구조였습니다. <code>=전기+매출−회수−대손</code>으로 바꿨고, 합계행(E29)은 <code>=E28</code>로 두었습니다.</p>
+    </div>
+
+    <h3>매출처별 현황 <span class="sub">단위 백만원</span></h3>
+    <div class="tw">
+    <table>
+      <tr><th>매출처</th><th class="num">2025년</th><th class="num">1분기</th><th class="num">2분기</th><th>매출품목</th><th class="cell">행</th></tr>
+      <tr><td>자사 플랫폼 (PG 이니시스)</td><td class="num">31</td><td class="num">3.10</td><td class="num">2.65</td><td>쿠킹클래스(온라인)</td><td class="cell">40</td></tr>
+      <tr><td>아카이빗몰 (PG 토스)</td><td class="num">0.7</td><td class="num">0.34</td><td class="num">0.21</td><td>쿠킹박스 · 레시피</td><td class="cell">41</td></tr>
+      <tr class="hi"><td>㈜휴넷</td><td class="dash num">—</td><td class="num">1.36</td><td class="num">2.73</td><td>온라인 쿠킹클래스 (B2B)</td><td class="cell">42</td></tr>
+      <tr class="hi"><td>기업·기관 케이터링</td><td class="num">15</td><td class="num">1.70</td><td class="num">5.05</td><td>케이터링 (아시안스퀘어 · 디캠프 · 머니투데이)</td><td class="cell">43</td></tr>
+      <tr><td>기타(프로젝트)</td><td class="num">2</td><td class="num">0</td><td class="num">0</td><td>콘텐츠 프로젝트</td><td class="cell">44</td></tr>
+      <tr class="tot"><td>합계</td><td class="num">48.7</td><td class="num">6.50</td><td class="num">10.64</td><td class="dash">—</td><td class="cell">자동</td></tr>
+    </table>
+    <p class="cap">열은 <code>A</code>매출처 · <code>C</code>2025년 · <code>D</code>1분기 · <code>E</code>2분기 · <code>H</code>매출품목입니다.<br>
+    2025년 보고서는 매출처를 모두 "자사 플랫폼"으로 적었는데, <b>이번에는 케이터링 거래처명을 밝혔습니다.</b> 디캠프·머니투데이는 투자사가 알아보는 곳이라 레퍼런스로 읽힙니다. 부담스러우시면 "기업·기관"으로 되돌리면 됩니다.</p>
+    </div>
+  </div>
+
+  <!-- ============ 5 ============ -->
+  <div class="pane" id="s5">
+
+    <h3>지급보증 · 차입 · 임원 보상</h3>
+    <div class="tw">
+    <table>
+      <tr><th>항목</th><th>내용</th><th class="cell">셀</th></tr>
+      <tr><td>담보제공 및 지급보증</td><td>공란 <span style="color:var(--muted)">— 2025년 4개 회차와 동일</span></td><td class="cell">—</td></tr>
+      <tr><td>임직원 대여금</td><td>해당사항 없음</td><td class="cell">A27</td></tr>
+      <tr class="hi"><td><b>임직원 차입금</b></td><td><b>대표이사 가수금</b> — 1/1 315 · 증가 52 · 감소 0 · <b>6/30 367</b></td><td class="cell">A35 B35 C35 D35</td></tr>
+      <tr><td>자회사·관계회사 현황</td><td>해당사항 없음</td><td class="cell">A46</td></tr>
+      <tr><td>자회사·관계회사 거래내역</td><td>해당사항 없음</td><td class="cell">A54</td></tr>
+      <tr><td>계류중인 소송</td><td>해당사항 없음</td><td class="cell">A65</td></tr>
+      <tr><td>임원 보상</td><td>대표이사 급여 · 본사 · <b>1.2</b> · 퇴직급여 해당없음 · 배당 해당없음 · 2026년 2분기(4~6월) 급여</td><td class="cell">A73~F73</td></tr>
+    </table>
+    <p class="cap">가수금 증가 52백만원은 상반기 중 대표님이 회사에 넣으신 운영자금입니다. 양식의 마지막 열은 "2026-12-31"로 되어 있지만 6월말 잔액을 적었습니다. 2025년 보고서도 같은 방식이었습니다.<br>
+    임원 급여 1.2백만원은 2분기 3개월분(월 40만원)입니다.<br>
+    <b>담보제공란은 비워 두었습니다.</b> 2025년 4개 회차를 모두 열어 대조한 결과 전부 공란이었습니다. 이 칸은 <b>우리가 제공한 담보·보증</b>을 적는 자리라, 우리가 <b>받은</b> 기술보증기금 보증은 여기가 아니라 차입금 세부내역의 "질권 및 담보제공" 열에 적는 것이 맞습니다.</p>
+    </div>
+
+    <div class="card warn">
+      <h4>6. 담당심사역 의견</h4>
+      <p>이 시트는 <b>더웰스가 작성하는 칸</b>입니다. 우리는 비워서 보냅니다.</p>
+    </div>
+  </div>
+
+  <p class="opnote">
+    ※ 이 문서는 <b>엑셀에 옮겨 적기 위한 검토용</b>입니다. 실제 제출은 더웰스가 보낸 양식 파일로 합니다.<br>
+    ※ 숫자는 삼화회계법인 계정별원장(2026년 1~6월)에서 산출했고, 재무상태표는 양식의 검증식을 통과하도록 맞췄습니다.<br>
+    ※ 서류 실물과 개인 연락처는 공개 저장소에 두지 않습니다.
+  </p>
+
+  <div class="files">
+    <div class="fl"><div class="fn"><b>이 화면 (2026 2분기 보고)</b><span>finance-investor-2026q2.html · 항상 받아짐</span></div><button class="dl" onclick="saveThisPage()">받기</button></div>
+    <div class="fl"><div class="fn"><b>투자자 보고 대장</b><span>finance-investor.html</span></div><a class="dl" href="finance-investor.html">열기</a></div>
+  </div>
+
+  <div class="foot">finance-investor-2026q2 · <span id="footver">v4</span> · 주식회사 공공의주방 · archiveat.kr · 2026</div>
+
+</div>
+<script>
+(function(){
+  var mv=document.querySelector('meta[name="version"]');
+  var mu=document.querySelector('meta[name="updated"]');
+  var ver=mv?mv.content:'', upd=mu?mu.content:'';
+  var s=document.getElementById('updstamp'); if(s) s.textContent=upd+(ver?' \u00b7 '+ver:'');
+  var fv=document.getElementById('footver'); if(fv&&ver) fv.textContent=ver;
+
+  var tabs=document.querySelectorAll('.tab');
+  for(var i=0;i<tabs.length;i++){
+    tabs[i].addEventListener('click',function(){
+      var id=this.getAttribute('data-p');
+      var ts=document.querySelectorAll('.tab'), ps=document.querySelectorAll('.pane');
+      for(var j=0;j<ts.length;j++) ts[j].classList.remove('on');
+      for(var k=0;k<ps.length;k++) ps[k].classList.remove('on');
+      this.classList.add('on');
+      var p=document.getElementById(id); if(p) p.classList.add('on');
+    });
+  }
+})();
+function cp(btn,id){
+  var el=document.getElementById(id); if(!el) return;
+  var t=el.innerText;
+  function ok(){ btn.textContent='복사됨'; btn.classList.add('done');
+    setTimeout(function(){btn.textContent='복사'; btn.classList.remove('done');},1600); }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(ok, function(){ fb(t, ok); });
+  } else { fb(t, ok); }
+}
+function fb(t, ok){
+  var ta=document.createElement('textarea');
+  ta.value=t; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); ok(); }catch(e){ alert('복사 실패. 직접 선택해 복사해 주세요.'); }
+  document.body.removeChild(ta);
+}
+function saveThisPage(){
+  try{
+    var html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+    var blob=new Blob([html],{type:'text/html'});
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob); a.download='finance-investor-2026q2.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(a.href);},1500);
+  }catch(e){alert('저장 실패: '+e.message);}
+}
+</script>
+</body>
+</html>
