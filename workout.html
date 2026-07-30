@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="version" content="v4">
+<meta name="updated" content="2026.07.30 00:00">
+<title>운동 홈</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  :root{
+    --bg:#FAF5EC;
+    --ink:#241F1B;
+    --point:#33417E;        /* 운동 서브컬러 · 딥 인디고 */
+    --point-soft:#EAECF5;
+    --line:#E3DCCC;
+    --mute:#8C8375;
+    --card:#FFFDF8;
+    --title:'Hahmlet', 'Nanum Myeongjo', serif;
+    --body:'Pretendard Variable', Pretendard, -apple-system, 'Malgun Gothic', sans-serif;
+    --mono:'DM Mono', ui-monospace, Menlo, monospace;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:28px 20px 60px;
+    background:var(--bg); color:var(--ink);
+    font-family:var(--body); font-size:15px; line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:880px; margin:0 auto}
+
+  /* ── 헤더 5줄 ── */
+  .h-top{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+  .pills{display:flex; gap:8px; flex-wrap:wrap}
+  .pill{
+    display:inline-block; padding:6px 14px; border-radius:999px;
+    border:1px solid var(--line); background:var(--card);
+    color:var(--ink); text-decoration:none; font-size:13px;
+  }
+  .pill:hover{border-color:var(--point); color:var(--point)}
+  .pill.wait{color:var(--mute); background:transparent; border-style:dashed; cursor:default}
+  .h-label{font-family:var(--mono); font-size:12px; color:var(--mute); letter-spacing:.06em}
+
+  .h-theme{margin:22px 0 2px; font-size:13px; color:var(--point)}
+  h1{margin:0; font-family:var(--title); font-weight:700; font-size:34px; letter-spacing:-.01em}
+  .h-ver{margin:6px 0 0; font-family:var(--mono); font-size:12px; color:var(--mute)}
+  .h-desc{margin:10px 0 0; color:#4A423A}
+
+  hr.rule{border:0; border-top:1px solid var(--line); margin:26px 0}
+
+  /* ── 섹션 ── */
+  .sec-head{display:flex; align-items:baseline; gap:10px; margin:0 0 14px}
+  .sec-head h2{margin:0; font-family:var(--title); font-size:20px; font-weight:600}
+  .sec-head .count{font-family:var(--mono); font-size:12px; color:var(--mute)}
+
+  .group{margin:0 0 26px}
+  .group-name{
+    display:inline-block; margin:0 0 10px;
+    font-size:13px; font-weight:600; color:var(--point);
+    border-bottom:2px solid var(--point-soft); padding-bottom:3px;
+  }
+
+  /* ── 운동 카드 ── */
+  .card{
+    display:flex; gap:16px; align-items:flex-start;
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:16px 18px; margin:0 0 10px;
+  }
+  .card-body{flex:1; min-width:0}
+  .c-name{margin:0; font-size:16px; font-weight:600; line-height:1.4}
+  .c-meta{margin:5px 0 0; font-size:13px; color:var(--mute)}
+  .c-meta .time{font-family:var(--mono); color:var(--ink)}
+  .c-meta .time.na{color:var(--mute)}
+  .c-note{margin:8px 0 0; font-size:13px; color:#5A5147}
+  .go{
+    flex:0 0 auto; align-self:center;
+    display:inline-block; padding:10px 18px; border-radius:999px;
+    background:var(--point); color:#fff; text-decoration:none;
+    font-size:14px; font-weight:600; white-space:nowrap;
+  }
+  .go:hover{opacity:.88}
+
+  .empty{
+    border:1px dashed var(--line); border-radius:12px;
+    padding:18px; color:var(--mute); font-size:13.5px; background:transparent;
+  }
+
+  /* ── 요일 배치 ── */
+  .days{display:grid; grid-template-columns:repeat(7,1fr); gap:8px}
+  .day{
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:12px 8px; text-align:center; min-height:88px;
+  }
+  .day .dow{font-family:var(--mono); font-size:12px; color:var(--point); display:block; margin-bottom:8px}
+  .day .slot{font-size:12.5px; color:var(--mute)}
+  .day.sun .dow, .day.sat .dow{color:var(--mute)}
+
+  /* ── 푸터 ── */
+  .notice{
+    margin:34px 0 0; padding:16px 18px;
+    background:transparent; border:1px solid var(--line); border-radius:12px;
+    font-size:13px; color:#5A5147;
+  }
+  .notice b{color:var(--ink)}
+  .notice ul{margin:8px 0 0; padding-left:18px}
+  .notice li{margin:3px 0}
+
+  .files{margin:18px 0 0; display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+  .files .lbl{font-size:13px; color:var(--mute); margin-right:4px}
+  .fbtn{
+    display:inline-block; padding:8px 15px; border-radius:999px;
+    border:1px solid var(--line); background:var(--card);
+    font-size:13px; color:var(--ink); text-decoration:none; cursor:pointer;
+    font-family:inherit;
+  }
+  .fbtn:hover{border-color:var(--point); color:var(--point)}
+  .fbtn.wait{color:var(--mute); border-style:dashed; background:transparent; cursor:default}
+
+  .foot{margin:26px 0 0; font-family:var(--mono); font-size:11.5px; color:var(--mute); text-align:right}
+
+  @media (max-width:640px){
+    h1{font-size:28px}
+    .card{flex-direction:column; gap:12px}
+    .go{align-self:stretch; text-align:center}
+    .days{grid-template-columns:repeat(4,1fr)}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none !important}}
+  a:focus-visible, .fbtn:focus-visible{outline:2px solid var(--point); outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- (1) 복귀 알약 + 영문 라벨 -->
+  <div class="h-top">
+    <div class="pills">
+      <a class="pill" href="index.html">← 공공의주방 홈</a>
+      <span class="pill wait" title="기준 대화창 주소 확정 후 연결">💬 작업 대화 · 주소 대기</span>
+    </div>
+    <span class="h-label">ARCHIVEAT · WORKOUT</span>
+  </div>
+
+  <!-- (2)(3)(4)(5) -->
+  <p class="h-theme">테마 홈 · 운동</p>
+  <h1>운동 홈</h1>
+  <p class="h-ver">업데이트 2026.07.30 · v4</p>
+  <p class="h-desc">자주 하는 운동을 부위별로 모아 바로 엽니다.</p>
+
+  <hr class="rule">
+
+  <!-- ── 부위별 ── -->
+  <section>
+    <div class="sec-head">
+      <h2>부위별</h2>
+      <span class="count">3건</span>
+    </div>
+
+    <div class="group">
+      <span class="group-name">전신</span>
+
+      <div class="card">
+        <div class="card-body">
+          <p class="c-name">전신 스트레칭 이거 하나로 끝!</p>
+          <p class="c-meta">
+            땅끄부부 &nbsp;·&nbsp; 소요시간 <span class="time">17분</span>
+          </p>
+          <p class="c-note">
+            하체비만 · 상체비만 · 골반교정 · 승모근 · 종아리알 &nbsp;/&nbsp;
+            매일 하는 만능 스트레칭 루틴
+          </p>
+        </div>
+        <a class="go" href="https://www.youtube.com/watch?v=nOGT4lXlSHw" target="_blank" rel="noopener">▶ 바로 열기</a>
+      </div>
+    </div>
+
+    <div class="group">
+      <span class="group-name">유산소</span>
+
+      <div class="card">
+        <div class="card-body">
+          <p class="c-name">집에서 칼로리 불태우는 걷기 유산소운동</p>
+          <p class="c-meta">
+            땅끄부부 &nbsp;·&nbsp; 소요시간 <span class="time">30분</span>
+          </p>
+          <p class="c-note">
+            칼소폭 순한맛 &nbsp;/&nbsp; 제자리 걷기, 층간소음 · 점프 부담 적은 쪽
+          </p>
+        </div>
+        <a class="go" href="https://www.youtube.com/watch?v=t70t-sklypk" target="_blank" rel="noopener">▶ 바로 열기</a>
+      </div>
+    </div>
+
+    <div class="group">
+      <span class="group-name">목 · 어깨</span>
+
+      <div class="card">
+        <div class="card-body">
+          <p class="c-name">예쁜 일자어깨 승모근 스트레칭 BEST3</p>
+          <p class="c-meta">
+            땅끄부부 &nbsp;·&nbsp; 소요시간 <span class="time">6분</span>
+          </p>
+          <p class="c-note">
+            거북목 · 굽은등 · 라운드숄더 교정 &nbsp;/&nbsp;
+            넥 풀 → 푸시 백풀 → 넥 숄더 릴리프, 각 30초씩 2세트
+          </p>
+        </div>
+        <a class="go" href="https://www.youtube.com/watch?v=dJXZRZvqbYg" target="_blank" rel="noopener">▶ 바로 열기</a>
+      </div>
+
+      <div class="empty">
+        이 부위에 운동을 더 넣으려면 이름 · 유튜브 링크 · 소요시간을 대화창에 주세요.
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ── 요일 배치 ── -->
+  <section>
+    <div class="sec-head">
+      <h2>요일 배치</h2>
+      <span class="count">미정</span>
+    </div>
+    <div class="days">
+      <div class="day"><span class="dow">MON</span><span class="slot">—</span></div>
+      <div class="day"><span class="dow">TUE</span><span class="slot">—</span></div>
+      <div class="day"><span class="dow">WED</span><span class="slot">—</span></div>
+      <div class="day"><span class="dow">THU</span><span class="slot">—</span></div>
+      <div class="day"><span class="dow">FRI</span><span class="slot">—</span></div>
+      <div class="day sat"><span class="dow">SAT</span><span class="slot">—</span></div>
+      <div class="day sun"><span class="dow">SUN</span><span class="slot">—</span></div>
+    </div>
+  </section>
+
+  <!-- ── 운영안내 ── -->
+  <div class="notice">
+    <b>※ 운영 안내</b>
+    <ul>
+      <li>홈은 보기 · 이동만 합니다. 고칠 땐 마스터(대화창), 볼 땐 홈.</li>
+      <li>파일은 같은 폴더(github)에 둡니다.</li>
+      <li>운동 기록 · 체크는 넣지 않았습니다. 눌러서 바로 여는 것만 담당합니다.</li>
+    </ul>
+  </div>
+
+  <!-- ── 원본 파일 3버튼 ── -->
+  <div class="files">
+    <span class="lbl">📦 원본 파일</span>
+    <button class="fbtn" id="saveHtml">📄 이 화면 HTML 받기</button>
+    <span class="fbtn wait" title="운동 마스터 엑셀 미작성">📊 엑셀 마스터 · 대기 중</span>
+    <span class="fbtn wait" title="기준 대화창 주소 확정 후 연결">💬 대화창에서 전체 받기 · 대기 중</span>
+  </div>
+
+  <p class="foot">workout.html · v4 · 2026.07.30</p>
+</div>
+
+<script>
+  document.getElementById('saveHtml').addEventListener('click', function(){
+    var blob = new Blob(['<!DOCTYPE html>\n' + document.documentElement.outerHTML], {type:'text/html;charset=utf-8'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'workout.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1000);
+  });
+</script>
+</body>
+</html>
