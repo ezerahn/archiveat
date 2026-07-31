@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="version" content="v1">
+<meta name="updated" content="2026.07.31 18:30">
+<title>finance-investor-2026q2-actnerlab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--cream:#FAF5EC;--surface:#FFFDF8;--ink:#241F1B;--muted:#8C857A;--line:#E7DCC8;
+      --coral:#FF5019;--taupe:#C2B190;--sage:#5E9087;--slate:#4A4E69}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+     background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+.wrap{max-width:1000px;margin:0 auto;padding:22px 20px 60px}
+
+.top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;gap:12px;flex-wrap:wrap}
+.navleft{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#a8552f;text-decoration:none;
+      padding:5px 13px;border:1px solid rgba(255,80,25,.22);border-radius:20px;background:rgba(255,80,25,.07);transition:.15s}
+.back:hover{background:rgba(255,80,25,.13);border-color:rgba(255,80,25,.4);color:var(--coral)}
+.metaline{margin-left:auto;text-align:right;font-size:12px;color:var(--muted);line-height:1.65}
+.metaline .bar{color:var(--line);margin:0 7px}
+.metaline .upd{font-family:"DM Mono",monospace}
+.crumb{color:var(--coral);font-size:11.5px}
+@media(max-width:640px){.metaline{width:100%;text-align:left}.metaline .bar{display:none}.metaline .crumb,.metaline .upd{display:block}}
+
+.hero{margin-bottom:18px}
+.hero h1{font-family:Hahmlet,"Apple SD Gothic Neo",serif;font-weight:700;font-size:34px;letter-spacing:-.02em;line-height:1.15}
+.hero p{margin-top:10px;font-size:14.5px;color:var(--muted);max-width:680px}
+@media(max-width:640px){.hero h1{font-size:26px}.wrap{padding:18px 14px 44px}}
+
+.factbar{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:14px}
+@media(max-width:820px){.factbar{grid-template-columns:1fr 1fr}}
+.fb{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:13px 15px}
+.fb .k{font-size:11.5px;color:var(--muted)}
+.fb .v{font-family:"DM Mono",monospace;font-size:16px;font-weight:500;margin-top:4px}
+
+h2{font-family:Hahmlet,"Apple SD Gothic Neo",serif;font-size:21px;font-weight:700;margin:34px 0 4px;letter-spacing:-.01em;
+   display:flex;align-items:baseline;gap:9px}
+h2 .n{font-family:"DM Mono",monospace;font-size:12px;color:var(--coral);font-weight:500}
+.hline{height:2px;background:linear-gradient(90deg,var(--coral),transparent);margin-bottom:14px;border-radius:2px}
+h3{font-family:Hahmlet,"Apple SD Gothic Neo",serif;font-size:16.5px;font-weight:700;margin:26px 0 10px;
+   padding-bottom:7px;border-bottom:1px solid var(--line);letter-spacing:-.01em}
+h3 .sub{font-size:12px;font-weight:400;color:var(--muted);margin-left:7px}
+p.lead{font-size:13.5px;color:#5b5447;margin-bottom:12px}
+
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);
+      border-radius:12px;overflow:hidden;font-size:13px}
+th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:rgba(74,78,105,.07);font-weight:700;font-size:12px;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.num,th.num{font-family:"DM Mono",monospace;white-space:nowrap;text-align:right}
+.cap{font-size:11.5px;color:var(--muted);line-height:1.75;margin:7px 2px 18px}
+.cap code{font-family:"DM Mono",monospace;font-size:11px;background:#F1EFE9;padding:1px 5px;border-radius:4px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px}
+.card.warn{border-color:var(--coral);background:rgba(255,80,25,.05)}
+.card h4{font-size:14px;font-weight:700;margin-bottom:7px}
+.card p{font-size:13.5px;color:#4d463d;margin-bottom:6px}
+.card p:last-child{margin-bottom:0}
+
+.txtbox{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:14px;overflow:hidden}
+.txthead{display:flex;align-items:center;gap:10px;padding:11px 16px;background:rgba(74,78,105,.06);
+         border-bottom:1px solid var(--line);flex-wrap:wrap}
+.txthead .t{font-size:13.5px;font-weight:700}
+.txthead .c{font-family:"DM Mono",monospace;font-size:11px;color:#9C9487}
+.txthead button{margin-left:auto;font-family:inherit;font-size:12px;font-weight:600;color:var(--sage);
+  background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;transition:.15s}
+.txthead button:hover{border-color:var(--sage);background:rgba(94,144,135,.08)}
+.txthead button.done{color:#fff;background:var(--sage);border-color:var(--sage)}
+.txtbody{padding:14px 18px;font-size:13px;line-height:1.85;white-space:pre-wrap;word-break:keep-all}
+
+.opnote{margin-top:30px;font-size:12px;color:var(--muted);line-height:1.75}
+.files{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px 16px;margin-top:10px}
+.files .fl{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 2px;border-bottom:1px solid var(--line)}
+.files .fl:last-child{border-bottom:none}
+.files .fn{font-size:13.5px}
+.files .fn span{display:block;font-family:"DM Mono",monospace;font-size:11px;color:var(--muted);margin-top:3px}
+.dl{font-size:12.5px;color:var(--sage);text-decoration:none;font-weight:600;white-space:nowrap;padding:8px 16px;
+    border:1px solid var(--line);border-radius:999px;background:var(--surface);cursor:pointer;font-family:inherit}
+.dl:hover{border-color:var(--sage);background:rgba(94,144,135,.08)}
+.foot{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);text-align:center;
+      font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted);letter-spacing:.03em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="navleft">
+      <a class="back" href="finance-investor.html">← 투자자 보고</a>
+      <a class="back" href="finance-investor-2026q2-dewells.html">📄 더웰스 보고</a>
+      <a class="back" href="finance-investor-2026q2-mysc.html">📄 MYSC 보고</a>
+      <a class="back" href="https://claude.ai/chat/f05e8d49-dca6-4806-86f4-ec221120ab2f" target="_blank" rel="noopener">💬 작업 대화</a>
+    </div>
+    <div class="metaline">
+      <span class="crumb">AI 워크스페이스 › 정산·신고 › 투자자 보고 › 2026 2분기 · 액트너랩</span>
+      <span class="bar">|</span>
+      <span class="upd">업데이트 <span id="updstamp"></span></span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>2026년 상반기 영업보고 · 액트너랩</h1>
+    <p>메일 회신으로 제출한 내용을 그대로 기록해 둡니다. 영업보고 문구는 매 반기 반복되므로, 다음 회차에 이 문서를 기준선으로 삼아 숫자만 바꿔 씁니다.</p>
+  </div>
+
+  <div class="factbar">
+    <div class="fb"><div class="k">기준일</div><div class="v">2026.06.30</div></div>
+    <div class="fb"><div class="k">회신 기한</div><div class="v">8/7 13:00</div></div>
+    <div class="fb"><div class="k">제출일</div><div class="v">2026.07.31</div></div>
+    <div class="fb"><div class="k">제출 방법</div><div class="v" style="font-size:13px">메일 회신 (첨부)</div></div>
+  </div>
+
+  <div class="card" style="border-color:#B8AE9E;background:rgba(36,31,27,.03)">
+    <h4>✓ 2026.07.31 제출 완료 · 기한 7일 전</h4>
+    <p>요청 6항목 중 서류 4종은 더웰스·MYSC 제출본과 동일 파일을 사용했고, 자본금 변동내역과 영업보고는 메일 본문에 작성했습니다.</p>
+    <p><b>2Q 회차 종료</b> — 더웰스(7/31) · MYSC(7/31) · 액트너랩(7/31) 세 곳 모두 제출을 마쳤습니다.</p>
+  </div>
+
+  <!-- ===== 01 ===== -->
+  <h2><span class="n">01</span>요청 항목과 처리</h2>
+  <div class="hline"></div>
+  <p class="lead">요청 메일: 「2026년 상반기 영업보고를 위한 자료 요청의 건」 · 받은 날 2026.07.21 10:15 · 발신 조영래</p>
+
+  <div class="tw">
+  <table>
+    <tr><th>#</th><th>요청 항목</th><th>조건</th><th>처리</th></tr>
+    <tr><td>1</td><td><b>법인등기부등본</b></td><td>말소사항 포함 · 기준일 이후 발급</td><td>✅ 첨부 · 2026.07.31 발급본</td></tr>
+    <tr><td>2</td><td><b>가결산 재무제표</b></td><td>법인인감 날인 <b>(액트너랩만 요구)</b></td><td>✅ 첨부 · 26.06.30 기준 날인본</td></tr>
+    <tr><td>3</td><td><b>주주명부</b></td><td>법인인감 날인 · 기준일 기준</td><td>✅ 첨부 · 14,061주 / 7,030,500원</td></tr>
+    <tr><td>4</td><td><b>4대보험 가입자명부</b></td><td>세부 개인정보 미포함</td><td>✅ 첨부 · 안상미 1명</td></tr>
+    <tr><td>5</td><td><b>자본금 변동내역</b></td><td>변동 시 투자자·금액·단가·수량·날짜</td><td>✅ 본문 · <b>해당 없음</b> (상반기 변동 없음)</td></tr>
+    <tr><td>6</td><td><b>영업보고 문구</b></td><td>4~5줄 이상 · 형식 자유</td><td>✅ 본문 · 아래 02 참조</td></tr>
+  </table>
+  </div>
+  <p class="cap">서류 4종은 더웰스·MYSC 제출본과 동일 파일입니다. 조건이 가장 엄격한 쪽(인감날인·말소사항 포함)에 맞춰 한 부만 만들어 세 곳에 나눠 쓰는 방식이 이번 회차에도 그대로 적용됐습니다.</p>
+
+  <h3>연락처 <span class="sub">조합명 · 액트너랩제1호개인투자조합</span></h3>
+  <div class="tw">
+  <table>
+    <tr><th>구분</th><th>이름</th><th>직위</th><th>이메일</th></tr>
+    <tr><td>수신</td><td>조영래</td><td>투자심사역 · 과장</td><td>yrae@actnerlab.com</td></tr>
+    <tr><td>참조</td><td>조인제</td><td>의장</td><td>je7432@actnerlab.com</td></tr>
+    <tr><td>발신</td><td>안상미</td><td>대표</td><td>ceo@acvt.kr</td></tr>
+    <tr><td>참조</td><td>최성제</td><td>부대표</td><td>dchoi@acvt.kr</td></tr>
+  </table>
+  </div>
+
+  <!-- ===== 02 ===== -->
+  <h2><span class="n">02</span>영업보고 본문</h2>
+  <div class="hline"></div>
+  <p class="lead">메일 본문에 넣은 내용 전문입니다. 다음 회차에는 숫자와 거래처만 바꾸면 됩니다.</p>
+
+  <div class="txtbox">
+    <div class="txthead">
+      <span class="t">메일 본문 전문</span>
+      <span class="c">2026.07.31 발신</span>
+      <button onclick="copyBox(this,'mailbody')">복사</button>
+    </div>
+    <div class="txtbody" id="mailbody">조영래 과장님, 안녕하세요.
+주식회사 공공의주방 대표 안상미입니다.
+
+연일 무더위가 이어지는데 잘 지내고 계시는지요.
+요청하신 2026년 상반기 자료를 아래와 같이 회신드립니다.
+
+■ 영업보고 (2026.01.01 ~ 06.30)
+
+1. 상반기 매출액은 17.1백만원으로 전년 동기 대비 22.4% 증가하였습니다.
+
+2. 판매관리비는 71.0백만원으로 전년 동기 대비 40.5% 절감되었고, 영업손실은 105.5백만원에서 53.9백만원으로 48.9% 축소되었습니다. 현금 지출이 없는 감가상각비 등을 제외한 기준(EBITDA)으로도 손실이 48백만원에서 23백만원으로 줄었습니다.
+
+3. 다만 손익 개선의 상당 부분이 비용 절감에서 비롯된 것으로, 매출 규모는 여전히 손익분기점에 미치지 못하는 수준입니다. 적자 폭은 줄였으나 흑자 전환 단계는 아니며, 하반기는 매출 확대가 관건이라고 보고 있습니다.
+
+4. 매출 구조는 B2B 비중이 63%(기업·기관 케이터링 39%, 기업 대상 쿠킹클래스 24%)로 재편되었습니다. 2분기 주요 거래처는 ㈜휴넷(온라인 클래스)과 아시안스퀘어·디캠프·머니투데이(케이터링)입니다.
+
+5. 하반기에는 ① 상반기에 거래가 발생한 기업·기관을 반복 수주처로 전환하고, ② 신규 기업·기관 대상 제안 영업을 본격화하며, ③ 현재의 고정비 절감 기조를 유지하는 세 가지를 중심으로 운영할 계획입니다. 상반기 중 견적·정산·일정관리 등 내부 운영 업무를 AI 기반 시스템으로 전환해 둔 만큼, 관리 부담을 줄이고 영업·수주에 집중하겠습니다. 연간 실적 전망은 3분기 수주 상황을 확인한 뒤 별도로 공유드리겠습니다.
+
+■ 자본금 변동내역
+
+2026년 상반기 중 자본금 변동 사항은 없습니다.
+(발행주식 14,061주 · 자본금 7,030,500원 · 전기와 동일)
+
+■ 첨부
+
+01 법인등기부등본 (말소사항 포함)
+02 가결산 재무제표 (2026.06.30 기준 · 법인인감 날인)
+03 주주명부 (2026.06.30 기준 · 법인인감 날인)
+04 4대보험 가입자명부
+
+추가로 필요한 자료가 있으시면 말씀해 주시기 바랍니다.
+무더위에 건강 유의하시기 바라며, 늘 관심 가져 주셔서 감사합니다.
+
+안상미 드림
+주식회사 공공의주방 대표
+ceo@acvt.kr</div>
+  </div>
+
+  <h3>이번 문구를 이렇게 잡은 이유 <span class="sub">다음 회차에 같은 기준으로</span></h3>
+  <div class="tw">
+  <table>
+    <tr><th>판단</th><th>이유</th></tr>
+    <tr><td><b>연간 실적 전망 숫자를 빼고 "3분기 후 별도 공유"로</b></td><td>액트너랩이 요구한 항목이 아니고, 실현 여부가 불확실한 숫자를 대외 보고에 박아두면 다음 회차에 설명 부담이 생깁니다. 더웰스 양식에는 요구 항목이라 매출 75 / 영업손실 73백만원을 기재했습니다.</td></tr>
+    <tr><td><b>손익분기 미달을 3번 항목으로 명시</b></td><td>1·2번만 보면 개선 폭만 부각되어 과하게 낙관적으로 읽힙니다. 개선의 상당 부분이 비용 절감에서 나왔다는 점을 우리 입으로 먼저 밝히는 편이 신뢰에 유리하다고 판단했습니다.</td></tr>
+    <tr><td><b>AI 시스템은 한 문장, 5번 뒤에 배치</b></td><td>비용 절감의 <b>원인</b>이 아니라 하반기 계획을 <b>뒷받침하는 수단</b>으로 적었습니다. 판관비 절감의 직접 원인은 인력 축소이므로, 이를 AI로 포장한 것처럼 읽히지 않도록 순서를 잡았습니다.</td></tr>
+    <tr><td><b>"상각비" 대신 "현금 지출이 없는 감가상각비 등"</b></td><td>회계 용어를 그대로 쓰면 오독 여지가 있어 풀어 썼습니다. 뜻과 숫자는 동일합니다.</td></tr>
+  </table>
+  </div>
+
+  <!-- ===== 03 ===== -->
+  <h2><span class="n">03</span>본문 숫자의 출처</h2>
+  <div class="hline"></div>
+  <p class="lead">삼화회계법인 가결산 재무제표(2026.06.30)와 원 단위까지 대조한 값입니다.</p>
+
+  <div class="tw">
+  <table>
+    <tr><th>항목</th><th class="num">2025 상반기</th><th class="num">2026 상반기</th><th class="num">증감</th><th>출처</th></tr>
+    <tr><td>매출액</td><td class="num">14.0</td><td class="num">17.1</td><td class="num">+22.4%</td><td>손익계산서</td></tr>
+    <tr><td>판매관리비</td><td class="num">119.5</td><td class="num">71.0</td><td class="num">−40.5%</td><td>손익계산서</td></tr>
+    <tr><td>영업손실</td><td class="num">−105.5</td><td class="num">−53.9</td><td class="num">48.9% 축소</td><td>손익계산서</td></tr>
+    <tr><td>EBITDA</td><td class="num">−48</td><td class="num">−23</td><td class="num">52% 축소</td><td>더웰스 양식 자동계산</td></tr>
+  </table>
+  </div>
+  <p class="cap">단위 백만원. <b>EBITDA 계산식</b> = 영업이익 + 감가상각비 + 무형자산상각비. 더웰스 보고 양식의 요약재무정보 표에서 자동 계산되며, 분기값은 1분기 −13 · 2분기 −8입니다. 본문의 −23은 원 단위 원장 기준이라 분기 반올림값의 합(−21)과 1~2백만원 차이가 납니다. 상세 산출은 <code>finance-investor-2026q2-dewells.html</code> → 2 요약재무정보.</p>
+
+  <h3>매출 구성 <span class="sub">B2B 비중 63%</span></h3>
+  <div class="tw">
+  <table>
+    <tr><th>매출처</th><th class="num">1분기</th><th class="num">2분기</th><th>품목</th></tr>
+    <tr><td>자사 플랫폼(이니시스)</td><td class="num">3.10</td><td class="num">2.65</td><td>쿠킹클래스</td></tr>
+    <tr><td>아카이빗몰(토스)</td><td class="num">0.34</td><td class="num">0.21</td><td>쿠킹박스·레시피</td></tr>
+    <tr><td>㈜휴넷</td><td class="num">1.36</td><td class="num">2.73</td><td>온라인 클래스 B2B</td></tr>
+    <tr><td>기업·기관 케이터링</td><td class="num">1.70</td><td class="num">5.05</td><td>아시안스퀘어 · 디캠프 · 머니투데이</td></tr>
+  </table>
+  </div>
+  <p class="cap">단위 백만원. 케이터링 6.7백만원(39%) + 기업 클래스 4.1백만원(24%) = B2B 63%. 2025년 상반기 케이터링 매출은 0원이었습니다.</p>
+
+  <!-- ===== 04 ===== -->
+  <h2><span class="n">04</span>다음 회차 예고</h2>
+  <div class="hline"></div>
+
+  <div class="card warn">
+    <h4>2027.06 — 최종 결산 자료 재요청이 한 번 더 옵니다</h4>
+    <p>이번에 가결산으로 제출했으므로, 모태펀드 자조합 가치평가를 이유로 <b>확정 결산자료를 다시 요청</b>받을 가능성이 높습니다. 2025년분도 2026.01.30에 가결산을 내고 2026.06.15에 재요청을 받았습니다.</p>
+    <p><b>없애는 방법</b> — 2027년 3월 법인세 신고 직후 국세청 <b>표준재무제표증명원</b>을 미리 받아두면 이 왕복이 사라집니다. 업무일지 연간탭에 등록해 두는 것을 권합니다.</p>
+  </div>
+
+  <div class="card">
+    <h4>2027.01~02 — 온기 영업보고 (4Q 기준일 2026.12.31)</h4>
+    <p>지난 회차 기준 받은 날 2026.01.13 · 회신 기한 2026.02.02. 요청 항목은 이번과 동일한 6종이며, 영업보고 문구는 위 02의 본문을 기준선으로 삼아 숫자만 교체하면 됩니다.</p>
+    <p><b>미리 준비</b> — 12/31이 지나면 요청을 기다리지 말고 등기부등본·주주명부·4대보험명부를 먼저 발급해 둡니다. 세 곳 마감이 1~2월에 몰립니다.</p>
+  </div>
+
+  <div class="card">
+    <h4>액트너랩은 반기(2Q·4Q)만 요청합니다</h4>
+    <p>3분기(2026.09.30 기준)에는 액트너랩 요청이 없습니다. 더웰스 4종 · MYSC 고용현황만 준비하면 됩니다.</p>
+  </div>
+
+  <p class="opnote">※ 이 화면은 <b>제출 기록</b>입니다. 실제 제출본과 다른 부분이 있으면 마스터를 고치고 다시 생성하지 말고, 이 파일을 직접 수정한 뒤 버전을 올려 주세요. 첨부 파일 원본은 드롭박스 작업 폴더에 있으며, 공개 저장소에는 올리지 않습니다.</p>
+
+  <div class="files">
+    <div class="fl"><div class="fn"><b>이 화면(액트너랩 2026 2분기 보고)</b><span>finance-investor-2026q2-actnerlab.html · 항상 받아짐</span></div><button class="dl" onclick="saveThisPage()">받기</button></div>
+  </div>
+
+  <div class="foot">finance-investor-2026q2-actnerlab · <span id="footver">v1</span> · 주식회사 공공의주방 · archiveat.kr · 2026</div>
+
+</div>
+<script>
+(function(){
+  var mv=document.querySelector('meta[name="version"]');
+  var mu=document.querySelector('meta[name="updated"]');
+  var ver=mv?mv.content:''; var upd=mu?mu.content:'';
+  var s=document.getElementById('updstamp'); if(s) s.textContent=upd+(ver?' · '+ver:'');
+  var fv=document.getElementById('footver'); if(fv&&ver) fv.textContent=ver;
+})();
+function copyBox(btn,id){
+  var el=document.getElementById(id); if(!el) return;
+  var t=el.innerText;
+  function ok(){ var o=btn.textContent; btn.textContent='복사됨'; btn.classList.add('done');
+    setTimeout(function(){btn.textContent=o;btn.classList.remove('done');},1400); }
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok,function(){fallback(t,ok);}); }
+  else fallback(t,ok);
+}
+function fallback(t,ok){
+  var ta=document.createElement('textarea'); ta.value=t;
+  ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try{document.execCommand('copy'); ok();}catch(e){alert('복사 실패');}
+  document.body.removeChild(ta);
+}
+function saveThisPage(){
+  try{
+    var html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+    var blob=new Blob([html],{type:'text/html'});
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob); a.download='finance-investor-2026q2-actnerlab.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(a.href);},1500);
+  }catch(e){alert('저장 실패: '+e.message);}
+}
+</script>
+</body>
+</html>
