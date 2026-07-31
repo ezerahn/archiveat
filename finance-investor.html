@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="version" content="v20">
-<meta name="updated" content="2026.07.31 05:00">
+<meta name="version" content="v25">
+<meta name="updated" content="2026.07.31 16:10">
 <title>finance-investor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -150,11 +150,20 @@ h2:first-of-type{margin-top:4px}
 h2 .n{font-family:"DM Mono",monospace;font-size:12px;color:var(--muted);font-weight:400;margin-right:9px;vertical-align:2px}
 .hline{height:2px;background:linear-gradient(90deg,var(--slate),transparent);border-radius:2px;margin-bottom:14px}
 p.lead{font-size:13.5px;color:#5b5447;margin-bottom:12px}
-.legend{font-size:12px;color:var(--muted);margin:26px 0 22px;line-height:1.7}
-.lgrow{display:flex;align-items:center;flex-wrap:wrap;gap:8px 16px;margin-bottom:9px}
-.lgrow .lgl{font-weight:700;color:#5C544A;min-width:32px;font-size:12px}
-.lgrow .u{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
-.lgnote{margin-top:4px;font-size:11.5px;line-height:1.75}
+/* 하단 표기 안내 */
+.legend{background:var(--surface);border:1px solid var(--line);border-radius:14px;
+        padding:16px 20px 14px;margin:30px 0 20px}
+.legend .lghead{font-size:12.5px;font-weight:700;color:#5C544A;letter-spacing:-.01em;margin-bottom:13px}
+.lgcols{display:grid;grid-template-columns:1fr 1fr;gap:4px 34px}
+@media(max-width:720px){.lgcols{grid-template-columns:1fr;gap:16px}}
+.lgcol .lgt{font-size:10.5px;font-weight:700;color:var(--muted);letter-spacing:.06em;
+            padding-bottom:7px;margin-bottom:3px;border-bottom:1px solid var(--line)}
+.lgi{display:grid;grid-template-columns:116px 1fr;align-items:center;gap:12px;padding:5px 0}
+.lgi > span:first-child{justify-self:start}
+.lgi em{font-style:normal;font-size:12px;color:#6b6355;line-height:1.5}
+.lgnote{margin-top:13px;padding-top:12px;border-top:1px solid var(--line);
+        font-size:11.5px;color:var(--muted);line-height:1.85}
+.lgnote b{color:#5C544A}
 
 /* 카드 */
 .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:11px}
@@ -239,14 +248,14 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
 
   <div class="ddaybar">
     <div class="dd hot">
-      <span class="who">MYSC</span><span class="cyc">반기 결산</span>
+      <span class="who">MYSC</span><span class="cyc">반기 결산 · ✓ 제출</span>
       <div class="day">7/31 12:00 · D-1</div>
       <div class="sub">서류 5종 · 링크 업로드 · 기한 엄수</div>
     </div>
     <div class="dd hot">
       <span class="who">더웰스</span><span class="cyc">2Q 보고서</span>
-      <div class="day">7/31 · D-1</div>
-      <div class="sub">보고현황 양식 + 가결산 재무제표 <b>2건</b><br><span style="font-size:11px">서류 3종은 7/10 제출</span></div>
+      <div class="day">✓ 제출</div>
+      <div class="sub">2026.07.31 회신<br><span style="font-size:11px">보고 양식 · 가결산 재무제표 · 주주명부</span></div>
     </div>
     <div class="dd">
       <span class="who">액트너랩</span><span class="cyc">상반기</span>
@@ -256,7 +265,7 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
   </div>
 
   <div class="tabs">
-    <button class="tab on" data-p="p26">2026 보고<span class="cnt">남은 일 4건</span></button>
+    <button class="tab on" data-p="p26">2026 보고<span class="cnt">남은 일 1건</span></button>
     <button class="tab" data-p="p25">2025 히스토리<span class="cnt">14건</span></button>
     <button class="tab" data-p="pg">가이드</button>
   </div>
@@ -317,9 +326,9 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
 
     <div class="pane2 on" id="q26-1">
     <section class="qb now">
-      <div class="qh"><span class="qn">2Q</span><span class="qd">기준일 2026.06.30</span><span class="qc">남은 일 4건 · 진행 중</span></div>
+      <div class="qh"><span class="qn">2Q</span><span class="qd">기준일 2026.06.30</span><span class="qc">남은 일 1건 · 액트너랩</span></div>
     <div class="ig first">
-      <div class="igh"><span class="ign">더웰스</span></div>
+      <div class="igh"><span class="ign">더웰스</span><span class="st done">✓ 제출완료</span></div>
       <div class="qr">
         <div>
           <div class="tt">2026년 2분기 자료 재요청(공공의주방) ASAP <span class="inv">임원 직접</span></div>
@@ -327,10 +336,10 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
         </div>
         <div>
           <div class="docs">
-            <span class="doc todo">보고현황 양식</span>
-            <span class="doc todo">가결산 재무제표</span>
+            <span class="doc done">✓ 보고현황 양식</span>
+            <span class="doc done">✓ 가결산 재무제표</span>
           </div>
-          <div class="rt"><span class="st todo">미제출 · D-1</span><a class="doclink" href="finance-investor-2026q2.html">📄 작성 내용 보기</a><span style="font-size:11.5px;color:var(--muted)">"가급적 상세한 내용으로 빠른 회신" 요청</span></div>
+          <div class="rt"><span class="st done">✓ 제출 · 2026.07.31</span><a class="doclink" href="finance-investor-2026q2-dewells.html">📄 작성 내용 보기</a><span style="font-size:11.5px;color:var(--muted)">7/30 회신으로 일정 안내 후 기한 내 제출</span></div>
         </div>
       </div>
       <div class="qr">
@@ -340,13 +349,14 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
         </div>
         <div>
           <div class="docs">
-            <span class="doc todo">보고현황 양식</span>
-            <span class="doc todo">가결산 재무제표</span>
+            <span class="doc done">✓ 보고현황 양식</span>
+            <span class="doc done">✓ 가결산 재무제표</span>
             <span class="doc done">✓ 등기부등본</span>
             <span class="doc done">✓ 주주명부</span>
             <span class="doc done">✓ 4대보험명부</span>
           </div>
-          <div class="rt"><span class="st todo">미제출 · D-1</span><a class="doclink" href="finance-investor-2026q2.html">📄 작성 내용 보기</a><span style="font-size:11.5px;color:var(--muted)">검정 3종은 7/10 제출 → 남은 건 2건</span></div>
+          <div class="rt"><span class="st done">✓ 제출 · 2026.07.31</span><a class="doclink" href="finance-investor-2026q2-dewells.html">📄 작성 내용 보기</a><span style="font-size:11.5px;color:var(--muted)">서류 3종은 7/10 제출 · 이번 회신은 보고 양식·재무제표·주주명부</span></div>
+          <div class="files">공공의주방_2026년 2분기 보고.xls<br>가결산 재무제표(26.06.30)<br>주주명부(26.06.30 기준·날인본)</div>
         </div>
       </div>
       <div class="qr">
@@ -359,7 +369,7 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
             <span class="doc done">✓ 4대보험명부<i>개인정보 미포함</i></span>
             <span class="doc done">✓ 주주명부<i>날인본</i></span>
             <span class="doc done">✓ 등기부등본</span>
-            <span class="doc todo">가결산 재무제표</span>
+            <span class="doc done">✓ 가결산 재무제표<i>7/31 별도 회신</i></span>
           </div>
           <div class="rt"><span class="st done">✓ 제출 · 2026.07.10</span><span style="font-size:11.5px;color:var(--muted)">서류 3종 · 2.70MB · 대표님 직접 발신 · 재무제표는 "차주 내 전달" 약속</span></div>
           <div class="files">4대보험사업자가입자명부.pdf · 161.0KB<br>등기부등본.pdf · 2.5MB<br>주주명부_공공의주방.pdf · 65.3KB</div>
@@ -367,7 +377,7 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
       </div>
     </div>
     <div class="ig">
-      <div class="igh"><span class="ign">MYSC</span></div>
+      <div class="igh"><span class="ign">MYSC</span><span class="st done">✓ 제출완료</span></div>
       <div class="qr">
         <div>
           <div class="tt">2026년 반기 가결산 재무제표 및 회사현황보고 제출 요청드립니다.</div>
@@ -375,14 +385,14 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
         </div>
         <div>
           <div class="docs">
-            <span class="doc todo">등기부등본<i>말소포함·최근 1개월 이내</i></span>
-            <span class="doc todo">가결산 재무제표</span>
-            <span class="doc todo">주주명부<i>날인본</i></span>
-            <span class="doc todo">4대사회보험가입자명부<i>최근 기준</i></span>
-            <span class="doc todo">회사현황<i>제출 링크에서 작성</i></span>
-            <span class="doc gray">인증 증빙<i>해당 시</i></span>
+            <span class="doc done">✓ 등기부등본<i>말소포함·7/31 재발급</i></span>
+            <span class="doc done">✓ 가결산 재무제표</span>
+            <span class="doc done">✓ 주주명부<i>날인본</i></span>
+            <span class="doc done">✓ 4대사회보험가입자명부</span>
+            <span class="doc done">✓ 회사현황<i>제출 링크에서 작성</i></span>
+            <span class="doc done">✓ 인증 증빙<i>벤처·여성기업·소셜벤처</i></span>
           </div>
-          <div class="rt"><span class="st todo">미제출 · D-1 정오</span><span style="font-size:11.5px;color:var(--muted)">메일이 아니라 제출 링크에 업로드 · 기한 엄수 명시</span></div>
+          <div class="rt"><span class="st done">✓ 제출 · 2026.07.31</span><a class="doclink" href="finance-investor-2026q2-mysc.html">📄 작성 내용 보기</a><span style="font-size:11.5px;color:var(--muted)">제출 링크 업로드 완료 · 임팩트 누적 인원은 차기 보고 시 확정 제출</span></div>
         </div>
       </div>
       <div class="qr">
@@ -1202,22 +1212,30 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
   </div>
 
   <div class="legend">
-    <div class="lgrow">
-      <span class="lgl">칩</span>
-      <span class="u"><span class="doc todo">준비할 자료</span> 이번에 보낼 것</span>
-      <span class="u"><span class="doc done">✓ 제출한 자료</span> 보낸 것</span>
-      <span class="u"><span class="doc miss">지난 미제출</span> 기한 지난 것</span>
-      <span class="u"><span class="doc gray">미확인</span> 아직 모르는 것</span>
+    <div class="lghead">표기 안내</div>
+    <div class="lgcols">
+
+      <div class="lgcol">
+        <div class="lgt">요청 자료</div>
+        <div class="lgi"><span class="doc todo">준비할 자료</span><em>이번 회차에 보낼 것</em></div>
+        <div class="lgi"><span class="doc done">✓ 제출한 자료</span><em>이미 보낸 것</em></div>
+        <div class="lgi"><span class="doc miss">지난 미제출</span><em>기한이 지난 것</em></div>
+        <div class="lgi"><span class="doc gray">미확인</span><em>아직 모르는 것</em></div>
+      </div>
+
+      <div class="lgcol">
+        <div class="lgt">회신 상태</div>
+        <div class="lgi"><span class="st done">✓ 제출</span><em>보낸 것 · 날짜 함께 표기</em></div>
+        <div class="lgi"><span class="st todo">미제출</span><em>이번 회차에 보낼 것</em></div>
+        <div class="lgi"><span class="st miss">미제출</span><em>기한이 지난 것</em></div>
+        <div class="lgi"><span class="st plan">예정</span><em>아직 요청이 안 온 것</em></div>
+      </div>
+
     </div>
-    <div class="lgrow">
-      <span class="lgl">상태</span>
-      <span class="u"><span class="st done">✓ 제출</span> 보낸 것</span>
-      <span class="u"><span class="st todo">미제출</span> 이번 회차에 보낼 것</span>
-      <span class="u"><span class="st miss">미제출</span> 기한이 지난 것</span>
-      <span class="u"><span class="st plan">예정</span> 요청이 아직 안 온 것</span>
-    </div>
-    <p class="lgnote">기한이 지난 미제출 건은 색을 뺐습니다. <b>지금 할 일은 코랄만</b> 보시면 됩니다. 나중에 보내면 칩에 ✓를 붙이고 상태를 ✓ 제출로 바꿉니다.<br>
-    투자사 이름 옆 <span class="st done" style="background:#241F1B;color:#FAF5EC;border-color:#241F1B">✓ 제출완료</span> 는 그 회차에서 그 투자사에 낼 것을 다 냈다는 표시입니다.</p>
+    <p class="lgnote">
+      <b>지금 할 일은 코랄만</b> 보시면 됩니다. 기한이 지난 미제출 건은 색을 빼서 뒤로 물렸습니다. 나중에 보내면 칩에 ✓를 붙이고 상태를 <b>✓ 제출</b>로 바꿉니다.<br>
+      투자사 이름 옆 <span class="st done" style="background:#241F1B;color:#FAF5EC;border-color:#241F1B">✓ 제출완료</span> 는 그 회차에서 그 투자사에 낼 것을 다 냈다는 뜻입니다.
+    </p>
   </div>
 
   <p class="opnote">
@@ -1231,7 +1249,7 @@ summary .sc{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;co
     <div class="fl"><div class="fn"><b>작업 대화에서 전체 받기</b><span>claude.ai/chat/17924d1e…</span></div><a class="dl" href="https://claude.ai/chat/17924d1e-fd45-4cc2-b0df-e3ce10789c88" target="_blank" rel="noopener">열기</a></div>
   </div>
 
-  <div class="foot">finance-investor · <span id="footver">v20</span> · 주식회사 공공의주방 · archiveat.kr · 2026</div>
+  <div class="foot">finance-investor · <span id="footver">v25</span> · 주식회사 공공의주방 · archiveat.kr · 2026</div>
 
 </div>
 <script>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="version" content="v3">
+<meta name="updated" content="2026.07.31 16:10">
+<title>finance-investor-2026q2-mysc</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--cream:#FAF5EC;--surface:#FFFDF8;--ink:#241F1B;--muted:#8C857A;--line:#E7DCC8;
+      --coral:#FF5019;--taupe:#C2B190;--sage:#5E9087;--slate:#4A4E69}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+     background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.55}
+.wrap{max-width:1000px;margin:0 auto;padding:22px 20px 60px}
+
+.top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;gap:12px;flex-wrap:wrap}
+.navleft{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#a8552f;text-decoration:none;
+      padding:5px 13px;border:1px solid rgba(255,80,25,.22);border-radius:20px;background:rgba(255,80,25,.07);transition:.15s}
+.back:hover{background:rgba(255,80,25,.13);border-color:rgba(255,80,25,.4);color:var(--coral)}
+.metaline{margin-left:auto;text-align:right;font-size:12px;color:var(--muted);line-height:1.65}
+.metaline .bar{color:var(--line);margin:0 7px}
+.metaline .upd{font-family:"DM Mono",monospace}
+.crumb{color:var(--coral);font-size:11.5px}
+@media(max-width:640px){.metaline{width:100%;text-align:left}.metaline .bar{display:none}.metaline .crumb,.metaline .upd{display:block}}
+
+.hero{margin-bottom:18px}
+.hero h1{font-family:Hahmlet,"Apple SD Gothic Neo",serif;font-weight:700;font-size:34px;letter-spacing:-.02em;line-height:1.15}
+.hero p{margin-top:10px;font-size:14.5px;color:var(--muted);max-width:680px}
+@media(max-width:640px){.hero h1{font-size:26px}.wrap{padding:18px 14px 44px}}
+
+.factbar{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:14px}
+@media(max-width:820px){.factbar{grid-template-columns:1fr 1fr}}
+.fb{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:13px 15px}
+.fb .k{font-size:11.5px;color:var(--muted)}
+.fb .v{font-family:"DM Mono",monospace;font-size:16px;font-weight:500;margin-top:4px}
+.fb.hot{border-color:var(--coral);background:rgba(255,80,25,.06)}
+.fb.hot .v{color:var(--coral)}
+
+details.chkbox{background:var(--surface);border:1px solid var(--coral);border-radius:14px;margin-bottom:22px;overflow:hidden}
+details.chkbox summary{padding:13px 18px;cursor:pointer;font-size:13.5px;font-weight:700;list-style:none;
+  display:flex;align-items:center;gap:9px;background:rgba(255,80,25,.06)}
+details.chkbox summary::-webkit-details-marker{display:none}
+details.chkbox summary::before{content:"\25B8";color:var(--coral);font-size:12px;transition:.15s}
+details.chkbox[open] summary::before{transform:rotate(90deg)}
+details.chkbox summary .cnt{margin-left:auto;font-family:"DM Mono",monospace;font-size:11.5px;color:var(--coral);font-weight:600}
+.chk{padding:2px 18px 8px}
+.chk .row{display:flex;gap:11px;padding:11px 2px;border-bottom:1px solid var(--line)}
+.chk .row:last-child{border-bottom:none}
+.chk .no{font-family:"DM Mono",monospace;font-size:12px;color:var(--coral);font-weight:600;flex:none;min-width:20px}
+.chk .tx{flex:1;font-size:13.5px}
+.chk .tx .memo{display:block;font-size:12px;color:var(--muted);margin-top:3px;line-height:1.7}
+.chk .tx code{font-family:"DM Mono",monospace;font-size:11px;color:#5C544A;background:#F1EFE9;padding:1px 6px;border-radius:4px}
+
+.tabs{display:flex;gap:5px;flex-wrap:wrap;border-bottom:2px solid var(--line);margin-bottom:20px}
+.tab{appearance:none;background:none;border:none;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--muted);
+     padding:10px 15px;cursor:pointer;border-radius:10px 10px 0 0;position:relative;top:2px;
+     border-bottom:2px solid transparent;transition:.15s}
+.tab:hover{color:var(--ink);background:rgba(74,78,105,.05)}
+.tab.on{color:#2F3346;border-bottom-color:rgba(74,78,105,.75);background:var(--surface)}
+.tab .sn{font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted);margin-right:5px}
+.tab.on .sn{color:var(--slate)}
+.pane{display:none}
+.pane.on{display:block}
+
+h3{font-family:Hahmlet,"Apple SD Gothic Neo",serif;font-size:16.5px;font-weight:700;margin:26px 0 10px;
+   padding-bottom:7px;border-bottom:1px solid var(--line);letter-spacing:-.01em}
+.pane > h3:first-child{margin-top:2px}
+h3 .sub{font-size:12px;font-weight:400;color:var(--muted);margin-left:7px}
+p.lead{font-size:13.5px;color:#5b5447;margin-bottom:12px}
+
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);
+      border-radius:12px;overflow:hidden;font-size:13px}
+th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:rgba(74,78,105,.07);font-weight:700;font-size:12px;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.num,th.num{font-family:"DM Mono",monospace;white-space:nowrap;text-align:right}
+td.cell,th.cell{font-family:"DM Mono",monospace;font-size:11px;color:#9C9487;white-space:nowrap}
+tr.hi td{background:rgba(255,80,25,.05)}
+tr.tot td{background:rgba(74,78,105,.05);font-weight:700}
+.dash{color:#c9c2b4}
+.cap{font-size:11.5px;color:var(--muted);line-height:1.75;margin:7px 2px 18px}
+.cap code{font-family:"DM Mono",monospace;font-size:11px;background:#F1EFE9;padding:1px 5px;border-radius:4px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px}
+.card.warn{border-color:var(--coral);background:rgba(255,80,25,.05)}
+.card h4{font-size:14px;font-weight:700;margin-bottom:7px}
+.card p{font-size:13.5px;color:#4d463d;margin-bottom:6px}
+.card p:last-child{margin-bottom:0}
+
+.txtbox{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:14px;overflow:hidden}
+.txthead{display:flex;align-items:center;gap:10px;padding:11px 16px;background:rgba(74,78,105,.06);
+         border-bottom:1px solid var(--line);flex-wrap:wrap}
+.txthead .t{font-size:13.5px;font-weight:700}
+.txthead .c{font-family:"DM Mono",monospace;font-size:11px;color:#9C9487}
+.txthead button{margin-left:auto;font-family:inherit;font-size:12px;font-weight:600;color:var(--sage);
+  background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;transition:.15s}
+.txthead button:hover{border-color:var(--sage);background:rgba(94,144,135,.08)}
+.txthead button.done{color:#fff;background:var(--sage);border-color:var(--sage)}
+.txtbody{padding:14px 18px;font-size:13px;line-height:1.85;white-space:pre-wrap;word-break:keep-all}
+
+.opnote{margin-top:30px;font-size:12px;color:var(--muted);line-height:1.75}
+.files{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px 16px;margin-top:10px}
+.files .fl{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 2px;border-bottom:1px solid var(--line)}
+.files .fl:last-child{border-bottom:none}
+.files .fn{font-size:13.5px}
+.files .fn span{display:block;font-family:"DM Mono",monospace;font-size:11px;color:var(--muted);margin-top:3px}
+.dl{font-size:12.5px;color:var(--sage);text-decoration:none;font-weight:600;white-space:nowrap;padding:8px 16px;
+    border:1px solid var(--line);border-radius:999px;background:var(--surface);cursor:pointer;font-family:inherit}
+.dl:hover{border-color:var(--sage);background:rgba(94,144,135,.08)}
+.foot{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);text-align:center;
+      font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted);letter-spacing:.03em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="navleft">
+      <a class="back" href="finance-investor.html">← 투자자 보고</a>
+      <a class="back" href="finance-investor-2026q2-dewells.html">📄 더웰스 보고</a>
+      <a class="back" href="https://claude.ai/chat/17924d1e-fd45-4cc2-b0df-e3ce10789c88" target="_blank" rel="noopener">💬 작업 대화</a>
+    </div>
+    <div class="metaline">
+      <span class="crumb">AI 워크스페이스 › 정산·신고 › 투자자 보고 › 2026 2분기 · MYSC</span>
+      <span class="bar">|</span>
+      <span class="upd">업데이트 <span id="updstamp"></span></span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h1>2026년 반기 결산 · MYSC</h1>
+    <p>제출 링크(Airtable)에 옮겨 넣기 위한 문서입니다. 양식 순서 그대로이고, 긴 서술은 복사 버튼으로 그대로 가져갈 수 있습니다.</p>
+  </div>
+
+  <div class="factbar">
+    <div class="fb hot"><div class="k">제출 기한</div><div class="v">7/31 12:00</div></div>
+    <div class="fb"><div class="k">기준일</div><div class="v">2026.06.30</div></div>
+    <div class="fb"><div class="k">제출 방법</div><div class="v" style="font-size:13px">Airtable 링크</div></div>
+    <div class="fb"><div class="k">문의</div><div class="v" style="font-size:12px">impact@mysc.co.kr</div></div>
+  </div>
+
+  <div class="card" style="border-color:#B8AE9E;background:rgba(36,31,27,.03)">
+    <h4>✓ 2026.07.31 제출 완료</h4>
+    <p>제출 링크(Airtable)에 등록을 마쳤습니다. 아래는 실제로 넣은 내용이며, 다음 회차에 이어 쓸 수 있도록 기록해 둡니다.</p>
+    <p><b>차기 보고 시 보완할 것</b> — 임팩트 성과의 누적 인원. 원천세 지급명세서(홈택스)에서 중복 제외 인원을 집계해야 확정됩니다. 제출 시 "집계 중"으로 적었고 회신 메일에도 명시했습니다.</p>
+  </div>
+
+  <h3>제출 서류 <span class="sub">원본 제출 불요 · 스캔본(PDF) 업로드</span></h3>
+  <div class="tw">
+  <table>
+    <tr><th>서류</th><th>상태</th><th>확인 내용</th></tr>
+    <tr><td><b>법인등기부등본</b> (말소사항 포함)</td><td>✅ 제출</td><td>2026.07.31 재발급 · 말소사항 포함</td></tr>
+    <tr><td><b>4대사회보험가입자명부</b> (최근 기준)</td><td>✅ 제출</td><td>2026.06.30 16:16 발급 · 안상미 1명</td></tr>
+    <tr><td><b>주주명부 날인본</b> (26.06.30 기준)</td><td>✅ 제출</td><td>법인인감 날인 · 14,061주 / 7,030,500원</td></tr>
+    <tr><td><b>기업 인증 관련 증빙서류</b></td><td>✅ 제출</td><td><b>벤처기업확인서</b> (2026.03.14~2029.03.13) · <b>여성기업확인서</b> (2026.03.03~2029.03.02) · <b>소셜벤처 판별통지서</b> — 3건 제출</td></tr>
+    <tr><td><b>가결산 재무제표</b> (26.06.30 기준)</td><td>✅ 제출</td><td>삼화회계법인 · 재무제표 원문과 입력값 원 단위 일치 확인</td></tr>
+  </table>
+  </div>
+
+  <!-- ===== 1 ===== -->
+  <h2><span class="n">01</span>기업 현황 및 회사 개요</h2>
+  <div class="hline"></div>
+  <div class="tw">
+  <table>
+    <tr><th>항목</th><th>입력값</th></tr>
+    <tr><td>법인명</td><td>주식회사 공공의주방</td></tr>
+    <tr><td>작성자 성함/직책</td><td>안상미 / 대표이사</td></tr>
+    <tr><td>작성자 연락처</td><td class="num">010-2770-5538</td></tr>
+    <tr><td>작성자 이메일 주소</td><td class="num">ceo@acvt.kr</td></tr>
+    <tr><td>재무상태 <span style="color:var(--muted)">선택형</span></td><td><b>완전자본잠식</b> <span style="font-size:11.5px;color:#8C857A">자본총계 −532,970,039원</span></td></tr>
+    <tr><td>(26년) 변동사항 <span style="color:var(--muted)">선택형</span></td><td><b>해당없음</b> <span style="font-size:11.5px;color:#8C857A">상반기 자본금·주식수 변동 없음</span></td></tr>
+    <tr><td>인증여부 <span style="color:var(--muted)">중복 선택</span></td><td><b>벤처인증</b> (2026.03.14~2029.03.13)<br><b>여성기업</b> (2026.03.03~2029.03.02)<br><b>소셜벤처</b> (판별통과)</td></tr>
+    <tr><td><b>고용인원(명)</b><br><span style="font-size:11.5px;color:#8C857A">26년 06월 말 기준, 대표자 포함</span></td><td class="num"><b>1</b></td></tr>
+    <tr><td>해외 진출 희망 여부 및 희망 국가</td><td>아래 복사 블록 참조</td></tr>
+  </table>
+  <p class="cap">고용인원 1명은 4대보험 사업장 가입자명부(2026.06.30 발급)와 일치합니다. 양식이 <b>대표자 포함</b>을 명시하고 있어 대표이사 1명이 맞습니다.</p>
+  </div>
+
+    <div class="txtbox">
+      <div class="txthead"><span class="t">차입금 현황 및 상환 일정</span><span class="c">단답</span><button onclick="cp(this,'m1')">복사</button></div>
+      <div class="txtbody" id="m1">신한은행 200백만원 / 개인 60백만원 / 차입금 총액 260백만원
+2026년 상반기 원금 상환 없음 (2025년에는 3·6·9월 각 4.16백만원씩 총 12.48백만원 상환)
+※ 대표이사 가수금 367백만원은 금융기관 차입금과 별도이며, 2026년 상반기 중 52백만원을 추가 투입</div>
+    </div>
+    <div class="txtbox">
+      <div class="txthead"><span class="t">월 버닝(원) / 남은 런웨이</span><span class="c">단답 · 확인 필요</span><button onclick="cp(this,'m2')">복사</button></div>
+      <div class="txtbody" id="m2">월 버닝 약 5백만원 / 보유 현금 기준 런웨이 약 1.4개월
+※ 대표이사 가수금 투입으로 운영을 지속하고 있으며, 2026년 상반기 중 52백만원을 추가 투입(6월말 잔액 367백만원)
+※ 고정비 절감으로 월 버닝이 전년 동기 대비 약 40% 감소</div>
+    </div>
+    <div class="txtbox">
+      <div class="txthead"><span class="t">사업 운영 현황 및 이슈</span><span class="c">매출 · 서비스 개발 · HR 등</span><button onclick="cp(this,'m3')">복사</button></div>
+      <div class="txtbody" id="m3">* 매출
+- 2026년 상반기 매출 17.1백만원 (전년 동기 14.0백만원, +22.4%)
+- B2B 비중 63% — 케이터링 6.7백만원, 기업 온라인 쿠킹클래스 4.1백만원
+- 케이터링은 2025년 상반기 0원에서 신규로 발생하여 성장을 견인
+
+* 서비스 개발
+- AI 모듈러 키친 운영 — 식재료와 소스를 모듈로 관리하고, 주문량을 분석해 발주량·소스 분량·포장 방식까지 자동 설계
+- 그날 필요한 만큼만 발주해 소분·패킹하므로 대형 설비와 상시 재고가 필요 없으며, 재고 폐기·창고 비용이 발생하지 않음
+- 하반기 아카이빗 AI 키친(온·오프라인 연동 사업 모델) 준비 중
+
+* HR
+- 2026년 6월말 기준 임직원 1명(대표자 포함)
+- 경영기획 담당자 퇴직에 따라 관련 업무를 매뉴얼화하고 AI 기반 업무 시스템으로 전환하여 처리
+- 세무(삼화회계법인)·법무 등 전문 영역은 외부 협업 체계로 운영하여 업무 공백 없이 지속
+- 케이터링 현장은 협력사, 클래스는 등록 요리 전문가 약 120명과 각각 건별 협업
+- 인건비를 분기 3백만원 → 1백만원으로 절감
+
+* 이슈
+- 자본잠식이 지속되어 대표이사 가수금으로 운영자금을 조달하고 있음
+- 고정비 절감으로 영업손실을 전년 동기 대비 48.9% 축소했으며, 하반기에 절감 효과가 온기로 반영될 예정
+- 하반기 매출 확대를 위해 케이터링·기업 클래스 아웃바운드 영업과 공간 파트너십을 준비 중</div>
+    </div>
+    <div class="txtbox">
+      <div class="txthead"><span class="t">해외 진출 희망 여부 및 희망 국가</span><span class="c">단답</span><button onclick="cp(this,'m11')">복사</button></div>
+      <div class="txtbody" id="m11">■ 해외 진출 희망 여부: 중장기 검토 중
+
+■ 희망 국가 및 배경
+- 1순위: 프랑스 — 한국 식문화에 대한 관심이 높고, K-PLUS Festival 등 현지 시장검증 기회가 있어 레시피 콘텐츠와 쿠킹박스의 반응을 확인하기 적합
+- 2순위: 일본 — 가정 내 조리 문화와 소포장 식품 시장이 형성되어 있어 당사 쿠킹박스 형태가 이질감 없이 수용될 가능성
+
+■ 검토 단계
+- 현재는 국내 B2B 매출 안정화가 우선이며, 해외는 시장 탐색 단계
+- 당사 자산인 레시피 DB와 요리 영상 콘텐츠는 언어 현지화만으로 전환 가능하여, 물류 부담 없이 콘텐츠 먼저 진출하는 방식을 우선 검토
+
+■ MYSC에 요청드리는 사항
+- 농식품 분야 해외 시장검증 프로그램(EMA AGRIFOOD 등) 참여 기회 안내</div>
+    </div>
+    <div class="txtbox">
+      <div class="txthead"><span class="t">기타 요청사항</span><span class="c">투자 · 자원연계 · 자문 · 네트워크</span><button onclick="cp(this,'m4')">복사</button></div>
+      <div class="txtbody" id="m4">* 자원연계
+- 아카이빗 AI 키친(온·오프라인 연동 모델) 확대를 위한 공간 파트너 연결
+  카페·복합문화공간·아파트 커뮤니티·기업 라운지 등 유휴 공간을 보유한 파트너
+
+* 네트워크
+- 임팩트 패밀리 기업 대상 케이터링·기업 쿠킹클래스 협업 기회
+- 사내 복지 프로그램(임직원 대상 쿠킹클래스) 도입을 검토하는 기업 소개
+
+* 자문
+- 자본잠식 구조 개선 및 후속 투자 유치 전략에 대한 자문</div>
+    </div>
+
+  <!-- ===== 2 ===== -->
+  <h2><span class="n">02</span>재무정보</h2>
+  <div class="hline"></div>
+  <p class="lead"><b>2026년 반기 기준 · 단위 백만원.</b> 더웰스는 분기(3개월)로 적었지만 <b>MYSC는 상반기 누계</b>입니다. 숫자가 다르니 주의하세요.</p>
+  <div class="tw">
+  <table>
+    <tr><th>항목</th><th class="num">입력값</th><th>원 단위 (삼화 재무제표)</th></tr>
+    <tr><td>매출액</td><td class="num"><b>17</b></td><td class="num">17,132,396</td></tr>
+    <tr><td>영업이익</td><td class="num"><b>-54</b></td><td class="num">−53,916,968</td></tr>
+    <tr><td>당기손익</td><td class="num"><b>-61</b></td><td class="num">−60,973,261</td></tr>
+    <tr><td>자산총계</td><td class="num"><b>125</b></td><td class="num">125,238,986</td></tr>
+    <tr><td>부채총계</td><td class="num"><b>658</b></td><td class="num">658,209,025</td></tr>
+    <tr><td>자본총계</td><td class="num"><b>-533</b></td><td class="num">−532,970,039</td></tr>
+    <tr><td>자본금</td><td class="num"><b>7</b></td><td class="num">7,030,500</td></tr>
+  </table>
+  <p class="cap">마이너스는 부호를 붙여 <code>-54</code> 형태로 입력합니다. 첨부란에 가결산 재무제표(재무상태표·손익계산서) PDF를 올립니다.</p>
+  </div>
+
+  <!-- ===== 3 ===== -->
+  <h2><span class="n">03</span>영업 및 시장/산업 현황</h2>
+  <div class="hline"></div>
+  <p class="lead">양식 예시가 <b>B2C / B2B 구분</b>을 요구해서 그 형식으로 다시 썼습니다. 나머지 세 칸은 더웰스 보고서와 같은 문구입니다.</p>
+
+    <div class="txtbox">
+      <div class="txthead"><span class="t">영업 현황 — 올해까지의 현황</span><span class="c">B2C / B2B 구분</span><button onclick="cp(this,'m5')">복사</button></div>
+      <div class="txtbody" id="m5">* B2C (약 6.3백만원)
+- 자사 플랫폼 온라인 쿠킹클래스 5.8백만원
+- 아카이빗몰(archiveat.kr) 쿠킹박스·레시피 0.6백만원 — 매월 제철 기준 약 30개 메뉴 큐레이션, 토스·컬리 새벽배송 채널 병행
+
+* B2B (약 10.8백만원, 전체 매출의 63%)
+- 기업 온라인 쿠킹클래스 4.1백만원 — ㈜휴넷 2·4·5월 3회 반복 발주
+- 케이터링 6.7백만원 — 3월 아시안스퀘어, 6월 디캠프 스타트업 OI(프리미어플랜), 6월 머니투데이
+  ※ 2025년 상반기 케이터링 매출 0원
+
+* 실적 요약
+- 매출 17.1백만원 (전년 동기 14.0백만원, +22.4%)
+- 판관비 71.0백만원 (전년 동기 119.5백만원, △40.5%)
+- 영업손실 △53.9백만원 (전년 동기 △105.5백만원, 48.9% 축소)
+- EBITDA 손실 △48백만원 → △23백만원
+
+* 운영 구조
+- AI 모듈러 키친으로 재고 없이 운영하여 매출이 늘어도 고정비가 비례해 늘지 않는 구조
+- 케이터링 현장은 협력사, 클래스는 등록 요리 전문가 약 120명과 각각 건별 협업
+- 유튜브 @archiveat365 구독자 2,440명, 편집 완료 영상 2,623편(누적 DB 2,738편)</div>
+    </div>
+    <div class="txtbox">
+      <div class="txthead"><span class="t">영업현황 — 향후 계획</span><span class="c"></span><button onclick="cp(this,'m6')">복사</button></div>
+      <div class="txtbody" id="m6">* 아카이빗 AI 키친 — 온·오프라인을 잇는 사업 모델로 확장
+- 상반기부터 가동한 AI 모듈러 키친(운영 시스템)을 오프라인 공간으로 확장하여 클래스·쿠킹박스·케이터링·공식몰을 하나의 흐름으로 연결
+- 클래스에서 만들어 본 메뉴를 집에서 쿠킹박스로 재구매하는 구조로 오프라인 접점을 온라인 매출로 전환
+- 공간을 보유한 파트너(카페·복합문화공간·아파트 커뮤니티·기업 라운지)가 장소를 제공하고, 당사는 시스템과 콘텐츠·운영을 담당하여 초기 설비 투자 없이 접점 확대
+
+* B2B 영업 확대와 거래 고정화
+- 케이터링·기업 클래스 제안 체계를 구축하고 아웃바운드 거래처 발굴 시작
+- 제안 근거: 디캠프 스타트업 OI·머니투데이(상반기), 스타필드 고양점 클래스콕 2년 연중 운영, 여주·보령 지역 특산물 레시피 개발 및 쿠킹박스 제작, 농심 레시피 콘텐츠 협업
+- ㈜휴넷 등 반복 발주를 연간 단위 계약으로 전환 협의하여 분기 매출 변동성 축소
+
+* 쿠킹박스 판매 채널 강화
+- 컬리 채널이 하반기 당일배송을 시행할 예정으로, 신선식품 기반 쿠킹박스의 구매 전환에 유리하게 작용할 것으로 기대
+- 클래스·케이터링에서 사용한 메뉴를 쿠킹박스 상품으로 전환하여 하나의 레시피를 여러 채널에서 매출로 연결
+
+* 손익 개선 전망
+- 상반기 고정비 절감 효과가 하반기에 온기로 반영
+- 주문량 기준 당일 발주 구조라 매출이 늘어도 고정비가 비례해 늘지 않아 영업손실 추가 축소 예상
+
+* 대외 인지도
+- 2026년 7월 벤처스퀘어 기사 게재 — AI 기반 운영 구조와 클래스에서 검증한 레시피 자산이 소개됨</div>
+    </div>
+    <div class="txtbox">
+      <div class="txthead"><span class="t">시장/산업 현황 — 최근 시장/산업 현황</span><span class="c"></span><button onclick="cp(this,'m7')">복사</button></div>
+      <div class="txtbody" id="m7">* 간편식 시장은 양적 성장에서 질적 재편 국면으로 이동
+- 고물가로 가정 내 조리 수요는 유지되고 있으나, 밀키트 시장은 팬데믹 시기의 고성장을 지나 정체·재편 단계에 진입
+- 단순한 편의성보다 건강·취향·품질을 중시하는 방향으로 소비가 이동하면서, 대량 생산·대량 재고 기반 모델은 재고 부담과 수익성 압박에 직면
+
+* 운영 영역의 AI 도입이 업계 전반으로 확산
+- 수요 예측, 발주 최적화, 재고 관리, 콘텐츠 제작에 AI를 적용해 인력과 재고 부담을 줄이는 시도가 확산되는 추세
+- 다만 대형 사업자 중심이며, 소규모 사업자가 실제 운영에 적용한 사례는 많지 않음
+
+* 당사는 AI 모듈러 키친으로 이 흐름에 대응
+- 식재료와 소스를 모듈로 관리하고, 주문량을 분석해 발주량·소스 분량·포장 방식까지 자동 설계하는 자체 운영 시스템을 상반기 내내 가동
+- 그날 필요한 만큼만 발주해 소분·패킹하므로 대형 설비와 상시 재고가 필요 없고, 재고 폐기·창고 비용이 발생하지 않음
+- 시장이 재편되는 국면에서 고정비를 늘리지 않고 대응할 수 있는 구조로, 상반기 판관비를 전년 동기 대비 40.5% 절감
+
+* B2B·단체 수요는 상대적으로 견조
+- 기업·기관의 임직원 프로그램, 행사 케이터링 등 단체 단위 수요가 개인 소비보다 안정적으로 유지
+- 당사 상반기 매출의 63%가 B2B에서 발생한 배경</div>
+    </div>
+    <div class="txtbox">
+      <div class="txthead"><span class="t">시장/산업 현황 — 향후 시장/산업 전망</span><span class="c"></span><button onclick="cp(this,'m8')">복사</button></div>
+      <div class="txtbody" id="m8">* 규모 확장보다 수익성·재구매율 중심으로 전환
+- 국내 간편식·밀키트 시장은 완만한 성장 국면에서 안정화될 전망이며, 기업들은 외형보다 내실에 집중
+
+* 초개인화·기능성 수요가 성장 축
+- 저염식·고령친화식 등 목적형 식단과 구독형 서비스가 성장 영역으로 부상
+- 개인화가 진전될수록 소량 다품종 대응 능력이 경쟁력이 되며, 대량 생산 기반 모델은 오히려 불리해지는 구조
+
+* 체험이 구매로 이어지는 커머스 결합 모델 확대
+- 콘텐츠와 체험이 구매 전환의 출발점이 되는 흐름이 이어질 전망
+
+* 당사 대응 방향 — 아카이빗 AI 키친
+- 상반기부터 가동한 AI 모듈러 키친(운영 시스템)을 오프라인 공간으로 확장하여 클래스·쿠킹박스·케이터링·공식몰을 하나의 흐름으로 연결
+- 클래스에서 만들어 본 메뉴를 집에서 쿠킹박스로 재구매하는 구조로, 체험이 구매로 이어지는 시장 흐름에 대응
+- 모듈 단위로 레시피를 조합하는 구조라 소량 다품종·목적형 식단 요구에 대응 가능하며, 약 10년간 클래스 현장에서 검증한 레시피 자산이 기반
+- 공간을 보유한 파트너와 협력하는 방식이라 초기 설비 투자 없이 접점을 확대하고, 개인 소비 시장의 변동성은 B2B 수요로 보완</div>
+    </div>
+    <div class="txtbox">
+      <div class="txthead"><span class="t">(해당시) 기술개발/연구 현황 — 올해까지 현황</span><span class="c">필수 아님</span><button onclick="cp(this,'m9')">복사</button></div>
+      <div class="txtbody" id="m9">* AI 모듈러 키친 운영 고도화
+- 식재료와 소스를 모듈 단위로 관리하는 데이터 구조를 정비하고, 주문량 분석에서 발주량·소스 분량·포장 방식 자동 설계까지 이어지는 로직을 상반기 내내 운영
+- 냉장·냉동·실온 혼합 배송에 대응하는 포장 설계 자동화
+
+* 레시피·콘텐츠 자산 구축
+- 약 10년간 클래스 현장에서 검증한 레시피를 쿠킹박스 상품으로 전환하는 체계를 운영
+- 레시피 카드·상세페이지 제작과 요리팁 영상 제작에 AI를 적용하여 제작 효율 개선</div>
+    </div>
+    <div class="txtbox">
+      <div class="txthead"><span class="t">(해당시) 기술개발/연구 현황 — 향후 계획</span><span class="c">필수 아님</span><button onclick="cp(this,'m10')">복사</button></div>
+      <div class="txtbody" id="m10">* 아카이빗 AI 키친 확장
+- 온라인 판매와 오프라인 클래스를 하나의 운영 시스템으로 연결하는 구조 설계
+- 파트너 공간에서도 동일한 발주·소분·패킹 로직이 작동하도록 확장
+
+* 목적형 식단 대응
+- 모듈 단위 레시피 조합 구조를 활용해 저염식·고령친화식 등 목적형 식단 구성에 대응할 수 있도록 데이터 정비</div>
+    </div>
+
+  <div class="card">
+    <h4>기술개발·연구 두 칸은 필수가 아닙니다</h4>
+    <p>양식에 <code>(해당시)</code>로 표기되어 있어 비워도 됩니다. 다만 <b>AI 모듈러 키친이 우리의 실제 개발 성과</b>이고, MYSC가 AI 도입을 눈여겨보는 투자사라 적어두면 도움이 됩니다. 위 초안을 쓰실지 비우실지 정해 주세요.</p>
+  </div>
+
+  <!-- ===== 4 ===== -->
+  <h2><span class="n">04</span>임팩트 성과</h2>
+  <div class="hline"></div>
+  <p class="lead">네 칸이 하나의 흐름으로 이어집니다. <b>지표 → 도입 이전 → 2025 온기 누적 → 2026 반기 누적</b> 순서로 읽히도록 썼습니다.</p>
+
+  <div class="tw">
+  <table>
+    <tr><th>항목</th><th>입력값</th></tr>
+    <tr class="hi"><td>임팩트 목표 (SDGs) <span style="color:var(--coral)">선택형</span></td><td>선택지 확인 필요 — 우리 사업과 맞는 축은 <b>2 기아 종식</b>(건강한 식생활) · <b>8 양질의 일자리</b>(요리 전문가 수익 기회) · <b>12 책임 있는 소비와 생산</b>(재고 없는 운영)</td></tr>
+  </table>
+  </div>
+
+    <div class="txtbox">
+      <div class="txthead"><span class="t">임팩트 측면의 주요 사업 대상 및 대상자 수(명)</span><span class="c"></span><button onclick="cp(this,'i0')">복사</button></div>
+      <div class="txtbody" id="i0">* 요리 역량을 보유했으나 안정적인 수익 기회를 갖기 어려운 요리 전문가 약 120명
+- 경력 단절 이후 자격증·경력을 활용하지 못하던 요리 강사, 개인 사업장을 갖기 어려운 요리 전문가가 당사 플랫폼을 통해 레시피 개발·클래스 진행으로 수익을 창출
+- 상시 고용 없이 건별 협업 구조로 운영하여, 참여 인원이 늘어도 개인의 활동 시간과 강도를 스스로 조절할 수 있는 형태
+
+* 조리 경험이 부족하거나 시간이 없어 집밥을 포기하는 1~2인 가구 및 맞벌이 가구
+- 약 10분 내 완성 가능한 쿠킹박스와 레시피 콘텐츠를 통해 외식·배달 의존을 낮추고 가정 내 조리를 지속할 수 있도록 지원
+- 2026년 상반기 기준 유튜브 채널(@archiveat365) 구독자 2,440명
+
+* 판로 확보가 어려운 지역 특산물 생산자 (여주 · 보령 등)
+- 지역 특산물을 활용한 레시피를 개발하고 쿠킹박스 상품으로 구성하여 소비자에게 직접 닿는 판로를 제공</div>
+    </div>
+    <div class="txtbox">
+      <div class="txthead"><span class="t">임팩트 정량 지표</span><span class="c">기업이 해결하고자 하는 사회 및 환경 문제</span><button onclick="cp(this,'i1')">복사</button></div>
+      <div class="txtbody" id="i1">* 당사 플랫폼을 통해 공식 소득(사업소득) 지급 및 원천세 신고가 이루어진 요리 전문가 누적 인원(명)
+- 개인 블로그·지역 커뮤니티 기반으로 소규모 수업을 진행하던 요리 전문가가, 당사를 통해 사업소득 지급 → 원천징수 → 지급명세서 제출로 이어지는 공식 소득 이력을 확보
+- 기업·기관 케이터링, 온라인 클래스 등 개인이 단독으로 접근하기 어려운 수요처로 활동 범위가 확대
+- 등록만 한 인원이 아니라 실제 지급이 발생한 인원을 원천세 자료 기준으로 집계
+
+* (차기 도입 예정) 주문 기반 당일 발주·소분 운영에 따른 식재료 폐기율(%)
+- 주문량을 분석해 그날 필요한 만큼만 발주하고 소분·패킹하는 구조로 상시 재고를 두지 않아 신선식품 폐기가 구조적으로 발생하지 않음
+- 매입량 대비 폐기량 기준 산정 체계를 정비 중이며 차기 보고부터 제출 예정</div>
+    </div>
+    <div class="txtbox">
+      <div class="txthead"><span class="t">사업 도입 이전의 임팩트 수치</span><span class="c"></span><button onclick="cp(this,'i2')">복사</button></div>
+      <div class="txtbody" id="i2">공식 소득 이력을 갖춘 요리 전문가: 사실상 부재
+
+- 당사 등록 요리 전문가 약 120명 대부분이 개인 블로그와 지역 커뮤니티를 기반으로 소규모 수업을 진행하던 형태였으며, 정산·세무 처리 체계를 갖추지 못한 채 현금 거래에 의존하는 경우가 일반적이었음
+- 활동 이력이 소득 자료로 남지 않아 경력 증빙이나 금융 이력 확보가 어려웠고, 거래처가 개인 수강생에 한정되어 기업·기관 등 안정적인 수요처에는 접근할 수 없었음</div>
+    </div>
+    <div class="txtbox">
+      <div class="txthead"><span class="t">2025년 온기 기준 임팩트 지표 달성 누적 수치</span><span class="c"></span><button onclick="cp(this,'i3')">복사</button></div>
+      <div class="txtbody" id="i3">공식 소득 지급 및 원천세 신고 이력 확보: 누적 다수 (정확한 인원 집계 중)
+
+- 2025년 한 해 동안 요리 전문가에게 지급한 강사료(사업소득) 23,924,092원
+- 지급 시마다 원천징수 및 지급명세서 제출을 통해 각 전문가의 공식 소득 이력이 축적
+- 개인별 명세는 원천세 지급명세서에 있으며, 중복 제외 누적 인원을 차기 보고 시 확정하여 제출 예정</div>
+    </div>
+    <div class="txtbox">
+      <div class="txthead"><span class="t">2026년 반기 기준 임팩트 지표 달성 누적 수치</span><span class="c"></span><button onclick="cp(this,'i4')">복사</button></div>
+      <div class="txtbody" id="i4">공식 소득 지급 및 원천세 신고 이력 확보: 누적 다수 (정확한 인원 집계 중)
+
+- 2026년 상반기 강사료(사업소득) 지급 1,400,000원
+- 상반기에는 기업·기관 케이터링과 온라인 클래스 중심으로 매출이 발생하여 개인 강사료 비중은 낮았으나, 케이터링 현장 협력과 클래스 운영을 통한 전문가 참여 구조는 유지
+- 누적 인원은 원천세 지급명세서 기준으로 집계하여 차기 보고 시 확정 제출 예정</div>
+    </div>
+
+  <div class="card">
+    <h4>왜 인원수 대신 이렇게 썼나 — 다음 회차를 위한 기록</h4>
+    <p><b>처음에는 「수익이 발생한 요리 전문가 누적 인원」으로 잡았다가 바꿨습니다.</b> 회계 자료를 확인하니 강사료(인적용역) 지급액이 <b>2025년 상반기 14,762,728원 → 2026년 상반기 1,400,000원</b>으로 90% 줄었습니다. 2026년 상반기 매출이 기업·기관 케이터링(협력사 파티본)과 온라인 클래스 중심이라 개인 강사료가 적게 나간 것이지 전문가를 덜 쓴 것은 아니지만, <b>숫자만 보면 후퇴로 읽힙니다.</b></p>
+    <p>그래서 지표를 <b>「공식 소득 지급 및 원천세 신고 이력을 확보한 누적 인원」</b>으로 다시 정의했습니다. 한 번 확보한 소득 이력은 사라지지 않으므로 <b>누적이 줄어들 수 없는 구조</b>이고, 원천세 지급명세서라는 국세청 기록이 근거가 됩니다.</p>
+    <p><b>인원수는 원장으로 셀 수 없습니다.</b> 계정별원장의 인적용역수수료는 거래처가 <code>사업소득</code>으로 통합되어 있어 개인 구분이 안 됩니다. 홈택스 지급명세서를 봐야 합니다.</p>
+    <p style="color:var(--muted);font-size:12.5px">※ 강사료 연도별 — 2022년 약 22,411,649원 / 2025년 23,924,092원 / 2026년 상반기 1,400,000원</p>
+  </div>
+
+  <p class="opnote">
+    ※ 이 문서는 <b>Airtable 제출 링크에 옮겨 넣기 위한</b> 검토용입니다.<br>
+    ※ 재무 숫자는 삼화회계법인 가결산 재무제표(2026.06.30 기준)와 원 단위까지 일치합니다.<br>
+    ※ 서류 실물과 개인 연락처는 공개 저장소에 두지 않습니다.
+  </p>
+
+  <div class="files">
+    <div class="fl"><div class="fn"><b>이 화면 (MYSC 반기 결산)</b><span>finance-investor-2026q2-mysc.html · 항상 받아짐</span></div><button class="dl" onclick="saveThisPage()">받기</button></div>
+    <div class="fl"><div class="fn"><b>더웰스 2분기 보고</b><span>finance-investor-2026q2-dewells.html</span></div><a class="dl" href="finance-investor-2026q2-dewells.html">열기</a></div>
+    <div class="fl"><div class="fn"><b>투자자 보고 대장</b><span>finance-investor.html</span></div><a class="dl" href="finance-investor.html">열기</a></div>
+  </div>
+
+  <div class="foot">finance-investor-2026q2-mysc · <span id="footver">v3</span> · 주식회사 공공의주방 · archiveat.kr · 2026</div>
+
+</div>
+<script>
+(function(){
+  var mv=document.querySelector('meta[name="version"]');
+  var mu=document.querySelector('meta[name="updated"]');
+  var ver=mv?mv.content:'', upd=mu?mu.content:'';
+  var s=document.getElementById('updstamp'); if(s) s.textContent=upd+(ver?' \u00b7 '+ver:'');
+  var fv=document.getElementById('footver'); if(fv&&ver) fv.textContent=ver;
+})();
+function cp(btn,id){
+  var el=document.getElementById(id); if(!el) return;
+  var t=el.innerText;
+  function ok(){ btn.textContent='복사됨'; btn.classList.add('done');
+    setTimeout(function(){btn.textContent='복사'; btn.classList.remove('done');},1600); }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(ok, function(){ fb(t, ok); });
+  } else { fb(t, ok); }
+}
+function fb(t, ok){
+  var ta=document.createElement('textarea');
+  ta.value=t; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); ok(); }catch(e){ alert('복사 실패. 직접 선택해 복사해 주세요.'); }
+  document.body.removeChild(ta);
+}
+function saveThisPage(){
+  try{
+    var html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+    var blob=new Blob([html],{type:'text/html'});
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob); a.download='finance-investor-2026q2-mysc.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(a.href);},1500);
+  }catch(e){alert('저장 실패: '+e.message);}
+}
+</script>
+</body>
+</html>
