@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="version" content="v6">
-<meta name="updated" content="2026.07.31 10:15">
+<meta name="version" content="v8">
+<meta name="updated" content="2026.07.31 12:10">
 <title>finance-investor-2026q2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -488,12 +488,13 @@ tr.tot td{background:rgba(74,78,105,.05);font-weight:700}
     <div class="tw">
     <table>
       <tr><th>구분</th><th class="num">2025년말</th><th class="num">3월말</th><th class="num">6월말</th><th class="cell">셀</th></tr>
-      <tr><td>기초차입금</td><td class="num">272</td><td class="num">260</td><td class="num">260</td><td class="cell">B28 · 이후 자동</td></tr>
-      <tr><td>차입금상환</td><td class="num">12</td><td class="num">0</td><td class="num">0</td><td class="cell">B29 C29 D29</td></tr>
+      <tr><td>기초차입금</td><td class="num">260</td><td class="num">260</td><td class="num">260</td><td class="cell">B28 · 이후 자동</td></tr>
+      <tr><td>차입금상환</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="cell">B29 C29 D29</td></tr>
       <tr><td>차입금증가</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="cell">B30 C30 D30</td></tr>
       <tr class="tot"><td>기말차입금</td><td class="num">260</td><td class="num">260</td><td class="num">260</td><td class="cell">자동</td></tr>
     </table>
-    <p class="cap">2026년 상반기에는 원금 상환이 없었습니다. 2025년에는 분기마다 4백만원씩 상환했습니다.<br>
+    <p class="cap"><b>첫 열은 2025년말 잔액을 그대로 적습니다.</b> 2025년 보고서도 첫 열(2024년말)에 기초=기말=272를 넣고 움직임은 비웠습니다. 처음에 2025년 한 해 활동(기초 272 · 상환 12)으로 적었다가 작년 방식에 맞춰 고쳤습니다.<br>
+    2025년에는 3·6·9월에 각 4,160,000원씩 총 12,480,000원을 상환했고, <b>2026년 상반기에는 상환이 없습니다.</b> 원장에 기록이 한 건도 없습니다. 거치기간이 시작됐거나 만기가 연장된 것으로 보이며, 확인되면 상환스케쥴 칸도 채울 수 있습니다.<br>
     <b>양식의 헤더 수식이 xls 변환 과정에서 <code>00:00:00</code>으로 깨져 문자열로 고쳤습니다.</b> B26 · C26 · C27 · D27에 각각 2025년말 · 2026년 · 3월말 · 6월말을 직접 넣었습니다.</p>
     </div>
 
@@ -502,7 +503,7 @@ tr.tot td{background:rgba(74,78,105,.05);font-weight:700}
       <tr><th>차입처</th><th class="num">금액</th><th>이자율</th><th>만기일</th><th class="cell">행</th></tr>
       <tr><td>신한은행</td><td class="num">150</td><td class="dash">공란</td><td class="dash">공란</td><td class="cell">36</td></tr>
       <tr><td>신한은행</td><td class="num">50</td><td class="dash">공란</td><td class="dash">공란</td><td class="cell">37</td></tr>
-      <tr><td>개인(대표 특수관계인)</td><td class="num">60</td><td class="dash">공란</td><td class="dash">공란</td><td class="cell">38</td></tr>
+      <tr><td>개인</td><td class="num">60</td><td class="dash">공란</td><td class="dash">공란</td><td class="cell">38</td></tr>
       <tr class="tot"><td>합계</td><td class="num">260</td><td class="dash">—</td><td class="dash">—</td><td class="cell">자동</td></tr>
     </table>
     <p class="cap">열은 <code>A</code>은행명 · <code>C</code>금액 · <code>D</code>이자율 · <code>E</code>만기일 · <code>F</code>질권·담보제공입니다.<br>
@@ -518,50 +519,52 @@ tr.tot td{background:rgba(74,78,105,.05);font-weight:700}
       <tr><td>임차료·관리비</td><td class="num">7</td><td class="num">5</td><td class="num">5</td><td class="cell">60</td></tr>
       <tr><td>개발비</td><td class="num">2</td><td class="num">1</td><td class="num">1</td><td class="cell">61</td></tr>
       <tr><td>기타 비용</td><td class="num">16</td><td class="num">11</td><td class="num">13</td><td class="cell">62</td></tr>
-      <tr class="hi"><td>일시 지출 (퇴직금·가수금 상환)</td><td class="num">38</td><td class="num">18</td><td class="num">0</td><td class="cell">63</td></tr>
-      <tr class="tot"><td>합계</td><td class="num">67</td><td class="num">38</td><td class="num">20</td><td class="cell">자동</td></tr>
+      <tr class="hi"><td>퇴직금</td><td class="num">0</td><td class="num">18</td><td class="num">0</td><td class="cell">63</td></tr>
+      <tr class="tot"><td>합계</td><td class="num">29</td><td class="num">38</td><td class="num">20</td><td class="cell">자동</td></tr>
     </table>
-    <p class="cap">양식의 기본 항목명(임원급여 · 임원 외 급여 · 원재료 · 기타비용)을 2025년 보고서와 같은 방식으로 바꿔 적었습니다. <b>A열 항목명도 함께 덮어써야 합니다.</b><br>
-    1분기 일시 지출 18백만원은 3월 25일 지급한 퇴직금(퇴직중간정산분 15,944,793원 + 퇴직최종정산분 1,840,361원)입니다.</p>
+    <p class="cap">양식의 기본 항목명은 <code>임원급여 · 임원 외 급여 · 원재료 · 기타비용</code>입니다. 제조업 기준이라 우리 지출 구조와 맞지 않아, 2025년 보고서와 같은 방식으로 항목명을 바꿔 적었습니다. <b>A열 항목명도 함께 덮어써야 합니다.</b><br>
+    1분기 퇴직금 18백만원은 3월 25일 지급분(퇴직중간정산분 15,944,793원 + 퇴직최종정산분 1,840,361원)입니다.<br>
+    <b>2025년 보고서에 있던 「가수금 상환」 행은 뺐습니다.</b> 이 표는 운전자금 지출을 묻는 자리인데 가수금 상환은 재무활동이고, 차입금 현황과 지급보증 시트에 이미 있습니다. 또 2025년 평균 38(=150÷4)로 적으면 매 분기 회수한 것처럼 보이지만 실제로는 1월에 한 번 150을 상환하고 같은 해에 93.5를 다시 차입해 연간 순감은 56.5였습니다. <b>2026년 상반기에는 상환이 없고 오히려 52.15를 추가 차입했습니다.</b><br>
+    가수금을 뺀 2025년 평균 29는 작년 보고서 분기값에서 가수금만 제외한 값(46 · 29 · 22 · 19)의 평균과 정확히 일치합니다.<br>
+    2026년 각 항목은 계정별원장에서 산출했습니다 — 인건비=직원급여, 임차료·관리비=지급임차료+건물관리비, 개발비=경상개발비, 기타=판관비에서 앞 3항목과 감가상각비·무형자산상각비를 뺀 값. 상각비를 뺀 것은 이 표가 <b>현금 지출액</b>을 묻기 때문입니다.</p>
     </div>
   </div>
 
   <!-- ============ 4 ============ -->
   <div class="pane" id="s4">
 
-    <h3>매출채권 현황 <span class="sub">단위 백만원</span></h3>
-    <div class="tw">
-    <table>
-      <tr><th>거래처명</th><th class="num">금액</th><th class="num">3개월</th><th>비고</th><th class="cell">셀</th></tr>
-      <tr><td>PG 정산 미수(토스)</td><td class="num">0.1</td><td class="num">0.1</td><td>6월말 잔액 90,448원</td><td class="cell">A12 B12</td></tr>
-      <tr><td>대손예상액</td><td colspan="2">해당사항 없음</td><td class="dash">—</td><td class="cell">B17</td></tr>
-    </table>
-    <p class="cap"><code>A17</code>은 "대손예상액" 라벨이므로 건드리지 말고 <code>B17</code>에 적습니다. 대손상각비 설정내역은 <code>A32</code>에 "해당사항 없음"으로 넣었습니다(A31은 라벨).</p>
-    </div>
-
-    <div class="tw">
-    <table>
-      <tr><th>구분</th><th class="num">매출액</th><th class="num">회수</th><th class="num">대손</th><th class="num">채권잔액</th><th class="cell">행</th></tr>
-      <tr><td>2025년 전체</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="cell">24</td></tr>
-      <tr><td>2026년 1분기</td><td class="num">7</td><td class="num">7</td><td class="num">0</td><td class="num">0</td><td class="cell">25</td></tr>
-      <tr class="hi"><td>2026년 2분기</td><td class="num">12</td><td class="num">12</td><td class="num">0</td><td class="num">0</td><td class="cell">26</td></tr>
-    </table>
-    <p class="cap">열은 <code>B</code>매출액 · <code>C</code>회수 · <code>D</code>대손이고 <code>E</code>채권잔액은 자동입니다.<br>
-    <b>양식의 수식 오류를 고쳤습니다.</b> 채권잔액 계산식이 <code>=전기+매출+회수+대손</code>으로 되어 있어 회수액이 더해지는 구조였습니다. <code>=전기+매출−회수−대손</code>으로 바꿨고, 합계행(E29)은 <code>=E28</code>로 두었습니다.</p>
+    <h3>매출채권 관련 — 전부 공란</h3>
+    <div class="card">
+      <h4>우리에게는 매출채권이 없습니다</h4>
+      <p>1) 매출채권 명세 · 대손예상액 · 2) 분기별 매출채권 변동 · 3) 대손상각비 설정내역을 <b>모두 비웁니다.</b> 2025년 4개 회차도 전부 공란이었습니다.</p>
+      <p>6월말 외상매출금 잔액 <b>90,448원</b>이 있지만 이것은 <b>토스 PG 정산 대기 잔액</b>입니다. 원장을 보면 토스는 카드매출 → 입금 → 미지급금 상계가 며칠 단위로 반복되고, 6/30이 정산 주기 중간이라 끝자리가 걸려 있었을 뿐입니다. 백만원 단위로는 0입니다.</p>
+      <p><b>상반기 회수 실적을 보면 연체가 한 건도 없습니다.</b></p>
+      <div class="tw" style="margin:10px 0 0">
+      <table>
+        <tr><th>거래처</th><th>청구</th><th>회수</th><th>미회수</th></tr>
+        <tr><td>㈜휴넷</td><td class="num">4회 × 1,500,000</td><td>4회 전액</td><td class="num">0</td></tr>
+        <tr><td>아시안스퀘어</td><td class="num">3/06 1,870,000</td><td><b>당일</b></td><td class="num">0</td></tr>
+        <tr><td>프리미어플랜(디캠프)</td><td class="num">6/18 2,800,000</td><td><b>익일</b></td><td class="num">0</td></tr>
+        <tr><td>머니투데이</td><td class="num">6/24 2,750,000</td><td>6일 후</td><td class="num">0</td></tr>
+        <tr><td>이니시스 · 토스</td><td>PG 자동정산</td><td>수시</td><td class="num">90,448</td></tr>
+      </table>
+      </div>
+      <p style="margin-top:9px">처음에는 잔액과 분기별 변동을 채웠다가 뺐습니다. 0.1백만원을 적으면 <b>매출채권이 있는 회사</b>로 보이고 연령분석 칸까지 채워야 하는데, 성격이 채권이 아닙니다. 양식의 채권잔액 수식 오류를 고쳤던 것도 값을 넣지 않으므로 함께 되돌렸습니다.</p>
     </div>
 
     <h3>매출처별 현황 <span class="sub">단위 백만원</span></h3>
     <div class="tw">
     <table>
       <tr><th>매출처</th><th class="num">2025년</th><th class="num">1분기</th><th class="num">2분기</th><th>매출품목</th><th class="cell">행</th></tr>
-      <tr><td>자사 플랫폼 (PG 이니시스)</td><td class="num">31</td><td class="num">3.10</td><td class="num">2.65</td><td>쿠킹클래스(온라인)</td><td class="cell">40</td></tr>
+      <tr><td>자사 플랫폼 (PG 이니시스)</td><td class="num">24</td><td class="num">3.10</td><td class="num">2.65</td><td>쿠킹클래스(온라인)</td><td class="cell">40</td></tr>
       <tr><td>아카이빗몰 (PG 토스)</td><td class="num">0.7</td><td class="num">0.34</td><td class="num">0.21</td><td>쿠킹박스 · 레시피</td><td class="cell">41</td></tr>
-      <tr class="hi"><td>㈜휴넷</td><td class="dash num">—</td><td class="num">1.36</td><td class="num">2.73</td><td>온라인 쿠킹클래스 (B2B)</td><td class="cell">42</td></tr>
+      <tr class="hi"><td>㈜휴넷</td><td class="num">7</td><td class="num">1.36</td><td class="num">2.73</td><td>온라인 쿠킹클래스 (B2B)</td><td class="cell">42</td></tr>
       <tr class="hi"><td>기업·기관 케이터링</td><td class="num">15</td><td class="num">1.70</td><td class="num">5.05</td><td>케이터링 (아시안스퀘어 · 디캠프 · 머니투데이)</td><td class="cell">43</td></tr>
       <tr><td>기타(프로젝트)</td><td class="num">2</td><td class="num">0</td><td class="num">0</td><td>콘텐츠 프로젝트</td><td class="cell">44</td></tr>
       <tr class="tot"><td>합계</td><td class="num">48.7</td><td class="num">6.50</td><td class="num">10.64</td><td class="dash">—</td><td class="cell">자동</td></tr>
     </table>
     <p class="cap">열은 <code>A</code>매출처 · <code>C</code>2025년 · <code>D</code>1분기 · <code>E</code>2분기 · <code>H</code>매출품목입니다.<br>
+    <b>㈜휴넷 2025년 열을 7로 채웠습니다.</b> 2025년 매출장을 확인하니 휴넷 거래가 3·5·8·10·11월 다섯 차례, 합계 6,954,547원 있었습니다. 작년 보고서에서는 "자사 플랫폼 쿠킹클래스 30.7"에 뭉쳐 있었습니다. 처음에 2025년 열을 공란으로 두었다가, 그러면 <b>올해 새로 생긴 거래처처럼 보여</b> 자사 플랫폼을 24로 줄이고 휴넷을 분리했습니다. 합계 48.7은 그대로이고, <b>1년 넘게 이어온 반복 거래처</b>로 읽힙니다.<br>
     2025년 보고서는 매출처를 모두 "자사 플랫폼"으로 적었는데, <b>이번에는 케이터링 거래처명을 밝혔습니다.</b> 디캠프·머니투데이는 투자사가 알아보는 곳이라 레퍼런스로 읽힙니다. 부담스러우시면 "기업·기관"으로 되돌리면 됩니다.</p>
     </div>
   </div>
@@ -574,15 +577,15 @@ tr.tot td{background:rgba(74,78,105,.05);font-weight:700}
     <table>
       <tr><th>항목</th><th>내용</th><th class="cell">셀</th></tr>
       <tr><td>담보제공 및 지급보증</td><td>공란 <span style="color:var(--muted)">— 2025년 4개 회차와 동일</span></td><td class="cell">—</td></tr>
-      <tr><td>임직원 대여금</td><td>해당사항 없음</td><td class="cell">A27</td></tr>
+      <tr><td>임직원 대여금</td><td>공란 <span style="color:var(--muted)">— 2025년 4개 회차와 동일</span></td><td class="cell">—</td></tr>
       <tr class="hi"><td><b>임직원 차입금</b></td><td><b>대표이사 가수금</b> — 1/1 315 · 증가 52 · 감소 0 · <b>6/30 367</b></td><td class="cell">A35 B35 C35 D35</td></tr>
-      <tr><td>자회사·관계회사 현황</td><td>해당사항 없음</td><td class="cell">A46</td></tr>
-      <tr><td>자회사·관계회사 거래내역</td><td>해당사항 없음</td><td class="cell">A54</td></tr>
-      <tr><td>계류중인 소송</td><td>해당사항 없음</td><td class="cell">A65</td></tr>
+      <tr><td>자회사·관계회사 현황</td><td>공란</td><td class="cell">—</td></tr>
+      <tr><td>자회사·관계회사 거래내역</td><td>공란</td><td class="cell">—</td></tr>
+      <tr><td>계류중인 소송</td><td>공란</td><td class="cell">—</td></tr>
       <tr><td>임원 보상</td><td>대표이사 급여 · 본사 · <b>1.2</b> · 퇴직급여 해당없음 · 배당 해당없음 · 2026년 2분기(4~6월) 급여</td><td class="cell">A73~F73</td></tr>
     </table>
     <p class="cap">가수금 증가 52백만원은 상반기 중 대표님이 회사에 넣으신 운영자금입니다. 양식의 마지막 열은 "2026-12-31"로 되어 있지만 6월말 잔액을 적었습니다. 2025년 보고서도 같은 방식이었습니다.<br>
-    임원 급여 1.2백만원은 2분기 3개월분(월 40만원)입니다.<br>
+    임원 급여 1.2백만원은 2분기 3개월분(월 40만원)입니다.<br>    <b>대여금·자회사·소송란은 공란으로 두었습니다.</b> 양식 안내는 "해당사항 없는 내용은 해당사항 없음으로 기재"라고 되어 있으나, 2025년 4개 회차가 모두 공란이어서 표기 방식을 맞췄습니다. 임원 보상의 퇴직급여·배당금 두 칸만 "해당사항 없음"으로 남겼는데, 이는 작년 보고서도 같습니다.<br>
     <b>담보제공란은 비워 두었습니다.</b> 2025년 4개 회차를 모두 열어 대조한 결과 전부 공란이었습니다. 이 칸은 <b>우리가 제공한 담보·보증</b>을 적는 자리라, 우리가 <b>받은</b> 기술보증기금 보증은 여기가 아니라 차입금 세부내역의 "질권 및 담보제공" 열에 적는 것이 맞습니다.</p>
     </div>
 
@@ -603,7 +606,7 @@ tr.tot td{background:rgba(74,78,105,.05);font-weight:700}
     <div class="fl"><div class="fn"><b>투자자 보고 대장</b><span>finance-investor.html</span></div><a class="dl" href="finance-investor.html">열기</a></div>
   </div>
 
-  <div class="foot">finance-investor-2026q2 · <span id="footver">v6</span> · 주식회사 공공의주방 · archiveat.kr · 2026</div>
+  <div class="foot">finance-investor-2026q2 · <span id="footver">v8</span> · 주식회사 공공의주방 · archiveat.kr · 2026</div>
 
 </div>
 <script>
