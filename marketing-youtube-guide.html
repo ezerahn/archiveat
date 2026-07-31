@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="version" content="v1"><meta name="updated" content="2026.07.31 18:10">
+<title>유튜브 가이드 · 아카이빗</title>
+<link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF5EC;--ink:#241F1B;--line:#E7DCC8;--line2:#F0E9DC;--coral:#FF5019;--muted:#8a8175;--sub:#6b6357;--paper:#fff;--warn:#FBF6F4;--warnln:#EFDDD5;--warntx:#8a4b34}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,"Apple SD Gothic Neo",sans-serif;line-height:1.62}
+.wrap{max-width:860px;margin:0 auto;padding:22px 18px 80px}
+.navbar{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{font-size:13px;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);padding:5px 13px;border-radius:20px;font-weight:600;white-space:nowrap}
+.pill:active{transform:scale(.97)}
+.pill-yt{background:var(--coral);color:#fff;border-color:var(--coral)}
+.breadcrumb{font-size:12px;color:var(--muted);text-align:right;line-height:1.6;margin-left:auto}
+.breadcrumb .sep{color:#cbc3b4;margin:0 5px}
+.breadcrumb .upd{font-family:"DM Mono",monospace}
+h1{font-family:Hahmlet,"Gowun Batang",serif;font-weight:700;font-size:34px;letter-spacing:-.02em;margin:8px 0 4px}
+.lead{font-size:14.5px;color:var(--muted);margin:0 0 24px}
+.sec{margin:30px 0 12px}
+.sec .n{font-family:"DM Mono",monospace;font-size:12px;color:var(--coral);font-weight:700}
+.sec h2{font-family:Hahmlet,serif;font-weight:700;font-size:20px;margin:3px 0 0}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:17px 19px;margin-bottom:12px}
+.card p{margin:0 0 8px;font-size:14px;color:var(--sub)}
+.card p:last-child{margin-bottom:0}
+.card b{color:var(--ink)}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:4px 0 2px}
+.node{background:#FBF7EF;border:1px solid var(--line);border-radius:10px;padding:9px 13px;font-size:13px;font-weight:700;text-align:center}
+.node .s{display:block;font-size:11px;font-weight:500;color:var(--muted);font-family:"DM Mono",monospace;margin-top:2px}
+.node.hi{background:var(--ink);color:#fff;border-color:var(--ink)}
+.node.hi .s{color:#B8B0A4}
+.arrow{color:var(--coral);font-weight:700}
+.files{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}
+.files th,.files td{border-bottom:1px solid var(--line2);padding:8px 6px;text-align:left;vertical-align:top}
+.files th{color:var(--muted);font-weight:600;font-size:12px}
+.files .fn{font-family:"DM Mono",monospace;font-size:12px;color:var(--ink);font-weight:700}
+.files .role{color:var(--sub)}
+.files .tag{font-size:10.5px;font-weight:700;border-radius:8px;padding:2px 7px;font-family:"DM Mono",monospace;white-space:nowrap}
+.tag.src{background:#FFE7DF;color:var(--coral)}
+.tag.view{background:#EEF3EA;color:#5E7360}
+.tag.old{background:#EFEDEA;color:#ADA294}
+.steps{counter-reset:s;list-style:none;padding:0;margin:6px 0 0}
+.steps li{position:relative;padding:6px 0 6px 30px;font-size:14px;color:var(--sub)}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:5px;width:20px;height:20px;background:var(--coral);color:#fff;border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:"DM Mono",monospace}
+.steps li b{color:var(--ink)}
+.warn{margin-top:10px;font-size:13px;color:var(--warntx);background:var(--warn);border:1px solid var(--warnln);border-radius:10px;padding:11px 14px}
+.warn b{color:var(--warntx)}
+.notice{margin-top:28px;padding:14px 16px;background:#FBF7EF;border:1px solid var(--line);border-radius:12px;font-size:12.5px;color:var(--sub);line-height:1.75}
+footer{margin-top:26px;font-size:12px;color:var(--muted);font-family:"DM Mono",monospace;text-align:center}
+@media(max-width:600px){h1{font-size:27px}.flow{gap:6px}.node{padding:8px 10px;font-size:12px}}
+</style></head>
+<body><div class="wrap">
+<header>
+  <div class="navbar">
+    <div class="pills">
+      <a class="pill" href="marketing.html">← 마케팅 홈</a>
+      <a class="pill" href="https://claude.ai/chat/de162d6f-4bed-4837-bc49-ca35f4ebbc97" target="_blank" rel="noopener">💬 작업 대화</a>
+      <a class="pill pill-yt" href="https://studio.youtube.com/channel/UC4Zd3aqVkpgTzFfg59p-dfw/videos/upload?d=ud" target="_blank" rel="noopener">▶️ 스튜디오 업로드</a>
+    </div>
+    <div class="breadcrumb">AI 워크스페이스 › 마케팅 › 유튜브 가이드 <span class="sep">|</span> <span class="upd"></span></div>
+  </div>
+  <h1>유튜브 가이드</h1>
+  <p class="lead">파일을 어떻게 관리하고, 어떻게 업로드 업무를 하면 되는지 — 이 문서 하나로 정리했습니다.</p>
+</header>
+
+<div class="sec"><span class="n">01</span><h2>큰 그림 — 파일 3개면 됩니다</h2></div>
+<div class="card">
+  <p><b>영상 창고</b> · <span class="files"><span class="fn">marketing-video-db.xlsx</span></span> — 우리가 만든 모든 쇼츠(2,738편)가 들어있는 창고. 어떤 영상이 있고 어디까지 올렸는지가 여기 다 있어요. <b>이게 원본이에요.</b></p>
+  <p><b>업로드 달력</b> · <span class="fn">marketing-shorts-manager.xlsx</span> — 창고에서 영상을 꺼내 "며칠에 뭘 올릴지" 날짜를 짜는 달력.</p>
+  <p><b>유튜브 캡션</b> · <span class="fn">marketing-youtube-captions.html</span> — 올릴 때 붙여넣을 제목·설명을 날짜별로 정리.</p>
+  <div class="flow">
+    <div class="node hi">영상 창고<span class="s">원본</span></div>
+    <span class="arrow">→</span>
+    <div class="node">업로드 달력<span class="s">날짜 배치</span></div>
+    <span class="arrow">→</span>
+    <div class="node">유튜브 업로드<span class="s">매일 3편</span></div>
+    <span class="arrow">→</span>
+    <div class="node hi">창고에 표시<span class="s">올렸음</span></div>
+  </div>
+</div>
+
+<div class="sec"><span class="n">02</span><h2>가장 중요한 규칙 — 원본은 하나</h2></div>
+<div class="card">
+  <p>"이 쇼츠가 올라갔는가"의 진실은 오직 <b>영상 창고(marketing-video-db.xlsx)</b>에 있습니다. 업로드 달력 안에도 같은 영상 목록이 있지만 그건 <b>복사본</b>일 뿐이에요.</p>
+  <p>그래서 유튜브에 올리면 결국 <b>창고에도 "올렸음"이 표시돼야</b> 합니다. 창고를 안 맞추면, 창고는 "아직 안 올림"으로 남아 나중에 같은 걸 또 올릴 수 있어요.</p>
+  <div class="warn"><b>동기화 규칙</b> — 매일 올릴 땐 달력에 완료 체크(그날 기록) → 주기적으로(스케줄 짤 때·주 1회) 그 완료분을 창고(원본)에 반영. 최종 진실은 언제나 창고에 모입니다.</div>
+</div>
+
+<div class="sec"><span class="n">03</span><h2>매일 업로드 — 이 순서대로</h2></div>
+<div class="card">
+  <ol class="steps">
+    <li><b>업로드 달력</b>을 연다 → 오늘 날짜의 3편(09:00 · 14:00 · 19:30)을 확인.</li>
+    <li><b>유튜브 캡션</b>에서 그날 제목·설명을 복사.</li>
+    <li>유튜브 스튜디오에 <b>3편 업로드</b> (손질법 오전 · 보관법 오후 · 레시피팁 저녁).</li>
+    <li>달력에서 그 행을 <b>유튜브 ✅ · 상태 완료</b>로 표시.</li>
+    <li>주기적으로 완료분을 <b>창고(원본)에 반영</b> → 다음 스케줄이 정확해짐.</li>
+  </ol>
+</div>
+
+<div class="sec"><span class="n">04</span><h2>날짜가 밀렸을 때 — 걱정 안 해도 됩니다</h2></div>
+<div class="card">
+  <p>영상(창고)은 그대로라 없어지지 않아요. 밀리면 <b>달력만 다시 짜면</b> 됩니다.</p>
+  <p>다시 시작할 날짜(예: <b>8월 1일</b>)부터 대기 중인 영상을 하루 3편씩 순서대로 다시 배치하면 끝. 달력 파일엔 이미 <b>「8월 스케줄」 시트</b>가 초안으로 들어있어요.</p>
+  <div class="warn"><b>정할 것 하나</b> — 밀린 편을 (A) 새 날짜 앞에 이어붙일지, (B) 접고 제철 메뉴로 새로 갈지. 이것만 정하면 달력을 다시 짤 수 있어요.</div>
+</div>
+
+<div class="sec"><span class="n">05</span><h2>파일 — 최신본과 옛 버전</h2></div>
+<div class="card">
+  <table class="files">
+    <tr><th>파일</th><th>역할</th><th></th></tr>
+    <tr><td class="fn">marketing-video-db.xlsx</td><td class="role">영상 창고 (전체 영상 + 업로드 여부)</td><td><span class="tag src">원본</span></td></tr>
+    <tr><td class="fn">marketing-shorts-manager.xlsx</td><td class="role">업로드 달력 (날짜별 스케줄·미업로드 풀)</td><td><span class="tag view">스케줄</span></td></tr>
+    <tr><td class="fn">marketing-youtube-captions.html</td><td class="role">업로드 캡션 (제목·설명)</td><td><span class="tag view">보조</span></td></tr>
+    <tr><td class="fn">⑤영상DB마스터 v4·v5<br>video-db-master · 1785…v5</td><td class="role">영상 창고의 옛 버전들</td><td><span class="tag old">보관만</span></td></tr>
+    <tr><td class="fn">아카이빗_콘텐츠_마케팅_관리</td><td class="role">업로드 달력의 옛 스냅샷</td><td><span class="tag old">보관만</span></td></tr>
+  </table>
+  <p style="margin-top:10px">영상 창고 버전 흐름: v4 → v5(=video-db-master) → <b>marketing-video-db (최신)</b>.</p>
+</div>
+
+<div class="sec"><span class="n">06</span><h2>파일 이름·보관 규칙</h2></div>
+<div class="card">
+  <p>· 최신본은 <b>위 3개 이름으로 고정</b>하고 덮어쓰기. 파일명에 v4·v5를 붙이지 않기(중복·혼란의 원인).</p>
+  <p>· 옛 버전은 지우지 말고 <b>archive/ 폴더</b>에 날짜 붙여 보관.</p>
+  <p>· GitHub(공개)엔 <b>HTML만</b>. 엑셀 원본은 드롭박스 작업폴더에.</p>
+  <p>· 개인정보·계좌·재무 실수치는 GitHub HTML에 넣지 않기.</p>
+</div>
+
+<div class="notice">
+  ※ 이 페이지는 <b>보는 문서</b>예요. 데이터를 고칠 땐 창고·달력(엑셀)에서, 계획은 💬 작업 대화에서.<br>
+  · 원본 = 영상 창고(marketing-video-db.xlsx) · 달력 = marketing-shorts-manager.xlsx<br>
+  · 모든 파일은 같은 폴더(github)에 두어야 링크가 작동합니다.
+</div>
+
+<footer id="ft"></footer>
+</div>
+<script>
+(function(){
+  var v=document.querySelector('meta[name=version]').content;
+  var u=document.querySelector('meta[name=updated]').content;
+  document.querySelectorAll('.upd').forEach(function(e){e.textContent='업데이트 '+u+' · '+v;});
+  var ft=document.getElementById('ft');
+  if(ft) ft.textContent='ARCHIVEAT · 유튜브 가이드 · '+v+' · 업데이트 '+u;
+})();
+</script>
+</body></html>
