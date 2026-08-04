@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="version" content="v10"><meta name="updated" content="2026.07.29 16:43">
+<meta name="version" content="v12"><meta name="updated" content="2026.08.04 17:22">
 <title>클래스 설계 가이드</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,7 +68,7 @@ font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:cent
 
 <div class="topbar">
 <div><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="class-chat.html" target="_blank" rel="noopener">💬 작업 대화</a></div>
-<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.07.29 16:43 · v10</span></div>
+<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.08.04 17:22 · v12</span></div>
 </div>
 
 <div class="head">
@@ -161,7 +161,7 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 <h3>다시 만드는 순서</h3>
 <div class="rule">gen_class → gen_partner → gen_settle → <b>gen_list (마지막)</b></div>
 <p>gen_list 가 모든 마스터를 읽으므로 반드시 마지막에 돌립니다.</p>
-</div><div class="pane" data-t="규칙"><div class="toc"><a href="#s03">03 회차ID · 파일명 규칙</a><a href="#s04">04 유형 · 테마</a></div><h2 id="s03"><span class="n">03</span>회차ID · 파일명 규칙</h2><p class="h2d">2026-07-28 확정. 한번 정하면 바꾸지 않습니다</p>
+</div><div class="pane" data-t="규칙"><div class="toc"><a href="#s03">03 회차ID · 파일명 규칙</a><a href="#s04">04 유형 · 테마</a><a href="#s05B">05B ★ 합산 규칙 — 보이는 숫자를 더하면 합계가 나와야 한다</a><a href="#s12B">12B 클래스 기록 파일 — 드롭박스 보관</a></div><h2 id="s03"><span class="n">03</span>회차ID · 파일명 규칙</h2><p class="h2d">2026-07-28 확정. 한번 정하면 바꾸지 않습니다</p>
 <div class="rule"><b>회차ID</b> = <code>[제휴사코드]-[연도2자리][월2자리]-[일련2자리]</code></div>
 <table>
 <tr><th>제휴사</th><th>코드</th><th>예</th></tr>
@@ -222,6 +222,90 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 생성기가 읽을 때 전부 빈칸이 되고 화면 숫자가 0 으로 만들어집니다.
 손으로 고칠 땐 엑셀에서 직접, 프로그램으로 고칠 땐 <code>xlsx_patch.py</code>(XML 직접 수정)를 씁니다.</p>
 </div>
+<h2 id="s05B"><span class="n">05B</span>★ 합산 규칙 — 보이는 숫자를 더하면 합계가 나와야 한다</h2><p class="h2d">눈으로 검산이 안 되면 표를 믿을 수 없습니다</p>
+<div class="box key">
+<p><b>화면에 표시하는 값을 먼저 반올림하고, 그 반올림된 값으로 소계·합계를 더합니다.</b><br>
+반올림 전 소수점 값으로 합산하지 않습니다.</p>
+</div>
+<p><b>왜</b> — 예전에는 각 줄만 반올림해 보여주고 소계·합계는 소수점 그대로 더했습니다.
+그래서 <b>표에 보이는 숫자를 다 더해도 합계와 맞지 않았습니다.</b></p>
+<h3>실제로 벌어진 일 <span style="font-size:13px;color:var(--wait)">GS-2607-01 복숭아청 · 구성품(원가)</span></h3>
+<table>
+<tr><th>항목</th><th>고치기 전</th><th>고친 뒤</th></tr>
+<tr><td>브리치즈 샐러드 소계</td><td>4,579 <span style="color:var(--wait)">(실제 4,579.3)</span></td><td><b>4,580</b></td></tr>
+<tr class="hi"><td>재료비 합계(1인)</td><td>10,586 <span style="color:var(--wait)">(실제 10,586.3)</span></td><td><b>10,587</b></td></tr>
+</table>
+<p>식초 54.67 → 55, 설탕(소스) 54.60 → 55 처럼 <b>버려진 소수점이 쌓여</b> 1원이 어긋났습니다.
+1원은 작지만, 「더해봐도 안 맞는 표」는 신뢰를 깎습니다.</p>
+<div class="box warn">
+<p><b>적용 위치</b> — <code>gen_class.py</code> 의 <code>matTable()</code> · 마스터의 <code>재료비(1인)</code> ·
+기록 엑셀 생성기 <code>gen_book.py</code></p>
+</div>
+<h2 id="s12B"><span class="n">12B</span>클래스 기록 파일 — 드롭박스 보관</h2><p class="h2d">끝난 수업을 어떻게 남기나</p>
+<div class="box key">
+<p>보관 위치 <code>/AI/archiveat/class/records/</code> · <b>회차당 파일 3개</b></p>
+</div>
+<table>
+<tr><th>파일</th><th>내용</th></tr>
+<tr class="hi"><td><code>GS260701_클래스기록.xlsx</code></td><td><b>시트 11장</b> — 클래스 상세 + 패킹 운영 전부</td></tr>
+<tr><td><code>GS260701_1_개요.pdf</code></td><td>선생님·제휴사에 그대로 보내는 용도</td></tr>
+<tr><td><code>GS260701_2_레시피.pdf</code></td><td>위와 같음</td></tr>
+</table>
+<p><b>엑셀 시트 순서 = 화면 탭 순서</b><br>
+정보 · 과정개요서 · 레시피 · 구성품(원가) · 발주·입고 · 수익구조 · 선생님정산 · 모집현황
+· 패킹(소스배합) · 패킹(구성) · 패킹(소모품)</p>
+<p>구성품·발주·수익·정산은 <b>PDF를 따로 만들지 않습니다.</b> 엑셀 하나로 봅니다.
+개요·레시피만 PDF로 두는 이유는 <b>남에게 그대로 보내는 문서</b>이기 때문입니다.</p>
+<div class="box warn">
+<p><b>넣지 않는 것</b> — 수강생 명단·연락처·주소, 선생님 계좌·은행</p>
+</div>
+
+<h3>엑셀 보기 규칙</h3>
+<div class="box key">
+<p><b>진하게 칠하지 않습니다. 「구분이 되는 정도」로만.</b><br>
+<b>돈 = 회색 · 제목 = 베이지.</b> 색으로 성격을 나누고, 진하기로 겁주지 않습니다.</p>
+</div>
+<table>
+<tr><th>자리</th><th>색</th><th>뜻</th></tr>
+<tr><td>표 머리글</td><td>옅은 베이지 <code>F1ECE0</code></td><td>열 이름</td></tr>
+<tr><td>구분(제목) 띠</td><td>베이지 <code>EDE6D6</code> + 갈색 글씨 <code>6B5F3E</code></td><td>묶음의 시작</td></tr>
+<tr class="hi"><td>소계</td><td><b>회색 <code>F2F2F0</code></b></td><td>돈이 오가는 자리</td></tr>
+<tr class="hi"><td>합계</td><td><b>진한 회색 <code>E3E3E0</code></b> + 검은 글씨</td><td>결론</td></tr>
+<tr><td>키 열</td><td><code>FAF8F3</code></td><td>항목 이름</td></tr>
+<tr><td>줄무늬</td><td><code>FCFBF8</code></td><td>행 구분</td></tr>
+</table>
+<ul>
+<li><b>긴 URL 은 표에 그대로 두지 않습니다</b> — 「링크」 글자에 하이퍼링크를 걸고 주소는 숨깁니다.
+표가 복잡해 보이는 가장 큰 원인이 긴 주소입니다</li>
+<li><b>세로는 가운데, 가로는 왼쪽</b> 정렬. 숫자만 오른쪽, 단위·상태 같은 짧은 값은 가운데</li>
+<li>긴 글은 <b>한글 폭을 2로 세어</b> 줄 수를 계산하고 행 높이를 맞춥니다 (잘려 보이지 않게)</li>
+<li>모든 행에 높이를 지정합니다. 값이 있는데 높이가 없으면 기본 19</li>
+<li>격자선은 끕니다</li>
+<li>수업명과 강의명이 같으면 <b>한 줄만</b> 표시합니다</li>
+<li><b>강사 프로필</b>은 과정개요서에 넣습니다. 이력 첫 줄이 이름으로 시작하면 그 줄을 제목으로 쓰고 중복 표시하지 않습니다</li>
+</ul>
+<div class="box warn">
+<p><b>패킹 운영의 「소스 배합」 탭은 표를 JavaScript 로 그립니다.</b>
+HTML 문자열만 뒤지면 빈 껍데기가 나옵니다.
+<code>pack_dump.js</code>(node + jsdom)로 화면을 실제로 실행시켜 표를 뽑습니다.</p>
+</div>
+<h3>★ 화면에서 바로 받기 <span style="font-size:13px;color:var(--wait)">2026-08-04</span></h3>
+<div class="box key">
+<p><b>클래스 상세 탭 줄 오른쪽 끝의 「⬇ 엑셀」 버튼</b>을 누르면
+그 회차의 클래스기록.xlsx(시트 11장)가 바로 내려받아집니다.</p>
+<p><b>서버에 파일을 두지 않습니다.</b> 화면에 이미 있는 데이터로 브라우저가 그 자리에서 엑셀을 만듭니다.
+재무 수치(PK 수익·선생님 정산액·발주 금액)가 공개 저장소에 올라가지 않습니다.</p>
+</div>
+<p>패킹 3개 시트는 <code>gen_class.py</code> 가 만들 때 패킹 운영 화면에서 미리 뽑아 화면에 실어둔 것입니다.
+따라서 <b>패킹 운영 파일이 없는 회차는 그 3장이 「데이터 없음」</b>으로 나옵니다.</p>
+
+<h3>생성기</h3>
+<table>
+<tr><th>파일</th><th>만드는 것</th></tr>
+<tr><td><code>gen_book.py</code></td><td>클래스기록.xlsx — 시트 11장 (화면 버튼과 같은 결과)</td></tr>
+<tr><td><code>gen_record.py</code></td><td>개요·레시피 PDF</td></tr>
+<tr><td><code>pack_dump.js</code></td><td>패킹 운영 화면에서 표 추출 (위 두 개가 씀)</td></tr>
+</table>
 </div><div class="pane" data-t="돈"><div class="toc"><a href="#s05">05 돈의 흐름 — 매출 · 지출 · 수익</a><a href="#s06">06 부가세 — 어디에 쓰고 어디에 안 쓰는가</a><a href="#s07">07 선생님 정산 — 계약 기준과 실지급</a></div><h2 id="s05"><span class="n">05</span>돈의 흐름 — 매출 · 지출 · 수익</h2><p class="h2d">모든 화면이 이 3단 구분을 따릅니다</p>
 <table>
 <tr><th>구분</th><th>단계</th><th>뜻</th></tr>
@@ -399,6 +483,23 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 <li>재료비 두 항목의 인원 합 = 강사료 인원 (41회차 전부 일치)</li>
 </ul>
 </div><div class="pane" data-t="화면"><div class="toc"><a href="#s10">10 용어 사전 — 이 말만 씁니다</a><a href="#s11">11 화면 표기 규칙</a></div><h2 id="s10"><span class="n">10</span>용어 사전 — 이 말만 씁니다</h2><p class="h2d">같은 것을 두 이름으로 부르면 나중에 반드시 헷갈립니다</p>
+<h3>화면 · 파일을 부르는 이름 <span style="font-size:13px;color:var(--wait)">2026-08-04 확정</span></h3>
+<div class="box key">
+<p><b>시트 이름·파일 이름 대신 「화면에 보이는 이름」으로 부릅니다.</b>
+"회차 시트"·"콘텐츠 시트" 같은 말은 쓰지 않습니다 — 대화가 막힙니다.</p>
+</div>
+<table>
+<tr><th>부르는 이름</th><th>무엇</th></tr>
+<tr class="hi"><td><b>클래스 홈</b></td><td><code>class.html</code> — 카드 목록 화면</td></tr>
+<tr class="hi"><td><b>클래스 상세</b></td><td>카드를 누르면 뜨는 팝업</td></tr>
+<tr class="hi"><td><b>패킹 운영</b></td><td>「패킹 운영」 버튼으로 들어가는 화면</td></tr>
+<tr><td><b>마스터</b></td><td>엑셀 원본 (<code>class-master-all-v3.xlsx</code> 등)</td></tr>
+<tr><td><b>생성기</b></td><td>화면을 만드는 프로그램 (<code>gen_class.py</code> 등)</td></tr>
+</table>
+<p><b>클래스 상세의 탭</b> — 정보 · 과정개요서 · 레시피 · 구성품(원가) · 발주·입고 · 수익 구조 · 선생님 정산 · 모집 현황<br>
+<b>패킹 운영의 탭</b> — 개요 · 레시피 · 소스 배합 · 패킹 구성 · 소모품 · 송장·배송 · 수업 준비 · 준비·패킹<br>
+<b>주요 기능 카드</b> — 클래스 목록 · 정산 리포트 · 제휴사별 실적 (화면에 적힌 이름 그대로)</p>
+
 <div class="rule">왼쪽 표현은 <b>쓰지 않습니다.</b> 오른쪽으로만 씁니다.</div>
 <h3>돈</h3>
 <table>
@@ -505,10 +606,15 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 <tr><td>패킹비·배송비</td><td>인당 5,000원이 실비인지 기준값인지 미확인</td></tr>
 <tr><td>클래스콕</td><td>자료 확보 후 제휴사 탭 추가</td></tr>
 <tr><td>정산 리포트 2단계</td><td>세금계산서 발행·원천세 신고 포함</td></tr>
+<tr class="hi"><td><b>냉이 꽃게탕 재료비 208원 차이</b></td>
+<td>마스터 <b>15,539원</b>이 어느 방식으로 나온 값인지 확인 안 됨.
+정확 비례 15,331 / 주문단위 16,516 / 마스터 15,539 — <b>셋 다 다름.</b>
+기록 파일을 만들기 전에 기준을 정해야 함</td></tr>
+<tr><td>기록 파일 — 남은 회차</td><td>복숭아청 완료. <b>꽃게탕 · 빠에야</b>는 아직</td></tr>
 </table>
 </div>
 
-<div class="foot">클래스 설계 가이드 · 2026.07.29 16:43 · v10</div>
+<div class="foot">클래스 설계 가이드 · 2026.08.04 17:22 · v12</div>
 </div>
 <script>
 document.querySelector('.tabs').addEventListener('click',function(ev){
