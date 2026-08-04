@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v58"><meta name="updated" content="2026.08.04 17:36">
+<meta name="version" content="v59"><meta name="updated" content="2026.08.04 17:40">
 <title>클래스 홈</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -279,7 +279,7 @@ table.ord tr.rw-part td:first-child{box-shadow:inset 3px 0 0 #C2570E}
 <p class="backup-note">위 엑셀은 개인정보(연락처·주소·수강생 이름)를 뺀 <b>회차·인원 정보(공개용)</b>입니다. → <code>class-master-open_날짜.xlsx</code><br>※ <b>완전판</b>(연락처·주소 포함 원본)은 <a href="class-chat.html" target="_blank" rel="noopener">채팅창</a>에서 받으세요. → <code>class-master-all-v2.xlsx</code></p></section>
 
 <div class="ops-note">※ <b>홈은 보기·이동만 합니다.</b><br>· 데이터를 고칠 땐 → 마스터(엑셀/대화창)에서<br>· 볼 땐 → 이 홈에서<br>· 모든 파일은 같은 폴더(github)에 두어야 링크가 작동합니다.</div>
-<div class="foot">클래스 홈 · v58 · 마스터에서 자동 생성 (gen_class.py)</div>
+<div class="foot">클래스 홈 · v59 · 마스터에서 자동 생성 (gen_class.py)</div>
 </div>
 
 <div class="modal" id="modal"><div class="modal-bg" onclick="closeDetail()"></div>
@@ -480,7 +480,8 @@ function xlsxDownload(cid){
   var LN={style:'thin', color:{rgb:'E0D8C6'}};
   var BOX={top:LN,bottom:LN,left:LN,right:LN};
   function sty(o){
-    var s={alignment:{vertical:'center', horizontal:o.al||'left', wrapText:true},
+    /* wrap:false — 제목처럼 한 줄로 흘러야 하는 곳 */
+    var s={alignment:{vertical:'center', horizontal:o.al||'left', wrapText:(o.wrap!==false)},
            font:{name:'맑은 고딕', sz:o.sz||9.5, bold:!!o.b, color:{rgb:o.fc||'241F1B'}}};
     if(o.fill) s.fill={patternType:'solid', fgColor:{rgb:o.fill}};
     if(o.box!==false) s.border=BOX;
@@ -505,6 +506,7 @@ function xlsxDownload(cid){
     ws['!rows']=aoa.map(function(row,ri){
       if(ri===0) return {hpt:24};
       if(ri===1) return {hpt:16};
+      if(String(row[0]||'').indexOf('※')===0) return {hpt:19};
       var h=19;
       row.forEach(function(v,ci){
         if(opt.skipH&&opt.skipH.indexOf(ci)>=0) return;   /* 링크처럼 긴 값은 높이 계산에서 뺀다 */
@@ -519,8 +521,8 @@ function xlsxDownload(cid){
         var ad=XLSX.utils.encode_cell({r:r,c:c}), cell=ws[ad];
         if(!cell){ ws[ad]={t:'z'}; cell=ws[ad]; }
         var v=aoa[r]?aoa[r][c]:null;
-        if(r===0){ cell.s=sty({sz:15,b:true,box:false}); continue; }
-        if(r===1){ cell.s=sty({sz:9,fc:'9A9080',box:false}); continue; }
+        if(r===0){ cell.s=sty({sz:15,b:true,box:false,wrap:false}); continue; }
+        if(r===1){ cell.s=sty({sz:9,fc:'9A9080',box:false,wrap:false}); continue; }
         var first=String((aoa[r]&&aoa[r][0])||'');
         var isNum=(typeof v==='number');
         var st={al:isNum?'right':'left'};
@@ -531,7 +533,7 @@ function xlsxDownload(cid){
           st.fill=C.tot; st.b=true; st.sz=11; }
         else if(opt.keyCol && c===0 && v){ st.fill=C.key; st.b=true; st.fc='5C5346'; }
         else if(opt.zebra && r>=(opt.hdRow||2)+1 && (r%2===1)){ st.fill=C.zb; }
-        if(first.indexOf('※')===0){ st={sz:8.5,fc:'9A9080',box:false}; }
+        if(first.indexOf('※')===0){ st={sz:8.5,fc:'9A9080',box:false,wrap:false}; }
         if(v==null||v==='') st.box=(opt.hdRow!==undefined&&r>opt.hdRow)?true:false;
         cell.s=sty(st);
         if(isNum) cell.z='#,##0';
