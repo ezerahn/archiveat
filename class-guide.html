@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="version" content="v12"><meta name="updated" content="2026.08.04 17:22">
+<meta name="version" content="v15"><meta name="updated" content="2026.08.10 21:08">
 <title>클래스 설계 가이드</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,7 +68,7 @@ font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:cent
 
 <div class="topbar">
 <div><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="class-chat.html" target="_blank" rel="noopener">💬 작업 대화</a></div>
-<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.08.04 17:22 · v12</span></div>
+<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.08.10 21:08 · v15</span></div>
 </div>
 
 <div class="head">
@@ -407,6 +407,46 @@ HTML 문자열만 뒤지면 빈 껍데기가 나옵니다.
 <b>작성일자는 공급일(수업일)</b>이지 발행한 날이 아닙니다.</p>
 <p>과거 138건은 비워둡니다. 정산이 끝난 회차는 이 표에 안 나오므로 영향이 없습니다.</p>
 </div>
+<h3>★ PK 수익에서 빼는 선생님 정산은 「계약 기준」 <span style="font-size:13px;color:var(--wait)">2026-08-07 확정</span></h3>
+<div class="box key">
+<p><b>실지급액이 아니라 계약 기준(세전)으로 뺍니다.</b>
+원천세도 우리가 국세청에 대납하므로 <b>회사에서 나가는 총액은 계약액</b>입니다.</p>
+</div>
+<table>
+<tr><th>구분</th><th>금액</th><th>어디에 쓰나</th></tr>
+<tr class="hi"><td><b>계약 기준</b></td><td>262,500</td><td><b>PK 수익 계산 · 수익 구조 「지출」</b></td></tr>
+<tr><td>− 원천세</td><td>8,650</td><td>우리가 국세청에 신고·납부</td></tr>
+<tr><td>실지급액</td><td>253,850</td><td>선생님 통장에 찍히는 금액 · <b>정산서</b></td></tr>
+</table>
+<div class="box key">
+<p><b>공공의주방몰(6%)도 같은 기준으로 확정됐습니다.</b> <span style="font-size:13px;color:var(--wait)">2026-08-10</span><br>
+PK-2607-01 그린데이즈다이닝 — 300,000 ÷ 1.1 × 94% = 256,364 → 원천세 8,460 → <b>실지급 247,904원 이체 완료</b>.
+갤러리아와 같은 「공급가 × 정산율」이 맞았습니다.</p>
+</div>
+<p>예전에는 제휴사 회차만 <b>실지급</b>으로 빼고 경기도지식 등은 <b>계약액</b>으로 빼서 기준이 어긋나 있었습니다.
+계약 기준으로 통일하면서 <b>PK 수익이 454,810원 낮아졌습니다</b>(갤러리아 85건 원천세 합계).</p>
+<div class="box warn">
+<p><b>검증 기준값이 바뀌었습니다</b> — 제휴사 4,034,674 → <b>3,579,864</b> · 전체 4,794,529 → <b>4,339,719</b></p>
+</div>
+
+<h3>★ 정률 정산의 기준은 공급가 <span style="font-size:13px;color:var(--wait)">2026-08-05 확정</span></h3>
+<div class="box key">
+<p><b>선생님 정산 = 매출 ÷ 1.1 × 정산율</b> — VAT 제외(공급가) 기준입니다.</p>
+</div>
+<table>
+<tr><th>항목</th><th>기준</th><th>예 (매출 385,000 · 갤러리아 10%)</th></tr>
+<tr><td>제휴사 수수료</td><td><b>VAT 포함</b> 매출 × 요율</td><td>385,000 × 10% = 38,500</td></tr>
+<tr class="hi"><td><b>선생님 정산</b></td><td><b>공급가(VAT 제외)</b> × 정산율</td><td>385,000 ÷ 1.1 × 75% = <b>262,500</b></td></tr>
+</table>
+<p><b>둘의 기준이 다릅니다.</b> 수수료는 VAT 포함, 선생님 정산은 VAT 제외입니다.
+갤러리아 명세 <b>127건 전수 검증</b>에서 예외가 없었습니다.</p>
+<div class="box warn">
+<p><b>VAT 포함 매출에 정산율을 곱하면 안 됩니다.</b> 우리 몫이 부가세만큼 줄어
+계약상 6%를 받기로 해도 실제로는 마이너스가 납니다.<br>
+예) 300,000 × 94% = 282,000 → PK 수익 −9,273 &nbsp;/&nbsp;
+300,000 ÷ 1.1 × 94% = 256,364 → PK 수익 <b>16,364</b> (= 공급가의 6%)</p>
+</div>
+
 <h3>정산 상태 — 「입금」·「지급」 배지</h3>
 <table>
 <tr><th>구분</th><th>값</th><th>뜻</th></tr>
@@ -606,6 +646,9 @@ HTML 문자열만 뒤지면 빈 껍데기가 나옵니다.
 <tr><td>패킹비·배송비</td><td>인당 5,000원이 실비인지 기준값인지 미확인</td></tr>
 <tr><td>클래스콕</td><td>자료 확보 후 제휴사 탭 추가</td></tr>
 <tr><td>정산 리포트 2단계</td><td>세금계산서 발행·원천세 신고 포함</td></tr>
+<tr><td>공공의주방몰 <b>카드 수수료·마일리지</b></td>
+<td>부담 주체 미확정. PK-2607-01에서 마일리지 6,000원이 지급됐고 이니시스 카드 수수료도 나갑니다.
+6% 안에서 나가는 것인지 별도인지 확인 필요</td></tr>
 <tr class="hi"><td><b>냉이 꽃게탕 재료비 208원 차이</b></td>
 <td>마스터 <b>15,539원</b>이 어느 방식으로 나온 값인지 확인 안 됨.
 정확 비례 15,331 / 주문단위 16,516 / 마스터 15,539 — <b>셋 다 다름.</b>
@@ -614,7 +657,7 @@ HTML 문자열만 뒤지면 빈 껍데기가 나옵니다.
 </table>
 </div>
 
-<div class="foot">클래스 설계 가이드 · 2026.08.04 17:22 · v12</div>
+<div class="foot">클래스 설계 가이드 · 2026.08.10 21:08 · v15</div>
 </div>
 <script>
 document.querySelector('.tabs').addEventListener('click',function(ev){

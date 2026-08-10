@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v10">
-<meta name="updated" content="2026.07.27 20:26">
+<meta name="version" content="v12">
+<meta name="updated" content="2026.08.10 21:20">
 <title>정산 구조 기준표</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
@@ -87,7 +87,9 @@ tr.bad .mg{color:var(--mute)}
 <div><label>강사료 (1인)</label><input type="number" id="iT" value="10000"></div>
 <div><label>강사료 최소보장</label><input type="number" id="iG" value="100000"></div>
 <div><label>오프라인 최소 마진액</label><input type="number" id="iF" value="100000"></div>
-<span class="hint">제휴 수수료는 <b>공급가(부가세 별도) 기준</b>입니다. 계약서에 "공급가액 기준"을 명시하세요.<br>오프라인은 우리 몫이 <b>정률</b>이라 인원이 늘어도 비율이 같습니다. 개최 판단은 <b>절대 금액</b>으로 합니다.</span>
+<span class="hint">제휴 수수료는 <b>공급가(부가세 별도) 기준</b>입니다. 계약서에 "공급가액 기준"을 명시하세요.<br>
+<b>선생님 정산도 공급가 기준</b> — 매출 ÷ 1.1 × 정산율. 갤러리아 127건 전수 검증 기준입니다.<br>
+오프라인은 우리 몫이 <b>정률</b>이라 인원이 늘어도 비율이 같습니다. 개최 판단은 <b>절대 금액</b>으로 합니다.</span>
 </div>
 
 <div class="tabs">
@@ -117,6 +119,10 @@ tr.bad .mg{color:var(--mute)}
 <p class="note"><b>계산식은 하나입니다.</b><br>
 클래스 가격(부가세 별도) − 제휴 수수료 − 재료비 · 패킹비 · 배송비 − 강사료 = 우리 마진<br><br>
 <b>오프라인</b>은 선생님이 재료와 공간을 직접 준비합니다. 우리 몫이 정률(6% 또는 20%)이고, <b>나머지 전부가 선생님에게 갑니다. 이 금액에는 재료비가 포함</b>되어 있어 순수 강사 인건비는 그보다 적습니다.<br>
+<b>★ 정률의 기준은 공급가(VAT 제외)입니다.</b> 선생님 정산 = 매출 ÷ 1.1 × 정산율.
+VAT 포함 매출에 곱하면 우리 몫이 부가세만큼 줄어 마이너스가 날 수 있습니다.
+갤러리아 명세 127건이 모두 이 방식입니다 — 예) 385,000 ÷ 1.1 × 75% = 262,500.<br>
+<span style="color:var(--ok)">※ 공공의주방몰(6%)도 2026-08-10 실지급(PK-2607-01 · 247,904원)으로 같은 기준임이 확인됐습니다.</span><br>
 <b>온라인</b>은 우리가 재료·패킹·배송을 맡으므로 강사료가 인당 정액이고, 남는 것이 전부 우리 몫입니다. 재료를 잘 사면 그만큼 마진이 올라갑니다.</p>
 </div>
 
