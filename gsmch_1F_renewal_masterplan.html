@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>선한목자교회 1층 리뉴얼 마스터플랜 v26</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFFFFF; --ink:#2B2722; --soft:#726B5F; --green:#2F7A4F; --wood:#8A6A45;
+  --gold:#B98E3C; --panel:#F7F3EA; --line:#DDD4C4; --red:#C0392B;}
+*{box-sizing:border-box;}
+body{margin:0; background:#FAF8F4; color:var(--ink);
+  font-family:"IBM Plex Sans KR","Noto Sans CJK KR","Noto Sans KR",sans-serif;
+  font-size:14px; line-height:1.72; -webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:"Gowun Batang","Noto Serif CJK KR","Noto Serif KR",serif;}
+
+.topbar{position:sticky; top:0; z-index:50; background:#fff;
+  border-bottom:1px solid var(--line); box-shadow:0 1px 6px rgba(43,39,34,.06);}
+.tb-top{max-width:1400px; margin:0 auto; padding:10px 24px 8px; display:flex; align-items:center; gap:16px;}
+.brand{font-family:"Gowun Batang",serif; font-weight:700; font-size:15.5px; cursor:pointer; white-space:nowrap;}
+.brand span{color:var(--green);}
+.tb-doc{margin-left:auto; font-size:11.5px; color:var(--soft); white-space:nowrap;}
+.tb-nav{border-top:1px solid #EDE7DA; background:#FCFAF6;}
+.tabs{max-width:1400px; margin:0 auto; padding:0 24px; display:flex; overflow-x:auto; scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{border:0; background:transparent; font-family:inherit; font-size:15px; font-weight:500; color:#5C554B;
+  padding:11px 19px; cursor:pointer; white-space:nowrap; transition:.13s; border-bottom:3px solid transparent;}
+.tab:hover{color:var(--ink); background:#F4EFE4;}
+.tab.on{color:var(--green); font-weight:700; border-bottom-color:var(--green); background:#fff;}
+.tab .tn{font-size:11px; color:#A79E90; margin-right:4px; font-weight:500;}
+.tab.on .tn{color:var(--green); opacity:.7;}
+
+.wrap{max-width:1400px; margin:0 auto; padding:24px 24px 70px;}
+.view{display:none;}
+.view.on{display:block; animation:fade .18s ease;}
+@keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
+.sheet{background:#fff; border:1px solid var(--line); border-radius:8px; padding:26px 30px; box-shadow:0 1px 3px rgba(43,39,34,.05);}
+
+/* 화면 안 전환 */
+.switch{display:flex; gap:7px; margin:0 0 6px; flex-wrap:wrap;}
+.sw{border:1px solid var(--line); background:#FCFAF6; font-family:inherit; font-size:13.5px; font-weight:500;
+  color:#5C554B; padding:6px 16px; border-radius:18px; cursor:pointer; transition:.13s;}
+.sw:hover{background:var(--panel); color:var(--ink);}
+.sw.on{background:var(--green); border-color:var(--green); color:#fff; font-weight:600;}
+.swview{display:none;}
+.swview.on{display:block;}
+.swlab{font-size:11.5px; color:var(--soft); margin:0 0 14px; padding-bottom:9px; border-bottom:1px dashed var(--line);}
+
+.hero{background:#fff; border:1px solid var(--line); border-radius:8px; padding:24px 30px 22px; margin-bottom:16px;}
+.eyebrow{font-size:11.5px; letter-spacing:.10em; color:var(--green); font-weight:600; margin-bottom:8px;}
+h1{font-size:28px; margin:0 0 6px; line-height:1.32; font-weight:700;}
+h1 .sub{display:block; font-size:14px; color:var(--soft); font-weight:400; margin-top:6px; font-family:"IBM Plex Sans KR",sans-serif;}
+.meta{display:flex; flex-wrap:wrap; gap:6px 24px; font-size:12px; color:var(--soft); margin-top:14px; padding-top:12px; border-top:1px solid var(--line);}
+.meta b{color:var(--ink); font-weight:600;}
+
+/* 공통 블록 */
+.block{background:#fff; border:1px solid var(--line); border-radius:8px; padding:19px 22px 21px;
+  margin-bottom:16px; box-shadow:0 1px 3px rgba(43,39,34,.05);}
+.blk-t{font-family:"Gowun Batang",serif; font-size:16.5px; font-weight:700; margin:0 0 3px;}
+.blk-c{font-size:11.5px; color:var(--soft); margin-bottom:15px;}
+
+/* 주요 일정 */
+.dates{display:grid; grid-template-columns:repeat(4,1fr); gap:10px;}
+.dtcell{background:#FCFAF6; border:1px solid var(--line); border-top:3px solid var(--green);
+  border-radius:6px; padding:12px 14px 13px; line-height:1.45;}
+.dtcell.un{border-top-color:var(--red); background:#FEFAF9;}
+.dt-lab{font-size:11.5px; color:var(--soft); margin-bottom:3px; display:flex; align-items:center; gap:6px;}
+.dt-lab i{width:6px; height:6px; border-radius:50%; background:var(--green); flex:none;}
+.dt-lab i.un{background:var(--red);}
+.dt-val{font-family:"Gowun Batang",serif; font-size:22px; font-weight:700; line-height:1.2; padding-left:12px;}
+.dt-val.un{color:var(--red); font-size:19px;}
+.dt-val .dd{font-family:"IBM Plex Sans KR",sans-serif; font-size:11.5px; color:var(--soft); font-weight:500; margin-left:5px;}
+.dt-sub{font-size:11px; color:var(--soft); margin-top:3px; padding-left:12px;}
+
+/* 진행 단계 */
+.flow{display:grid; grid-template-columns:repeat(5,1fr); gap:0;}
+.fstep{border:1px solid var(--line); border-radius:6px; padding:13px 14px 14px; background:#FCFAF6;
+  position:relative; margin-right:16px;}
+.fstep:last-child{margin-right:0;}
+.fstep::after{content:"›"; position:absolute; right:-13px; top:50%; transform:translateY(-50%);
+  color:#C4BAA8; font-size:22px; line-height:1;}
+.fstep:last-child::after{content:none;}
+.fstep.now{background:#EDF5F0; border-color:var(--green); box-shadow:inset 0 0 0 1px var(--green);}
+.fstep .fn{font-family:"Gowun Batang",serif; font-size:15px; color:#A79E90; font-weight:700; line-height:1;}
+.fstep.now .fn{color:var(--green);}
+.fstep .ft{font-size:15px; font-weight:700; margin:6px 0 3px;}
+.fstep .fw{font-size:11.5px; color:var(--soft);}
+.fstep .now-badge{position:absolute; top:-9px; right:10px; background:var(--green); color:#fff;
+  font-size:10.5px; font-weight:600; padding:2px 9px; border-radius:9px;}
+
+.orgwrap{margin:8px 0 18px;}
+.orgrow{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+.orgcard{border:1px solid var(--line); border-top:3px solid var(--wood); border-radius:6px; padding:13px 15px; background:#FCFAF6;}
+.orgcard.mid{border-top-color:var(--green); background:#F3F8F5;}
+.oc-t{font-size:14.5px; font-weight:700; margin-bottom:3px;}
+.oc-p{font-size:11.5px; color:var(--wood); margin-bottom:5px;}
+.orgcard.mid .oc-p{color:var(--green);}
+.oc-d{font-size:12.5px; color:var(--soft); line-height:1.55;}
+/* PM 연결 — 사업단 실선, 좌우 점선 */
+.orglink{position:relative; height:26px;}
+.orglink .solid{position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--green);}
+.orglink .dash{position:absolute; top:12px; height:1px;
+  background:repeating-linear-gradient(to right,var(--line) 0 4px,transparent 4px 8px);}
+.orglink .dash.l{left:16.6%; right:50%;}
+.orglink .dash.r{left:50%; right:16.6%;}
+.orglink .dash::before{content:""; position:absolute; top:-12px; height:12px; width:1px;
+  background:repeating-linear-gradient(to bottom,var(--line) 0 4px,transparent 4px 8px);}
+.orglink .dash.l::before{left:0;}
+.orglink .dash.r::before{right:0;}
+.orgpmrow{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+.orgpm{grid-column:2; border:1px solid var(--green); border-radius:6px; padding:9px 14px; background:#fff;
+  text-align:center;}
+.orgpm b{font-size:13.5px; color:var(--green); display:block; line-height:1.4;}
+.orgpm span{font-size:11.5px; color:var(--soft);}
+.orglegend{font-size:11px; color:var(--soft); margin-top:9px; text-align:center;}
+.orglegend em{font-style:normal; display:inline-block; width:16px; height:0; vertical-align:middle;
+  border-top:1px solid var(--green); margin:0 5px 0 14px;}
+.orglegend em.d{border-top:1px dashed var(--line);}
+.orglegend em:first-of-type{margin-left:0;}
+.pmdef{font-size:12.5px; color:var(--soft); margin:14px 0 16px;}
+.pmdef b{color:var(--ink); font-weight:600;}
+
+section{margin:0;}
+.sec-head{display:flex; align-items:baseline; gap:10px; border-bottom:1px solid var(--ink); padding-bottom:7px; margin:0 0 16px;}
+.sec-head .n{font-family:"Gowun Batang",serif; font-size:20px; color:var(--green); font-weight:700; min-width:22px;}
+.sec-head h2{font-size:19px; margin:0; font-weight:700;}
+.sec-head .tag{margin-left:auto; font-size:11px; color:var(--soft); letter-spacing:.04em;}
+h3{font-size:15px; margin:24px 0 9px; font-weight:700;}
+h3:first-of-type{margin-top:6px;}
+h4{font-size:13.5px; margin:18px 0 7px; font-weight:700; color:var(--wood);}
+p{margin:0 0 10px;}
+.box{background:var(--panel); border-left:3px solid var(--green); padding:14px 17px; margin:10px 0 16px; font-size:13.5px;}
+.box p:last-child{margin-bottom:0;}
+.box.wood{border-left-color:var(--wood);} .box.gold{border-left-color:var(--gold);}
+.note{font-size:12px; color:var(--soft); margin-top:8px;}
+table{width:100%; border-collapse:collapse; margin:8px 0 16px; font-size:12.5px;}
+th,td{border:1px solid var(--line); padding:7px 9px; text-align:left; vertical-align:top;}
+th{background:var(--panel); font-weight:600; font-size:12px;}
+td.c,th.c{text-align:center;}
+tbody tr:nth-child(even) td{background:#FCFAF6;}
+tbody tr:hover td{background:#F4F0E8;}
+.w-nar{width:52px;} .w-mid{width:104px;} .w-dt{width:76px;}
+/* 영역별 표 — 담당 · 기한 · 상태는 줄바꿈 없이 */
+#sw-area td.c{white-space:nowrap;}
+#sw-dec td,#sw-dec th,#sw-pend td,#sw-pend th{white-space:nowrap;}
+.red{color:var(--red); font-weight:600;}
+.st{display:inline-block; font-size:11px; padding:1px 8px; border-radius:9px; font-weight:600; white-space:nowrap;}
+.st.wait{background:#FBECEA; color:var(--red);}
+.st.ing{background:#FDF3DF; color:#8A6414;}
+.st.done{background:#E8F2EC; color:var(--green);}
+.st.plan{background:#F0EDE6; color:var(--soft);}
+.st.talk{background:#F3EBDD; color:var(--wood);}
+.phase{border:1px solid var(--line); border-top:3px solid var(--green); border-radius:6px; padding:15px 18px; margin:0 0 13px; background:#FEFDFB;}
+.phase.p2{border-top-color:var(--wood);} .phase.p3{border-top-color:var(--gold);}
+.phase.p4{border-top-color:var(--wood);} .phase.p5{border-top-color:var(--green);}
+.ph-head{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:4px;}
+.ph-num{font-family:"Gowun Batang",serif; font-size:18px; font-weight:700; color:var(--green);}
+.ph-name{font-size:16px; font-weight:700;}
+.ph-when{font-size:12px; color:var(--soft); margin-left:auto;}
+.ph-goal{font-size:13px; color:var(--wood); font-weight:500; margin-bottom:8px;}
+.phase ul{margin:0 0 9px; padding-left:18px;}
+.phase li{margin-bottom:2px; font-size:13.5px;}
+.ph-done{font-size:12.5px; background:var(--panel); padding:7px 11px; border-radius:4px;}
+.ph-done b{color:var(--green);}
+.who{border:1px solid var(--line); border-radius:6px; padding:15px 18px; margin:0 0 12px; background:#FEFDFB;}
+.whorow{display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:start;}
+.whorow .who{margin-bottom:12px;}
+.who-t{font-size:14.5px; font-weight:700; margin-bottom:3px; padding-bottom:6px; border-bottom:1px solid var(--line);}
+.who-t span{font-size:11.5px; color:var(--soft); font-weight:400; margin-left:6px;}
+.who-p{font-size:11.5px; color:var(--wood); font-weight:400; margin-top:2px;}
+.who ul{margin:9px 0 0; padding-left:18px;}
+.who li{margin-bottom:3px; font-size:13.5px;}
+.who li b{color:var(--wood);}
+.urgent{font-weight:600;}
+.urgent::after{content:" ◂ 이번 주"; font-size:11px; color:var(--red); font-weight:600;}
+.mtg{border:1px solid var(--line); border-radius:6px; padding:15px 18px; margin:0 0 12px; background:#FEFDFB;}
+.mtg-h{font-weight:700; font-size:14.5px; margin-bottom:3px;}
+.mtg-m{font-size:12px; color:var(--soft); margin-bottom:9px;}
+.agenda{margin-bottom:10px;}
+.agenda-t{font-weight:600; font-size:13.5px; color:var(--wood);}
+.agenda p{margin:2px 0; font-size:13px;}
+.empty{background:var(--panel); padding:16px; text-align:center; color:var(--soft); font-size:12.5px; border:1px dashed var(--line); border-radius:6px;}
+.homefoot{margin-top:16px; display:flex; justify-content:flex-end;}
+.btn-print{border:1px solid var(--line); background:#fff; font-family:inherit; font-size:12px; color:var(--soft); padding:4px 12px; border-radius:14px; cursor:pointer;}
+.btn-print:hover{background:var(--panel); color:var(--ink);}
+
+@media (max-width:900px){
+  .dates{grid-template-columns:repeat(2,1fr);}
+  .block{padding:16px 17px 18px;}
+  .flow{grid-template-columns:1fr;}
+  .fstep{margin-right:0; margin-bottom:14px;}
+  .fstep::after{content:none;}
+  .whorow{grid-template-columns:1fr;}
+  .orgrow{grid-template-columns:1fr;}
+  .orgpmrow{grid-template-columns:1fr;}
+  .orgpm{grid-column:1;}
+  .orglink{height:14px;}
+  .orglink .dash{display:none;}
+  .sheet,.hero{padding:20px 18px;}
+  table{font-size:11.5px;} th,td{padding:5px 6px;}
+}
+
+@media print{
+  @page{size:A4; margin:16mm 13mm 18mm;}
+  body{background:#fff; font-size:9.5pt; line-height:1.62;}
+  .topbar,.homefoot,.btn-print,.switch{display:none !important;}
+  .wrap{max-width:none; padding:0;}
+  .view,.view.on{display:block !important; animation:none !important; opacity:1 !important; transform:none !important;}
+  .swview,.swview.on{display:block !important;}
+  .sheet{border:0; border-radius:0; padding:0; box-shadow:none;}
+
+  /* 장 단위 · 전환 화면 단위로 페이지 분리 */
+  .view + .view{break-before:page;}
+  .swview + .swview{break-before:page;}
+  /* 절 단위로 쪼개지지 않게 — 페이지마다 맥락 유지 */
+  .sub{break-inside:avoid;}
+
+  /* 표제 */
+  .hero{border:0; border-radius:0; padding:0 0 11px; margin-bottom:15px; border-bottom:2px solid var(--ink);}
+  h1{font-size:21pt; margin-bottom:4px;} h1 .sub{font-size:10.5pt;}
+  .eyebrow{font-size:8.5pt;} .meta{font-size:8.5pt; margin-top:11px; padding-top:9px;}
+  .sec-head{break-after:avoid; padding-bottom:6px; margin-bottom:13px;}
+  .sec-head h2{font-size:15pt;} .sec-head .n{font-size:16pt;} .sec-head .tag{font-size:8pt;}
+  h3{font-size:11.5pt; margin:16px 0 7px; break-after:avoid;}
+  h3:first-of-type{margin-top:2px;}
+  h4{font-size:10pt; margin:12px 0 5px; break-after:avoid;}
+  p{margin-bottom:8px;}
+  .swlab{font-size:9pt; font-weight:600; color:var(--ink); border-bottom:1px solid var(--line);
+    margin-bottom:12px; padding-bottom:7px; break-after:avoid;}
+
+  /* 블록 */
+  .block{padding:12px 14px 13px; margin-bottom:12px; box-shadow:none; break-inside:avoid;}
+  .blk-t{font-size:11.5pt;} .blk-c{font-size:8.5pt; margin-bottom:9px;}
+  .dates{gap:7px; grid-template-columns:repeat(4,1fr) !important;}
+  .dtcell{padding:7px 9px 8px;}
+  .dt-val{font-size:13.5pt;} .dt-val.un{font-size:11.5pt;}
+  .dt-lab{font-size:8.3pt;} .dt-sub{font-size:7.8pt;}
+  .flow{grid-template-columns:repeat(5,1fr) !important;}
+  .fstep{margin-right:11px !important; margin-bottom:0 !important; padding:9px 10px 10px;}
+  .fstep:last-child{margin-right:0 !important;}
+  .fstep::after{content:"›" !important; right:-9px; font-size:14px;}
+  .fstep:last-child::after{content:none !important;}
+  .fstep .fn{font-size:10.5pt;} .fstep .ft{font-size:10pt;} .fstep .fw{font-size:8pt;}
+
+  /* 조직도 */
+  .orgrow{grid-template-columns:repeat(3,1fr) !important;}
+  .orgpmrow{grid-template-columns:repeat(3,1fr) !important;}
+  .orgpm{grid-column:2 !important; padding:6px 10px;}
+  .orglink{height:22px !important;}
+  .orglink .dash{display:block !important;}
+  .orgcard{padding:9px 11px;}
+  .oc-t{font-size:10pt;} .oc-p{font-size:8pt;} .oc-d{font-size:8.5pt;}
+  .orgpm b{font-size:9.5pt;} .orgpm span{font-size:8pt;}
+  .orglegend{font-size:7.8pt;} .pmdef{font-size:8.8pt; margin:10px 0 11px;}
+  .orgwrap{break-inside:avoid;}
+
+  /* 표 */
+  table{font-size:8.8pt; margin:6px 0 13px;}
+  th,td{padding:5px 7px;}
+  th{font-size:8.3pt;}
+  tr{break-inside:avoid;}
+  thead{display:table-header-group;}
+  #sw-area td.c{white-space:nowrap;}
+  .w-mid{width:94px;}
+  #sw-dec td,#sw-dec th,#sw-pend td,#sw-pend th{white-space:nowrap; font-size:8.3pt; padding:4.5px 6px;}
+  .st{font-size:7.8pt; padding:0 6px;}
+
+  /* 단계 · 담당자 · 회의 카드 */
+  .phase{padding:11px 13px; margin-bottom:9px; break-inside:avoid;}
+  .ph-num{font-size:13pt;} .ph-name{font-size:11.5pt;} .ph-when{font-size:8.3pt;}
+  .ph-goal{font-size:9pt; margin-bottom:6px;}
+  .phase li{font-size:9pt; margin-bottom:1px;}
+  .ph-done{font-size:8.5pt; padding:5px 8px;}
+  .who{padding:11px 13px; margin-bottom:9px; break-inside:avoid;}
+  .who-t{font-size:10.5pt; padding-bottom:5px;}
+  .who-p{font-size:8.3pt;}
+  .who li{font-size:9pt; margin-bottom:1px;}
+  .whorow{grid-template-columns:1fr 1fr !important; gap:9px;}
+  .mtg{padding:11px 13px; margin-bottom:9px; break-inside:avoid;}
+  .mtg-h{font-size:10.5pt;} .mtg-m{font-size:8.3pt;} .agenda p{font-size:9pt;}
+  .empty{font-size:8.5pt; padding:11px;}
+  .box{padding:10px 13px; margin:8px 0 12px; font-size:9pt; break-inside:avoid;}
+  .note{font-size:8.3pt;}
+  .keep{break-inside:avoid;}
+
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-top">
+    <div class="brand" data-go="home">선한목자교회 <span>1층 리뉴얼 마스터플랜</span></div>
+    <div class="tb-doc">v26 · 2026. 8. 9. · PM 안상미</div>
+  </div>
+  <nav class="tb-nav">
+    <div class="tabs">
+      <button class="tab on" data-go="home"><span class="tn">1</span>개요</button>
+      <button class="tab" data-go="v2"><span class="tn">2</span>진행 단계</button>
+      <button class="tab" data-go="v3"><span class="tn">3</span>할 일</button>
+      <button class="tab" data-go="v4"><span class="tn">4</span>기록</button>
+      <button class="tab" data-go="v5"><span class="tn">5</span>참고</button>
+    </div>
+  </nav>
+</div>
+
+<div class="wrap">
+
+<div class="view on" id="home">
+  <div class="hero">
+    <div class="eyebrow">선한목자교회 · 총여선교회 사업단</div>
+    <h1>교회 1층 리뉴얼 마스터플랜
+      <span class="sub">로뎀카페 · 선지서점 · 로비 · 자모실</span>
+    </h1>
+    <div class="meta">
+      <span>문서 <b>v26</b></span>
+      <span>작성일 <b>2026. 8. 9.</b></span>
+      <span>작성 <b>1층 리뉴얼 사업단 PM 안상미</b></span>
+      <span>공사 완료 목표 <b>2026. 10. 20.</b></span>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="blk-t">주요 일정</div>
+    <div class="blk-c">확정되지 않은 일정은 붉은색으로 표시한다. 세부 내역은 「1.2 기준 일정」 참조.</div>
+    <div class="dates">
+      <div class="dtcell un">
+        <div class="dt-lab"><i class="un"></i>영업 최종일</div>
+        <div class="dt-val un">미정</div>
+        <div class="dt-sub">확인 필요</div>
+      </div>
+      <div class="dtcell un">
+        <div class="dt-lab"><i class="un"></i>반출 완료</div>
+        <div class="dt-val un">미정</div>
+        <div class="dt-sub">확인 필요</div>
+      </div>
+      <div class="dtcell">
+        <div class="dt-lab"><i></i>비계 설치</div>
+        <div class="dt-val">8. 24.<span class="dd">D-15</span></div>
+        <div class="dt-sub">건축위 통보</div>
+      </div>
+      <div class="dtcell">
+        <div class="dt-lab"><i></i>공사 완료</div>
+        <div class="dt-val">10. 20.</div>
+        <div class="dt-sub">목표 · 준공 여부 확인 필요</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="blk-t">진행 단계</div>
+    <div class="blk-c">각 단계는 완료 기준을 충족한 후 다음 단계로 이행한다. 세부 과제는 상단 메뉴 「2 진행 단계」 참조.</div>
+    <div class="flow">
+      <div class="fstep now"><div class="now-badge">진행 중</div><div class="fn">①</div><div class="ft">준비 · 소통</div><div class="fw">8/9 ~ 영업 최종일</div></div>
+      <div class="fstep"><div class="fn">②</div><div class="ft">영업중단 · 반출</div><div class="fw">~ 철거 착수 전</div></div>
+      <div class="fstep"><div class="fn">③</div><div class="ft">공사 · 준비</div><div class="fw">~ 10/20</div></div>
+      <div class="fstep"><div class="fn">④</div><div class="ft">집기 반입 · 세팅</div><div class="fw">10월</div></div>
+      <div class="fstep"><div class="fn">⑤</div><div class="ft">오픈 · 안정화</div><div class="fw">10/20 이후</div></div>
+    </div>
+  </div>
+
+  <div class="sheet">
+<section>
+  <div class="sec-head"><span class="n">1</span><h2>프로젝트 개요</h2><span class="tag">보고용</span></div>
+
+  <div class="sub"><h3>1.1 범위</h3>
+  <div class="box">
+        <p><b>대상 공간</b> — 로뎀카페(160㎡/48PY), 선지서점 · 안내, 로비(160㎡/48PY), 자모실</p>
+        <p><b>근거</b> — 2026. 8. 2. 기획위원회 1층 공사 확정</p>
+  </div></div>
+<div class="sub"><h3>1.2 기준 일정</h3>
+  <p>본 문서 모든 계획의 기준점이다. 일정 변경 시 이 표를 먼저 갱신한 후 하위 항목을 조정한다.</p>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="c w-mid">일자</th><th class="c" style="width:16%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>기획위원회 1층 공사 확정</td><td class="c">26.08.02</td><td class="c"><span class="st done">확정</span></td><td>건축위 보고본 수령</td></tr>
+      <tr><td>로비 시스템비계 설치</td><td class="c">26.08.24</td><td class="c"><span class="st ing">통보</span></td><td>건축위 구두 통보</td></tr>
+      <tr><td>영업 최종일</td><td class="c red">미정</td><td class="c"><span class="st wait">대기</span></td><td>반출 기한에 연동</td></tr>
+      <tr><td>기물 반출 완료 기한</td><td class="c red">미정</td><td class="c"><span class="st wait">대기</span></td><td>건축위 확인 요청 중</td></tr>
+      <tr><td>철거 착수</td><td class="c red">미정</td><td class="c"><span class="st wait">대기</span></td><td>—</td></tr>
+      <tr><td>공사 완료</td><td class="c">26.10.20</td><td class="c"><span class="st ing">목표</span></td><td>준공 · 입주 시점 구분 확인 필요</td></tr>
+      <tr><td>오픈일</td><td class="c red">미정</td><td class="c"><span class="st wait">대기</span></td><td>성도 안내 문구에 반영 필요</td></tr>
+    </tbody>
+  </table></div>
+<div class="sub"><h3>1.3 조직과 소통</h3>
+  <div class="orgwrap">
+    <div class="orgrow">
+      <div class="orgcard">
+        <div class="oc-t">건축위팀</div>
+        <div class="oc-p">정경훈 장로 · 조소은 설계사 · 시공사</div>
+        <div class="oc-d">전체 구조와 방향 수립, 설계, 견적, 시공 및 감리</div>
+      </div>
+      <div class="orgcard mid">
+        <div class="oc-t">사업단팀</div>
+        <div class="oc-p">여선교회 담당 장로 · 사업단장 · 회계 2 · 매니저 2</div>
+        <div class="oc-d">카페 · 서점의 설계 의견 수립, 실제 운영 및 실무 셋업</div>
+      </div>
+      <div class="orgcard">
+        <div class="oc-t">행정간사팀</div>
+        <div class="oc-p">현성민 장로</div>
+        <div class="oc-d">업체 계약, 견적 검토, 행정 절차</div>
+      </div>
+    </div>
+    <div class="orglink"><span class="solid"></span><span class="dash l"></span><span class="dash r"></span></div>
+    <div class="orgpmrow">
+      <div class="orgpm">
+        <b>1층 리뉴얼 사업단 PM</b>
+        <span>사업단 실무 총괄 · 건축위 · 행정간사팀과의 협의 창구</span>
+      </div>
+    </div>
+    <div class="orglegend"><em></em>소속 · 실무 총괄<em class="d"></em>협의</div>
+  </div>
+  <p class="pmdef">총여선교회 사업단은 1층 리뉴얼 추진을 위해 <b>「1층 리뉴얼 사업단 PM」</b>을 두고, 사업단 총무 안상미가 이를 겸한다.</p>
+
+  <table>
+    <thead><tr><th style="width:26%">경로</th><th>내용</th><th class="c" style="width:16%">주기</th></tr></thead>
+    <tbody>
+      <tr><td>사업단 내부 → PM</td><td>매니저 · 회계의 현장 정보 및 실무 의견 취합</td><td class="c">수시</td></tr>
+      <tr><td>PM → 건축위</td><td>설계 의견 제출, 도면 검토 회신, 합동 회의 참석</td><td class="c">수시 · 회의</td></tr>
+      <tr><td>PM → 행정간사팀</td><td>계약 · 견적 관련 협의, 진행 상황 공유</td><td class="c">주 1회</td></tr>
+      <tr><td>PM → 사업단장 · 여선교회</td><td>진행 보고, 결재 필요 사항 상신</td><td class="c">주 1회</td></tr>
+      <tr><td>사업단 → 성도</td><td>주보 공지, 현장 안내문</td><td class="c">단계별</td></tr>
+    </tbody>
+  </table></div>
+</section>
+  </div>
+
+  <div class="homefoot"><button class="btn-print" onclick="window.print()">전체 인쇄 · PDF 저장</button></div>
+</div>
+
+<div class="view" id="v2">
+  <div class="sheet">
+<section>
+  <div class="sec-head"><span class="n">2</span><h2>진행 단계</h2><span class="tag">보고용</span></div>
+  <p>각 단계는 완료 기준을 충족한 후 다음 단계로 이행한다. <span class="red">2~5단계의 실제 일자는 건축위 회신 후 확정한다.</span></p>
+
+  <div class="phase p1">
+    <div class="ph-head"><span class="ph-num">①</span><span class="ph-name">준비 · 소통</span><span class="ph-when">2026. 8. 9. ~ 영업 최종일</span></div>
+    <div class="ph-goal">목표 — 공사 착수 전 확정이 필요한 사항을 결정한다</div>
+    <ul>
+      <li>사업단 내부 실무 미팅</li>
+      <li>건축위 합동 회의를 통한 설계 협의 및 조율</li>
+      <li>서점 · 카페 도서 및 기물 재고 조사, 보관 · 폐기 분류</li>
+      <li>영업 운영 변경 안내 공지 (주보 게재)</li>
+      <li>신규 설계에 따른 필요 항목 및 배치 정리</li>
+      <li>예산 항목 범위 협의</li>
+      <li>반출 계획 및 보관 장소 확정</li>
+    </ul>
+    <div class="ph-done"><b>완료 기준</b> — 설계 의견 반영 확인 + 반출 계획 확정 + 성도 공지 게재</div>
+  </div>
+
+  <div class="phase p2">
+    <div class="ph-head"><span class="ph-num">②</span><span class="ph-name">영업중단 · 반출</span><span class="ph-when">영업 최종일 ~ 철거 착수 전</span></div>
+    <div class="ph-goal">목표 — 자산을 손실 없이 옮기고 재고와 시재를 확정한다</div>
+    <ul>
+      <li>도서 반품 실행, 잔여 재고 포장 · 보관</li>
+      <li>카페 기물 반출, 렌탈 기물 처리</li>
+      <li>영업 중단 시점 정산, 재고 실사 입회, 상품권 잔액 확정</li>
+      <li>POS · 카드단말기 정지, 거래처 납품 중단</li>
+      <li>폐기 대상 처분 및 기록</li>
+    </ul>
+    <div class="ph-done"><b>완료 기준</b> — 반출 완료 확인 + 영업 중단 시점 정산 보고 + 폐기 · 반품 기록 완비</div>
+  </div>
+
+  <div class="phase p3">
+    <div class="ph-head"><span class="ph-num">③</span><span class="ph-name">공사 · 준비</span><span class="ph-when">철거 착수 ~ 2026. 10. 20.</span></div>
+    <div class="ph-goal">목표 — 설계대로 시공되는지 확인하고, 오픈에 필요한 것을 준비한다</div>
+    <ul>
+      <li>정기 현장 점검 및 시공 상태 확인</li>
+      <li>설계 변경 발생 시 협의 및 기록</li>
+      <li>매니저 고용 유지 및 처우 관리</li>
+      <li>오픈 준비 착수 (브랜드 · 메뉴 · 구매 · 인력)</li>
+      <li>신규 기물 · 가구 사양 확정 및 발주</li>
+    </ul>
+    <div class="ph-done"><b>완료 기준</b> — 사업단 확인 점검표 통과</div>
+  </div>
+
+  <div class="phase p4">
+    <div class="ph-head"><span class="ph-num">④</span><span class="ph-name">집기 반입 · 세팅</span><span class="ph-when">2026. 10월</span></div>
+    <div class="ph-goal">목표 — 공간을 채우고 문을 열 수 있는 상태로 만든다</div>
+    <ul>
+      <li>집기 · 재고 반입 및 진열</li>
+      <li>기물 설치 및 시운전</li>
+      <li>인력 배치, 운영 매뉴얼 확정</li>
+      <li>초도 발주 및 시범 운영</li>
+      <li>오픈 안내 공지</li>
+    </ul>
+    <div class="ph-done"><b>완료 기준</b> — 시운전 완료 + 운영 매뉴얼 확정</div>
+  </div>
+
+  <div class="phase p5">
+    <div class="ph-head"><span class="ph-num">⑤</span><span class="ph-name">오픈 · 안정화</span><span class="ph-when">2026. 10. 20. 이후</span></div>
+    <div class="ph-goal">목표 — 안정적으로 운영을 정착시키고 마무리한다</div>
+    <ul>
+      <li>오픈 및 초기 운영 점검</li>
+      <li>공사 관련 정산 마무리</li>
+      <li>결과 보고 (사업단 · 여선교회 · 건축위)</li>
+      <li>사역매뉴얼 Ⅲ편 반영</li>
+    </ul>
+    <div class="ph-done"><b>완료 기준</b> — 정산 완료 + 결과 보고</div>
+  </div>
+</section>
+  </div>
+</div>
+
+<div class="view" id="v3">
+  <div class="sheet">
+<section>
+  <div class="sec-head"><span class="n">3</span><h2>할 일</h2><span class="tag">실무용</span></div>
+  <div class="switch" data-group="todo">
+    <button class="sw on" data-sw="sw-area" data-group="todo">영역별로 보기</button>
+    <button class="sw" data-sw="sw-who" data-group="todo">담당자별로 보기</button>
+  </div>
+  <div class="swview on" id="sw-area" data-group="todo">
+    <div class="swlab">영역별 — 설계 · 자산 · 예산 · 인력 · 운영 · 홍보</div>
+<div class="sub"><h3>3.1 설계 · 구조</h3>
+  <h4>선지서점</h4>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="w-mid c">담당</th><th class="w-dt c">기한</th><th class="c" style="width:14%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>실면적 수치 확인</td><td class="c">PM</td><td class="c">8/13</td><td class="c"><span class="st wait">대기</span></td><td>도면 미표기</td></tr>
+      <tr><td>현 서점 실측 (면적 · 서가 길이 · 수납 권수)</td><td class="c">서점매니저</td><td class="c">8/13</td><td class="c"><span class="st ing">진행</span></td><td>신규 면적 검토 근거</td></tr>
+      <tr><td>진열 방식 및 서가 계획</td><td class="c">서점매니저 · PM</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>면적 확정 후</td></tr>
+      <tr><td>안내데스크 통합 운영 구조 확정</td><td class="c">사업단장</td><td class="c red">미정</td><td class="c"><span class="st wait">대기</span></td><td>운영 주체 협의 필요</td></tr>
+      <tr><td>창고 · 수납 공간 위치</td><td class="c">PM</td><td class="c red">미정</td><td class="c"><span class="st wait">대기</span></td><td>현 도면 미표기</td></tr>
+      <tr><td>계산대 · POS · 금고 위치</td><td class="c">서점매니저</td><td class="c red">미정</td><td class="c"><span class="st wait">대기</span></td><td>전기 · 통신 배선 연동</td></tr>
+    </tbody>
+  </table>
+
+  <h4>로뎀카페</h4>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="w-mid c">담당</th><th class="w-dt c">기한</th><th class="c" style="width:14%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>바 · 주방 위치 및 동선</td><td class="c">카페매니저 · PM</td><td class="c">8/13</td><td class="c"><span class="st ing">진행</span></td><td>합동 회의 안건</td></tr>
+      <tr><td>급배수 · 전기 · 환기(후드) 계획</td><td class="c">건축위</td><td class="c red">미정</td><td class="c"><span class="st wait">대기</span></td><td>계획 도면 요청</td></tr>
+      <tr><td>필요 설비 사양 (제빙기 · 냉장고 · 싱크)</td><td class="c">카페매니저</td><td class="c">8/13</td><td class="c"><span class="st ing">진행</span></td><td>용량 · 수량 기준 제시</td></tr>
+      <tr><td>좌석 수 및 테이블 배치</td><td class="c">카페매니저 · PM</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>피크타임 회전 근거</td></tr>
+      <tr><td>창고 · 백룸 최소 면적</td><td class="c">카페매니저</td><td class="c">8/13</td><td class="c"><span class="st ing">진행</span></td><td>현 도면 미표기</td></tr>
+      <tr><td>사인 · 간판 제작 범위</td><td class="c">PM</td><td class="c red">미정</td><td class="c"><span class="st wait">대기</span></td><td>공사 범위 포함 여부</td></tr>
+    </tbody>
+  </table>
+
+  <h4>로비 · 자모실 접점</h4>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="w-mid c">담당</th><th class="w-dt c">기한</th><th class="c" style="width:14%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>자모실 · 카페 간 유모차 동선</td><td class="c">PM</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>인접 배치에 따른 검토</td></tr>
+      <tr><td>소음 간섭 및 완충 계획</td><td class="c">PM</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>의견 제출</td></tr>
+      <tr><td>로비 이용 흐름과 서점 진입 동선</td><td class="c">PM</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>의견 제출</td></tr>
+    </tbody>
+  </table></div>
+<div class="sub"><h3>3.2 자산 · 물품 정리</h3>
+  <h4>3.2.1 서점 재고</h4>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="w-mid c">담당</th><th class="w-dt c">기한</th><th class="c" style="width:14%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>도서 재고 실사 목록 (권수 · 금액 · 공급처)</td><td class="c">서점매니저</td><td class="c">8/16</td><td class="c"><span class="st ing">진행</span></td><td>회계 입회 확인</td></tr>
+      <tr><td>공급처별 반품 가능 여부 및 기한</td><td class="c">서점매니저</td><td class="c">8/12</td><td class="c"><span class="st wait">긴급</span></td><td>놓칠 경우 손실 발생</td></tr>
+      <tr><td>위탁 · 수탁 도서 반환 대상 확인</td><td class="c">서점매니저</td><td class="c">8/16</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>반품 · 보관 · 처분 분류 확정</td><td class="c">사업단장</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>실사 후 결정</td></tr>
+      <tr><td>상품권 재고 수량 및 보관 현황</td><td class="c">서점매니저 · 회계</td><td class="c">8/16</td><td class="c"><span class="st plan">예정</span></td><td>판매용 · 회수용 구분</td></tr>
+      <tr><td>예약 도서 · 주문 대기 건 처리</td><td class="c">서점매니저</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>고객 안내 포함</td></tr>
+    </tbody>
+  </table>
+
+  <h4>3.2.2 카페 기물</h4>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="w-mid c">담당</th><th class="w-dt c">기한</th><th class="c" style="width:14%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>기물 목록 (제조사 · 연식 · 상태 · 연결 여부)</td><td class="c">카페매니저</td><td class="c">8/16</td><td class="c"><span class="st ing">진행</span></td><td>기존 기물현황표 갱신</td></tr>
+      <tr><td>렌탈 · 리스 계약 확인 및 통보 기한</td><td class="c">카페매니저 · 회계</td><td class="c">8/12</td><td class="c"><span class="st wait">긴급</span></td><td>정수기 · 제빙기 등</td></tr>
+      <tr><td>재사용 · 폐기 · 신규 구입 판정</td><td class="c">카페매니저 · 사업단장</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>식자재 · 소모품 소진 계획</td><td class="c">카페매니저</td><td class="c">8/16</td><td class="c"><span class="st ing">진행</span></td><td>발주 중단 시점 역산</td></tr>
+      <tr><td>거래처 납품 중단 통보</td><td class="c">카페매니저</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>영업 최종일 확정 후</td></tr>
+    </tbody>
+  </table>
+
+  <h4>3.2.3 공용 집기 · 비품</h4>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="w-mid c">담당</th><th class="w-dt c">기한</th><th class="c" style="width:14%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>가구 · 집기 목록 및 재사용 여부</td><td class="c">매니저 2인</td><td class="c">8/16</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>POS · 카드단말기 · 통신 회선 처리</td><td class="c">회계 2인</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>정지 또는 이전</td></tr>
+      <tr><td>금고 · 시재 · 서류 이전</td><td class="c">회계 2인</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>보안 관리 필요</td></tr>
+    </tbody>
+  </table>
+
+  <h4>3.2.4 반출 · 보관 · 폐기</h4>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="w-mid c">담당</th><th class="w-dt c">기한</th><th class="c" style="width:14%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>반출 완료 기한 확인</td><td class="c">PM</td><td class="c">8/12</td><td class="c"><span class="st wait">긴급</span></td><td>—</td></tr>
+      <tr><td>보관 장소 배정 요청</td><td class="c">PM</td><td class="c">8/13</td><td class="c"><span class="st wait">대기</span></td><td>도서는 분진 · 습기 취약</td></tr>
+      <tr><td>이사 업체 발주 주체 확인</td><td class="c">PM · 행정간사팀</td><td class="c">8/16</td><td class="c"><span class="st wait">대기</span></td><td>—</td></tr>
+      <tr><td>중량 · 연결 기물 철거 및 재설치 주체</td><td class="c">PM</td><td class="c">8/16</td><td class="c"><span class="st wait">대기</span></td><td>시공사 담당 여부</td></tr>
+      <tr><td>박스 분류 · 라벨링 기준 수립</td><td class="c">매니저 2인</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>오픈 시 복원 순서 고려</td></tr>
+      <tr><td>폐기 처리 비용 부담 주체</td><td class="c">행정간사팀</td><td class="c red">미정</td><td class="c"><span class="st wait">대기</span></td><td>—</td></tr>
+    </tbody>
+  </table></div>
+<div class="sub"><h3>3.3 예산 · 회계</h3>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="w-mid c">담당</th><th class="w-dt c">기한</th><th class="c" style="width:14%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>항목별 부담 주체 구분표 작성</td><td class="c">PM</td><td class="c">8/16</td><td class="c"><span class="st ing">진행</span></td><td>별도 문서로 작성 예정</td></tr>
+      <tr><td>구분표 확정 (교회 · 사업단)</td><td class="c">행정간사팀 · 건축위</td><td class="c">8/20</td><td class="c"><span class="st wait">대기</span></td><td>—</td></tr>
+      <tr><td>영업 중단 시점 정산 기준일 확정</td><td class="c">회계 2인</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>영업 최종일 연동</td></tr>
+      <tr><td>재고자산 실사 및 회계 확인</td><td class="c">회계 2인</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>매니저 실사 → 회계 검증</td></tr>
+      <tr><td>상품권 미상환 잔액 확정</td><td class="c">회계 2인</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>현금성 부채</td></tr>
+      <tr><td>공사기간 중 고정비 처리 방침</td><td class="c">회계 2인 · 사업단장</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>렌탈료 · 통신 등</td></tr>
+      <tr><td>기물 폐기 · 신규 구입 자산 처리</td><td class="c">회계 2인</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>감사 대비 기록</td></tr>
+      <tr><td>공사기간 월례회 보고 양식 조정</td><td class="c">PM · 회계</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+    </tbody>
+  </table></div>
+<div class="sub"><h3>3.4 인력</h3>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="w-mid c">담당</th><th class="w-dt c">기한</th><th class="c" style="width:14%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>매니저 고용 유지 방침 결정</td><td class="c">사업단장 · 여선교회</td><td class="c">8/16</td><td class="c"><span class="st wait">대기</span></td><td>당사자 불안 요소</td></tr>
+      <tr><td>공사기간 중 처우 및 근무 형태</td><td class="c">사업단장</td><td class="c red">미정</td><td class="c"><span class="st wait">대기</span></td><td>—</td></tr>
+      <tr><td>알바 인력 처리</td><td class="c">매니저 2인 · 회계</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>오픈 시 인력 계획</td><td class="c">사업단장 · PM</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>확장 면적 반영</td></tr>
+    </tbody>
+  </table></div>
+<div class="sub"><h3>3.5 운영 · 오픈 준비</h3>
+
+  <h4>3.5.1 영업 중단 · 임시 운영</h4>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="w-mid c">담당</th><th class="w-dt c">기한</th><th class="c" style="width:14%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>공사기간 중 임시 운영 여부 결정</td><td class="c">사업단장 · PM</td><td class="c">8/16</td><td class="c"><span class="st wait">대기</span></td><td>비전센터 무인카페 활용 검토</td></tr>
+      <tr><td>상품권 판매 · 회수 지속 여부</td><td class="c">사업단장</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>카페 휴업 신고 필요 여부 확인</td><td class="c">회계 · 행정간사팀</td><td class="c">8/16</td><td class="c"><span class="st wait">대기</span></td><td>관공서 기한 확인</td></tr>
+      <tr><td>쿠폰 · 적립 잔여분 처리 방침</td><td class="c">카페매니저</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <h4>3.5.2 브랜드 · BX</h4>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="w-mid c">담당</th><th class="w-dt c">기한</th><th class="c" style="width:14%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>사인 · 간판 디자인 및 제작 범위</td><td class="c">PM</td><td class="c red">미정</td><td class="c"><span class="st wait">대기</span></td><td>공사 범위 포함 여부 확인 필요</td></tr>
+      <tr><td>유니폼 · 앞치마</td><td class="c">매니저 2인</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>컵 · 홀더 · 포장재 등 패키지</td><td class="c">카페매니저</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>메뉴판 · 안내물 제작</td><td class="c">카페매니저 · PM</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <h4>3.5.3 메뉴 · 상품</h4>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="w-mid c">담당</th><th class="w-dt c">기한</th><th class="c" style="width:14%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>메뉴 구성 재검토 및 가격 정책</td><td class="c">카페매니저 · 사업단장</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>신메뉴 도입 여부</td><td class="c">카페매니저</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>서점 도서 구성 및 진열 방식</td><td class="c">서점매니저</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>신규 면적 확정 후</td></tr>
+    </tbody>
+  </table>
+
+  <h4>3.5.4 구매 · 발주</h4>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="w-mid c">담당</th><th class="w-dt c">기한</th><th class="c" style="width:14%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>신규 기물 목록 및 사양 확정</td><td class="c">매니저 2인 · PM</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>예산 범위 협의 후</td></tr>
+      <tr><td>가구 · 집기 · 식기 · 소모품</td><td class="c">매니저 2인</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>서점 진열 집기</td><td class="c">서점매니저</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>초도 발주</td><td class="c">매니저 2인</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>10월 역산</td></tr>
+    </tbody>
+  </table>
+
+  <h4>3.5.5 시스템 · 운영</h4>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="w-mid c">담당</th><th class="w-dt c">기한</th><th class="c" style="width:14%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>POS · 결제 · 재고관리 재개</td><td class="c">회계 2인</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>상품권 운영 방식 정비</td><td class="c">서점매니저 · 회계</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>오픈 · 마감 절차 정비</td><td class="c">매니저 2인</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <h4>3.5.6 인력 · 매뉴얼</h4>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="w-mid c">담당</th><th class="w-dt c">기한</th><th class="c" style="width:14%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>인력 배치 계획 및 교육</td><td class="c">사업단장 · 매니저 2인</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>오픈 전 시범 운영</td><td class="c">매니저 2인</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>사역매뉴얼 Ⅲ편 작성</td><td class="c">PM</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>사업장별 운영 편</td></tr>
+      <tr><td>위생 · 안전 관리 기준 정비</td><td class="c">카페매니저</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+    </tbody>
+  </table></div>
+<div class="sub"><h3>3.6 홍보 · 안내</h3>
+  <table>
+    <thead><tr><th style="width:38%">항목</th><th class="w-mid c">담당</th><th class="w-dt c">기한</th><th class="c" style="width:14%">상태</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>영업 중단 주보 공지 원고 작성</td><td class="c">PM</td><td class="c">8/13</td><td class="c"><span class="st wait">긴급</span></td><td>8/16 주보 게재 목표</td></tr>
+      <tr><td>공지 문안 승인</td><td class="c">사업단장</td><td class="c">8/14</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>현장 안내문 · 게시물 제작</td><td class="c">PM</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>—</td></tr>
+      <tr><td>웹사이트 · QR 안내 갱신</td><td class="c">PM</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>gsmch-mission 사이트</td></tr>
+      <tr><td>오픈 안내 공지</td><td class="c">PM</td><td class="c red">미정</td><td class="c"><span class="st plan">예정</span></td><td>오픈일 확정 후</td></tr>
+    </tbody>
+  </table></div>
+
+  </div>
+  <div class="swview" id="sw-who" data-group="todo">
+    <div class="swlab">담당자별 — 매니저 · 회계 · 사업단장 · PM · 건축위 · 행정간사팀</div>
+<p>영역별 항목을 담당자 기준으로 다시 묶은 것이다. 각 담당자에게는 해당 부분만 전달한다. 같은 항목이므로 한쪽을 고치면 다른 쪽도 함께 갱신한다.</p>
+
+  <div class="whorow"><div class="who">
+    <div class="who-t">PM<div class="who-p">안상미 권사</div></div>
+    <ul>
+      <li class="urgent"><b>건축위 합동 회의 소집 요청 및 개최</b></li>
+      <li class="urgent"><b>주보 공지 원고 작성</b> — 8/16 게재 목표</li>
+      <li class="urgent"><b>예산 항목별 부담 주체 구분표 작성</b></li>
+      <li>사업단 의견 취합 및 도면 반영 요구</li>
+      <li>건축위 소통 채널 참여 확보, 도면 수령 관리</li>
+      <li>행정간사팀에 진행 상황 및 계약 관련 공유</li>
+      <li>본 마스터플랜 유지 · 갱신</li>
+      <li>의사결정 대장 기록 (결정 · 일자 · 주체 · 근거)</li>
+      <li>회의록 정리 및 미결 항목 추적</li>
+      <li>전체 일정 관리 및 마감 역산</li>
+    </ul>
+  </div><div class="who">
+    <div class="who-t">건축위 · 행정간사팀 요청 사항</div>
+    <ul>
+      <li><b>건축위</b> — 기물 반출 기한, 비계 설치 범위, 철거 착수일, 오픈 시점</li>
+      <li><b>건축위</b> — 도면 실시간 공유 및 소통 채널 참여</li>
+      <li><b>건축위</b> — 보관 장소 배정</li>
+      <li><b>건축위</b> — 급배수 · 전기 · 환기 계획 도면</li>
+      <li><b>건축위</b> — 서점 실면적 수치</li>
+      <li><b>건축위</b> — 사업단 설계 의견 제출 마감일 및 예산 확정 시점</li>
+      <li><b>행정간사팀</b> — 예산 항목별 부담 주체 구분표 확정</li>
+      <li><b>행정간사팀</b> — 반출 · 보관 업체 발주 주체</li>
+      <li><b>행정간사팀</b> — 사업단 예산 집행 시 계약 절차</li>
+      <li><b>행정간사팀</b> — 변경 발생 시 승인 절차 및 예비비 유무</li>
+    </ul>
+  </div></div><div class="who">
+    <div class="who-t">사업단장 · 여선교회 담당 장로 <span>협의</span><div class="who-p">김묘숙 권사 · 송은주 장로</div></div>
+    <ul>
+      <li class="urgent"><b>매니저 고용 유지 방침 결정</b> — 공사기간 처우 포함</li>
+      <li>여선교회 협의 및 소통</li>
+      <li>사업단 예산 집행 가능 범위 결정</li>
+      <li>공사기간 중 임시 운영 여부 결정 (특히 서점)</li>
+      <li>성도 안내문 최종 승인</li>
+      <li>도서 반품 · 보관 · 처분 분류 최종 결정</li>
+    </ul>
+  </div><div class="who">
+    <div class="who-t">서점회계 · 카페회계<div class="who-p">박라연 권사 · 이영은 권사</div></div>
+    <ul>
+      <li class="urgent"><b>카페 휴업 신고 필요 여부 확인</b> — 관공서 기한 확인</li>
+      <li>영업 중단 시점 정산 기준일 확정</li>
+      <li>재고자산 실사 입회 및 확인 (매니저 실사 → 회계 검증, 2인 확인)</li>
+      <li>통장 잔액 · 시재 정리, 금고 내용물 확인</li>
+      <li>미수금 · 미지급금 정리</li>
+      <li>상품권 미상환 잔액 확정</li>
+      <li>공사기간 중 고정비 처리 방침 (렌탈료 · 통신 · 관리비)</li>
+      <li>POS · 카드단말기 정지 또는 이전 처리</li>
+      <li>기물 폐기 · 신규 구입 시 자산 처리 방식</li>
+      <li>공사기간 월례회 보고 양식 조정</li>
+    </ul>
+  </div><div class="who">
+    <div class="who-t">서점매니저</div>
+    <ul>
+      <li class="urgent"><b>공급처별 반품 가능 여부 및 기한 확인</b> — 놓칠 경우 그대로 손실</li>
+      <li class="urgent"><b>현 서점 실측</b> — 면적, 서가 총 길이, 수납 가능 권수</li>
+      <li>도서 재고 실사 목록 작성 (권수 · 금액 · 공급처별)</li>
+      <li>위탁 · 수탁 도서 및 반환 대상 확인</li>
+      <li>상품권 재고 수량 및 보관 현황 (판매용 · 회수용 구분)</li>
+      <li>진열대 · 서가 · 집기 목록 및 재사용 희망 여부</li>
+      <li>예약 도서 · 주문 대기 건 처리 방안</li>
+      <li>운영상 불편했던 점과 새 공간에 필요한 것 (계산대 위치 · 수납 · 조명)</li>
+      <li>반출 시 박스 분류 · 라벨링 기준</li>
+    </ul>
+  </div><div class="who">
+    <div class="who-t">카페매니저</div>
+    <ul>
+      <li class="urgent"><b>렌탈 · 리스 계약 확인</b> — 통보 기한이 있는 경우 즉시 보고</li>
+      <li class="urgent"><b>바 동선의 불편 및 필요 설비 사양</b> — 제빙기 용량, 냉장고 수, 싱크 개수, 후드</li>
+      <li class="urgent"><b>창고 · 백룸 최소 필요 면적</b></li>
+      <li>기물 목록 (제조사 · 연식 · 상태, 급배수 · 전기 연결 여부)</li>
+      <li>재사용 · 폐기 · 신규 구입 의견</li>
+      <li>식자재 · 소모품 재고 및 소진 계획 (발주 중단 시점 역산)</li>
+      <li>거래처 목록 및 납품 중단 통보 일정</li>
+      <li>좌석 수 및 피크타임 회전 현황</li>
+      <li>쿠폰 · 적립 · 다회용컵 보증금 등 미정산 건</li>
+    </ul>
+  </div>
+  </div>
+</section>
+  </div>
+</div>
+
+<div class="view" id="v4">
+  <div class="sheet">
+<section>
+  <div class="sec-head"><span class="n">4</span><h2>기록</h2><span class="tag">감사 대비</span></div>
+  <div class="switch" data-group="rec">
+    <button class="sw on" data-sw="sw-pend" data-group="rec">확인 필요</button>
+    <button class="sw" data-sw="sw-dec" data-group="rec">결정 대장</button>
+    <button class="sw" data-sw="sw-mtg" data-group="rec">회의록</button>
+  </div>
+  <div class="swview on" id="sw-pend" data-group="rec">
+    <div class="swlab">확인 필요 — 아직 안 정해진 것. 확인되면 결정 대장으로 옮긴다</div>
+<p>확인이 완료된 항목은 결정 대장으로 이관한다. 상태는 대기 · 확인 중 · 완료로 표기한다. 회계 자체의 확인 필요 항목(과년도 선교비 등)은 성격이 달라 별도 문서에서 관리한다.</p>
+  <table>
+    <thead><tr><th class="c" style="width:52px">구분</th><th style="width:26%">내용</th><th>확인 사유</th><th class="c" style="width:126px">확인 대상</th><th class="c" style="width:58px">기한</th><th class="c" style="width:74px">상태</th></tr></thead>
+    <tbody>
+      <tr><td class="c">일정</td><td>기물 반출 완료 기한</td><td>영업 최종일이 여기서 결정됨</td><td class="c">건축위</td><td class="c">8/12</td><td class="c"><span class="st wait">대기</span></td></tr>
+      <tr><td class="c">일정</td><td>철거 착수일 및 비계 설치 범위</td><td>반출 동선과 여유 기간 산정</td><td class="c">건축위</td><td class="c">8/12</td><td class="c"><span class="st wait">대기</span></td></tr>
+      <tr><td class="c">일정</td><td>10/20이 준공일인지 입주일인지</td><td>집기 반입 기간과 오픈 안내</td><td class="c">건축위</td><td class="c">8/13</td><td class="c"><span class="st wait">대기</span></td></tr>
+      <tr><td class="c">조직</td><td>PM 역할 인정 및 소통 채널 참여</td><td>의견 반영 시차 제거</td><td class="c">건축위</td><td class="c">8/13</td><td class="c"><span class="st wait">대기</span></td></tr>
+      <tr><td class="c">설계</td><td><span class="st talk">협의</span> 서점 실면적 수치</td><td>입구 및 실 면적 조정 필요</td><td class="c">조소은 설계사</td><td class="c">8/13</td><td class="c"><span class="st wait">대기</span></td></tr>
+            <tr><td class="c">설계</td><td><span class="st talk">협의</span> 카페 급배수 · 전기 · 환기 도면</td><td>현재 카페 설비 배치 시안 필요</td><td class="c">조소은 설계사</td><td class="c">8/18</td><td class="c"><span class="st wait">대기</span></td></tr>
+      <tr><td class="c">설계</td><td>사인 · 간판의 공사 범위 포함 여부</td><td>사업단 예산 규모가 달라짐</td><td class="c">건축위</td><td class="c">8/20</td><td class="c"><span class="st wait">대기</span></td></tr>
+      <tr><td class="c">자산</td><td>반출 · 보관 발주 주체와 장소</td><td>도서는 분진 · 습기에 취약</td><td class="c">행정간사팀</td><td class="c">8/16</td><td class="c"><span class="st wait">대기</span></td></tr>
+      <tr><td class="c">예산</td><td>항목별 부담 주체 구분</td><td>사업단 예산 규모와 권한 범위</td><td class="c">행정간사팀</td><td class="c">8/20</td><td class="c"><span class="st wait">대기</span></td></tr>
+      <tr><td class="c">인력</td><td>매니저 고용 유지 및 처우</td><td>당사자의 가장 큰 불안 요소</td><td class="c">사업단장</td><td class="c">8/16</td><td class="c"><span class="st wait">대기</span></td></tr>
+      <tr><td class="c">운영</td><td>카페 휴업 신고 필요 여부</td><td>확인 필요</td><td class="c">회계 · 행정간사팀</td><td class="c">8/16</td><td class="c"><span class="st wait">대기</span></td></tr>
+      <tr><td class="c">자산</td><td>도서 공급처별 반품 기한</td><td>기한 경과 시 손실로 확정</td><td class="c">서점매니저</td><td class="c">8/12</td><td class="c"><span class="st ing">확인 중</span></td></tr>
+      <tr><td class="c">자산</td><td>카페 렌탈 · 리스 계약 통보 기한</td><td>지연 시 위약 또는 요금 발생</td><td class="c">카페매니저 · 회계</td><td class="c">8/12</td><td class="c"><span class="st ing">확인 중</span></td></tr>
+      <tr><td class="c">운영</td><td>공사기간 중 임시 운영 여부</td><td>매니저 근무 형태와 연동</td><td class="c">사업단장</td><td class="c">8/16</td><td class="c"><span class="st wait">대기</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="swview" id="sw-dec" data-group="rec">
+    <div class="swlab">결정 대장 — 정해진 것</div>
+<p>되돌릴 경우 비용이 발생하는 결정, 예산이 수반되는 결정, 인력에 관한 결정, 대외 약속을 기록한다. 하지 않기로 한 결정도 포함한다. 결정이 번복될 경우 기존 항목을 삭제하지 않고 새 번호로 추가하며 이전 번호를 참조 표기한다.</p>
+  <table>
+    <thead><tr><th class="c" style="width:46px">번호</th><th class="c" style="width:72px">일자</th><th class="c" style="width:52px">구분</th><th style="width:28%">결정사항</th><th class="c" style="width:112px">결정 주체</th><th>근거 · 경위</th></tr></thead>
+    <tbody>
+      <tr><td class="c">001</td><td class="c">26.08.02</td><td class="c">범위</td><td>1층 로비 · 카페 · 서점 공사 확정</td><td class="c">기획위원회</td><td>건축위 보고본 (26.08.02)</td></tr>
+      <tr><td class="c">002</td><td class="c">26.08.09</td><td class="c">일정</td><td>8/24 로비 시스템비계 설치 통보</td><td class="c">건축위</td><td>공정상 로비 선행</td></tr>
+      <tr><td class="c">003</td><td class="c">26.08.09</td><td class="c">범위</td><td>사업단 관리 범위를 1층으로 한정</td><td class="c">사업단 PM</td><td>담당 범위 명확화 · 보고 초점 확보</td></tr>
+      <tr><td class="c">004</td><td class="c red">기록 예정</td><td class="c">조직</td><td>PM 직 설치 및 위임 범위 승인</td><td class="c">사업단장</td><td>월례회 회의록</td></tr>
+      <tr><td class="c red">005</td><td class="c red">미정</td><td class="c">일정</td><td class="red">영업 최종일 확정</td><td class="c">사업단 · 건축위</td><td>반출 기한 역산</td></tr>
+      <tr><td class="c red">006</td><td class="c red">미정</td><td class="c">자산</td><td class="red">도서 반품 · 보관 · 처분 분류 확정</td><td class="c">사업단장</td><td>공급처 반품 조건</td></tr>
+      <tr><td class="c red">007</td><td class="c red">미정</td><td class="c">예산</td><td class="red">항목별 부담 주체 확정</td><td class="c">행정간사팀</td><td>구분표 기준</td></tr>
+      <tr><td class="c red">008</td><td class="c red">미정</td><td class="c">인력</td><td class="red">매니저 고용 유지 및 처우 방침</td><td class="c">사업단장</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <p class="note">※ 구분은 범위 · 일정 · 설계 · 자산 · 예산 · 인력 · 조직으로 표기한다. 결정 주체는 개인명이 아닌 직책 또는 기구로 기재한다.</p>
+  </div>
+  <div class="swview" id="sw-mtg" data-group="rec">
+    <div class="swlab">회의록 — 결정에 이른 과정</div>
+<p>건축위 · 사업단 · 행정간사팀 회의를 팀 구분 없이 시간순으로 기록한다. 기존 월례회 포맷(▶(부서) 제목 → 결정사항)을 따르되, </p>
+
+  <div class="mtg">
+    <div class="mtg-h">2026. 8. 9. (주일) 사업단 월례회</div>
+    <div class="mtg-m">3층 식당 · 오전 9시 · 참석 <span class="red">기록 예정</span></div>
+    <div class="agenda">
+      <div class="agenda-t">▶(전체) 1층 리뉴얼 공사 확정 공유</div>
+      <p><span class="red">기록 예정</span></p>
+    </div>
+    <div class="agenda">
+      <div class="agenda-t">▶(조직) 1층 리뉴얼 사업단 PM 설치 및 위임 범위</div>
+      <p><span class="red">기록 예정 (대장 004)</span></p>
+    </div>
+  </div>
+
+  <div class="mtg">
+    <div class="mtg-h"><span class="red">2026. 8. O. 건축위 합동 회의 (요청 중)</span></div>
+    <div class="mtg-m">참석 예정 — 건축위 총괄, 설계사, 사업단장, PM, 매니저 2인</div>
+    <div class="agenda">
+      <div class="agenda-t">주요 안건</div>
+      <p>반출 기한 및 영업 최종일 / 서점 실면적 / 카페 바 위치 및 설비 계획 / 창고 · 보관 공간 / 예산 확정 시점 및 의견 제출 마감</p>
+    </div>
+  </div>
+
+  <div class="empty">이후 회의 기록을 순차 추가한다.</div>
+  </div>
+</section>
+  </div>
+</div>
+
+<div class="view" id="v5">
+  <div class="sheet">
+<section>
+  <div class="sec-head"><span class="n">5</span><h2>참고 자료</h2><span class="tag">참고</span></div>
+
+  <div class="sub"><h3>5.1 질문 및 회신 대조표</h3>
+  <table>
+    <thead><tr><th class="c w-nar">번호</th><th class="c w-dt">발송일</th><th class="c" style="width:12%">대상</th><th style="width:34%">질문</th><th class="c w-dt">회신일</th><th>회신 내용</th></tr></thead>
+    <tbody>
+      <tr><td class="c">Q01</td><td class="c red">발송 예정</td><td class="c">건축위</td><td>기물 반출 완료 기한 및 비계 이후 진입 가능 여부</td><td class="c">—</td><td>—</td></tr>
+      <tr><td class="c">Q02</td><td class="c red">발송 예정</td><td class="c">건축위</td><td>비계 설치 범위 (로비 전체 여부)</td><td class="c">—</td><td>—</td></tr>
+      <tr><td class="c">Q03</td><td class="c red">발송 예정</td><td class="c">건축위</td><td>철거 착수일</td><td class="c">—</td><td>—</td></tr>
+      <tr><td class="c">Q04</td><td class="c red">발송 예정</td><td class="c">건축위</td><td>10/20의 성격 (준공 · 입주) 및 오픈 목표일</td><td class="c">—</td><td>—</td></tr>
+      <tr><td class="c">Q05</td><td class="c red">발송 예정</td><td class="c">건축위</td><td>설계 의견 제출 마감일 및 예산 확정 시점</td><td class="c">—</td><td>—</td></tr>
+      <tr><td class="c">Q06</td><td class="c red">발송 예정</td><td class="c">건축위</td><td>합동 회의 개최, 소통 채널 참여, 담임목사 미팅 배석 요청</td><td class="c">—</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <p class="note">※ 발송일과 회신일을 남겨 회신 지연 여부를 추적한다.</p></div>
+<div class="sub"><h3>5.2 연락 체계</h3>
+  <table>
+    <thead><tr><th style="width:20%">사안</th><th style="width:24%">1차 문의</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>공사 일정 · 시공 · 도면</td><td>건축위 총괄</td><td>설계 세부는 설계사</td></tr>
+      <tr><td>계약 · 견적 · 업체 발주</td><td>행정간사팀</td><td>—</td></tr>
+      <tr><td>예산 집행 · 인력 · 대외 약속</td><td>사업단장</td><td>결재 필요</td></tr>
+      <tr><td>서점 실무</td><td>서점매니저</td><td>회계 연동 시 서점회계</td></tr>
+      <tr><td>카페 실무</td><td>카페매니저</td><td>회계 연동 시 카페회계</td></tr>
+      <tr><td>전체 조정 · 문서 · 일정</td><td>PM</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <p class="note"><span class="red">※ 연락처는 보안상 본 문서에 기재하지 않으며 별도 파일로 관리한다.</span></p></div>
+<div class="sub"><h3>5.3 참고 도면 및 자료 목록</h3>
+  <table>
+    <thead><tr><th style="width:36%">자료명</th><th class="c w-dt">작성일</th><th class="c w-dt">수령일</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td>다음세대를 위한 개선공사 (건축위 보고본)</td><td class="c">26.08.02</td><td class="c">26.08.09</td><td><b>1층 현재 · 대안 평면</b>, 카페 · 서점 · 자모실 조감, 지하 및 지상 화장실 대안</td></tr>
+      <tr><td>선한목자교회 화장실 부속실 개선공사</td><td class="c">26.06.08</td><td class="c">—</td><td>층별 평면도, 공간별 개선사항 주기 <span style="color:var(--soft);">(참고)</span></td></tr>
+      <tr><td>화장실개선공사 (담임목사 보고본)</td><td class="c">26.06.13</td><td class="c">—</td><td>층별 도면 <span style="color:var(--soft);">(참고)</span></td></tr>
+      <tr><td>A09 지상1층 평면도</td><td class="c">—</td><td class="c">—</td><td>1층 기존 평면</td></tr>
+      <tr><td>공공시설 친환경 위생도기 가이드</td><td class="c">—</td><td class="c">—</td><td>화장실 사양 참고 <span style="color:var(--soft);">(참고)</span></td></tr>
+      <tr><td class="red">갱신 도면</td><td class="c red">수령 시 추가</td><td class="c red">—</td><td class="red">버전과 수령일을 반드시 기록한다</td></tr>
+    </tbody>
+  </table></div>
+<div class="sub"><h3>5.4 관련 문서</h3>
+  <table>
+    <thead><tr><th style="width:36%">문서명</th><th>용도</th></tr></thead>
+    <tbody>
+      <tr><td>gsmch_1F리뉴얼_마스터플랜 (본 문서)</td><td>전체 관리 및 보고</td></tr>
+      <tr><td class="red">예산 항목별 부담 주체 구분표 (작성 예정)</td><td>교회 · 사업단 부담 경계 확정</td></tr>
+      <tr><td class="red">담당자별 요청서 (작성 예정)</td><td>매니저 · 회계 전달용</td></tr>
+      <tr><td>카페 기물현황표</td><td>기물 재사용 · 이전 판정 기준</td></tr>
+      <tr><td>총여선교회 사업단 사역매뉴얼</td><td>오픈 후 Ⅲ편 반영</td></tr>
+    </tbody>
+  </table></div>
+</section>
+  </div>
+</div>
+
+</div>
+
+<script>
+function go(id){
+  document.querySelectorAll('.view').forEach(function(v){ v.classList.toggle('on', v.id===id); });
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.toggle('on', t.dataset.go===id); });
+  window.scrollTo({top:0, behavior:'instant'});
+  if(history.replaceState) history.replaceState(null,'', id==='home' ? location.pathname : '#'+id);
+}
+function sw(group, target){
+  document.querySelectorAll('.swview[data-group="'+group+'"]').forEach(function(v){
+    v.classList.toggle('on', v.id===target);
+  });
+  document.querySelectorAll('.sw[data-group="'+group+'"]').forEach(function(b){
+    b.classList.toggle('on', b.dataset.sw===target);
+  });
+}
+document.addEventListener('click', function(e){
+  var s = e.target.closest('.sw');
+  if(s){ sw(s.dataset.group, s.dataset.sw); return; }
+  var el = e.target.closest('[data-go]');
+  if(el){ go(el.dataset.go); }
+});
+if(location.hash){
+  var h = location.hash.slice(1);
+  if(document.getElementById(h) && document.getElementById(h).classList.contains('view')) go(h);
+}
+window.addEventListener('afterprint', function(){
+  var cur = document.querySelector('.tab.on');
+  go(cur ? cur.dataset.go : 'home');
+});
+</script>
+</body>
+</html>
