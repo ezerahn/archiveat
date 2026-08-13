@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>선한목자교회 · 1층 성전보수</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf8f3; --card:#ffffff; --line:#e6e1d7; --line2:#f0ece4;
+    --text:#2c2a26; --muted:#8a847a; --soft:#6e6860;
+    --accent:#3d6b4f; --accent-light:#eef4ef;
+    --gold:#b8956a; --red:#c0392b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'IBM Plex Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
+    background:var(--bg); color:var(--text);
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1000px;margin:0 auto;padding:22px 28px 70px}
+  .mono{font-family:'IBM Plex Mono','IBM Plex Sans KR',monospace}
+
+  .navrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+  .pill{
+    display:inline-flex;align-items:center;gap:5px;
+    font-size:13px;color:var(--soft);text-decoration:none;
+    padding:8px 15px;border:1px solid var(--line);border-radius:20px;
+    background:var(--card);transition:.15s;white-space:nowrap;
+  }
+  .pill:hover{background:var(--accent-light);border-color:var(--accent);color:var(--accent)}
+  .meta{margin-left:auto;font-size:12px;color:var(--muted);white-space:nowrap}
+
+  .head{border-top:1px solid var(--line);padding-top:26px;margin-bottom:26px}
+  h1{font-size:34px;font-weight:700;letter-spacing:-0.03em;margin-bottom:7px}
+  .lead{font-size:14.5px;color:var(--soft)}
+
+  .stats{
+    display:grid;grid-template-columns:repeat(5,1fr);
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    overflow:hidden;margin-bottom:34px;
+  }
+  .stat{padding:17px 18px;border-right:1px solid var(--line2)}
+  .stat:last-child{border-right:0}
+  .stat-v{font-size:23px;font-weight:600;letter-spacing:-0.02em;line-height:1.25}
+  .stat-v.red{color:var(--red)}
+  .stat-v.green{color:var(--accent)}
+  .stat-v.gold{color:var(--gold)}
+  .stat-v small{font-size:12.5px;font-weight:400;color:var(--muted);margin-left:3px}
+  .stat-l{font-size:12px;color:var(--muted);margin-top:3px}
+
+  .sec{display:flex;align-items:center;gap:11px;margin:0 0 15px}
+  .sec h2{font-size:19px;font-weight:600;letter-spacing:-0.02em;white-space:nowrap}
+  .sec .cap{font-size:12.5px;color:var(--muted);white-space:nowrap}
+  .sec .rule{flex:1;height:1px;background:var(--text);opacity:.85}
+
+  .docs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:36px}
+  .doc{
+    display:block;background:var(--card);border:1px solid var(--line);
+    border-radius:13px;padding:22px 24px 20px;text-decoration:none;color:var(--text);
+    transition:.16s;position:relative;
+  }
+  .doc:hover{border-color:var(--accent);transform:translateY(-2px);
+    box-shadow:0 6px 18px rgba(61,107,79,.09)}
+  .doc-top{display:flex;align-items:center;gap:9px;margin-bottom:13px}
+  .doc-ico{
+    width:38px;height:38px;border-radius:10px;background:var(--accent-light);
+    display:flex;align-items:center;justify-content:center;font-size:17px;flex:none;
+  }
+  .doc-tag{
+    margin-left:auto;font-size:11px;color:var(--accent);background:var(--accent-light);
+    padding:3px 10px;border-radius:10px;font-weight:500;
+  }
+  .doc-tag.gold{color:#8a6a3c;background:#f7f0e4}
+  .doc-tag.soft{color:var(--muted);background:var(--bg)}
+  .doc.soon{opacity:.6;cursor:default}
+  .doc.soon:hover{border-color:var(--line);transform:none;box-shadow:none}
+  .doc.soon:hover .doc-go{color:var(--line)}
+  .doc h3{font-size:18px;font-weight:600;letter-spacing:-0.02em;margin-bottom:5px}
+  .doc p{font-size:13px;color:var(--soft);line-height:1.6;margin-bottom:14px}
+  .doc-list{border-top:1px solid var(--line2);padding-top:11px;
+    display:flex;flex-wrap:wrap;gap:5px}
+  .chip{font-size:11.5px;color:var(--muted);background:var(--bg);
+    border:1px solid var(--line2);padding:3px 9px;border-radius:9px}
+  .doc-go{position:absolute;right:22px;bottom:18px;font-size:17px;color:var(--line);transition:.16s}
+  .doc:hover .doc-go{color:var(--accent)}
+
+  .flow{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:36px}
+  .step{
+    background:var(--card);border:1px solid var(--line);border-radius:11px;
+    padding:14px 13px 15px;text-decoration:none;color:var(--text);transition:.15s;
+  }
+  .step:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .step.now{background:var(--accent-light);border-color:var(--accent)}
+  .step-n{font-size:12px;color:var(--muted);font-weight:500}
+  .step.now .step-n{color:var(--accent)}
+  .step-t{font-size:13.5px;font-weight:600;margin:4px 0 3px;letter-spacing:-0.02em;line-height:1.4}
+  .step-d{font-size:11px;color:var(--muted);line-height:1.5}
+  .step-badge{display:inline-block;font-size:10px;font-weight:600;color:#fff;
+    background:var(--accent);padding:1px 8px;border-radius:9px;margin-bottom:5px}
+
+  .dates{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:36px}
+  .date{background:var(--card);border:1px solid var(--line);
+    border-top:3px solid var(--gold);border-radius:11px;padding:16px 18px 17px}
+  .date-l{font-size:12px;color:var(--muted);margin-bottom:3px}
+  .date-v{font-size:26px;font-weight:600;letter-spacing:-0.03em;line-height:1.2}
+  .date-v span{font-size:12.5px;color:var(--muted);font-weight:400;margin-left:5px}
+  .date-s{font-size:11.5px;color:var(--muted);margin-top:5px;line-height:1.55}
+
+  .org{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .team{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:16px 18px}
+  .team.mid{border-color:var(--accent);background:var(--accent-light)}
+  .team-n{font-size:14.5px;font-weight:600;margin-bottom:4px}
+  .team-d{font-size:12.5px;color:var(--soft);line-height:1.6}
+
+  .foot{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+  @media(max-width:860px){
+    .stats{grid-template-columns:repeat(3,1fr)}
+    .stat:nth-child(3){border-right:0}
+    .stat:nth-child(n+4){border-top:1px solid var(--line2)}
+    .flow{grid-template-columns:repeat(3,1fr)}
+    .docs{grid-template-columns:1fr}
+    .dates,.org{grid-template-columns:1fr}
+  }
+  @media(max-width:560px){
+    .wrap{padding:16px 16px 50px}
+    h1{font-size:27px}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .stat{border-right:1px solid var(--line2)}
+    .stat:nth-child(2n){border-right:0}
+    .stat:nth-child(n+3){border-top:1px solid var(--line2)}
+    .flow{grid-template-columns:repeat(2,1fr)}
+    .meta{margin-left:0;flex-basis:100%;white-space:normal}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="navrow">
+    <a class="pill" href="index.html">← 사업단 홈</a>
+    <a class="pill" href="https://claude.ai/chat/b56c9e76-083f-4493-b0bc-edf2b00b7782" target="_blank" rel="noopener">💬 작업 대화</a>
+    <div class="meta">총여선교회 사업단 › 1층 성전보수 &nbsp;|&nbsp; 업데이트 2026.08.14</div>
+  </div>
+
+  <div class="head">
+    <h1>1층 성전보수</h1>
+    <div class="lead">로뎀카페 · 선지서점 · 로비 · 자모실 — 설계부터 오픈까지 한곳에서 관리합니다.</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-v red mono" id="d1">D-4</div>
+      <div class="stat-l">영업 최종일까지</div>
+    </div>
+    <div class="stat">
+      <div class="stat-v gold mono" id="d2">D-12</div>
+      <div class="stat-l">반출 완료까지</div>
+    </div>
+    <div class="stat">
+      <div class="stat-v mono">1<small>/6</small></div>
+      <div class="stat-l">진행 단계</div>
+    </div>
+    <div class="stat">
+      <div class="stat-v green mono">2</div>
+      <div class="stat-l">보고 회차</div>
+    </div>
+    <div class="stat">
+      <div class="stat-v mono">14</div>
+      <div class="stat-l">도면 · 시안</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>문서</h2><span class="cap">계획 · 보고</span><div class="rule"></div>
+  </div>
+  <div class="docs">
+    <a class="doc" href="gsmch-1f-masterplan.html">
+      <div class="doc-top">
+        <div class="doc-ico">📐</div>
+        <span class="doc-tag">6단계 관리</span>
+      </div>
+      <h3>마스터플랜</h3>
+      <p>설계 협의부터 오픈까지 단계별 할 일과 진행 기록을 관리합니다. 도면과 시안도 함께 봅니다.</p>
+      <div class="doc-list">
+        <span class="chip">진행 단계</span>
+        <span class="chip">결정 기록</span>
+        <span class="chip">참고자료</span>
+      </div>
+      <span class="doc-go">›</span>
+    </a>
+    <a class="doc" href="gsmch-1f-report.html">
+      <div class="doc-top">
+        <div class="doc-ico">📝</div>
+        <span class="doc-tag gold">8/13 최신</span>
+      </div>
+      <h3>진행 보고</h3>
+      <p>일자별 진행 상황을 대상에 맞춘 문안으로 정리합니다. 복사해서 바로 전달할 수 있습니다.</p>
+      <div class="doc-list">
+        <span class="chip">건축위 · 사무국</span>
+        <span class="chip">사업단</span>
+        <span class="chip">담임사모님</span>
+        <span class="chip">중보기도팀</span>
+      </div>
+      <span class="doc-go">›</span>
+    </a>
+    <a class="doc" href="gsmch-1f-book-layout.html">
+      <div class="doc-top">
+        <div class="doc-ico">📚</div>
+        <span class="doc-tag">A · B안 비교</span>
+      </div>
+      <h3>서점 배치 검토</h3>
+      <p>선지서점 배치 두 안을 치수와 함께 비교합니다. 서가 칸 분할과 사람 서는 자리까지 표기했습니다.</p>
+      <div class="doc-list">
+        <span class="chip">시안 A · B</span>
+        <span class="chip">서가 14칸</span>
+        <span class="chip">재고 분류</span>
+      </div>
+      <span class="doc-go">›</span>
+    </a>
+    <div class="doc soon">
+      <div class="doc-top">
+        <div class="doc-ico">☕</div>
+        <span class="doc-tag soft">준비 중</span>
+      </div>
+      <h3>카페 배치 검토</h3>
+      <p>로뎀카페 배치 검토. 설비 배치 시안 A · B를 바탕으로 서점과 같은 방식으로 정리할 예정입니다.</p>
+      <div class="doc-list">
+        <span class="chip">시안 A · B</span>
+        <span class="chip">바 · 동선</span>
+        <span class="chip">급배수 · 전기</span>
+      </div>
+      <span class="doc-go">›</span>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>진행 단계</h2><span class="cap">현재 ① 설계 · 소통</span><div class="rule"></div>
+  </div>
+  <div class="flow">
+    <a class="step now" href="gsmch-1f-masterplan.html#v2/st1">
+      <span class="step-badge">진행 중</span>
+      <div class="step-n mono">①</div>
+      <div class="step-t">설계 · 소통</div>
+      <div class="step-d">8/9 ~ 영업 최종일</div>
+    </a>
+    <a class="step" href="gsmch-1f-masterplan.html#v2/st2">
+      <div class="step-n mono">②</div>
+      <div class="step-t">자산 · 물품 정리</div>
+      <div class="step-d">영업 최종일 전후</div>
+    </a>
+    <a class="step" href="gsmch-1f-masterplan.html#v2/st3">
+      <div class="step-n mono">③</div>
+      <div class="step-t">영업중단 · 반출</div>
+      <div class="step-d">8/17 ~ 8/24</div>
+    </a>
+    <a class="step" href="gsmch-1f-masterplan.html#v2/st4">
+      <div class="step-n mono">④</div>
+      <div class="step-t">오픈 준비</div>
+      <div class="step-d">8월 말 ~ 10월</div>
+    </a>
+    <a class="step" href="gsmch-1f-masterplan.html#v2/st5">
+      <div class="step-n mono">⑤</div>
+      <div class="step-t">집기 반입 · 세팅</div>
+      <div class="step-d">10월</div>
+    </a>
+    <a class="step" href="gsmch-1f-masterplan.html#v2/st6">
+      <div class="step-n mono">⑥</div>
+      <div class="step-t">오픈 · 안정화</div>
+      <div class="step-d">10/20 이후</div>
+    </a>
+  </div>
+
+  <div class="sec">
+    <h2>주요 일정</h2><span class="cap">확정 전 · 변경 가능</span><div class="rule"></div>
+  </div>
+  <div class="dates">
+    <div class="date">
+      <div class="date-l">영업 최종일</div>
+      <div class="date-v mono">8. 16.<span>주일 · 예정</span></div>
+      <div class="date-s">주보 게재 여부는 8/14(금) 오전 결정</div>
+    </div>
+    <div class="date">
+      <div class="date-l">반출 완료</div>
+      <div class="date-v mono">8. 24.<span>월 · 예정</span></div>
+      <div class="date-s">8/25(화)까지 하루 연장될 수 있음</div>
+    </div>
+    <div class="date">
+      <div class="date-l">공사 완료</div>
+      <div class="date-v mono">10. 20.<span>화 · 예정</span></div>
+      <div class="date-s">건축위 최종 협의 결정 후 반영</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>추진 체계</h2><span class="cap">3팀 협업</span><div class="rule"></div>
+  </div>
+  <div class="org">
+    <div class="team">
+      <div class="team-n">건축위팀</div>
+      <div class="team-d">전체 구조와 방향 수립, 설계, 견적, 시공 및 감리</div>
+    </div>
+    <div class="team mid">
+      <div class="team-n">사업단팀</div>
+      <div class="team-d">카페 · 서점의 설계 의견 수립, 실제 운영 및 실무 셋업</div>
+    </div>
+    <div class="team">
+      <div class="team-n">사무국</div>
+      <div class="team-d">운영 및 행정 절차 지원</div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>선한목자교회 총여선교회 사업단</span>
+    <span>1층 성전보수 사업단 PM 안상미</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  var today = new Date();
+  function dday(m, d){
+    var t = new Date(2026, m - 1, d);
+    var a = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    return Math.round((t - a) / 86400000);
+  }
+  function fmt(n){ return n > 0 ? 'D-' + n : (n === 0 ? 'D-DAY' : '완료'); }
+  document.getElementById('d1').textContent = fmt(dday(8, 16));
+  document.getElementById('d2').textContent = fmt(dday(8, 24));
+})();
+</script>
+</body>
+</html>
