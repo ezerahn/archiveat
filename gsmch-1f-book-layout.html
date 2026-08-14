@@ -79,6 +79,7 @@
   .t14{font-size:11.5px;fill:#2c2a26;font-weight:600}
   .t12{font-size:10.5px;fill:#6e6860}
   .dm{font-size:10px;fill:#8a847a}
+  .bn{font-size:8.5px;fill:#2f5b41;font-weight:600}
   .wall{fill:none;stroke:#2c2a26;stroke-width:.9}
   .sell{fill:#eef4ef;stroke:#3d6b4f;stroke-width:.6}
   .back{fill:#f1efe9;stroke:#8a847a;stroke-width:.6}
@@ -96,6 +97,42 @@
   .cus{fill:#a9603f}
   .warnline{stroke:#c0392b;stroke-width:3}
 
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+  .tab{font-size:13px;color:var(--soft);background:var(--card);border:1px solid var(--line);
+    border-radius:18px;padding:7px 15px;cursor:pointer;font-family:inherit;transition:.15s}
+  .tab:hover{background:var(--accent-light);color:var(--accent)}
+  .tab.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  .pane{display:none}
+  .pane.on{display:block}
+  .ctrl{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--bg);
+    border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:10px 0 14px}
+  .ctrl label{font-size:13px;color:var(--soft)}
+  .ctrl input{width:84px;font-family:'IBM Plex Mono',monospace;font-size:13px;
+    padding:6px 9px;border:1px solid var(--line);border-radius:7px;background:var(--card);
+    color:var(--text);text-align:right}
+  .ctrl .hint{font-size:12px;color:var(--muted);margin-left:auto}
+  .bar2{height:7px;background:var(--line2);border-radius:4px;overflow:hidden;min-width:60px}
+  .bar2 i{display:block;height:100%;background:var(--accent);border-radius:4px}
+  .out{font-size:14px;color:var(--soft);margin-top:4px}
+  .out b{color:var(--text)}
+  .out .hl{color:var(--red);font-weight:600}
+  .ask{margin-top:20px;border-top:1px solid var(--line);padding-top:14px}
+  .ask h4{font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:11px}
+  .item{display:flex;gap:10px;margin-bottom:11px;align-items:flex-start}
+  .tagk{flex:none;font-size:11px;font-weight:600;padding:3px 9px;border-radius:9px;white-space:nowrap;margin-top:2px}
+  .tagk.c{color:#2f5b41;background:#eef4ef}
+  .tagk.d{color:#8a6a3c;background:#f7f0e4}
+  .tagk.f{color:#6e6860;background:#f0ece4}
+  .item .tx{font-size:13.5px;color:var(--soft);line-height:1.6}
+  .item .tx b{color:var(--text);font-weight:600}
+  .item .why{display:block;font-size:12.5px;color:var(--muted);margin-top:1px}
+  .glist{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+  .gcol h4{font-size:13px;font-weight:600;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  .gcol.c h4{color:#2f5b41} .gcol.d h4{color:#8a6a3c} .gcol.f h4{color:#6e6860}
+  .gcol ul{margin:0}
+  .gcol li{font-size:13px;margin-bottom:8px;list-style:none;color:var(--soft)}
+  .gcol .no{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);margin-right:5px}
+  @media(max-width:760px){ .glist{grid-template-columns:1fr} }
   .legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;
     padding-top:12px;border-top:1px solid var(--line2)}
   .lg{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
@@ -105,6 +142,7 @@
   .sw.c{background:#faf3e6;border-color:#b8956a}
   .sw.d{background:#f5efe6;border-color:#8a6a45}
   .sw.e{background:#f8ece6;border-color:#a9603f}
+  .sw.f{background:#eef2f5;border-color:#5b7386}
   .dot{width:11px;height:11px;border-radius:50%}
   .dot.s{background:#3d6b4f} .dot.c{background:#a9603f}
 
@@ -122,9 +160,49 @@
     table{display:block;overflow-x:auto}
   }
   @media print{
-    body{background:#fff}
+    @page{ size:A4 portrait; margin:14mm 12mm; }
+    body{background:#fff;font-size:11px;line-height:1.5}
+    .wrap{max-width:none;padding:0}
     .navrow{display:none}
-    .card{break-inside:avoid;page-break-inside:avoid}
+    .head{border-top:0;padding-top:0;margin-bottom:14px}
+    h1{font-size:22px}
+    .lead{font-size:12px}
+    .stats{margin-bottom:16px;border-radius:8px}
+    .stat{padding:9px 10px}
+    .stat-v{font-size:16px}
+    .sec{margin:14px 0 9px}
+    .sec h2{font-size:15px}
+    .card{border-radius:8px;padding:10px 12px;margin-bottom:7px}
+    table,.ask,.glist,.legend,.note{break-inside:avoid;page-break-inside:avoid}
+    svg{break-inside:avoid;page-break-inside:avoid}
+    .sec.brk{break-before:page;page-break-before:always}
+    .card.brk{break-before:page;page-break-before:always}
+    .sec,.sec h2{break-after:avoid;page-break-after:avoid}
+    h3{break-after:avoid;page-break-after:avoid}
+    p,li{font-size:11px;margin-bottom:5px}
+    th,td{font-size:10px;padding:4px 6px}
+    table{break-inside:avoid;page-break-inside:avoid}
+    svg{max-width:120mm;margin:1px auto}
+    svg.tall{max-width:72mm}
+    svg.wide{max-width:96mm}
+    .note{padding:8px 11px;margin:7px 0}
+    .note p{font-size:11px}
+    .tabs{display:none}
+    .pane{display:block !important}
+    .pane+.pane{margin-top:10px}
+    .ctrl{background:#fff;border-style:dashed;padding:7px 10px;margin:7px 0}
+    .ctrl .hint{font-size:10px}
+    .ask{margin-top:11px;padding-top:9px;break-inside:avoid;page-break-inside:avoid}
+    .card.keep{break-inside:avoid;page-break-inside:avoid}
+    .gcol li{font-size:10.5px;margin-bottom:6px}
+    .gcol h4{font-size:11.5px;margin-bottom:8px;padding-bottom:6px}
+    .item{margin-bottom:7px}
+    .item .tx{font-size:11px}
+    .item .why{font-size:10.5px}
+    .legend{gap:9px;margin-top:7px;padding-top:8px}
+    .lg{font-size:10px}
+    .glist{gap:11px}
+    .foot{margin-top:16px;font-size:10px}
   }
 </style>
 </head>
@@ -134,6 +212,7 @@
   <div class="navrow">
     <a class="pill" href="gsmch-1f.html">← 1층 성전보수 홈</a>
     <a class="pill" href="https://claude.ai/chat/b56c9e76-083f-4493-b0bc-edf2b00b7782" target="_blank" rel="noopener">💬 작업 대화</a>
+    <button class="pill" onclick="window.print()" style="cursor:pointer;font-family:inherit">🖨 인쇄 · A4</button>
     <div class="meta">선지서점 배치 검토 &nbsp;|&nbsp; 작성 2026.08.14 · PM 안상미</div>
   </div>
 
@@ -175,16 +254,56 @@
       <tr><td>내부 가로</td><td class="n">7,560</td><td>—</td></tr>
       <tr><td>내부 세로</td><td class="n">4,680</td><td>—</td></tr>
       <tr><td>출입구</td><td class="n">1,800</td><td>양문형 · 좌측에서 3,610 지점부터</td></tr>
-      <tr><td>좌측 벽 남는 길이</td><td class="n">3,610</td><td>넓은 쪽</td></tr>
-      <tr><td>우측 벽 남는 길이</td><td class="n">2,150</td><td>좁은 쪽 · 안내데스크 접함</td></tr>
+      <tr><td>A면 좌측 남는 길이</td><td class="n">3,610</td><td>넓은 쪽</td></tr>
+      <tr><td>A면 우측 남는 길이</td><td class="n">2,150</td><td>좁은 쪽 · 안내데스크 접함</td></tr>
     </table>
     <div class="note">
       <p><b>출입구가 오른쪽으로 치우쳐 좌우 벽이 비대칭입니다.</b> 이것이 계산대 위치를 결정하는 핵심 변수입니다. 원본 도면에는 우측 벽이 2,180으로 적혀 있으나 3,610 + 1,800 + 2,180 = 7,590으로 내부 가로 7,560과 30mm 어긋납니다. 여기서는 계산값 2,150을 썼으며, 현장 실측 때 확인이 필요합니다.</p>
     </div>
-    <p>하단 벽은 외벽이지만 <b>창이 없습니다.</b> 서점은 먼지가 상당해 환기 계획이 반드시 필요하며, 현재 도면에 반영돼 있는지 확인해야 합니다.</p>
+    <p>C면은 외벽이지만 <b>창이 없습니다.</b> 서점은 먼지가 상당해 환기 계획이 반드시 필요하며, 현재 도면에 반영돼 있는지 확인해야 합니다.</p>
+    <div class="ask">
+      <h4>결정 항목</h4>
+      <div class="item"><span class="tagk c">건축위 확인</span><span class="tx"><b>2-1 · B면 폭 30mm 차이</b><br>도면에는 2,180으로 적혀 있으나 3,610 + 1,800 + 2,180 = 7,590으로 내부 가로 7,560과 어긋납니다. 저희는 계산값 2,150으로 검토했습니다. <b>도면 표기가 맞는지, 현장 실측이 필요한지 확인 부탁드립니다.</b><span class="why">→ 계산대가 들어갈 폭과 직결됩니다</span></span></div>
+      <div class="item"><span class="tagk c">건축위 확인</span><span class="tx"><b>2-2 · C면 환기 계획</b><br>서점은 도서 분진이 상당한데 C면은 창이 없는 외벽입니다. <b>현 도면에 환기 계획이 반영돼 있는지 확인 부탁드립니다.</b><span class="why">→ 공사 단계에서만 가능합니다</span></span></div>
+    </div>
   </div>
 
-  <div class="sec"><h2>3 통행 기준</h2><span class="cap">사람이 서는 폭</span><div class="rule"></div></div>
+  <div class="sec"><h2>3 벽면 명칭</h2><span class="cap">문서 · 도면 공통</span><div class="rule"></div></div>
+  <div class="card">
+    <p>「상단 벽」은 책장 위쪽으로, 「좌측 벽」은 서 있는 위치에 따라 달리 읽힙니다. 실내건축 전개도 표기에 맞춰 <b>출입구가 있는 벽을 A면으로 하고 시계 방향</b>으로 정합니다. 계산대가 어느 쪽으로 가든 벽 이름은 바뀌지 않습니다.</p>
+    <svg class="sv" viewBox="0 0 680 340" role="img" aria-label="벽면 명칭">
+      <rect class="wall" x="150" y="50" width="380" height="230"/>
+      <rect class="sell" x="150" y="50" width="16" height="230" rx="2"/>
+      <rect class="sell" x="166" y="50" width="140" height="16" rx="2"/>
+      <rect class="sell" x="166" y="264" width="348" height="16" rx="2"/>
+      <rect class="back" x="514" y="50" width="16" height="230" rx="2"/>
+      <line x1="366" y1="50" x2="456" y2="50" stroke="#2c2a26" stroke-width="3"/>
+      <text class="dm" x="411" y="42" text-anchor="middle">출입구</text>
+      <circle cx="336" cy="58" r="12" fill="#ffffff" stroke="#3d6b4f" stroke-width="1.2"/>
+      <text class="t14" x="336" y="63" text-anchor="middle">A</text>
+      <circle cx="522" cy="165" r="12" fill="#ffffff" stroke="#3d6b4f" stroke-width="1.2"/>
+      <text class="t14" x="522" y="170" text-anchor="middle">B</text>
+      <circle cx="336" cy="272" r="12" fill="#ffffff" stroke="#3d6b4f" stroke-width="1.2"/>
+      <text class="t14" x="336" y="277" text-anchor="middle">C</text>
+      <circle cx="158" cy="165" r="12" fill="#ffffff" stroke="#3d6b4f" stroke-width="1.2"/>
+      <text class="t14" x="158" y="170" text-anchor="middle">D</text>
+      <text class="t12" x="250" y="88" text-anchor="middle">출입구 벽</text>
+      <text class="t12" x="500" y="169" text-anchor="end">안내데스크 접함 · 양면 서가</text>
+      <text class="t12" x="336" y="250" text-anchor="middle">A면 맞은편 · 가장 긴 외벽 · 창 없음</text>
+      <text class="t12" x="176" y="169" text-anchor="start">B면 맞은편</text>
+      <text class="dm" x="340" y="316" text-anchor="middle">A → B → C → D 시계 방향</text>
+    </svg>
+    <table style="margin-top:10px">
+      <tr><th>층위</th><th>용어</th><th>예</th><th>설명</th></tr>
+      <tr><td>벽</td><td><b>A면 · B면 · C면 · D면</b></td><td>C면</td><td>출입구 벽부터 시계 방향</td></tr>
+      <tr><td>세로 구획</td><td><b>칸</b></td><td>C3</td><td>폭 900 · 벽 이름 + 번호</td></tr>
+      <tr><td>높이</td><td><b>단</b></td><td>C3 4단</td><td>아래에서 위로 1~6단</td></tr>
+      <tr><td>수납부</td><td><b>하부장</b></td><td>C3 하부장</td><td>오픈 칸 + 미닫이 칸</td></tr>
+      <tr><td>이름표</td><td><b>네임택 밴드</b></td><td>C3 네임택</td><td>칸 최상부 표기 띠</td></tr>
+    </table>
+  </div>
+
+  <div class="sec"><h2>4 통행 기준</h2><span class="cap">사람이 서는 폭</span><div class="rule"></div></div>
   <div class="card">
     <table>
       <tr><th>용도</th><th class="n">최소</th><th class="n">적용</th><th>근거</th></tr>
@@ -196,9 +315,13 @@
       <tr class="tot"><td>카운터 구역 합계</td><td class="n">—</td><td class="n">2,700</td><td>서가 + 직원 + 카운터 + 줄</td></tr>
     </table>
     <p>카페는 제조 동작이 크고 기물이 많아 1,000~1,200이 필요하지만, <b>서점은 서서 계산하고 뒤에서 꺼내주는 동작뿐</b>이라 900이면 됩니다. 두 명이 동시에 있을 때는 앞뒤로 비켜섭니다.</p>
+    <div class="ask">
+      <h4>결정 항목</h4>
+      <div class="item"><span class="tagk d">사업단 논의</span><span class="tx"><b>4-1 · 대기 줄 900 · 직원 900</b><br>통행 표준값으로 잡았습니다. 매니저 의견을 듣고 확정합니다.</span></div>
+    </div>
   </div>
 
-  <div class="sec"><h2>4 배치안</h2><span class="cap">계산대 위치에 따른 두 안</span><div class="rule"></div></div>
+  <div class="sec brk"><h2>5 배치안</h2><span class="cap">계산대 위치에 따른 두 안</span><div class="rule"></div></div>
 
   <div class="card">
     <h3>A안 — 계산대 우측 <span class="tag warn">550 부족</span></h3>
@@ -240,7 +363,10 @@
       <line class="bay3" x1="611" y1="143" x2="633" y2="143"/><line class="bay3" x1="611" y1="208" x2="633" y2="208"/>
       <line class="bay3" x1="611" y1="273" x2="633" y2="273"/><line class="bay3" x1="611" y1="338" x2="633" y2="338"/>
 
-      <rect class="kio" x="240" y="78" width="70" height="22" rx="2"/>
+      <rect class="kio" x="276" y="78" width="44" height="22" rx="2"/>
+      <line class="ld" x1="298" y1="100" x2="262" y2="118"/>
+      <text class="t12" x="262" y="132" text-anchor="middle">키오스크</text>
+      <text class="t12" x="262" y="146" text-anchor="middle">자투리 610 활용</text>
 
       <rect class="front" x="140" y="160" width="165" height="44" rx="4"/>
       <text class="t14" x="222" y="179" text-anchor="middle">전면 진열대</text>
@@ -274,19 +400,30 @@
       <circle class="stf" cx="550" cy="170" r="7"/>
       <circle class="stf" cx="550" cy="295" r="7"/>
 
-      <line class="ld" x1="71" y1="240" x2="95" y2="240"/>
-      <text class="t12" x="101" y="244">좌측 벽 5칸 · 판매</text>
-      <text class="t12" x="270" y="384" text-anchor="middle">하단 벽 6칸 · 출판사별</text>
-      <line class="ld" x1="120" y1="100" x2="120" y2="118"/>
-      <text class="t12" x="120" y="132" text-anchor="middle">상단 3칸</text>
-      <line class="ld" x1="275" y1="100" x2="250" y2="118"/>
-      <text class="t12" x="250" y="132" text-anchor="middle">키오스크</text>
+      <circle cx="71" cy="110" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="71" y="110" text-anchor="middle" dominant-baseline="central">D5</text>
+      <circle cx="71" cy="175" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="71" y="175" text-anchor="middle" dominant-baseline="central">D4</text>
+      <circle cx="71" cy="240" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="71" y="240" text-anchor="middle" dominant-baseline="central">D3</text>
+      <circle cx="71" cy="305" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="71" y="305" text-anchor="middle" dominant-baseline="central">D2</text>
+      <circle cx="71" cy="370" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="71" y="370" text-anchor="middle" dominant-baseline="central">D1</text>
+      <circle cx="114" cy="89" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="114" y="89" text-anchor="middle" dominant-baseline="central">A1</text>
+      <circle cx="179" cy="89" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="179" y="89" text-anchor="middle" dominant-baseline="central">A2</text>
+      <circle cx="244" cy="89" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="244" y="89" text-anchor="middle" dominant-baseline="central">A3</text>
+      <circle cx="114" cy="404" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="114" y="404" text-anchor="middle" dominant-baseline="central">C1</text>
+      <circle cx="179" cy="404" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="179" y="404" text-anchor="middle" dominant-baseline="central">C2</text>
+      <circle cx="244" cy="404" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="244" y="404" text-anchor="middle" dominant-baseline="central">C3</text>
+      <circle cx="308" cy="404" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="308" y="404" text-anchor="middle" dominant-baseline="central">C4</text>
+      <circle cx="373" cy="404" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="373" y="404" text-anchor="middle" dominant-baseline="central">C5</text>
+      <circle cx="438" cy="404" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="438" y="404" text-anchor="middle" dominant-baseline="central">C6</text>
+      <line class="ld" x1="88" y1="338" x2="104" y2="338"/>
+      <text class="t12" x="110" y="342">D면 5칸 · 판매</text>
+      <text class="t12" x="270" y="366" text-anchor="middle">C면 6칸 · 판매</text>
+      <text class="t12" x="150" y="118" text-anchor="middle">A면 3칸 · 판매</text>
       <line class="ld" x1="515" y1="100" x2="515" y2="112"/>
-      <text class="t12" x="515" y="116" text-anchor="middle">상단 2칸 · 직원</text>
+      <text class="t12" x="515" y="116" text-anchor="middle">A면 2칸 · 직원</text>
       <line class="ld" x1="593" y1="240" x2="570" y2="240"/>
-      <text class="t12" x="564" y="244" text-anchor="end">안쪽 5칸 · 직원만</text>
+      <text class="t12" x="564" y="244" text-anchor="end">B면 안쪽 5칸 · 직원만</text>
       <line class="ld" x1="622" y1="340" x2="622" y2="424"/>
-      <text class="t12" x="640" y="438" text-anchor="end">바깥 5칸 · 디스플레이</text>
+      <text class="t12" x="640" y="438" text-anchor="end">B면 바깥 5칸 · 디스플레이</text>
 
       <line class="dl" x1="40" y1="78" x2="40" y2="415"/>
       <text class="dm" x="28" y="250" text-anchor="middle">4,680</text>
@@ -299,11 +436,12 @@
       <span class="lg"><span class="sw c"></span>장식 디스플레이 5칸</span>
       <span class="lg"><span class="sw d"></span>전면 진열</span>
       <span class="lg"><span class="sw e"></span>카운터 · 창고</span>
+      <span class="lg"><span class="sw f"></span>키오스크</span>
       <span class="lg"><span class="dot s"></span>직원</span>
       <span class="lg"><span class="dot c"></span>고객</span>
     </div>
     <p style="margin-top:14px"><b>좋은 점</b> — 매장 왼쪽 전체가 서가와 진열로 자유롭습니다. 직원 뒷벽 서가가 7칸(약 38 선반미터)으로 넉넉해 훈련교재를 창고 없이도 뒤에 둘 수 있습니다.</p>
-    <p><b>걸리는 점</b> — 카운터 구역 2,700이 우측 2,150에 들어가지 않아 <b class="bad">대기 줄이 출입구 앞으로 550 밀려납니다.</b> 행사 때 들어오는 사람과 줄이 문 앞에서 만납니다. 카운터도 ㄱ자로 꺾을 폭이 없어 일자가 되며, 두 명이 두 변에서 동시에 작업할 수 없습니다. 안내데스크 양면 서가의 안쪽 5칸이 직원 통로 뒤에 갇혀 고객이 쓰지 못합니다.</p>
+    <p><b>걸리는 점</b> — 카운터 구역 2,700이 우측 2,150에 들어가지 않아 <b class="bad">대기 줄이 출입구 앞으로 550 밀려납니다.</b> 행사 때 들어오는 사람과 줄이 문 앞에서 만납니다. 카운터도 ㄱ자로 꺾을 폭이 없어 일자가 되며, 두 명이 두 변에서 동시에 작업할 수 없습니다. B면 양면 서가의 안쪽 5칸이 직원 통로 뒤에 갇혀 고객이 쓰지 못합니다.</p>
   </div>
 
   <div class="card">
@@ -346,7 +484,9 @@
       <line class="bay" x1="514" y1="393" x2="514" y2="415"/>
       <line class="bay" x1="515" y1="78" x2="515" y2="100"/>
 
-      <rect class="kio" x="500" y="78" width="70" height="22" rx="2"/>
+      <rect x="518" y="78" width="65" height="22" rx="2" fill="none" stroke="#5b7386" stroke-width="0.8" stroke-dasharray="4 3" opacity="0.8"/>
+      <line class="ld" x1="550" y1="100" x2="550" y2="116"/>
+      <text class="t12" x="550" y="130" text-anchor="middle">매립 대안 · 13칸</text>
 
       <rect class="front" x="330" y="150" width="165" height="44" rx="4"/>
       <text class="t14" x="412" y="169" text-anchor="middle">전면 진열대</text>
@@ -370,6 +510,9 @@
       <text class="t12" x="146" y="285" text-anchor="middle">1,200</text>
       <text class="t14" x="125" y="356" text-anchor="middle">창고</text>
       <text class="t12" x="125" y="372" text-anchor="middle">1,800 × 1,380</text>
+      <rect class="kio" x="148" y="123" width="40" height="18" rx="2"/>
+      <line class="ld" x1="168" y1="141" x2="230" y2="282"/>
+      <text class="t12" x="236" y="286">키오스크 · 카운터 통합</text>
 
       <circle class="stf" cx="114" cy="160" r="7"/>
       <circle class="stf" cx="114" cy="225" r="7"/>
@@ -378,19 +521,30 @@
       <circle class="cus" cx="222" cy="230" r="7" opacity=".6"/>
       <circle class="cus" cx="150" cy="312" r="7" opacity=".6"/>
 
-      <line class="ld" x1="593" y1="340" x2="560" y2="340"/>
-      <text class="t12" x="554" y="344" text-anchor="end">우측 5칸 · 판매</text>
+      <circle cx="593" cy="110" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="593" y="110" text-anchor="middle" dominant-baseline="central">B1</text>
+      <circle cx="593" cy="175" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="593" y="175" text-anchor="middle" dominant-baseline="central">B2</text>
+      <circle cx="593" cy="240" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="593" y="240" text-anchor="middle" dominant-baseline="central">B3</text>
+      <circle cx="593" cy="305" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="593" y="305" text-anchor="middle" dominant-baseline="central">B4</text>
+      <circle cx="593" cy="370" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="593" y="370" text-anchor="middle" dominant-baseline="central">B5</text>
+      <circle cx="222" cy="404" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="222" y="404" text-anchor="middle" dominant-baseline="central">C1</text>
+      <circle cx="287" cy="404" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="287" y="404" text-anchor="middle" dominant-baseline="central">C2</text>
+      <circle cx="352" cy="404" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="352" y="404" text-anchor="middle" dominant-baseline="central">C3</text>
+      <circle cx="417" cy="404" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="417" y="404" text-anchor="middle" dominant-baseline="central">C4</text>
+      <circle cx="481" cy="404" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="481" y="404" text-anchor="middle" dominant-baseline="central">C5</text>
+      <circle cx="546" cy="404" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="546" y="404" text-anchor="middle" dominant-baseline="central">C6</text>
+      <circle cx="287" cy="89" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="287" y="89" text-anchor="middle" dominant-baseline="central">A1</text>
+      <circle cx="482" cy="89" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="482" y="89" text-anchor="middle" dominant-baseline="central">A2</text>
+      <circle cx="548" cy="89" r="7.5" fill="#ffffff" stroke="#3d6b4f" stroke-width="0.8"/><text class="bn" x="548" y="89" text-anchor="middle" dominant-baseline="central">A3</text>
+      <text class="t12" x="560" y="344" text-anchor="end">B면 5칸 · 판매</text>
       <line class="ld" x1="622" y1="340" x2="622" y2="424"/>
-      <text class="t12" x="640" y="438" text-anchor="end">바깥 5칸 · 디스플레이</text>
-      <text class="t12" x="386" y="384" text-anchor="middle">하단 벽 6칸 · 출판사별</text>
-      <line class="ld" x1="515" y1="100" x2="515" y2="112"/>
-      <text class="t12" x="515" y="116" text-anchor="middle">상단 2칸</text>
-      <line class="ld" x1="287" y1="100" x2="287" y2="118"/>
-      <text class="t12" x="287" y="132" text-anchor="middle">1칸</text>
+      <text class="t12" x="640" y="438" text-anchor="end">B면 바깥 5칸 · 디스플레이</text>
+      <text class="t12" x="386" y="366" text-anchor="middle">C면 6칸 · 판매</text>
+      <text class="t12" x="470" y="116" text-anchor="middle">A면 2칸</text>
+      <text class="t12" x="320" y="116" text-anchor="middle">A면 1칸</text>
       <line class="ld" x1="222" y1="94" x2="222" y2="110"/>
       <text class="t12" x="200" y="118" text-anchor="end">얕은 선반 200</text>
       <line class="ld" x1="71" y1="200" x2="55" y2="200"/>
-      <text class="t12" x="49" y="204" text-anchor="end">뒷벽 3칸</text>
+      <text class="t12" x="55" y="204" text-anchor="end">D면 3칸</text>
 
       <line class="dl" x1="40" y1="78" x2="40" y2="415"/>
       <text class="dm" x="28" y="250" text-anchor="middle">4,680</text>
@@ -403,38 +557,46 @@
       <span class="lg"><span class="sw c"></span>장식 디스플레이 5칸</span>
       <span class="lg"><span class="sw d"></span>전면 진열</span>
       <span class="lg"><span class="sw e"></span>카운터 · 창고</span>
+      <span class="lg"><span class="sw f"></span>키오스크</span>
       <span class="lg"><span class="dot s"></span>직원</span>
       <span class="lg"><span class="dot c"></span>고객</span>
     </div>
-    <p style="margin-top:14px"><b>좋은 점</b> — 카운터 구역이 좌측 안에 들어가고 910이 남습니다. ㄱ자로 꺾여 행사 때 결제와 포장을 두 사람이 동시에 합니다. 창고가 1,800 × 1,380으로 사람이 들어가 정리할 수 있습니다. 안내데스크 양면 서가의 안쪽 5칸이 고객이 쓰는 판매 서가가 됩니다.</p>
+    <p style="margin-top:14px"><b>좋은 점</b> — 카운터 구역이 좌측 안에 들어가고 910이 남습니다. ㄱ자로 꺾여 행사 때 결제와 포장을 두 사람이 동시에 합니다. 창고가 1,800 × 1,380으로 사람이 들어가 정리할 수 있습니다. B면 양면 서가의 안쪽 5칸이 고객이 쓰는 판매 서가가 됩니다.</p>
+    <p><b>A면의 얕은 선반</b>은 대기 줄이 마주 보는 자리입니다. 기다리는 동안 눈이 가는 곳이라 소책자 · 엽서 · 얇은 책처럼 집어 들기 쉬운 것을 세워둡니다. 깊이를 200으로 얕게 하는 것은 대기 줄 900을 좁히지 않기 위해서입니다. 판매 서가 14칸에는 포함되지 않는 별도 선반입니다.</p>
     <p><b>걸리는 점</b> — 계산을 마친 손님이 나가려면 줄 옆을 지납니다. 출입구에서 대각선 반대편이라 들어와서 바로 눈에 띄지 않아, 사인이나 조명으로 보완이 필요합니다.</p>
   </div>
 
-  <div class="sec"><h2>5 두 안 비교</h2><span class="cap">회의용</span><div class="rule"></div></div>
   <div class="card">
-    <table>
-      <tr><th>항목</th><th>A안 · 계산대 우측</th><th>B안 · 계산대 좌측</th></tr>
-      <tr><td>카운터 구역 필요 폭</td><td class="n">2,700</td><td class="n">2,700</td></tr>
-      <tr><td>해당 벽 가용 폭</td><td class="n">2,150</td><td class="n">3,610</td></tr>
-      <tr><td><b>과부족</b></td><td><span class="bad">550 부족</span></td><td><span class="ok">910 여유</span></td></tr>
-      <tr><td>대기 줄</td><td>900 · 출입구 앞 침범</td><td>900 · 매장 안 수용</td></tr>
-      <tr><td>카운터 형태</td><td>일자 1,400 + 1,600</td><td>ㄱ자 1,800 + 1,200</td></tr>
-      <tr><td>동시 작업</td><td>앞뒤로 1명씩</td><td>2~3명</td></tr>
-      <tr><td>창고</td><td>1,500 × 1,080</td><td>1,800 × 1,380</td></tr>
-      <tr><td><b>판매 서가</b></td><td><b>14칸</b></td><td><b>14칸</b></td></tr>
-      <tr><td>직원 뒷벽 서가</td><td>7칸</td><td>3칸</td></tr>
-      <tr><td>안내데스크 안쪽면</td><td>직원만 접근</td><td>고객이 쓰는 판매 서가</td></tr>
-    </table>
-    <div class="note">
-      <p><b>판매 서가는 두 안 모두 14칸으로 같습니다.</b> 서가 용량은 선택 기준이 되지 않습니다. 갈리는 것은 대기 줄이 매장 안에 들어오느냐와, 안내데스크 양면 서가의 안쪽 절반을 고객이 쓸 수 있느냐입니다.</p>
+    <div class="ask">
+      <h4>결정 항목</h4>
+      <div class="item"><span class="tagk c">건축위 확인</span><span class="tx"><b>5-1 · B면 양면 서가 두께 700</b><br>바깥면 300 + 벽체 100 + 안쪽면 300입니다. 바깥면은 안내데스크 영역으로 나갑니다. <b>이 두께를 확보할 수 있는지 확인 부탁드립니다.</b><span class="why">→ 벽체 위치가 정해지면 바꿀 수 없습니다</span></span></div>
+      <div class="item"><span class="tagk c">건축위 확인</span><span class="tx"><b>5-2 · B면 바깥면 디스플레이 관리 주체</b><br>로비 쪽 5칸을 서점이 채울지, 교회가 채울지에 따라 재고 귀속이 달라집니다. <b>사무국과 함께 정해 주시기 바랍니다.</b></span></div>
+      <div class="item"><span class="tagk c">건축위 확인</span><span class="tx"><b>5-3 · 출입구 유리 + 블라인드 병행</b><br>안이 보이면 들어오기 쉽고, 가릴 수 있어야 정리 시간을 확보합니다. <b>병행이 가능한지 확인 부탁드립니다.</b></span></div>
+      <div class="item"><span class="tagk d">사업단 논의</span><span class="tx"><b>5-4 · A안 · B안 방향 선택</b><br>계산대를 어느 쪽에 둘지 정합니다.</span></div>
+      <div class="item"><span class="tagk d">사업단 논의</span><span class="tx"><b>5-5 · 키오스크 자리</b><br>A안은 A면 자투리 610에 넣으면 서가 손실이 없습니다. B안은 계산대 통합과 A면 1칸 매립 중 선택해야 합니다.<span class="why">→ A면 1칸을 쓰면 191권이 갈 곳을 잃습니다</span></span></div>
+      <div class="item"><span class="tagk f">사업단 추후</span><span class="tx"><b>5-6 · 창고 내부 구성</b><br>선반 단수와 잠금 범위를 정해 전달드립니다.</span></div>
     </div>
   </div>
 
-  <div class="sec"><h2>6 서가 구성</h2><span class="cap">1칸 사양과 용량</span><div class="rule"></div></div>
+  <div class="card">
+    <h3>키오스크 자리</h3>
+    <div class="sub">두 안 공통 · 미정</div>
+    <p>자리를 정하는 기준은 셋입니다. <b>출입구에서 보이되 걸어 들어오는 길을 막지 않아야 하고, 벽에 붙어야 전원·통신을 벽으로 뺄 수 있습니다.</b> 바닥에 세우면 바닥 매립 배선이 필요해 공사가 커집니다.</p>
+    <p><b>A안에는 자투리가 있습니다.</b> A면 서가 3칸이 2,700을 쓰고 출입구까지 610이 남습니다. 키오스크 폭이 보통 500~550이라 이 자리에 들어가며, 들어서면서 바로 눈에 들어오고 진입 동선 옆으로 비켜 있습니다. <b>서가를 하나도 잃지 않습니다.</b></p>
+    <p><b>B안에는 자투리가 없습니다.</b> A면 우측 1,850이 서가 2칸으로 꽉 차기 때문입니다. 계산대 결제부에 통합하면 전원과 통신을 함께 쓰고 서가 손실도 없지만, 출입구에서 대각선 반대편이라 눈에 덜 띕니다. A면 1칸을 키오스크로 돌리면 잘 보이는 대신 <b>판매 서가가 13칸으로 줄어 191권이 갈 곳을 잃습니다.</b></p>
+    <table style="margin-top:10px">
+      <tr><th>안</th><th>위치</th><th>서가 손실</th><th>눈에 띄는 정도</th></tr>
+      <tr><td>A안</td><td>A면 자투리 610 매립</td><td>없음</td><td>진입 직후 정면</td></tr>
+      <tr><td>B안</td><td>계산대 결제부 통합</td><td>없음</td><td>대각선 반대편</td></tr>
+      <tr><td>B안 대안</td><td>A면 1칸 매립</td><td>1칸 · 191권</td><td>진입 직후 정면</td></tr>
+    </table>
+  </div>
+
+  <div class="sec brk"><h2>6 서가 구성</h2><span class="cap">1칸 사양과 용량</span><div class="rule"></div></div>
   <div class="card">
     <h3>서가 1칸 입면</h3>
     <div class="sub">폭 900 × 높이 2,700 · 두 안 공통</div>
-    <svg class="sv" viewBox="0 0 680 535" role="img" aria-label="서가 1칸 입면">
+    <svg class="sv tall" viewBox="0 0 680 535" role="img" aria-label="서가 1칸 입면">
       <rect class="front" x="240" y="40" width="144" height="34" rx="2"/>
       <rect class="sell" x="240" y="74" width="144" height="278" rx="2"/>
       <line class="dl" x1="240" y1="120" x2="384" y2="120"/><line class="dl" x1="240" y1="166" x2="384" y2="166"/>
@@ -479,9 +641,156 @@
     <div class="note">
       <p><b>하부 수납은 두 층으로 나뉩니다.</b> 오픈 칸에는 미리 포장해 둔 완료품과 구입용 도서 4~5권을 두어 고객이 직접 집어 갑니다. 그 아래 미닫이 칸에는 재고를 넣습니다. 「수납장 필요」라고만 전달하면 전부 문 달린 장으로 그려지므로 반드시 구분해야 합니다.</p>
     </div>
-    <p><b>직원 뒷벽 서가도 같은 전면 구성</b>으로 갑니다. 프레임·선반 간격·간접조명을 동일하게 해서 벽 전체가 서가로 읽히게 하되, 하부는 전부 가려진 수납으로 하고 상품권 칸만 잠급니다.</p>
+    <h3 style="margin-top:26px">네임택 밴드</h3>
+    <div class="sub">칸 최상부 이름표 · 끼워 넣는 방식</div>
+    <p>주제 구획과 베스트셀러 순위는 계속 바뀝니다. <b>각인이나 실사 부착으로 만들면 바꿀 수 없으므로</b>, 인쇄한 판을 옆에서 밀어 넣는 <b>슬롯 방식</b>으로 요청합니다. 끼우면 테두리가 보이지 않아 벽 전체가 하나로 읽힙니다.</p>
+    <svg class="sv wide" viewBox="0 0 680 250" role="img" aria-label="네임택 밴드 슬롯 구조">
+      <text class="t14" x="60" y="26">정면 — 칸 하나</text>
+      <rect x="60" y="40" width="280" height="42" rx="3" class="front"/>
+      <rect x="72" y="49" width="256" height="24" rx="2" fill="none" stroke="#8a6a45" stroke-width="0.6" stroke-dasharray="4 3" opacity="0.8"/>
+      <text class="t14" x="200" y="66" text-anchor="middle">기 도</text>
+      <line class="ld" x1="344" y1="61" x2="380" y2="61"/>
+      <text class="t12" x="386" y="65">인서트를 옆으로 밀어 뺌</text>
+      <line class="dl" x1="60" y1="94" x2="340" y2="94"/>
+      <line class="dl" x1="60" y1="90" x2="60" y2="98"/><line class="dl" x1="340" y1="90" x2="340" y2="98"/>
+      <text class="dm" x="200" y="110" text-anchor="middle">칸 폭 900 · 인서트 노출 860</text>
+      <line class="dl" x1="46" y1="40" x2="46" y2="82"/>
+      <text class="dm" x="36" y="65" text-anchor="end">210</text>
+
+      <text class="t14" x="60" y="150">단면 — 슬롯 구조</text>
+      <rect x="60" y="166" width="24" height="70" rx="2" fill="#efece4" stroke="#2c2a26" stroke-width="0.8"/>
+      <rect x="84" y="171" width="15" height="60" rx="2" class="sell"/>
+      <rect x="99" y="184" width="5" height="34" fill="#8a6a45"/>
+      <path d="M84 178 L114 178 L114 186 L99 186" fill="none" stroke="#2c2a26" stroke-width="0.7"/>
+      <path d="M84 224 L114 224 L114 216 L99 216" fill="none" stroke="#2c2a26" stroke-width="0.7"/>
+      <text class="t12" x="72" y="248" text-anchor="middle">벽</text>
+      <text class="t12" x="91" y="248" text-anchor="middle">틀</text>
+      <line class="ld" x1="104" y1="192" x2="150" y2="180"/>
+      <text class="t12" x="156" y="184">인서트 · 두께 3~5</text>
+      <line class="ld" x1="114" y1="182" x2="150" y2="212"/>
+      <text class="t12" x="156" y="216">위아래 홈이 잡아줌</text>
+      <line class="ld" x1="91" y1="236" x2="150" y2="240"/>
+      <text class="t12" x="156" y="244">간접조명은 틀 안쪽에 매립</text>
+
+      <text class="t12" x="420" y="160">공사 범위 — 틀 · 홈 · 조명 · 전원</text>
+      <text class="t12" x="420" y="180">사업단 준비 — 인서트 인쇄 · 교체</text>
+      <text class="t12" x="420" y="206">글자 높이 40 이상 · 3m에서 읽힘</text>
+      <text class="t12" x="420" y="226">서체 통일 · 여분은 창고 보관</text>
+    </svg>
+    <table style="margin-top:10px">
+      <tr><th>항목</th><th>값</th><th>비고</th></tr>
+      <tr><td>노출 크기</td><td class="n">860 × 160</td><td>칸 폭 900에서 틀 두께를 뺀 값</td></tr>
+      <tr><td>실제 판 크기</td><td class="n">880 × 180</td><td>홈에 물리는 여유 10씩</td></tr>
+      <tr><td>두께</td><td class="n">3~5</td><td>얇으면 휘고 두꺼우면 들어가지 않음</td></tr>
+      <tr><td>재질</td><td>PET 인쇄 또는 두꺼운 종이 코팅</td><td>—</td></tr>
+    </table>
+    <div class="note">
+      <p><b>880mm 폭은 A3 프린터로 출력되지 않습니다.</b> 실사출력 업체에 맡겨야 해서 급할 때 바로 뽑지 못합니다. 밴드를 반으로 나눠 시공하면 한 칸에 430짜리 두 장이 들어가고, 이는 사무실 A3 프린터로 바로 출력됩니다. 주제명이 짧아 두 장을 나란히 붙여도 어색하지 않습니다.</p>
+    </div>
+    <p><b>밴드를 통짜로 할지 반으로 나눌지 정해서 설계사에게 알려야 합니다.</b> 절기마다 문구를 바꾸실 계획이면 분할이 낫고, 한번 정하면 잘 바꾸지 않으실 거면 통짜가 깔끔합니다. 홈 치수가 시공되면 그 규격으로 고정되므로 공사 전에 정해야 합니다. 운영은 주제가 확정되면 14장을 인쇄해 끼우고, 바뀌면 그 칸 한 장만 새로 뽑는 방식입니다.</p>
+
   </div>
 
+  <div class="card">
+    <div class="ask">
+      <h4>결정 항목</h4>
+      <div class="item"><span class="tagk c">건축위 확인</span><span class="tx"><b>6-1 · 서가 높이 2,700 · 6단</b><br>하부장 750 위에 선반 6단을 두면 총 2,700입니다. <b>층고와 천장 계획에 들어가는지 확인 부탁드립니다.</b><span class="why">→ 단수가 줄면 수용 권수가 부족해집니다</span></span></div>
+      <div class="item"><span class="tagk c">건축위 확인</span><span class="tx"><b>6-2 · 네임택 밴드 슬롯 구조와 간접조명 전원</b><br>인쇄한 판을 옆에서 밀어 넣는 슬롯 방식이 필요합니다. <b>틀 · 홈 · 조명 · 전원을 공사 범위에 포함해 주시기 바랍니다.</b><span class="why">→ 각인이나 부착으로 만들면 교체할 수 없습니다</span></span></div>
+      <div class="item"><span class="tagk c">건축위 확인</span><span class="tx"><b>6-3 · 키오스크 벽면 매립 여부</b><br>벽에 매립하면 A면 서가가 900 줄어 판매 서가가 13칸이 됩니다. <b>자립형 또는 카운터 통합이 가능한지 확인 부탁드립니다.</b><span class="why">→ 한 칸 차이로 191권이 갈 곳을 잃습니다</span></span></div>
+      <div class="item"><span class="tagk f">사업단 추후</span><span class="tx"><b>6-4 · 네임택 밴드 통짜 · 분할</b><br>인서트 인쇄 방식과 연동됩니다. 규격을 정해 전달드립니다.</span></div>
+    </div>
+  </div>
+
+  <div class="sec"><h2>7 직원 구역</h2><span class="cap">뒷벽 서가 · 계산대 · 포장대</span><div class="rule"></div></div>
+  <div class="card">
+    <h3>직원 뒷벽 서가</h3>
+    <div class="sub">하부장만 수납 · 그 위는 전부 오픈</div>
+    <p>창고가 따로 있으므로 뒷벽은 <b>오픈으로 갑니다.</b> 행사 때 문을 열고 닫는 시간이 그대로 줄로 쌓입니다. 뒷벽은 오늘 나갈 것과 자주 꺼내는 것을 두고, 박스 재고와 반품 대기는 창고가 맡습니다.</p>
+    <p>다만 <b>하부장 750은 미닫이를 유지합니다.</b> 카운터 높이 900에 가려 어차피 보이지 않고, 숙여야 꺼낼 수 있어 급한 물건 자리가 아니며, 시재·서류·상품권은 잠글 문이 필요합니다.</p>
+    <svg class="sv" viewBox="0 0 680 400" role="img" aria-label="직원 뒷벽 서가 1칸 구성">
+      <rect class="front" x="200" y="26" width="120" height="26" rx="2"/>
+      <rect class="sell" x="200" y="52" width="120" height="228" rx="2"/>
+      <line class="dl" x1="200" y1="90" x2="320" y2="90"/><line class="dl" x1="200" y1="128" x2="320" y2="128"/>
+      <line class="dl" x1="200" y1="166" x2="320" y2="166"/><line class="dl" x1="200" y1="204" x2="320" y2="204"/>
+      <line class="dl" x1="200" y1="242" x2="320" y2="242"/>
+      <rect class="back" x="200" y="280" width="120" height="66" rx="2"/>
+      <rect class="back" x="200" y="346" width="120" height="12" rx="2"/>
+      <line class="dl" x1="260" y1="280" x2="260" y2="346"/>
+      <line class="ld" x1="320" y1="39" x2="334" y2="39"/>
+      <text class="t12" x="340" y="43">네임택 · 직원용 표기</text>
+      <line class="ld" x1="320" y1="71" x2="334" y2="71"/>
+      <text class="t12" x="340" y="68">6단 · 손 안 닿음</text>
+      <text class="t12" x="340" y="83">저회전 · 여분</text>
+      <line class="ld" x1="320" y1="147" x2="334" y2="147"/>
+      <text class="t12" x="340" y="137">4~5단 · 골든존</text>
+      <text class="t12" x="340" y="152">돌아서서 바로 꺼내는 자리</text>
+      <text class="t12" x="340" y="167">포장 완료품 · 예약 도서</text>
+      <line class="ld" x1="320" y1="261" x2="334" y2="261"/>
+      <text class="t12" x="340" y="258">1~3단 · 무거운 것</text>
+      <text class="t12" x="340" y="273">성경 · 훈련교재</text>
+      <line class="ld" x1="320" y1="313" x2="334" y2="313"/>
+      <text class="t12" x="340" y="303">하부장 750 · 미닫이</text>
+      <text class="t12" x="340" y="318">시재 · 서류 · 상품권(잠금)</text>
+      <text class="t12" x="340" y="333">카운터에 가려 보이지 않음</text>
+      <line class="dl" x1="180" y1="52" x2="180" y2="280"/>
+      <text class="dm" x="170" y="168" text-anchor="end">1,740</text>
+      <line class="dl" x1="180" y1="280" x2="180" y2="358"/>
+      <text class="dm" x="170" y="322" text-anchor="end">750</text>
+      <line class="dl" x1="200" y1="374" x2="320" y2="374"/>
+      <text class="dm" x="260" y="390" text-anchor="middle">폭 900 · 판매 서가와 동일 규격</text>
+    </svg>
+    <p style="margin-top:12px"><b>칸마다 용도를 고정</b>하고 같은 규격 수납 박스로 통일하면 오픈이어도 어수선해 보이지 않습니다. 쇼핑백이 가지런히 서 있는 편이 오히려 낫습니다.</p>
+    <table>
+      <tr><th>칸</th><th>용도</th><th>이유</th></tr>
+      <tr><td>B1</td><td>포장 자재 — 쇼핑백 · 포장지 · 리본</td><td>포장대 바로 뒤</td></tr>
+      <tr><td>B2</td><td>포장 완료품 · 픽업 대기</td><td>이름표 꽂이</td></tr>
+      <tr><td>B3</td><td>성경 · 찬송가 재고 (역본 · 크기별)</td><td>상담 판매용</td></tr>
+      <tr><td>B4</td><td>훈련교재</td><td>대량 동일 품목</td></tr>
+      <tr><td>B5</td><td>예약 · 주문 도서 + 신간 여분</td><td>이름표 부착</td></tr>
+    </table>
+    <p class="sub" style="margin-top:6px">A안 기준 B면 5칸입니다. B안은 D면 3칸이므로 B1 · B2 · B3만 두고 나머지는 창고가 맡습니다.</p>
+  </div>
+
+  <div class="card">
+    <h3>계산대 상판</h3>
+    <div class="sub">전원 · 통신이 상판 안으로</div>
+    <table>
+      <tr><th>기물</th><th>전원</th><th>통신</th><th>위치</th></tr>
+      <tr><td>POS 모니터 · 본체</td><td>필요</td><td>유선 랜</td><td>상판</td></tr>
+      <tr><td>카드단말기</td><td>필요</td><td>유선 또는 무선</td><td>상판</td></tr>
+      <tr><td>바코드 스캐너</td><td>POS 급전</td><td>—</td><td>상판</td></tr>
+      <tr><td>영수증 프린터</td><td>필요</td><td>POS 연결</td><td>상판 아래</td></tr>
+      <tr><td>캐시드로어</td><td>—</td><td>—</td><td>서랍형</td></tr>
+      <tr><td>상품권 보관함</td><td>—</td><td>—</td><td>잠금 서랍</td></tr>
+    </table>
+    <div class="note">
+      <p><b>요청 사양</b> — 매입 콘센트 4구 이상, 유선 랜 2포트(하나는 예비), 상판 하부 배선 트레이. 무선만 두면 행사 때 결제가 끊깁니다. 노출 배선은 나중에 정리할 수 없습니다.</p>
+    </div>
+    <p><b>상판 위에는 POS · 카드단말기 · 스캐너 세 가지만</b> 두고 나머지는 서랍으로 내립니다. 상판이 좁으면 결제 속도가 떨어집니다.</p>
+  </div>
+
+  <div class="card">
+    <h3>포장대</h3>
+    <div class="sub">행사 때가 기준</div>
+    <p>포장이 몰릴 때 가장 오래 걸리는 것은 <b>포장지와 리본을 자르는 시간</b>입니다. 이것을 줄이는 방법이 셋입니다.</p>
+    <ul>
+      <li><b>포장 등급 3종 고정</b> — 간이(봉투 + 스티커) · 기본(쇼핑백 + 리본) · 선물(포장지 + 카드). 고르는 시간이 사라지고 자재도 세 가지만 준비합니다.</li>
+      <li><b>자재 사전 재단</b> — 행사 전날 포장지를 규격대로 잘라 B1 칸에 세워 둡니다. 롤에서 자르는 동작이 없어집니다.</li>
+      <li><b>결제와 포장 분리</b> — 결제를 마친 분은 영수증을 들고 포장대 쪽으로 옮겨 기다립니다. 줄 하나가 옆으로 흐르는 구조라 계산대가 막히지 않습니다.</li>
+    </ul>
+    <p><b>선주문 · 선포장</b>도 준비합니다. 임직식처럼 대상이 정해진 행사는 전날 미리 포장해 이름표를 붙여 B2에 세워두고, 당일은 결제만 받습니다.</p>
+    <p>포장대 상판은 <b>최소 1,200 이상</b>이어야 두 명이 동시에 씁니다. A안 1,600 · B안 1,200으로 두 안 모두 확보됩니다.</p>
+    <div class="ask">
+      <h4>결정 항목</h4>
+      <div class="item"><span class="tagk c">건축위 확인</span><span class="tx"><b>7-1 · 계산대 전기 · 통신</b><br><b>매입 콘센트 4구 이상, 유선 랜 2포트, 상판 하부 배선 트레이를 공사 범위에 포함해 주시기 바랍니다.</b><span class="why">→ 노출 배선은 나중에 정리할 수 없습니다</span></span></div>
+      <div class="item"><span class="tagk c">건축위 확인</span><span class="tx"><b>7-2 · 키오스크 전원 · 통신 · 결제 단말 연동</b><br><b>배선 경로와 단말 연동 방식을 확인 부탁드립니다.</b></span></div>
+      <div class="item"><span class="tagk d">사업단 논의</span><span class="tx"><b>7-3 · 뒷벽 하부장 잠금 범위</b><br>상품권 칸만 잠글지, 하부장 전체를 잠글지 정합니다.</span></div>
+      <div class="item"><span class="tagk f">사업단 추후</span><span class="tx"><b>7-4 · 포장 등급 3종과 자재 규격</b><br>등급별 자재와 재단 규격을 정해 전달드립니다.</span></div>
+      <div class="item"><span class="tagk f">사업단 추후</span><span class="tx"><b>7-5 · POS · 단말기 기종</b><br>기종에 따라 상판 타공 위치가 달라집니다.</span></div>
+    </div>
+  </div>
+
+  <div class="sec brk"><h2>8 도서 배분</h2><span class="cap">서가 14칸 · 두 가지 방식</span><div class="rule"></div></div>
   <div class="card">
     <h3>용량 검토</h3>
     <div class="sub">재고 데이터 26.08.02 기준</div>
@@ -507,40 +816,163 @@
     </div>
   </div>
 
-  <div class="sec"><h2>7 출판사별 배분</h2><span class="cap">14칸 기준</span><div class="rule"></div></div>
   <div class="card">
-    <table>
-      <tr><th>출판사</th><th class="n">권수</th><th class="n">필요 칸</th><th>구획</th></tr>
-      <tr><td>규장문화사</td><td class="n">728</td><td class="n">2.7</td><td>독립 3칸</td></tr>
-      <tr><td>두란노</td><td class="n">660</td><td class="n">2.4</td><td>독립 3칸</td></tr>
-      <tr><td>생명의말씀사</td><td class="n">453</td><td class="n">1.7</td><td>독립 2칸</td></tr>
-      <tr><td>한국기독학생회 (IVP)</td><td class="n">382</td><td class="n">1.4</td><td>독립 2칸</td></tr>
-      <tr><td>복있는사람</td><td class="n">198</td><td class="n">0.7</td><td>공용 1칸</td></tr>
-      <tr><td>아가페출판사</td><td class="n">193</td><td class="n">0.7</td><td>공용 1칸</td></tr>
-      <tr><td>토기장이 · 성서유니온</td><td class="n">216</td><td class="n">0.8</td><td>공용 1칸</td></tr>
-      <tr><td>그 외 소형 출판사</td><td class="n">871</td><td class="n">3.2</td><td>주제별 구획</td></tr>
-      <tr class="tot"><td>합계</td><td class="n">3,701</td><td class="n">13.6</td><td>14칸</td></tr>
-    </table>
-    <p style="margin-top:12px">상위 네 곳이 8.2칸으로 전체의 60%입니다. <b>소형 출판사 871권은 출판사별로 나누면 칸당 한두 단씩만 차서 네임택이 무의미해집니다.</b> 여기는 주제별로 묶는 것이 맞습니다 — 훈련책 · 가정/결혼 · 자녀/양육 · 기도문.</p>
-    <p>네임택은 <b>슬라이드 홀더 방식</b>으로 요청합니다. 외국 저자 구획과 베스트셀러 순위는 계속 바뀌므로 교체가 가능해야 합니다.</p>
-  </div>
+    <div class="tabs" id="btabs">
+      <button class="tab on" data-p="subj">주제별</button>
+      <button class="tab" data-p="pub">출판사별</button>
+    </div>
+    <div class="ctrl">
+      <label for="perBay">1칸당 수용 권수</label>
+      <input id="perBay" type="number" min="120" max="500" step="10" value="270">
+      <span class="hint">6단 × 0.9m ÷ 책등 20mm 기준. 값을 바꾸면 필요 칸이 다시 계산됩니다.</span>
+    </div>
+    <div class="pane on" id="p-subj">
+      <table><thead><tr><th>주제</th><th class="n">종수</th><th class="n">권수</th><th class="n">필요 칸</th><th>비중</th></tr></thead>
+      <tbody id="tb-subj"></tbody></table>
+    </div>
+    <div class="pane" id="p-pub">
+      <table><thead><tr><th>출판사</th><th class="n">종수</th><th class="n">권수</th><th class="n">필요 칸</th><th>비중</th></tr></thead>
+      <tbody id="tb-pub"></tbody></table>
+    </div>
+    <div class="out" id="bayOut"></div>
+    <div class="note">
+      <p><b>미분류 532권(431종)은 매니저 검수가 필요합니다.</b> 도서명만으로 자동 분류해 제목에 단서가 없는 책이 남았습니다. 재고 파일의 도서목록 시트에서 「기타 · 미분류」로 걸러 함께 넘겨보면 대부분 정리됩니다.</p>
+    </div>
+    <p style="margin-top:14px"><b>판매 서가는 주제별, 직원 뒷벽과 창고는 출판사별</b>로 나누는 것을 제안합니다. 교인은 「기도에 관한 책 있나요」라고 묻지 「규장 책 어디 있나요」라고 하지 않습니다. 서가 상단 네임택이 출판사명이면 고객에게 아무 정보가 되지 않습니다. 반면 반품·발주·재고는 출판사 단위로 돌아가므로, 그 관리는 직원 구역 뒤에서 하면 됩니다.</p>
 
-  <div class="sec"><h2>8 미결 항목</h2><span class="cap">정해야 할 것</span><div class="rule"></div></div>
-  <div class="card">
-    <table>
-      <tr><th>구분</th><th>항목</th><th>정해야 할 주체</th></tr>
-      <tr><td>배치</td><td>A안 · B안 방향 선택</td><td>사업단 · 건축위</td></tr>
-      <tr><td>구조</td><td>환기 계획이 현 도면에 있는지 확인</td><td>건축위 · 설계사</td></tr>
-      <tr><td>구조</td><td>양면 서가 총 두께 700 확보 가능 여부</td><td>건축위 · 설계사</td></tr>
-      <tr><td>운영</td><td>바깥면 디스플레이의 관리 주체</td><td>사무국 · 사업단</td></tr>
-      <tr><td>구조</td><td>출입구 유리 + 블라인드 병행</td><td>설계사</td></tr>
-      <tr><td>배치</td><td>고정 벽장(담임목사 · 유기성 · 신간) 위치</td><td>사업단</td></tr>
-      <tr><td>배치</td><td>스페이스 월 위치와 면적</td><td>사업단</td></tr>
-      <tr><td>발주</td><td>키오스크 전원 · 통신 · 결제 단말 연동</td><td>건축위 · 사업단</td></tr>
-      <tr><td>운영</td><td>말씀함께 외부 판매 방식</td><td>사업단 · 검토 중</td></tr>
+    <h3 style="margin-top:26px">A안 기준 14칸 배분</h3>
+    <div class="sub">키오스크 자립형 전제 · 동선은 입구에서 왼쪽으로 A3→A1 → D5→D1 → C1→C6 → 계산대</div>
+    <svg class="sv" viewBox="0 0 680 450" role="img" aria-label="A안 서가 칸 배분 평면">
+      <text class="dm" x="190" y="40" text-anchor="middle">3,610</text>
+      <text class="dm" x="385" y="40" text-anchor="middle">출입구 1,800</text>
+      <text class="dm" x="527" y="40" text-anchor="middle">2,150</text>
+      <rect class="wall" x="60" y="55" width="544" height="337"/>
+      <rect class="sell" x="60" y="55" width="22" height="337" rx="2"/>
+      <rect class="sell" x="82" y="55" width="194" height="22" rx="2"/>
+      <rect class="sell" x="82" y="370" width="389" height="22" rx="2"/>
+      <rect class="back" x="450" y="55" width="133" height="22" rx="2"/>
+      <rect class="back" x="583" y="55" width="21" height="337" rx="2"/>
+      <rect x="604" y="55" width="7" height="337" fill="#cfc9bd"/>
+      <rect class="disp" x="611" y="55" width="22" height="337" rx="2"/>
+      <line class="bay" x1="60" y1="120" x2="82" y2="120"/><line class="bay" x1="60" y1="185" x2="82" y2="185"/>
+      <line class="bay" x1="60" y1="250" x2="82" y2="250"/><line class="bay" x1="60" y1="315" x2="82" y2="315"/>
+      <line class="bay" x1="147" y1="55" x2="147" y2="77"/><line class="bay" x1="211" y1="55" x2="211" y2="77"/>
+      <line class="bay" x1="147" y1="370" x2="147" y2="392"/><line class="bay" x1="211" y1="370" x2="211" y2="392"/>
+      <line class="bay" x1="276" y1="370" x2="276" y2="392"/><line class="bay" x1="341" y1="370" x2="341" y2="392"/>
+      <line class="bay" x1="406" y1="370" x2="406" y2="392"/>
+
+      <rect class="front" x="140" y="127" width="150" height="42" rx="4"/>
+      <text class="t14" x="215" y="143" text-anchor="middle">전면 진열대</text>
+      <text class="t12" x="215" y="159" text-anchor="middle">성경 · 찬송가 · 베스트</text>
+      <rect class="front" x="140" y="227" width="150" height="42" rx="4"/>
+      <text class="t14" x="215" y="243" text-anchor="middle">용품 진열대</text>
+      <text class="t12" x="215" y="259" text-anchor="middle">3단 · 하부 수납</text>
+      <rect class="front" x="315" y="227" width="80" height="42" rx="4"/>
+      <text class="t14" x="355" y="252" text-anchor="middle">키즈</text>
+      <rect class="kio" x="315" y="127" width="80" height="30" rx="4"/>
+      <text class="t12" x="355" y="146" text-anchor="middle">키오스크</text>
+
+      <rect class="zone" x="410" y="98" width="65" height="216"/>
+      <rect class="zone" x="518" y="98" width="65" height="216"/>
+      <rect class="cnt" x="475" y="98" width="43" height="216" rx="3"/>
+      <rect class="cnt" x="475" y="314" width="108" height="78" rx="3"/>
+      <text class="t14" x="496" y="160" text-anchor="middle">결제</text>
+      <text class="t14" x="496" y="260" text-anchor="middle">포장</text>
+      <text class="t14" x="529" y="357" text-anchor="middle">창고</text>
+
+      <circle cx="114" cy="381" r="10" fill="#ffffff" stroke="#3d6b4f" stroke-width="1"/><text class="t12" x="114" y="385" text-anchor="middle">C1</text>
+      <circle cx="179" cy="381" r="10" fill="#ffffff" stroke="#3d6b4f" stroke-width="1"/><text class="t12" x="179" y="385" text-anchor="middle">C2</text>
+      <circle cx="244" cy="381" r="10" fill="#ffffff" stroke="#3d6b4f" stroke-width="1"/><text class="t12" x="244" y="385" text-anchor="middle">C3</text>
+      <circle cx="308" cy="381" r="10" fill="#ffffff" stroke="#3d6b4f" stroke-width="1"/><text class="t12" x="308" y="385" text-anchor="middle">C4</text>
+      <circle cx="373" cy="381" r="10" fill="#ffffff" stroke="#3d6b4f" stroke-width="1"/><text class="t12" x="373" y="385" text-anchor="middle">C5</text>
+      <circle cx="438" cy="381" r="10" fill="#ffffff" stroke="#3d6b4f" stroke-width="1"/><text class="t12" x="438" y="385" text-anchor="middle">C6</text>
+      <circle cx="71" cy="347" r="10" fill="#ffffff" stroke="#3d6b4f" stroke-width="1"/><text class="t12" x="71" y="351" text-anchor="middle">D1</text>
+      <circle cx="71" cy="282" r="10" fill="#ffffff" stroke="#3d6b4f" stroke-width="1"/><text class="t12" x="71" y="286" text-anchor="middle">D2</text>
+      <circle cx="71" cy="217" r="10" fill="#ffffff" stroke="#3d6b4f" stroke-width="1"/><text class="t12" x="71" y="221" text-anchor="middle">D3</text>
+      <circle cx="71" cy="152" r="10" fill="#ffffff" stroke="#3d6b4f" stroke-width="1"/><text class="t12" x="71" y="156" text-anchor="middle">D4</text>
+      <circle cx="71" cy="87" r="10" fill="#ffffff" stroke="#3d6b4f" stroke-width="1"/><text class="t12" x="71" y="91" text-anchor="middle">D5</text>
+      <circle cx="114" cy="66" r="10" fill="#ffffff" stroke="#3d6b4f" stroke-width="1"/><text class="t12" x="114" y="70" text-anchor="middle">A1</text>
+      <circle cx="179" cy="66" r="10" fill="#ffffff" stroke="#3d6b4f" stroke-width="1"/><text class="t12" x="179" y="70" text-anchor="middle">A2</text>
+      <circle cx="244" cy="66" r="10" fill="#ffffff" stroke="#3d6b4f" stroke-width="1"/><text class="t12" x="244" y="70" text-anchor="middle">A3</text>
+
+      <text class="t12" x="276" y="357" text-anchor="middle">C면 6칸 — 영성 · 성경공부</text>
+      <line class="ld" x1="82" y1="217" x2="98" y2="217"/>
+      <text class="t12" x="104" y="221">D면 5칸 — 기도 · 설교 · 가정</text>
+      <line class="ld" x1="179" y1="77" x2="179" y2="93"/>
+      <text class="t12" x="179" y="107" text-anchor="middle">A면 3칸 — 어린이 · 소책자 · 월간</text>
+      <line class="ld" x1="593" y1="217" x2="570" y2="217"/>
+      <text class="t12" x="564" y="221" text-anchor="end">B면 — 성경 재고 · 직원</text>
+      <line class="dl" x1="60" y1="410" x2="604" y2="410"/>
+      <text class="dm" x="332" y="426" text-anchor="middle">판매 서가 14칸 · 키오스크 자립형 전제</text>
+    </svg>
+
+    <table style="margin-top:12px">
+      <tr><th>칸</th><th>면</th><th>주제</th><th class="n">권수</th></tr>
+      <tr><td>C1~C4</td><td>C면 · 정면</td><td>영성 · 제자훈련</td><td class="n">940</td></tr>
+      <tr><td>C5~C6</td><td>C면 · 정면</td><td>성경공부 · 주석 ①②</td><td class="n">448</td></tr>
+      <tr><td>D1</td><td>D면</td><td>성경공부 · 주석 ③</td><td class="n">224</td></tr>
+      <tr><td>D2~D3</td><td>D면</td><td>기도</td><td class="n">381</td></tr>
+      <tr><td>D4</td><td>D면</td><td>설교 · 목회 · 교회 + 신학 · 교리</td><td class="n">244</td></tr>
+      <tr><td>D5</td><td>D면</td><td>가정 · 결혼 + 자녀 · 양육 + 상담 · 치유</td><td class="n">230</td></tr>
+      <tr><td>A1</td><td>A면 · 입구</td><td>어린이 · 청소년 + 필사 · 쓰기성경</td><td class="n">281</td></tr>
+      <tr><td>A2</td><td>A면 · 입구</td><td>소책자 · 전도지 + 성구집 · 암송</td><td class="n">246</td></tr>
+      <tr><td>A3</td><td>A면 · 입구</td><td>정기간행물 + 간증 · 전도 · 직장</td><td class="n">175</td></tr>
+      <tr class="tot"><td colspan="3">배정 합계 · 14칸 수용력 3,780권</td><td class="n">3,169</td></tr>
     </table>
     <div class="note">
-      <p><b>구조 · 설비는 공사 단계에서만 가능합니다.</b> 환기, 양면 서가 두께, 키오스크 배선, 간접조명은 나중에 추가할 수 없습니다. 집기 발주는 뒤로 미룰 수 있으므로, 건축위 협의에서는 구조 항목을 먼저 다뤄야 합니다.</p>
+      <p><b>여유 611권은 미분류 532권 자리입니다.</b> 검수 후 각 주제로 흩어지면 맞아떨어집니다. A1만 281권으로 4% 넘치므로 필사·쓰기성경 일부를 A2로 옮기면 해소됩니다.</p>
+    </div>
+    <p style="margin-top:14px"><b>C면에 영성과 성경공부를 몰았습니다.</b> 가장 길고 입구에서 정면으로 보이는 벽입니다. 두 주제가 1,612권으로 전체의 44%이고 가장 많이 찾는 책입니다.</p>
+    <p><b>D면은 목적을 갖고 찾는 주제입니다.</b> 기도·설교·신학·가정은 그 주제 책을 사러 온 분들이 봅니다. 그 앞에 서서 오래 훑어야 하니 통행이 적은 안쪽이 낫습니다.</p>
+    <p><b>A면은 지나가며 집는 자리입니다.</b> 입구 옆이라 오래 머물 수 없어 소책자·월간지처럼 짧게 집어 가는 품목을 놓았습니다.</p>
+    <p><b>성경 438권은 판매 서가에 칸을 두지 않습니다.</b> 책등으로는 역본·크기·재질을 고를 수 없고, 두께가 30~50mm로 일반 도서의 두 배 이상이라 서가에 넣으면 3칸이 필요합니다. 고가품이라 관리도 카운터 뒤가 맞습니다. 전면 진열대에서 만져보고 고르면 B면 직원 서가에서 꺼내드리는 방식으로 갑니다.</p>
+
+    <div class="ask">
+      <h4>결정 항목</h4>
+      <div class="item"><span class="tagk d">사업단 논의</span><span class="tx"><b>8-1 · 성경을 판매 서가에서 빼는 것</b><br>전면 진열대와 직원 뒷벽으로 나누는 방식에 매니저 합의가 필요합니다.</span></div>
+      <div class="item"><span class="tagk d">사업단 논의</span><span class="tx"><b>8-2 · 고정 벽장 위치</b><br>담임목사 · 유기성 목사 · 신간 벽장을 어느 면에 둘지 정합니다.</span></div>
+      <div class="item"><span class="tagk f">사업단 추후</span><span class="tx"><b>8-3 · 미분류 532권 검수</b><br>주제를 확정해 14칸 배분을 최종 정리합니다.</span></div>
+    </div>
+  </div>
+
+  <div class="sec brk"><h2>9 상품 진열</h2><span class="cap">진열대 소요</span><div class="rule"></div></div>
+  <div class="card">
+    <table><thead><tr><th>종류</th><th class="n">종수</th><th class="n">수량</th><th>권장 진열 방식</th><th class="n">1대당 종수</th><th class="n">전종 노출 대수</th></tr></thead>
+    <tbody id="tb-goods"></tbody></table>
+    <div class="ctrl">
+      <label for="stands">매장에 놓을 진열대 수</label>
+      <input id="stands" type="number" min="1" max="20" step="1" value="3">
+      <span class="hint">1대 = 폭 900 · 3단 경사 선반 기준</span>
+    </div>
+    <div class="out" id="goodsOut"></div>
+    <div class="note">
+      <p><b>693종을 다 내놓으려면 진열대가 38대 필요합니다.</b> 10.7평에 들어갈 수 있는 것은 3대 정도이고, 그러면 전체 종수의 8%만 노출됩니다. 진열대를 몇 개 놓느냐의 문제가 아니라 <b>상품 종수를 줄이느냐, 벽면을 상품으로 내주느냐</b>의 문제입니다.</p>
+    </div>
+    <p style="margin-top:14px">세 가지 방향이 있습니다.</p>
+    <ul>
+      <li><b>종수 정리</b> — 회전이 없는 품목을 반출 단계에서 소진·단종합니다. 어차피 전량 반출해야 하니 지금이 정리하기 가장 좋은 시점입니다.</li>
+      <li><b>스페이스 월 전환</b> — 벽면 한 면을 상품 전용으로 잡습니다. 다만 서가 여유가 2%뿐이라 한 칸을 내주면 270권이 갈 곳을 잃습니다.</li>
+      <li><b>회전 진열</b> — 절기·행사별로 바꿔 답니다. 나머지는 직원 뒷벽과 창고에 두고 진열대는 3대로 운영합니다.</li>
+    </ul>
+
+    <div class="ask">
+      <h4>결정 항목</h4>
+      <div class="item"><span class="tagk c">건축위 확인</span><span class="tx"><b>9-1 · 스페이스 월 위치와 면적</b><br>상품 전용 벽면을 둘 경우 판매 서가가 줄어듭니다. <b>가능한 위치와 면적을 확인 부탁드립니다.</b><span class="why">→ 한 칸을 내주면 270권이 갈 곳을 잃습니다</span></span></div>
+      <div class="item"><span class="tagk d">사업단 논의</span><span class="tx"><b>9-2 · 상품 종수 정리 범위</b><br>회전이 없는 품목을 반출 단계에서 소진할지 정합니다.</span></div>
+      <div class="item"><span class="tagk f">사업단 추후</span><span class="tx"><b>9-3 · 진열대 대수와 형태</b><br>종수 정리 결과에 따라 확정해 전달드립니다.</span></div>
+      <div class="item"><span class="tagk f">사업단 추후</span><span class="tx"><b>9-4 · 말씀함께 외부 판매 방식</b><br>검토 후 전달드립니다.</span></div>
+    </div>
+  </div>
+
+  <div class="sec brk"><h2>10 정리</h2><span class="cap">확인 · 논의 · 추후</span><div class="rule"></div></div>
+  <div class="card keep">
+    <div class="glist">
+      <div class="gcol c"><h4>건축위 확인 요청 · 11건</h4><p class="sub" style="margin-bottom:10px">주일 브리핑에서 함께 정합니다</p><ul><li><span class="no">2-1</span>B면 폭 30mm 차이</li><li><span class="no">2-2</span>C면 환기 계획</li><li><span class="no">5-1</span>B면 양면 서가 두께 700</li><li><span class="no">5-2</span>B면 바깥면 디스플레이 관리 주체</li><li><span class="no">5-3</span>출입구 유리 + 블라인드 병행</li><li><span class="no">6-1</span>서가 높이 2,700 · 6단</li><li><span class="no">6-2</span>네임택 밴드 슬롯 구조와 조명 전원</li><li><span class="no">6-3</span>키오스크 벽면 매립 여부</li><li><span class="no">7-1</span>계산대 전기 · 통신</li><li><span class="no">7-2</span>키오스크 전원 · 통신 · 단말 연동</li><li><span class="no">9-1</span>스페이스 월 위치와 면적</li></ul></div>
+      <div class="gcol d"><h4>사업단 논의 필요 · 7건</h4><p class="sub" style="margin-bottom:10px">오늘 · 내일 회의에서 정합니다</p><ul><li><span class="no">4-1</span>대기 줄 900 · 직원 900</li><li><span class="no">5-4</span>A안 · B안 방향 선택</li><li><span class="no">5-5</span>키오스크 자리</li><li><span class="no">7-3</span>뒷벽 하부장 잠금 범위</li><li><span class="no">8-1</span>성경을 판매 서가에서 빼는 것</li><li><span class="no">8-2</span>고정 벽장 위치</li><li><span class="no">9-2</span>상품 종수 정리 범위</li></ul></div>
+      <div class="gcol f"><h4>사업단 추후 전달 · 7건</h4><p class="sub" style="margin-bottom:10px">차주까지 정리해 전달합니다</p><ul><li><span class="no">5-6</span>창고 내부 구성</li><li><span class="no">6-4</span>네임택 밴드 통짜 · 분할</li><li><span class="no">7-4</span>포장 등급 3종과 자재 규격</li><li><span class="no">7-5</span>POS · 단말기 기종</li><li><span class="no">8-3</span>미분류 532권 검수</li><li><span class="no">9-3</span>진열대 대수와 형태</li><li><span class="no">9-4</span>말씀함께 외부 판매 방식</li></ul></div>
+    </div>
+    <div class="note">
+      <p><b>구조 · 설비는 공사 단계에서만 가능합니다.</b> 환기, 양면 서가 두께, 서가 높이, 네임택 조명, 계산대 배선은 나중에 추가할 수 없습니다. 집기 발주와 운영 방식은 뒤로 미룰 수 있으므로, 건축위 협의에서는 확인 요청 항목을 먼저 다룹니다.</p>
     </div>
   </div>
 
@@ -549,5 +981,62 @@
     <span>1층 성전보수 사업단 PM 안상미 · 2026. 8. 14.</span>
   </div>
 </div>
+
+<script>
+var DATA = {"S":[["영성·제자훈련",572,940],["성경공부·주석",359,672],["기타 · 미분류",431,532],["기도",161,381],["소책자 · 전도지",49,203],["설교·목회·교회",149,161],["필사·쓰기성경",96,149],["어린이·청소년",75,132],["신학·교리",48,83],["정기간행물",19,82],["상담·치유·마음",71,79],["가정·결혼",28,79],["자녀·양육",41,72],["성구집 · 암송",15,43],["간증·에세이",27,42],["일·직장·재정",20,26],["전도·선교",20,25]],"P":[["규장문화사",264,728],["두란노",344,660],["생명의말씀사",362,453],["한국기독학생회",211,382],["복있는사람",143,198],["아가페출판사",117,193],["토기장이",81,109],["성서유니온",65,107],["브니엘",68,77],["겨자씨",31,62],["국제제자훈련원",42,50],["홍성사",30,45],["구름이머무는동안",10,38],["죠이북스",33,36],["프리셉트",8,34],["좋은씨앗",32,32],["그 외 소형 출판사",340,497]],"G":[["카드 · 봉투 · 엽서",112,1303,"포켓 진열",18],["노트 · 문구 · 펜",122,587,"평면 선반",24],["스티커 · 책갈피",68,490,"얕은 포켓",24],["십자가 · 액자",126,431,"선반 · 벽걸이",15],["머그 · 텀블러 · 보틀",34,322,"선반",18],["기타 소품",33,313,"선반",15],["키링 · 목걸이 · 차량용",74,306,"걸이 훅",36],["생활 · 주방 · 기타",43,246,"선반",12],["말씀카드 · 액자소품",69,222,"포켓 · 선반",20],["가방 · 쇼핑백 · 파우치",12,193,"하부 수납",6]]};
+function fmt(n){ return n.toLocaleString('ko-KR'); }
+function rowsHtml(list, per, total){
+  return list.map(function(x){
+    var bays = x[2]/per;
+    var pct = x[2]/total*100;
+    return '<tr><td>'+x[0]+'</td><td class="n">'+fmt(x[1])+'</td><td class="n">'+fmt(x[2])+
+      '</td><td class="n">'+bays.toFixed(1)+'</td><td><div class="bar2"><i style="width:'+
+      pct.toFixed(1)+'%"></i></div></td></tr>';
+  }).join('');
+}
+function renderBooks(){
+  var per = Math.max(60, parseInt(document.getElementById('perBay').value,10) || 270);
+  var tS = DATA.S.reduce(function(a,x){return a+x[2];},0);
+  var tP = DATA.P.reduce(function(a,x){return a+x[2];},0);
+  document.getElementById('tb-subj').innerHTML = rowsHtml(DATA.S, per, tS) +
+    '<tr class="tot"><td>합계</td><td class="n">'+fmt(DATA.S.reduce(function(a,x){return a+x[1];},0))+
+    '</td><td class="n">'+fmt(tS)+'</td><td class="n">'+(tS/per).toFixed(1)+'</td><td></td></tr>';
+  document.getElementById('tb-pub').innerHTML = rowsHtml(DATA.P, per, tP) +
+    '<tr class="tot"><td>합계</td><td class="n">'+fmt(DATA.P.reduce(function(a,x){return a+x[1];},0))+
+    '</td><td class="n">'+fmt(tP)+'</td><td class="n">'+(tP/per).toFixed(1)+'</td><td></td></tr>';
+  var need = tS/per, have = 14;
+  document.getElementById('bayOut').innerHTML =
+    '필요 <b>'+need.toFixed(1)+'칸</b> · 판매 서가 <b>'+have+'칸</b> · 여유 ' +
+    (need<=have ? '<b>'+(have-need).toFixed(1)+'칸</b>' : '<span class="hl">'+(need-have).toFixed(1)+'칸 부족</span>');
+}
+function renderGoods(){
+  var st = Math.max(1, parseInt(document.getElementById('stands').value,10) || 3);
+  var tot = 0, need = 0, capSum = 0;
+  var html = DATA.G.map(function(x){
+    var d = x[1]/x[4]; tot += x[1]; need += d; capSum += x[4];
+    return '<tr><td>'+x[0]+'</td><td class="n">'+fmt(x[1])+'</td><td class="n">'+fmt(x[2])+
+      '</td><td>'+x[3]+'</td><td class="n">'+x[4]+'</td><td class="n">'+d.toFixed(1)+'</td></tr>';
+  }).join('');
+  var qty = DATA.G.reduce(function(a,x){return a+x[2];},0);
+  html += '<tr class="tot"><td>합계</td><td class="n">'+fmt(tot)+'</td><td class="n">'+fmt(qty)+
+    '</td><td></td><td></td><td class="n">'+need.toFixed(1)+'</td></tr>';
+  document.getElementById('tb-goods').innerHTML = html;
+  var avg = capSum/DATA.G.length;
+  var shown = st*avg, rate = shown/tot*100;
+  document.getElementById('goodsOut').innerHTML =
+    '진열대 <b>'+st+'대</b> → 노출 가능 <b>'+Math.round(shown)+'종</b> · 전체 '+fmt(tot)+'종의 <b>'+
+    rate.toFixed(1)+'%</b>' + (shown>=tot ? '' : ' · <span class="hl">선별 진열 필요</span>');
+}
+document.getElementById('btabs').addEventListener('click', function(e){
+  var b = e.target.closest('.tab'); if(!b) return;
+  document.querySelectorAll('#btabs .tab').forEach(function(t){ t.classList.toggle('on', t===b); });
+  document.querySelectorAll('#p-subj,#p-pub').forEach(function(p){
+    p.classList.toggle('on', p.id === 'p-'+b.dataset.p);
+  });
+});
+document.getElementById('perBay').addEventListener('input', renderBooks);
+document.getElementById('stands').addEventListener('input', renderGoods);
+renderBooks(); renderGoods();
+</script>
 </body>
 </html>
