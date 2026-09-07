@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="version" content="v15"><meta name="updated" content="2026.08.10 21:08">
+<meta name="version" content="v16"><meta name="updated" content="2026.09.07 18:38">
 <title>클래스 설계 가이드</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,7 +68,7 @@ font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:cent
 
 <div class="topbar">
 <div><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="class-chat.html" target="_blank" rel="noopener">💬 작업 대화</a></div>
-<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.08.10 21:08 · v15</span></div>
+<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.09.07 18:38 · v16</span></div>
 </div>
 
 <div class="head">
@@ -161,6 +161,23 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 <h3>다시 만드는 순서</h3>
 <div class="rule">gen_class → gen_partner → gen_settle → <b>gen_list (마지막)</b></div>
 <p>gen_list 가 모든 마스터를 읽으므로 반드시 마지막에 돌립니다.</p>
+
+<h3>★ gen 마다 넘기는 마스터가 다릅니다</h3>
+<div class="box warn">
+<p><b>gen_partner 만 갤러리아 마스터를 받습니다.</b> 네 개를 한 번에 돌리려고
+같은 파일을 넘기면 <code>Worksheet 명세원본-2025 does not exist</code> 로 멈춥니다.
+<b>파일이 깨진 게 아니라 엉뚱한 마스터를 넘긴 것입니다.</b></p>
+</div>
+<table>
+<tr><th>생성기</th><th>넘길 마스터</th></tr>
+<tr><td>gen_class · gen_settle · gen_list</td><td>class-master-all-v*.xlsx</td></tr>
+<tr class="hi"><td><b>gen_partner</b></td><td><b>갤러리아_강좌이력.xlsx</b></td></tr>
+<tr><td>gen_book</td><td>파일명이 <b>코드 안에 박혀 있음</b> — 마스터 버전을 올리면 <code>SRC</code> 도 같이 고칠 것</td></tr>
+</table>
+<p>인자를 안 주면 각 생성기가 기본 파일명을 씁니다. <b>그냥 <code>python gen_partner.py</code> 로 돌리는 편이 안전합니다.</b></p>
+<p>한글 파일명은 맥(NFD)과 리눅스·윈도(NFC)의 저장 방식이 달라 같아 보여도 못 찾습니다.
+생성기에 <code>find_master()</code> 가 들어 있어 폴더를 훑어 찾고,
+찾으면 <span class="s">「파일명 정규화로 찾음」</span> 이라고 알려줍니다.</p>
 </div><div class="pane" data-t="규칙"><div class="toc"><a href="#s03">03 회차ID · 파일명 규칙</a><a href="#s04">04 유형 · 테마</a><a href="#s05B">05B ★ 합산 규칙 — 보이는 숫자를 더하면 합계가 나와야 한다</a><a href="#s12B">12B 클래스 기록 파일 — 드롭박스 보관</a></div><h2 id="s03"><span class="n">03</span>회차ID · 파일명 규칙</h2><p class="h2d">2026-07-28 확정. 한번 정하면 바꾸지 않습니다</p>
 <div class="rule"><b>회차ID</b> = <code>[제휴사코드]-[연도2자리][월2자리]-[일련2자리]</code></div>
 <table>
@@ -306,7 +323,7 @@ HTML 문자열만 뒤지면 빈 껍데기가 나옵니다.
 <tr><td><code>gen_record.py</code></td><td>개요·레시피 PDF</td></tr>
 <tr><td><code>pack_dump.js</code></td><td>패킹 운영 화면에서 표 추출 (위 두 개가 씀)</td></tr>
 </table>
-</div><div class="pane" data-t="돈"><div class="toc"><a href="#s05">05 돈의 흐름 — 매출 · 지출 · 수익</a><a href="#s06">06 부가세 — 어디에 쓰고 어디에 안 쓰는가</a><a href="#s07">07 선생님 정산 — 계약 기준과 실지급</a></div><h2 id="s05"><span class="n">05</span>돈의 흐름 — 매출 · 지출 · 수익</h2><p class="h2d">모든 화면이 이 3단 구분을 따릅니다</p>
+</div><div class="pane" data-t="돈"><div class="toc"><a href="#s05">05 돈의 흐름 — 매출 · 지출 · 수익</a><a href="#s05C">05C ★ 발주·입고 — 재고가 섞였을 때</a><a href="#s05D">05D ★ 계획(1인)과 실제(1인) — 기준이 다릅니다</a><a href="#s06">06 부가세 — 어디에 쓰고 어디에 안 쓰는가</a><a href="#s07">07 선생님 정산 — 계약 기준과 실지급</a></div><h2 id="s05"><span class="n">05</span>돈의 흐름 — 매출 · 지출 · 수익</h2><p class="h2d">모든 화면이 이 3단 구분을 따릅니다</p>
 <table>
 <tr><th>구분</th><th>단계</th><th>뜻</th></tr>
 <tr><td rowspan="3" class="c"><b>매출</b></td><td>클래스매출</td><td>수강생이 낸 돈 · 판매가 × 인원</td></tr>
@@ -334,6 +351,74 @@ HTML 문자열만 뒤지면 빈 껍데기가 나옵니다.
 <li>갤 0% → 25% · 갤 10% → 15% · <b>갤 30% → −5%(역마진)</b></li>
 <li>수수료율을 정할 때 쓰는 <b>참고값</b>입니다. 화면의 PK 수익은 실지급 기준이라 이보다 큽니다</li>
 </ul>
+<h2 id="s05C"><span class="n">05C</span>★ 발주·입고 — 재고가 섞였을 때</h2><p class="h2d">재고만 쓴 경우와, 재고를 쓰면서 모자란 만큼 더 산 경우는 다르게 적습니다</p>
+<p>발주 시트 한 줄은 <b>「한 번의 구매」</b>입니다. 같은 재료를 나눠 사면 줄을 나눠 적고,
+화면에서 자동으로 합쳐집니다. <b>재고도 한 줄</b>로 적습니다.</p>
+
+<h3>세 가지 경우</h3>
+<table class="t">
+<tr><th>경우</th><th>발주 시트에 적는 법</th><th>화면 상태</th><th>금액</th></tr>
+<tr><td><b>주문만</b></td><td>주문량·실제금액을 적고 재고사용은 비움</td>
+<td>✅ 충족 / ⚠️ 부족</td><td>실제 지출액</td></tr>
+<tr><td><b>전량 재고</b></td><td>재고사용에 「재고」. <b>주문량·금액은 비움</b></td>
+<td>🔵 재고</td><td>재고 (지출 0)</td></tr>
+<tr class="hi"><td><b>재고 + 추가 주문</b></td>
+<td><b>두 줄로 적습니다.</b><br>① 재고행 — 주문량에 재고량, 금액 비움, 재고사용 「재고」<br>
+② 주문행 — 평소대로 주문량·금액</td>
+<td>✅ 충족<br><span class="s">주문량은 재고+주문 합계로 판정</span></td>
+<td>실제 지출액만<br><span class="s">재고 태그 안 붙임</span></td></tr>
+</table>
+
+<h3>왜 두 줄로 적나</h3>
+<p>한 줄로 뭉치면 <b>재고가 얼마였는지가 데이터에 남지 않습니다.</b>
+두 줄로 나눠야 나중에 「그때 재고를 얼마나 썼지」를 되짚을 수 있습니다.
+화면은 두 줄을 합쳐 <span class="k">5,270g / 8,000g <b>재고 5,000g</b></span> 처럼 출처를 함께 보여줍니다.</p>
+
+<h3>지키는 원칙 — 돈이 나갔으면 재고가 아니다</h3>
+<p>금액 칸의 「재고」 태그는 <b>지출이 0일 때만</b> 붙습니다.
+재고를 썼더라도 모자라서 더 샀다면 그 돈은 실제로 나간 것이므로 숫자를 그대로 적습니다.
+<span class="s">(2026-09-07 이전에는 재고 표시만 있으면 금액에 「재고」가 붙어
+「6,380 재고」라는 틀린 표시가 났고, 클래스기록 엑셀에서는 금액 숫자가 "재고 사용" 글자로 <b>지워지기까지</b> 했습니다.)</span></p>
+
+<h3>계획에서 빼는 기준</h3>
+<p>「계획 구매액(재고 제외)」에서 빼는 것은 <b>지출이 전혀 없는 재료</b>뿐입니다.
+재고+추가 주문 재료는 돈이 나갔으므로 <b>계획에서 빼지 않습니다.</b>
+빼면 계획액만 줄어 「차이」가 그만큼 부풀려집니다.</p>
+
+<h3>상태 뱃지에 재고를 넣지 않는 이유</h3>
+<p>상태 칸이 답하는 질문은 <b>「재료가 모자라나」</b> 하나입니다.
+여기에 재고 여부까지 넣으면 「재고+주문인데 부족」 같은 조합이 나올 때마다 뱃지를 새로 만들어야 합니다.
+<b>상태는 충족·부족만, 재고는 별도 칸으로</b> 나누면 조합이 몇 개가 되든 감당됩니다.</p>
+<h2 id="s05D"><span class="n">05D</span>★ 계획(1인)과 실제(1인) — 기준이 다릅니다</h2><p class="h2d">두 값을 나란히 놓고 빼면 안 됩니다. 비교는 발주 총액끼리</p>
+<div class="box key">
+<p><b>계획(1인)</b> = 실제로 쓸 그램만 환산 — 남는 재료 몫은 <b>안 들어감</b><br>
+<b>실제(1인)</b> = 실제 지출 총액 ÷ 인원 — 남는 재료까지 <b>전부 들어감</b></p>
+</div>
+
+<p>기준이 다르므로 <b>두 값의 직접 비교는 맞지 않습니다.</b>
+발주가 잘 됐는지 보려면 <b>발주 총액</b>끼리 비교하세요.</p>
+
+<h3>차이가 나는 이유 — 남는 재료</h3>
+<p>최소 판매단위 때문에 필요량보다 많이 사야 합니다. 그 남는 몫이
+<b>지출에는 잡히고 사용에는 안 잡힙니다.</b></p>
+
+<table class="t">
+<tr><th>회차</th><th>발주 총액<br><span class="s">계획 → 실제</span></th>
+<th>재료비(1인)<br><span class="s">계획=사용 / 실제=지출</span></th><th>같은 기준으로 보면</th></tr>
+<tr><td>GS-2607-01 복숭아청</td><td>373,760 → 379,590<br><span class="s">▲5,830</span></td>
+<td>10,586 / 12,245</td><td>지출 기준 12,057 → 12,245</td></tr>
+<tr class="hi"><td>GS-2609-01 깨엿강정</td><td>353,890 → 323,920<br><span class="s">▼29,970</span></td>
+<td>8,795 / 10,449</td><td>지출 기준 11,416 → <b>10,449</b></td></tr>
+</table>
+
+<p>깨엿강정은 <b>발주를 29,970원 아꼈는데 1인 재료비는 올라 보입니다.</b>
+계산 기준이 사용 → 지출로 바뀌었기 때문이지 원가가 나빠진 것이 아닙니다.
+같은 지출 기준으로 놓으면 계획보다 967원 낮습니다.</p>
+
+<div class="box warn">
+<p><b>화면에도 이 설명을 답니다</b> — 발주·입고 탭 비교표 아래 주석.
+설명 없이 두 숫자만 보이면 반드시 오해가 생깁니다.</p>
+</div>
 <h2 id="s06"><span class="n">06</span>부가세 — 어디에 쓰고 어디에 안 쓰는가</h2><p class="h2d">가장 자주 헷갈리는 지점입니다</p>
 <table>
 <tr><th>단계</th><th>VAT 포함</th><th>VAT 제외</th></tr>
@@ -657,7 +742,7 @@ PK-2607-01 그린데이즈다이닝 — 300,000 ÷ 1.1 × 94% = 256,364 → 원�
 </table>
 </div>
 
-<div class="foot">클래스 설계 가이드 · 2026.08.10 21:08 · v15</div>
+<div class="foot">클래스 설계 가이드 · 2026.09.07 18:38 · v16</div>
 </div>
 <script>
 document.querySelector('.tabs').addEventListener('click',function(ev){
