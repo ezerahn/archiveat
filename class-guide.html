@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="version" content="v16"><meta name="updated" content="2026.09.07 18:38">
+<meta name="version" content="v17"><meta name="updated" content="2026.09.07 18:50">
 <title>클래스 설계 가이드</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,7 +68,7 @@ font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:cent
 
 <div class="topbar">
 <div><a class="pill" href="class.html">← 클래스 홈</a><a class="pill" href="class-chat.html" target="_blank" rel="noopener">💬 작업 대화</a></div>
-<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.09.07 18:38 · v16</span></div>
+<div class="crumb">AI 워크스페이스 › 클래스 › 설계 가이드<br><span class="meta">업데이트 2026.09.07 18:50 · v17</span></div>
 </div>
 
 <div class="head">
@@ -170,11 +170,26 @@ VAT 기준을 바꾸려면 <code>VAT_BASE</code> 를 <code>"포함"</code> ↔ <
 </div>
 <table>
 <tr><th>생성기</th><th>넘길 마스터</th></tr>
-<tr><td>gen_class · gen_settle · gen_list</td><td>class-master-all-v*.xlsx</td></tr>
+<tr><td>gen_class · gen_settle · gen_list · gen_book</td><td>class-master-all-v*.xlsx</td></tr>
 <tr class="hi"><td><b>gen_partner</b></td><td><b>갤러리아_강좌이력.xlsx</b></td></tr>
-<tr><td>gen_book</td><td>파일명이 <b>코드 안에 박혀 있음</b> — 마스터 버전을 올리면 <code>SRC</code> 도 같이 고칠 것</td></tr>
 </table>
-<p>인자를 안 주면 각 생성기가 기본 파일명을 씁니다. <b>그냥 <code>python gen_partner.py</code> 로 돌리는 편이 안전합니다.</b></p>
+
+<h3>★ 마스터는 자동으로 최신 버전을 고릅니다 <span class="s">2026-09-07 수정</span></h3>
+<div class="box warn">
+<p><b>고치기 전에 벌어진 일</b> — <code>gen_settle</code> · <code>gen_list</code> · <code>gen_book</code> 세 개는
+파일명 <code>class-master-all-v3.xlsx</code> 가 코드에 박혀 있었습니다.
+<b>새 마스터를 인자로 넘겨도 무시하고 옛 v3 를 읽었고, 오류도 안 났습니다.</b>
+정산 상태를 고쳤는데 화면은 그대로여서 겨우 알아챘습니다.</p>
+</div>
+<p>지금은 네 생성기 모두 <code>pick_master()</code> 를 씁니다.</p>
+<div class="rule">① 인자로 준 <code>.xlsx</code> 를 먼저 쓰고 → ② 없으면 폴더에서
+<code>class-master-all-v*</code> 중 <b>번호가 가장 큰 것</b>을 고르고 → ③ 어느 파일을 읽었는지 항상 찍습니다</div>
+<p>그래서 <b>마스터 버전을 올려도 코드를 고칠 필요가 없습니다.</b>
+실행하면 <span class="s">📄 마스터 — class-master-all-v8.xlsx (자동 선택)</span> 처럼 나오니
+<b>매번 이 줄을 눈으로 확인하세요.</b> 인자로 준 파일이 없으면 그 자리에서 멈춥니다(조용히 넘어가지 않음).</p>
+<p><code>pick_master()</code> 는 <b>4개 파일에 똑같이 복사</b>돼 있습니다. 고칠 때는 넷을 같이 고칩니다.</p>
+<p>옛 버전 마스터를 폴더에 같이 두면 자동 선택이 헷갈릴 수 있습니다.
+<b>지난 버전은 다른 폴더로 옮겨 보관하세요.</b></p>
 <p>한글 파일명은 맥(NFD)과 리눅스·윈도(NFC)의 저장 방식이 달라 같아 보여도 못 찾습니다.
 생성기에 <code>find_master()</code> 가 들어 있어 폴더를 훑어 찾고,
 찾으면 <span class="s">「파일명 정규화로 찾음」</span> 이라고 알려줍니다.</p>
@@ -742,7 +757,7 @@ PK-2607-01 그린데이즈다이닝 — 300,000 ÷ 1.1 × 94% = 256,364 → 원�
 </table>
 </div>
 
-<div class="foot">클래스 설계 가이드 · 2026.09.07 18:38 · v16</div>
+<div class="foot">클래스 설계 가이드 · 2026.09.07 18:50 · v17</div>
 </div>
 <script>
 document.querySelector('.tabs').addEventListener('click',function(ev){
