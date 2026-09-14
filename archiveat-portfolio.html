@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ARCHIVEAT · 공공의주방 — M&A Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080808;
+  --s1:#111;
+  --s2:#181818;
+  --s3:#222;
+  --or:#FF5019;
+  --or2:#FF7A4D;
+  --tx:#F0EDE8;
+  --tx2:#A8A39C;
+  --tx3:#666;
+  --bd:#262626;
+  --serif:'Noto Serif KR',Georgia,serif;
+  --sans:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;
+  --mono:'Inter',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:var(--sans);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,8,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 48px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.08em;color:var(--or)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:12px;color:var(--tx2);text-decoration:none;transition:color .2s;font-family:var(--mono)}
+.nav-links a:hover{color:var(--tx)}
+
+/* SECTIONS */
+section{padding:120px 0}
+.inner{max-width:1100px;margin:0 auto;padding:0 48px}
+
+/* EYEBROW */
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--or);letter-spacing:.12em;margin-bottom:20px;display:block}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;border-bottom:1px solid var(--bd);padding-top:56px}
+.hero-inner{max-width:1100px;margin:0 auto;padding:0 48px;width:100%}
+.hero-headline{font-family:var(--serif);font-size:clamp(36px,5vw,68px);font-weight:700;line-height:1.2;margin-bottom:28px;color:var(--tx)}
+.hero-headline em{font-style:normal;color:var(--or)}
+.hero-sub{font-size:18px;color:var(--tx2);max-width:600px;line-height:1.8;margin-bottom:48px}
+.hero-quote{font-size:14px;color:var(--tx3);font-style:italic;border-left:2px solid var(--or);padding-left:16px;margin-bottom:64px}
+.hero-assets{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd)}
+.asset-item{background:var(--s1);padding:28px 24px}
+.asset-num{font-family:var(--mono);font-size:36px;font-weight:600;color:var(--tx);display:block;line-height:1}
+.asset-label{font-size:12px;color:var(--tx2);margin-top:8px;line-height:1.5}
+
+/* TIMELINE */
+#timeline{background:var(--s1);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+.tl-item{display:grid;grid-template-columns:100px 1fr;gap:0;border-bottom:1px solid var(--bd)}
+.tl-item:last-child{border-bottom:none}
+.tl-year{padding:28px 32px 28px 0;font-family:var(--mono);font-size:13px;font-weight:600;color:var(--tx3);border-right:1px solid var(--bd);display:flex;align-items:flex-start;padding-top:30px}
+.tl-year.highlight{color:var(--or)}
+.tl-content{padding:28px 0 28px 32px}
+.tl-title{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--tx);margin-bottom:8px}
+.tl-desc{font-size:13px;color:var(--tx2);line-height:1.8}
+.tl-tag{display:inline-block;font-size:10px;font-family:var(--mono);padding:3px 8px;border:1px solid;margin-right:6px;margin-bottom:4px;border-radius:2px}
+.tag-invest{color:var(--or);border-color:rgba(255,80,25,.3);background:rgba(255,80,25,.06)}
+.tag-award{color:#B0A060;border-color:rgba(176,160,96,.3);background:rgba(176,160,96,.06)}
+.tag-biz{color:#7090C0;border-color:rgba(112,144,192,.3);background:rgba(112,144,192,.06)}
+
+/* PARTNERS */
+#partners{}
+.section-head{margin-bottom:60px}
+.section-title{font-family:var(--serif);font-size:clamp(28px,3.5vw,44px);font-weight:700;line-height:1.3;margin-bottom:16px}
+.section-desc{font-size:15px;color:var(--tx2);max-width:560px;line-height:1.8}
+.partner-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd)}
+.partner-card{background:var(--s1);padding:32px;border:1px solid transparent;transition:border-color .2s}
+.partner-card:hover{border-color:var(--bd)}
+.partner-tags{margin-bottom:16px}
+.partner-name{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--tx);margin-bottom:8px}
+.partner-detail{font-size:13px;color:var(--tx2);line-height:1.7}
+.partner-year{font-family:var(--mono);font-size:11px;color:var(--tx3);margin-top:16px}
+
+/* EXPERTS */
+#experts{background:var(--s1);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+.expert-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-bottom:64px;padding-bottom:48px;border-bottom:1px solid var(--bd)}
+.estat-num{font-family:var(--mono);font-size:48px;font-weight:600;color:var(--tx);line-height:1}
+.estat-or{color:var(--or)}
+.estat-label{font-size:13px;color:var(--tx2);margin-top:8px}
+.expert-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.expert-card{background:var(--s2);padding:24px}
+.expert-photo{width:100%;aspect-ratio:1;background:var(--s3);margin-bottom:16px;display:flex;align-items:center;justify-content:center;color:var(--tx3);font-size:12px;font-family:var(--mono)}
+.expert-name{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--tx);margin-bottom:4px}
+.expert-domain{font-size:12px;color:var(--or);margin-bottom:8px;font-family:var(--mono)}
+.expert-info{font-size:12px;color:var(--tx2);line-height:1.6}
+.expert-recipe-count{font-family:var(--mono);font-size:11px;color:var(--tx3);margin-top:12px}
+.expert-more{text-align:center;padding:32px;color:var(--tx3);font-size:14px;background:var(--s2);border:1px dashed var(--bd)}
+
+/* OFFLINE IP */
+#offline-ip{}
+.ip-series{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);margin-top:48px}
+.ip-card{background:var(--s1);overflow:hidden}
+.ip-poster{aspect-ratio:3/4;background:var(--s2);display:flex;align-items:center;justify-content:center;color:var(--tx3);font-size:13px;font-family:var(--mono);text-align:center;border-bottom:1px solid var(--bd);position:relative}
+.ip-poster-label{position:absolute;bottom:16px;left:16px;right:16px;font-family:var(--serif);font-size:18px;color:var(--tx);font-weight:600;line-height:1.3}
+.ip-info{padding:24px}
+.ip-series-name{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--tx);margin-bottom:8px}
+.ip-period{font-family:var(--mono);font-size:11px;color:var(--or);margin-bottom:12px}
+.ip-desc{font-size:13px;color:var(--tx2);line-height:1.7}
+.ip-message{background:var(--s1);border:1px solid var(--bd);padding:40px;margin-top:1px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.ip-msg-title{font-family:var(--serif);font-size:22px;font-weight:600;line-height:1.4;color:var(--tx)}
+.ip-msg-sub{font-size:14px;color:var(--tx2);line-height:1.8}
+
+/* RECIPE IP */
+#recipe-ip{background:var(--s1);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+.recipe-hero{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-bottom:64px;padding-bottom:48px;border-bottom:1px solid var(--bd);align-items:center}
+.recipe-big-num{font-family:var(--mono);font-size:96px;font-weight:600;color:var(--tx);line-height:1}
+.recipe-big-label{font-size:14px;color:var(--tx2);margin-top:8px}
+.recipe-desc p{font-size:15px;color:var(--tx2);line-height:1.9;margin-bottom:16px}
+.category-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);margin-bottom:48px}
+.cat-card{background:var(--s2);padding:24px}
+.cat-name{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--tx);margin-bottom:12px}
+.cat-menus{font-size:12px;color:var(--tx2);line-height:2}
+.cat-count{font-family:var(--mono);font-size:11px;color:var(--or);margin-top:8px}
+.commerce-types{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--bd)}
+.com-item{background:var(--s1);padding:20px;text-align:center}
+.com-icon{font-size:24px;margin-bottom:8px}
+.com-label{font-size:12px;color:var(--tx2);line-height:1.5}
+
+/* INSTANT VALUE */
+#instant{border-top:1px solid var(--bd)}
+.iv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--or);margin-top:48px}
+.iv-item{background:var(--bg);padding:48px 36px}
+.iv-num{font-family:var(--mono);font-size:13px;color:var(--or);margin-bottom:20px}
+.iv-title{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--tx);margin-bottom:16px;line-height:1.3}
+.iv-body{font-size:13px;color:var(--tx2);line-height:1.9}
+.iv-items{margin-top:16px;padding-top:16px;border-top:1px solid var(--bd)}
+.iv-items li{font-size:12px;color:var(--tx2);list-style:none;padding:4px 0;border-bottom:1px solid var(--bd);font-family:var(--mono)}
+.iv-items li:last-child{border-bottom:none}
+.iv-msg{background:var(--or);padding:40px;text-align:center;margin-top:1px}
+.iv-msg-text{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--bg);line-height:1.4}
+
+/* STATS */
+#stats{background:var(--s1);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd)}
+.stat-item{background:var(--s2);padding:40px 32px}
+.stat-num{font-family:var(--mono);font-size:56px;font-weight:600;color:var(--tx);line-height:1;margin-bottom:8px}
+.stat-unit{font-size:28px;color:var(--or)}
+.stat-label{font-size:13px;color:var(--tx2);line-height:1.6}
+.stat-sub{font-size:11px;color:var(--tx3);margin-top:8px;font-family:var(--mono)}
+
+/* OPERATIONS */
+#ops{}
+.ops-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd);margin-top:48px}
+.ops-item{background:var(--s1);padding:36px}
+.ops-title{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--tx);margin-bottom:12px}
+.ops-body{font-size:13px;color:var(--tx2);line-height:1.8}
+.ops-tag{display:inline-block;font-family:var(--mono);font-size:10px;color:var(--or);border:1px solid rgba(255,80,25,.3);padding:2px 8px;margin-bottom:12px}
+
+/* PRESS */
+#press{background:var(--s1);border-top:1px solid var(--bd)}
+.press-logos{display:flex;gap:0;border-bottom:1px solid var(--bd);margin-bottom:48px;flex-wrap:wrap}
+.press-logo{padding:24px 32px;font-family:var(--serif);font-size:16px;font-weight:600;color:var(--tx2);border-right:1px solid var(--bd);transition:color .2s}
+.press-logo:hover{color:var(--tx)}
+.press-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);margin-bottom:80px}
+.press-card{background:var(--s2);padding:28px}
+.press-outlet{font-family:var(--mono);font-size:10px;color:var(--or);margin-bottom:8px;letter-spacing:.06em}
+.press-title{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--tx);margin-bottom:8px;line-height:1.4}
+.press-summary{font-size:12px;color:var(--tx2);line-height:1.7;margin-bottom:16px}
+.press-date{font-family:var(--mono);font-size:11px;color:var(--tx3)}
+.press-link{font-size:12px;color:var(--or);text-decoration:none;font-family:var(--mono)}
+
+/* CONTACT */
+.contact-block{background:var(--bg);border:1px solid var(--bd);padding:64px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.contact-tagline{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--tx);line-height:1.3;margin-bottom:16px}
+.contact-sub{font-size:15px;color:var(--tx2);line-height:1.8}
+.contact-details{display:flex;flex-direction:column;gap:16px}
+.contact-row{display:flex;gap:16px;align-items:flex-start}
+.contact-label{font-family:var(--mono);font-size:11px;color:var(--tx3);min-width:32px;padding-top:2px}
+.contact-value{font-size:15px;color:var(--tx);line-height:1.5}
+.contact-value a{color:var(--or);text-decoration:none}
+
+/* FOOTER */
+footer{padding:32px 48px;border-top:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center}
+.footer-brand{font-family:var(--mono);font-size:12px;color:var(--tx3)}
+.footer-note{font-size:12px;color:var(--tx3);font-family:var(--mono)}
+
+/* UTIL */
+.or{color:var(--or)}
+.divider{height:1px;background:var(--bd);margin:48px 0}
+
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .inner{padding:0 20px}
+  section{padding:72px 0}
+  .hero-assets{grid-template-columns:repeat(2,1fr)}
+  .partner-grid,.expert-grid,.stats-grid,.ops-grid,.press-cards,.ip-series{grid-template-columns:1fr}
+  .category-grid{grid-template-columns:1fr 1fr}
+  .commerce-types{grid-template-columns:repeat(3,1fr)}
+  .iv-grid{grid-template-columns:1fr}
+  .recipe-hero,.contact-block,.ip-message{grid-template-columns:1fr}
+  .recipe-big-num{font-size:64px}
+  .expert-stats{grid-template-columns:repeat(2,1fr)}
+  .contact-block{padding:32px 20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">ARCHIVEAT</span>
+  <ul class="nav-links">
+    <li><a href="#timeline">연혁</a></li>
+    <li><a href="#partners">협업</a></li>
+    <li><a href="#experts">전문가</a></li>
+    <li><a href="#offline-ip">콘텐츠 IP</a></li>
+    <li><a href="#recipe-ip">레시피 IP</a></li>
+    <li><a href="#instant">인수 시 가치</a></li>
+    <li><a href="#stats">자산 수치</a></li>
+    <li><a href="#press">보도</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- 1. HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">M&amp;A Portfolio 2026 · 주식회사 공공의주방 · ARCHIVEAT</span>
+    <h1 class="hero-headline">
+      10년이 만든 것은 레시피가 아니라,<br>
+      <em>돈으로 살 수 없는</em><br>검증 자산입니다.
+    </h1>
+    <p class="hero-sub">요리 클래스에서 실제 수강생 반응으로 검증된 레시피, 130명 전문가 크리에이터, 즉석제조가공 허가시설, AI 운영 시스템 — 하나씩 만들면 수년이 걸리는 것들이 한 회사에 있습니다.</p>
+    <p class="hero-quote">"요리보다 사람이 보였죠" — 벤처스퀘어, 2026.07</p>
+    <div class="hero-assets">
+      <div class="asset-item">
+        <span class="asset-num">3,000<span class="or">+</span></span>
+        <span class="asset-label">자체 제작 레시피 영상<br>전량 저작권 보유</span>
+      </div>
+      <div class="asset-item">
+        <span class="asset-num">130<span class="or">+</span></span>
+        <span class="asset-label">요리전문가 크리에이터<br>네트워크</span>
+      </div>
+      <div class="asset-item">
+        <span class="asset-num">472</span>
+        <span class="asset-label">쿠킹박스 상품화 가능<br>레시피 IP</span>
+      </div>
+      <div class="asset-item">
+        <span class="asset-num">10<span class="or">년</span></span>
+        <span class="asset-label">오프라인 클래스 운영<br>검증 데이터 누적</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. TIMELINE -->
+<section id="timeline">
+  <div class="inner">
+    <span class="eyebrow">History</span>
+    <h2 class="section-title" style="margin-bottom:48px">2016 — 2026</h2>
+  </div>
+  <div style="max-width:1100px;margin:0 auto;padding:0 48px">
+    <div class="tl-item">
+      <div class="tl-year">2016</div>
+      <div class="tl-content">
+        <div class="tl-title">주식회사 공공의주방 설립</div>
+        <div class="tl-desc">대표 안상미. 자본금 500만원. 요리 클래스·식문화 콘텐츠·요리전문가 네트워크 기반 사업 시작.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year highlight">2017</div>
+      <div class="tl-content">
+        <span class="tl-tag tag-award">수상</span>
+        <div class="tl-title">iF 디자인 어워드 본상 수상</div>
+        <div class="tl-desc">독일 iF Design Award 2017 커뮤니케이션 브랜드 부문 본상. 세계 3대 디자인상.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year highlight">2018</div>
+      <div class="tl-content">
+        <span class="tl-tag tag-invest">투자</span>
+        <div class="tl-title">첫 시드 투자 유치 (7월)</div>
+        <div class="tl-desc">중앙일보 더오래 인터뷰. 국내외 특허출원.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2019</div>
+      <div class="tl-content">
+        <span class="tl-tag tag-biz">서비스</span>
+        <div class="tl-title">공공의주방 플랫폼 정식 론칭</div>
+        <div class="tl-desc">가화만사성·우리동네반찬날·우리동네김장날 시즌 클래스 시작. 속리산 메뉴개발, 웅진 제휴. 서비스 6개월 만에 회원 1.5만명 돌파.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year highlight">2020</div>
+      <div class="tl-content">
+        <span class="tl-tag tag-award">수상</span><span class="tl-tag tag-award">표창</span><span class="tl-tag tag-biz">협업</span>
+        <div class="tl-title">대한민국 소비자대상 · 국회 표창 · GPBA 수상</div>
+        <div class="tl-desc">티처투어·제철·테마 클래스. 현대백화점 산지 연계 온라인 클래스. 청밀·놀부 협업. MBC 다큐프라임(미카엘 셰프) 출연.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year highlight">2021</div>
+      <div class="tl-content">
+        <span class="tl-tag tag-award">수상</span><span class="tl-tag tag-biz">협업</span>
+        <div class="tl-title">스타필드 고양 운영 시작 · 소비자대상 2년 연속</div>
+        <div class="tl-desc">신세계프라퍼티(스타필드 고양) 클래스콕 2년 운영 시작. 보령시 특산물 쿠킹박스. 테마박스 3종(영화관·야구장·피크닉). 놀부 잔치박스·초계면 협업. 한국임업진흥원×KBS. 유튜브 채널 '요고다' 론칭.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year highlight">2022</div>
+      <div class="tl-content">
+        <span class="tl-tag tag-invest">시리즈A</span><span class="tl-tag tag-award">수상</span>
+        <div class="tl-title">시리즈A 투자 유치 (MYSC) · GDA 독일 브랜드 대상</div>
+        <div class="tl-desc">현대백화점 협업. 서울시×LG 골목활성화. 속초체스터톤스 쿠킹박스. 지역 특산물 연계(제주·보령·여주). 국회 농림축산식품해양수산위원장 표창.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year highlight">2023</div>
+      <div class="tl-content">
+        <span class="tl-tag tag-invest">Pre-A 20억</span><span class="tl-tag tag-biz">서비스</span>
+        <div class="tl-title">Pre-A 투자 20억 · 아카이빗 쿠킹박스 서비스 시작</div>
+        <div class="tl-desc">농심 콘텐츠 협업. 여주 특산물 쿠킹박스(경기콘텐츠진흥원). 넥스트라이즈 출전. 언론 3사 동시 보도(서울경제·한국경제·서울신문).</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2024</div>
+      <div class="tl-content">
+        <span class="tl-tag tag-invest">누적 23억</span>
+        <div class="tl-title">갤러리아 광교 운영 · 누적투자 23억</div>
+        <div class="tl-desc">갤러리아백화점 광교 쿠킹클래스 운영. 컬리 넥스트마일 새벽배송 연결(수도권·충청). 국민성장펀드 출범식 케이터링.</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2025</div>
+      <div class="tl-content">
+        <span class="tl-tag tag-biz">전환</span>
+        <div class="tl-title">광교 거점 이전 · 공식몰 오픈 · AI 1인 운영 전환</div>
+        <div class="tl-desc">광교 지식산업센터 이전(촬영·소분·포장 거점). archiveat.kr 공식몰 오픈(2025.04). AI 기반 1인 운영 체제. 마스터파일 4종 구축.</div>
+      </div>
+    </div>
+    <div class="tl-item" style="border-bottom:none">
+      <div class="tl-year highlight" style="color:var(--or)">2026</div>
+      <div class="tl-content">
+        <span class="tl-tag tag-biz">전략</span>
+        <div class="tl-title">넥스트라이즈 전략 미팅 · 벤처스퀘어 기사 발행 · M&A 준비</div>
+        <div class="tl-desc">호반건설·롯데홈쇼핑·엘앤에스벤처캐피탈 등 5개사 1:1 전략 미팅. 디캠프 프론트원 케이터링. 벤처스퀘어 AI 키친 인터뷰 발행(7월).</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. PARTNERS -->
+<section id="partners">
+  <div class="inner">
+    <div class="section-head">
+      <span class="eyebrow">Partnership &amp; Collaboration</span>
+      <h2 class="section-title">검증된 협업 이력</h2>
+      <p class="section-desc">대형 유통사·공공기관·식품 대기업과의 실제 운영 레퍼런스. B2G, B2B, B2B2C 세 채널 모두 검증됐습니다.</p>
+    </div>
+    <div class="partner-grid">
+      <div class="partner-card">
+        <div class="partner-tags"><span class="tl-tag tag-biz">B2B2C</span></div>
+        <div class="partner-name">신세계프라퍼티<br>스타필드 고양</div>
+        <div class="partner-detail">클래스콕 쿠킹스튜디오 2년 연속 운영. 기획·강사·메뉴·현장 운영까지 공간 전체 책임. 월별 기획·정산·운영 데이터 보유.</div>
+        <div class="partner-year">2021 — 2022</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-tags"><span class="tl-tag tag-biz">B2B2C</span></div>
+        <div class="partner-name">갤러리아백화점<br>광교점</div>
+        <div class="partner-detail">정규 쿠킹클래스 운영(온·오프라인). 온라인 클래스+쿠킹박스 B2B2C 수익 공유 모델 파일럿 진행 중.</div>
+        <div class="partner-year">2024 — 현재</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-tags"><span class="tl-tag tag-biz">B2B</span></div>
+        <div class="partner-name">농심</div>
+        <div class="partner-detail">신규 상품(카리야포크카레) 연계 레시피 콘텐츠 제작. SNS 이벤트 협업. 전문가 레시피+영상 패키지.</div>
+        <div class="partner-year">2023</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-tags"><span class="tl-tag tag-biz">B2B</span></div>
+        <div class="partner-name">현대백화점</div>
+        <div class="partner-detail">청주 딸기·제주 한라봉 산지 연계 비대면 온라인 클래스. 지역 특산물 + 실시간 클래스 연결 모델.</div>
+        <div class="partner-year">2020 — 2022</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-tags"><span class="tl-tag tag-biz">B2G</span></div>
+        <div class="partner-name">보령시 · 여주시<br>경기콘텐츠진흥원</div>
+        <div class="partner-detail">지역 특산물(갑오징어·돼지고기·가지) 레시피 개발 및 쿠킹박스 제작·판매. 지자체 B2G 협업 다수.</div>
+        <div class="partner-year">2021 — 2023</div>
+      </div>
+      <div class="partner-card">
+        <div class="partner-tags"><span class="tl-tag tag-biz">케이터링</span></div>
+        <div class="partner-name">디캠프 프론트원<br>산업은행 본점</div>
+        <div class="partner-detail">국민성장펀드 출범식(50·30인), 스타트업 OI(30·50인) 다과·핑거푸드 케이터링. 금융권 주요 행사 운영.</div>
+        <div class="partner-year">2025 — 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. EXPERTS -->
+<section id="experts">
+  <div class="inner">
+    <span class="eyebrow">Expert Network</span>
+    <h2 class="section-title" style="margin-bottom:12px">전문가 풀 — 모든 서비스의 근간</h2>
+    <p class="section-desc" style="margin-bottom:48px">콘텐츠·클래스·레시피·케이터링 — 모든 서비스가 이 사람들로부터 출발합니다.</p>
+    <div class="expert-stats">
+      <div><div class="estat-num">130<span class="estat-or">+</span></div><div class="estat-label">요리전문가 크리에이터<br>현재 활동 네트워크</div></div>
+      <div><div class="estat-num">10<span class="estat-or">+</span></div><div class="estat-label">분야<br>한식·세계·비건·베이킹 등</div></div>
+      <div><div class="estat-num">3,000<span class="estat-or">+</span></div><div class="estat-label">누적 레시피 영상<br>전량 자체 저작권</div></div>
+      <div><div class="estat-num">5,000<span class="estat-or">+</span></div><div class="estat-label">누적 클래스 횟수<br>온·오프라인 합산</div></div>
+    </div>
+    <div class="expert-grid">
+      <div class="expert-card">
+        <div class="expert-photo">프로필 사진<br>준비 중</div>
+        <div class="expert-name">임수진</div>
+        <div class="expert-domain">한식 · 국·찌개</div>
+        <div class="expert-info">보령 특산물 쿠킹박스, 갤러리아 클래스</div>
+        <div class="expert-recipe-count">레시피 52개</div>
+      </div>
+      <div class="expert-card">
+        <div class="expert-photo">프로필 사진<br>준비 중</div>
+        <div class="expert-name">김은영</div>
+        <div class="expert-domain">한식 · 메인반찬</div>
+        <div class="expert-info">스타필드 클래스콕 정규 운영</div>
+        <div class="expert-recipe-count">레시피 45개</div>
+      </div>
+      <div class="expert-card">
+        <div class="expert-photo">프로필 사진<br>준비 중</div>
+        <div class="expert-name">장재우</div>
+        <div class="expert-domain">세계요리</div>
+        <div class="expert-info">다국적 요리 레시피 개발</div>
+        <div class="expert-recipe-count">레시피 39개</div>
+      </div>
+      <div class="expert-card">
+        <div class="expert-photo">프로필 사진<br>준비 중</div>
+        <div class="expert-name">최진</div>
+        <div class="expert-domain">한식 · 집밥</div>
+        <div class="expert-info">슈림프치킨차우면 등 시그니처 메뉴</div>
+        <div class="expert-recipe-count">레시피 32개</div>
+      </div>
+      <div class="expert-card">
+        <div class="expert-photo">프로필 사진<br>준비 중</div>
+        <div class="expert-name">김희경</div>
+        <div class="expert-domain">한식 · 국·찌개</div>
+        <div class="expert-info">제철 식재료 중심 레시피</div>
+        <div class="expert-recipe-count">레시피 30개</div>
+      </div>
+      <div class="expert-card">
+        <div class="expert-photo">프로필 사진<br>준비 중</div>
+        <div class="expert-name">박소진</div>
+        <div class="expert-domain">한식 · 특산물</div>
+        <div class="expert-info">보령 산지 연계, 스타필드 운영</div>
+        <div class="expert-recipe-count">레시피 21개</div>
+      </div>
+      <div class="expert-card">
+        <div class="expert-photo">프로필 사진<br>준비 중</div>
+        <div class="expert-name">홍가람</div>
+        <div class="expert-domain">샐러드 · 건강식</div>
+        <div class="expert-info">비건·건강식 레시피 전문</div>
+        <div class="expert-recipe-count">레시피 22개</div>
+      </div>
+      <div class="expert-card">
+        <div class="expert-photo">프로필 사진<br>준비 중</div>
+        <div class="expert-name">백오연 외</div>
+        <div class="expert-domain">베이킹 · 디저트</div>
+        <div class="expert-info">키즈 클래스, 갤러리아 운영</div>
+        <div class="expert-recipe-count">레시피 15개+</div>
+      </div>
+    </div>
+    <div class="expert-more" style="margin-top:1px">외 100명+ 전문가 네트워크 보유 · 분야별 섭외·계약 없이 즉시 가동 가능</div>
+  </div>
+</section>
+
+<!-- 5. OFFLINE IP -->
+<section id="offline-ip">
+  <div class="inner">
+    <div class="section-head">
+      <span class="eyebrow">Offline IP · Content Asset</span>
+      <h2 class="section-title">오프라인 IP 경험 콘텐츠 자산</h2>
+      <p class="section-desc">10년간 실제 고객 반응으로 검증된 브랜드 세계관. 포스터·현장 사진·운영 데이터까지 모든 자산이 있습니다.</p>
+    </div>
+    <div class="ip-series">
+      <div class="ip-card">
+        <div class="ip-poster">
+          [포스터 이미지]<br>준비 중
+          <div class="ip-poster-label">가화만사성</div>
+        </div>
+        <div class="ip-info">
+          <div class="ip-series-name">가화만사성</div>
+          <div class="ip-period">2019 — 2020</div>
+          <div class="ip-desc">가정의 화목과 요리를 잇는 시리즈 클래스. 가족이 함께 요리하는 경험 설계. 현장 사진·포스터·운영 자료 보유.</div>
+        </div>
+      </div>
+      <div class="ip-card">
+        <div class="ip-poster">
+          [포스터 이미지]<br>준비 중
+          <div class="ip-poster-label">우리동네반찬날</div>
+        </div>
+        <div class="ip-info">
+          <div class="ip-series-name">우리동네반찬날</div>
+          <div class="ip-period">2019 — 2020</div>
+          <div class="ip-desc">지역 커뮤니티 기반 반찬 만들기 시리즈. 동네 주민이 함께 모여 요리하는 집밥 문화 기획. 반복 구독형 콘텐츠 구조.</div>
+        </div>
+      </div>
+      <div class="ip-card">
+        <div class="ip-poster">
+          [포스터 이미지]<br>준비 중
+          <div class="ip-poster-label">우리동네김장날</div>
+        </div>
+        <div class="ip-info">
+          <div class="ip-series-name">우리동네김장날</div>
+          <div class="ip-period">2019 — 2021</div>
+          <div class="ip-desc">시즌 한정 김장 클래스 시리즈. 놀부와 협업으로 확장(2020). 제철 기획 + 브랜드 협업 연결 구조 검증.</div>
+        </div>
+      </div>
+    </div>
+    <div class="ip-message">
+      <div>
+        <div class="ip-msg-title" style="font-family:var(--serif);font-size:22px;font-weight:600;color:var(--tx);line-height:1.5">오프라인 강한 회사에게:<br><span style="color:var(--or)">공간을 채울 검증된 프로그램</span>이 있습니다.</div>
+      </div>
+      <div>
+        <p class="ip-msg-sub">백화점·리조트·아파트 커뮤니티가 고객을 모으는 프로그램을 직접 기획하려면 수년이 걸립니다. 가화만사성, 우리동네 시리즈는 실제 고객 반응으로 검증된 콘텐츠 세계관입니다. 온라인 강한 회사에게는 구독 이유가 되는 시리즈 IP이고요.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. RECIPE IP -->
+<section id="recipe-ip">
+  <div class="inner">
+    <span class="eyebrow">Recipe Content IP</span>
+    <h2 class="section-title" style="margin-bottom:48px">레시피 콘텐츠 IP — 쿠킹박스 상품화 및 협업 매출 아이템</h2>
+    <div class="recipe-hero">
+      <div>
+        <div class="recipe-big-num">472</div>
+        <div class="recipe-big-label" style="font-family:var(--mono);font-size:13px;color:var(--tx2)">쿠킹박스 상품화 가능 레시피 IP<br>영상·레시피카드·BOM 완비</div>
+        <div style="margin-top:32px;display:flex;flex-direction:column;gap:12px">
+          <div style="font-size:13px;color:var(--tx2);padding:12px 0;border-bottom:1px solid var(--bd)"><span style="color:var(--tx);font-family:var(--mono)">19</span>개 카테고리 분류</div>
+          <div style="font-size:13px;color:var(--tx2);padding:12px 0;border-bottom:1px solid var(--bd)"><span style="color:var(--tx);font-family:var(--mono)">3,000+</span>개 요리팁 쇼츠 영상</div>
+          <div style="font-size:13px;color:var(--tx2);padding:12px 0;border-bottom:1px solid var(--bd)"><span style="color:var(--tx);font-family:var(--mono)">전량</span> 자체 저작권 보유</div>
+          <div style="font-size:13px;color:var(--tx2);padding:12px 0"><span style="color:var(--tx);font-family:var(--mono)">제철·시즌</span> 월별 큐레이션 체계</div>
+        </div>
+      </div>
+      <div class="recipe-desc">
+        <p>크리에이터가 레시피와 팬덤은 있어도 <strong style="color:var(--tx)">제조 허가·공장·BOM 설계</strong>가 없어 상품화에 수년이 걸립니다. 아카이빗은 반대입니다.</p>
+        <p>10년 클래스에서 수강생이 직접 반응한 레시피만 남겼고, 영상·레시피카드·구성품 BOM이 완비된 상태입니다. 오늘 주문이 들어오면 내일 발주·소분·배송이 가능한 구조입니다.</p>
+        <p><strong style="color:var(--or)">"클래스에서 증명하고, 박스로 판다"</strong><br><span style="font-size:13px;color:var(--tx3)">— 벤처스퀘어 인터뷰, 2026.07</span></p>
+      </div>
+    </div>
+    <div class="category-grid">
+      <div class="cat-card">
+        <div class="cat-name">밥·덮밥·비빔밥</div>
+        <div class="cat-menus">버섯된장찌개솥밥 · 비빔국수 · 두유콩국수 · 열무비빔밥 · 초당옥수수솥밥 외</div>
+        <div class="cat-count">31개 레시피</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-name">면·파스타·국수</div>
+        <div class="cat-menus">슈림프치킨차우면 · 어향가지볶음 · 토마토카레덮밥 · 매운닭볶음탕 외</div>
+        <div class="cat-count">35개 레시피</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-name">국·찌개</div>
+        <div class="cat-menus">버섯된장찌개 · 청국장순두부전골 · 갈비탕 · 사골순대국 외</div>
+        <div class="cat-count">33개 레시피</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-name">메인반찬</div>
+        <div class="cat-menus">삼색멸치볶음 · 골뱅이무침 · 수비드돼지뒷다리살스테이크 외</div>
+        <div class="cat-count">50개 레시피</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-name">샐러드·가벼운 한 끼</div>
+        <div class="cat-menus">참외샐러드 · 초여름 과일사라다 · 복숭아조림&브리치즈샐러드 외</div>
+        <div class="cat-count">30개 레시피</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-name">샌드위치·브런치</div>
+        <div class="cat-menus">베이직 샌드위치 · 참치샌드위치 · 플레인 오믈렛 · 홈카페 외</div>
+        <div class="cat-count">35개 레시피</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-name">세계음식</div>
+        <div class="cat-menus">마파두부덮밥 · 초계면 · 아보카도덮밥 · 타이그린카레 외</div>
+        <div class="cat-count">51개 레시피</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-name">비건·건강식</div>
+        <div class="cat-menus">두부스테이크 · 채식볶음밥 · 비건나물비빔밥 외</div>
+        <div class="cat-count">14개 레시피</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-name">베이킹·디저트 · 키즈</div>
+        <div class="cat-menus">키즈케이크 · 마들렌 · 유자에이드 · 꼬마김밥 외</div>
+        <div class="cat-count">41개 레시피</div>
+      </div>
+    </div>
+    <div style="margin-top:1px">
+      <div style="background:var(--s2);padding:24px 32px;border:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+        <span style="font-size:14px;color:var(--tx2)">전체 472개 메뉴 상세 목록 · 19개 카테고리 · 등록여부·개발유형·전문가 필터</span>
+        <a href="https://ezerahn.github.io/archiveat/proposal-menu.html" target="_blank" style="font-family:var(--mono);font-size:12px;color:var(--or);text-decoration:none;border:1px solid rgba(255,80,25,.4);padding:8px 16px">전체 메뉴 보기</a>
+      </div>
+    </div>
+    <div style="margin-top:48px">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--tx3);margin-bottom:20px;letter-spacing:.06em">상품화 형태</div>
+      <div class="commerce-types">
+        <div class="com-item"><div class="com-icon">📅</div><div class="com-label">시즌·제철<br>월별 큐레이션</div></div>
+        <div class="com-item"><div class="com-icon">🔄</div><div class="com-label">구독<br>정기배송</div></div>
+        <div class="com-item"><div class="com-icon">🎁</div><div class="com-label">이벤트·명절<br>선물박스</div></div>
+        <div class="com-item"><div class="com-icon">🛒</div><div class="com-label">공동구매<br>기업·지자체</div></div>
+        <div class="com-item"><div class="com-icon">🤝</div><div class="com-label">B2B 협업<br>브랜드 콜라보</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. INSTANT VALUE -->
+<section id="instant">
+  <div class="inner">
+    <span class="eyebrow">What You Get</span>
+    <h2 class="section-title" style="margin-bottom:16px">인수하면 즉시 가동되는 것들</h2>
+    <p class="section-desc">전문가(4) · 콘텐츠 경험(5) · 레시피 IP(6)가 이미 하나의 시스템으로 연결되어 있습니다.</p>
+    <div class="iv-grid">
+      <div class="iv-item">
+        <div class="iv-num">01</div>
+        <div class="iv-title">130명+ 크리에이터 네트워크</div>
+        <div class="iv-body">섭외·계약·신뢰 구축에 수년이 걸리는 전문가 풀이 즉시 가동됩니다. 온·오프라인 클래스, 콘텐츠 제작, 브랜드 협업 모두 바로 가능합니다.</div>
+        <ul class="iv-items">
+          <li>온·오프라인 클래스 즉시 운영</li>
+          <li>레시피 영상 지속 제작 가능</li>
+          <li>인플루언서 협업 채널 확보</li>
+        </ul>
+      </div>
+      <div class="iv-item">
+        <div class="iv-num">02</div>
+        <div class="iv-title">472개 레시피 × 영상 IP</div>
+        <div class="iv-body">클래스에서 검증된 레시피와 영상이 완비 상태입니다. 시즌·구독·이벤트·공동구매·B2B 협업으로 즉시 상품화 가능합니다.</div>
+        <ul class="iv-items">
+          <li>쿠킹박스 즉시 상품화</li>
+          <li>숏폼·콘텐츠 마케팅 즉시 활용</li>
+          <li>파트너 채널 연동 즉시 가능</li>
+        </ul>
+      </div>
+      <div class="iv-item">
+        <div class="iv-num">03</div>
+        <div class="iv-title">허가시설 + AI 운영 시스템</div>
+        <div class="iv-body">즉석제조가공 허가시설과 AI 마스터파일 4종 시스템. 공장 없이 기획→발주→소분→패킹→배송이 자동 설계됩니다.</div>
+        <ul class="iv-items">
+          <li>즉석제조가공 허가 보유</li>
+          <li>컬리 넥스트마일 새벽배송 연결</li>
+          <li>AI 발주·패킹 자동 설계</li>
+        </ul>
+      </div>
+    </div>
+    <div class="iv-msg">
+      <div class="iv-msg-text">크리에이터가 혼자 만들면 수년 걸리는 것들이<br>한 번에 옵니다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. STATS -->
+<section id="stats">
+  <div class="inner">
+    <span class="eyebrow">Asset Numbers</span>
+    <h2 class="section-title" style="margin-bottom:48px">서비스 자산 수치</h2>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-num">3,000<span class="stat-unit">+</span></div>
+        <div class="stat-label">자체 제작 레시피 영상</div>
+        <div class="stat-sub">전량 저작권 보유 · 유튜브 쇼츠 포맷</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">472</div>
+        <div class="stat-label">쿠킹박스 상품화 레시피 IP</div>
+        <div class="stat-sub">19개 카테고리 · BOM·영상·레시피카드 완비</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">130<span class="stat-unit">+</span></div>
+        <div class="stat-label">요리전문가 크리에이터 네트워크</div>
+        <div class="stat-sub">한식·세계·베이킹·비건·키즈 등 10개+ 분야</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">5,000<span class="stat-unit">+</span></div>
+        <div class="stat-label">누적 클래스 횟수</div>
+        <div class="stat-sub">온·오프라인 합산 · 검증된 운영 데이터</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">40,000<span class="stat-unit">+</span></div>
+        <div class="stat-label">누적 회원</div>
+        <div class="stat-sub">공공의주방 플랫폼 누적 가입</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">6</div>
+        <div class="stat-label">수상 이력</div>
+        <div class="stat-sub">iF · GDA · 소비자대상 2회 · 국회표창 2회</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. OPERATIONS -->
+<section id="ops">
+  <div class="inner">
+    <div class="section-head">
+      <span class="eyebrow">Operations</span>
+      <h2 class="section-title">운영 역량 — 모듈형 AI 키친</h2>
+      <p class="section-desc">인수 후 운영 리스크가 없습니다. 공간이 열리는 곳마다 같은 경험을 복제할 수 있는 구조입니다.</p>
+    </div>
+    <div class="ops-grid">
+      <div class="ops-item">
+        <div class="ops-tag">허가 자산</div>
+        <div class="ops-title">즉석제조가공 허가시설</div>
+        <div class="ops-body">광교 지식산업센터. 촬영·콘텐츠 제작·소분·포장을 한 곳에서 처리. 쿠킹박스 패킹·발주 운영 거점. 규제 자산이라 후발 진입이 어렵습니다.</div>
+      </div>
+      <div class="ops-item">
+        <div class="ops-tag">물류 인프라</div>
+        <div class="ops-title">컬리 넥스트마일 새벽배송</div>
+        <div class="ops-body">서울·인천·경기·충청 콜드체인 새벽배송 연결 완료. 냉장·냉동·실온 구분 포장 시스템. 목·토 새벽 도착 패킹 사이클 운영 중.</div>
+      </div>
+      <div class="ops-item">
+        <div class="ops-tag">AI 시스템</div>
+        <div class="ops-title">마스터파일 4종 — 자동화 백본</div>
+        <div class="ops-body">카테고리마스터·레시피마스터·구성품마스터·발주마스터. 주문 취합부터 식재료 발주량·소스 분량·패킹 방식까지 자동 설계. 1인 운영 가능한 이유입니다.</div>
+      </div>
+      <div class="ops-item">
+        <div class="ops-tag">확장 모델</div>
+        <div class="ops-title">아카이빗 AI 키친 — 복제 가능한 구조</div>
+        <div class="ops-body">파트너가 공간과 고객을 내어주면, 검증된 레시피·전문가·시스템을 이식해 운영하고 수익을 나누는 상생 모델. 갤러리아 B2B2C 파일럿으로 검증 중.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. PRESS + CONTACT -->
+<section id="press">
+  <div class="inner">
+    <span class="eyebrow">Press</span>
+    <h2 class="section-title" style="margin-bottom:40px">보도 이력</h2>
+    <div class="press-logos">
+      <span class="press-logo">벤처스퀘어</span>
+      <span class="press-logo">한국경제</span>
+      <span class="press-logo">중앙일보</span>
+      <span class="press-logo">서울경제</span>
+      <span class="press-logo">서울신문</span>
+      <span class="press-logo">뉴스1</span>
+      <span class="press-logo">디지털타임스</span>
+    </div>
+    <div class="press-cards">
+      <div class="press-card">
+        <div class="press-outlet">벤처스퀘어 · 2026.07.05</div>
+        <div class="press-title">"요리보다 사람이 보였죠"…식문화 브랜드 아카이빗에 AI를 더한 안상미 공공의주방 대표</div>
+        <div class="press-summary">AI 모듈러 키친 개념, 재고 없는 커머스 구조, 클래스에서 증명하고 박스로 판다는 검증 모델 소개.</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px">
+          <span class="press-date">2026.07.05</span>
+          <a href="https://www.venturesquare.net/1093769" target="_blank" class="press-link">기사 보기</a>
+        </div>
+      </div>
+      <div class="press-card">
+        <div class="press-outlet">벤처스퀘어 · 2022.04.11</div>
+        <div class="press-title">K-food 기반 요리 콘텐츠 공공의주방, 시리즈A 투자 유치</div>
+        <div class="press-summary">MYSC 임팩트투자사 시리즈A 투자. 누적회원 3.9만·전문가 120명·누적 클래스 2,900개 언급.</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px">
+          <span class="press-date">2022.04.11</span>
+          <a href="https://www.venturesquare.net/852653" target="_blank" class="press-link">기사 보기</a>
+        </div>
+      </div>
+      <div class="press-card">
+        <div class="press-outlet">한국경제 · 2019.08.27</div>
+        <div class="press-title">아마추어 셰프들이 주방 빌려 요리수업…맛있는 한끼 공유해요</div>
+        <div class="press-summary">창업 스토리. 서비스 6개월 만에 회원 1.5만명 돌파. 호텔리어 출신 경단녀 창업기.</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px">
+          <span class="press-date">2019.08.27</span>
+          <a href="https://www.hankyung.com/it/article/2019082713691" target="_blank" class="press-link">기사 보기</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="background:var(--s1);border-top:1px solid var(--bd);padding:80px 0">
+  <div class="inner">
+    <div class="contact-block">
+      <div>
+        <div class="contact-tagline">공간이 열리는 곳마다<br>같은 경험을 복제할 수<br>있는 구조입니다.</div>
+        <p class="contact-sub" style="margin-top:16px">제휴·투자·인수 논의를 환영합니다.<br>아래로 연락주시면 상세 자료를 드립니다.</p>
+      </div>
+      <div class="contact-details">
+        <div class="contact-row">
+          <span class="contact-label">대표</span>
+          <span class="contact-value">안상미 · 주식회사 공공의주방</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">E</span>
+          <span class="contact-value"><a href="mailto:contact@acvt.kr">contact@acvt.kr</a></span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">W</span>
+          <span class="contact-value"><a href="https://archiveat.kr" target="_blank">archiveat.kr</a></span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">T</span>
+          <span class="contact-value">1800-5910</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-label">A</span>
+          <span class="contact-value" style="font-size:13px">경기 용인시 수지구 포은대로59번길 37 113호</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-brand">ARCHIVEAT · 주식회사 공공의주방 · archiveat.kr</span>
+  <span class="footer-note">M&amp;A Portfolio 2026 · Confidential</span>
+</footer>
+
+</body>
+</html>
