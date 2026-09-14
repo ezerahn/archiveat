@@ -7,6 +7,12 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--or:#FF5019;--bg:#F5F5F3;--card:#fff;--bd:#E2E2E0;--tx:#1A1A1A;--tx2:#777;--add:#FFFBEE}
+.topnav{max-width:1360px;margin:0 auto 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.topnav-left{display:flex;gap:8px;flex-wrap:wrap}
+.tnav-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border:1px solid #D0CBC4;background:#fff;border-radius:20px;font-size:12px;font-family:inherit;color:#444;cursor:pointer;text-decoration:none;transition:.15s;line-height:1}
+.tnav-btn:hover{border-color:#999;color:#111}
+.tnav-chat{background:#fff;color:#444}
+.topnav-meta{font-size:11px;color:#999;text-align:right;line-height:1.7}
 body{font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:var(--bg);color:var(--tx);font-size:13px;padding:20px}
 .header{max-width:1360px;margin:0 auto 16px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
 .header h1{font-size:17px;font-weight:700;color:var(--or);margin-bottom:3px}
@@ -101,6 +107,14 @@ body{font-family:'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:var(
 </style>
 </head>
 <body>
+
+<div class="topnav">
+  <div class="topnav-left">
+    <a href="https://ezerahn.github.io/archiveat/company.html" class="tnav-btn">← 회사 정보</a>
+    <a href="https://claude.ai/chat/75871610-5347-48ad-ac58-ea99cff67b56" target="_blank" class="tnav-btn tnav-chat">💬 작업 대화</a>
+  </div>
+  <div class="topnav-meta">AI 워크스페이스 › 전문가 마스터 | 업데이트 2026.09.14 · v5</div>
+</div>
 
 <div class="header">
   <div>
