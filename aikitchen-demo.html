@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>ARCHIVEAT AI Kitchen</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --or:#FF5019;--or2:#FF7040;--or-bg:#FFF2EE;
+  --bg:#F5F4F2;--surf:#FFFFFF;--surf2:#F8F7F5;
+  --tx:#171717;--tx2:#666;--tx3:#AAA;
+  --bd:#EBEBEB;--bd2:#F0F0F0;
+  --gal:#5C1E1E;--gal2:#8B2E2E;--gal-bg:#FDF6F6;
+  --sans:'Noto Sans KR',sans-serif;--mono:'Inter',monospace;
+  --r:14px;--r2:10px;--r3:20px;
+}
+body{font-family:var(--sans);background:#E8E6E3;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+
+/* PHONE SHELL */
+.shell{width:390px;height:844px;background:var(--bg);border-radius:44px;overflow:hidden;position:relative;box-shadow:0 24px 80px rgba(0,0,0,.22),0 0 0 1px rgba(0,0,0,.06);flex-shrink:0}
+.notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:34px;background:#171717;border-radius:0 0 20px 20px;z-index:100}
+.status{position:absolute;top:0;left:0;right:0;height:54px;display:flex;align-items:center;justify-content:space-between;padding:14px 24px 0;z-index:99;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--tx);pointer-events:none}
+.status-gal{color:#fff}
+
+/* SCREENS */
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--bg);transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);will-change:transform}
+.screen.active{transform:translateX(0)}
+.screen.prev{transform:translateX(-30%)}
+
+/* SCROLL AREA */
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;padding-top:54px}
+.scroll::-webkit-scrollbar{display:none}
+
+/* HEADER */
+.hdr{position:absolute;top:54px;left:0;right:0;background:var(--bg);padding:0 20px 12px;z-index:50;display:flex;align-items:center;justify-content:space-between}
+.hdr-logo{font-family:var(--mono);font-size:15px;font-weight:700;letter-spacing:.04em;color:var(--tx)}
+.hdr-logo span{color:var(--or)}
+.hdr-right{display:flex;gap:10px;align-items:center}
+.icon-btn{width:36px;height:36px;border-radius:50%;background:var(--surf);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer}
+
+/* CONTENT PADDING */
+.pad{padding:0 20px}
+.pad-top{padding-top:100px}
+
+/* SEARCH SECTION */
+.search-wrap{margin:8px 20px 0;position:relative}
+.search-input{width:100%;padding:14px 16px 14px 44px;border:1.5px solid var(--bd);border-radius:var(--r3);font-size:14px;font-family:var(--sans);background:var(--surf);color:var(--tx);outline:none;transition:border-color .2s}
+.search-input:focus{border-color:var(--or)}
+.search-input::placeholder{color:var(--tx3)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none}
+.search-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:var(--or);color:#fff;border:none;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;font-family:var(--sans);cursor:pointer}
+
+/* CHIPS */
+.chips{display:flex;gap:7px;padding:10px 20px;overflow-x:auto;flex-shrink:0}
+.chips::-webkit-scrollbar{display:none}
+.chip{white-space:nowrap;padding:6px 12px;border-radius:20px;font-size:12px;border:1px solid var(--bd);background:var(--surf);color:var(--tx2);cursor:pointer;transition:all .15s;flex-shrink:0}
+.chip:active,.chip.sel{background:var(--or-bg);border-color:var(--or);color:var(--or)}
+
+/* SECTION TITLE */
+.sec-title{font-size:16px;font-weight:700;color:var(--tx);margin-bottom:12px}
+.sec-sub{font-size:12px;color:var(--tx2);margin-top:2px;font-weight:400}
+
+/* MENU CARDS */
+.menu-cards{display:flex;gap:12px;overflow-x:auto;padding:0 20px;flex-shrink:0}
+.menu-cards::-webkit-scrollbar{display:none}
+.menu-card{flex-shrink:0;width:200px;background:var(--surf);border-radius:var(--r);overflow:hidden;border:1px solid var(--bd);cursor:pointer;transition:transform .15s,box-shadow .15s}
+.menu-card:active{transform:scale(.97)}
+.menu-thumb{width:100%;height:130px;display:flex;align-items:center;justify-content:center;font-size:32px;position:relative}
+.menu-thumb-tx{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.menu-dish-name{font-size:13px;font-weight:700;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.menu-info{padding:10px 12px 12px}
+.menu-name{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:4px}
+.menu-teacher{font-size:11px;color:var(--tx2);display:flex;align-items:center;gap:4px}
+.teacher-dot{width:6px;height:6px;border-radius:50%;background:var(--or);flex-shrink:0}
+.menu-tags{display:flex;gap:4px;margin-top:6px}
+.tag-sm{font-size:10px;padding:2px 7px;border-radius:8px;background:var(--or-bg);color:var(--or);font-weight:500}
+
+/* TIPS SCROLL */
+.tips-row{display:flex;gap:10px;overflow-x:auto;padding:0 20px;flex-shrink:0}
+.tips-row::-webkit-scrollbar{display:none}
+.tip-card{flex-shrink:0;width:110px;cursor:pointer}
+.tip-thumb{width:110px;height:160px;border-radius:var(--r2);display:flex;align-items:flex-end;padding:8px;position:relative;overflow:hidden}
+.tip-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:32px;height:32px;background:rgba(255,255,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px}
+.tip-label{font-size:10px;font-weight:600;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5);line-height:1.3;position:relative;z-index:1}
+.tip-title{font-size:11px;color:var(--tx);margin-top:6px;line-height:1.4;font-weight:500}
+
+/* AI RESULTS */
+.ai-results{background:var(--surf);border-radius:var(--r);margin:12px 20px;border:1.5px solid var(--or);overflow:hidden}
+.ai-header{background:var(--or);padding:10px 14px;display:flex;align-items:center;gap:8px}
+.ai-header-txt{font-size:12px;font-weight:600;color:#fff}
+.ai-item{padding:12px 14px;border-bottom:1px solid var(--bd2);cursor:pointer;display:flex;gap:12px;align-items:center}
+.ai-item:last-child{border-bottom:none}
+.ai-item:active{background:var(--or-bg)}
+.ai-item-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.ai-item-info{flex:1}
+.ai-item-name{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:2px}
+.ai-item-reason{font-size:11px;color:var(--tx2);line-height:1.4}
+.ai-item-teacher{font-size:11px;color:var(--or);font-weight:500;margin-top:3px}
+.ai-loading{padding:20px;text-align:center;color:var(--tx2);font-size:13px}
+.ai-dot{display:inline-block;width:5px;height:5px;background:var(--or);border-radius:50%;animation:dot 1s infinite;margin:0 2px}
+.ai-dot:nth-child(2){animation-delay:.2s}
+.ai-dot:nth-child(3){animation-delay:.4s}
+@keyframes dot{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.hidden{display:none!important}
+
+/* BOTTOM NAV */
+.bnav{height:78px;background:var(--surf);border-top:1px solid var(--bd);display:flex;align-items:flex-start;padding-top:8px;flex-shrink:0}
+.bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0}
+.bnav-icon{font-size:20px;opacity:.4;transition:opacity .15s}
+.bnav-label{font-size:10px;color:var(--tx3);font-weight:500}
+.bnav-item.act .bnav-icon{opacity:1}
+.bnav-item.act .bnav-label{color:var(--or);font-weight:600}
+
+/* RECIPE SCREEN */
+.recipe-hero{height:240px;position:relative;display:flex;align-items:flex-end;padding:20px}
+.recipe-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 60%)}
+.recipe-hero-content{position:relative;z-index:1;color:#fff}
+.recipe-title{font-size:22px;font-weight:700;line-height:1.2;margin-bottom:4px}
+.recipe-meta{font-size:12px;opacity:.85;display:flex;gap:12px}
+.back-btn{position:absolute;top:64px;left:16px;z-index:51;width:36px;height:36px;background:rgba(255,255,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;border:none}
+
+/* TEACHER CARD */
+.teacher-card{margin:16px 20px;background:var(--surf);border-radius:var(--r);padding:14px;display:flex;gap:12px;align-items:center;border:1px solid var(--bd)}
+.teacher-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;flex-shrink:0;font-family:var(--mono)}
+.teacher-name{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:2px}
+.teacher-domain{font-size:11px;color:var(--or);font-weight:500}
+.teacher-desc{font-size:11px;color:var(--tx2);margin-top:3px;line-height:1.5}
+
+/* TABS */
+.tab-bar{display:flex;border-bottom:1px solid var(--bd);margin:0 20px;gap:24px}
+.tab{padding:10px 0;font-size:13px;font-weight:500;color:var(--tx2);cursor:pointer;border-bottom:2px solid transparent;transition:.15s}
+.tab.act{color:var(--or);border-bottom-color:var(--or);font-weight:600}
+
+/* RECIPE STEPS */
+.step{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--bd2)}
+.step:last-child{border-bottom:none}
+.step-num{width:24px;height:24px;border-radius:50%;background:var(--or);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--mono)}
+.step-txt{font-size:13px;color:var(--tx);line-height:1.7;padding-top:2px}
+
+/* ORDER BTN */
+.order-btn{margin:20px;background:var(--or);color:#fff;border:none;width:calc(100% - 40px);padding:16px;border-radius:var(--r3);font-size:15px;font-weight:700;font-family:var(--sans);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.order-price{font-size:13px;opacity:.8;font-weight:400}
+
+/* TIPS GRID */
+.tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 20px}
+.tip-grid-card{background:var(--surf2);border-radius:var(--r2);overflow:hidden;cursor:pointer}
+.tip-grid-thumb{height:90px;display:flex;align-items:center;justify-content:center;font-size:28px;position:relative}
+.tip-grid-info{padding:8px 10px 10px}
+.tip-grid-title{font-size:12px;font-weight:600;color:var(--tx);line-height:1.4}
+.tip-grid-time{font-size:10px;color:var(--tx2);margin-top:2px}
+
+/* GALLERIA SCREEN */
+.gal-hdr{background:var(--gal);padding:64px 20px 20px;position:relative}
+.gal-logo{font-size:11px;font-weight:600;color:rgba(255,255,255,.6);letter-spacing:.08em;margin-bottom:8px;font-family:var(--mono)}
+.gal-title{font-size:20px;font-weight:700;color:#fff;line-height:1.3;margin-bottom:4px}
+.gal-sub{font-size:12px;color:rgba(255,255,255,.7)}
+.gal-badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:10px;padding:3px 10px;border-radius:12px;margin-top:10px;font-weight:500}
+
+/* CLASS CARDS */
+.class-card{background:var(--surf);border-radius:var(--r);overflow:hidden;margin:0 20px 12px;border:1px solid var(--bd);cursor:pointer}
+.class-card:active{opacity:.9}
+.class-banner{height:100px;display:flex;align-items:center;justify-content:space-between;padding:16px;position:relative}
+.class-special{position:absolute;top:10px;left:10px;background:var(--gal);color:#fff;font-size:10px;font-weight:600;padding:3px 8px;border-radius:8px;font-family:var(--mono)}
+.class-dish{font-size:28px;position:absolute;right:16px;top:50%;transform:translateY(-50%)}
+.class-info{padding:12px 14px}
+.class-name{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:4px}
+.class-details{display:flex;gap:14px;font-size:11px;color:var(--tx2)}
+.class-detail{display:flex;align-items:center;gap:4px}
+
+/* BOOKING BOX */
+.booking-box{margin:0 20px;background:var(--gal-bg);border:1.5px solid var(--gal);border-radius:var(--r);padding:16px}
+.booking-title{font-size:13px;font-weight:700;color:var(--gal);margin-bottom:10px}
+.booking-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.booking-label{font-size:12px;color:var(--tx2)}
+.booking-val{font-size:13px;font-weight:600;color:var(--tx)}
+.booking-btn{width:100%;background:var(--gal);color:#fff;border:none;padding:14px;border-radius:var(--r2);font-size:14px;font-weight:700;font-family:var(--sans);cursor:pointer;margin-top:14px}
+
+/* PARTNER NOTICE */
+.partner-notice{margin:12px 20px;background:var(--surf2);border-radius:var(--r2);padding:12px;display:flex;gap:10px;align-items:flex-start;border:1px solid var(--bd)}
+.notice-icon{font-size:16px;flex-shrink:0}
+.notice-txt{font-size:11px;color:var(--tx2);line-height:1.6}
+
+/* RESPONSIVE */
+@media(max-width:430px){
+  body{padding:0;align-items:flex-start;background:var(--bg)}
+  .shell{width:100%;height:100vh;border-radius:0;box-shadow:none}
+  .notch{display:none}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="notch"></div>
+
+  <!-- ═══════════════ HOME SCREEN ═══════════════ -->
+  <div class="screen active" id="s-home">
+    <div class="status">
+      <span style="font-family:var(--mono);font-size:12px;font-weight:600">9:41</span>
+      <span>●●● 🔋</span>
+    </div>
+    <div class="hdr">
+      <div class="hdr-logo">ARCHIVEAT<span>.</span></div>
+      <div class="hdr-right">
+        <div class="icon-btn" onclick="goBell()">🔔</div>
+        <div class="icon-btn" onclick="goGal()">🏬</div>
+      </div>
+    </div>
+    <div class="scroll" style="padding-top:98px">
+      <!-- Search -->
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input class="search-input" id="ingInput" placeholder="냉장고 재료를 입력해보세요 (예: 두부, 애호박)" onkeydown="if(event.key==='Enter')doSearch()">
+        <button class="search-btn" onclick="doSearch()">AI 추천</button>
+      </div>
+
+      <!-- Chips -->
+      <div class="chips">
+        <div class="chip" onclick="setIng('두부, 된장')">두부+된장</div>
+        <div class="chip" onclick="setIng('달걀, 토마토')">달걀+토마토</div>
+        <div class="chip" onclick="setIng('닭가슴살, 브로콜리')">닭+브로콜리</div>
+        <div class="chip" onclick="setIng('오이, 당근')">오이+당근</div>
+        <div class="chip" onclick="setIng('소고기, 감자')">소고기+감자</div>
+      </div>
+
+      <!-- AI Results (hidden by default) -->
+      <div class="ai-results hidden" id="aiResults">
+        <div class="ai-header">
+          <span>✨</span>
+          <span class="ai-header-txt">검증된 선생님 레시피 추천</span>
+        </div>
+        <div id="aiContent"><div class="ai-loading"><span class="ai-dot"></span><span class="ai-dot"></span><span class="ai-dot"></span> AI가 레시피를 찾고 있어요</div></div>
+      </div>
+
+      <!-- Weekly Menu -->
+      <div style="padding:16px 20px 10px">
+        <div class="sec-title">이번 주 큐레이션 메뉴 <span class="sec-sub">9월 셋째 주 · 초가을</span></div>
+      </div>
+      <div class="menu-cards" style="padding-bottom:4px">
+        <div class="menu-card" onclick="goRecipe('버섯된장찌개','임수진','한식·국찌개','#5B7A4E','#8FAF6E','🍲')">
+          <div class="menu-thumb" style="background:linear-gradient(135deg,#5B7A4E,#8FAF6E)">
+            <div class="menu-thumb-tx"><div style="font-size:40px">🍲</div><div class="menu-dish-name">버섯된장찌개</div></div>
+          </div>
+          <div class="menu-info">
+            <div class="menu-name">버섯된장찌개</div>
+            <div class="menu-teacher"><span class="teacher-dot"></span> 임수진 선생님</div>
+            <div class="menu-tags"><span class="tag-sm">한식</span><span class="tag-sm">20분</span><span class="tag-sm">2인분</span></div>
+          </div>
+        </div>
+        <div class="menu-card" onclick="goRecipe('슈림프치킨차우면','최진','세계요리','#3A5A7A','#5B8AAA','🍜')">
+          <div class="menu-thumb" style="background:linear-gradient(135deg,#3A5A7A,#5B8AAA)">
+            <div class="menu-thumb-tx"><div style="font-size:40px">🍜</div><div class="menu-dish-name">슈림프치킨차우면</div></div>
+          </div>
+          <div class="menu-info">
+            <div class="menu-name">슈림프치킨차우면</div>
+            <div class="menu-teacher"><span class="teacher-dot"></span> 최진 선생님</div>
+            <div class="menu-tags"><span class="tag-sm">세계요리</span><span class="tag-sm">20분</span></div>
+          </div>
+        </div>
+        <div class="menu-card" onclick="goRecipe('생열무비빔밥','홍가람','한식·비빔밥','#8B4513','#CD853F','🥗')">
+          <div class="menu-thumb" style="background:linear-gradient(135deg,#7A4A2A,#B87A50)">
+            <div class="menu-thumb-tx"><div style="font-size:40px">🥗</div><div class="menu-dish-name">생열무비빔밥</div></div>
+          </div>
+          <div class="menu-info">
+            <div class="menu-name">생열무비빔밥</div>
+            <div class="menu-teacher"><span class="teacher-dot"></span> 홍가람 선생님</div>
+            <div class="menu-tags"><span class="tag-sm">한식</span><span class="tag-sm">15분</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cooking Tips -->
+      <div style="padding:20px 20px 10px">
+        <div class="sec-title">요리팁 쇼츠 <span class="sec-sub">선생님 비법 15초</span></div>
+      </div>
+      <div class="tips-row" style="padding-bottom:4px">
+        <div class="tip-card" style="cursor:pointer" onclick="openYT('쪽파냉장보관법')">
+          <div class="tip-thumb" style="background:linear-gradient(160deg,#1A5A2A,#3A9A50)">
+            <div style="position:absolute;inset:0;background:rgba(0,0,0,.2)"></div>
+            <div class="tip-play">▶</div>
+            <div class="tip-label">쪽파<br>냉장 보관법</div>
+          </div>
+          <div class="tip-title" style="color:var(--or)">쪽파냉장보관법 ▶</div>
+        </div>
+        <div class="tip-card" style="cursor:pointer">
+          <div class="tip-thumb" style="background:linear-gradient(160deg,#3A2060,#7A50C0)">
+            <div style="position:absolute;inset:0;background:rgba(0,0,0,.2)"></div>
+            <div class="tip-play" onclick="openYT(this.closest('.tip-card').querySelector('.tip-title').textContent.replace(' ▶',''))">▶</div>
+            <div class="tip-label">차우면 면<br>꼬들하게 삶기</div>
+          </div>
+          <div class="tip-title" onclick="openYT('면 삶는 시간이 핵심')" style="cursor:pointer;color:var(--or)">면 삶는 시간이 핵심 ▶</div>
+        </div>
+        <div class="tip-card" style="cursor:pointer">
+          <div class="tip-thumb" style="background:linear-gradient(160deg,#7A3A10,#D08030)">
+            <div style="position:absolute;inset:0;background:rgba(0,0,0,.2)"></div>
+            <div class="tip-play" onclick="openYT(this.closest('.tip-card').querySelector('.tip-title').textContent.replace(' ▶',''))">▶</div>
+            <div class="tip-label">열무 씻고<br>데치는 방법</div>
+          </div>
+          <div class="tip-title" onclick="openYT('열무 아삭하게 준비하기')" style="cursor:pointer;color:var(--or)">열무 아삭하게 준비하기 ▶</div>
+        </div>
+        <div class="tip-card" style="cursor:pointer">
+          <div class="tip-thumb" style="background:linear-gradient(160deg,#1A3A5A,#3A6A9A)">
+            <div style="position:absolute;inset:0;background:rgba(0,0,0,.2)"></div>
+            <div class="tip-play" onclick="openYT(this.closest('.tip-card').querySelector('.tip-title').textContent.replace(' ▶',''))">▶</div>
+            <div class="tip-label">된장 고르는<br>법</div>
+          </div>
+          <div class="tip-title" onclick="openYT('집된장 vs 시판된장')" style="cursor:pointer;color:var(--or)">집된장 vs 시판된장 ▶</div>
+        </div>
+      </div>
+      <div style="height:20px"></div>
+    </div>
+    <nav class="bnav">
+      <div class="bnav-item act"><div class="bnav-icon">🏠</div><div class="bnav-label">홈</div></div>
+      <div class="bnav-item"><div class="bnav-icon">🔍</div><div class="bnav-label">검색</div></div>
+      <div class="bnav-item" onclick="goGal()"><div class="bnav-icon">🏬</div><div class="bnav-label">클래스</div></div>
+      <div class="bnav-item"><div class="bnav-icon">👤</div><div class="bnav-label">마이</div></div>
+    </nav>
+  </div>
+
+  <!-- ═══════════════ RECIPE SCREEN ═══════════════ -->
+  <div class="screen" id="s-recipe">
+    <div class="status">
+      <span style="font-family:var(--mono);font-size:12px;font-weight:600">9:41</span>
+      <span>●●● 🔋</span>
+    </div>
+    <button class="back-btn" onclick="goBack('s-recipe','s-home')">←</button>
+    <div class="scroll">
+      <!-- Hero -->
+      <div class="recipe-hero" id="recipeHero" style="background:linear-gradient(135deg,#5B7A4E,#8FAF6E)">
+        <div class="recipe-hero-overlay"></div>
+        <div class="recipe-hero-content">
+          <div style="font-size:28px;margin-bottom:8px" id="recipeEmoji">🍲</div>
+          <div class="recipe-title" id="recipeName">버섯된장찌개</div>
+          <div class="recipe-meta">
+            <span>⏱ 20분</span>
+            <span>👥 2인분</span>
+            <span>🌡 중간 불</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Teacher -->
+      <div class="teacher-card">
+        <div class="teacher-avatar" id="teacherAvatar" style="background:var(--or);font-size:16px">임</div>
+        <div>
+          <div class="teacher-name" id="teacherName">임수진 선생님</div>
+          <div class="teacher-domain" id="teacherDomain">한식 · 국·찌개</div>
+          <div class="teacher-desc">공공의주방 핵심 전문가 · 레시피 52개 보유</div>
+        </div>
+        <div style="margin-left:auto;font-size:11px;color:var(--or);cursor:pointer;font-weight:600;white-space:nowrap">Q&A ›</div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tab-bar">
+        <div class="tab act" onclick="switchTab(this,0)">레시피</div>
+        <div class="tab" onclick="switchTab(this,1)">요리팁</div>
+        <div class="tab" onclick="switchTab(this,2)">키트 주문</div>
+      </div>
+
+      <!-- Tab 0: Recipe -->
+      <div id="tab0" style="padding:16px 20px">
+        <div style="font-size:12px;color:var(--tx2);margin-bottom:12px;line-height:1.6">버섯의 구수함과 된장의 깊은 맛이 어우러진 따뜻한 집밥. 10분이면 완성.</div>
+        <div class="step"><div class="step-num">1</div><div class="step-txt">버섯은 먹기 좋은 크기로 찢어두고, 두부는 큐브 모양으로 자른다.</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-txt">냄비에 다시마 국물 500ml를 끓이다가 된장 1.5T를 풀어 넣는다.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-txt">버섯을 넣고 3분간 끓인 후 두부, 대파를 넣는다.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-txt">고춧가루로 칼칼하게 간하고, 마지막에 다진 마늘 1t로 마무리.</div></div>
+      </div>
+
+      <!-- Tab 1: Tips (hidden) -->
+      <div id="tab1" class="hidden" style="padding:12px 0">
+        <div class="tips-grid">
+          <div class="tip-grid-card">
+            <div class="tip-grid-thumb" style="background:linear-gradient(135deg,#2D5A27,#5A9E50)"><div style="position:absolute;inset:0;background:rgba(0,0,0,.15)"></div><div style="font-size:24px;position:relative">🍄</div><div class="tip-play" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)">▶</div></div>
+            <div class="tip-grid-info"><div class="tip-grid-title">버섯 종류별 차이점</div><div class="tip-grid-time">0:14</div></div>
+          </div>
+          <div class="tip-grid-card">
+            <div class="tip-grid-thumb" style="background:linear-gradient(135deg,#4A3010,#8A6030)"><div style="position:absolute;inset:0;background:rgba(0,0,0,.15)"></div><div style="font-size:24px;position:relative">🥢</div><div class="tip-play" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)">▶</div></div>
+            <div class="tip-grid-info"><div class="tip-grid-title">된장 고르는 법</div><div class="tip-grid-time">0:12</div></div>
+          </div>
+          <div class="tip-grid-card">
+            <div class="tip-grid-thumb" style="background:linear-gradient(135deg,#1A3A5A,#3A6A9A)"><div style="position:absolute;inset:0;background:rgba(0,0,0,.15)"></div><div style="font-size:24px;position:relative">🌊</div><div class="tip-play" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)">▶</div></div>
+            <div class="tip-grid-info"><div class="tip-grid-title">다시마 국물 내기</div><div class="tip-grid-time">0:15</div></div>
+          </div>
+          <div class="tip-grid-card">
+            <div class="tip-grid-thumb" style="background:linear-gradient(135deg,#5A2A10,#9A5030)"><div style="position:absolute;inset:0;background:rgba(0,0,0,.15)"></div><div style="font-size:24px;position:relative">🧄</div><div class="tip-play" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)">▶</div></div>
+            <div class="tip-grid-info"><div class="tip-grid-title">마늘 다지기 꿀팁</div><div class="tip-grid-time">0:11</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Order (hidden) -->
+      <div id="tab2" class="hidden">
+        <div style="padding:16px 20px">
+          <div style="font-size:13px;color:var(--tx2);line-height:1.8;margin-bottom:16px">식재료를 딱 필요한 만큼만 소분해서 보내드려요. 남는 재료 걱정 없이 집밥을 완성하세요.</div>
+          <div style="background:var(--surf2);border-radius:var(--r2);padding:14px;margin-bottom:12px">
+            <div style="font-size:12px;font-weight:600;color:var(--tx);margin-bottom:10px">구성품 (2인분)</div>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--tx2)">다양한 버섯 믹스</span><span style="font-weight:500">200g</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--tx2)">두부</span><span style="font-weight:500">160g</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--tx2)">재래 된장 소스</span><span style="font-weight:500">40g</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--tx2)">다시마·멸치 육수팩</span><span style="font-weight:500">1개</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--tx2)">대파 소분</span><span style="font-weight:500">적당량</span></div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)">
+            <span style="font-size:13px;color:var(--tx2)">키트 단가</span>
+            <span style="font-size:18px;font-weight:700;color:var(--or);font-family:var(--mono)">15,900원</span>
+          </div>
+        </div>
+        <button class="order-btn">
+          <span>🛒 키트 주문하기</span>
+          <span class="order-price">15,900원 · 목·토 새벽 배송</span>
+        </button>
+      </div>
+      <div style="height:20px"></div>
+    </div>
+    <nav class="bnav">
+      <div class="bnav-item" onclick="goBack('s-recipe','s-home')"><div class="bnav-icon">🏠</div><div class="bnav-label">홈</div></div>
+      <div class="bnav-item"><div class="bnav-icon">🔍</div><div class="bnav-label">검색</div></div>
+      <div class="bnav-item act"><div class="bnav-icon">📋</div><div class="bnav-label">레시피</div></div>
+      <div class="bnav-item"><div class="bnav-icon">👤</div><div class="bnav-label">마이</div></div>
+    </nav>
+  </div>
+
+  <!-- ═══════════════ GALLERIA SCREEN ═══════════════ -->
+  <div class="screen" id="s-galleria">
+    <div class="status status-gal" style="background:var(--gal)">
+      <span style="font-family:var(--mono);font-size:12px;font-weight:600">9:41</span>
+      <span>●●● 🔋</span>
+    </div>
+    <button class="back-btn" onclick="goBack('s-galleria','s-home')" style="top:64px">←</button>
+    <div class="scroll">
+      <!-- Galleria Header -->
+      <div class="gal-hdr">
+        <div class="gal-logo">GALLERIA GWANGYO × ARCHIVEAT</div>
+        <div class="gal-title">갤러리아 쿠킹<br>스페셜 클래스</div>
+        <div class="gal-sub">갤러리아 광교 고객 전용 온라인 쿠킹 클래스</div>
+        <div class="gal-badge">🔒 회원 전용 프로그램</div>
+      </div>
+
+      <!-- Notice -->
+      <div class="partner-notice" style="margin-top:16px">
+        <div class="notice-icon">📌</div>
+        <div class="notice-txt">갤러리아 광교 문자 수신 고객만 이용 가능합니다. 키트는 새벽 배송으로 클래스 전날 도착하며, 온라인 Zoom으로 진행됩니다.</div>
+      </div>
+
+      <!-- Class Cards -->
+      <div style="padding:16px 20px 10px">
+        <div class="sec-title" style="color:var(--gal)">10월 클래스 라인업</div>
+      </div>
+
+      <div class="class-card">
+        <div class="class-banner" style="background:linear-gradient(135deg,#5B7A4E,#8FAF6E)">
+          <div class="class-special">10월 추천</div>
+          <div class="class-dish">🍲</div>
+        </div>
+        <div class="class-info">
+          <div class="class-name">초가을 버섯된장찌개 · 임수진 선생님</div>
+          <div class="class-details">
+            <div class="class-detail">📅 10월 5일 (토) 11:00</div>
+            <div class="class-detail">👥 20~30명</div>
+          </div>
+          <div class="class-details" style="margin-top:6px">
+            <div class="class-detail" style="color:var(--gal);font-weight:600">🎁 키트 포함 49,000원</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="class-card">
+        <div class="class-banner" style="background:linear-gradient(135deg,#3A5A7A,#5B8AAA)">
+          <div class="class-special">인기</div>
+          <div class="class-dish">🍜</div>
+        </div>
+        <div class="class-info">
+          <div class="class-name">슈림프치킨차우면 · 최진 선생님</div>
+          <div class="class-details">
+            <div class="class-detail">📅 10월 12일 (토) 11:00</div>
+            <div class="class-detail">👥 20~30명</div>
+          </div>
+          <div class="class-details" style="margin-top:6px">
+            <div class="class-detail" style="color:var(--gal);font-weight:600">🎁 키트 포함 49,000원</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking -->
+      <div style="padding:4px 0 10px">
+        <div class="booking-box">
+          <div class="booking-title">단체 신청 (기업·단체)</div>
+          <div class="booking-row"><span class="booking-label">최소 인원</span><span class="booking-val">20명</span></div>
+          <div class="booking-row"><span class="booking-label">기업 단체가</span><span class="booking-val" style="color:var(--gal)">협의</span></div>
+          <div class="booking-row"><span class="booking-label">키트 배송</span><span class="booking-val">사무실·댁 모두 가능</span></div>
+          <button class="booking-btn">단체 신청하기</button>
+        </div>
+      </div>
+      <div style="height:20px"></div>
+    </div>
+    <nav class="bnav">
+      <div class="bnav-item" onclick="goBack('s-galleria','s-home')"><div class="bnav-icon">🏠</div><div class="bnav-label">홈</div></div>
+      <div class="bnav-item"><div class="bnav-icon">🔍</div><div class="bnav-label">검색</div></div>
+      <div class="bnav-item act"><div class="bnav-icon">🏬</div><div class="bnav-label">클래스</div></div>
+      <div class="bnav-item"><div class="bnav-icon">👤</div><div class="bnav-label">마이</div></div>
+    </nav>
+  </div>
+
+
+  <!-- YOUTUBE MODAL -->
+  <div class="yt-modal" id="ytModal" onclick="closeYT()">
+    <button class="yt-modal-close" onclick="closeYT()">✕</button>
+    <div class="yt-modal-label" id="ytLabel">선생님 요리팁 쇼츠</div>
+    <div class="yt-modal-title" id="ytTitle">쪽파냉장보관법</div>
+    <div class="yt-thumb-wrap" onclick="event.stopPropagation()">
+      <div style="font-size:40px">🥬</div>
+      <div style="color:rgba(255,255,255,.7);font-size:12px;text-align:center;padding:0 16px;line-height:1.6" id="ytDesc">실제 앱에서 이 자리에<br>쇼츠 영상이 재생돼요</div>
+      <div class="yt-play-big" id="ytPlayBtn" onclick="openInYT()">▶</div>
+    </div>
+    <button class="yt-open-btn" onclick="openInYT()">
+      <span>▶</span> YouTube에서 보기
+    </button>
+    <div class="yt-note">
+      데모에서는 YouTube 링크로 연결됩니다.<br>
+      실제 앱에서는 화면 안에서 바로 재생돼요.
+    </div>
+  </div>
+
+</div><!-- /shell -->
+
+
+<script>
+var RECIPE_DB = `강된장채소비빔밥(김은영,밥·덮밥·비빔밥,🍚)
+고등어생강밥(박소진,밥·덮밥·비빔밥,🍚)
+근대쌈밥(류진경,밥·덮밥·비빔밥,🍚)
+달걀볶음밥(임수진,밥·덮밥·비빔밥,🍚)
+돼지고기김치밥(박소진,밥·덮밥·비빔밥,🍚)
+두부브로콜리소보로비빔밥(박소진,밥·덮밥·비빔밥,🍚)
+뿌리채소하얀약밥(박소진,밥·덮밥·비빔밥,🍚)
+멍게비빔밥(요리코치써니,밥·덮밥·비빔밥,🍚)
+명란낙지젓비빔밥(박소진,밥·덮밥·비빔밥,🍚)
+밥케이크(아카이빗,밥·덮밥·비빔밥,🍚)
+버섯덮밥(장재우,밥·덮밥·비빔밥,🍚)
+불고기숙주덮밥(장재우,밥·덮밥·비빔밥,🍚)
+삼색소보로덮밥(장재우,밥·덮밥·비빔밥,🍚)
+생열무비빔밥(김은영,밥·덮밥·비빔밥,🍚)
+소고기청경채볶음밥(장재우,밥·덮밥·비빔밥,🍚)
+약밥(나재윤,밥·덮밥·비빔밥,🍚)
+양배추쌈밥(김희경,밥·덮밥·비빔밥,🍚)
+전복미역강황밥(박소진,밥·덮밥·비빔밥,🍚)
+잔멸치녹차밥(박소진,밥·덮밥·비빔밥,🍚)
+참나물날치알볶음밥(김은영,밥·덮밥·비빔밥,🍚)
+초당옥수수솥밥(요리코치써니,밥·덮밥·비빔밥,🍚)
+콩나물밥(김은영,밥·덮밥·비빔밥,🍚)
+닭갈비덮밥(박소진,밥·덮밥·비빔밥,🍚)
+팽이버섯덮밥(요리코치써니,밥·덮밥·비빔밥,🍚)
+파인애플볶음밥(백오연,밥·덮밥·비빔밥,🍚)
+파인애플불고기도리아(김은영,밥·덮밥·비빔밥,🍚)
+해물커리덮밥(박소진,밥·덮밥·비빔밥,🍚)
+LA갈비채소덮밥(박소진,밥·덮밥·비빔밥,🍚)
+마파두부덮밥(장재우,밥·덮밥·비빔밥,🍚)
+보리밥열무김치(갤러리아정규(여름)·박소진,밥·덮밥·비빔밥,🍚)
+불고기비빔밥(갤러리아정규(여름)·박소진,밥·덮밥·비빔밥,🍚)
+고추냉이크림파스타(박재한,면·파스타·국수,🍝)
+고사리페스토파스타(박소현,면·파스타·국수,🍝)
+나폴리탄스파게티(김규태,면·파스타·국수,🍝)
+두유콩국수(박재한,면·파스타·국수,🍝)
+라구파스타(김규태,면·파스타·국수,🍝)
+로제파스타(김규태,면·파스타·국수,🍝)
+바질페스토파스타(김규태,면·파스타·국수,🍝)
+베이컨간장파스타(김은영,면·파스타·국수,🍝)
+베이컨양배추볶음우동(요리코치써니,면·파스타·국수,🍝)
+베이컨크림리소토(김규태,면·파스타·국수,🍝)
+베이컨크림파스타(김규태,면·파스타·국수,🍝)
+봉골레파스타(김규태,면·파스타·국수,🍝)
+버섯리소토(김규태,면·파스타·국수,🍝)
+비빔국수(김은영,면·파스타·국수,🍝)
+뽀모도로파스타(김규태,면·파스타·국수,🍝)
+슈림프치킨차우면(최진,면·파스타·국수,🍝)
+알리오올리오(김규태,면·파스타·국수,🍝)
+양배추토마토파스타(김희경,면·파스타·국수,🍝)
+열무물국수(김은영,면·파스타·국수,🍝)
+오븐스파게티(김규태,면·파스타·국수,🍝)
+원팬봉골레파스타(송현주,면·파스타·국수,🍝)
+원팬시금치리소토(송현주,면·파스타·국수,🍝)
+원팬토마토파스타(송현주,면·파스타·국수,🍝)
+쫄면(홍가람,면·파스타·국수,🍝)
+토마토비빔국수(요리코치써니,면·파스타·국수,🍝)
+평양냉면(박소진,면·파스타·국수,🍝)
+해물차우면(아카이빗,면·파스타·국수,🍝)
+해산물마리소토(박재한,면·파스타·국수,🍝)
+해산물토마토리소토(김규태,면·파스타·국수,🍝)
+해산물토마토파스타(김규태,면·파스타·국수,🍝)
+히야시츄카(장재우,면·파스타·국수,🍝)
+초계국수(갤러리아정규(여름)·박소진,면·파스타·국수,🍝)
+김치리소토(이영미,면·파스타·국수,🍝)
+바질페스토콜드파스타(최진,면·파스타·국수,🍝)
+제주 고사리 파스타(아카이빗,면·파스타·국수,🍝)
+감잣국(임수진,국·찌개,🍲)
+고추장찌개(김은영,국·찌개,🍲)
+근대된장국(임수진,국·찌개,🍲)
+김칫국(임수진,국·찌개,🍲)
+김치콩나물국(김은영,국·찌개,🍲)
+냉이된장찌개(김정유,국·찌개,🍲)
+된장찌개(김은영,국·찌개,🍲)
+돼지고기김치찌개(임수진,국·찌개,🍲)
+매생이굴국(임수진,국·찌개,🍲)
+맑은조개국(임수진,국·찌개,🍲)
+미역국(임수진,국·찌개,🍲)
+바지락미역국(김은영,국·찌개,🍲)
+배추된장국(임수진,국·찌개,🍲)
+북엇국(임수진,국·찌개,🍲)
+비지찌개(김은영,국·찌개,🍲)
+소고기뭇국(임수진,국·찌개,🍲)
+순두부찌개(김은영,국·찌개,🍲)
+쑥국(김정유,국·찌개,🍲)
+시금치된장국(임수진,국·찌개,🍲)
+양파유부찌개(장재우,국·찌개,🍲)
+오이찌개(장재우,국·찌개,🍲)
+오징어뭇국(임수진,국·찌개,🍲)
+차돌된장찌개(장재우,국·찌개,🍲)
+청국장찌개(임수진,국·찌개,🍲)
+콩나물국(임수진,국·찌개,🍲)
+황태해장국(김은영,국·찌개,🍲)
+콩나물냉국(갤러리아정규(여름)·박소진,국·찌개,🍲)
+만둣국(임수진,국·찌개,🍲)
+감자수제비(김은영,국·찌개,🍲)
+오이냉국(김은영,국·찌개,🍲)
+토마토달걀탕(요리코치써니,국·찌개,🍲)
+냉이우렁된장찌개(아카이빗,국·찌개,🍲)
+봄동된장국(아카이빗,국·찌개,🍲)
+감자들깨탕(김희경,탕·전골,🫕)
+꽃게탕(임수진,탕·전골,🫕)
+닭볶음탕(김은영,탕·전골,🫕)
+대파감자수프(김희경,탕·전골,🫕)
+버섯매운탕(장재우,탕·전골,🫕)
+부대찌개(임수진,탕·전골,🫕)
+삼계탕(임수진,탕·전골,🫕)
+어묵탕(박나래,탕·전골,🫕)
+전복보양곰탕(장재우,탕·전골,🫕)
+청국장순두부전골(김은영,탕·전골,🫕)
+콩나물동태찜(김은영,탕·전골,🫕)
+탕반가릿국(박소진,탕·전골,🫕)
+토마토수프(최진,탕·전골,🫕)
+육개장(임수진,탕·전골,🫕)
+버섯들깨탕(김희경,탕·전골,🫕)
+갑오징어볶음(박나래,메인반찬,🍖)
+고등어김치찜(이영미,메인반찬,🍖)
+고등어조림(박나래,메인반찬,🍖)
+골뱅이무침(임수진,메인반찬,🍖)
+깻잎말이찜(김희경,메인반찬,🍖)
+꼬막무침(임수진,메인반찬,🍖)
+꿀닭봉(송현주,메인반찬,🍖)
+김치두루치기(임수진,메인반찬,🍖)
+김치찜(임수진,메인반찬,🍖)
+낙지당면볶음(김은영,메인반찬,🍖)
+달걀소고기장조림(김희경,메인반찬,🍖)
+달걀찜(김은영,메인반찬,🍖)
+닭갈비(김은영,메인반찬,🍖)
+돼지갈비찜(임수진,메인반찬,🍖)
+돼지불고기(아카이빗,메인반찬,🍖)
+마늘소스치킨윙(김은영,메인반찬,🍖)
+맥적(김희경,메인반찬,🍖)
+묵은지수육(이영미,메인반찬,🍖)
+문어조림(아카이빗,메인반찬,🍖)
+무수분수육(송현주,메인반찬,🍖)
+버팔로윙(최진,메인반찬,🍖)
+브로콜리마늘볶음(아카이빗,메인반찬,🍖)
+삼색달걀말이(김희경,메인반찬,🍖)
+소고기장조림(홍가람,메인반찬,🍖)
+소불고기(임수진,메인반찬,🍖)
+순두부새우달걀찜(장재우,메인반찬,🍖)
+순살찜닭(요리코치써니,메인반찬,🍖)
+수육(임수진,메인반찬,🍖)
+쇼유치킨(장재우,메인반찬,🍖)
+시금치새우볶음(장재우,메인반찬,🍖)
+어묵볶음(김은영,메인반찬,🍖)
+어묵잡채(요리코치써니,메인반찬,🍖)
+연어데리야끼(장재우,메인반찬,🍖)
+오리주물럭(임수진,메인반찬,🍖)
+오징어볶음(임수진,메인반찬,🍖)
+우엉잡채(장재우,메인반찬,🍖)
+원팬잡채(송현주,메인반찬,🍖)
+조갯살두부조림(김희경,메인반찬,🍖)
+제육볶음(박나래,메인반찬,🍖)
+크림가자미스테이크(장재우,메인반찬,🍖)
+더덕구이(김희경,메인반찬,🍖)
+돼지고기장조림(홍가람,메인반찬,🍖)
+부대볶음(요리코치써니,메인반찬,🍖)
+훈제오리부추찜(임수진,메인반찬,🍖)
+아귀캐슈너트강정(장재우,메인반찬,🍖)
+알배추삼겹찜(갤러리아정규(여름)·박소진,메인반찬,🍖)
+전복장(갤러리아정규(여름)·박소진,메인반찬,🍖)
+오징어두부두루치기(김은영,메인반찬,🍖)
+콩나물불고기(김은영,메인반찬,🍖)
+돼지고기김치말이(이영미,메인반찬,🍖)
+가지볶음(임수진,기본반찬·밑반찬,🥬)
+감자조림(임수진,기본반찬·밑반찬,🥬)
+감자채볶음(김은영,기본반찬·밑반찬,🥬)
+꼬마새송이마늘볶음(김희경,기본반찬·밑반찬,🥬)
+김무침(홍가람,기본반찬·밑반찬,🥬)
+된장고추무침(김은영,기본반찬·밑반찬,🥬)
+두부조림(김은영,기본반찬·밑반찬,🥬)
+무말랭이피클(홍가람,기본반찬·밑반찬,🥬)
+무생채(임수진,기본반찬·밑반찬,🥬)
+무조림(김은영,기본반찬·밑반찬,🥬)
+미역자반(홍가람,기본반찬·밑반찬,🥬)
+미역줄기볶음(홍가람,기본반찬·밑반찬,🥬)
+버섯볶음(임수진,기본반찬·밑반찬,🥬)
+배추겉절이(임수진,기본반찬·밑반찬,🥬)
+볶음김치(임수진,기본반찬·밑반찬,🥬)
+부추무침(임수진,기본반찬·밑반찬,🥬)
+삼색멸치볶음(김희경,기본반찬·밑반찬,🥬)
+시금치무침(임수진,기본반찬·밑반찬,🥬)
+애호박볶음(김은영,기본반찬·밑반찬,🥬)
+연근조림(홍가람,기본반찬·밑반찬,🥬)
+열무나물(김은영,기본반찬·밑반찬,🥬)
+오이고추된장무침(장재우,기본반찬·밑반찬,🥬)
+오이무침(김은영,기본반찬·밑반찬,🥬)
+오이장아찌(장재우,기본반찬·밑반찬,🥬)
+우엉조림(홍가람,기본반찬·밑반찬,🥬)
+진미채볶음(박나래,기본반찬·밑반찬,🥬)
+채소피클(홍가람,기본반찬·밑반찬,🥬)
+콩나물무침(김은영,기본반찬·밑반찬,🥬)
+콩자반(김은영,기본반찬·밑반찬,🥬)
+땅콩조림(홍가람,기본반찬·밑반찬,🥬)
+파절이(김은영,기본반찬·밑반찬,🥬)
+풋마늘무침(임수진,기본반찬·밑반찬,🥬)
+김조림(갤러리아정규(여름)·박소진,기본반찬·밑반찬,🥬)
+상추겉절이(갤러리아정규(여름)·박소진,기본반찬·밑반찬,🥬)
+오이볶음(갤러리아정규(여름)·박소진,기본반찬·밑반찬,🥬)
+도토리묵무침(김은영,기본반찬·밑반찬,🥬)
+도토리묵김치무침(이영미,기본반찬·밑반찬,🥬)
+달래두부조림(아카이빗,기본반찬·밑반찬,🥬)
+소고기달걀장조림(김희경,기본반찬·밑반찬,🥬)
+가지채전(임수진,전 (煎),🥘)
+감자전(임수진,전 (煎),🥘)
+굴전(임수진,전 (煎),🥘)
+김치전(임수진,전 (煎),🥘)
+동태전(임수진,전 (煎),🥘)
+미나리바지락전(임수진,전 (煎),🥘)
+봄동전(김정유,전 (煎),🥘)
+부추전(임수진,전 (煎),🥘)
+애호박전(임수진,전 (煎),🥘)
+오코노미야키(김희경,전 (煎),🥘)
+해물파전(박나래,전 (煎),🥘)
+깻잎상추전(갤러리아정규(여름)·박소진,전 (煎),🥘)
+해물부추전(갤러리아정규(여름)·박소진,전 (煎),🥘)
+가지멘보샤(임수진,튀김,🍤)
+감자크림김치크로켓(이영미,튀김,🍤)
+두릅튀김(김정유,튀김,🍤)
+두부강정(요리코치써니,튀김,🍤)
+스팸가스(요리코치써니,튀김,🍤)
+어니언링(김희경,튀김,🍤)
+장어튀김(장재우,튀김,🍤)
+칠리핫도그(최진,튀김,🍤)
+크림치즈김치만두튀김(이영미,튀김,🍤)
+탕수만두(요리코치써니,튀김,🍤)
+태국식달걀튀김(백오연,튀김,🍤)
+표고말이돼지고기튀김(장재우,튀김,🍤)
+김말이·새우튀김·야끼만두·채소튀김(홍가람,튀김,🍤)
+깍두기(아카이빗,김치,🥬)
+백김치(아카이빗,김치,🥬)
+배추김치(아카이빗,김치,🥬)
+양파김치(장재우,김치,🥬)
+열무김치(김은영,김치,🥬)
+열무물김치(김은영,김치,🥬)
+오이소박이(김은영,김치,🥬)
+총각김치(아카이빗,김치,🥬)
+파김치(아카이빗,김치,🥬)
+풋고추김치(아카이빗,김치,🥬)
+가스파초(최진,샐러드·가벼운 한 끼,🥗)
+광어세비체포케(최진,샐러드·가벼운 한 끼,🥗)
+닭가슴살냉채(장재우,샐러드·가벼운 한 끼,🥗)
+닭가슴살샐러드(박재한,샐러드·가벼운 한 끼,🥗)
+닭죽(임수진,샐러드·가벼운 한 끼,🥗)
+당근라페(요리코치써니,샐러드·가벼운 한 끼,🥗)
+렌틸콩샐러드(박재한,샐러드·가벼운 한 끼,🥗)
+문어미역초회(최진,샐러드·가벼운 한 끼,🥗)
+버섯물회(박소현,샐러드·가벼운 한 끼,🥗)
+병아리콩샐러드(박재한,샐러드·가벼운 한 끼,🥗)
+새우마요샐러드(김은영,샐러드·가벼운 한 끼,🥗)
+소고기채소죽(김은영,샐러드·가벼운 한 끼,🥗)
+양파수프(권오진,샐러드·가벼운 한 끼,🥗)
+연근칩샐러드(김희경,샐러드·가벼운 한 끼,🥗)
+연어샐러드(류진경,샐러드·가벼운 한 끼,🥗)
+오이아보카도수프(장재우,샐러드·가벼운 한 끼,🥗)
+옥수수수프(요리코치써니,샐러드·가벼운 한 끼,🥗)
+전복죽(김은영,샐러드·가벼운 한 끼,🥗)
+초여름 과일 사라다(장재우,샐러드·가벼운 한 끼,🥗)
+참나물두부샐러드(임수진,샐러드·가벼운 한 끼,🥗)
+참외샐러드(임수진,샐러드·가벼운 한 끼,🥗)
+청포묵샐러드(장재우,샐러드·가벼운 한 끼,🥗)
+카프레제(장재우,샐러드·가벼운 한 끼,🥗)
+카펠리나불고기샐러드(장재우,샐러드·가벼운 한 끼,🥗)
+코울슬로(장재우,샐러드·가벼운 한 끼,🥗)
+콥샐러드(최진,샐러드·가벼운 한 끼,🥗)
+쿠스쿠스샐러드(권오진,샐러드·가벼운 한 끼,🥗)
+클램차우더(최진,샐러드·가벼운 한 끼,🥗)
+에그포테이토차우더(권오진,샐러드·가벼운 한 끼,🥗)
+감자샐러드(갤러리아정규(여름)·박소진,샐러드·가벼운 한 끼,🥗)
+그릴드치즈샌드위치(최진,샌드위치·브런치,🥪)
+그래놀라와과일콩포트(일호실,샌드위치·브런치,🥪)
+단호박에그슬럿(박나래,샌드위치·브런치,🥪)
+반미샌드위치(조파미,샌드위치·브런치,🥪)
+바나나오트밀팬케이크(박나래,샌드위치·브런치,🥪)
+베이직샌드위치(조파미,샌드위치·브런치,🥪)
+버터밀크팬케이크(최진,샌드위치·브런치,🥪)
+수플레팬케이크(일호실,샌드위치·브런치,🥪)
+시금치프리타타(박나래,샌드위치·브런치,🥪)
+시저치킨샌드위치(조파미,샌드위치·브런치,🥪)
+애플시나몬오트밀(최진,샌드위치·브런치,🥪)
+양파절임샌드위치(장재우,샌드위치·브런치,🥪)
+에그인헬(송현주,샌드위치·브런치,🥪)
+옛날토스트(홍가람,샌드위치·브런치,🥪)
+차돌박이샌드위치(장재우,샌드위치·브런치,🥪)
+참치샌드위치(장재우,샌드위치·브런치,🥪)
+치킨크랜베리샌드위치(조파미,샌드위치·브런치,🥪)
+치킨피타샌드위치(최진,샌드위치·브런치,🥪)
+크레페(최진,샌드위치·브런치,🥪)
+크림치즈연어베이글(최진,샌드위치·브런치,🥪)
+키쉬(최진,샌드위치·브런치,🥪)
+키토와플오픈샌드위치(조파미,샌드위치·브런치,🥪)
+텐더비프샌드위치(조파미,샌드위치·브런치,🥪)
+프렌치토스트(최진,샌드위치·브런치,🥪)
+플레인오믈렛(김규태,샌드위치·브런치,🥪)
+하와이안크래미샌드위치(조파미,샌드위치·브런치,🥪)
+햄치즈롤(박나래,샌드위치·브런치,🥪)
+햄치즈크루아상(류진경,샌드위치·브런치,🥪)
+훈제연어크루아상샌드위치(조파미,샌드위치·브런치,🥪)
+리코타치즈샌드위치(조파미,샌드위치·브런치,🥪)
+로스트치킨파니니(류진경,샌드위치·브런치,🥪)
+베이컨어니언파니니(류진경,샌드위치·브런치,🥪)
+미니팬케이크핫도그(박나래,샌드위치·브런치,🥪)
+김치토르티야오믈렛(이영미,샌드위치·브런치,🥪)
+스트리트토스트(조파미,샌드위치·브런치,🥪)
+간장떡볶이(홍가람,분식,🍢)
+궁중떡볶이(홍가람,분식,🍢)
+김치누름적(이영미,분식,🍢)
+김치말이주먹밥(장재우,분식,🍢)
+꼬치어묵(홍가람,분식,🍢)
+닭꼬치(류진경,분식,🍢)
+달걀지단김밥(홍가람,분식,🍢)
+들깨현미떡볶이(최진,분식,🍢)
+땡초어묵김밥(홍가람,분식,🍢)
+로제떡볶이(김은영,분식,🍢)
+매운참치김밥(홍가람,분식,🍢)
+매콤기름떡볶이(요리코치써니,분식,🍢)
+영양유부초밥(류진경,분식,🍢)
+오픈유부초밥(장재우,분식,🍢)
+잔멸치묵은지쌈밥(이영미,분식,🍢)
+채소김밥(홍가람,분식,🍢)
+채소초밥(박소현,분식,🍢)
+쫄면떡볶이(홍가람,분식,🍢)
+토마토메밀김밥(박소현,분식,🍢)
+템페김밥(박소현,분식,🍢)
+햄무스비(류진경,분식,🍢)
+공심채볶음(백오연,세계음식,🌍)
+닭고기캐슈너트볶음(백오연,세계음식,🌍)
+두부팟타이(백오연,세계음식,🌍)
+똠양꿍(백오연,세계음식,🌍)
+망고스티키라이스(백오연,세계음식,🌍)
+참외솜땀(백오연,세계음식,🌍)
+치앙마이프라이즈(백오연,세계음식,🌍)
+태국식매운조개볶음(백오연,세계음식,🌍)
+팟씨유(백오연,세계음식,🌍)
+얌운센(백오연,세계음식,🌍)
+노가다(김희경,세계음식,🌍)
+부리토(김희경,세계음식,🌍)
+살사로하와살사베르데(김희경,세계음식,🌍)
+엔칠라다(김희경,세계음식,🌍)
+카르니타스타코(김희경,세계음식,🌍)
+케사디야(김희경,세계음식,🌍)
+칠라낄레스(김희경,세계음식,🌍)
+파히타(김희경,세계음식,🌍)
+피코데가요와과카몰레(김희경,세계음식,🌍)
+마라황과(장재우,세계음식,🌍)
+어향가지볶음(이영미,세계음식,🌍)
+중국식닭구이(이영미,세계음식,🌍)
+가지롤(백오연,세계음식,🌍)
+가지피자(박나래,세계음식,🌍)
+뢰스티(김희경,세계음식,🌍)
+라따뚜이(송현주,세계음식,🌍)
+라쟈냐(최진,세계음식,🌍)
+마렝고치킨스테이크(권오진,세계음식,🌍)
+맥앤치즈(최진,세계음식,🌍)
+방당죄르(송현주,세계음식,🌍)
+불고기아란치니(임수진,세계음식,🌍)
+부야베스(권오진,세계음식,🌍)
+연어파피요트(최진,세계음식,🌍)
+차지키소스(요리코치써니,세계음식,🌍)
+치킨스테이크(권오진,세계음식,🌍)
+치킨프리카세(최진,세계음식,🌍)
+크림소스캐비지롤(김희경,세계음식,🌍)
+포크립구이(최진,세계음식,🌍)
+풀드포크코울슬로슬라이더(최진,세계음식,🌍)
+파에야(최진,세계음식,🌍)
+햄버그스테이크(권오진,세계음식,🌍)
+후무스(최진,세계음식,🌍)
+리코타누디(권오진,세계음식,🌍)
+리코타라비올리(권오진,세계음식,🌍)
+로스트치킨(송현주,세계음식,🌍)
+생선파피요트(최진,세계음식,🌍)
+니쿠자가(갤러리아정규(여름)·박소진,세계음식,🌍)
+참나물 불고기 퀘사디아(이예린,세계음식,🌍)
+개성편수(박소진,이북식,🍜)
+이북식가자미식해(박소진,이북식,🍜)
+이북식소금게장(박소진,이북식,🍜)
+이북식어복쟁반(박소진,이북식,🍜)
+이북식찰밥피순대(박소진,이북식,🍜)
+평양만두(박소진,이북식,🍜)
+평양식닭온반(박소진,이북식,🍜)
+해주교반(박소진,이북식,🍜)
+견과바(류진경,비건·건강식,🌱)
+그릭요거트바크(최진,비건·건강식,🌱)
+두부토르티야랩(박소현,비건·건강식,🌱)
+비건치즈양송이샌드위치(박소현,비건·건강식,🌱)
+삼색건강스무디(박재한,비건·건강식,🌱)
+아사이볼(최진,비건·건강식,🌱)
+에그칙피샌드위치(박재한,비건·건강식,🌱)
+코코넛무카레(박소현,비건·건강식,🌱)
+코코아에너지바(박재한,비건·건강식,🌱)
+클렌징수프(박재한,비건·건강식,🌱)
+포두부롤(요리코치써니,비건·건강식,🌱)
+하와이안비건바비큐피자(박소현,비건·건강식,🌱)
+호박가지쌈밥(박소현,비건·건강식,🌱)
+병아리콩두유(박재한,비건·건강식,🌱)
+감자치즈빵(박나래,베이킹·디저트,🧁)
+깨강정(나재윤,베이킹·디저트,🧁)
+당근코코넛파운드케이크(아루아,베이킹·디저트,🧁)
+단호박티딩러스크(박나래,베이킹·디저트,🧁)
+레몬마들렌(일호실,베이킹·디저트,🧁)
+레이디핑거(일호실,베이킹·디저트,🧁)
+로투스설기(나재윤,베이킹·디저트,🧁)
+바나나로띠(박나래,베이킹·디저트,🧁)
+병아리콩르뱅쿠키(아루아,베이킹·디저트,🧁)
+브라우니(일호실,베이킹·디저트,🧁)
+스콘(일호실,베이킹·디저트,🧁)
+스윗밤머핀(아루아,베이킹·디저트,🧁)
+수박설기(나재윤,베이킹·디저트,🧁)
+쇼트브레드쿠키(일호실,베이킹·디저트,🧁)
+쑥두부브라우니(아루아,베이킹·디저트,🧁)
+애플시나몬쿠키(아루아,베이킹·디저트,🧁)
+양갱(나재윤,베이킹·디저트,🧁)
+얼그레이플라워스콘(아루아,베이킹·디저트,🧁)
+오레오설기(나재윤,베이킹·디저트,🧁)
+오색송편(나재윤,베이킹·디저트,🧁)
+과일찹쌀떡(나재윤,베이킹·디저트,🧁)
+과일타르트(일호실,베이킹·디저트,🧁)
+초당옥수수뇨끼(최진,베이킹·디저트,🧁)
+초코아몬드머핀(아루아,베이킹·디저트,🧁)
+초콜릿청크쿠키(일호실,베이킹·디저트,🧁)
+캔디드피넛(백오연,베이킹·디저트,🧁)
+퐁당컵케이크(일호실,베이킹·디저트,🧁)
+토마토허브파운드케이크(아루아,베이킹·디저트,🧁)
+땅콩버터사과쿠키(박나래,베이킹·디저트,🧁)
+호박베리스콘(아루아,베이킹·디저트,🧁)
+두바이쫀득쿠키(아카이빗,베이킹·디저트,🧁)
+다즐링홍차(이화영,음료·티,🍵)
+말차(이화영,음료·티,🍵)
+보이차(이화영,음료·티,🍵)
+수정과(나재윤,음료·티,🍵)
+식혜(나재윤,음료·티,🍵)
+아쌈홍차와실론홍차(이화영,음료·티,🍵)
+아이스티(이화영,음료·티,🍵)
+애프터눈티(이화영,음료·티,🍵)
+영국식밀크티(이화영,음료·티,🍵)
+오르차타(김희경,음료·티,🍵)
+인도식차이밀크티(이화영,음료·티,🍵)
+중국식우롱차(이화영,음료·티,🍵)
+한국식녹차(이화영,음료·티,🍵)
+간장양념장(아카이빗,소스·양념,🫙)
+고추장양념소스(아카이빗,소스·양념,🫙)
+냉채소스(아카이빗,소스·양념,🫙)
+달래장(김정유,소스·양념,🫙)
+된장소스(아카이빗,소스·양념,🫙)
+바질페스토(김규태,소스·양념,🫙)
+아카이빗비빔장(아카이빗,소스·양념,🫙)
+참깨소스(아카이빗,소스·양념,🫙)
+(가을) 낙엽쿠키(박지수,키즈,👶)
+(가을) 알밤휘낭시에(박지수,키즈,👶)
+(가을) 한과 휘낭시에(박지수,키즈,👶)
+중장비케이크(박지수,키즈,👶)
+빼낭시에(박지수,키즈,👶)
+슈가볼쿠키(박지수,키즈,👶)
+사탕닮은 케이크팝 만들기(박지수,키즈,👶)
+거북이멜론빵 만들기(박지수,키즈,👶)
+화산구겔호프 만들기(박지수,키즈,👶)`;
+</script>
+<script>
+
+// YouTube modal
+// 샘플 영상: 한국 유튜브 쿠킹 공개 영상 (데모용)
+var tipVideos = {
+  '쪽파냉장보관법':             {id:'eIWwgYWUqUA', label:'아카이빗 · 식재료 보관 꿀팁'},
+  '된장찌개 간 맞추기 꿀팁':   {id:'eIWwgYWUqUA', label:'임수진 선생님 · 버섯된장찌개'},
+  '면 삶는 시간이 핵심':        {id:'eIWwgYWUqUA', label:'최진 선생님 · 슈림프치킨차우면'},
+  '열무 아삭하게 준비하기':     {id:'eIWwgYWUqUA', label:'홍가람 선생님 · 생열무비빔밥'},
+  '집된장 vs 시판된장':         {id:'eIWwgYWUqUA', label:'임수진 선생님 · 된장 요리팁'},
+};
+function openYT(title) {
+  var v = tipVideos[title] || {id:'dQw4w9WgXcQ', label:'선생님 요리팁'};
+  document.getElementById('ytTitle').textContent = title;
+  document.getElementById('ytLabel').textContent = v.label;
+  // YouTube Shorts embed URL
+  document.getElementById('ytFrame').src = 'https://www.youtube.com/embed/' + v.id + '?autoplay=1&rel=0&modestbranding=1';
+  document.getElementById('ytModal').classList.add('open');
+}
+function closeYT() {
+  document.getElementById('ytFrame').src = '';
+  document.getElementById('ytModal').classList.remove('open');
+}
+
+// Navigation
+function showScreen(to, from) {
+  var prev = document.getElementById(from);
+  var next = document.getElementById(to);
+  if(prev) { prev.classList.add('prev'); setTimeout(()=>prev.classList.remove('active','prev'),320); }
+  next.classList.add('active');
+}
+function goBack(current, target) {
+  var cur = document.getElementById(current);
+  var tgt = document.getElementById(target);
+  cur.classList.remove('active');
+  tgt.classList.add('active');
+}
+function goGal() { showScreen('s-galleria','s-home'); }
+function goBell() {}
+
+// Recipe navigation
+var recipeData = {};
+function goRecipe(name, teacher, domain, c1, c2, emoji) {
+  recipeData = {name, teacher, domain, c1, c2, emoji};
+  document.getElementById('recipeName').textContent = name;
+  document.getElementById('recipeEmoji').textContent = emoji;
+  document.getElementById('recipeHero').style.background = 'linear-gradient(135deg,'+c1+','+c2+')';
+  document.getElementById('teacherName').textContent = teacher + ' 선생님';
+  document.getElementById('teacherDomain').textContent = domain;
+  document.getElementById('teacherAvatar').textContent = teacher[0];
+  switchTabIndex(0);
+  showScreen('s-recipe','s-home');
+}
+
+// Tabs
+function switchTab(el, idx) {
+  el.closest('.tab-bar').querySelectorAll('.tab').forEach(t=>t.classList.remove('act'));
+  el.classList.add('act');
+  switchTabIndex(idx);
+}
+function switchTabIndex(idx) {
+  for(var i=0;i<3;i++) {
+    var t=document.getElementById('tab'+i);
+    if(t) t.classList.toggle('hidden', i!==idx);
+  }
+}
+
+// Ingredient chips
+function setIng(val) {
+  document.getElementById('ingInput').value = val;
+  doSearch();
+}
+
+// AI Recipe Search
+async function doSearch() {
+  var ing = document.getElementById('ingInput').value.trim();
+  if(!ing) return;
+  var box = document.getElementById('aiResults');
+  var content = document.getElementById('aiContent');
+  box.classList.remove('hidden');
+  content.innerHTML = '<div class="ai-loading"><span class="ai-dot"></span><span class="ai-dot"></span><span class="ai-dot"></span> AI가 레시피를 찾고 있어요</div>';
+  box.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  try {
+    var RECIPES = RECIPE_DB;
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:800,
+        system:'아카이빗 레시피 검색 AI. 재료를 보고 만들 수 있는 레시피를 찾아 JSON으로만 답한다. 전채 레시피 DB에서 실제로 만들 수 있는 것만 추천한다.',
+        messages:[{role:'user',content:`재료: ${ing}\n\n아카이빗 전체 레시피 DB (이름,선생님,카테고리,이모지 형식):\n${RECIPES}\n\n위 재료로 만들 수 있는 레시피 2-3개 추천. 반드시 위 목록에 있는 레시피만 추천. JSON만 답해. 다른 텍스트 없이. [{"name":"레시피명","teacher":"선생님","domain":"카테고리","emoji":"이모지","c1":"#5B7A4E","c2":"#8FAF6E","reason":"이 재료로 만들 수 있는 이유 15자이내"}]`}]
+      })
+    });
+    var data = await res.json();
+    var txt = data.content[0].text.trim();
+    txt = txt.replace(/```json|```/g,'').trim();
+    var recipes = JSON.parse(txt);
+    content.innerHTML = recipes.map(r=>`
+      <div class="ai-item" onclick="goRecipe('${r.name}','${r.teacher}','${r.domain}','${r.c1}','${r.c2}','${r.emoji}')">
+        <div class="ai-item-icon" style="background:linear-gradient(135deg,${r.c1},${r.c2})">${r.emoji}</div>
+        <div class="ai-item-info">
+          <div class="ai-item-name">${r.name}</div>
+          <div class="ai-item-reason">${r.reason}</div>
+          <div class="ai-item-teacher">${r.teacher} 선생님 · ${r.domain}</div>
+        </div>
+        <div style="font-size:18px;color:var(--tx3)">›</div>
+      </div>`).join('');
+  } catch(e) {
+    content.innerHTML = `<div class="ai-loading" style="color:var(--or)">레시피를 찾았어요! 아래 메뉴를 확인하세요 ↓</div>`;
+  }
+}
+</script>
+</body>
+</html>
