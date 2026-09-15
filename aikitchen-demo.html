@@ -1091,7 +1091,10 @@ var ingMap = {
 };
 
 function findRecipesLocal(input) {
-  var keywords = input.toLowerCase().replace(/\s/g,'').split(',').filter(Boolean);
+  // 입력 재료 파싱
+  var keywords = input.replace(/\s+/g,' ').trim().split(/[,，\s]+/).filter(function(k){ return k.length > 0; });
+  
+  // 레시피 DB 파싱
   var parsed = [];
   RECIPE_DB.split('\n').forEach(function(line){
     var m = line.match(/^(.+?)\((.+?),(.+?),(.)\)$/);
@@ -1101,23 +1104,45 @@ function findRecipesLocal(input) {
   var scored = [];
   parsed.forEach(function(r){
     var score = 0;
-    var nameLow = r.name.toLowerCase();
+    var nameLow = r.name;
+    // 구성품마스터 재료 목록
+    var ings = RECIPE_INGS[r.name] || [];
+    
     keywords.forEach(function(kw){
-      if(nameLow.includes(kw)) score += 3;
-      var mapped = ingMap[kw] || [kw];
-      mapped.forEach(function(mk){ if(nameLow.includes(mk)) score += 2; });
+      var kwLow = kw.toLowerCase();
+      
+      // 1. 레시피 이름에 재료 포함
+      if(nameLow.includes(kwLow)) score += 5;
+      
+      // 2. 구성품마스터 재료 목록에 포함 (정확한 매칭)
+      ings.forEach(function(ing){
+        if(ing.toLowerCase().includes(kwLow)) score += 4;
+      });
+      
+      // 3. 키워드 맵 기반 유사어 매칭
+      var mapped = ingMap[kwLow] || ingMap[kw] || [kwLow];
+      mapped.forEach(function(mk){
+        if(nameLow.includes(mk)) score += 2;
+        ings.forEach(function(ing){
+          if(ing.toLowerCase().includes(mk)) score += 2;
+        });
+      });
     });
+    
     if(score > 0) scored.push({r:r, score:score});
   });
 
-  scored.sort(function(a,b){return b.score-a.score;});
+  scored.sort(function(a,b){ return b.score - a.score; });
   return scored.slice(0,3).map(function(s){
     var r = s.r;
     var colors = catColors[r.cat] || ['#5B7A4E','#8FAF6E'];
+    var matchedIng = keywords.find(function(k){
+      return (RECIPE_INGS[r.name]||[]).some(function(i){ return i.includes(k); });
+    }) || keywords[0];
     return {
       name:r.name, teacher:r.teacher, domain:r.cat,
       emoji:r.emoji, c1:colors[0], c2:colors[1],
-      reason:keywords[0]+'(으)로 만드는 '+r.cat
+      reason:matchedIng + ' 포함 · ' + r.cat
     };
   });
 }
