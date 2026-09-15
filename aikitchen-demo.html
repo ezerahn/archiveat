@@ -275,7 +275,8 @@ body{font-family:var(--sans);background:#E8E6E3;display:flex;align-items:center;
         <div class="sec-title">요리팁 쇼츠 <span class="sec-sub">선생님 비법 15초</span></div>
       </div>
       <div class="tips-row" style="padding-bottom:4px">
-        <div class="tip-card" style="cursor:pointer" onclick="openYT('쪽파냉장보관법')">
+        <a href="https://youtube.com/shorts/eIWwgYWUqUA" target="_blank" style="text-decoration:none">
+        <div class="tip-card">
           <div class="tip-thumb" style="background:linear-gradient(160deg,#1A5A2A,#3A9A50)">
             <div style="position:absolute;inset:0;background:rgba(0,0,0,.2)"></div>
             <div class="tip-play">▶</div>
@@ -283,13 +284,14 @@ body{font-family:var(--sans);background:#E8E6E3;display:flex;align-items:center;
           </div>
           <div class="tip-title" style="color:var(--or)">쪽파냉장보관법 ▶</div>
         </div>
+        </a>
         <div class="tip-card" style="cursor:pointer">
           <div class="tip-thumb" style="background:linear-gradient(160deg,#3A2060,#7A50C0)">
             <div style="position:absolute;inset:0;background:rgba(0,0,0,.2)"></div>
             <div class="tip-play" onclick="openYT(this.closest('.tip-card').querySelector('.tip-title').textContent.replace(' ▶',''))">▶</div>
             <div class="tip-label">차우면 면<br>꼬들하게 삶기</div>
           </div>
-          <div class="tip-title" onclick="openYT('면 삶는 시간이 핵심')" style="cursor:pointer;color:var(--or)">면 삶는 시간이 핵심 ▶</div>
+          <a href="https://youtube.com/shorts/eIWwgYWUqUA" target="_blank"><div class="tip-title" style="color:var(--or)">면 삶는 시간이 핵심 ▶</div></a>
         </div>
         <div class="tip-card" style="cursor:pointer">
           <div class="tip-thumb" style="background:linear-gradient(160deg,#7A3A10,#D08030)">
@@ -297,7 +299,7 @@ body{font-family:var(--sans);background:#E8E6E3;display:flex;align-items:center;
             <div class="tip-play" onclick="openYT(this.closest('.tip-card').querySelector('.tip-title').textContent.replace(' ▶',''))">▶</div>
             <div class="tip-label">열무 씻고<br>데치는 방법</div>
           </div>
-          <div class="tip-title" onclick="openYT('열무 아삭하게 준비하기')" style="cursor:pointer;color:var(--or)">열무 아삭하게 준비하기 ▶</div>
+          <a href="https://youtube.com/shorts/eIWwgYWUqUA" target="_blank"><div class="tip-title" style="color:var(--or)">열무 아삭하게 준비하기 ▶</div></a>
         </div>
         <div class="tip-card" style="cursor:pointer">
           <div class="tip-thumb" style="background:linear-gradient(160deg,#1A3A5A,#3A6A9A)">
@@ -305,7 +307,7 @@ body{font-family:var(--sans);background:#E8E6E3;display:flex;align-items:center;
             <div class="tip-play" onclick="openYT(this.closest('.tip-card').querySelector('.tip-title').textContent.replace(' ▶',''))">▶</div>
             <div class="tip-label">된장 고르는<br>법</div>
           </div>
-          <div class="tip-title" onclick="openYT('집된장 vs 시판된장')" style="cursor:pointer;color:var(--or)">집된장 vs 시판된장 ▶</div>
+          <a href="https://youtube.com/shorts/eIWwgYWUqUA" target="_blank"><div class="tip-title" style="color:var(--or)">집된장 vs 시판된장 ▶</div></a>
         </div>
       </div>
       <div style="height:20px"></div>
@@ -1059,44 +1061,97 @@ function setIng(val) {
 }
 
 // AI Recipe Search
+// 카테고리별 색상
+var catColors = {
+  '밥·덮밥·비빔밥':['#7A5A2A','#B08A50'],'면·파스타·국수':['#4A3060','#7A6090'],
+  '국·찌개':['#5B7A4E','#8FAF6E'],'탕·전골':['#4A5A7A','#7A8AAA'],
+  '메인반찬':['#7A3A2A','#AA6A50'],'기본반찬·밑반찬':['#3A6A3A','#6A9A6A'],
+  '전 (煎)':['#7A6A2A','#AAA050'],'튀김':['#7A5A1A','#AA8A40'],
+  '김치':['#6A2A2A','#9A5A50'],'샐러드·가벼운 한 끼':['#4A7A3A','#7AAA6A'],
+  '샌드위치·브런치':['#5A4A7A','#8A7AAA'],'분식':['#7A3A5A','#AA6A8A'],
+  '세계음식':['#3A5A7A','#6A8AAA'],'이북식':['#5A5A3A','#8A8A6A'],
+  '비건·건강식':['#2A6A4A','#5A9A7A'],'베이킹·디저트':['#7A4A6A','#AA7A9A'],
+  '음료·티':['#3A6A7A','#6A9AAA'],'소스·양념':['#6A5A3A','#9A8A6A'],
+  '키즈':['#7A4A2A','#AA7A50']
+};
+
+// 재료→키워드 매핑
+var ingMap = {
+  '두부':['두부','순두부','마파','냉이'], '달걀':['달걀','계란','오믈렛','에그'],
+  '닭':['닭','치킨','차우면'], '소고기':['소고기','불고기','갈비','육개장'],
+  '돼지':['돼지','삼겹','제육','김치찌개'], '된장':['된장','청국장','콩'],
+  '김치':['김치','kimchi'], '버섯':['버섯','표고','양송이'],
+  '애호박':['호박','애호박'], '감자':['감자','고구마'],
+  '오이':['오이','냉국'], '당근':['당근','나물'],
+  '새우':['새우','해물','해산물'], '참치':['참치','통조림'],
+  '토마토':['토마토'], '브로콜리':['브로콜리','샐러드'],
+  '양파':['양파'], '마늘':['마늘'], '파':['파','쪽파'],
+  '면':['국수','파스타','스파게티','면','라면','우동'],
+  '쌀':['볶음밥','덮밥','비빔밥','솥밥'], '빵':['샌드위치','토스트','브런치'],
+};
+
+function findRecipesLocal(input) {
+  var keywords = input.toLowerCase().replace(/\s/g,'').split(',').filter(Boolean);
+  var parsed = [];
+  RECIPE_DB.split('\n').forEach(function(line){
+    var m = line.match(/^(.+?)\((.+?),(.+?),(.)\)$/);
+    if(m) parsed.push({name:m[1],teacher:m[2],cat:m[3],emoji:m[4]});
+  });
+
+  var scored = [];
+  parsed.forEach(function(r){
+    var score = 0;
+    var nameLow = r.name.toLowerCase();
+    keywords.forEach(function(kw){
+      if(nameLow.includes(kw)) score += 3;
+      var mapped = ingMap[kw] || [kw];
+      mapped.forEach(function(mk){ if(nameLow.includes(mk)) score += 2; });
+    });
+    if(score > 0) scored.push({r:r, score:score});
+  });
+
+  scored.sort(function(a,b){return b.score-a.score;});
+  return scored.slice(0,3).map(function(s){
+    var r = s.r;
+    var colors = catColors[r.cat] || ['#5B7A4E','#8FAF6E'];
+    return {
+      name:r.name, teacher:r.teacher, domain:r.cat,
+      emoji:r.emoji, c1:colors[0], c2:colors[1],
+      reason:keywords[0]+'(으)로 만드는 '+r.cat
+    };
+  });
+}
+
+function renderResults(recipes, content) {
+  if(!recipes || recipes.length === 0){
+    content.innerHTML='<div class="ai-loading">입력한 재료와 맞는 레시피를 찾지 못했어요. 다른 재료를 입력해보세요.</div>';
+    return;
+  }
+  content.innerHTML = recipes.map(function(r){
+    return '<div class="ai-item" onclick="goRecipe(\''+r.name+'\',\''+r.teacher+'\',\''+r.domain+'\',\''+r.c1+'\',\''+r.c2+'\',\''+r.emoji+'\')">'+
+      '<div class="ai-item-icon" style="background:linear-gradient(135deg,'+r.c1+','+r.c2+')">'+r.emoji+'</div>'+
+      '<div class="ai-item-info">'+
+        '<div class="ai-item-name">'+r.name+'</div>'+
+        '<div class="ai-item-reason">'+r.reason+'</div>'+
+        '<div class="ai-item-teacher">'+r.teacher+' 선생님 · '+r.domain+'</div>'+
+      '</div>'+
+      '<div style="font-size:18px;color:var(--tx3)">›</div>'+
+    '</div>';
+  }).join('');
+}
+
 async function doSearch() {
   var ing = document.getElementById('ingInput').value.trim();
   if(!ing) return;
   var box = document.getElementById('aiResults');
   var content = document.getElementById('aiContent');
   box.classList.remove('hidden');
-  content.innerHTML = '<div class="ai-loading"><span class="ai-dot"></span><span class="ai-dot"></span><span class="ai-dot"></span> AI가 레시피를 찾고 있어요</div>';
+  content.innerHTML = '<div class="ai-loading"><span class="ai-dot"></span><span class="ai-dot"></span><span class="ai-dot"></span> 레시피 찾는 중...</div>';
   box.scrollIntoView({behavior:'smooth',block:'nearest'});
 
-  try {
-    var RECIPES = RECIPE_DB;
-    var res = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        model:'claude-sonnet-4-6',
-        max_tokens:800,
-        system:'아카이빗 레시피 검색 AI. 재료를 보고 만들 수 있는 레시피를 찾아 JSON으로만 답한다. 전채 레시피 DB에서 실제로 만들 수 있는 것만 추천한다.',
-        messages:[{role:'user',content:`재료: ${ing}\n\n아카이빗 전체 레시피 DB (이름,선생님,카테고리,이모지 형식):\n${RECIPES}\n\n위 재료로 만들 수 있는 레시피 2-3개 추천. 반드시 위 목록에 있는 레시피만 추천. JSON만 답해. 다른 텍스트 없이. [{"name":"레시피명","teacher":"선생님","domain":"카테고리","emoji":"이모지","c1":"#5B7A4E","c2":"#8FAF6E","reason":"이 재료로 만들 수 있는 이유 15자이내"}]`}]
-      })
-    });
-    var data = await res.json();
-    var txt = data.content[0].text.trim();
-    txt = txt.replace(/```json|```/g,'').trim();
-    var recipes = JSON.parse(txt);
-    content.innerHTML = recipes.map(r=>`
-      <div class="ai-item" onclick="goRecipe('${r.name}','${r.teacher}','${r.domain}','${r.c1}','${r.c2}','${r.emoji}')">
-        <div class="ai-item-icon" style="background:linear-gradient(135deg,${r.c1},${r.c2})">${r.emoji}</div>
-        <div class="ai-item-info">
-          <div class="ai-item-name">${r.name}</div>
-          <div class="ai-item-reason">${r.reason}</div>
-          <div class="ai-item-teacher">${r.teacher} 선생님 · ${r.domain}</div>
-        </div>
-        <div style="font-size:18px;color:var(--tx3)">›</div>
-      </div>`).join('');
-  } catch(e) {
-    content.innerHTML = `<div class="ai-loading" style="color:var(--or)">레시피를 찾았어요! 아래 메뉴를 확인하세요 ↓</div>`;
-  }
+  // 로컬 매칭으로 즉시 결과 보여주기 (API 응답 전)
+  var localResults = findRecipesLocal(ing);
+  renderResults(localResults, content);
 }
 </script>
 </body>
