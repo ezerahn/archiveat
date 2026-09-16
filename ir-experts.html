@@ -2,14 +2,15 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta name="color-scheme" content="light only">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>전문가 풀 — ARCHIVEAT</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#F5F5F7;--wh:#FFFFFF;--dk:#1D1D1F;--or:#FF5019;--tx:#1D1D1F;--tx2:#6E6E73;--tx3:#86868B;--sans:'Noto Sans KR',-apple-system,sans-serif;--mono:'Inter',sans-serif}
+:root{color-scheme:light only;--bg:#F5F5F7;--wh:#FFFFFF;--dk:#1D1D1F;--or:#FF5019;--tx:#1D1D1F;--tx2:#6E6E73;--tx3:#86868B;--sans:'Noto Sans KR',-apple-system,sans-serif;--mono:'Inter',sans-serif}
 html{scroll-behavior:smooth}
-body{background:var(--wh);color:var(--tx);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.5}
+body{background:#FFFFFF;background:var(--wh);color:var(--tx);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.5}
 a{color:inherit;text-decoration:none}
 
 /* GLOBAL NAV */
@@ -101,6 +102,20 @@ section.g{background:var(--bg)}
 
 /* NEXT */
 
+
+/* ── 왜 자산인가 (중앙 배치) ── */
+.why-c{max-width:720px;margin:0 auto;text-align:center}
+.why-c h3{font-size:clamp(36px,5vw,56px);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:32px}
+.why-c h3 em{font-style:normal;color:var(--or)}
+.why-c p{font-size:20px;color:var(--tx2);line-height:1.75;margin-bottom:40px}
+.why-c .quote{text-align:left;font-size:24px;margin:0 auto;max-width:640px}
+.who3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1024px;margin:72px auto 0}
+.w{background:var(--bg);border-radius:20px;padding:36px 28px;text-align:center}
+.wl{font-size:12px;font-weight:600;color:var(--or);letter-spacing:.04em;margin-bottom:12px}
+.wt{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.25;margin-bottom:12px}
+.wd{font-size:14px;color:var(--tx2);line-height:1.6}
+@media(max-width:768px){.why-c h3{font-size:32px}.why-c p{font-size:16px}.why-c .quote{font-size:19px}.who3{grid-template-columns:1fr;gap:12px;margin-top:40px}.w{padding:28px 20px}.wt{font-size:19px}}
+
 /* ── 예고편 ── */
 .teaser{background:var(--bg);color:var(--tx);padding:120px 24px;position:relative;overflow:hidden;text-align:center;transition:.3s}
 .teaser:hover .teaser-bg{opacity:.22}
@@ -131,6 +146,93 @@ footer{padding:64px 24px;color:var(--tx3);font-size:12px;text-align:center;borde
   .band .in{grid-template-columns:1fr;gap:40px}section{padding:72px 0}
   .grid{grid-template-columns:1fr 1fr;gap:12px}.dom{grid-template-columns:repeat(2,1fr)}.split{grid-template-columns:1fr;gap:32px}
 }
+
+/* ═══ MOBILE OPTIMIZATION ═══ */
+nav.g .burger{display:none;width:40px;height:40px;border:none;background:none;cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:5px;padding:0}
+nav.g .burger span{display:block;width:20px;height:2px;background:var(--tx);border-radius:2px;transition:.25s}
+nav.g .burger.on span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+nav.g .burger.on span:nth-child(2){opacity:0}
+nav.g .burger.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mmenu{display:none;position:fixed;top:52px;left:0;right:0;bottom:0;background:rgba(245,245,247,.98);backdrop-filter:blur(20px);z-index:99;padding:32px 24px;flex-direction:column;gap:4px;overflow-y:auto}
+.mmenu.on{display:flex}
+.mmenu a{font-size:22px;font-weight:600;color:var(--tx);padding:16px 0;border-bottom:1px solid rgba(0,0,0,.06);letter-spacing:-.01em}
+.mmenu a.cur{color:var(--or)}
+.mmenu .mcta{margin-top:24px;background:var(--or);color:#fff;text-align:center;border-radius:14px;padding:18px;font-size:17px;border:none}
+@media(max-width:768px){
+  nav.g{padding:0 16px;height:52px}
+  nav.g .links{display:none}
+  nav.g .demo{display:none}
+  nav.g .burger{display:flex}
+  nav.g .logo img{height:20px}
+  nav.l{top:52px;height:48px}
+  nav.l .in{padding:0 16px}
+  nav.l .t{font-size:17px}
+  nav.l .tabs{display:none}
+  .wrap,.wrap-w,.srow{padding:0 16px}
+  .hero{padding:72px 16px 40px}
+  .hero-eye{font-size:12px;margin-bottom:16px}
+  .hero-t{font-size:clamp(34px,9vw,44px);margin-bottom:20px;line-height:1.12}
+  .hero-s{font-size:16px;line-height:1.6}
+  .band{padding:64px 16px;margin-top:64px}
+  .band .in,.band .in.c4,.band .in.c2{grid-template-columns:1fr 1fr;gap:32px 16px}
+  .num{font-size:clamp(40px,12vw,56px)}
+  .num-l{font-size:15px;margin-top:12px}
+  .num-s{font-size:12px}
+  section{padding:64px 0}
+  .sec-h{font-size:clamp(26px,7vw,32px);margin-bottom:16px}
+  .sec-h span{font-size:.6em;margin-top:8px}
+  .sec-p{font-size:15px;margin-bottom:40px}
+  .grid{gap:12px;margin-top:40px}
+  .grid.g4,.grid.g3,.grid.g2{grid-template-columns:1fr}
+  .cd .b{padding:24px 20px}
+  .cd .n{font-size:19px}.cd .d{font-size:14px}.cd .big{font-size:48px}
+  .split,.split.rev{grid-template-columns:1fr;gap:28px}
+  .split.rev>:first-child{order:0}
+  .split .t h3{font-size:30px;margin-bottom:20px}
+  .split .t p{font-size:16px}
+  .quote{font-size:20px;padding-left:20px;margin:28px 0}
+  .list li{font-size:15px;padding:12px 0}
+  .list li b{min-width:70px}
+  .faq{margin-top:40px}.faq-i{padding:28px 0}.faq-q{font-size:19px}.faq-a{font-size:15px}
+  .next{padding:64px 16px}.next .t{font-size:26px}
+  .teaser{padding:72px 16px}.teaser .tt{font-size:clamp(24px,7vw,30px)}
+  footer{padding:40px 16px;font-size:11px}
+  .hero-mosaic{grid-template-columns:repeat(4,1fr);gap:6px;margin-top:40px;padding:0 16px}
+  .hero-mosaic img:nth-child(2n){margin-top:0}
+  .hero-mosaic img:nth-child(n+9){display:none}
+  .quotes{grid-template-columns:1fr 1fr;gap:10px}
+  .quotes-wrap{margin-top:48px;padding:0 16px}
+  .q{padding:20px 16px}.qt{font-size:15px;margin-bottom:12px}.qn{font-size:12px}
+  .ex .b{padding:16px 12px 20px}.ex .n{font-size:16px}.ex .c{font-size:11px}
+  .dom{grid-template-columns:repeat(2,1fr);gap:10px;margin-top:40px}
+  .dom-c{padding:24px 12px}.dom-i{font-size:26px}.dom-t{font-size:14px}
+  .tl{margin-top:40px}.tl-i{grid-template-columns:56px 1fr;gap:12px;padding:20px 0}.tl-y{font-size:13px}.tl-t{font-size:15px}.tl-d{font-size:13px}
+  .award{grid-template-columns:1fr;gap:12px;margin-top:40px}
+  .case{grid-template-columns:1fr;gap:16px;padding:24px 20px}.case .l .nm{font-size:22px}.case .r{font-size:14px}
+  .cases{gap:14px;margin-top:40px}
+  .flow{grid-template-columns:1fr;gap:28px;margin-top:40px}.flow::before{display:none}
+  .infra-grid{grid-template-columns:1fr;gap:16px;margin-top:40px}
+  .icard{padding:28px 22px}.icard .n{font-size:20px}
+  .vid-wrap{border-radius:14px}
+  .diagram-wrap{padding:16px 12px;overflow-x:auto}
+  .diagram-wrap svg{min-width:640px}
+  .hbanner{padding:80px 16px 64px}.hbanner h1{font-size:clamp(32px,9vw,44px)}.hbanner p{font-size:16px}
+  .srow-h{font-size:22px;margin:56px 0 20px}
+  .tile{width:240px;height:340px}.tile.lead{width:280px}.tile .tx{padding:20px 18px}.tile .ti{font-size:19px}.tile .de{font-size:13px}
+  .strip{gap:12px}
+  .modal-bg{padding:16px 8px}.modal{padding:32px 20px 28px;border-radius:18px}.modal h2{font-size:28px;margin-bottom:24px}.modal .x{top:14px;right:14px;width:36px;height:36px}
+  .mblock{padding:20px;margin-bottom:12px}.mblock p{font-size:15px}
+  .mblock .thumbs{grid-template-columns:repeat(3,1fr);gap:6px}.mblock .revs{grid-template-columns:1fr;gap:8px}
+  .mblock .stat{gap:24px}.mblock .stat b{font-size:26px}
+}
+@media(max-width:400px){
+  .hero-t{font-size:32px}
+  .band .in,.band .in.c4,.band .in.c2{grid-template-columns:1fr;gap:28px}
+  .quotes{grid-template-columns:1fr}
+  .hero-mosaic{grid-template-columns:repeat(3,1fr)}
+  .hero-mosaic img:nth-child(n+7){display:none}
+}
+
 </style>
 </head>
 <body>
@@ -219,17 +321,15 @@ footer{padding:64px 24px;color:var(--tx3);font-size:12px;text-align:center;borde
 <!-- WHY ASSET -->
 <section id="why">
   <div class="wrap">
-    <div class="split">
-      <div class="t">
-        <h3>돈으로<br><em>못 사는 것.</em></h3>
-        <p>레시피는 AI가 무한히 만들 수 있어요. 하지만 5,000번의 클래스에서 실제 수강생이 반응한 레시피, 그걸 만든 얼굴과 이름이 있는 사람 — 이건 못 만들어요.</p>
-        <div class="quote">"숫자가 아니라 힘입니다. 130명이 만들어내는 요리경험과 콜라보는 끝이 없습니다."</div>
-        <p>온라인 회사에겐 크리에이터 풀. 오프라인 회사에겐 강사 섭외 걱정 없음. 인수자에겐 수년이 걸리는 관계 자산.</p>
-      </div>
-      <div class="v" style="aspect-ratio:4/3;background:linear-gradient(135deg,#2A1A10 0%,#1D1D1F 60%);position:relative">
-        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.3);font-size:12px;font-family:var(--mono);text-align:center;line-height:1.8">섬머특집 메인 KV<br><span style="font-size:10px;opacity:.7">선생님 6명이 한 화면에</span></div>
-        <div style="position:absolute;bottom:20px;left:20px;right:20px;color:#fff"><div style="font-size:11px;color:var(--or);font-weight:600;letter-spacing:.06em;margin-bottom:6px">2020 SUMMER · 온라인 라이브</div><div style="font-size:15px;font-weight:700;letter-spacing:-.01em">박소진 · 정현정 · 이영미 · 임수진 · 조파미 · 최진</div></div>
-      </div>
+    <div class="why-c">
+      <h3>돈으로<br><em>못 사는 것.</em></h3>
+      <p>레시피는 AI가 무한히 만들 수 있어요. 하지만 5,000번의 클래스에서 실제 수강생이 반응한 레시피, 그걸 만든 얼굴과 이름이 있는 사람 — 이건 못 만들어요.</p>
+      <div class="quote">"숫자가 아니라 힘입니다. 130명이 만들어내는 요리경험과 콜라보는 끝이 없습니다."</div>
+    </div>
+    <div class="who3">
+      <div class="w"><div class="wl">온라인 회사에겐</div><div class="wt">크리에이터 풀</div><div class="wd">자기 채널을 가진 130명. 콘텐츠·라이브·협업 즉시.</div></div>
+      <div class="w"><div class="wl">오프라인 회사에겐</div><div class="wt">강사 섭외 걱정 없음</div><div class="wd">공간이 열리면 검증된 강사 풀에서 바로 배정.</div></div>
+      <div class="w"><div class="wl">투자 파트너에겐</div><div class="wt">수년 걸리는 관계 자산</div><div class="wd">10년 쌓인 신뢰. 돈으로 못 사고, 시간으로만 살 수 있는 것.</div></div>
     </div>
   </div>
 </section>
@@ -249,5 +349,22 @@ footer{padding:64px 24px;color:var(--tx3);font-size:12px;text-align:center;borde
 </a>
 
 <footer>주식회사 공공의주방 · ARCHIVEAT · Portfolio 2026</footer>
+
+<script>
+(function(){
+  var nav=document.querySelector('nav.g'); if(!nav) return;
+  var links=nav.querySelector('.links'); if(!links) return;
+  var b=document.createElement('button'); b.className='burger'; b.setAttribute('aria-label','메뉴'); b.innerHTML='<span></span><span></span><span></span>';
+  nav.appendChild(b);
+  var m=document.createElement('div'); m.className='mmenu';
+  var cur=location.pathname.split('/').pop();
+  links.querySelectorAll('a').forEach(function(a){var c=a.cloneNode(true); if(a.getAttribute('href')===cur) c.classList.add('cur'); m.appendChild(c);});
+  var cta=nav.querySelector('.demo'); if(cta){var cc=cta.cloneNode(true); cc.className='mcta'; m.appendChild(cc);}
+  document.body.appendChild(m);
+  b.addEventListener('click',function(){b.classList.toggle('on'); m.classList.toggle('on'); document.body.style.overflow=m.classList.contains('on')?'hidden':'';});
+  m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){b.classList.remove('on'); m.classList.remove('on'); document.body.style.overflow='';});});
+})();
+</script>
+
 </body>
 </html>
