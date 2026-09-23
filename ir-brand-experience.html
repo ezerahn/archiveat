@@ -272,18 +272,26 @@ br.m{display:none}
 .why-c{max-width:720px;margin:0 auto;text-align:center}
 .why-c h3{font-size:clamp(36px,5vw,56px);font-weight:800;letter-spacing:-.03em;line-height:1.25;margin-bottom:32px}
 .why-c h3 em{font-style:normal;color:var(--or)}
-.why-c p{font-size:20px;color:var(--tx2);line-height:1.75;margin-bottom:40px}
+.why-c p{font-size:19px;color:var(--tx2);line-height:1.8;margin:0 auto 22px;max-width:660px}
+.why-c p:last-of-type{margin-bottom:40px}
+.why-c .why-key{font-size:21px;color:var(--tx);line-height:1.72}
+.why-c .why-key b{font-weight:800;color:var(--tx)}
+@media(max-width:768px){.why-c p{font-size:17px;margin-bottom:18px}.why-c .why-key{font-size:18px}}
 .why-c .quote{text-align:left;font-size:24px;margin:0 auto;max-width:640px}
 .who3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1024px;margin:72px auto 0}
 .w{background:var(--bg);border-radius:20px;padding:36px 28px;text-align:center}
 .wl{font-size:12px;font-weight:600;color:var(--or);letter-spacing:.04em;margin-bottom:12px}
 .wt{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.25;margin-bottom:12px}
 .wd{font-size:14px;color:var(--tx2);line-height:1.6}
+.nb{white-space:nowrap}
 @media(max-width:768px){
-  .why-c h3{font-size:32px}
-  .why-c p{font-size:15px;line-height:1.7}
+  .why-c{padding:0 4px}
+  .why-c h3{font-size:clamp(25px,6.9vw,32px);line-height:1.3;margin-bottom:26px}
+  .why-c p{font-size:15.5px;line-height:1.72;margin-bottom:20px;word-break:keep-all}
+  .why-c .why-key{font-size:17.5px;line-height:1.66;margin-bottom:22px}
   .why-c p br.pc{display:none}
-  .why-c .quote{font-size:17px;line-height:1.55}
+  .why-c .quote{font-size:17.5px;line-height:1.52;padding-left:16px;border-left-width:3px}
+  .why-c .quote br.pc{display:none}
   .who3{grid-template-columns:1fr;gap:12px;margin-top:40px}
   .w{padding:24px 20px}
   .wt{font-size:19px}
@@ -715,14 +723,22 @@ img.th-kv1{width:100%;max-width:352px;display:block;border-radius:14px}
 <section id="why" style="margin-top:112px">
   <div class="wrap">
     <div class="why-c">
-      <h3>직접 만들려면 <em>수년.</em><br>우리는 이미 40개.</h3>
-      <p>백화점·리조트·아파트 커뮤니티가 직접 기획하면 <br class="pc">기획팀·실험·실패까지 수년이 걸립니다.<br>우리는 40개 기획을 실제 고객으로 검증했습니다.</p>
-      <div class="quote">"공간이 열리면, 이 프로그램을<br class="m"> 그대로 넣으면 됩니다."</div>
+      <h3>직접 만들려면 <em>수년.</em><br>우리는 이미 갖고 있습니다.</h3>
+      <p class="why-lead"><span class="nb">백화점 ·</span> <span class="nb">리조트 ·</span> <span class="nb">아파트 커뮤니티가</span><br class="m"> 직접 기획하면<br class="pc">
+        <span class="nb">기획팀 ·</span> <span class="nb">실험 ·</span> <span class="nb">실패까지</span><br class="m"> 수년이 걸립니다.</p>
+      <p class="why-key">이 페이지에 담긴 것만<br class="m">
+        <b><span class="nb">6개 시리즈 · 46개 기획.</span></b><br>
+        오프라인에서 시작해<br class="m">
+        <span class="nb">온라인 양방향과 쿠킹박스까지</span><br>
+        한 번씩 다 통과시킨 포맷입니다.</p>
+      <p><span class="nb">기획 양식 ·</span> <span class="nb">KV ·</span> <span class="nb">랜딩 ·</span> <span class="nb">진행 매뉴얼 ·</span> <span class="nb">정산 구조가</span> 그대로 남아<br class="pc">
+        <span class="nb">이후 유통 ·</span> <span class="nb">지자체 ·</span> <span class="nb">기업 프로젝트로</span> 옮겨 가며<br class="m"> 지금도 쓰이고 있습니다.</p>
+      <div class="quote">"공간이 열리면,<br class="m"> 이 프로그램을<br class="pc"> 그대로 넣으면 됩니다."</div>
     </div>
     <div class="who3">
       <div class="w"><div class="wl">온라인 회사에겐</div><div class="wt">시리즈 IP</div><div class="wd">구독 이유가 되는 검증된 시리즈.</div></div>
       <div class="w"><div class="wl">오프라인 회사에겐</div><div class="wt">검증된 프로그램</div><div class="wd">공간이 열리면 바로 채울 수 있는 기획.</div></div>
-      <div class="w"><div class="wl">파트너사에겐</div><div class="wt">40개 기획 자산</div><div class="wd">KV·랜딩·매뉴얼·정산까지 통째로.</div></div>
+      <div class="w"><div class="wl">파트너사에겐</div><div class="wt">기획 자산 한 세트</div><div class="wd">KV·랜딩·매뉴얼·정산까지 통째로.</div></div>
     </div>
   </div>
 </section>
