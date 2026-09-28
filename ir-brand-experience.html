@@ -717,8 +717,16 @@ img.th-kv1{width:100%;max-width:352px;display:block;border-radius:14px}
 
 
 
+
+
+
+
+
+
+
+
 /*FH*/
-.fstep3{display:flex;justify-content:center;align-items:center;flex-wrap:nowrap;margin:0 auto 34px}
+.fstep3{display:flex;justify-content:center;align-items:center;flex-wrap:nowrap;margin:0 auto 40px}
 .fstep3 a{display:flex;align-items:center;gap:9px;padding:7px 16px 7px 8px;border-radius:40px;color:var(--tx3);font-size:15px;text-decoration:none;white-space:nowrap;transition:background .2s}
 .fstep3 a:hover{background:rgba(0,0,0,.04)}
 .fstep3 i{width:26px;height:26px;border-radius:50%;border:1.5px solid #D2D2D7;display:grid;place-items:center;font-style:normal;font-size:11.5px;font-weight:700;flex:none}
@@ -728,7 +736,8 @@ img.th-kv1{width:100%;max-width:352px;display:block;border-radius:14px}
 .fstep3 a.on i{background:var(--or);border-color:var(--or);color:#fff}
 .fstep3 a.on span{color:var(--or)}
 .fstep3 .bar{width:40px;height:1.5px;background:#D2D2D7;flex:none}
-.fhero{text-align:center;padding:128px 24px 0;background:var(--wh)}
+.fhero{text-align:center;padding:52px 24px 0;background:var(--wh)}
+.hero:has(>.fstep3),.hero.ih{padding-top:52px}
 .fhero .eye{font-size:14px;font-weight:600;letter-spacing:.04em;color:var(--or);margin-bottom:24px}
 .fhero h1{font-size:clamp(44px,7vw,80px);font-weight:800;letter-spacing:-.035em;line-height:1.22;margin-bottom:28px;color:var(--dk)}
 .fhero h1 em{font-style:normal;color:var(--or)}
@@ -740,11 +749,11 @@ img.th-kv1{width:100%;max-width:352px;display:block;border-radius:14px}
 .ftri{max-width:1200px;margin:48px auto 0;height:clamp(260px,34vw,440px);display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:12px}
 .ftri>div{border-radius:22px;overflow:hidden;position:relative;background:#eee}
 .ftri img{width:100%;height:100%;object-fit:cover;display:block}
-.hero .fstep3{margin-bottom:28px}
+.hero .fstep3{margin-bottom:40px}
 @media(max-width:768px){
- .fstep3{margin-bottom:24px}.fstep3 a{padding:6px 8px 6px 6px;font-size:13.5px;gap:6px}.fstep3 span{display:none}.fstep3 .bar{width:14px}
+ .fstep3{margin-bottom:24px}.fstep3 a{padding:5px 7px 5px 5px;font-size:13px;gap:5px}.fstep3 a:not(.on) span{display:none}.fstep3 span{font-size:11.5px}.fstep3 .bar{width:8px}
  .fstep3 i{width:22px;height:22px;font-size:10.5px}
- .fhero{padding:72px 16px 0}.fhero h1{font-size:clamp(32px,9vw,44px);margin-bottom:18px}.fhero p{font-size:16px;line-height:1.6}
+ .fhero{padding:28px 16px 0}.hero:has(>.fstep3),.hero.ih{padding-top:28px}.hero .fstep3{margin-bottom:24px}.fhero h1{font-size:clamp(32px,9vw,44px);margin-bottom:18px}.fhero p{font-size:16px;line-height:1.6}
  .fph{margin-top:32px;height:260px;border-radius:16px}
  .ftri{margin-top:32px;height:auto;grid-template-columns:1fr 1fr;gap:8px}
  .ftri>div{border-radius:14px;aspect-ratio:1/1}.ftri>div:first-child{grid-column:1/3;aspect-ratio:4/3}
@@ -762,10 +771,9 @@ img.th-kv1{width:100%;max-width:352px;display:block;border-radius:14px}
 <nav class="l"><div class="in"><span class="t">브랜드 경험</span><div class="tabs"><a href="#gahwa">가화만사성</a><a href="#banchan">반찬날</a><a href="#kimjang">김장날</a><a href="#jecheol">제철</a><a href="#theme">테마</a><a href="#why">왜 자산인가</a></div></div></nav>
 
 <!--FH--><section class="fhero">
- <nav class="fstep3" aria-label="클래스 · 레시피 · 쿠킹박스"><a href="ir-brand-experience.html" class="on"><i>01</i><b>클래스</b><span>가르쳐 봤습니다</span></a><div class="bar"></div><a href="ir-content-ip.html"><i>02</i><b>레시피</b><span>남겼습니다</span></a><div class="bar"></div><a href="ir-infra.html"><i>03</i><b>쿠킹박스</b><span>보냅니다</span></a></nav>
- <div class="eye">BRAND EXPERIENCE</div>
+ <nav class="fstep3" aria-label="클래스 · 레시피 · 쿠킹박스"><a href="ir-brand-experience.html" class="on"><i>01</i><b>클래스</b><span>가르쳐 봤습니다</span></a><div class="bar"></div><a href="ir-content-ip.html"><i>02</i><b>레시피</b></a><div class="bar"></div><a href="ir-infra.html"><i>03</i><b>쿠킹박스</b></a></nav>
  <h1>직접 가르쳐 본 회사만,<br><em>아는 것</em>이 있습니다.</h1>
- <p>전문가 선생님과<br class="m"> <span class="nb">오프라인 주방에서 시작해 온라인까지.</span><br><b class="nb">6개 시리즈 · 46개 기획,</b><br class="m"> <span class="nb">고객과 함께 요리하며 쌓은 노하우입니다.</span></p>
+ <p>선생님과 함께 오프라인에서 온라인까지,<br class="m"> <b class="nb">6개 시리즈 · 46개 기획.</b></p>
  <div class="fph"><img src="ir-images/gahwa-live/gahwa-live-14.jpg" alt="가화만사성 클래스 현장" style="object-position:50% 40%"><div class="cap">가화만사성 · 동네마다 선생님 시그니처 클래스</div></div>
 </section><!--/FH-->
 
