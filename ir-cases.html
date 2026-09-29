@@ -316,6 +316,7 @@ nav.g .burger.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 .cs-steps2 em,.cs-steps2 b,.cs-steps2 span{position:absolute;left:14px;right:12px;z-index:1}
 .cs-steps2 em{bottom:74px;font-style:normal;font-family:var(--mono);font-size:26px;font-weight:700;color:#FF9A73}
 .cs-steps2 b{bottom:44px;font-size:16px;font-weight:800}.cs-steps2 span{bottom:14px;font-size:12px;color:rgba(255,255,255,.82);line-height:1.4}
+#link{padding-bottom:110px}
 .cs-lead2{margin-top:16px}
 .cs-cur{background:var(--dk);color:#fff;padding:28px 30px}
 .cs-cur .cur-h{font-size:12.5px;font-weight:700;color:var(--or);letter-spacing:.06em;margin-bottom:12px}
@@ -446,6 +447,7 @@ body.cs-lock{overflow:hidden}
  .cb-c.on{font-size:0}.cb-c{height:22px}.cb-cap{gap:12px;font-size:12px}.cb-cap em{margin-left:0;width:100%}
  .cs-gh h3{font-size:22px} .cs-gh{gap:10px}.cs-gh p{margin-left:0;font-size:14px;width:100%}
  .cs-col{height:auto;grid-template-rows:150px 150px}.cs-steps2{height:260px}.cs-steps2 span{display:none}.cs-steps2 em{bottom:40px;font-size:20px}.cs-steps2 b{bottom:12px;font-size:13.5px}.cs-c:has(.cs-ci){display:grid;grid-template-columns:100px 1fr}.cs-c .cs-ci{height:auto;border-radius:18px 0 0 18px}.cs-c:has(.cs-ci) .cs-cb{padding:14px 14px 16px}.gf{border-radius:20px;padding:18px 0 14px}.gf-h,.gf ul{padding-left:16px;padding-right:16px}.gf li{flex-basis:120px}.gf-i{width:120px;height:120px}.cs-ci{height:150px}
+ #link{padding-bottom:64px}
  .cs-lead,.cs-wj{grid-template-columns:1fr;gap:18px;padding:14px;border-radius:20px}
  .cs-lv{min-height:0}.cs-ph img{min-height:0;aspect-ratio:3/2;max-height:none}
  .cs-lt{padding:4px 6px 10px}
@@ -470,6 +472,86 @@ body.cs-lock{overflow:hidden}
  .cs-voice{grid-template-columns:1fr}
  #cs-lb{padding:16px 8px 44px}#cs-lb .lb-n{width:38px;height:38px}
 }
+
+
+.cm-ov{position:fixed;inset:0;z-index:400;background:rgba(20,20,22,.6);display:none;overflow-y:auto;padding:40px 24px;-webkit-overflow-scrolling:touch}
+.cm-ov.on{display:block!important}
+#ckm.cm-ov,#ckg.cm-ov{padding:40px 24px;align-items:initial;justify-content:initial}
+.cm-box{position:relative;background:#fff;border-radius:24px;max-width:1080px;margin:0 auto;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.25);word-break:keep-all}
+.cm-x{position:absolute;top:16px;right:18px;width:40px;height:40px;border-radius:50%;border:none;background:rgba(255,255,255,.92);font-size:26px;line-height:1;color:var(--tx2);cursor:pointer;z-index:2}
+.cm-x:hover{color:var(--dk)}
+.cm-top{display:grid;grid-template-columns:1fr 240px;gap:32px;padding:36px 76px 32px 36px;background:#F7F4EF;align-items:center}
+.cm-top.noimg{grid-template-columns:1fr}
+.cm-top>img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:18px;display:block;cursor:zoom-in}
+.cm-e{font-size:12px;font-weight:700;color:var(--or);letter-spacing:.06em;margin-bottom:10px}
+.cm-top h3{font-size:36px;font-weight:800;letter-spacing:-.03em;margin-bottom:6px;line-height:1.2}
+.cm-sub{font-size:16px;color:var(--tx2);margin-bottom:18px;line-height:1.55}
+.cm-nm{font-size:16px;font-weight:800}
+.cm-cr{font-size:13.5px;color:var(--tx2);margin:2px 0 16px;line-height:1.55}
+.cm-chips{display:flex;flex-wrap:wrap;gap:6px}
+.cm-chips span{font-size:12px;font-weight:600;padding:5px 10px;border-radius:14px;background:#fff}
+.cm-chips span.v{background:#FFF1EA;color:var(--or)}.cm-chips span.o{background:var(--or);color:#fff}
+.cm-hint{font-size:13px;color:var(--tx3);padding:24px 36px 0}
+.cm-sec{padding:26px 36px 0}
+.cm-hint+.cm-sec{padding-top:14px}
+.cm-sec>h4{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.cm-sec>h4 i{font-style:normal;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--or)}
+.cm-sec>h4 b{font-size:16px;font-weight:800}.cm-sec>h4 small{font-size:13px;color:var(--tx3);font-weight:500}
+.cm-gr{display:grid;grid-template-columns:repeat(5,1fr);gap:14px 12px}
+.cm-gr.g4{grid-template-columns:repeat(4,1fr)}
+.cm-gr figure{margin:0;min-width:0}
+.cm-gr img,.cm-gr .ph{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;display:block;cursor:zoom-in;transition:filter .18s}
+.cm-gr img:hover{filter:brightness(.88)}
+.cm-gr .ph{background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:12px;color:#B0B0B5;cursor:default}
+.cm-gr figcaption{font-size:13.5px;font-weight:600;margin-top:8px;line-height:1.35}
+.cm-gr figcaption i{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--tx3);margin-right:6px}
+.cm-gr figcaption span{display:block;font-size:12px;font-weight:500;color:var(--tx3);margin-top:2px}
+.cm-rows{border-top:2px solid var(--dk)}
+.cm-rows>div{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:14px 2px;border-bottom:1px solid #EDEDF0;align-items:baseline}
+.cm-rows dt{font-size:12.5px;font-weight:700;color:var(--tx3)}
+.cm-rows dd{font-size:14.5px;line-height:1.65;color:var(--dk);margin:0}
+.cm-rows dd a{font-size:13px;font-weight:700;color:var(--or);margin-left:6px;white-space:nowrap}
+.cm-rows .br{display:inline-block;background:var(--or);color:#fff;font-weight:700;font-size:12px;border-radius:6px;padding:3px 8px;margin-right:6px}
+.cm-rows .nb{color:#C7C7CC}
+.cm-mn{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:5px 24px;margin:0;padding:0}
+.cm-mn li{font-size:14px;padding-left:12px;position:relative}.cm-mn li::before{content:'';position:absolute;left:0;top:.72em;width:4px;height:4px;border-radius:50%;background:var(--or)}
+.cm-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cm-steps div{background:var(--bg);border-radius:14px;padding:16px 18px}
+.cm-steps em{font-style:normal;font-family:var(--mono);font-size:13px;font-weight:700;color:var(--or)}
+.cm-steps b{display:block;font-size:15.5px;margin-top:2px}.cm-steps span{font-size:12.5px;color:var(--tx2)}
+.cm-q{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cm-q blockquote{margin:0;background:#FFF1EA;border-radius:14px;padding:18px;font-size:15px;font-weight:600;line-height:1.55}
+.cm-yr{border-top:2px solid var(--dk)}
+.cm-yr>div{display:grid;grid-template-columns:90px 1fr;gap:16px;padding:16px 2px;border-bottom:1px solid #EDEDF0}
+.cm-yr b{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--or)}
+.cm-yr p{font-size:14.5px;color:var(--dk);line-height:1.7;margin:0}
+.cm-bl{margin:24px 36px 0;padding:16px 0 26px;border-top:1px solid rgba(0,0,0,.06);font-size:13.5px;color:var(--tx2)}
+.cm-oth{background:var(--bg);padding:20px 36px 26px;margin-top:28px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cm-bl+.cm-oth{margin-top:0}
+.cm-oth>b{font-size:14px;margin-right:6px}
+.cm-oth button{font:700 14px var(--sans);color:var(--tx);text-align:left;border:1px solid rgba(0,0,0,.12);background:#fff;border-radius:12px;padding:10px 14px;cursor:pointer}
+.cm-oth button:hover{border-color:var(--or);color:var(--or)}
+.cm-oth button.on{background:var(--dk);border-color:var(--dk);color:#fff}
+.cm-oth button small{display:block;font-size:11.5px;font-weight:500;color:var(--tx3)}
+.cm-oth.mon button{padding:8px 12px;min-width:52px;text-align:center}
+.cm-oth .sp{flex:1}
+body.cm-lock{overflow:hidden}
+@media(max-width:820px){
+ .cm-ov,#ckm.cm-ov,#ckg.cm-ov{padding:0}.cm-box{border-radius:0;min-height:100%}
+ .cm-top{grid-template-columns:1fr;gap:14px;padding:22px 20px 20px}
+ .cm-top>img{order:-1;aspect-ratio:16/10;border-radius:14px}
+ .cm-top h3{font-size:26px}.cm-sub{font-size:14px;margin-bottom:12px}.cm-cr{font-size:12.5px}
+ .cm-x{top:12px;right:12px}
+ .cm-hint{padding:16px 20px 0;font-size:12.5px}.cm-sec{padding:20px 20px 0}
+ .cm-gr,.cm-gr.g4{grid-template-columns:repeat(2,1fr);gap:12px 10px}
+ .cm-rows>div{grid-template-columns:1fr;gap:4px}.cm-mn{grid-template-columns:1fr}
+ .cm-steps,.cm-q{grid-template-columns:1fr}
+ .cm-yr>div{grid-template-columns:1fr;gap:2px}
+ .cm-bl{margin:18px 20px 0;font-size:12.5px}.cm-oth{padding:18px 20px 22px}
+}
+
+.cs-m.cm-ov{padding:40px 24px}.cs-m.cm-ov.on{display:block}
+@media(max-width:820px){.cs-m.cm-ov{padding:0}}
 /*/CASES*/
 /*NAVON*/nav.g .links a.on{color:var(--or);font-weight:700}nav.l .tabs a.cta,nav.l .tabs a.cta:hover{color:#fff}/*/NAVON*/
 /*TYPO*/.sec-h{line-height:1.22}.sec-h span{margin-top:22px;line-height:1.55;font-weight:400}@media(max-width:820px){.sec-h span{margin-top:12px}}/*/TYPO*/
@@ -611,51 +693,22 @@ body.cs-lock{overflow:hidden}
   </div>
 </div>
 </div></section>
-
-<div class="wrap-w"><a class="cs-end" href="ir-ai-kitchen.html">
-  <p>협업처마다 필요한 조합이 달랐고, 매번 새로 짰습니다.</p>
-  <p><em>그 조합을 바로 만드는 것이 AI 키친입니다 →</em></p>
-</a></div>
-<div class="cs-m" id="m-galleria" role="dialog" aria-modal="true" aria-label="갤러리아 광교">
-<div class="cs-mw cs-narrow"><div class="cs-mh">
-  <img class="cs-logo" alt="ARCHIVEAT">
-  <span class="cs-mt">갤러리아 광교 <small>2024.03 – 2026.07</small></span>
-  <button class="cs-share" onclick="csShare('galleria',this)">링크 복사</button>
-  <button class="cs-back" onclick="csClose()">← 협업 사례로 돌아가기</button>
-  <button class="cs-x" onclick="csClose()" aria-label="닫기">✕</button>
-</div>
-<div class="cs-mb"><div class="cs-pane on">
-<div class="cs-stat"><div><b>85<small>회</small></b><span>수업</span></div><div><b>11<small>회차</small></b><span>정규 과정</span></div><div><b>9<small>명</small></b><span>선생님</span></div></div>
-<div class="cs-tl"><div class="y">2024</div><div><b>원데이 클래스로 시작</b><p>김희경 한식 가정식 · 이민영 · 박지수 베이킹 · 임수진 김치 · 박소진 후토마키 · 어복쟁반. 3월에는 농심과 「북해도식 스프카레」(최진).</p></div></div><div class="cs-tl"><div class="y">2025</div><div><b>정규 과정</b><p>3월부터 11월까지 박소진 · 임수진 선생님의 11회차 코스 — 제철 식재료를 테마로. 키즈 베이킹(박지수 · 이민영)과 이예린 원데이를 함께.</p></div></div><div class="cs-tl"><div class="y">2026</div><div><b>여름까지</b><p>7월 최진 선생님의 여름 빠에야가 마지막 수업. 공간이 문을 닫은 뒤, 온라인(클래스 + 쿠킹박스)으로 이어 가는 방안을 함께 논의했습니다.</p></div></div>
-<div class="cs-sub">함께한 선생님</div><div class="chips"><em>임수진</em><em>박소진</em><em>박지수</em><em>김희경</em><em>이민영</em><em>이예린</em><em>최진</em><em>박은정</em><em>이상은</em></div>
-</div></div></div></div>
-<div class="cs-m" id="m-gyeonggi" role="dialog" aria-modal="true" aria-label="경기도지식">
-<div class="cs-mw cs-narrow"><div class="cs-mh">
-  <img class="cs-logo" alt="ARCHIVEAT">
-  <span class="cs-mt">경기도지식 온라인 클래스 <small>2022.11 – 지금</small></span>
-  <button class="cs-share" onclick="csShare('gyeonggi',this)">링크 복사</button>
-  <button class="cs-back" onclick="csClose()">← 협업 사례로 돌아가기</button>
-  <button class="cs-x" onclick="csClose()" aria-label="닫기">✕</button>
-</div>
-<div class="cs-mb"><div class="cs-pane on">
-<div class="cs-how"><div><em>1</em><b>경기도가 모집</b><span>도민 신청을 받아 명단을 줍니다</span></div><i>→</i><div><em>2</em><b>쿠킹박스를 집으로</b><span>수업 전에 재료를 소분해 배송</span></div><i>→</i><div><em>3</em><b>화상으로 함께</b><span>선생님과 실시간으로 만듭니다</span></div></div>
-<div class="cs-sub">연간 커리큘럼 — 성인과 아이 수업을 번갈아</div>
-<div class="cs-yr"><div class="y">2022</div><ul><li><b>11월</b><span></span><i>가지</i></li><li><b>12월</b><span></span><i>백오연</i></li></ul></div><div class="cs-yr"><div class="y">2023</div><ul><li><b>12월</b><span></span><i>박소현</i></li></ul></div><div class="cs-yr"><div class="y">2024</div><ul><li><b>04월</b><span>봄나물 오니기리 &amp; 미나리무침</span><i>임수진</i></li><li><b>05월</b><span>아동 비건 베이킹 · 초코아몬드머핀</span><i>아루아</i></li><li><b>10월</b><span>그림책 읽고 만드는 데이지 브라우니</span><i>박지수</i></li><li><b>10월</b><span>쉬림프 볶음차우면</span><i>최진</i></li><li><b>11월</b><span>오징어두부두루치기</span><i>김은영</i></li><li><b>12월</b><span>겨울 보양식 · 버섯들깨탕</span><i>김희경</i></li><li><b>12월</b><span>아동 · 크리스마스 트리</span><i>일호실</i></li></ul></div><div class="cs-yr"><div class="y">2025</div><ul><li><b>03월</b><span>베트남 세계요리 · 반미 치킨 샌드위치</span><i>박영정</i></li><li><b>05월</b><span>꽃케이크</span><i>이민영</i></li><li><b>08월</b><span>하와이 아사이볼 &amp; 스팸 무스비</span><i>우미선</i></li><li><b>10월</b><span>가을 베이킹 · 낙엽쿠키</span><i>박지수</i></li><li><b>11월</b><span>수제청 · 유자청</span><i>이예린</i></li><li><b>12월</b><span>크리스마스 홈파티 · 눈꽃 파르펠레 크림파스타 &amp; 리스 샐러드</span><i>우미선</i></li></ul></div><div class="cs-yr"><div class="y">2026</div><ul><li><b>02월</b><span>두바이 쫀득쿠키</span><i>이민영</i></li><li><b>04월</b><span>냉이꽃게탕</span><i>김은영</i></li><li><b>05월</b><span>도시락</span><i>이예린</i></li><li><b>07월</b><span>복숭아청</span><i>이영미</i></li><li><b>09월</b><span>오방색 하트 깨엿강정</span><i>김미라</i></li><li><b>10월</b><span>애플시나몬머핀 (예정)</span><i>이민영</i></li></ul></div>
-<div class="cs-sub">수강생 목소리 <small>2024.04 봄나물 오니기리 & 미나리무침 설문</small></div>
-<div class="cs-voice"><blockquote>「집에서 키트로 요리를 할 수 있어 편리하고 좋았어요.」</blockquote><blockquote>「이번에 처음 해 먹고 맛있고, 다음에 또 사야겠네요.」</blockquote><blockquote>「다음 번에 마트에 가면 살 수 있을 것 같아요.」</blockquote></div>
-</div></div></div></div>
-<div class="cs-m" id="m-catering" role="dialog" aria-modal="true" aria-label="케이터링 · 도시락">
-<div class="cs-mw cs-narrow"><div class="cs-mh">
-  <img class="cs-logo" alt="ARCHIVEAT">
-  <span class="cs-mt">케이터링 · 도시락 <small>2019 – 2026</small></span>
-  <button class="cs-share" onclick="csShare('catering',this)">링크 복사</button>
-  <button class="cs-back" onclick="csClose()">← 협업 사례로 돌아가기</button>
-  <button class="cs-x" onclick="csClose()" aria-label="닫기">✕</button>
-</div>
-<div class="cs-mb"><div class="cs-pane on">
-<p class="cs-pi">디캠프 · 프론트원을 중심으로, 해마다 행사의 식탁을 차렸습니다.</p>
-<div class="cs-yr"><div class="y">2019</div><p>디캠프 대사관 행사 · IF 스타트업 축제 · 메이랩 · 중견기업 커피 케이터링 · 연말 파티</p></div><div class="cs-yr"><div class="y">2020</div><p>디캠프 도시락 · 디캠프 × 신한은행 · 은행 간담회 · 협약식 · 프론트원 개관식 · 퓨처플레이 · 여성벤처협회 · 금융위원회(프론트원)</p></div><div class="cs-yr"><div class="y">2021</div><p>프론트원 도시락 · 케이터링 · 여성금융인네트워크</p></div><div class="cs-yr"><div class="y">2022</div><p>SK플래닛 T아카데미 · 메디치이엔에스 · 디캠프 10주년 · 복을나누는사람들 · 연말 케이터링</p></div><div class="cs-yr"><div class="y">2023</div><p>디캠프 할랄 케이터링 · 시선스토리랩 · 주한 캐나다 대사관 · 올댓트래블 VIP 네트워킹</p></div><div class="cs-yr"><div class="y">2024</div><p>언더독스 디데이 · 마포 프론트원 · 선릉 디캠프 · 올댓트래블 · 현대자동차 · 스타트업 얼라이언스</p></div><div class="cs-yr"><div class="y">2025</div><p>프론트원 · 디캠프 · IBM 기자간담회 · 산업은행 국민성장펀드 출범식 · core 기업 인사이트 데이</p></div><div class="cs-yr"><div class="y">2026</div><p>KFPE 춘계학술대회 · 머니투데이 · 디캠프 스타트업 OI #금융권 · 머니투데이 K-우주포럼</p></div>
-</div></div></div></div>
+<div class="next"><div class="l">다음</div><div class="t">협업처마다 새로 짠 조합을, 바로 만드는 시스템 → <a href="ir-ai-kitchen.html">AI 키친</a></div></div>
+<div class="cs-m cm-ov" id="m-gyeonggi" role="dialog" aria-modal="true" aria-label="경기도지식">
+<div class="cm-box"><button class="cm-x" onclick="csClose()" aria-label="닫기">×</button><div class="cm-top"><div><div class="cm-e">ONLINE CLASS · 2022.11 – 지금</div><h3>경기도지식 온라인 클래스</h3><div class="cm-sub">경기도가 도민을 모으면, 쿠킹박스를 집으로 보내고 선생님이 화상으로 함께 만듭니다. 성인 수업과 아이 수업을 번갈아.</div><div class="cm-nm">선생님 16명</div><div class="cm-cr">가지 · 백오연 · 박소현 · 임수진 · 아루아 · 박지수 · 최진 · 김은영 · 김희경 · 일호실 · 박영정 · 이민영 · 우미선 · 이예린 · 이영미 · 김미라</div><div class="cm-chips"><span class=v>★ 실제 수업 기록</span><span class=o>매달 새 메뉴</span><span>화상 + 쿠킹박스</span></div></div><img src="ir-images/cases/cases-m2410b.jpg" data-full="ir-images/cases/cases-m2410b.jpg" data-g="mtop" alt=""></div>
+<div class="cs-pane on">
+<div class="cm-sec"><h4><b>진행 방식</b></h4><div class="cm-steps"><div><em>1</em><b>경기도가 모집</b><span>도민 신청을 받아 명단을 줍니다</span></div><div><em>2</em><b>쿠킹박스를 집으로</b><span>수업 전에 재료를 소분해 배송</span></div><div><em>3</em><b>화상으로 함께</b><span>선생님과 실시간으로 만듭니다</span></div></div></div>
+<div class="cm-sec"><h4><b>매달 이어진 수업</b><small>사진을 누르면 크게 볼 수 있습니다</small></h4><div class="cm-gr"><figure><img src="ir-images/cases/cases-m2404.jpg" data-full="ir-images/cases/cases-m2404.jpg" data-g="gg" alt="봄나물 오니기리 &amp; 미나리무침" loading="lazy"><figcaption><i>2024.04</i>봄나물 오니기리 &amp; 미나리무침<span>임수진 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2405.jpg" data-full="ir-images/cases/cases-m2405.jpg" data-g="gg" alt="아동 비건 베이킹 · 초코아몬드머핀" loading="lazy"><figcaption><i>2024.05</i>아동 비건 베이킹 · 초코아몬드머핀<span>아루아 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2410a.jpg" data-full="ir-images/cases/cases-m2410a.jpg" data-g="gg" alt="그림책 읽고 만드는 데이지 브라우니" loading="lazy"><figcaption><i>2024.10</i>그림책 읽고 만드는 데이지 브라우니<span>박지수 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2410b.jpg" data-full="ir-images/cases/cases-m2410b.jpg" data-g="gg" alt="쉬림프 볶음차우면" loading="lazy"><figcaption><i>2024.10</i>쉬림프 볶음차우면<span>최진 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2411.jpg" data-full="ir-images/cases/cases-m2411.jpg" data-g="gg" alt="오징어두부두루치기" loading="lazy"><figcaption><i>2024.11</i>오징어두부두루치기<span>김은영 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2412a.jpg" data-full="ir-images/cases/cases-m2412a.jpg" data-g="gg" alt="겨울 보양식 · 버섯들깨탕" loading="lazy"><figcaption><i>2024.12</i>겨울 보양식 · 버섯들깨탕<span>김희경 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2412b.jpg" data-full="ir-images/cases/cases-m2412b.jpg" data-g="gg" alt="아동 · 크리스마스 트리" loading="lazy"><figcaption><i>2024.12</i>아동 · 크리스마스 트리<span>일호실 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2503.jpg" data-full="ir-images/cases/cases-m2503.jpg" data-g="gg" alt="베트남 세계요리 · 반미 치킨 샌드위치" loading="lazy"><figcaption><i>2025.03</i>베트남 세계요리 · 반미 치킨 샌드위치<span>박영정 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2505.jpg" data-full="ir-images/cases/cases-m2505.jpg" data-g="gg" alt="꽃케이크" loading="lazy"><figcaption><i>2025.05</i>꽃케이크<span>이민영 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2508.jpg" data-full="ir-images/cases/cases-m2508.jpg" data-g="gg" alt="하와이 아사이볼 &amp; 스팸 무스비" loading="lazy"><figcaption><i>2025.08</i>하와이 아사이볼 &amp; 스팸 무스비<span>우미선 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2510.jpg" data-full="ir-images/cases/cases-m2510.jpg" data-g="gg" alt="가을 베이킹 · 낙엽쿠키" loading="lazy"><figcaption><i>2025.10</i>가을 베이킹 · 낙엽쿠키<span>박지수 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2511.jpg" data-full="ir-images/cases/cases-m2511.jpg" data-g="gg" alt="수제청 · 유자청" loading="lazy"><figcaption><i>2025.11</i>수제청 · 유자청<span>이예린 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2512.jpg" data-full="ir-images/cases/cases-m2512.jpg" data-g="gg" alt="크리스마스 홈파티 · 눈꽃 파르펠레 크림파스타 &amp; 리스 샐러드" loading="lazy"><figcaption><i>2025.12</i>크리스마스 홈파티 · 눈꽃 파르펠레 크림파스타 &amp; 리스 샐러드<span>우미선 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2602.jpg" data-full="ir-images/cases/cases-m2602.jpg" data-g="gg" alt="두바이 쫀득쿠키" loading="lazy"><figcaption><i>2026.02</i>두바이 쫀득쿠키<span>이민영 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2604.jpg" data-full="ir-images/cases/cases-m2604.jpg" data-g="gg" alt="냉이꽃게탕" loading="lazy"><figcaption><i>2026.04</i>냉이꽃게탕<span>김은영 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2605.jpg" data-full="ir-images/cases/cases-m2605.jpg" data-g="gg" alt="도시락" loading="lazy"><figcaption><i>2026.05</i>도시락<span>이예린 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2607.jpg" data-full="ir-images/cases/cases-m2607.jpg" data-g="gg" alt="복숭아청" loading="lazy"><figcaption><i>2026.07</i>복숭아청<span>이영미 선생님</span></figcaption></figure><figure><img src="ir-images/cases/cases-m2609.jpg" data-full="ir-images/cases/cases-m2609.jpg" data-g="gg" alt="오방색 하트 깨엿강정" loading="lazy"><figcaption><i>2026.09</i>오방색 하트 깨엿강정<span>김미라 선생님</span></figcaption></figure><figure><div class="ph">예정</div><figcaption><i>2026.10</i>애플시나몬머핀<span>이민영 선생님</span></figcaption></figure></div></div>
+<div class="cm-sec"><h4><b>수강생 목소리</b><small>2024.04 봄나물 오니기리 &amp; 미나리무침 설문</small></h4><div class="cm-q"><blockquote>「집에서 키트로 요리를 할 수 있어 편리하고 좋았어요.」</blockquote><blockquote>「이번에 처음 해 먹고 맛있고, 다음에 또 사야겠네요.」</blockquote><blockquote>「다음 번에 마트에 가면 살 수 있을 것 같아요.」</blockquote></div></div>
+<div class="cm-bl">처음 수업 · 2022.11 가지 · 2022.12 백오연 · 2023.12 박소현 선생님으로 시작해, 매달 한 번씩 이어졌습니다.</div>
+</div></div></div>
+<div class="cs-m cm-ov" id="m-catering" role="dialog" aria-modal="true" aria-label="케이터링 · 도시락">
+<div class="cm-box"><button class="cm-x" onclick="csClose()" aria-label="닫기">×</button><div class="cm-top noimg"><div><div class="cm-e">EVENT CATERING · 2019 – 2026</div><h3>행사 케이터링 · 도시락</h3><div class="cm-sub">디캠프 · 프론트원을 중심으로, 해마다 기업 · 기관 행사의 식탁을 차렸습니다.</div><div class="cm-chips"><span class=v>★ 실제 행사 기록</span><span class=o>8년 이어짐</span><span>금융 · 스타트업 · 대사관</span></div></div></div>
+<div class="cs-pane on">
+<div class="cm-sec"><h4><b>주요 행사</b></h4><div class="cm-rows"><div><dt>2025.12</dt><dd><b>산업은행</b> — 국민성장펀드 출범식</dd></div><div><dt>2020.11</dt><dd><b>금융위원회</b> — 프론트원 행사 도시락</dd></div><div><dt>2025.12</dt><dd><b>IBM</b> — 기자간담회</dd></div><div><dt>2026.06 – 07</dt><dd><b>머니투데이</b> — 가상시장식 · K-우주포럼 총회</dd></div><div><dt>2023.06</dt><dd><b>주한 캐나다 대사관</b> — 대사관 행사</dd></div><div><dt>2024</dt><dd><b>언더독스</b> — 디데이 행사</dd></div></div></div>
+<div class="cm-sec"><h4><b>해마다</b><small>2019 – 2026</small></h4><div class="cm-yr"><div><b>2019</b><p>디캠프 대사관 행사 · IF 스타트업 축제 · 메이랩 · 중견기업 커피 케이터링 · 연말 파티</p></div><div><b>2020</b><p>디캠프 도시락 · 디캠프 × 신한은행 · 은행 간담회 · 협약식 · 프론트원 개관식 · 퓨처플레이 · 여성벤처협회 · 금융위원회(프론트원)</p></div><div><b>2021</b><p>프론트원 도시락 · 케이터링 · 여성금융인네트워크</p></div><div><b>2022</b><p>SK플래닛 T아카데미 · 메디치이엔에스 · 디캠프 10주년 · 복을나누는사람들 · 연말 케이터링</p></div><div><b>2023</b><p>디캠프 할랄 케이터링 · 시선스토리랩 · 주한 캐나다 대사관 · 올댓트래블 VIP 네트워킹</p></div><div><b>2024</b><p>언더독스 디데이 · 마포 프론트원 · 선릉 디캠프 · 올댓트래블 · 현대자동차 · 스타트업 얼라이언스</p></div><div><b>2025</b><p>프론트원 · 디캠프 · IBM 기자간담회 · 산업은행 국민성장펀드 출범식 · core 기업 인사이트 데이</p></div><div><b>2026</b><p>KFPE 춘계학술대회 · 머니투데이 · 디캠프 스타트업 OI #금융권 · 머니투데이 K-우주포럼</p></div></div></div>
+<div style="height:36px"></div>
+</div></div></div>
 <div id="cs-lb" onclick="csLbClose()">
   <button class="lb-x" onclick="event.stopPropagation();csLbClose()" aria-label="닫기">✕</button>
   <button class="lb-n lb-p" onclick="event.stopPropagation();csLbGo(-1)" aria-label="이전">‹</button>
@@ -693,7 +746,7 @@ function show(id){
   var m=document.getElementById('m-'+id); if(!m) return false;
   if(CUR && CUR!==id) hide();
   m.classList.add('on'); document.body.classList.add('cs-lock'); CUR=id;
-  var b=m.querySelector('.cs-mb'); if(b) b.scrollTop=0; return true;
+  var b=m.querySelector('.cs-mb'); if(b) b.scrollTop=0; m.scrollTop=0; return true;
 }
 function hide(){
   if(!CUR) return; var m=document.getElementById('m-'+CUR);
