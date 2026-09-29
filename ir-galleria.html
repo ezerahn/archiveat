@@ -392,7 +392,7 @@ body.ck-lock{overflow:hidden}
 .sp-num b{display:block;font-family:var(--mono);font-size:clamp(28px,3.2vw,42px);font-weight:700;letter-spacing:-.03em;line-height:1.05}
 .sp-num b small{font-family:var(--sans);font-size:.42em;margin-left:3px;font-weight:700}.sp-num span{font-size:13px;color:var(--tx2)}
 .sp-ph{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:8px;margin-top:40px;height:min(56vh,520px)}
-.sp-ph>div{border-radius:18px;overflow:hidden}.sp-ph .a{grid-row:span 2}.sp-ph img{width:100%;height:100%;object-fit:cover;display:block}
+.sp-ph>div{border-radius:18px;overflow:hidden}.sp-ph .b img{object-position:center 25%}.sp-ph .a{grid-row:span 2}.sp-ph img{width:100%;height:100%;object-fit:cover;display:block}
 /* 역할 + 운영 카드 */
 .rl{display:grid;grid-template-columns:1fr 2.4fr;margin-top:40px;border-radius:16px;overflow:hidden;font-size:15px}
 .rl>div{padding:16px 20px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}.rl b{font-size:16px;font-weight:800}
@@ -410,6 +410,19 @@ body.ck-lock{overflow:hidden}
 .sp-nm{display:flex;gap:48px;margin-top:32px;flex-wrap:wrap}.sp-nm b{font-family:var(--mono);font-size:40px;font-weight:700;letter-spacing:-.02em}.sp-nm b small{font-family:var(--sans);font-size:17px;margin-left:2px}
 .sp-nm span{display:block;font-size:13px;color:var(--tx2);margin-top:2px}
 .sub{font-size:20px;font-weight:800;margin:56px 0 6px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}.sub small{font-size:13px;font-weight:500;color:var(--tx3)}
+.yg-w{margin-top:16px}
+.yg{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:28px 16px;border-top:2px solid var(--dk);padding-top:20px}
+.ym{all:unset;cursor:pointer;display:flex;flex-direction:column;min-width:0}
+.ym-i{position:relative;display:block;aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:var(--bg)}
+.ym-i img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+.ym-i::after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.5),transparent 42%)}
+.ym-i b{position:absolute;left:12px;top:9px;z-index:1;color:#fff;font-size:20px;font-weight:800;letter-spacing:-.02em}
+.ym-i i{position:absolute;right:10px;bottom:10px;z-index:1;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.95);color:var(--dk);font-style:normal;font-size:18px;line-height:28px;text-align:center;transition:background .2s,color .2s}
+.ym:hover .ym-i img{transform:scale(1.05)}.ym:hover .ym-i i{background:var(--or);color:#fff}
+.ym small{font-size:12.5px;color:var(--tx3);margin-top:12px}
+.ym strong{font-size:15px;font-weight:700;line-height:1.4;margin-top:3px;word-break:keep-all;min-height:2.8em}
+.ym em{font-style:normal;font-size:13px;font-weight:700;color:var(--or);margin-top:10px;padding-top:10px;border-top:1px solid #E5E5EA}
+.ym em.no{color:#C7C7CC;font-weight:500}
 .yt-w{overflow-x:auto;margin-top:14px;border-top:2px solid var(--dk);border-bottom:1px solid var(--dk)}
 .yt{border-collapse:collapse;width:100%;min-width:1100px;table-layout:fixed}
 .yt th,.yt td{padding:12px 6px;font-size:13px;text-align:center;border-bottom:1px solid #E5E5EA;vertical-align:middle}
@@ -494,6 +507,7 @@ body.ck-lock{overflow:hidden}
  .sp-tl{grid-template-columns:1fr;font-size:12px}.sp-tl div{border-right:0;border-bottom:2px solid #fff}
  .sp-nm{gap:18px 26px}.sp-nm b{font-size:30px}.sp-nm>div{min-width:40%}
  .wk{grid-template-columns:1fr 1fr;gap:6px}
+ .yg{grid-template-columns:1fr 1fr;gap:22px 10px}.ym-i b{font-size:17px}.ym strong{font-size:14px}
  .sy2{flex-direction:column;align-items:flex-start;padding:16px}
  .nw span{font-size:14px;padding:6px 11px}
  .bl-h{display:none}.bl-r{grid-template-columns:64px minmax(0,1fr);gap:3px 12px;padding:12px 4px}.bl-i{width:64px;height:64px;grid-row:span 4}
