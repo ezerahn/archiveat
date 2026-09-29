@@ -450,6 +450,18 @@ body.ck-lock{overflow:hidden}
 .sy2{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:28px;border:1.5px solid var(--dk);border-radius:16px;padding:18px 22px}
 .sy2 b{font-size:18px;font-weight:800;margin-right:10px}.sy2 span{font-family:var(--mono);font-size:12.5px;color:var(--tx3)}.sy2 p{font-size:14px;color:var(--tx2);margin-top:6px;line-height:1.6}.sy2 .ck-btn{margin:0;flex:none}
 /* 브랜드 목록 */
+.bcs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
+.bc{all:unset;cursor:pointer;position:relative;display:block;border-radius:18px;overflow:hidden;aspect-ratio:4/3;background:#111}
+.bc:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+.bc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}.bc:hover img{transform:scale(1.04)}
+.bc::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,.72))}
+.bc-t{position:absolute;left:18px;right:18px;bottom:16px;z-index:1;color:#fff;display:flex;flex-direction:column;gap:2px}
+.bc-t em{font-style:normal;font-family:var(--mono);font-size:12px;font-weight:700;color:#FF9A73}
+.bc-t b{font-size:20px;font-weight:800;letter-spacing:-.02em}.bc:first-child .bc-t b{font-size:30px}
+.bc-t span{font-size:13px;color:rgba(255,255,255,.85);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bc-n{position:absolute;right:12px;top:12px;z-index:1;font-style:normal;font-size:11.5px;font-weight:700;color:#fff;background:rgba(0,0,0,.5);border-radius:10px;padding:3px 9px}
+.tnm{margin-top:20px;font-size:14px;color:var(--tx2);line-height:1.8;word-break:keep-all}.tnm b{color:var(--dk);margin-right:10px}
+.brest{margin-top:18px;font-size:14px;color:var(--tx2)}.brest b{color:var(--dk);margin-right:10px}
 .nw{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:36px}
 .nw span{font-size:16px;font-weight:800;padding:8px 14px;border-radius:999px;background:#fff;border:1.5px solid var(--dk)}
 .bl{margin-top:28px;border-top:2px solid var(--dk);border-bottom:1px solid var(--dk);background:#fff}
@@ -510,6 +522,7 @@ body.ck-lock{overflow:hidden}
  .yg{grid-template-columns:1fr 1fr;gap:22px 10px}.ym-i b{font-size:17px}.ym strong{font-size:14px}
  .sy2{flex-direction:column;align-items:flex-start;padding:16px}
  .nw span{font-size:14px;padding:6px 11px}
+ .bcs{grid-template-columns:1fr 1fr;gap:8px}.bc:first-child{grid-column:span 2;grid-row:auto;aspect-ratio:4/3}.bc-t{left:12px;right:10px;bottom:10px}.bc-t b{font-size:15px}.bc:first-child .bc-t b{font-size:22px}.bc-t span{font-size:11.5px}
  .bl-h{display:none}.bl-r{grid-template-columns:64px minmax(0,1fr);gap:3px 12px;padding:12px 4px}.bl-i{width:64px;height:64px;grid-row:span 4}
  .bl-w,.bl-n,.bl-t,.bl-p,.bl-g{grid-column:2}.bl-g{text-align:left}.bl-t{font-size:13px}.bl-g:empty,.bl-p:empty{display:none}
  #ckm{padding:0}.ckm-w{border-radius:0;height:100%}.ckm-h{padding:10px 12px}.ckm-h b{font-size:16px}.ckm-h button{padding:6px 9px;font-size:12px}
@@ -596,6 +609,14 @@ body.cm-lock{overflow:hidden}
  .cm-yr>div{grid-template-columns:1fr;gap:2px}
  .cm-bl{margin:18px 20px 0;font-size:12.5px}.cm-oth{padding:18px 20px 22px}
 }
+.cm-mos{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:200px 200px;gap:8px}
+.cm-mos>div{border-radius:14px;overflow:hidden;background:var(--bg)}.cm-mos .m{grid-row:span 2}
+.cm-mos img{width:100%;height:100%;object-fit:cover;display:block}
+.cm-mos.n1{grid-template-columns:1fr;grid-template-rows:420px}.cm-mos.n1 .m{grid-row:auto}
+.cm-mos.n2{grid-template-columns:2fr 1fr}.cm-mos.n3{grid-template-columns:2fr 1fr}
+.cm-top.noimg+.cm-sec{padding-top:28px}
+.cm-box img{cursor:default!important}.cm-gr img:hover{filter:none}
+@media(max-width:820px){.cm-mos{grid-template-columns:1fr 1fr;grid-template-rows:240px 120px 120px}.cm-mos .m{grid-column:span 2;grid-row:auto}.cm-mos.n1{grid-template-rows:260px}}
 /*/CM*/
 /*NAVON*/nav.g .links a.on{color:var(--or);font-weight:700}nav.l .tabs a.cta,nav.l .tabs a.cta:hover{color:#fff}/*/NAVON*/
 /*TYPO*/.sec-h{line-height:1.22}.sec-h span{margin-top:22px;line-height:1.55;font-weight:400}@media(max-width:820px){.sec-h span{margin-top:12px}}/*/TYPO*/
@@ -629,15 +650,15 @@ body.cm-lock{overflow:hidden}
 <div class="wk"><div class="wc"><div class="wh"><b>월</b><small>11.6</small></div><ul><li><time>오전 11시</time><b>해파리냉채 &amp; 김치잡채</b><span>김은영</span></li><li><time>오후 2시</time><b>닭한마리전골 &amp; 도토리묵전</b><span>김은영</span></li></ul></div><div class="wc"><div class="wh"><b>화</b><small>11.7</small></div><ul><li><time>오전 11시</time><b>고추장 만들기 + 기름떡볶이</b><span>임수진</span></li><li><time>오후 2시</time><b>고추장 만들기 + 기름떡볶이</b><span>임수진</span></li></ul></div><div class="wc"><div class="wh"><b>수</b><small>11.8</small></div><ul><li><time>오전 11시</time><b>신선한 연어참치가득 대왕 후토마끼</b><span>박소진</span></li><li><time>오후 2시</time><b>빨미까레 눈사람 빼빼로 기프트박스</b><span>박소진</span></li><li><time>오후 7시</time><b>와인과 함께하는 깻잎치즈춘권말이, 시금치딥또띠아</b><span>장재우</span></li></ul></div><div class="wc"><div class="wh"><b>목</b><small>11.9</small></div><ul><li><time>오후 1시</time><b>유자청 만들기</b><span>나재윤</span></li><li><time>오후 3시</time><b>유자청 만들기</b><span>나재윤</span></li></ul></div><div class="wc"><div class="wh"><b>금</b><small>11.10</small></div><ul><li><time>오전 11시</time><b>밤스프레드 &amp; 무화과 파운드</b><span>백오연<u class="p">1+1</u></span></li><li><time>오후 2시</time><b>분짜</b><span>백오연</span></li></ul></div><div class="wc"><div class="wh"><b>토</b><small>11.11</small></div><ul><li><time>오전 11시</time><b>탕후루 &amp; 빼빼로데이 쿠키</b><span>백오연<u class="p">1+1</u></span></li><li><time>오후 2시</time><b>푸팟퐁커리</b><span>백오연</span></li></ul></div><div class="wc"><div class="wh"><b>일</b><small>11.12</small></div><ul><li><time>오전 11시</time><b>푸쉬팝 고구마 케이크</b><span>요리코치써니<u class="k">키즈</u></span></li><li><time>오후 2시</time><b>초코막대 과자케이크 &amp; 요거트볼</b><span>요리코치써니<u class="p">1+1</u></span></li><li><time>오후 4시</time><b>뉴욕스트립 스테이크, 투움바 파스타</b><span>요리코치써니<u class="c">커플</u></span></li></ul></div></div><p class="note">이 한 주에 수업 16개 · 선생님 7명 — 빼빼로데이와 1주년 1+1 기획이 함께 돌아갔습니다. 수요일 저녁엔 퇴근 후 수업을.</p><div class="sy2"><div><b>수요콕데이</b><span>2023.09 – 2024.11 · 매주 수요일</span><p>손님이 적은 평일 한가운데를 기획 클래스의 날로. 스타필드와 함께 할인가로 열고, 선생님 네 분이 매주 새 메뉴를 냈습니다.</p></div><button class="ck-btn" onclick="ckGal('suyo')">수요콕데이 메뉴 보기</button></div>
 </div></section>
 <section class="ck-sec tint" id="brand"><div class="wrap-w">
-<div class="ck-eye">브랜드 콜라보</div><h2 class="ck-h">15곳의 브랜드 · 기관과<br>함께 수업을 만들었습니다.</h2><p class="ck-p"><span class="m-pc">제품은 브랜드가, 메뉴 · 선생님 · 현장은 공공의주방이 맡았습니다. 줄을 누르면 그 콜라보의 사진이 모두 열립니다.</span><span class="m-mo">줄을 누르면 사진이 모두 열립니다.</span></p>
-<div class="nw"><span>플레이그라운드 브루어리</span><span>제주맥주</span><span>캐치! 티니핑</span><span>오누커피</span><span>터키문화원</span><span>나뚜루</span><span>농심</span><span>무인양품</span><span>인더핑크</span><span>에그앤피넛</span><span>덴마크</span><span>LG</span><span>함소아</span><span>쿠첸</span><span>LG디스플레이</span></div>
-<div class="bl"><div class="bl-h"><span></span><span>시기</span><span>브랜드 · 기관</span><span>수업</span><span>선생님</span><span></span></div><div class="bl-r on" onclick="ckGal('pg')" role="button" tabindex="0"><span class="bl-i"><img src="ir-images/classkok/ck-pg-0-00.jpg" alt="플레이그라운드 브루어리" loading="lazy"><em>12장</em></span><span class="bl-w">2023.03</span><b class="bl-n">플레이그라운드 브루어리</b><span class="bl-t">맥주 페어링 — 감바스 · 치킨 타코 · 풀드포크 슬라이더</span><span class="bl-p">최진</span><span class="bl-g">사진 보기 →</span></div><div class="bl-r on" onclick="ckGal('jeju')" role="button" tabindex="0"><span class="bl-i"><img src="ir-images/classkok/ck-jeju-0-00.jpg" alt="제주맥주" loading="lazy"><em>12장</em></span><span class="bl-w">2023.04</span><b class="bl-n">제주맥주</b><span class="bl-t">「Shall We Jeju」 흑돼지 칠리 핫도그 &amp; 프라이 + 맥주 페어링</span><span class="bl-p">조파미</span><span class="bl-g">사진 보기 →</span></div><div class="bl-r on" onclick="ckGal('tini')" role="button" tabindex="0"><span class="bl-i"><img src="ir-images/classkok/ck-tini-0-00.jpg" alt="캐치! 티니핑" loading="lazy"><em>12장</em></span><span class="bl-w">2023.05</span><b class="bl-n">캐치! 티니핑</b><span class="bl-t">부모랑 아이랑 티니핑 쿠키케이크 (4타임)</span><span class="bl-p">가지스튜디오</span><span class="bl-g">사진 보기 →</span></div><div class="bl-r on" onclick="ckGal('onu')" role="button" tabindex="0"><span class="bl-i"><img src="ir-images/classkok/ck-onu-0-00.jpg" alt="오누커피" loading="lazy"><em>12장</em></span><span class="bl-w">2023.06</span><b class="bl-n">오누커피</b><span class="bl-t">커피와 브런치 · 드립백 커플 클래스</span><span class="bl-p">최진 · 손라은</span><span class="bl-g">사진 보기 →</span></div><div class="bl-r"><span class="bl-i no"></span><span class="bl-w">2023.06 · 08</span><b class="bl-n">터키문화원</b><span class="bl-t">세계요리 기획전</span><span class="bl-p"></span><span class="bl-g"></span></div><div class="bl-r on" onclick="ckGal('natuur')" role="button" tabindex="0"><span class="bl-i"><img src="ir-images/classkok/ck-natuur-0-00.jpg" alt="나뚜루" loading="lazy"><em>36장</em></span><span class="bl-w">2023.08</span><b class="bl-n">나뚜루</b><span class="bl-t">아이스크림 디저트 6회 — 녹차 파운드케이크 · 프라페 · 아이스크림 샌드위치</span><span class="bl-p">우미선 · 박소현 · 민지영</span><span class="bl-g">사진 보기 →</span></div><div class="bl-r on" onclick="ckGal('nongshim')" role="button" tabindex="0"><span class="bl-i"><img src="ir-images/classkok/ck-nongshim-0-00.jpg" alt="농심" loading="lazy"><em>48장</em></span><span class="bl-w">2023.08 – 10</span><b class="bl-n">농심</b><span class="bl-t">제품으로 만든 새 메뉴 — 스프카레 · 복숭아 필로파이 · 새우크림파스타</span><span class="bl-p">최진 · 나재윤 · 김은영</span><span class="bl-g">사진 보기 →</span></div><div class="bl-r on" onclick="ckGal('muji')" role="button" tabindex="0"><span class="bl-i"><img src="ir-images/classkok/ck-muji-0-00.jpg" alt="무인양품" loading="lazy"><em>12장</em></span><span class="bl-w">2023.11</span><b class="bl-n">무인양품</b><span class="bl-t">OPEN MUJI 라이브 + 우리동네 김장날 2회</span><span class="bl-p">장재우</span><span class="bl-g">사진 보기 →</span></div><div class="bl-r"><span class="bl-i no"></span><span class="bl-w">2023.12</span><b class="bl-n">인더핑크</b><span class="bl-t">검진센터와 건강 기획전</span><span class="bl-p"></span><span class="bl-g"></span></div><div class="bl-r"><span class="bl-i no"></span><span class="bl-w">2024.04</span><b class="bl-n">에그앤피넛</b><span class="bl-t">브랜드 커플 클래스</span><span class="bl-p"></span><span class="bl-g"></span></div><div class="bl-r on" onclick="ckGal('denmark')" role="button" tabindex="0"><span class="bl-i"><img src="ir-images/classkok/ck-denmark-0-00.jpg" alt="덴마크" loading="lazy"><em>32장</em></span><span class="bl-w">2024.06</span><b class="bl-n">덴마크</b><span class="bl-t">프리카델레르 · 스와레 브레드 / 키즈 샌드위치</span><span class="bl-p">박소진 · 우미선</span><span class="bl-g">사진 보기 →</span></div><div class="bl-r on" onclick="ckGal('lg')" role="button" tabindex="0"><span class="bl-i"><img src="ir-images/classkok/ck-lg-0-00.jpg" alt="LG" loading="lazy"><em>12장</em></span><span class="bl-w">2024.07</span><b class="bl-n">LG</b><span class="bl-t">임직원 프라이빗 클래스 1–3차</span><span class="bl-p"></span><span class="bl-g">사진 보기 →</span></div><div class="bl-r"><span class="bl-i no"></span><span class="bl-w">2024.07</span><b class="bl-n">함소아</b><span class="bl-t">여름 기획전 협업</span><span class="bl-p"></span><span class="bl-g"></span></div><div class="bl-r"><span class="bl-i no"></span><span class="bl-w">2024.08</span><b class="bl-n">쿠첸</b><span class="bl-t">(커플) 미역마늘밥 · 곤드레밥</span><span class="bl-p">김은영</span><span class="bl-g"></span></div><div class="bl-r"><span class="bl-i no"></span><span class="bl-w">2024.11</span><b class="bl-n">LG디스플레이</b><span class="bl-t">기업 클래스</span><span class="bl-p"></span><span class="bl-g"></span></div></div>
+<div class="ck-eye">브랜드 콜라보</div><h2 class="ck-h">15곳의 브랜드 · 기관과<br>함께 수업을 만들었습니다.</h2><p class="ck-p"><span class="m-pc">우리 팀이 현장에서 직접 찍은 기록입니다. 사진을 누르면 그 콜라보가 열립니다.</span><span class="m-mo">사진을 누르면 그 콜라보가 열립니다.</span></p>
+<div class="bcs"><button class="bc" onclick="ckGal('pg')"><img src="ir-images/classkok/ck-pg-0-00.jpg" alt="플레이그라운드 브루어리" loading="lazy"><span class="bc-t"><em>2023.03</em><b>플레이그라운드 브루어리</b><span>맥주 페어링 클래스</span></span><i class="bc-n">사진 12장</i></button><button class="bc" onclick="ckGal('jeju')"><img src="ir-images/classkok/ck-jeju-0-10.jpg" alt="제주맥주" loading="lazy"><span class="bc-t"><em>2023.04</em><b>제주맥주</b><span>Shall We Jeju · 맥주 페어링</span></span><i class="bc-n">사진 12장</i></button><button class="bc" onclick="ckGal('tini')"><img src="ir-images/classkok/ck-tini-0-00.jpg" alt="캐치! 티니핑" loading="lazy"><span class="bc-t"><em>2023.05</em><b>캐치! 티니핑</b><span>부모랑 아이랑 쿠키케이크</span></span><i class="bc-n">사진 12장</i></button><button class="bc" onclick="ckGal('onu')"><img src="ir-images/classkok/ck-onu-0-03.jpg" alt="오누커피" loading="lazy"><span class="bc-t"><em>2023.06</em><b>오누커피</b><span>커피 · 브런치 클래스</span></span><i class="bc-n">사진 12장</i></button><button class="bc" onclick="ckGal('natuur')"><img src="ir-images/classkok/ck-natuur-2-07.jpg" alt="나뚜루" loading="lazy"><span class="bc-t"><em>2023.08</em><b>나뚜루</b><span>아이스크림 디저트 6회</span></span><i class="bc-n">사진 36장</i></button><button class="bc" onclick="ckGal('nongshim')"><img src="ir-images/classkok/ck-nongshim-2-00.jpg" alt="농심" loading="lazy"><span class="bc-t"><em>2023.08 – 10</em><b>농심</b><span>제품으로 만든 새 메뉴</span></span><i class="bc-n">사진 48장</i></button><button class="bc" onclick="ckGal('muji')"><img src="ir-images/classkok/ck-muji-0-01.jpg" alt="무인양품" loading="lazy"><span class="bc-t"><em>2023.11</em><b>무인양품</b><span>우리동네 김장날</span></span><i class="bc-n">사진 12장</i></button><button class="bc" onclick="ckGal('denmark')"><img src="ir-images/classkok/ck-denmark-3-00.jpg" alt="덴마크" loading="lazy"><span class="bc-t"><em>2024.06</em><b>덴마크</b><span>휘게 스페셜 클래스</span></span><i class="bc-n">사진 32장</i></button><button class="bc" onclick="ckGal('lg')"><img src="ir-images/classkok/ck-lg-0-08.jpg" alt="LG" loading="lazy"><span class="bc-t"><em>2024.07</em><b>LG</b><span>임직원 프라이빗 클래스</span></span><i class="bc-n">사진 12장</i></button></div>
+<p class="brest"><b>그 외</b>터키문화원 · 인더핑크 · 에그앤피넛 · 함소아 · 쿠첸 · LG디스플레이</p>
 </div></section>
 <section class="ck-sec tint" id="teachers"><div class="wrap-w">
 <div class="ck-eye">선생님</div>
 <h2 class="ck-h">22명의 선생님이<br>번갈아 가르쳤습니다.</h2>
 <div class="tfs"><a class="tf" href="ir-experts.html"><img src="ir-images/classkok/ck-t-0.jpg" data-full="ir-images/classkok/ck-t-0.jpg" alt="김희경"  loading="lazy"><b>김희경</b><span>오픈 첫 달</span></a><a class="tf" href="ir-experts.html"><img src="ir-images/classkok/ck-t-1.jpg" data-full="ir-images/classkok/ck-t-1.jpg" alt="박소진"  loading="lazy"><b>박소진</b><span>수요콕데이 · 덴마크</span></a><a class="tf" href="ir-experts.html"><img src="ir-images/classkok/ck-t-2.jpg" data-full="ir-images/classkok/ck-t-2.jpg" alt="요리코치써니"  loading="lazy"><b>요리코치써니</b><span>키즈 · 커플 · 일요일</span></a><a class="tf" href="ir-experts.html"><img src="ir-images/classkok/ck-t-3.jpg" data-full="ir-images/classkok/ck-t-3.jpg" alt="장재우"  loading="lazy"><b>장재우</b><span>무인양품 김장날</span></a><a class="tf" href="ir-experts.html"><img src="ir-images/classkok/ck-t-4.jpg" data-full="ir-images/classkok/ck-t-4.jpg" alt="최진"  loading="lazy"><b>최진</b><span>플레이그라운드 · 오누커피 · 농심</span></a><a class="tf" href="ir-experts.html"><img src="ir-images/classkok/ck-t-5.jpg" data-full="ir-images/classkok/ck-t-5.jpg" alt="홍가람"  loading="lazy"><b>홍가람</b><span>오픈 첫 달 · 김치</span></a></div>
-<ul class="tcl"><li><b>김은영</b><span>닭한마리 전골 &amp; 겨자소스 · 대파채 간장소스 통삼겹찜</span></li><li><b>백오연</b><span>얌운센, 망고 스티키라이스 · 파인애플 볶음밥</span></li><li><b>조파미</b><span>레드벨벳컵케이크 · 다쿠아즈</span></li><li><b>나재윤</b><span>쿠키하우스 만들기 · 설 선물용 오란다</span></li><li><b>박소현</b><span>당근 컵케이크 · 토끼 피자</span></li><li><b>일호실</b><span>크랜베리 스콘</span></li><li><b>임수진</b><span>문어솥밥 &amp; 문어 샐러드 · 쌈밥세트와 매콤해물비빔국수+만능비빔장</span></li><li><b>아루아</b><span>스콘 + 밀크티 + 홍차블랜딩 · 레몬캔디케이크 &amp; 말차에이드</span></li><li><b>어느스튜디오</b><span>브라우니 만들기 · 디저트 피자 만들기</span></li><li><b>민지영</b><span>해변 케이크 만들기 · 여름제철과일 보틀케이크</span></li><li><b>우미선</b><span>악어 모둠꽂이 · 돈마호크스테이크 &amp; XO 볶음밥</span></li><li><b>이상은</b></li><li><b>장은경</b></li><li><b>박지수</b></li><li><b>가지스튜디오</b></li><li><b>손라은</b></li></ul>
+<p class="tnm"><b>함께한 선생님</b>김은영 · 백오연 · 조파미 · 나재윤 · 박소현 · 일호실 · 임수진 · 아루아 · 어느스튜디오 · 민지영 · 우미선 · 이상은 · 장은경 · 박지수 · 가지스튜디오 · 손라은</p>
 <a class="ck-lk" href="ir-experts.html">선생님 소개는 전문가 페이지에서 →</a>
 </div></section>
 <section class="ck-sec" id="field"><div class="wrap-w">
@@ -684,20 +705,24 @@ function hideAll(){ ['ckg','ckm'].forEach(function(x){var o=document.getElementB
 function closeAll(){ if(!open) return; hideAll(); if(pushed){ pushed=false; history.back(); } else history.replaceState(null,'',base()); }
 function mark(h){ if(!pushed){ history.pushState({sp:h},'',base()+'#'+h); pushed=true; } else history.replaceState({sp:h},'',base()+'#'+h); }
 /* ── 콜라보 사진 */
+function mos(list){ var L=list.slice(0,5); if(!L.length) return '';
+  return '<div class="cm-sec"><div class="cm-mos n'+L.length+'">'+L.map(function(p,i){return '<div class="'+(i?'s':'m')+'"><img src="'+p+'" alt="" loading="lazy"></div>'}).join('')+'</div></div>'; }
 function galHTML(k){
-  var g=CKG[k], n=0, h='';
-  g.s.forEach(function(se,i){ n+=se[1].length;
-    h+='<div class="cm-sec">'+(g.s.length>1||se[0]?'<h4><i>'+(i<9?'0':'')+(i+1)+'</i><b>'+esc(se[0])+'</b><small>'+se[1].length+'장</small></h4>':'')+
-       '<div class="cm-gr">'+se[1].map(function(p){return '<figure><img src="'+p+'" data-full="'+p+'" data-g="gal" alt="" loading="lazy"></figure>'}).join('')+'</div></div>'; });
+  var g=CKG[k], n=0, all=[g.m];
+  g.s.forEach(function(se){ se[1].forEach(function(p){ if(all.indexOf(p)<0) all.push(p); }); n+=se[1].length; });
+  var used=all.slice(0,5), h=mos(used);
+  g.s.forEach(function(se,i){ var rest=se[1].filter(function(p){return used.indexOf(p)<0});
+    if(!rest.length) return;
+    h+='<div class="cm-sec">'+(g.s.length>1||se[0]?'<h4><i>'+(i<9?'0':'')+(i+1)+'</i><b>'+esc(se[0])+'</b></h4>':'')+
+       '<div class="cm-gr">'+rest.map(function(p){return '<figure><img src="'+p+'" alt="" loading="lazy"></figure>'}).join('')+'</div></div>'; });
   var chips='<span class="v">★ 실제 수업 기록</span>'+(g.s.length>1?'<span class="o">'+g.s.length+'회차</span>':'')+'<span>사진 '+n+'장</span>';
   var oth=Object.keys(CKG).filter(function(x){return x!==k && CKG[x].nav}).map(function(x){
     return '<button data-k="'+x+'">'+esc(CKG[x].t)+' →<small>'+esc(CKG[x].w2||'')+'</small></button>'}).join('');
   return '<button class="cm-x" aria-label="닫기">×</button>'+
-    '<div class="cm-top"><div><div class="cm-e">'+esc(g.e)+'</div><h3>'+esc(g.t)+'</h3>'+(g.d?'<div class="cm-sub">'+esc(g.d)+'</div>':'')+
+    '<div class="cm-top noimg"><div><div class="cm-e">'+esc(g.e)+'</div><h3>'+esc(g.t)+'</h3>'+(g.d?'<div class="cm-sub">'+esc(g.d)+'</div>':'')+
     (g.w?'<div class="cm-nm">'+esc(g.w)+'</div>':'')+(g.c?'<div class="cm-cr">'+esc(g.c)+'</div>':(g.w?'<div class="cm-cr"></div>':''))+
-    '<div class="cm-chips">'+chips+'</div></div><img src="'+g.m+'" data-full="'+g.m+'" data-g="gal" alt=""></div>'+
-    '<div class="cm-hint">사진을 누르면 크게 볼 수 있습니다</div>'+h+
-    (oth?'<div class="cm-oth"><b>'+esc(g.ol||'다른 콜라보')+'</b>'+oth+'</div>':'<div style="height:32px"></div>');
+    '<div class="cm-chips">'+chips+'</div></div></div>'+h+
+    '<div style="height:36px"></div>';
 }
 window.ckGal=function(k){ if(!CKG[k]) return; show('ckg',galHTML(k)); open='g:'+k; mark(k);
   document.querySelectorAll('#ckg .cm-oth button').forEach(function(b){b.onclick=function(){ckGal(b.dataset.k)}}); };
@@ -705,19 +730,17 @@ window.ckGalClose=closeAll;
 /* ── 달 창 */
 function monHTML(m){
   var d=CKM[m];
-  var br=d.b?'<span class="br">'+esc(d.b)+'</span>'+esc(d.bd)+(d.bk&&CKG[d.bk]?'<a href="javascript:void(0)" data-g="'+d.bk+'">사진 전체 →</a>':''):'<span class="nb">자체 기획</span>';
+  var br=d.b?'<span class="br">'+esc(d.b)+'</span>'+esc(d.bd)+'':'<span class="nb">자체 기획</span>';
   var mons=''; for(var i=1;i<=12;i++) mons+='<button data-m="'+i+'"'+(i===m?' class="on"':'')+'>'+i+'월</button>';
   return '<button class="cm-x" aria-label="닫기">×</button>'+
-    '<div class="cm-top"><div><div class="cm-e">2023 · '+m+'월 · '+esc(d.s)+'</div><h3>'+esc(d.pl)+'</h3><div class="cm-sub">'+esc(d.p)+'</div>'+
-    '<div class="cm-chips">'+(d.b?'<span class="o">× '+esc(d.b)+'</span>':'<span>자체 기획</span>')+'<span>선생님 '+d.tn+'명</span><span>메뉴 '+d.mn.length+'가지+</span></div></div>'+
-    '<img src="'+d.ph[0]+'" data-full="'+d.ph[0]+'" data-g="mm" alt=""></div>'+
-    '<div class="cm-hint">사진을 누르면 크게 볼 수 있습니다</div>'+
-    '<div class="cm-sec"><div class="cm-gr g4">'+d.ph.slice(1).map(function(p){return '<figure><img src="'+p+'" data-full="'+p+'" data-g="mm" alt=""></figure>'}).join('')+'</div></div>'+
+    '<div class="cm-top noimg"><div><div class="cm-e">2023 · '+m+'월 · '+esc(d.s)+'</div><h3>'+esc(d.pl)+'</h3><div class="cm-sub">'+esc(d.p)+'</div>'+
+    '<div class="cm-chips">'+(d.b?'<span class="o">× '+esc(d.b)+'</span>':'<span>자체 기획</span>')+'<span>선생님 '+d.tn+'명</span><span>메뉴 '+d.mn.length+'가지+</span></div></div></div>'+
+    mos(d.ph)+
     '<div class="cm-sec"><div class="cm-rows">'+
     '<div><dt>브랜드 콜라보</dt><dd>'+br+'</dd></div>'+
     '<div><dt>선생님</dt><dd>'+esc(d.te)+'</dd></div>'+
     '<div><dt>그달 열린 수업</dt><dd><ul class="cm-mn">'+d.mn.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></dd></div></div></div>'+
-    '<div class="cm-oth mon"><b>다른 달</b>'+mons+'</div>';
+    '<div style="height:36px"></div>';
 }
 window.ckM=function(m){ m=+m; if(!CKM[m]) return; show('ckm',monHTML(m)); open='m:'+m; mark('m'+m);
   document.querySelectorAll('#ckm .cm-oth button').forEach(function(b){b.onclick=function(){ckM(b.dataset.m)}});
@@ -737,7 +760,7 @@ function lbClose(){ var l=document.getElementById('cklb'); if(l) l.classList.rem
 window.lbGo=function(d){ I=(I+d+L.length)%L.length; lbDraw(); };
 window.lbX=lbClose;
 document.addEventListener('click',function(e){
-  var t=e.target; if(t.tagName!=='IMG'||!t.dataset.full) return;
+  var t=e.target; if(t.tagName!=='IMG'||!t.dataset.full||t.closest('.cm-box')) return;
   e.stopPropagation();
   var g=t.dataset.g, sc=t.closest('.cm-box')||document;
   var list=[].slice.call(sc.querySelectorAll('img[data-full]')).filter(function(x){return !g||x.dataset.g===g});
