@@ -238,16 +238,36 @@ nav.g .burger.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 .cs-sec,.cs-grp{padding:120px 0 0;scroll-margin-top:100px}
 .cs-grp.tint{background:#FAF6F0;padding-bottom:120px;margin-top:120px}.cs-grp.tint+.cs-grp{padding-top:120px}
 .cs-grp:not(.tint){padding-bottom:0}
-.cs-tw{overflow-x:auto;margin-top:56px}
-.cs-tb{width:100%;border-collapse:separate;border-spacing:0;font-size:14.5px;min-width:760px}
-.cs-tb th{font-size:12.5px;color:var(--tx3);font-weight:600;padding:12px 8px;border-bottom:1.5px solid var(--dk);text-align:center;white-space:nowrap}
-.cs-tb th:first-child{text-align:left}.cs-tb th.bxh{color:var(--or)}
-.cs-tb td{padding:13px 8px;border-bottom:1px solid #eee;text-align:center}
-.cs-tb td:first-child{text-align:left;font-weight:700}.cs-tb td:first-child small{font-weight:400;color:var(--tx3);margin-left:8px;font-size:12px}
-.cs-tb tr.g td{background:var(--bg);font-size:12px;color:var(--tx2);font-weight:700;padding:8px;text-align:left}
-.cs-tb tr.r{cursor:pointer;transition:background .15s}.cs-tb tr.r:hover td{background:#FFF6F1}
-.cs-tb .d{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--dk)}.cs-tb .d.o{background:var(--or)}
-.cs-cap{font-size:13px;color:var(--tx3);margin-top:14px}.cs-cap i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--or);margin-right:6px}
+.cb3{max-width:960px;margin:0 auto}
+.cb3 .sec-h span b{color:var(--or);font-weight:700}
+.c-cl{background:var(--dk)}.c-re{background:#5B5B61}.c-bx{background:var(--or)}
+.cb3 .sec-h i{font-style:normal}.cb-mo{display:none}
+.cb-tb{margin-top:44px;border-top:2px solid var(--dk);border-bottom:1px solid var(--dk)}
+.cb-top,.cb-g{display:grid;grid-template-columns:220px minmax(0,1fr)}
+.cb-top{padding:12px 0;border-bottom:1px solid var(--dk)}
+.cb-top>span{font-size:13px;font-weight:700;color:var(--tx3);padding-left:18px}
+.cb-hd,.cb-rw{display:grid;grid-template-columns:minmax(0,1fr) repeat(3,104px);gap:6px;align-items:center}
+.cb-hd{padding:0 16px}.cb-hd span{font-size:13px;font-weight:700;color:var(--tx3);text-align:center;white-space:nowrap}.cb-hd span:first-child{text-align:left}.cb-hd .h-bx{color:var(--or)}
+.cb-g{border-top:1px solid #E5E5EA}.cb-top+.cb-g{border-top:0}
+.cb-gc{background:var(--bg);padding:14px 18px;display:flex;flex-direction:column;justify-content:center;gap:3px}
+.cb-gc em{font-style:normal;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--or)}
+.cb-gc b{font-size:16px;font-weight:800;letter-spacing:-.01em}.cb-gc small{font-size:12.5px;color:var(--tx2);line-height:1.45;word-break:keep-all}
+.cb-rws{padding:5px 16px;display:flex;flex-direction:column;justify-content:center}
+.cb-rw{padding:8px 0;border-radius:8px;transition:background .15s}.cb-rw+.cb-rw{border-top:1px dashed #E5E5EA}
+.cb-rw:hover .cb-nm b{color:var(--or)}
+.cb-nm{min-width:0;font-size:15px}.cb-nm b{font-weight:700;transition:color .15s}
+.cb-nm small{font-size:12px;color:var(--tx3);margin-left:6px;font-family:var(--mono);white-space:nowrap}
+.cb-nm i{display:inline-block;font-style:normal;font-size:11px;font-weight:700;color:var(--tx2);background:var(--bg);border-radius:5px;padding:1px 6px;margin-left:6px;vertical-align:1px}
+.cb-c{height:28px;border-radius:7px;border:1.5px dashed #E5E5EA}
+.cb-c.on{border:0;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.c-cl{background:var(--dk)}.c-re{background:#5B5B61}.c-bx{background:var(--or)}
+.cb-cap{display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-size:12.5px;color:var(--tx3);margin-top:14px;padding:0 2px}.cb-cap em{font-style:normal;margin-left:auto}
+.cb-cap span{display:flex;align-items:center;gap:6px}.cb-cap i{width:20px;height:9px;border-radius:3px;display:inline-block}
+.mbr{display:none}
+.cs-gh h3 i{font-style:normal}
+.cs-gh .ey{width:100%;display:flex;align-items:center;gap:10px;margin-bottom:-4px}
+.cs-gh .ey b{font-size:15px;font-weight:800;color:var(--dk)}
+.cs-gh .ck{display:flex;gap:3px}.cs-gh .ck i{width:22px;height:8px;border-radius:2px;border:1.2px dashed #D2D2D7}.cs-gh .ck i.on{border:0}
 .cs-gh{display:flex;align-items:baseline;gap:16px;border-top:2px solid var(--dk);padding-top:20px;flex-wrap:wrap}
 .cs-gh .n{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--or)}
 .cs-gh h3{font-size:clamp(24px,3vw,34px);font-weight:800;letter-spacing:-.025em}
@@ -393,8 +413,14 @@ body.cs-lock{overflow:hidden}
 @media(max-width:1024px){.cs-cal{grid-template-columns:repeat(6,1fr)}.cs-bg,.cs-dg{grid-template-columns:repeat(3,1fr)}.cs-tg{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:820px){
  .cs-sec,.cs-grp{padding-top:72px}.cs-grp.tint{margin-top:72px;padding-bottom:72px}.cs-grp.tint+.cs-grp{padding-top:72px}
- .cs-tw{margin-top:32px;margin-left:-16px;margin-right:-16px;padding:0 16px}.cs-tb{font-size:13px;min-width:640px}
- .cs-gh{gap:10px}.cs-gh p{margin-left:0;font-size:14px;width:100%}
+ .cb-pc{display:none}.cb-mo{display:inline}
+ .cb-top,.cb-g{grid-template-columns:1fr}.cb-top>span{display:none}.cb-hd{padding:0 10px}
+ .cb-hd,.cb-rw{grid-template-columns:minmax(0,1fr) repeat(3,40px);gap:4px}.cb-hd span{font-size:11px;letter-spacing:-.04em}
+ .cb-gc{flex-direction:row;flex-wrap:wrap;align-items:baseline;justify-content:flex-start;gap:2px 8px;padding:10px 10px}.cb-gc b{font-size:14.5px}.cb-gc small{font-size:12px}
+ .cb-rws{padding:3px 10px 3px 22px}.cb-gc small br{display:none}.mbr{display:inline}.cb-rw{padding:7px 0}
+ .cb-nm{font-size:13.5px;line-height:1.35}.cb-nm small{margin-left:5px;font-size:11px}.cb-nm i{margin-left:5px;font-size:10.5px;padding:1px 5px}
+ .cb-c.on{font-size:0}.cb-c{height:22px}.cb-cap{gap:12px;font-size:12px}.cb-cap em{margin-left:0;width:100%}
+ .cs-gh h3{font-size:22px} .cs-gh{gap:10px}.cs-gh p{margin-left:0;font-size:14px;width:100%}
  .cs-lead,.cs-wj{grid-template-columns:1fr;gap:18px;padding:14px;border-radius:20px}
  .cs-lv{min-height:0}.cs-ph img{min-height:0;aspect-ratio:3/2;max-height:none}
  .cs-lt{padding:4px 6px 10px}
@@ -429,7 +455,7 @@ body.cs-lock{overflow:hidden}
   </div>
   <a class="demo" href="ir-about.html#contact">연락하기</a>
 </nav>
-<nav class="l"><div class="in"><span class="t">협업 사례</span><div class="tabs"><a href="#offline">공간 운영</a><a href="#online">온라인 클래스</a><a href="#recipe">레시피 · 박스</a><a href="#catering">케이터링</a><a href="#link">회원 연동</a></div></div></nav>
+<nav class="l"><div class="in"><span class="t">협업 사례</span><div class="tabs"><a href="#offline">공간 운영</a><a href="#online">온라인 클래스</a><a href="#recipe">제품 상품화</a><a href="#catering">행사 케이터링</a><a href="#link">회원 연동</a></div></div></nav>
 
 <!--CASES-->
 <section class="hero cs-hero">
@@ -445,31 +471,18 @@ body.cs-lock{overflow:hidden}
   <div><div class="num">2022<em>~</em></div><div class="num-l">경기도지식 온라인 클래스</div><div class="num-s">지금도 진행 중</div></div>
   <div><div class="num">3.5<em>만</em></div><div class="num-l">웅진 회원 연동 가입</div><div class="num-s">2019 · 앱 연결로</div></div>
 </div></div>
-<section class="cs-sec" id="map"><div class="wrap-w">
-<h2 class="sec-h">같은 자산을, 협업처마다 다르게 조합했습니다.<span>줄을 누르면 해당 사례로 내려갑니다.</span></h2>
-<div class="cs-tw"><table class="cs-tb"><thead><tr><th>협업처</th><th>클래스</th><th>레시피</th><th>영상</th><th class=bxh>박스 (집으로)</th><th>케이터링</th><th>고객 연결</th></tr></thead><tbody>
-<tr class="g"><td colspan="7">오프라인 공간 운영</td></tr>
-<tr class="r" data-href="#c-classkok"><td><a href="#c-classkok">스타필드 클래스콕</a><small>2022–2024</small></td><td><i class="d"></i></td><td><i class="d"></i></td><td></td><td></td><td></td><td></td></tr>
-<tr class="r" data-href="#c-galleria"><td><a href="#c-galleria">갤러리아 광교</a><small>2024–2026</small></td><td><i class="d"></i></td><td><i class="d"></i></td><td></td><td></td><td></td><td></td></tr>
-<tr class="g"><td colspan="7">온라인 클래스 + 키트</td></tr>
-<tr class="r" data-href="#c-gyeonggi"><td><a href="#c-gyeonggi">경기도지식</a><small>2022– 진행 중</small></td><td><i class="d"></i></td><td><i class="d"></i></td><td></td><td><i class="d o"></i></td><td></td><td></td></tr>
-<tr class="r" data-href="#online"><td><a href="#online">현대자동차 사내요리동호회</a><small>2020–2022</small></td><td><i class="d"></i></td><td><i class="d"></i></td><td></td><td><i class="d o"></i></td><td></td><td></td></tr>
-<tr class="r" data-href="#online"><td><a href="#online">경기도청 · 서울 구청</a><small>2020–2022</small></td><td><i class="d"></i></td><td><i class="d"></i></td><td></td><td><i class="d o"></i></td><td></td><td></td></tr>
-<tr class="r" data-href="#online"><td><a href="#online">현대백화점 산지 연계</a><small>2020–2022</small></td><td><i class="d"></i></td><td><i class="d"></i></td><td></td><td><i class="d o"></i></td><td></td><td></td></tr>
-<tr class="g"><td colspan="7">협업처의 재료로 레시피 · 박스</td></tr>
-<tr class="r" data-href="#c-boryeong"><td><a href="#c-boryeong">보령시 · 우노컴과 함께</a></td><td><i class="d"></i></td><td><i class="d"></i></td><td><i class="d"></i></td><td><i class="d o"></i></td><td></td><td></td></tr>
-<tr class="r" data-href="#recipe"><td><a href="#recipe">농심</a><small>2023</small></td><td><i class="d"></i></td><td><i class="d"></i></td><td><i class="d"></i></td><td></td><td></td><td></td></tr>
-<tr class="r" data-href="#recipe"><td><a href="#recipe">여주 · 놀부 · 속초 체스터톤스</a></td><td></td><td><i class="d"></i></td><td></td><td><i class="d o"></i></td><td></td><td></td></tr>
-<tr class="r" data-href="#recipe"><td><a href="#recipe">속리산 · 포항</a></td><td></td><td><i class="d"></i></td><td></td><td></td><td></td><td></td></tr>
-<tr class="g"><td colspan="7">케이터링 · 도시락</td></tr>
-<tr class="r" data-href="#c-catering"><td><a href="#c-catering">디캠프 · 프론트원 외</a><small>2019–2026</small></td><td></td><td><i class="d"></i></td><td></td><td></td><td><i class="d"></i></td><td></td></tr>
-<tr class="g"><td colspan="7">회원 연동</td></tr>
-<tr class="r" data-href="#c-woongjin"><td><a href="#c-woongjin">웅진</a><small>2019–2021</small></td><td><i class="d"></i></td><td></td><td></td><td></td><td></td><td><i class="d"></i></td></tr>
-</tbody></table></div>
-<p class="cs-cap"><i></i>주황 점은 협업처의 고객 집까지 박스가 간 곳입니다.</p>
-</div></section>
+<section class="cs-sec" id="map"><div class="wrap-w"><div class="cb3">
+<h2 class="sec-h">같은 세 가지를,<br>협업처마다 다르게 조합했습니다.<span><i class="cb-pc">클래스 · 레시피 · 쿠킹박스. 온라인 클래스와 제품 상품화에서는<br><b>수업에서 시작해 쿠킹박스가 고객의 집까지</b> 갔습니다.</i><i class="cb-mo">온라인 클래스와 제품 상품화에서는<br><b>쿠킹박스가 고객의 집까지</b> 갔습니다.</i></span></h2>
+<div class="cb-tb"><div class="cb-top"><span>협업 방식</span><div class="cb-hd"><span>협업처</span><span class="h-cl">클래스</span><span class="h-re">레시피</span><span class="h-bx">쿠킹박스</span></div></div>
+<div class="cb-g"><div class="cb-gc"><em>01</em><b>공간 운영</b><small>클래스 공간을<br> 맡아서 운영</small></div><div class="cb-rws"><a class="cb-rw" href="ir-classkok.html"><span class="cb-nm"><b>스타필드 클래스콕</b><small>2022–2024</small></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c"></span></a><a class="cb-rw" href="#c-galleria"><span class="cb-nm"><b>갤러리아 광교</b><small>2024–2026</small></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c"></span></a></div></div>
+<div class="cb-g"><div class="cb-gc"><em>02</em><b>온라인 클래스</b><small>수업은 화면으로,<br> 쿠킹박스는 집으로</small></div><div class="cb-rws"><a class="cb-rw" href="#c-gyeonggi"><span class="cb-nm"><b>경기도지식</b><small>2022– 진행 중</small></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c on c-bx">쿠킹박스</span></a><a class="cb-rw" href="#online"><span class="cb-nm"><b>현대자동차 사내요리동호회</b><small>2020–2022</small></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c on c-bx">쿠킹박스</span></a><a class="cb-rw" href="#online"><span class="cb-nm"><b>경기도청 · 서울 구청</b><small>2020–2022</small></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c on c-bx">쿠킹박스</span></a><a class="cb-rw" href="#online"><span class="cb-nm"><b>현대백화점 산지 연계</b><small>2020–2022</small></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c on c-bx">쿠킹박스</span></a></div></div>
+<div class="cb-g"><div class="cb-gc"><em>03</em><b>제품 상품화</b><small>지자체 특산물 · 식품 기업<br> 신제품을 레시피로</small></div><div class="cb-rws"><a class="cb-rw" href="#c-boryeong"><span class="cb-nm"><b>보령시 · 우노컴과 함께</b><i>영상</i></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c on c-bx">쿠킹박스</span></a><a class="cb-rw" href="#recipe"><span class="cb-nm"><b>농심</b><small>2023</small><i>영상</i></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c"></span></a><a class="cb-rw" href="#recipe"><span class="cb-nm"><b>여주 · 놀부 · 속초 체스터톤스</b></span><span class="cb-c"></span><span class="cb-c on c-re">레시피</span><span class="cb-c on c-bx">쿠킹박스</span></a><a class="cb-rw" href="#recipe"><span class="cb-nm"><b>속리산 · 포항</b></span><span class="cb-c"></span><span class="cb-c on c-re">레시피</span><span class="cb-c"></span></a></div></div>
+<div class="cb-g"><div class="cb-gc"><em>04</em><b>행사 케이터링</b><small>기업 · 기관 행사의 식탁</small></div><div class="cb-rws"><a class="cb-rw" href="#c-catering"><span class="cb-nm"><b>디캠프 · 프론트원 외</b><small>2019–2026</small></span><span class="cb-c"></span><span class="cb-c on c-re">레시피</span><span class="cb-c"></span></a></div></div>
+<div class="cb-g"><div class="cb-gc"><em>05</em><b>회원 연동</b><small>협업처 회원에게<br> 우리 서비스를</small></div><div class="cb-rws"><a class="cb-rw" href="#c-woongjin"><span class="cb-nm"><b>웅진</b><small>2019–2021</small></span><span class="cb-c on c-cl">클래스</span><span class="cb-c"></span><span class="cb-c"></span></a></div></div>
+</div><div class="cb-cap"><span><i class="c-cl"></i>클래스</span><span><i class="c-re"></i>레시피 · 영상</span><span><i class="c-bx"></i>쿠킹박스</span><em>줄을 누르면 해당 사례로 갑니다</em></div>
+</div></div></section>
 <section class="cs-grp" id="offline"><div class="wrap-w">
-<div class="cs-gh"><span class="n">01</span><h3>협업처의 공간을, 우리가 채웠습니다.</h3><p>복합몰 · 백화점의 클래스 공간에서 기획 · 선생님 · 운영까지.</p></div>
+<div class="cs-gh"><div class="ey"><span class="n">01</span><b>공간 운영</b><span class="ck"><i class="on c-cl" title="클래스"></i><i class="on c-re" title="레시피"></i><i></i></span></div><h3>클래스 공간을,<br class="mbr"> 맡아서 운영했습니다.</h3><p>복합몰 · 백화점의 클래스 공간, 기획부터 선생님 · 현장까지.</p></div>
 <div class="cs-lead" id="c-classkok">
   <div class="cs-lv cs-ph"><img src="ir-images/cases/cases-sf-2210-06.jpg" alt="스타필드 고양 클래스콕 입구" loading="lazy"></div>
   <div class="cs-lt">
@@ -491,13 +504,13 @@ body.cs-lock{overflow:hidden}
     <div class="cs-tag">갤러리아 광교 · 2024.03 – 2026.07</div>
     <h4>백화점 회원을 위한 정규 과정.</h4>
     <p>원데이로 시작해, 제철 식재료를 테마로 한 11회차 정규 과정까지. 선생님 9명이 번갈아 가르쳤습니다.</p>
-    <p class="cs-note">공간이 문을 닫은 뒤, 온라인(클래스 + 키트)으로 이어 가는 방안을 함께 논의했습니다.</p>
+    <p class="cs-note">공간이 문을 닫은 뒤, 온라인(클래스 + 쿠킹박스)으로 이어 가는 방안을 함께 논의했습니다.</p>
     <button class="cs-btn" onclick="csOpen('galleria')">갤러리아 과정 보기 →</button>
   </div>
 </div>
 </div></section>
 <section class="cs-grp tint" id="online"><div class="wrap-w">
-<div class="cs-gh"><span class="n">02</span><h3>수업은 화면으로, 재료는 집으로.</h3><p>지자체와 기업이 모으면, 선생님 · 레시피 · 재료 키트를 보냅니다.</p></div>
+<div class="cs-gh"><div class="ey"><span class="n">02</span><b>온라인 클래스</b><span class="ck"><i class="on c-cl" title="클래스"></i><i class="on c-re" title="레시피"></i><i class="on c-bx" title="쿠킹박스"></i></span></div><h3>수업은 화면으로,<br class="mbr"> 쿠킹박스는 집으로.</h3><p>지자체 · 기업이 참여자를 모으면, 선생님 · 레시피 · 쿠킹박스를 보냈습니다.</p></div>
 <div class="cs-lead" id="c-gyeonggi">
   <div class="cs-lv cs-cur">
     <div class="cur-h">최근 수업</div>
@@ -505,16 +518,16 @@ body.cs-lock{overflow:hidden}
   </div>
   <div class="cs-lt">
     <div class="cs-tag">경기도지식 · 2022.11 – 지금</div>
-    <h4>수업 전에, 키트가 먼저 집으로 갑니다.</h4>
-    <p>경기도가 도민을 모으면, 재료 키트를 집으로 보내고 선생님이 화상으로 함께 만듭니다. 성인 수업과 아이 수업을 번갈아.</p>
+    <h4>수업 전에, 쿠킹박스가 먼저 집으로 갑니다.</h4>
+    <p>경기도가 도민을 모으면, 쿠킹박스를 집으로 보내고 선생님이 화상으로 함께 만듭니다. 성인 수업과 아이 수업을 번갈아.</p>
     <blockquote class="cs-q">「다음에 또 사야겠네요.」<cite>2024.04 수강생 설문</cite></blockquote>
     <button class="cs-btn" onclick="csOpen('gyeonggi')">연간 커리큘럼 전체 보기 →</button>
   </div>
 </div>
-<div class="cs-cards"><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2020.09 – 2022.06</div><b>현대자동차 사내요리동호회</b><p>매달 한 번, 동호회원 집으로 키트를 보내고 화상으로 함께.</p><p class="cs-menu">애플파이 · 쿵팟퐁커리 · 이북식찜닭 · 라따뚜이 · 보석양갱</p></div></div><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2020 – 2022</div><b>경기도청</b><p>어린이 기자단 · 북부청사 · 남부청사.</p><p class="cs-menu">부리또 · 라구파스타 &amp; 뱅쇼 · 비건 초코머핀 · 초코홀케이크</p></div></div><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2020 – 2021</div><b>서울 구청</b><p>서대문 · 강남 · 마포 · 용산 · 도봉 — 1인가구 · 청년 · 주민.</p><p class="cs-menu">3종 계란요리 · 투움바파스타 · 훈제오리 단호박찜 · 전 2종</p></div></div><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2020 – 2022</div><b>현대백화점</b><p>산지와 연결한 온라인 클래스 — 산지 재료를 집으로.</p><p class="cs-menu">청주 딸기 · 제주 한라봉</p></div></div><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2020 – 2022</div><b>기업 동호회</b><p>KKR · 구글 · U+ · NICE — 사내 동호회와 가족 클래스.</p><p class="cs-menu">티라미수 · 부리또</p></div></div><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2021 · 2025</div><b>아이들과미래재단</b><p>아이들에게 보낸 크리스마스 쿠킹박스.</p><p class="cs-menu">크리스마스 케이크</p></div></div></div>
+<div class="cs-cards"><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2020.09 – 2022.06</div><b>현대자동차 사내요리동호회</b><p>매달 한 번, 동호회원 집으로 쿠킹박스를 보내고 화상으로 함께.</p><p class="cs-menu">애플파이 · 쿵팟퐁커리 · 이북식찜닭 · 라따뚜이 · 보석양갱</p></div></div><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2020 – 2022</div><b>경기도청</b><p>어린이 기자단 · 북부청사 · 남부청사.</p><p class="cs-menu">부리또 · 라구파스타 &amp; 뱅쇼 · 비건 초코머핀 · 초코홀케이크</p></div></div><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2020 – 2021</div><b>서울 구청</b><p>서대문 · 강남 · 마포 · 용산 · 도봉 — 1인가구 · 청년 · 주민.</p><p class="cs-menu">3종 계란요리 · 투움바파스타 · 훈제오리 단호박찜 · 전 2종</p></div></div><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2020 – 2022</div><b>현대백화점</b><p>산지와 연결한 온라인 클래스 — 산지 재료를 집으로.</p><p class="cs-menu">청주 딸기 · 제주 한라봉</p></div></div><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2020 – 2022</div><b>기업 동호회</b><p>KKR · 구글 · U+ · NICE — 사내 동호회와 가족 클래스.</p><p class="cs-menu">티라미수 · 부리또</p></div></div><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2021 · 2025</div><b>아이들과미래재단</b><p>아이들에게 보낸 크리스마스 쿠킹박스.</p><p class="cs-menu">크리스마스 케이크</p></div></div></div>
 </div></section>
 <section class="cs-grp" id="recipe"><div class="wrap-w">
-<div class="cs-gh"><span class="n">03</span><h3>협업처의 재료로, 레시피와 박스를.</h3><p>특산물 · 신제품 · 소스로 선생님이 메뉴를 만들고, 영상과 박스까지.</p></div>
+<div class="cs-gh"><div class="ey"><span class="n">03</span><b>제품 상품화</b><span class="ck"><i class="on c-cl" title="클래스"></i><i class="on c-re" title="레시피"></i><i class="on c-bx" title="쿠킹박스"></i></span></div><h3>협업처의 제품을,<br class="mbr"> 레시피로 상품화했습니다.</h3><p>특산물 · 신제품 · 소스로 메뉴를 만들고, 영상과 쿠킹박스까지.</p></div>
 <div class="cs-lead" id="c-boryeong">
   <div class="cs-lv cs-steps">
     <div><em>1</em><b>레시피 영상</b><span>특산물로 개발한 레시피를 촬영</span></div>
@@ -531,7 +544,7 @@ body.cs-lock{overflow:hidden}
 <div class="cs-cards"><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2023</div><b>농심</b><p>신제품으로 선생님이 레시피 3종을 개발하고 영상으로. 스타필드 · 갤러리아 콜라보 클래스까지.</p></div></div><div class="cs-c"><div class="cs-cb"><b>여주</b><p>경기콘텐츠진흥원 지원 사업 — 여주 식재료로 레시피와 쿠킹박스.</p></div></div><div class="cs-c"><div class="cs-cb"><b>속리산</b><p>지역 메뉴 개발과 시연회.</p></div></div><div class="cs-c"><div class="cs-cb"><b>포항</b><p>포항 맛간장으로 메뉴 개발.</p></div></div><div class="cs-c"><div class="cs-cb"><b>놀부</b><p>소스 3종 · 생일 박스 · 초계면 · 추석 LA갈비 소스.</p></div></div><div class="cs-c"><div class="cs-cb"><b>속초 체스터톤스</b><p>리조트 객실에 놓는 쿠킹박스.</p></div></div></div>
 </div></section>
 <section class="cs-grp tint" id="catering"><div class="wrap-w">
-<div class="cs-gh"><span class="n">04</span><h3>행사의 식탁도 차렸습니다.</h3><p>선생님의 메뉴로, 기업 · 기관 행사의 케이터링과 도시락을.</p></div>
+<div class="cs-gh"><div class="ey"><span class="n">04</span><b>행사 케이터링</b><span class="ck"><i></i><i class="on c-re" title="레시피"></i><i></i></span></div><h3>행사의 식탁을<br class="mbr"> 우리의 전문성으로 차렸습니다.</h3><p>기업 · 기관 행사의 케이터링과 도시락.</p></div>
 <div class="cs-lead" id="c-catering">
   <div class="cs-lv cs-years">
     <div class="yr-h">해마다</div>
@@ -548,7 +561,7 @@ body.cs-lock{overflow:hidden}
 <div class="cs-cards"><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2025.12</div><b>산업은행</b><p>국민성장펀드 출범식</p></div></div><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2020.11</div><b>금융위원회</b><p>프론트원 행사 도시락</p></div></div><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2025.12</div><b>IBM</b><p>기자간담회</p></div></div><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2026.06 – 07</div><b>머니투데이</b><p>가상시장식 · K-우주포럼 총회</p></div></div><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2023.06</div><b>주한 캐나다 대사관</b><p>대사관 행사</p></div></div><div class="cs-c"><div class="cs-cb"><div class="cs-cy">2024</div><b>언더독스</b><p>디데이 행사</p></div></div></div>
 </div></section>
 <section class="cs-grp" id="link"><div class="wrap-w">
-<div class="cs-gh"><span class="n">05</span><h3>앱을 연결해, 회원을 모았습니다.</h3><p>협업처의 고객이 동의 한 번으로 우리 회원이 되는 방식.</p></div>
+<div class="cs-gh"><div class="ey"><span class="n">05</span><b>회원 연동</b><span class="ck"><i class="on c-cl" title="클래스"></i><i></i><i></i></span></div><h3><i class="cb-pc">앱을 연결해, 협업처 회원에게 서비스를 제공했습니다.</i><i class="cb-mo">앱을 연결해,<br>회원에게 서비스를 제공했습니다.</i></h3><p>협업처의 고객이 동의 한 번으로 공공의주방 서비스를 이용하는 방식.</p></div>
 <div class="cs-lead cs-wj" id="c-woongjin">
   <div class="cs-lt">
     <div class="cs-tag">웅진 · 2019 – 2021</div>
@@ -580,7 +593,7 @@ body.cs-lock{overflow:hidden}
 </div>
 <div class="cs-mb"><div class="cs-pane on">
 <div class="cs-stat"><div><b>85<small>회</small></b><span>수업</span></div><div><b>11<small>회차</small></b><span>정규 과정</span></div><div><b>9<small>명</small></b><span>선생님</span></div></div>
-<div class="cs-tl"><div class="y">2024</div><div><b>원데이 클래스로 시작</b><p>김희경 한식 가정식 · 이민영 · 박지수 베이킹 · 임수진 김치 · 박소진 후토마키 · 어복쟁반. 3월에는 농심과 「북해도식 스프카레」(최진).</p></div></div><div class="cs-tl"><div class="y">2025</div><div><b>정규 과정</b><p>3월부터 11월까지 박소진 · 임수진 선생님의 11회차 코스 — 제철 식재료를 테마로. 키즈 베이킹(박지수 · 이민영)과 이예린 원데이를 함께.</p></div></div><div class="cs-tl"><div class="y">2026</div><div><b>여름까지</b><p>7월 최진 선생님의 여름 빠에야가 마지막 수업. 공간이 문을 닫은 뒤, 온라인(클래스 + 키트)으로 이어 가는 방안을 함께 논의했습니다.</p></div></div>
+<div class="cs-tl"><div class="y">2024</div><div><b>원데이 클래스로 시작</b><p>김희경 한식 가정식 · 이민영 · 박지수 베이킹 · 임수진 김치 · 박소진 후토마키 · 어복쟁반. 3월에는 농심과 「북해도식 스프카레」(최진).</p></div></div><div class="cs-tl"><div class="y">2025</div><div><b>정규 과정</b><p>3월부터 11월까지 박소진 · 임수진 선생님의 11회차 코스 — 제철 식재료를 테마로. 키즈 베이킹(박지수 · 이민영)과 이예린 원데이를 함께.</p></div></div><div class="cs-tl"><div class="y">2026</div><div><b>여름까지</b><p>7월 최진 선생님의 여름 빠에야가 마지막 수업. 공간이 문을 닫은 뒤, 온라인(클래스 + 쿠킹박스)으로 이어 가는 방안을 함께 논의했습니다.</p></div></div>
 <div class="cs-sub">함께한 선생님</div><div class="chips"><em>임수진</em><em>박소진</em><em>박지수</em><em>김희경</em><em>이민영</em><em>이예린</em><em>최진</em><em>박은정</em><em>이상은</em></div>
 </div></div></div></div>
 <div class="cs-m" id="m-gyeonggi" role="dialog" aria-modal="true" aria-label="경기도지식">
@@ -592,7 +605,7 @@ body.cs-lock{overflow:hidden}
   <button class="cs-x" onclick="csClose()" aria-label="닫기">✕</button>
 </div>
 <div class="cs-mb"><div class="cs-pane on">
-<div class="cs-how"><div><em>1</em><b>경기도가 모집</b><span>도민 신청을 받아 명단을 줍니다</span></div><i>→</i><div><em>2</em><b>키트를 집으로</b><span>수업 전에 재료를 소분해 배송</span></div><i>→</i><div><em>3</em><b>화상으로 함께</b><span>선생님과 실시간으로 만듭니다</span></div></div>
+<div class="cs-how"><div><em>1</em><b>경기도가 모집</b><span>도민 신청을 받아 명단을 줍니다</span></div><i>→</i><div><em>2</em><b>쿠킹박스를 집으로</b><span>수업 전에 재료를 소분해 배송</span></div><i>→</i><div><em>3</em><b>화상으로 함께</b><span>선생님과 실시간으로 만듭니다</span></div></div>
 <div class="cs-sub">연간 커리큘럼 — 성인과 아이 수업을 번갈아</div>
 <div class="cs-yr"><div class="y">2022</div><ul><li><b>11월</b><span></span><i>가지</i></li><li><b>12월</b><span></span><i>백오연</i></li></ul></div><div class="cs-yr"><div class="y">2023</div><ul><li><b>12월</b><span></span><i>박소현</i></li></ul></div><div class="cs-yr"><div class="y">2024</div><ul><li><b>04월</b><span>봄나물 오니기리 &amp; 미나리무침</span><i>임수진</i></li><li><b>05월</b><span>아동 비건 베이킹 · 초코아몬드머핀</span><i>아루아</i></li><li><b>10월</b><span>그림책 읽고 만드는 데이지 브라우니</span><i>박지수</i></li><li><b>10월</b><span>쉬림프 볶음차우면</span><i>최진</i></li><li><b>11월</b><span>오징어두부두루치기</span><i>김은영</i></li><li><b>12월</b><span>겨울 보양식 · 버섯들깨탕</span><i>김희경</i></li><li><b>12월</b><span>아동 · 크리스마스 트리</span><i>일호실</i></li></ul></div><div class="cs-yr"><div class="y">2025</div><ul><li><b>03월</b><span>베트남 세계요리 · 반미 치킨 샌드위치</span><i>박영정</i></li><li><b>05월</b><span>꽃케이크</span><i>이민영</i></li><li><b>08월</b><span>하와이 아사이볼 &amp; 스팸 무스비</span><i>우미선</i></li><li><b>10월</b><span>가을 베이킹 · 낙엽쿠키</span><i>박지수</i></li><li><b>11월</b><span>수제청 · 유자청</span><i>이예린</i></li><li><b>12월</b><span>크리스마스 홈파티 · 눈꽃 파르펠레 크림파스타 &amp; 리스 샐러드</span><i>우미선</i></li></ul></div><div class="cs-yr"><div class="y">2026</div><ul><li><b>02월</b><span>두바이 쫀득쿠키</span><i>이민영</i></li><li><b>04월</b><span>냉이꽃게탕</span><i>김은영</i></li><li><b>05월</b><span>도시락</span><i>이예린</i></li><li><b>07월</b><span>복숭아청</span><i>이영미</i></li><li><b>09월</b><span>오방색 하트 깨엿강정</span><i>김미라</i></li><li><b>10월</b><span>애플시나몬머핀 (예정)</span><i>이민영</i></li></ul></div>
 <div class="cs-sub">수강생 목소리 <small>2024.04 봄나물 오니기리 & 미나리무침 설문</small></div>
@@ -706,10 +719,6 @@ window.csMonth=function(el){
   x.innerHTML=det.innerHTML; last.after(x); el.classList.add('open');
   x.scrollIntoView({block:'nearest',behavior:'smooth'});
 };
-/* 조합표 줄 → 해당 사례 */
-document.querySelectorAll('.cs-tb tr.r').forEach(function(r){
-  r.addEventListener('click',function(e){ if(e.target.tagName!=='A') location.hash=r.getAttribute('data-href'); });
-});
 /* 사진 크게 보기 (한 겹만) */
 var G=[], I=0;
 function draw(){ var im=document.getElementById('cs-lbi'); im.src=G[I]; document.getElementById('cs-lbn').textContent=(I+1)+' / '+G.length;
