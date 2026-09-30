@@ -491,6 +491,46 @@ body.cs-lock{overflow:hidden}
  #cs-lb{padding:16px 8px 44px}#cs-lb .lb-n{width:38px;height:38px}
 }
 
+/*BORYEONG*/
+#m-boryeong .br-num{display:grid;grid-template-columns:repeat(4,1fr);border-top:2px solid var(--dk);border-bottom:1px solid #EDEDF0}
+#m-boryeong .br-num>div{padding:18px 4px 16px}#m-boryeong .br-num>div+div{border-left:1px solid #EDEDF0;padding-left:18px}
+#m-boryeong .br-num b{display:block;font-size:34px;font-weight:800;letter-spacing:-.03em;color:var(--or);line-height:1.1}
+#m-boryeong .br-num b em{font-style:normal;font-size:16px;margin-left:2px}
+#m-boryeong .br-num span{font-size:13px;color:var(--tx2)}
+#m-boryeong .br-st{grid-template-columns:repeat(5,1fr)}
+#m-boryeong .br-wave{margin-top:18px}#m-boryeong .br-wave>h4{padding-top:22px;border-top:1px solid #EDEDF0}
+#m-boryeong .br-wave>h4 i{font-size:13px;background:var(--or);color:#fff;border-radius:6px;padding:2px 8px}
+#m-boryeong .br-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+#m-boryeong .br-3>div{background:var(--bg);border-radius:14px;padding:18px}
+#m-boryeong .br-3 b{display:block;font-size:16px;font-weight:800}#m-boryeong .br-3 small{display:block;font-size:12.5px;color:var(--or);font-weight:600;margin:3px 0 8px}
+#m-boryeong .br-3 p{font-size:13.5px;color:var(--tx2);line-height:1.55;margin:0}
+#m-boryeong .br-res{margin-top:12px;background:#FFF1EA;border-radius:14px;padding:14px 18px;display:flex;gap:6px 14px;flex-wrap:wrap;align-items:baseline}
+#m-boryeong .br-res b{font-size:15.5px}#m-boryeong .br-res span{font-size:13px;color:var(--tx2)}
+#m-boryeong .br-farm img{aspect-ratio:4/3}
+#m-boryeong .br-pros{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+#m-boryeong .br-pro{border:1px solid #EDEDF0;border-radius:18px;padding:16px}
+#m-boryeong .br-who{display:grid;grid-template-columns:92px 1fr;gap:14px;align-items:center}
+#m-boryeong .br-who img{width:92px;height:92px;border-radius:50%;object-fit:cover;cursor:zoom-in}
+#m-boryeong .br-who small{font-size:12px;font-weight:700;color:var(--or)}#m-boryeong .br-who b{display:block;font-size:14px;color:var(--tx2);font-weight:700}
+#m-boryeong .br-who h5{font-size:18px;font-weight:800;letter-spacing:-.02em;margin:2px 0 4px}
+#m-boryeong .br-who p{font-size:13px;color:var(--tx2);line-height:1.5;margin:0}
+#m-boryeong .br-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+#m-boryeong .br-pair figure{margin:0;min-width:0}
+#m-boryeong .br-pair img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;display:block;cursor:zoom-in}
+#m-boryeong .br-pair figcaption{font-size:12px;color:var(--tx3);margin-top:6px;line-height:1.45}
+#m-boryeong .br-roles{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:10px}
+#m-boryeong .br-roles>div{background:var(--bg);border-radius:14px;padding:16px 18px}
+#m-boryeong .br-roles>div.on{background:var(--dk);color:#fff}#m-boryeong .br-roles>div.on p{color:rgba(255,255,255,.8)}#m-boryeong .br-roles>div.on small{color:#FF9A73}
+#m-boryeong .br-roles small{font-size:12px;font-weight:700;color:var(--tx3)}#m-boryeong .br-roles b{display:block;font-size:16px;margin:2px 0 4px}
+#m-boryeong .br-roles p{font-size:13px;color:var(--tx2);margin:0;line-height:1.5}
+@media(max-width:820px){
+ #m-boryeong .br-num{grid-template-columns:1fr 1fr}#m-boryeong .br-num>div:nth-child(3){border-left:0;padding-left:4px}#m-boryeong .br-num>div:nth-child(n+3){border-top:1px solid #EDEDF0}
+ #m-boryeong .br-num b{font-size:26px}
+ #m-boryeong .br-st>div{padding:12px 16px}#m-boryeong .br-st b{display:inline;margin-left:8px}#m-boryeong .br-st span{display:block}
+ #m-boryeong .br-st,#m-boryeong .br-3,#m-boryeong .br-pros,#m-boryeong .br-roles{grid-template-columns:1fr}
+ #m-boryeong .br-farm{grid-template-columns:1fr 1fr}
+}
+
 
 .cm-ov{position:fixed;inset:0;z-index:400;background:rgba(20,20,22,.6);display:none;overflow-y:auto;padding:40px 24px;-webkit-overflow-scrolling:touch}
 .cm-ov.on{display:block!important}
@@ -589,7 +629,7 @@ body.cm-lock{overflow:hidden}
   </div>
   <a class="demo" href="ir-about.html#contact">연락하기</a>
 </nav>
-<nav class="l"><div class="in"><span class="t">협업 사례</span><div class="tabs"><a href="#offline">공간 운영</a><a href="#online">온라인 클래스</a><a href="#recipe">제품 상품화</a><a href="#catering">행사 케이터링</a><a href="#link">회원 연동</a></div></div></nav>
+<nav class="l"><div class="in"><span class="t">협업 사례</span><div class="tabs"><a href="#offline">공간 운영</a><a href="#online">온라인 클래스</a><a href="#recipe">특산물 상품화</a><a href="#catering">행사 케이터링</a><a href="#link">회원 연동</a></div></div></nav>
 
 <!--CASES-->
 <section class="hero cs-hero">
@@ -610,7 +650,7 @@ body.cm-lock{overflow:hidden}
 <div class="cb-tb"><div class="cb-top"><span>협업 방식</span><div class="cb-hd"><span>협업처</span><span class="h-cl">클래스</span><span class="h-re">레시피</span><span class="h-bx">쿠킹박스</span></div></div>
 <div class="cb-g"><div class="cb-gc"><em>01</em><b>공간 운영</b><small>클래스 공간을<br> 맡아서 운영</small></div><div class="cb-rws"><a class="cb-rw" href="ir-classkok.html"><span class="cb-nm"><b>스타필드 클래스콕</b><small>2022–2024</small></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c"></span></a><a class="cb-rw" href="#c-galleria"><span class="cb-nm"><b>갤러리아 광교</b><small>2024–2026</small></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c"></span></a></div></div>
 <div class="cb-g"><div class="cb-gc"><em>02</em><b>온라인 클래스</b><small>수업은 화면으로,<br> 쿠킹박스는 집으로</small></div><div class="cb-rws"><a class="cb-rw" href="#c-gyeonggi"><span class="cb-nm"><b>경기도지식</b><small>2022– 진행 중</small></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c on c-bx">쿠킹박스</span></a><a class="cb-rw" href="#online"><span class="cb-nm"><b>현대자동차 사내요리동호회</b><small>2020–2022</small></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c on c-bx">쿠킹박스</span></a><a class="cb-rw" href="#online"><span class="cb-nm"><b>경기도청 · 서울 구청</b><small>2020–2022</small></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c on c-bx">쿠킹박스</span></a><a class="cb-rw" href="#online"><span class="cb-nm"><b>현대백화점 산지 연계</b><small>2020–2022</small></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c on c-bx">쿠킹박스</span></a></div></div>
-<div class="cb-g"><div class="cb-gc"><em>03</em><b>제품 상품화</b><small>지자체 특산물 · 식품 기업<br> 신제품을 레시피로</small></div><div class="cb-rws"><a class="cb-rw" href="#c-boryeong"><span class="cb-nm"><b>보령시</b><i>영상</i></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c on c-bx">쿠킹박스</span></a><a class="cb-rw" href="#recipe"><span class="cb-nm"><b>농심</b><small>2023</small><i>영상</i></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c"></span></a><a class="cb-rw" href="#recipe"><span class="cb-nm"><b>여주 · 놀부 · 속초 체스터톤스</b></span><span class="cb-c"></span><span class="cb-c on c-re">레시피</span><span class="cb-c on c-bx">쿠킹박스</span></a><a class="cb-rw" href="#recipe"><span class="cb-nm"><b>속리산 · 포항</b></span><span class="cb-c"></span><span class="cb-c on c-re">레시피</span><span class="cb-c"></span></a></div></div>
+<div class="cb-g"><div class="cb-gc"><em>03</em><b>특산물 상품화</b><small>지역 특산물 · 기업 제품을<br> 전문가 레시피로 상품화</small></div><div class="cb-rws"><a class="cb-rw" href="#c-boryeong"><span class="cb-nm"><b>보령시</b><small>2021</small><i>영상</i></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c on c-bx">쿠킹박스</span></a><a class="cb-rw" href="#recipe"><span class="cb-nm"><b>농심</b><small>2023</small><i>영상</i></span><span class="cb-c on c-cl">클래스</span><span class="cb-c on c-re">레시피</span><span class="cb-c"></span></a><a class="cb-rw" href="#recipe"><span class="cb-nm"><b>여주 · 놀부 · 속초 체스터톤스</b></span><span class="cb-c"></span><span class="cb-c on c-re">레시피</span><span class="cb-c on c-bx">쿠킹박스</span></a><a class="cb-rw" href="#recipe"><span class="cb-nm"><b>속리산 · 포항</b></span><span class="cb-c"></span><span class="cb-c on c-re">레시피</span><span class="cb-c"></span></a></div></div>
 <div class="cb-g"><div class="cb-gc"><em>04</em><b>행사 케이터링</b><small>기업 · 기관 행사의 식탁</small></div><div class="cb-rws"><a class="cb-rw" href="#c-catering"><span class="cb-nm"><b>디캠프 · 프론트원 외</b><small>2019–2026</small></span><span class="cb-c"></span><span class="cb-c on c-re">레시피</span><span class="cb-c"></span></a></div></div>
 <div class="cb-g"><div class="cb-gc"><em>05</em><b>회원 연동</b><small>협업처 회원에게<br> 우리 서비스를</small></div><div class="cb-rws"><a class="cb-rw" href="#c-woongjin"><span class="cb-nm"><b>웅진</b><small>2019–2021</small></span><span class="cb-c on c-cl">클래스</span><span class="cb-c"></span><span class="cb-c"></span></a></div></div>
 </div><div class="cb-cap"><span><i class="c-cl"></i>클래스</span><span><i class="c-re"></i>레시피 · 영상</span><span><i class="c-bx"></i>쿠킹박스</span><em>줄을 누르면 해당 사례로 갑니다</em></div>
@@ -669,21 +709,24 @@ body.cm-lock{overflow:hidden}
 <div class="cs-cards"><div class="cs-c"><div class="cs-ci"><img src="ir-images/cases/cases-s-hmc.jpg" alt="현대자동차 사내요리동호회" loading="lazy"></div><div class="cs-cb"><div class="cs-cy">2020.09 – 2022.06</div><b>현대자동차 사내요리동호회</b><p>매달 한 번, 동호회원 집으로 쿠킹박스를 보내고 화상으로 함께.</p><p class="cs-menu">애플파이 · 쿵팟퐁커리 · 이북식찜닭 · 라따뚜이 · 보석양갱</p></div></div><div class="cs-c"><div class="cs-ci"><img src="ir-images/cases/cases-s-ggd.jpg" alt="경기도청" loading="lazy"></div><div class="cs-cb"><div class="cs-cy">2020 – 2022</div><b>경기도청</b><p>어린이 기자단 · 북부청사 · 남부청사.</p><p class="cs-menu">부리또 · 라구파스타 &amp; 뱅쇼 · 비건 초코머핀 · 초코홀케이크</p></div></div><div class="cs-c"><div class="cs-ci"><img src="ir-images/cases/cases-s-seoul.jpg" alt="서울 구청" loading="lazy"></div><div class="cs-cb"><div class="cs-cy">2020 – 2021</div><b>서울 구청</b><p>서대문 · 강남 · 마포 · 용산 · 도봉 — 1인가구 · 청년 · 주민.</p><p class="cs-menu">3종 계란요리 · 투움바파스타 · 훈제오리 단호박찜 · 전 2종</p></div></div><div class="cs-c"><div class="cs-ci"><img src="ir-images/cases/cases-s-hd.jpg" alt="현대백화점" loading="lazy"></div><div class="cs-cb"><div class="cs-cy">2020 – 2022</div><b>현대백화점</b><p>산지와 연결한 온라인 클래스 — 산지 재료를 집으로.</p><p class="cs-menu">청주 딸기 · 제주 한라봉</p></div></div><div class="cs-c"><div class="cs-ci"><img src="ir-images/cases/cases-s-corp.jpg" alt="기업 동호회" loading="lazy"></div><div class="cs-cb"><div class="cs-cy">2020 – 2022</div><b>기업 동호회</b><p>KKR · 구글 · U+ · NICE — 사내 동호회와 가족 클래스.</p><p class="cs-menu">티라미수 · 부리또</p></div></div><div class="cs-c"><div class="cs-ci"><img src="ir-images/cases/cases-s-kids.jpg" alt="아이들과미래재단" loading="lazy"></div><div class="cs-cb"><div class="cs-cy">2021 · 2025</div><b>아이들과미래재단</b><p>아이들에게 보낸 크리스마스 쿠킹박스.</p><p class="cs-menu">크리스마스 케이크</p></div></div></div>
 </div></section>
 <section class="cs-grp" id="recipe"><div class="wrap-w">
-<div class="cs-gh"><div class="ey"><span class="n">03</span><b>제품 상품화</b><span class="ck"><i class="on c-cl" title="클래스"></i><i class="on c-re" title="레시피"></i><i class="on c-bx" title="쿠킹박스"></i></span></div><h3>협업처의 제품을,<br class="mbr"> 레시피로 상품화했습니다.</h3><p>특산물 · 신제품 · 소스로 메뉴를 만들고, 영상과 쿠킹박스까지.</p></div>
+<div class="cs-gh"><div class="ey"><span class="n">03</span><b>특산물 상품화</b><span class="ck"><i class="on c-cl" title="클래스"></i><i class="on c-re" title="레시피"></i><i class="on c-bx" title="쿠킹박스"></i></span></div><h3>지역 특산물을,<br class="mbr"> 전문가의 레시피로 상품화했습니다.</h3><p>산지를 찾아가 레시피를 만들고, 영상으로 찍고, 쿠킹박스로 팔았습니다.</p></div>
 <div class="cs-lead" id="c-boryeong">
   <div class="cs-lv cs-steps2">
-    <div><img src="ir-images/cases/cases-x-br1-022.jpg" alt="보령 특산물 레시피 영상 촬영" loading="lazy"><em>1</em><b>레시피 영상</b><span>특산물로 개발한 레시피를 촬영</span></div>
-    <div><img src="ir-images/cases/cases-x-br2-001.jpg" alt="보령 특산물 쿠킹박스 구성품" loading="lazy"><em>2</em><b>특산물 쿠킹박스</b><span>전문가 레시피 그대로 박스로</span></div>
-    <div><img src="ir-images/cases/cases-x-br2-003.jpg" alt="쿠킹박스로 완성한 요리" loading="lazy"><em>3</em><b>판매 · 클래스</b><span>박스를 팔고, 클래스 두 번</span></div>
+    <div><img src="ir-images/cases/cases-br-duo.jpg" alt="보령 항구에서 촬영한 두 요리연구가" loading="lazy" style="object-position:62% 50%"><em>1</em><b>산지 · 전문가</b><span>요리연구가가 보령 산지를 찾아가</span></div>
+    <div><img src="ir-images/cases/cases-br-kit-box.jpg" alt="보령 돼지고기 쿠킹박스" loading="lazy"><em>2</em><b>레시피 · 쿠킹박스</b><span>특산물로 만든 레시피 그대로 박스에</span></div>
+    <div><img src="ir-images/cases/cases-br-steak.jpg" alt="수비드 돼지 뒷다리살 스테이크" loading="lazy" style="object-position:74% 50%"><em>3</em><b>영상 · 판매</b><span>레시피 영상과 함께 팔았습니다</span></div>
   </div>
   <div class="cs-lt">
-    <div class="cs-tag">보령시 특산물 콜라보</div>
-    <h4>보령 특산물로 레시피를 만들고,<br>박스로 팔고, 클래스로 알렸습니다.</h4>
-    <p>전문가가 보령 특산물로 레시피를 개발해 영상으로 찍고, 그 레시피 그대로 쿠킹박스를 만들어 팔고, 클래스를 두 번 열었습니다.</p>
-    <p class="cs-note">지역 특산물이라 반응이 빨랐고, 보령시가 함께 알려 준비한 박스가 빠르게 완판됐습니다.</p>
+    <div class="cs-tag">보령시 · 보령축제관광재단 · 2021</div>
+    <h4>보령 특산물로 레시피를 만들고,<br>영상으로 찍고, 쿠킹박스로 팔았습니다.</h4>
+    <p>겨울 1차는 굴 · 커피 · 치즈 세 산지와 함께 4주 동안 쿠킹박스 1,100여 건이 주문됐고, 굴 산지에서 온라인 클래스도 열었습니다. 여름 2차는 보령축제관광재단의 용역으로 이어져, 두 요리연구가가 보령 돼지고기 · 갑오징어로 레시피를 만들었습니다.</p>
+    <button class="cs-btn" onclick="csOpen('boryeong')">보령 프로젝트 자세히 보기 →</button>
   </div>
 </div>
-<div class="cs-cards"><div class="cs-c"><div class="cs-ci"><img src="ir-images/galleria/gl-sc-023.jpg" alt="농심" loading="lazy"></div><div class="cs-cb"><div class="cs-cy">2023</div><b>농심</b><p>신제품으로 선생님이 레시피 3종을 개발하고 영상으로. 스타필드 · 갤러리아 콜라보 클래스까지.</p></div></div><div class="cs-c"><div class="cs-ci"><img src="ir-images/cases/cases-x-yj.jpg" alt="여주" loading="lazy"></div><div class="cs-cb"><b>여주</b><p>경기콘텐츠진흥원 지원 사업 — 여주 식재료로 레시피와 쿠킹박스.</p></div></div><div class="cs-c"><div class="cs-ci"><img src="ir-images/cases/cases-x-sr-010.jpg" alt="속리산" loading="lazy"></div><div class="cs-cb"><b>속리산</b><p>지역 메뉴 개발과 시연회.</p></div></div><div class="cs-c"><div class="cs-ci"><img src="ir-images/cases/cases-x-ph.jpg" alt="포항" loading="lazy"></div><div class="cs-cb"><b>포항</b><p>포항 맛간장으로 메뉴 개발.</p></div></div><div class="cs-c"><div class="cs-ci"><img src="ir-images/cases/cases-x-nb-la-005.jpg" alt="놀부" loading="lazy"></div><div class="cs-cb"><b>놀부</b><p>소스 3종 · 생일 박스 · 초계면 · 추석 LA갈비 소스.</p></div></div><div class="cs-c"><div class="cs-ci"><img src="ir-images/cases/cases-x-ct.jpg" alt="속초 체스터톤스" loading="lazy"></div><div class="cs-cb"><b>속초 체스터톤스</b><p>리조트 객실에 놓는 쿠킹박스.</p></div></div></div>
+<div class="on-h"><b>같은 방식으로, 다른 지역</b><span>지역 식재료로 메뉴 · 레시피 · 쿠킹박스</span></div>
+<div class="cs-cards"><div class="cs-c"><div class="cs-ci"><img src="ir-images/cases/cases-x-yj.jpg" alt="여주" loading="lazy"></div><div class="cs-cb"><b>여주</b><p>경기콘텐츠진흥원 지원 사업 — 여주 식재료로 레시피와 쿠킹박스.</p></div></div><div class="cs-c"><div class="cs-ci"><img src="ir-images/cases/cases-x-sr-010.jpg" alt="속리산" loading="lazy"></div><div class="cs-cb"><b>속리산</b><p>지역 메뉴 개발과 시연회.</p></div></div><div class="cs-c"><div class="cs-ci"><img src="ir-images/cases/cases-x-ph.jpg" alt="포항" loading="lazy"></div><div class="cs-cb"><b>포항</b><p>포항 맛간장으로 메뉴 개발.</p></div></div></div>
+<div class="on-h"><b>기업 제품도</b><span>신제품 · 소스 · 리조트 객실용 박스</span></div>
+<div class="cs-cards"><div class="cs-c"><div class="cs-ci"><img src="ir-images/galleria/gl-sc-023.jpg" alt="농심" loading="lazy"></div><div class="cs-cb"><div class="cs-cy">2023</div><b>농심</b><p>신제품으로 선생님이 레시피 3종을 개발하고 영상으로. 스타필드 · 갤러리아 콜라보 클래스까지.</p></div></div><div class="cs-c"><div class="cs-ci"><img src="ir-images/cases/cases-x-nb-la-005.jpg" alt="놀부" loading="lazy"></div><div class="cs-cb"><b>놀부</b><p>소스 3종 · 생일 박스 · 초계면 · 추석 LA갈비 소스.</p></div></div><div class="cs-c"><div class="cs-ci"><img src="ir-images/cases/cases-x-ct.jpg" alt="속초 체스터톤스" loading="lazy"></div><div class="cs-cb"><b>속초 체스터톤스</b><p>리조트 객실에 놓는 쿠킹박스.</p></div></div></div>
 </div></section>
 <section class="cs-grp tint" id="catering"><div class="wrap-w">
 <div class="cs-gh"><div class="ey"><span class="n">04</span><b>행사 케이터링</b><span class="ck"><i></i><i class="on c-re" title="레시피"></i><i></i></span></div><h3>행사의 식탁을<br class="mbr"> 우리의 전문성으로 차렸습니다.</h3><p>기업 · 기관 행사의 케이터링과 도시락.</p></div>
@@ -729,6 +772,27 @@ body.cm-lock{overflow:hidden}
 <div class="cm-sec"><h4><b>해마다</b><small>2019 – 2026</small></h4><div class="cm-yr"><div><b>2019</b><p>디캠프 대사관 행사 · IF 스타트업 축제 · 메이랩 · 중견기업 커피 케이터링 · 연말 파티</p></div><div><b>2020</b><p>디캠프 도시락 · 디캠프 × 신한은행 · 은행 간담회 · 협약식 · 프론트원 개관식 · 퓨처플레이 · 여성벤처협회 · 금융위원회(프론트원)</p></div><div><b>2021</b><p>프론트원 도시락 · 케이터링 · 여성금융인네트워크</p></div><div><b>2022</b><p>SK플래닛 T아카데미 · 메디치이엔에스 · 디캠프 10주년 · 복을나누는사람들 · 연말 케이터링</p></div><div><b>2023</b><p>디캠프 할랄 케이터링 · 시선스토리랩 · 주한 캐나다 대사관 · 올댓트래블 VIP 네트워킹</p></div><div><b>2024</b><p>언더독스 디데이 · 마포 프론트원 · 선릉 디캠프 · 올댓트래블 · 현대자동차 · 스타트업 얼라이언스</p></div><div><b>2025</b><p>프론트원 · 디캠프 · IBM 기자간담회 · 산업은행 국민성장펀드 출범식 · core 기업 인사이트 데이</p></div><div><b>2026</b><p>KFPE 춘계학술대회 · 머니투데이 · 디캠프 스타트업 OI #금융권 · 머니투데이 K-우주포럼</p></div></div></div>
 <div style="height:36px"></div>
 </div></div></div>
+<div class="cs-m cm-ov" id="m-boryeong" role="dialog" aria-modal="true" aria-label="보령 특산물 프로젝트">
+<div class="cm-box"><button class="cm-x" onclick="csClose()" aria-label="닫기">×</button><div class="cm-top"><div><div class="cm-e">LOCAL SPECIALTY · 2021</div><h3>보령 특산물 프로젝트</h3><div class="cm-sub">보령의 특산물로 요리 전문가가 레시피를 만들고, 산지와 스튜디오에서 영상을 찍고, 쿠킹박스로 팔았습니다. 겨울 1차의 반응이 여름 2차로 이어졌습니다.</div><div class="cm-chips"><span class=v>★ 실제 프로젝트 기록</span><span class=o>1차 → 2차로 이어짐</span><span>클래스 · 영상 · 쿠킹박스</span></div></div><img src="ir-images/cases/cases-br-sea.jpg" data-full="ir-images/cases/cases-br-sea.jpg" data-g="mtop" alt=""></div>
+<div class="cs-pane on">
+<div class="cm-sec"><div class="br-num"><div><b>4주</b><span>1차 판매 기간</span></div><div><b>1,100<em>여 건</em></b><span>1차 쿠킹박스 주문</span></div><div><b>129<em>곳</em></b><span>보도자료 게재 매체</span></div><div><b>5<em>종</em></b><span>특산물 메뉴 · 2회에 걸쳐</span></div></div></div>
+<div class="cm-sec"><h4><b>우리가 한 일</b><small>특산물 하나로, 레시피 · 영상 · 쿠킹박스 · 클래스까지</small></h4><div class="cm-steps br-st"><div><em>1</em><b>산지 · 특산물</b><span>지역과 함께 특산물과 산지를 고릅니다</span></div><div><em>2</em><b>전문가 레시피</b><span>요리 전문가가 집에서 따라 할 레시피로</span></div><div><em>3</em><b>산지 · 스튜디오 촬영</b><span>산지 인터뷰와 레시피 영상</span></div><div><em>4</em><b>쿠킹박스</b><span>레시피 그대로 재료를 소분해 박스로</span></div><div><em>5</em><b>판매 · 홍보 · 클래스</b><span>기획전 · 보도 · SNS, 산지 클래스</span></div></div></div>
+<div class="cm-sec br-wave"><h4><i>1차</i><b>2021 겨울 · 「보령의 청정겨울, 특별한 쿠킹시리즈」</b><small>2021.01.18 – 02.15 · 특산물 3종 × 산지 3곳</small></h4>
+<div class="br-3"><div><b>천북굴 봉골레 파스타</b><small>천북 굴단지 석화 · 갯벌 바지락</small><p>파스타 작가가 굴 산지에서 여는 양방향 온라인 클래스 (2021.02.06)</p></div><div><b>말통커피 홈로스팅</b><small>보령 커피공장의 생두 2종</small><p>로스팅 · 바리스타 체험 영상과 홈로스팅 키트</p></div><div><b>하늘구름목장 스트링치즈</b><small>젖소 목장의 커드 · 요거트</small><p>목장 대표가 알려 주는 스트링치즈 만들기 영상</p></div></div>
+<div class="br-res"><b>4주 동안 쿠킹박스 1,100여 건 주문</b><span>보도자료 129개 매체 게재 · 기획전 · SNS · 맘카페 · 웅진 앱으로 알렸습니다</span></div></div>
+<div class="cm-sec br-wave"><h4><i>2차</i><b>2021 여름 · 보령축제관광재단 용역</b><small>2021.07 · 보령 현지 촬영 → 스튜디오 레시피 영상 → 쿠킹박스 판매</small></h4>
+<div class="cm-gr g4 br-farm"><figure><img src="ir-images/cases/cases-br-duo.jpg" data-full="ir-images/cases/cases-br-duo.jpg" data-g="farm" alt="보령 항구 — 두 요리연구가의 산지 인터뷰" loading="lazy"><figcaption>보령 항구 — 두 요리연구가의 산지 인터뷰</figcaption></figure><figure><img src="ir-images/cases/cases-br-farm-pork.jpg" data-full="ir-images/cases/cases-br-farm-pork.jpg" data-g="farm" alt="보령 돼지고기 손질" loading="lazy"><figcaption>보령 돼지고기 손질</figcaption></figure><figure><img src="ir-images/cases/cases-br-farm-mush.jpg" data-full="ir-images/cases/cases-br-farm-mush.jpg" data-g="farm" alt="양송이버섯 산지" loading="lazy"><figcaption>양송이버섯 산지</figcaption></figure><figure><img src="ir-images/cases/cases-br-farm-squid.jpg" data-full="ir-images/cases/cases-br-farm-squid.jpg" data-g="farm" alt="갑오징어 산지" loading="lazy"><figcaption>갑오징어 산지</figcaption></figure></div>
+<div class="br-pros"><div class="br-pro">
+  <div class="br-who"><img src="ir-images/cases/cases-br-psj.jpg" data-full="ir-images/cases/cases-br-psj.jpg" data-g="pro" alt="박소진 요리연구가" loading="lazy"><div><small>보령 돼지고기</small><b>박소진 요리연구가</b><h5>수비드 돼지 뒷다리살 스테이크</h5><p>집에 수비드 기계가 없어도 밥솥으로. 저렴한 뒷다리살을 부드럽게 익힙니다.</p></div></div>
+  <div class="br-pair"><figure><img src="ir-images/cases/cases-br-kit-pork.jpg" data-full="ir-images/cases/cases-br-kit-pork.jpg" data-g="pro" alt="수비드 돼지 뒷다리살 스테이크 쿠킹박스 구성품" loading="lazy"><figcaption>쿠킹박스 · 돼지 뒷다리살 400g · 양송이버섯 · 양파 · BBQ 소스 · 고추냉이 · 지퍼백</figcaption></figure><figure><img src="ir-images/cases/cases-br-steak.jpg" data-full="ir-images/cases/cases-br-steak.jpg" data-g="pro" alt="수비드 돼지 뒷다리살 스테이크" loading="lazy"><figcaption>완성</figcaption></figure></div>
+</div><div class="br-pro">
+  <div class="br-who"><img src="ir-images/cases/cases-br-isj.jpg" data-full="ir-images/cases/cases-br-isj.jpg" data-g="pro" alt="임수진 요리연구가" loading="lazy"><div><small>보령 갑오징어</small><b>임수진 요리연구가</b><h5>매콤 갑오징어 볶음</h5><p>손질한 갑오징어를 센 불에 재빨리. 일곱 단계면 완성되는 밥반찬입니다.</p></div></div>
+  <div class="br-pair"><figure><img src="ir-images/cases/cases-br-kit-squid.jpg" data-full="ir-images/cases/cases-br-kit-squid.jpg" data-g="pro" alt="매콤 갑오징어 볶음 쿠킹박스 구성품" loading="lazy"><figcaption>쿠킹박스 · 갑오징어 300g · 볶음 소스 · 양파 · 당근 · 대파 · 고추</figcaption></figure><figure><img src="ir-images/cases/cases-br-squid.jpg" data-full="ir-images/cases/cases-br-squid.jpg" data-g="pro" alt="매콤 갑오징어 볶음" loading="lazy"><figcaption>완성</figcaption></figure></div>
+</div></div>
+<div class="br-res"><b>보령수협 · 보령축협이 재료를 공급하고, 두 레시피를 쿠킹박스로 판매</b><span>2021.07.23 – 08.01 · 산지 소개 · 요약 레시피 · 풀 레시피 영상</span></div></div>
+<div class="cm-sec"><h4><b>다른 지역에서도 같은 방식으로</b></h4><div class="br-roles"><div class=""><small>지자체 · 재단</small><b>특산물 · 산지 연결</b><p>사업을 열고, 산지와 생산자를 이어 줍니다</p></div><div class=""><small>산지 · 생산자</small><b>재료 공급</b><p>특산물을 손질해 박스용으로 공급합니다</p></div><div class="on"><small>공공의주방</small><b>기획부터 판매까지</b><p>전문가 섭외 · 레시피 · 영상 · 쿠킹박스 · 판매 · 홍보 · 클래스</p></div></div></div>
+<div style="height:36px"></div>
+</div></div></div>
 <div id="cs-lb" onclick="csLbClose()">
   <button class="lb-x" onclick="event.stopPropagation();csLbClose()" aria-label="닫기">✕</button>
   <button class="lb-n lb-p" onclick="event.stopPropagation();csLbGo(-1)" aria-label="이전">‹</button>
@@ -757,7 +821,7 @@ body.cm-lock{overflow:hidden}
 
 <script>/*CASESJS*/
 (function(){
-var IDS=['galleria','catering'], CUR=null, PUSHED=false;
+var IDS=['galleria','catering','boryeong'], CUR=null, PUSHED=false;
 if(location.hash==='#classkok'){ location.replace('ir-classkok.html'); }
 var logo=document.querySelector('nav.g .logo img');
 document.querySelectorAll('.cs-logo').forEach(function(i){ if(logo) i.src=logo.src; });
