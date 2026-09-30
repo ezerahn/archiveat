@@ -447,8 +447,27 @@ body.ck-lock{overflow:hidden}
 .wc li b{font-size:13px;font-weight:700;line-height:1.35;word-break:keep-all}.wc li span{font-size:11.5px;color:var(--tx2)}
 .wc u{text-decoration:none;font-size:10.5px;font-weight:700;border-radius:4px;padding:0 5px;margin-left:5px}.wc u.k{background:#FFB59C;color:var(--dk)}.wc u.c{background:var(--or);color:#fff}.wc u.p{background:var(--dk);color:#fff}
 .note{font-size:13px;color:var(--tx3);margin-top:12px}
-.sy2{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:28px;border:1.5px solid var(--dk);border-radius:16px;padding:18px 22px}
-.sy2 b{font-size:18px;font-weight:800;margin-right:10px}.sy2 span{font-family:var(--mono);font-size:12.5px;color:var(--tx3)}.sy2 p{font-size:14px;color:var(--tx2);margin-top:6px;line-height:1.6}.sy2 .ck-btn{margin:0;flex:none}
+.sy2{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-top:28px;border:1.5px solid var(--dk);border-radius:18px;padding:24px 26px}
+.sy2-e b{font-size:15px;font-weight:800;margin-right:10px;color:var(--or)}.sy2-e span{font-family:var(--mono);font-size:12.5px;color:var(--tx3);word-break:keep-all}
+.sy2 h4{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1.3;margin:8px 0 18px}
+.sy2-n{display:flex;gap:40px;flex-wrap:wrap}.sy2-n em{display:block;font-style:normal;font-family:var(--mono);font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.sy2-n em i{font-style:normal;color:var(--or);font-size:.8em;margin:0 2px}.sy2-n small{display:block;font-size:12.5px;color:var(--tx2);margin-top:4px}
+.sy2 .ck-btn{margin:0;flex:none}
+.cm-tb{width:100%;border-collapse:collapse;border-top:2px solid var(--dk);font-size:14.5px}
+.cm-tb th{text-align:left;font-size:13px;font-weight:800;padding:12px 10px;border-bottom:1px solid #E5E5EA;vertical-align:bottom}
+.cm-tb th small{display:block;font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--tx3);margin-top:3px}
+.cm-tb td{padding:12px 10px;border-bottom:1px solid #EDEDF0}.cm-tb td:first-child{color:var(--tx2);font-size:13.5px;width:32%}
+.cm-tb .on{background:#FFF5EF}.cm-tb td.on{font-weight:800;color:var(--dk)}.cm-tb th.on{color:var(--or)}
+.cm-note{font-size:13px;color:var(--tx2);margin-top:12px;line-height:1.6}
+.cm-st{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.cm-st>div{background:var(--bg);border-radius:14px;padding:16px 18px}
+.cm-st em{display:block;font-style:normal;font-family:var(--mono);font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.1}.cm-st em small{font-family:var(--sans);font-size:14px;margin-left:2px}
+.cm-st span{font-size:12.5px;color:var(--tx2)}
+.cm-tb2 td:first-child{width:auto;white-space:nowrap;font-family:var(--mono);font-size:12.5px}.cm-tb2 td:nth-child(3),.cm-tb2 td:nth-child(4){white-space:nowrap;color:var(--tx2)}
+.cm-tb2 td:nth-child(4){text-align:right;font-weight:700;color:var(--dk)}.cm-tb2 th:nth-child(4){text-align:right}
+.cm-tb2 td i{font-style:normal;font-size:11px;font-weight:700;color:var(--or);background:#FFF1EA;border-radius:5px;padding:1px 6px;margin-left:6px;white-space:nowrap}
+.cm-tb2 tfoot td,.cm-tb2 tfoot td:first-child{font-weight:800;color:var(--dk);text-align:right;border-bottom:2px solid var(--dk);font-family:var(--sans);font-size:13.5px;white-space:normal}
+.cm-lead{background:var(--bg);border-radius:16px;padding:22px 24px}.cm-lead b{display:block;font-size:19px;font-weight:800;letter-spacing:-.01em}
+.cm-lead p{font-size:14.5px;color:var(--tx2);line-height:1.75;margin-top:8px}
 /* 브랜드 목록 */
 .bcs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
 .bc{all:unset;cursor:pointer;position:relative;display:block;border-radius:18px;overflow:hidden;aspect-ratio:4/3;background:#111}
@@ -520,7 +539,8 @@ body.ck-lock{overflow:hidden}
  .sp-nm{gap:18px 26px}.sp-nm b{font-size:30px}.sp-nm>div{min-width:40%}
  .wk{grid-template-columns:1fr 1fr;gap:6px}
  .yg{grid-template-columns:1fr 1fr;gap:22px 10px}.ym-i b{font-size:17px}.ym strong{font-size:14px}.ym-i em{font-size:11.5px;padding:4px 7px;left:8px;bottom:8px}
- .sy2{flex-direction:column;align-items:flex-start;padding:16px}
+ .sy2{flex-direction:column;align-items:flex-start;padding:18px 16px}.sy2-e span{display:block;margin-top:2px}.sy2 h4{font-size:19px;margin:6px 0 14px}.sy2-n{gap:14px 22px}.sy2-n>div{min-width:40%}.sy2-n em{font-size:21px}
+ .cm-st{grid-template-columns:1fr 1fr}.cm-st em{font-size:23px}.cm-tb{font-size:13px}.cm-tb2 td:first-child{font-size:11px;white-space:normal;width:22%}.cm-tb2 td:nth-child(3){white-space:normal}.cm-tb th,.cm-tb td{padding:10px 6px}.cm-tb td:first-child{font-size:12.5px;width:34%}.cm-lead{padding:18px}.cm-lead b{font-size:17px}
  .nw span{font-size:14px;padding:6px 11px}
  .bcs{grid-template-columns:1fr 1fr;gap:8px}.bc:first-child{grid-column:span 2;grid-row:auto;aspect-ratio:4/3}.bc-t{left:12px;right:10px;bottom:10px}.bc-t b{font-size:15px}.bc:first-child .bc-t b{font-size:22px}.bc-t span{font-size:11.5px}
  .bl-h{display:none}.bl-r{grid-template-columns:64px minmax(0,1fr);gap:3px 12px;padding:12px 4px}.bl-i{width:64px;height:64px;grid-row:span 4}
@@ -683,7 +703,7 @@ body.cm-lock{overflow:hidden}
 </script>
 
 <script>/*SPJS*/
-var CKG={"gsc": {"t": "북해도식 스프카레 × 농심", "e": "BRAND COLLAB · 2024.03.16", "d": "농심 카레 제품으로 만든 최진 선생님의 스프카레. 갤러리아 광교에서 연 첫 수업입니다.", "w": "선생님 최진", "c": "", "m": "ir-images/galleria/gl-sc-010.jpg", "s": [["", ["ir-images/galleria/gl-sc-000.jpg", "ir-images/galleria/gl-sc-025.jpg", "ir-images/galleria/gl-sc-022.jpg", "ir-images/galleria/gl-sc-029.jpg", "ir-images/galleria/gl-sc-023.jpg"]]], "nav": 1, "w2": "2024.03.16 · 최진", "ol": "같은 달 수업"}, "get": {"t": "에그타르트", "e": "ONE-DAY · 2024.03.23", "d": "첫 수업 다음 주, 박은정 선생님의 에그타르트 원데이 클래스.", "w": "선생님 박은정", "c": "", "m": "ir-images/galleria/gl-et-017.jpg", "s": [["", ["ir-images/galleria/gl-et-003.jpg", "ir-images/galleria/gl-et-015.jpg", "ir-images/galleria/gl-et-021.jpg", "ir-images/galleria/gl-et-007.jpg"]]], "nav": 1, "w2": "2024.03.23 · 박은정", "ol": "같은 달 수업"}}, CKM={};
+var CKG={"gsc": {"t": "북해도식 스프카레 × 농심", "e": "BRAND COLLAB · 2024.03.16", "d": "농심 카레 제품으로 만든 최진 선생님의 스프카레. 갤러리아 광교에서 연 첫 수업입니다.", "w": "", "c": "", "m": "ir-images/galleria/gl-sc-010.jpg", "s": [["농심 제품 세팅", ["ir-images/galleria/gl-sc-000.jpg", "ir-images/galleria/gl-sc-025.jpg", "ir-images/galleria/gl-sc-022.jpg", "ir-images/galleria/gl-sc-029.jpg", "ir-images/galleria/gl-sc-023.jpg"]]], "nav": 1, "w2": "2024.03.16 · 최진", "ol": "같은 달 수업", "off": 2, "ch": "<span class=\"v\">★ 실제 수업 기록</span><span class=\"o\">갤러리아 첫 수업</span><span>2024.03.16 (토)</span><span>선생님 최진</span>", "x2": "<div class=\"cm-sec\"><h4><i>01</i><b>어떻게 함께했나</b></h4><div class=\"cm-steps\"><div><em>갤러리아 광교</em><b>문화센터 쿠킹실 · 회원 모집</b><span>백화점 문화센터 회원에게 강좌를 열었습니다.</span></div><div><em>공공의주방</em><b>농심 카레로 만든 스프카레</b><span>클래스콕에서 해 본 농심 콜라보 메뉴를 최진 선생님이 갤러리아 첫 수업으로 가져왔습니다.</span></div><div><em>결과</em><b>첫 수업에서 2년의 과정으로</b><span>원데이로 문을 열고, 2025년에는 11회차 정규 과정까지 이어졌습니다.</span></div></div></div><div class=\"cm-sec\"><h4><i>02</i><b>첫 수업 이후</b><small>정산 기준 · 실제로 열린 수업</small></h4><div class=\"cm-rows\"><div><dt>2024.03.16</dt><dd>첫 수업 — 북해도식 스프카레 × 농심 · 최진</dd></div><div><dt>2024.03.23</dt><dd>에그타르트 원데이 · 박은정</dd></div><div><dt>2024.04</dt><dd>김희경 선생님 한식 가정식 원데이 시작 (4월 3회)</dd></div><div><dt>2024.08 – 11</dt><dd>임수진 김치 · 박소진 후토마키 · 어복쟁반으로 넓힘</dd></div><div><dt>2025.03</dt><dd>정규 과정 시작 — 박소진 · 임수진, 학기마다 9 – 11회차</dd></div><div><dt>2024.03 – 2025.11</dt><dd>열린 수업 84회 · 선생님 9명</dd></div></div></div>"}, "get": {"t": "에그타르트", "e": "ONE-DAY · 2024.03.23", "d": "첫 수업 다음 주, 박은정 선생님의 에그타르트 원데이 클래스.", "w": "", "c": "", "m": "ir-images/galleria/gl-et-017.jpg", "s": [["", ["ir-images/galleria/gl-et-003.jpg", "ir-images/galleria/gl-et-015.jpg", "ir-images/galleria/gl-et-021.jpg", "ir-images/galleria/gl-et-007.jpg"]]], "nav": 1, "w2": "2024.03.23 · 박은정", "ol": "같은 달 수업", "off": 2, "ch": "<span class=\"v\">★ 실제 수업 기록</span><span class=\"o\">원데이</span><span>2024.03.23 (토)</span><span>선생님 박은정</span>", "x2": "<div class=\"cm-sec\"><h4><i>01</i><b>어떻게 함께했나</b></h4><div class=\"cm-steps\"><div><em>갤러리아 광교</em><b>주말 원데이 강좌</b><span>첫 달, 백화점 회원을 위한 주말 원데이를 이어 열었습니다.</span></div><div><em>공공의주방</em><b>베이킹 선생님 배정</b><span>첫 주 한식(스프카레) 다음, 둘째 주는 베이킹으로 — 강좌 종류를 나눠 짰습니다.</span></div><div><em>결과</em><b>한식 · 베이킹 · 김치 · 키즈</b><span>2024년 원데이 24회, 선생님 8명이 번갈아 맡았습니다.</span></div></div></div><div class=\"cm-sec\"><h4><i>02</i><b>2024년 원데이 라인업</b><small>정산 기준 · 실제로 열린 수업</small></h4><div class=\"cm-rows\"><div><dt>한식 가정식</dt><dd>김희경 — 해물김치솥밥 · 소고기양념구이 · 연어수란 · 팟타이 &amp; 똠양꿍 등 8회</dd></div><div><dt>베이킹</dt><dd>박은정 에그타르트 · 일호실 바나나푸딩 · 크랜베리 스콘 · 부쉬드 노엘 · 박지수 곰돌이 파이 · 크리스마스 도넛</dd></div><div><dt>김치</dt><dd>임수진 — 열무김치 · 깍두기 · 새우장 · 백김치</dd></div><div><dt>세계 · 특별 요리</dt><dd>박소진 후토마키 · 평양식 어복쟁반 · 스테이크솥밥 / 이상은 아롱사태 수육</dd></div></div></div>"}}, CKM={};
 (function(){
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function base(){return location.pathname+location.search}
@@ -703,12 +723,13 @@ function mos(list){ var L=list.slice(0,5); if(!L.length) return '';
 function galHTML(k){
   var g=CKG[k], n=0, all=[g.m];
   g.s.forEach(function(se){ se[1].forEach(function(p){ if(all.indexOf(p)<0) all.push(p); }); n+=se[1].length; });
-  var used=all.slice(0,5), h=mos(used);
+  var used=all.slice(0,5), h=(g.x1||'')+mos(used)+(g.x2||'');
   g.s.forEach(function(se,i){ var rest=se[1].filter(function(p){return used.indexOf(p)<0});
     if(!rest.length) return;
-    h+='<div class="cm-sec">'+(g.s.length>1||se[0]?'<h4><i>'+(i<9?'0':'')+(i+1)+'</i><b>'+esc(se[0])+'</b></h4>':'')+
+    var no=i+1+(g.off||0);
+    h+='<div class="cm-sec">'+(g.s.length>1||se[0]?'<h4><i>'+(no<10?'0':'')+no+'</i><b>'+esc(se[0])+'</b></h4>':'')+
        '<div class="cm-gr">'+rest.map(function(p){return '<figure><img src="'+p+'" alt="" loading="lazy"></figure>'}).join('')+'</div></div>'; });
-  var chips='<span class="v">★ 실제 수업 기록</span>'+(g.s.length>1?'<span class="o">'+g.s.length+'회차</span>':'')+'<span>사진 '+n+'장</span>';
+  var chips=g.ch||('<span class="v">★ 실제 수업 기록</span>'+(g.s.length>1?'<span class="o">'+g.s.length+'회차</span>':'')+'<span>사진 '+n+'장</span>');
   var oth=Object.keys(CKG).filter(function(x){return x!==k && CKG[x].nav}).map(function(x){
     return '<button data-k="'+x+'">'+esc(CKG[x].t)+' →<small>'+esc(CKG[x].w2||'')+'</small></button>'}).join('');
   return '<button class="cm-x" aria-label="닫기">×</button>'+
@@ -727,9 +748,15 @@ function monHTML(m){
   var mons=''; for(var i=1;i<=12;i++) mons+='<button data-m="'+i+'"'+(i===m?' class="on"':'')+'>'+i+'월</button>';
   return '<button class="cm-x" aria-label="닫기">×</button>'+
     '<div class="cm-top noimg"><div><div class="cm-e">2023 · '+m+'월 · '+esc(d.s)+'</div><h3>'+esc(d.pl)+'</h3><div class="cm-sub">'+esc(d.p)+'</div>'+
-    '<div class="cm-chips">'+(d.b?'<span class="o">× '+esc(d.b)+'</span>':'<span>자체 기획</span>')+'<span>선생님 '+d.tn+'명</span><span>메뉴 '+d.mn.length+'가지+</span></div></div></div>'+
+    '<div class="cm-chips">'+(d.b?'<span class="o">× '+esc(d.b)+'</span>':'<span>자체 기획</span>')+'<span>열린 수업 '+d.st[0]+'회</span><span>수강생 '+d.st[1]+'명</span><span>선생님 '+d.st[2]+'명</span></div></div></div>'+
     mos(d.ph)+
-    '<div class="cm-sec"><div class="cm-rows">'+
+    '<div class="cm-sec"><h4><i>01</i><b>그달 한눈에</b><small>정산 기준 · 실제로 열린 수업</small></h4><div class="cm-st">'+
+    '<div><em>'+d.st[0]+'<small>회</small></em><span>열린 수업</span></div><div><em>'+d.st[1]+'<small>명</small></em><span>수강생</span></div>'+
+    '<div><em>'+d.st[2]+'<small>명</small></em><span>가르친 선생님</span></div><div><em>'+(d.st[0]?(d.st[1]/d.st[0]).toFixed(1):0)+'<small>명</small></em><span>수업당 평균</span></div></div></div>'+
+    '<div class="cm-sec"><h4><i>02</i><b>가장 많이 모인 수업</b></h4><table class="cm-tb cm-tb2"><thead><tr><th>날짜</th><th>수업</th><th>선생님</th><th>인원</th></tr></thead><tbody>'+
+    d.top.map(function(r){return '<tr><td>'+esc(r[0])+'</td><td>'+esc(r[1])+(r[4]?'<i>'+esc(r[4])+'</i>':'')+'</td><td>'+esc(r[2])+'</td><td>'+esc(r[3])+'</td></tr>'}).join('')+
+    '</tbody></table></div>'+
+    '<div class="cm-sec"><h4><i>03</i><b>그달 기록</b></h4><div class="cm-rows">'+
     '<div><dt>브랜드 콜라보</dt><dd>'+br+'</dd></div>'+
     '<div><dt>선생님</dt><dd>'+esc(d.te)+'</dd></div>'+
     '<div><dt>그달 열린 수업</dt><dd><ul class="cm-mn">'+d.mn.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></dd></div></div></div>'+
