@@ -340,7 +340,7 @@ img[data-full]{cursor:zoom-in}
 /* 현장 */
 .fds{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:8px;margin-top:40px;grid-template-areas:'a a b c' 'a a d e' 'f g h h' 'i j h h'}
 .fd{border:0;padding:0;background:none;overflow:hidden;border-radius:12px}
-.fd.za{grid-area:a}.fd.zb{grid-area:b}.fd.zb img{object-position:50% 15%}.fd.zc{grid-area:c}.fd.zd{grid-area:d}.fd.ze{grid-area:e}.fd.zf{grid-area:f}.fd.zg{grid-area:g}.fd.zh{grid-area:h}.fd.zi{grid-area:i}.fd.zj{grid-area:j}
+.fd.za{grid-area:a}.fd.zb{grid-area:b}.fd.zb img{object-position:50% 30%}.fd.ze img{object-position:50% 20%}.fd.zc{grid-area:c}.fd.zd{grid-area:d}.fd.ze{grid-area:e}.fd.zf{grid-area:f}.fd.zg{grid-area:g}.fd.zh{grid-area:h}.fd.zi{grid-area:i}.fd.zj{grid-area:j}
 .fd img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}.fd:hover img{transform:scale(1.03)}
 .ck-end{display:block;margin:0 auto 110px;max-width:1240px;padding:0 24px}
 .ck-end a{display:flex;justify-content:space-between;align-items:center;background:var(--dk);color:#fff;border-radius:22px;padding:30px 32px;font-size:18px;font-weight:700}
@@ -447,6 +447,28 @@ body.ck-lock{overflow:hidden}
 .wc li b{font-size:13px;font-weight:700;line-height:1.35;word-break:keep-all}.wc li span{font-size:11.5px;color:var(--tx2)}
 .wc u{text-decoration:none;font-size:10.5px;font-weight:700;border-radius:4px;padding:0 5px;margin-left:5px}.wc u.k{background:#FFB59C;color:var(--dk)}.wc u.c{background:var(--or);color:#fff}.wc u.p{background:var(--dk);color:#fff}
 .note{font-size:13px;color:var(--tx3);margin-top:12px}
+.ytab{display:inline-flex;background:var(--bg);border-radius:22px;padding:3px;gap:2px;margin-left:6px;align-self:center}
+.ytab button{all:unset;cursor:pointer;font-family:var(--mono);font-size:14px;font-weight:700;color:var(--tx2);padding:6px 16px;border-radius:18px;transition:background .2s,color .2s}
+.ytab button.on{background:var(--dk);color:#fff}.ytab button:not(.on):hover{color:var(--dk)}
+.yg[hidden]{display:none}
+.ym-end{cursor:default}.ym-end .ym-i{background:var(--dk)}.ym-end .ym-i::after{display:none}
+.ye{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 16px;color:#fff;gap:3px}
+.ye span{font-size:12px;color:rgba(255,255,255,.7)}.ye .ye-d{font-family:var(--mono);font-size:13px;color:#FF9A73;font-weight:700}.ye .ye-t{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.02em}
+.wkb{background:#fff;border:1px solid #E5E5EA;border-radius:24px;padding:30px 30px 24px;margin-top:56px}
+.wkb .sub{margin-top:0}
+.wkb-h{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.wkb-h>div:first-child{max-width:620px}
+.wkb-p{font-size:15px;color:var(--tx2);line-height:1.65;margin-top:8px;word-break:keep-all}
+.wkb-n{display:flex;gap:26px}.wkb-n div{display:flex;flex-direction:column}
+.wkb-n em{font-style:normal;font-family:var(--mono);font-size:30px;font-weight:700;letter-spacing:-.03em;line-height:1}.wkb-n em small{font-family:var(--sans);font-size:14px;margin-left:2px}
+.wkb-n .o em{color:var(--or)}.wkb-n span{font-size:12.5px;color:var(--tx3);margin-top:6px}
+.wk2{display:grid;grid-template-columns:5fr 2fr;gap:14px;margin-top:22px}
+.wg-h{display:flex;align-items:baseline;gap:8px;padding:0 2px 8px;border-bottom:2px solid var(--dk)}.wg-h b{font-size:15px;font-weight:800}.wg-h span{font-size:12.5px;color:var(--tx3)}
+.wg.we .wg-h{border-color:var(--or)}.wg.we .wg-h b{color:var(--or)}
+.wk.wk5{grid-template-columns:repeat(5,1fr)}.wk.wk2c{grid-template-columns:repeat(2,1fr)}
+.wc.we{background:#FFF1EA}
+.wh i{margin-left:auto;font-style:normal;font-size:11px;font-weight:700;color:var(--tx3)}.wc.we .wh i{color:var(--or)}
+.wc.we .wh{border-color:#FFD2C0}
 .sy2{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-top:28px;border:1.5px solid var(--dk);border-radius:18px;padding:24px 26px}
 .sy2-e b{font-size:15px;font-weight:800;margin-right:10px;color:var(--or)}.sy2-e span{font-family:var(--mono);font-size:12.5px;color:var(--tx3);word-break:keep-all}
 .sy2 h4{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1.3;margin:8px 0 18px}
@@ -475,14 +497,14 @@ body.ck-lock{overflow:hidden}
 /* 브랜드 목록 */
 .bcs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
 .bc{all:unset;cursor:pointer;position:relative;display:block;border-radius:18px;overflow:hidden;aspect-ratio:4/3;background:#111}
-.bc:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
 .bc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}.bc:hover img{transform:scale(1.04)}
 .bc::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,.72))}
 .bc-t{position:absolute;left:18px;right:18px;bottom:16px;z-index:1;color:#fff;display:flex;flex-direction:column;gap:2px}
 .bc-t em{font-style:normal;font-family:var(--mono);font-size:12px;font-weight:700;color:#FF9A73}
-.bc-t b{font-size:20px;font-weight:800;letter-spacing:-.02em}.bc:first-child .bc-t b{font-size:30px}
+.bc-t b{font-size:20px;font-weight:800;letter-spacing:-.02em}
 .bc-t span{font-size:13px;color:rgba(255,255,255,.85);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bc-n{position:absolute;right:12px;top:12px;z-index:1;font-style:normal;font-size:11.5px;font-weight:700;color:#fff;background:rgba(0,0,0,.5);border-radius:10px;padding:3px 9px}
+.bc-n{position:absolute;right:12px;top:12px;z-index:1;font-style:normal;font-size:12px;font-weight:700;color:#fff;background:rgba(0,0,0,.55);border-radius:20px;padding:5px 11px;display:flex;align-items:center;gap:5px;transition:background .2s}.bc-n b{font-size:15px;line-height:1}.bc:hover .bc-n{background:var(--or)}
+.bgl{margin-top:30px;border-top:1px solid rgba(0,0,0,.12)}.bgl-r{display:grid;grid-template-columns:130px 1fr;gap:16px;align-items:baseline;padding:13px 0;border-bottom:1px solid rgba(0,0,0,.08)}.bgl-r>b{font-size:13px;font-weight:700;color:var(--tx2)}.bgl-r>div{display:flex;flex-wrap:wrap;gap:6px 8px}.bgl-r span,.bgl-o{all:unset;font-size:15.5px;font-weight:600;color:var(--dk);padding:5px 12px;border-radius:20px;background:#fff;border:1px solid rgba(0,0,0,.1)}.bgl-r span{background:transparent;border-color:transparent;color:var(--tx2);font-weight:500;padding:5px 4px}.bgl-o{cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:border-color .2s,color .2s}.bgl-o i{font-style:normal;color:var(--or);font-weight:800}.bgl-o:hover{border-color:var(--or);color:var(--or)}.bgl-k{color:var(--or);font-weight:800}
 .tnm{margin-top:20px;font-size:14px;color:var(--tx2);line-height:1.8;word-break:keep-all}.tnm b{color:var(--dk);margin-right:10px}
 .brest{margin-top:18px;font-size:14px;color:var(--tx2)}.brest b{color:var(--dk);margin-right:10px}
 .nw{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:36px}
@@ -541,12 +563,12 @@ body.ck-lock{overflow:hidden}
  .opcs{gap:8px}.opc-t{padding:40px 12px 12px}.opc-t em{font-size:22px}.opc-t b{font-size:15px}.opc-t span{font-size:12px}
  .sp-tl{grid-template-columns:1fr;font-size:12px}.sp-tl div{border-right:0;border-bottom:2px solid #fff}
  .sp-nm{gap:18px 26px}.sp-nm b{font-size:30px}.sp-nm>div{min-width:40%}
- .wk{grid-template-columns:1fr 1fr;gap:6px}
+ .wk{grid-template-columns:1fr 1fr;gap:6px}.wk2{grid-template-columns:1fr;gap:22px}.wk.wk5,.wk.wk2c{grid-template-columns:1fr 1fr}.wkb{padding:22px 16px 18px;border-radius:18px;margin-top:40px}.wkb-n{gap:18px}.wkb-n em{font-size:24px}.ytab button{padding:5px 12px;font-size:13px}
  .yg{grid-template-columns:1fr 1fr;gap:22px 10px}.ym-i b{font-size:17px}.ym strong{font-size:14px}.ym-i em{font-size:11.5px;padding:4px 7px;left:8px;bottom:8px}
  .sy2{flex-direction:column;align-items:flex-start;padding:18px 16px}.sy2-e span{display:block;margin-top:2px}.sy2 h4{font-size:19px;margin:6px 0 14px}.sy2-n{gap:14px 22px}.sy2-n>div{min-width:40%}.sy2-n em{font-size:21px}
  .cm-st{grid-template-columns:1fr 1fr}.cm-st em{font-size:23px}.cm-tb{font-size:13px}.cm-tb2 td:first-child{font-size:11px;white-space:normal;width:22%}.cm-tb2 td:nth-child(3){white-space:normal}.cm-tb th,.cm-tb td{padding:10px 6px}.cm-tb td:first-child{font-size:12.5px;width:34%}.cm-lead{padding:18px}.cm-lead b{font-size:17px}
  .nw span{font-size:14px;padding:6px 11px}
- .bcs{grid-template-columns:1fr 1fr;gap:8px}.bc:first-child{grid-column:span 2;grid-row:auto;aspect-ratio:4/3}.bc-t{left:12px;right:10px;bottom:10px}.bc-t b{font-size:15px}.bc:first-child .bc-t b{font-size:22px}.bc-t span{font-size:11.5px}
+ .bcs{grid-template-columns:1fr 1fr;gap:8px}.bc:last-child{grid-column:span 2;aspect-ratio:16/9}.bc-t{left:12px;right:10px;bottom:10px}.bc-t b{font-size:15px}.bc-t span{font-size:11.5px}.bc-n{font-size:0;padding:5px 8px;right:8px;top:8px}.bc-n b{font-size:14px}.bgl-r{grid-template-columns:1fr;gap:8px;padding:12px 0}.bgl-r span,.bgl-o{font-size:14px;padding:4px 10px}
  .bl-h{display:none}.bl-r{grid-template-columns:64px minmax(0,1fr);gap:3px 12px;padding:12px 4px}.bl-i{width:64px;height:64px;grid-row:span 4}
  .bl-w,.bl-n,.bl-t,.bl-p,.bl-g{grid-column:2}.bl-g{text-align:left}.bl-t{font-size:13px}.bl-g:empty,.bl-p:empty{display:none}
  #ckm{padding:0}.ckm-w{border-radius:0;height:100%}.ckm-h{padding:10px 12px}.ckm-h b{font-size:16px}.ckm-h button{padding:6px 9px;font-size:12px}
@@ -652,7 +674,6 @@ body.cm-lock{overflow:hidden}
   </div>
   <a class="demo" href="ir-about.html#contact">연락하기</a>
 </nav>
-<nav class="l"><div class="in"><span class="t">갤러리아 광교</span><div class="tabs"><a href="ir-cases.html#c-galleria">← 협업 사례</a></div></div></nav>
 <section class="sp-top"><div class="wrap-w">
 <div class="sp-crumb"><a href="ir-cases.html#c-galleria">협업 사례</a><i>›</i>01 공간 운영 · 갤러리아 광교</div>
 <h1>갤러리아 광교 문화센터의 쿠킹 클래스를,<br><em>2년 넘게 맡았습니다.</em></h1><p class="sp-lead">2024.03 – 2026.07 · 원데이로 시작해 제철 식재료 정규 과정까지. 선생님 배정과 현장 운영을 함께.</p>
@@ -679,7 +700,7 @@ body.cm-lock{overflow:hidden}
 <button onclick="ckGal('get')"><img src="ir-images/galleria/gl-et-017.jpg" alt="에그타르트 클래스" loading="lazy"><span><b>에그타르트</b>2024.03.23 · 박은정 · 사진 5장</span></button></div>
 </div></section>
 <section class="ck-sec" id="teachers"><div class="wrap-w">
-<div class="ck-eye">선생님 · 메뉴</div><h2 class="ck-h">9명의 선생님이<br>번갈아 가르쳤습니다.</h2><p class="ck-p">한식 가정식 · 김치 · 베이킹 · 키즈 · 세계요리. 강좌 제안서에 올린 메뉴 사진입니다.</p>
+<div class="ck-eye">선생님 · 메뉴</div><h2 class="ck-h">분야별 요리 전문가 9명이<br>직접 강좌를 맡았습니다.</h2><p class="ck-p">한식 가정식 · 김치 · 베이킹 · 키즈 · 세계요리. 강좌 제안서에 올린 메뉴 사진입니다.</p>
 <div class="chips2"><em>임수진</em><em>박소진</em><em>박지수</em><em>김희경</em><em>이민영</em><em>이예린</em><em>최진</em><em>박은정</em><em>이상은</em></div>
 <div class="gds"><img src="ir-images/galleria/gl-2404-004.jpg" data-full="ir-images/galleria/gl-2404-004.jpg" data-g="gfield" alt="갤러리아 광교 클래스 메뉴" loading="lazy"><img src="ir-images/galleria/gl-2404-014.jpg" data-full="ir-images/galleria/gl-2404-014.jpg" data-g="gfield" alt="갤러리아 광교 클래스 메뉴" loading="lazy"><img src="ir-images/galleria/gl-2404-019.jpg" data-full="ir-images/galleria/gl-2404-019.jpg" data-g="gfield" alt="갤러리아 광교 클래스 메뉴" loading="lazy"><img src="ir-images/galleria/gl-2405-005.jpg" data-full="ir-images/galleria/gl-2405-005.jpg" data-g="gfield" alt="갤러리아 광교 클래스 메뉴" loading="lazy"><img src="ir-images/galleria/gl-2406-003.jpg" data-full="ir-images/galleria/gl-2406-003.jpg" data-g="gfield" alt="갤러리아 광교 클래스 메뉴" loading="lazy"><img src="ir-images/galleria/gl-2406-005.jpg" data-full="ir-images/galleria/gl-2406-005.jpg" data-g="gfield" alt="갤러리아 광교 클래스 메뉴" loading="lazy"><img src="ir-images/galleria/gl-2408-003.jpg" data-full="ir-images/galleria/gl-2408-003.jpg" data-g="gfield" alt="갤러리아 광교 클래스 메뉴" loading="lazy"><img src="ir-images/galleria/gl-2408-007.jpg" data-full="ir-images/galleria/gl-2408-007.jpg" data-g="gfield" alt="갤러리아 광교 클래스 메뉴" loading="lazy"><img src="ir-images/galleria/gl-2408-011.jpg" data-full="ir-images/galleria/gl-2408-011.jpg" data-g="gfield" alt="갤러리아 광교 클래스 메뉴" loading="lazy"><img src="ir-images/galleria/gl-2511-001.jpg" data-full="ir-images/galleria/gl-2511-001.jpg" data-g="gfield" alt="갤러리아 광교 클래스 메뉴" loading="lazy"><img src="ir-images/galleria/gl-2511-002.jpg" data-full="ir-images/galleria/gl-2511-002.jpg" data-g="gfield" alt="갤러리아 광교 클래스 메뉴" loading="lazy"><img src="ir-images/galleria/gl-2511-005.jpg" data-full="ir-images/galleria/gl-2511-005.jpg" data-g="gfield" alt="갤러리아 광교 클래스 메뉴" loading="lazy"><img src="ir-images/galleria/gl-sc-029.jpg" data-full="ir-images/galleria/gl-sc-029.jpg" data-g="gfield" alt="갤러리아 광교 클래스 메뉴" loading="lazy"><img src="ir-images/galleria/gl-et-015.jpg" data-full="ir-images/galleria/gl-et-015.jpg" data-g="gfield" alt="갤러리아 광교 클래스 메뉴" loading="lazy"></div>
 <a class="ck-lk" href="ir-experts.html">선생님 소개는 전문가 페이지에서 →</a>
@@ -707,7 +728,7 @@ body.cm-lock{overflow:hidden}
 </script>
 
 <script>/*SPJS*/
-var CKG={"gsc": {"t": "북해도식 스프카레 × 농심", "e": "BRAND COLLAB · 2024.03.16", "d": "농심 카레 제품으로 만든 최진 선생님의 스프카레. 갤러리아 광교에서 연 첫 수업입니다.", "w": "", "c": "", "m": "ir-images/galleria/gl-sc-010.jpg", "s": [["농심 제품 세팅", ["ir-images/galleria/gl-sc-000.jpg", "ir-images/galleria/gl-sc-025.jpg", "ir-images/galleria/gl-sc-022.jpg", "ir-images/galleria/gl-sc-029.jpg", "ir-images/galleria/gl-sc-023.jpg"]]], "nav": 1, "w2": "2024.03.16 · 최진", "ol": "같은 달 수업", "off": 2, "ch": "<span class=\"v\">★ 실제 수업 기록</span><span class=\"o\">갤러리아 첫 수업</span><span>2024.03.16 (토)</span><span>선생님 최진</span>", "x2": "<div class=\"cm-sec\"><h4><i>01</i><b>어떻게 함께했나</b></h4><div class=\"cm-steps\"><div><em>갤러리아 광교</em><b>문화센터 쿠킹실 · 회원 모집</b><span>백화점 문화센터 회원에게 강좌를 열었습니다.</span></div><div><em>공공의주방</em><b>농심 카레로 만든 스프카레</b><span>클래스콕에서 해 본 농심 콜라보 메뉴를 최진 선생님이 갤러리아 첫 수업으로 가져왔습니다.</span></div><div><em>결과</em><b>첫 수업에서 2년의 과정으로</b><span>원데이로 문을 열고, 2025년에는 11회차 정규 과정까지 이어졌습니다.</span></div></div></div><div class=\"cm-sec\"><h4><i>02</i><b>첫 수업 이후</b><small>정산 기준 · 실제로 열린 수업</small></h4><div class=\"cm-rows\"><div><dt>2024.03.16</dt><dd>첫 수업 — 북해도식 스프카레 × 농심 · 최진</dd></div><div><dt>2024.03.23</dt><dd>에그타르트 원데이 · 박은정</dd></div><div><dt>2024.04</dt><dd>김희경 선생님 한식 가정식 원데이 시작 (4월 3회)</dd></div><div><dt>2024.08 – 11</dt><dd>임수진 김치 · 박소진 후토마키 · 어복쟁반으로 넓힘</dd></div><div><dt>2025.03</dt><dd>정규 과정 시작 — 박소진 · 임수진, 학기마다 9 – 11회차</dd></div><div><dt>2024.03 – 2025.11</dt><dd>열린 수업 84회 · 선생님 9명</dd></div></div></div>"}, "get": {"t": "에그타르트", "e": "ONE-DAY · 2024.03.23", "d": "첫 수업 다음 주, 박은정 선생님의 에그타르트 원데이 클래스.", "w": "", "c": "", "m": "ir-images/galleria/gl-et-017.jpg", "s": [["", ["ir-images/galleria/gl-et-003.jpg", "ir-images/galleria/gl-et-015.jpg", "ir-images/galleria/gl-et-021.jpg", "ir-images/galleria/gl-et-007.jpg"]]], "nav": 1, "w2": "2024.03.23 · 박은정", "ol": "같은 달 수업", "off": 2, "ch": "<span class=\"v\">★ 실제 수업 기록</span><span class=\"o\">원데이</span><span>2024.03.23 (토)</span><span>선생님 박은정</span>", "x2": "<div class=\"cm-sec\"><h4><i>01</i><b>어떻게 함께했나</b></h4><div class=\"cm-steps\"><div><em>갤러리아 광교</em><b>주말 원데이 강좌</b><span>첫 달, 백화점 회원을 위한 주말 원데이를 이어 열었습니다.</span></div><div><em>공공의주방</em><b>베이킹 선생님 배정</b><span>첫 주 한식(스프카레) 다음, 둘째 주는 베이킹으로 — 강좌 종류를 나눠 짰습니다.</span></div><div><em>결과</em><b>한식 · 베이킹 · 김치 · 키즈</b><span>2024년 원데이 24회, 선생님 8명이 번갈아 맡았습니다.</span></div></div></div><div class=\"cm-sec\"><h4><i>02</i><b>2024년 원데이 라인업</b><small>정산 기준 · 실제로 열린 수업</small></h4><div class=\"cm-rows\"><div><dt>한식 가정식</dt><dd>김희경 — 해물김치솥밥 · 소고기양념구이 · 연어수란 · 팟타이 &amp; 똠양꿍 등 8회</dd></div><div><dt>베이킹</dt><dd>박은정 에그타르트 · 일호실 바나나푸딩 · 크랜베리 스콘 · 부쉬드 노엘 · 박지수 곰돌이 파이 · 크리스마스 도넛</dd></div><div><dt>김치</dt><dd>임수진 — 열무김치 · 깍두기 · 새우장 · 백김치</dd></div><div><dt>세계 · 특별 요리</dt><dd>박소진 후토마키 · 평양식 어복쟁반 · 스테이크솥밥 / 이상은 아롱사태 수육</dd></div></div></div>"}}, CKM={};
+var CKG={"gsc": {"t": "북해도식 스프카레 × 농심", "e": "BRAND COLLAB · 2024.03.16", "d": "농심 카레 제품으로 만든 최진 선생님의 스프카레. 갤러리아 광교에서 연 첫 수업입니다.", "w": "", "c": "", "m": "ir-images/galleria/gl-sc-010.jpg", "s": [["농심 제품 세팅", ["ir-images/galleria/gl-sc-000.jpg", "ir-images/galleria/gl-sc-025.jpg", "ir-images/galleria/gl-sc-022.jpg", "ir-images/galleria/gl-sc-029.jpg", "ir-images/galleria/gl-sc-023.jpg"]]], "nav": 1, "w2": "2024.03.16 · 최진", "ol": "같은 달 수업", "off": 2, "ch": "<span class=\"v\">★ 실제 수업 기록</span><span class=\"o\">갤러리아 첫 수업</span><span>2024.03.16 (토)</span><span>선생님 최진</span>", "x2": "<div class=\"cm-sec\"><h4><i>01</i><b>어떻게 함께했나</b></h4><div class=\"cm-steps\"><div><em>갤러리아 광교</em><b>문화센터 쿠킹실 · 회원 모집</b><span>백화점 문화센터 회원에게 강좌를 열었습니다.</span></div><div><em>공공의주방</em><b>농심 카레로 만든 스프카레</b><span>클래스콕에서 해 본 농심 콜라보 메뉴를 최진 선생님이 갤러리아 첫 수업으로 가져왔습니다.</span></div><div><em>결과</em><b>첫 수업에서 2년의 과정으로</b><span>원데이로 문을 열고, 2025년에는 11회차 정규 과정까지 이어졌습니다.</span></div></div></div><div class=\"cm-sec\"><h4><i>02</i><b>첫 수업 이후</b><small>정산 기준 · 실제로 열린 수업</small></h4><div class=\"cm-rows\"><div><dt>2024.03.16</dt><dd>첫 수업 — 북해도식 스프카레 × 농심 · 최진</dd></div><div><dt>2024.03.23</dt><dd>에그타르트 원데이 · 박은정</dd></div><div><dt>2024.04</dt><dd>김희경 선생님 한식 가정식 원데이 시작 (4월 3회)</dd></div><div><dt>2024.08 – 11</dt><dd>임수진 김치 · 박소진 후토마키 · 어복쟁반으로 넓힘</dd></div><div><dt>2025.03</dt><dd>정규 과정 시작 — 박소진 · 임수진, 학기마다 9 – 11회차</dd></div><div><dt>2024.03 – 2025.11</dt><dd>열린 수업 84회 · 선생님 9명</dd></div></div></div>"}, "get": {"t": "에그타르트", "e": "ONE-DAY · 2024.03.23", "d": "첫 수업 다음 주, 박은정 선생님의 에그타르트 원데이 클래스.", "w": "", "c": "", "m": "ir-images/galleria/gl-et-017.jpg", "s": [["", ["ir-images/galleria/gl-et-003.jpg", "ir-images/galleria/gl-et-015.jpg", "ir-images/galleria/gl-et-021.jpg", "ir-images/galleria/gl-et-007.jpg"]]], "nav": 1, "w2": "2024.03.23 · 박은정", "ol": "같은 달 수업", "off": 2, "ch": "<span class=\"v\">★ 실제 수업 기록</span><span class=\"o\">원데이</span><span>2024.03.23 (토)</span><span>선생님 박은정</span>", "x2": "<div class=\"cm-sec\"><h4><i>01</i><b>어떻게 함께했나</b></h4><div class=\"cm-steps\"><div><em>갤러리아 광교</em><b>주말 원데이 강좌</b><span>첫 달, 백화점 회원을 위한 주말 원데이를 이어 열었습니다.</span></div><div><em>공공의주방</em><b>베이킹 선생님 배정</b><span>첫 주 한식(스프카레) 다음, 둘째 주는 베이킹으로 — 강좌 종류를 나눠 짰습니다.</span></div><div><em>결과</em><b>한식 · 베이킹 · 김치 · 키즈</b><span>2024년 원데이 24회, 분야별 전문가 8명이 맡았습니다.</span></div></div></div><div class=\"cm-sec\"><h4><i>02</i><b>2024년 원데이 라인업</b><small>정산 기준 · 실제로 열린 수업</small></h4><div class=\"cm-rows\"><div><dt>한식 가정식</dt><dd>김희경 — 해물김치솥밥 · 소고기양념구이 · 연어수란 · 팟타이 &amp; 똠양꿍 등 8회</dd></div><div><dt>베이킹</dt><dd>박은정 에그타르트 · 일호실 바나나푸딩 · 크랜베리 스콘 · 부쉬드 노엘 · 박지수 곰돌이 파이 · 크리스마스 도넛</dd></div><div><dt>김치</dt><dd>임수진 — 열무김치 · 깍두기 · 새우장 · 백김치</dd></div><div><dt>세계 · 특별 요리</dt><dd>박소진 후토마키 · 평양식 어복쟁반 · 스테이크솥밥 / 이상은 아롱사태 수육</dd></div></div></div>"}}, CKM={};
 (function(){
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function base(){return location.pathname+location.search}
@@ -727,7 +748,7 @@ function mos(list){ var L=list.slice(0,5); if(!L.length) return '';
 function galHTML(k){
   var g=CKG[k], n=0, all=[g.m];
   g.s.forEach(function(se){ se[1].forEach(function(p){ if(all.indexOf(p)<0) all.push(p); }); n+=se[1].length; });
-  var used=all.slice(0,5), h=(g.x1||'')+mos(used)+(g.x2||'');
+  var used=g.mo||all.slice(0,5), h=(g.x1||'')+mos(used)+(g.x2||'');
   g.s.forEach(function(se,i){ var rest=se[1].filter(function(p){return used.indexOf(p)<0});
     if(!rest.length) return;
     var no=i+1+(g.off||0);
@@ -751,7 +772,7 @@ function monHTML(m){
   var br=d.b?'<span class="br">'+esc(d.b)+'</span>'+esc(d.bd)+'':'<span class="nb">자체 기획</span>';
   var mons=''; for(var i=1;i<=12;i++) mons+='<button data-m="'+i+'"'+(i===m?' class="on"':'')+'>'+i+'월</button>';
   return '<button class="cm-x" aria-label="닫기">×</button>'+
-    '<div class="cm-top noimg"><div><div class="cm-e">2023 · '+m+'월 · '+esc(d.s)+'</div><h3>'+esc(d.pl)+'</h3><div class="cm-sub">'+esc(d.p)+'</div>'+
+    '<div class="cm-top noimg"><div><div class="cm-e">'+d.y+' · '+d.mm+'월 · '+esc(d.s)+'</div><h3>'+esc(d.pl)+'</h3><div class="cm-sub">'+esc(d.p)+'</div>'+
     '<div class="cm-chips">'+(d.b?'<span class="o">× '+esc(d.b)+'</span>':'<span>자체 기획</span>')+'<span>열린 수업 '+d.st[0]+'회</span><span>수강생 '+d.st[1]+'명</span><span>선생님 '+d.st[2]+'명</span></div></div></div>'+
     mos(d.ph)+
     '<div class="cm-sec"><h4><i>01</i><b>그달 한눈에</b><small>정산 기준 · 실제로 열린 수업</small></h4><div class="cm-st">'+
@@ -769,8 +790,11 @@ function monHTML(m){
 window.ckM=function(m){ m=+m; if(!CKM[m]) return; show('ckm',monHTML(m)); open='m:'+m; mark('m'+m);
   document.querySelectorAll('#ckm .cm-oth button').forEach(function(b){b.onclick=function(){ckM(b.dataset.m)}});
   document.querySelectorAll('#ckm [data-g]').forEach(function(a){ if(a.tagName==='A') a.onclick=function(){ckGal(a.dataset.g)} }); };
-window.ckMGo=function(d){ if(open&&open[0]==='m'){ var n=+open.slice(2)+d; if(n>=1&&n<=12) ckM(n); } };
+window.ckMGo=function(d){ if(open&&open[0]==='m'){ var n=+open.slice(2)+d; if(CKM[n]) ckM(n); } };
 window.ckMClose=closeAll;
+document.querySelectorAll('.ytab button').forEach(function(b){b.onclick=function(){var y=b.dataset.y;
+  document.querySelectorAll('.ytab button').forEach(function(x){x.classList.toggle('on',x===b)});
+  document.querySelectorAll('.yg[data-y]').forEach(function(g){g.hidden=g.dataset.y!==y})}});
 ['ckg','ckm'].forEach(function(x){var o=document.getElementById(x); if(o) o.addEventListener('click',function(e){ if(e.target===o) closeAll(); })});
 window.addEventListener('popstate',function(){ var h=location.hash.slice(1);
   if(open && !h){ pushed=false; hideAll(); }
