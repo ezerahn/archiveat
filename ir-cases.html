@@ -517,7 +517,7 @@ body.cs-lock{overflow:hidden}
 #m-catering .ct-brand figcaption b{display:block;font-size:15px;font-weight:800}#m-catering .ct-brand figcaption span{font-size:13px;color:var(--tx2);font-weight:400}
 #m-catering .ct-sub{font-size:13px;font-weight:700;color:var(--or);margin:0 0 8px}#m-catering .ct-ca{grid-template-columns:repeat(4,1fr);margin-bottom:12px}#m-catering .ct-ca img{aspect-ratio:4/5}#m-catering .ct-ca img[src$='if-galbi.jpg']{object-position:50% 85%}#m-catering .ct-ca img[src$='hk-table.jpg']{object-position:45% 50%}#m-catering .ct-ca img[src$='dk-hygge.jpg']{object-position:62% 50%}#m-catering .ct-ca img[src$='dk-hand.jpg']{object-position:60% 50%}#m-catering .ct-ca img[src$='dk-cup.jpg']{object-position:50% 50%}
 #m-catering .ct-att{grid-template-columns:1fr 1fr}#m-catering .ct-att img{aspect-ratio:3/2}#m-catering .ct-att figure:nth-child(2) img{object-position:50% 80%}
-#m-catering .ct-pts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}#m-catering .ct-pts>div{background:var(--dk);color:#fff;border-radius:14px;padding:16px 18px}#m-catering .ct-pts em{font-style:normal;font-family:var(--mono);font-size:12px;font-weight:700;color:#FF9A73}#m-catering .ct-pts b{display:block;font-size:17px;margin:4px 0}#m-catering .ct-pts p{font-size:13px;color:rgba(255,255,255,.8);margin:0;line-height:1.5}
+.ct-pts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.ct-pts>div{background:var(--dk);color:#fff;border-radius:14px;padding:16px 18px}.ct-pts em{font-style:normal;font-family:var(--mono);font-size:12px;font-weight:700;color:#FF9A73}.ct-pts b{display:block;font-size:17px;margin:4px 0}.ct-pts p{font-size:13px;color:rgba(255,255,255,.8);margin:0;line-height:1.5}
 #m-catering .ct-pro img{aspect-ratio:4/5}#m-catering .ct-pro img[src$='pro-pick.jpg']{object-position:40% 50%}#m-catering .ct-pro img[src$='pro-pack.jpg']{object-position:62% 50%}#m-catering .ct-pro img[src$='pro-board.jpg']{object-position:50% 70%}
 #m-catering .ct-dk{grid-template-columns:1fr 1fr;margin-bottom:12px}#m-catering .ct-dk img{aspect-ratio:3/2}
 #m-catering .ct-theme{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
@@ -539,12 +539,18 @@ body.cs-lock{overflow:hidden}
  .ct-mo{height:300px;grid-template-columns:1.4fr 1fr}
  .ct-num b{font-size:22px}.ct-num>div+div{padding-left:10px}
  .ct-flow{grid-template-columns:1fr 1fr;gap:8px}.ct-flow>div{padding:14px}.ct-flow>div+div::before{display:none}.ct-flow b{font-size:14.5px}
- #m-catering .ct-brand{grid-template-columns:1fr 1fr;gap:8px}#m-catering .ct-nf{grid-template-columns:1fr 1fr;gap:6px}#m-catering .ct-ca{grid-template-columns:1fr 1fr;gap:6px}#m-catering .ct-db{grid-template-columns:1fr 1fr;gap:6px}#m-catering .ct-pts{grid-template-columns:1fr;gap:8px}#m-catering .ct-pts>div{padding:14px}#m-catering .ct-pro{grid-template-columns:1fr 1fr;gap:6px}#m-catering .ct-dk{gap:6px}#m-catering .ct-nf figure:first-child{grid-row:auto;grid-column:1/-1}#m-catering .ct-nf figure:first-child img{aspect-ratio:4/5;flex:none}#m-catering .ct-brand figcaption span{display:none}#m-catering .ct-brand figcaption b{font-size:13px}
+ #m-catering .ct-brand{grid-template-columns:1fr 1fr;gap:8px}#m-catering .ct-nf{grid-template-columns:1fr 1fr;gap:6px}#m-catering .ct-ca{grid-template-columns:1fr 1fr;gap:6px}#m-catering .ct-db{grid-template-columns:1fr 1fr;gap:6px}.ct-pts{grid-template-columns:1fr;gap:8px}.ct-pts>div{padding:14px}#m-catering .ct-pro{grid-template-columns:1fr 1fr;gap:6px}#m-catering .ct-dk{gap:6px}#m-catering .ct-nf figure:first-child{grid-row:auto;grid-column:1/-1}#m-catering .ct-nf figure:first-child img{aspect-ratio:4/5;flex:none}#m-catering .ct-brand figcaption span{display:none}#m-catering .ct-brand figcaption b{font-size:13px}
  #m-catering .ct-theme{grid-template-columns:1fr 1fr;gap:8px}#m-catering .ct-theme>div{padding:14px}
  #m-catering .br-num{grid-template-columns:1fr 1fr}#m-catering .br-num>div:nth-child(3){border-left:0;padding-left:4px}#m-catering .br-num>div:nth-child(n+3){border-top:1px solid #EDEDF0}#m-catering .br-num b{font-size:26px}
  #m-catering .br-roles{grid-template-columns:1fr}
 }
 /*CT-A*/
+.ct-sec{margin-top:26px;margin-bottom:-6px}.ct-sec>div{padding:20px 22px}.ct-sec b{font-size:18px}
+.ct-evh{margin-top:26px;display:flex;align-items:baseline}.ct-sn{margin-left:auto;font-style:normal;display:flex;gap:6px}.ct-sn button{width:34px;height:34px;border-radius:50%;border:1px solid #D2D2D7;background:#fff;font-size:18px;line-height:1;cursor:pointer;color:var(--dk)}.ct-sn button:hover{border-color:var(--dk)}
+.ct-strip{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 40px)/5.4);gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+.ct-strip .ct-ev{scroll-snap-align:start}.ct-strip .ct-ev img{aspect-ratio:1}
+@media(max-width:820px){.ct-sn{display:none}.ct-strip{grid-auto-columns:42%}.ct-sec{margin-top:18px}.ct-sec>div{padding:14px 16px}.ct-sec b{font-size:16px}}
+
 #m-catering .ct-evs{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 .ct-ev{display:block;position:relative;border:0;padding:0;margin:0;border-radius:14px;overflow:hidden;background:#E9E9EA;cursor:pointer;text-align:left;font:inherit;color:#fff}
 .ct-ev img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;transition:transform .35s}
@@ -882,7 +888,8 @@ body.cm-lock{overflow:hidden}
 </div>
 </div></section>
 <section class="cs-grp" id="catering"><div class="wrap-w">
-<div class="cs-gh"><div class="ey"><span class="n">05</span><b>행사 케이터링</b><span class="ck"><i></i><i class="on c-re" title="레시피"></i><i></i></span></div><h3>행사의 식탁을<br class="mbr"> 우리의 전문성으로 차렸습니다.</h3><p>요리 전문가가 메뉴를 만들고 현장에서 직접 차렸습니다. 꽃 · 소품 · 로고 디저트까지, 행사 컨셉에 맞춰 테이블을 꾸몄습니다.</p></div>
+<div class="cs-gh"><div class="ey"><span class="n">05</span><b>행사 케이터링</b><span class="ck"><i></i><i class="on c-re" title="레시피"></i><i></i></span></div><h3>행사의 식탁을<br class="mbr"> 우리의 전문성으로 차렸습니다.</h3><p>기업 · 기관 · 대사관 행사의 케이터링과 도시락. 우리의 전문성은 이 세 가지입니다.</p></div>
+<div class="ct-pts ct-sec"><div><em>1</em><b>요리 전문가의 메뉴</b><p>행사의 성격과 손님에 맞춰 요리 전문가가 메뉴를 만들고 직접 조리합니다</p></div><div><em>2</em><b>컨셉 스타일링</b><p>꽃 · 촛대 · 테이블보 · 소품까지, 행사 컨셉에 맞춰 테이블을 꾸밉니다</p></div><div><em>3</em><b>그 행사만의 디테일</b><p>로고 마카롱 · 깃발 픽 · 태그 · 띠지로 행사의 이름을 식탁에 올립니다</p></div></div>
 <div class="cs-lead" id="c-catering">
   <div class="cs-lv ct-mo">
     <img class="a" src="ir-images/cases/cases-ct-wide.jpg" alt="프론트원 개관식 케이터링 테이블" loading="lazy">
@@ -894,11 +901,12 @@ body.cm-lock{overflow:hidden}
     <div class="cs-tag">디캠프 · 프론트원 외 · 2019 – 2026</div>
     <h4>8년 동안, 해마다 다시<br>찾아 주었습니다.</h4>
     <div class="ct-num"><div><b>8<em>년</em></b><span>2019 – 2026 해마다</span></div><div><b>51<em>건</em></b><span>케이터링 · 도시락</span></div><div><b>20<em>곳+</em></b><span>기업 · 기관 · 대사관</span></div></div>
-    <p>요리 전문가가 행사에 맞춰 메뉴를 만들고, 행사 컨셉에 맞춰 스타일링까지 해서 그날의 테이블을 차립니다. 디캠프 · 프론트원의 데모데이와 개관식에서 시작해 금융위원회 · 산업은행 · 대사관 · IBM 행사로 이어졌습니다.</p>
+    <p>디캠프 · 프론트원의 데모데이와 개관식에서 시작해, 금융위원회 · 산업은행 · 대사관 · IBM 행사로 이어졌습니다. 같은 고객이 해마다 다시 맡겨 주었습니다.</p>
     <button class="cs-btn" onclick="csOpen('catering')">케이터링 자세히 보기 →</button>
   </div>
 </div>
-<div class="ct-flow"><div><em>01</em><small>스타트업 생태계</small><b>디캠프 · 프론트원</b><span>데모데이 · 개관식 · 10주년 · 스타트업 OI</span></div><div><em>02</em><small>금융 · 공공</small><b>금융위원회 · 신한은행 · 산업은행</b><span>간담회 · 협약식 · 국민성장펀드 출범식</span></div><div><em>03</em><small>대사관 · 국제</small><b>주한 캐나다 대사관 외</b><span>대사관 행사 · 나라별 테마 파티</span></div><div><em>04</em><small>기업 · 미디어</small><b>IBM · 머니투데이 · 올댓트래블 외</b><span>기자간담회 · 포럼 · VIP 네트워킹</span></div></div>
+<div class="on-h ct-evh"><b>행사로 보기</b><span>누르면 그 행사의 사진을 모두 볼 수 있습니다</span><i class="ct-sn"><button onclick="ctStrip(-1)" aria-label="이전">‹</button><button onclick="ctStrip(1)" aria-label="다음">›</button></i></div>
+<div class="ct-strip" id="ct-strip"><button class="ct-ev" onclick="ctEv(0)"><img src="ir-images/cases/cases-ct-if-galbi.jpg" alt="IF 스타트업 축제" loading="lazy" style="object-position:50% 80%"><span class="t"><em>2019.10</em><b>IF 스타트업 축제</b><small>한식 · 비건</small></span></button><button class="ct-ev" onclick="ctEv(1)"><img src="ir-images/cases/cases-ct-dk-hygge.jpg" alt="디캠프 D.Party" loading="lazy" style="object-position:62% 50%"><span class="t"><em>2020.01</em><b>디캠프 D.Party</b><small>덴마크 휘게</small></span></button><button class="ct-ev" onclick="ctEv(2)"><img src="ir-images/cases/cases-ct-hk-table.jpg" alt="디캠프 D.Day" loading="lazy" style="object-position:45% 50%"><span class="t"><em>2020.01</em><b>디캠프 D.Day</b><small>홍콩 스타일</small></span></button><button class="ct-ev" onclick="ctEv(3)"><img src="ir-images/cases/cases-ct-db04-wrap.jpg" alt="디캠프 × 신한카드" loading="lazy" style="object-position:50% 50%"><span class="t"><em>2020.04</em><b>디캠프 × 신한카드</b><small>보자기 도시락</small></span></button><button class="ct-ev" onclick="ctEv(4)"><img src="ir-images/cases/cases-ct-stand.jpg" alt="프론트원 개관식" loading="lazy" style="object-position:50% 50%"><span class="t"><em>2020.07</em><b>프론트원 개관식</b><small>로고 마카롱 · VIP 티타임</small></span></button><button class="ct-ev" onclick="ctEv(5)"><img src="ir-images/cases/cases-ct-db20-card.jpg" alt="프론트원" loading="lazy" style="object-position:60% 50%"><span class="t"><em>2020.10</em><b>프론트원</b><small>나무 도시락</small></span></button><button class="ct-ev" onclick="ctEv(6)"><img src="ir-images/cases/cases-ct-db-box.jpg" alt="여성금융인네트워크" loading="lazy" style="object-position:30% 50%"><span class="t"><em>2021.03</em><b>여성금융인네트워크</b><small>띠지 도시락</small></span></button><button class="ct-ev" onclick="ctEv(7)"><img src="ir-images/cases/cases-ct-ca-tart.jpg" alt="주한 캐나다 대사관" loading="lazy" style="object-position:50% 70%"><span class="t"><em>2023.06</em><b>주한 캐나다 대사관</b><small>두 나라 깃발</small></span></button><button class="ct-ev" onclick="ctEv(8)"><img src="ir-images/cases/cases-ct-att-table.jpg" alt="올댓트래블 VIP" loading="lazy" style="object-position:50% 50%"><span class="t"><em>2023.08</em><b>올댓트래블 VIP</b><small>코엑스 네트워킹</small></span></button><button class="ct-ev" onclick="ctEv(9)"><img src="ir-images/cases/cases-ct-nf-canape.jpg" alt="국민성장펀드" loading="lazy" style="object-position:50% 60%"><span class="t"><em>2025.09</em><b>국민성장펀드</b><small>정부 행사 다과</small></span></button></div>
 </div></section>
 <section class="cs-grp tint" id="link"><div class="wrap-w">
 <div class="cs-gh"><div class="ey"><span class="n">06</span><b>회원 연동</b><span class="ck"><i class="on c-cl" title="클래스"></i><i></i><i></i></span></div><h3><i class="cb-pc">앱을 연결해, 협업처 회원에게 서비스를 제공했습니다.</i><i class="cb-mo">앱을 연결해,<br>회원에게 서비스를 제공했습니다.</i></h3><p>협업처의 고객이 동의 한 번으로 공공의주방 서비스를 이용하는 방식.</p></div>
@@ -952,6 +960,7 @@ function draw(){
 }
 window.ctEv=function(i){E=i;P=0;draw();vw.classList.add('on');};
 window.ctEvClose=function(){vw.classList.remove('on');};
+window.ctStrip=function(d){var el=$('ct-strip');el.scrollBy({left:d*el.clientWidth*0.8,behavior:'smooth'});};
 window.ctEvGo=function(d){var n=EV[E].ph.length;P=(P+d+n)%n;draw();};
 window.ctEvPick=function(i){P=i;draw();};
 window.ctEvStep=function(d){E=(E+d+EV.length)%EV.length;P=0;draw();};
