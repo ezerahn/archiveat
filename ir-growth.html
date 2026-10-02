@@ -231,12 +231,16 @@ nav.g .burger.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 .gw-ns span{font-size:13.5px;background:var(--bg);border-radius:99px;padding:5px 12px}
 .gw-g:nth-child(7){grid-column:1/-1}
 .gw-trs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.gw-tr{background:var(--wh);border-radius:20px;padding:24px}
+.gw-tr{background:var(--wh);border-radius:20px;padding:26px 24px;display:flex;flex-direction:column}
 .gw-tr em{font-style:normal;font-family:var(--mono);font-size:13px;font-weight:700;color:var(--or)}
-.gw-tr h3{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:6px 0 6px}
-.gw-tr p{font-size:14.5px;color:var(--tx2);margin-bottom:14px}
-.gw-tr ul{list-style:none;display:grid;gap:8px}
-.gw-tr li{font-size:14px;background:var(--bg);border-radius:10px;padding:9px 12px;line-height:1.5}
+.gw-tr h3{font-size:24px;font-weight:800;letter-spacing:-.02em;margin:6px 0 4px}
+.gw-tr p{font-size:15px;color:var(--tx2);margin-bottom:18px;white-space:nowrap}
+.gw-tr ul{list-style:none;display:grid;gap:0}
+.gw-tr li{padding:14px 0;border-top:1px solid rgba(0,0,0,.08);display:grid;gap:3px}
+.gw-tr li span{font-size:13px;color:var(--tx3)}
+.gw-tr li b{font-size:16.5px;font-weight:700;letter-spacing:-.02em;line-height:1.45;padding-left:22px;position:relative}
+.gw-tr li b:before{content:"→";position:absolute;left:0;top:0;color:var(--or);font-weight:800}
+.gw-ft{margin-top:auto;padding-top:14px;border-top:1px solid rgba(0,0,0,.08);font-size:13px;font-weight:700;color:var(--or)}
 .gw-mk{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .gw-mk div{border:1px solid rgba(0,0,0,.1);border-radius:18px;padding:22px}
 .gw-mk b{display:block;font-size:18px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
@@ -286,7 +290,7 @@ nav.g .burger.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 <section class="bm-sec bm-tint" id="sales"><div class="wrap">
   <div class="bm-h"><small>02 · 영업</small><h2>영업은 세 갈래로 합니다</h2>
     <p>가장 가까운 곳부터. 해 본 방식으로, 넓혀 갑니다.</p></div>
-  <div class="gw-trs"><div class="gw-tr"><em>01</em><h3>다시 찾아가기</h3><p>이미 함께한 곳에, 새 방식을 제안합니다.</p><ul><li>오프라인 클래스 → 온라인 클래스 + 쿠킹박스</li><li>행사 케이터링 고객사 → 임직원 클래스 · 제철 박스</li><li>브랜드 콜라보 → 제품 레시피 · 쿠킹박스 · 영상</li></ul></div><div class="gw-tr"><em>02</em><h3>같은 유형 넓히기</h3><p>해 본 방식을, 같은 유형의 다른 곳으로 옮깁니다.</p><ul><li>지자체 온라인 클래스 → 다른 시 · 도 평생학습</li><li>백화점 한 곳 → 다른 백화점 · 유통</li><li>창업 기관 행사 → 금융권 · 공공기관 행사</li></ul></div><div class="gw-tr"><em>03</em><h3>새로 열기</h3><p>판매 창구가 없던 곳에, 고객 앱을 들고 갑니다.</p><ul><li>아파트 커뮤니티 — 입주민 클래스 · 박스</li><li>기업 복지몰 — 임직원 쿠킹 · 행사</li><li>제휴처 이름의 화면, 결제는 공식몰</li></ul></div></div>
+  <div class="gw-trs"><div class="gw-tr"><em>01</em><h3>다시 찾아가기</h3><p>이미 함께한 곳에, 새 방식을</p><ul><li><span>오프라인 클래스를 하던 곳</span><b>온라인 클래스 + 쿠킹박스</b></li><li><span>행사 케이터링 고객사</span><b>임직원 클래스 · 제철 박스</b></li><li><span>브랜드 콜라보를 한 곳</span><b>제품 레시피 · 쿠킹박스 · 영상</b></li></ul></div><div class="gw-tr"><em>02</em><h3>같은 유형 넓히기</h3><p>해 본 방식을, 다른 곳으로</p><ul><li><span>지자체 온라인 클래스</span><b>다른 시 · 도 평생학습</b></li><li><span>백화점 한 곳</span><b>다른 백화점 · 유통</b></li><li><span>창업 기관 행사</span><b>금융권 · 공공기관 행사</b></li></ul></div><div class="gw-tr"><em>03</em><h3>새로 열기</h3><p>창구가 없던 곳에, 고객 앱으로</p><ul><li><span>아파트 커뮤니티</span><b>입주민 클래스 · 쿠킹박스</b></li><li><span>기업 복지몰</span><b>임직원 쿠킹 · 행사</b></li></ul><div class="gw-ft">제휴처 이름의 화면 · 결제는 공식몰</div></div></div>
 </div></section>
 
 <section class="bm-sec" id="marketing"><div class="wrap">
