@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="version" content="v4">
-<meta name="updated" content="2026.07.24 14:25">
+<meta name="version" content="v7">
+<meta name="updated" content="2026.10.03 00:19">
 <title>콘텐츠·제안 홈</title>
 <link rel="apple-touch-icon" href="app-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -114,15 +114,15 @@ h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:80
     </div>
     <div class="grid grid-2">
       <a class="card work" href="proposal-status.html">
-        <span class="badge">v1</span>
+        <span class="badge live">v1</span>
         <div class="num">01</div>
         <div class="ic">📊</div>
         <h3>제안 현황</h3>
         <p>보낸 제안이 지금 어디까지 왔는지 한눈에. 보냄 · 반응 · 확정 상태를 관리하고, 반응 온 곳에 2차 제안을 이어갑니다.</p>
         <div class="flow">보냄 → 반응 → 2차 제안 → 확정 → 클래스 홈</div>
       </a>
-      <a class="card work" href="#" onclick="return false">
-        <span class="badge">준비중</span>
+      <a class="card work" href="proposal-build.html">
+        <span class="badge live">v1</span>
         <div class="num">02</div>
         <div class="ic">✍️</div>
         <h3>제안 만들기</h3>
@@ -147,16 +147,16 @@ h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:80
         <p>미리 짜둔 제안용 테마 모음. 용도·계절·실행 필터와 탭으로 찾아, 제안에 바로 꺼내 씁니다.</p>
         <div class="src">대표 테마 13개(시드) · 계절 / 명절·행사 / 용도</div>
       </a>
-      <a class="card data" href="proposal-menu.html">
-        <span class="badge live">v1</span>
+      <a class="card data" href="proposal-archive.html">
+        <span class="badge live">v3</span>
         <div class="num">04</div>
-        <div class="ic">🍽️</div>
-        <h3>메뉴 창고</h3>
-        <p>보유 메뉴 <b>472개</b>. 검색과 종류(19 카테고리)·등록여부·개발유형 필터로 찾습니다. 축 태그는 앞으로 추가.</p>
-        <div class="src">쿠킹박스 카테고리마스터에서 받아와 업데이트</div>
+        <div class="ic">📚</div>
+        <h3>클래스·레시피 아카이브</h3>
+        <p>우리가 한 <b>클래스 681건 · 레시피 444편 · 쿠킹박스 79종</b>을 한곳에. 해봤는지 · 누가 했는지 · 얼마였는지를 메뉴 · 선생님 · 재료로 찾고, 요리 종류 · 등록여부로 좁힙니다.</p>
+        <div class="src">원본 proposal-archive.xlsx (메뉴 창고 465개 포함) · gen_archive.py로 생성</div>
       </a>
-      <a class="card data" href="#" onclick="return false">
-        <span class="badge">준비중</span>
+      <a class="card data" href="proposal-cards.html">
+        <span class="badge live">v1</span>
         <div class="num">05</div>
         <div class="ic">📇</div>
         <h3>명함 DB</h3>
@@ -171,7 +171,7 @@ h1.title{font-family:Hahmlet,"Gowun Batang","Noto Serif KR",serif;font-weight:80
     <b>이 홈의 흐름</b> — 아래 <b>재료(테마·메뉴·명함)</b>를 꺼내 위에서 <b>제안</b>을 조립합니다. 재료가 잘 쌓일수록 제안이 빨라집니다.<br>
     ※ 제안서·메일 문구는 홈에서 준비하고, 실제 발송은 대표님 메일로. 확정되면 클래스 홈으로 이어집니다.
   </div>
-  <p class="note">※ 아래 <b>재료</b>부터 하나씩 만들고 위(제안 실무)로 올라갑니다. 현재 ③테마 카탈로그·④메뉴 창고 완성, ⑤명함 DB와 ①②는 준비중입니다.</p>
+  <p class="note">※ 아래 <b>재료</b>부터 하나씩 만들고 위(제안 실무)로 올라갑니다. 5개 도구가 모두 연결됐습니다. 아래 재료(메뉴·테마)를 채울수록 위(제안)가 빨라집니다.</p>
 
   <!-- ===== 원본 파일 · 가이드 ===== -->
   <div class="files-wrap">
