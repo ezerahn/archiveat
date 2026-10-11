@@ -1,0 +1,545 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="version" content="v1">
+<meta name="updated" content="2026.10.11 23:18">
+<title>패킹 운영</title>
+<link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;--point:#B4A032;
+--room:#C2570E;--cold:#2C7BB6;--freeze:#5B5BA6;--ok:#2E7D32;--warn:#B44A1E;--wait:#9A8F7C;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
+.tb-left{display:flex;align-items:center;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:13px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 13px;transition:.12s}
+.pill:hover{border-color:var(--point);color:var(--point)}
+.tb-right{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--wait);text-align:right}
+.tb-sep{color:#CFC5B2}
+.updated{font-family:"DM Mono",monospace;font-size:12px;color:var(--wait)}
+.hero{padding:26px 0 4px}
+.hero h1{font-family:Hahmlet,"Gowun Batang",serif;font-weight:700;font-size:36px;letter-spacing:-.02em}
+.hero .lead{margin-top:6px;color:var(--sub);font-size:14.5px}
+h2{font-family:Hahmlet,"Gowun Batang",serif;font-size:19px;font-weight:700;margin:0}
+h3{font-size:14.5px;font-weight:700;margin:0}
+
+.tabrow{display:flex;align-items:flex-end;gap:12px;border-bottom:1px solid var(--line);margin-top:18px}
+.tabrow .tabs{flex:1;border-bottom:none;margin-top:0}
+.prbtn{flex:0 0 auto;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--sub);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 13px;cursor:pointer;margin-bottom:7px;white-space:nowrap}
+.prbtn:hover{border-color:var(--point);color:var(--point)}
+.prhead{display:none}
+@media print{
+  @page{size:A4;margin:12mm}
+  body{background:#fff;padding:0}
+  .topbar,.tabrow,.foot,.prbtn{display:none!important}
+  .hero{display:none!important}
+  .prhead{display:block!important;font-size:10pt;color:#241F1B;border-bottom:1.5px solid #241F1B;padding-bottom:5mm;margin-bottom:6mm}
+  .prhead #prTab{display:block;font-size:15pt;font-weight:700;margin-top:2mm}
+  .panel{display:none!important}
+  .panel.on{display:block!important}
+  .sub,.rsub,.ksub,.gsub,.psub{display:block!important}
+  .block,.ckg,.mcard,.env{break-inside:avoid;page-break-inside:avoid;box-shadow:none;border-color:#CFC6B4}
+  .ctrl,.alert.info{display:none!important}
+  table{font-size:9pt}
+  th,td{padding:4px 6px}
+  .chk{padding:6px 0}
+  .chk input{width:15px;height:15px}
+  a{text-decoration:none;color:inherit}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line);margin-top:18px;padding-bottom:0}
+.tab{flex:0 0 auto;font-family:inherit;font-size:14px;font-weight:600;color:var(--sub);background:none;border:none;border-bottom:2px solid transparent;padding:11px 14px;cursor:pointer;white-space:nowrap;transition:.12s}
+.tab:hover{color:var(--ink)}
+.tab.on{color:var(--point);border-bottom-color:var(--point)}
+.tab .star{color:#FF5019}
+.panel{display:none;padding-top:6px}
+.panel.on{display:block}
+.block{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.bh{display:flex;align-items:baseline;gap:9px;margin-bottom:14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.bh .n{font-family:"DM Mono",monospace;font-size:12px;color:var(--point);font-weight:500}
+.bh .s{font-size:12px;color:var(--wait);margin-left:auto;text-align:right}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13.5px;color:var(--sub)}
+.meta b{color:var(--ink);font-weight:600}
+.dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.d{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+.d .k{font-size:12px;color:var(--sub);font-weight:500}
+.d .v{font-family:"DM Mono",monospace;font-size:22px;font-weight:700;margin-top:3px;line-height:1.15}
+.d .u{font-size:11.5px;color:var(--wait);margin-top:2px}
+th.col-tm{width:58px}th.col-mn{width:56px}
+td.tm{font-family:"DM Mono",monospace;font-size:12px;font-weight:700;white-space:nowrap;color:var(--point)}
+tr.sch-h td{background:#F0EAD9;font-weight:700;font-size:12px;text-align:left;letter-spacing:.02em}
+tr.sch-w td{background:#FFF6E6}
+tr.sch-e td{background:#E9F2EA;font-weight:600}
+.lnkrow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.lnk{display:flex;flex-direction:column;gap:2px;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px 16px;min-width:180px;flex:1}
+.lnk:hover{border-color:var(--point);background:#FFFDF6}
+.lnk b{font-size:14px;color:var(--point)}
+.lnk span{font-size:12px;color:var(--wait)}
+.lblgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:12px;margin-top:14px}
+.lbl{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+.lbl-h{font-size:11.5px;font-weight:700;color:var(--sub);background:#F4EFE3;padding:7px 12px;display:flex;justify-content:space-between}
+.lbl-h span{font-family:"DM Mono",monospace;font-weight:500;color:var(--wait)}
+.lbl.mix .lbl-h{background:#FBEAE0;color:#B44A1E}
+.lbl-b{padding:14px 14px 12px;text-align:center;border:1px dashed var(--line);border-width:0;margin:10px;border-radius:8px;background:#fff;box-shadow:inset 0 0 0 1px #EFE7D8}
+.lbl-b b{display:block;font-size:15px;font-weight:700;color:var(--point)}
+.lb-sub{display:block;font-size:11.5px;color:var(--sub);margin-top:3px}
+.lb-ing{display:block;font-size:11px;color:var(--ink);margin-top:6px;line-height:1.5}
+.lb-note{display:block;font-size:10.5px;color:var(--wait);margin-top:7px;line-height:1.55}
+.lb-br{display:block;font-family:"DM Mono",monospace;font-size:9.5px;letter-spacing:.16em;color:var(--point);margin-top:8px}
+.cpblk{border:1px solid var(--line);border-radius:12px;background:var(--card);margin-top:12px;overflow:hidden}
+.cpb-h{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12.5px;font-weight:700;color:var(--sub);background:#F4EFE3;padding:8px 12px}
+.cpbtn{font-family:inherit;font-size:11.5px;font-weight:600;color:var(--point);background:#fff;border:1px solid var(--point);border-radius:7px;padding:4px 12px;cursor:pointer;white-space:nowrap}
+.cpbtn:hover{background:var(--point);color:#fff}
+.cpbtn.done{background:#2E7D32;border-color:#2E7D32;color:#fff}
+.cpblk pre{margin:0;padding:13px 15px;font-family:Pretendard,-apple-system,sans-serif;font-size:13px;line-height:1.72;white-space:pre-wrap;word-break:break-word;color:var(--ink)}
+.subtabs{display:flex;gap:5px;flex-wrap:wrap;margin-top:16px;background:#F4EFE3;padding:5px;border-radius:11px}
+.stab{font-family:inherit;font-size:13px;font-weight:600;color:var(--sub);background:none;border:none;border-radius:8px;padding:8px 15px;cursor:pointer}
+.stab:hover{color:var(--ink)}
+.stab.on{background:#fff;color:var(--point);box-shadow:0 1px 3px rgba(0,0,0,.07)}
+div.sub{display:none}div.sub.on{display:block}
+.csub{display:none}.csub.on{display:block}
+.rsub{display:none}.rsub.on{display:block}
+.ksub{display:none}.ksub.on{display:block}
+.gsub{display:none}.gsub.on{display:block}
+.psub{display:none}.psub.on{display:block}
+.ckg{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px;margin-top:11px}
+.ckgh{font-size:13px;font-weight:700;color:var(--point);padding-bottom:8px;margin-bottom:3px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.ckgh span{font-family:"DM Mono",monospace;font-size:11px;font-weight:500;color:var(--wait);background:#F4EFE3;border-radius:20px;padding:1px 8px}
+.mcard{border:1px solid var(--line);border-radius:13px;padding:15px 17px;margin-top:13px;background:#fff}
+.mcard.m1{border-left:5px solid #C2570E}
+.mcard.m2{border-left:5px solid #B4A032}
+.mcard.m3{border-left:5px solid #2E7D32}
+.mcard .mh{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:11px}
+.mcard .mh .mno{font-family:"DM Mono",monospace;font-size:11px;color:#fff;border-radius:20px;padding:2px 10px}
+.mcard.m1 .mno{background:#C2570E}.mcard.m2 .mno{background:#B4A032}.mcard.m3 .mno{background:#2E7D32}
+.mcard .mh h4{font-size:15.5px;font-weight:700}
+.mcard .mh .cnt{margin-left:auto;font-size:12px;color:var(--wait);font-family:"DM Mono",monospace}
+.packrow{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-top:1px dashed var(--line)}
+.packrow .pk{flex-shrink:0;width:52px;text-align:center;font-family:"DM Mono",monospace;font-size:12px;font-weight:700;border-radius:7px;padding:5px 0;background:#F4EFE3;color:var(--sub)}
+.packrow.mix .pk{background:#FBEAE0;color:#B44A1E}
+.packrow .pi{flex:1;min-width:0}
+.packrow .pi .t{font-size:13.5px;font-weight:600}
+.packrow .pi .d{font-size:12px;color:var(--wait);margin-top:2px;line-height:1.5}
+.packrow .amt{font-family:"DM Mono",monospace;font-size:14px;font-weight:700;white-space:nowrap;text-align:right}
+.packrow .amt small{display:block;font-size:11px;font-weight:400;color:var(--wait);margin-top:1px}
+td.item{text-align:left;white-space:normal;line-height:1.75;min-width:290px}
+td.item .ln{display:block}
+td.item .amt{color:var(--wait);font-weight:400}
+.spack{display:block;margin-top:5px;border-left:3px solid var(--point);background:#FBF7EC;border-radius:0 7px 7px 0;padding:6px 10px}
+.spack .sh{display:block;font-size:11.5px;font-weight:700;color:var(--point);letter-spacing:.02em;margin-bottom:2px}
+.spack .si{display:block;font-size:12.5px;padding-left:2px}
+.spack .si b{font-weight:600}
+th.col-no{width:38px}th.col-bag{width:96px}th.col-tmp{width:62px}th.col-qty{width:52px}th.col-ice{width:64px}
+td.qtyc,td.icec{white-space:nowrap;font-family:"DM Mono",monospace;font-size:12px}
+.tbl-wrap{overflow-x:auto;margin:0 -3px}
+table{border-collapse:collapse;width:100%;min-width:600px;font-size:13px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:center;white-space:nowrap}
+th{background:#F4EFE3;font-size:11.5px;font-weight:700;color:var(--sub)}
+td.l{text-align:left;white-space:normal;min-width:150px}
+td.num{font-family:"DM Mono",monospace;text-align:right}
+tr.tot td{background:#EFE7D4;font-weight:700}
+tr.sub td{background:#F7F3E9;font-weight:600}
+.q{font-size:11px;color:var(--wait);display:block;margin-top:2px;white-space:normal;font-weight:400}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px}
+.b-room{background:#FBEDE2;color:var(--room)}
+.b-cold{background:#E6F0F8;color:var(--cold)}
+.b-freeze{background:#EAEAF6;color:var(--freeze)}
+.b-ok{background:#E4EAE2;color:#5E7360}
+.b-warn{background:#EFEDEA;color:#B44A1E}
+.b-wait{background:#F5B21F;color:#4A3405;font-weight:500}
+.alert{background:#FBEAE0;border:1px solid #F0D2C0;border-radius:12px;padding:13px 15px;margin-top:11px}
+.alert h3{color:var(--warn);margin-bottom:4px}
+.alert p{font-size:13px;color:var(--sub);line-height:1.6}
+.tip{background:#EDF3ED;border:1px solid #D5E4D5;border-radius:12px;padding:13px 15px;margin-top:11px}
+.tip h3{color:var(--ok);margin-bottom:4px}
+.tip p{font-size:13px;color:var(--sub);line-height:1.6}
+.note{font-size:12.5px;color:var(--wait);margin-top:9px;line-height:1.65}
+.ctrl{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;background:#F4EFE3;border-radius:10px;padding:13px 15px;margin-bottom:14px}
+.ctrl label{display:block;font-size:12px;color:var(--sub);font-weight:600;margin-bottom:4px}
+.ctrl input{font-family:"DM Mono",monospace;font-size:16px;font-weight:600;width:88px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+.ctrl .hint{font-size:12px;color:var(--wait);flex:1;min-width:180px}
+ol.steps{list-style:none;counter-reset:s}
+ol.steps li{counter-increment:s;position:relative;padding:9px 0 9px 40px;border-bottom:1px dashed var(--line);font-size:13.5px}
+ol.steps li:last-child{border-bottom:none}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:24px;height:24px;border-radius:50%;background:var(--point);color:#fff;font-family:"DM Mono",monospace;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+ol.steps li b{display:block;font-size:14px;margin-bottom:1px}
+ol.steps li span{color:var(--sub);font-size:12.5px}
+.chk{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.chk:last-child{border-bottom:none}
+.chk input{margin-top:3px;width:17px;height:17px;accent-color:var(--point);flex:0 0 auto;cursor:pointer}
+.chk label{cursor:pointer;flex:1}
+.chk .t{font-size:11.5px;font-family:"DM Mono",monospace;color:var(--wait);flex:0 0 auto}
+.chk span.d2{display:block;font-size:12px;color:var(--wait);margin-top:1px}
+.box3d{display:grid;gap:8px;margin-top:4px}
+.layer{border:1px solid var(--line);border-radius:10px;padding:11px 14px;background:#fff}
+.layer .lt{font-size:12px;font-weight:700;color:var(--point);font-family:"DM Mono",monospace}
+.layer .lc{font-size:13.5px;margin-top:3px}
+.layer .ld{font-size:12px;color:var(--wait);margin-top:2px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.foot{margin-top:26px;font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
+@media(max-width:640px){.hero h1{font-size:28px}.two{grid-template-columns:1fr}.tb-right{flex-direction:column;align-items:flex-end;gap:2px}.tb-sep{display:none}}
+
+.cbx{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:12px}
+.cbh{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.cbh h3{font-size:14.5px;font-weight:700}
+.cbtn{font-size:12px;padding:5px 13px;border-radius:16px;border:1px solid var(--line);
+background:#F1EFE9;color:var(--ink);cursor:pointer;font-family:inherit;white-space:nowrap}
+.cbtn:hover{background:#E7E2D6}
+.cbx pre{white-space:pre-wrap;font-family:Pretendard,sans-serif;font-size:13.5px;line-height:1.75;
+color:var(--sub);background:#FBF8F1;border-radius:9px;padding:12px 14px;margin:0}
+.num{text-align:right;font-family:"DM Mono",monospace}
+.bad{color:var(--warn);font-weight:700}
+.ok{color:var(--ok);font-weight:600}
+.warn{color:var(--warn);font-weight:600}
+.wait{color:var(--wait)}
+.links{display:flex;gap:8px;flex-wrap:wrap}
+.lk{font-size:13px;padding:7px 14px;border-radius:9px;background:#F1EFE9;
+border:1px solid var(--line);color:var(--ink);text-decoration:none}
+.empty-tab{padding:44px 0;text-align:center;color:var(--wait);font-size:14px}
+ul.chk{display:block;padding:4px 0 4px 18px;border-bottom:none;list-style:disc}
+ul.chk li{padding:5px 0;line-height:1.65;font-size:13.5px}
+.zc{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:10px;background:#F1EFE9;color:var(--sub);white-space:nowrap}
+.zc.cold{background:#E6EEF5;color:#3D5F7A;font-weight:600}
+.zc.chk{background:#FFF4D6;color:#8A6A12;font-weight:600}
+</style></head><body><div class="wrap">
+
+<div class="topbar">
+<div class="tb-left">
+<a class="pill" href="class.html">← 클래스 홈</a>
+<a class="pill" href="class-chat.html" target="_blank" rel="noopener">💬 작업 대화</a>
+</div>
+<div class="tb-right"><span>AI 워크스페이스 › 클래스 › 패킹 운영</span><span class="tb-sep">|</span><span class="updated" id="upd"></span></div>
+</div>
+
+<header class="hero">
+<h1>패킹 운영</h1>
+<p class="lead">GS-2610-01 · 애플 시나몬 머핀 + 못난이 사과잼 · 경기도지식 온라인</p>
+</header>
+
+<div class="prhead"><b>GS-2610-01</b> 애플 시나몬 머핀 + 못난이 사과잼 · 10/16(금) 16:00 · 31세트<span id="prTab"></span></div>
+<div class="tabrow">
+<div class="tabs">
+<button class="tab on" data-t="t1">개요</button>
+<button class="tab" data-t="tR">레시피</button>
+<button class="tab" data-t="t2">소스 배합</button>
+<button class="tab" data-t="t3">패킹 구성</button>
+<button class="tab" data-t="t4">소모품</button>
+<button class="tab" data-t="t6">송장·배송</button>
+<button class="tab" data-t="t7">수업 준비</button>
+<button class="tab" data-t="tP"><span class="star">★</span> 준비·패킹</button>
+</div>
+<button class="prbtn" onclick="printTab()">🖨 이 탭 인쇄</button>
+</div>
+
+<div class="panel on" id="t1">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>수업 정보</h2><span class="s">31세트 = 수강생 30 + 선생님 1</span></div>
+<div class="meta">
+<span>수업일 <b>2026.10.16 (금) 16:00</b></span>
+<span>형식 <b>줌 온라인 + 사전 배송</b></span>
+<span>선생님 <b>이민영</b></span>
+<span>패킹 <b>10/14 (수)</b> 예정</span>
+<span>배송 도착 <b>10/15 (목) 새벽</b> 예정</span>
+</div>
+<p class="note">패킹·도착일은 9월과 같은 <b>수업 D-2 패킹 → D-1 새벽 도착</b> 기준으로 잡은 예정일입니다. 확정되면 고쳐 주세요.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>타임라인</h2><span class="s">발주 → 수업일</span></div>
+<ol class="steps">
+<li><b>10/11 (일) — 발주 완료</b><span>전 품목 주문 끝 · 계란 1개는 집 재고 · 설탕 580g은 9월 남은 재고</span></li>
+<li><b>10/12 (월) — 입고</b><span>전 품목 수량·상태 확인 · 사과 두 종 개수 세기 · 버터 냉동 · 계란·레몬즙 냉장 · 우유 멸균 여부 확인</span></li>
+<li><b>10/13 (화) — 패킹 전날</b><span>실온 소분팩 미리 소분 (설탕 ①②③ · 박력분 · BP · 시나몬) · 라벨 · 레시피카드 출력 · 명단·주소 확정</span></li>
+<li><b>10/14 (수) — 패킹일</b><span>레몬즙 소분 → 보냉 구역(버터·계란·레몬즙) → 실온 구역 → 박싱 → 사진 → 출발</span></li>
+<li><b>10/15 (목) 새벽 — 배송 도착</b><span>수령 안내 문자 · 「버터·계란은 바로 냉장고」</span></li>
+<li><b>10/16 (금) 16:00 — 수업</b><span>줌 라이브 (경기도지식 주최) · 이민영 선생님</span></li>
+</ol>
+<div class="alert">
+<h3>이번 키트는 보냉 배송입니다</h3>
+<p><b>버터 · 계란 · 레몬즙</b>은 아이스팩과 함께 보냉 구역에 넣습니다. 9월(전 품목 실온)과 다릅니다.
+우유는 <b>멸균이면 실온</b>, 아니면 보냉 구역으로 옮깁니다. 사과는 실온 구역 — 아이스팩에 직접 닿지 않게 합니다.</p>
+</div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">03</span><h2>진행 현황</h2></div>
+<div class="dash">
+<div class="d"><div class="k">재료 발주</div><div class="v" style="color:var(--ok)">완료</div><div class="u">11건 · 275,250원</div></div>
+<div class="d"><div class="k">입고</div><div class="v" style="color:var(--warn)">10/12 예정</div><div class="u">머핀컵 도착일 미정</div></div>
+<div class="d"><div class="k">사과 개수</div><div class="v" style="color:var(--warn)">확인 대기</div><div class="u">머핀용 · 잼용 각 31개 필요</div></div>
+<div class="d"><div class="k">레시피카드</div><div class="v" style="color:var(--warn)">제작 전</div><div class="u">선생님 레시피 대기</div></div>
+</div>
+<p class="note">재료 발주 상세는 클래스 홈 → 회차 상세 → <b>발주·입고</b> 탭에서 봅니다. 이 화면은 패킹 실행만 다룹니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">04</span><h2>확정된 결정</h2></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>항목</th><th>결정</th><th>비고</th></tr></thead>
+<tbody>
+<tr><td class="l">세트 수</td><td>31세트</td><td class="l">수강생 30 + 선생님 1</td></tr>
+<tr><td class="l">계량 기준</td><td><b>수강생 저울 없음</b></td><td class="l">우리가 미리 달아 보냄 · 전량 사용 기준으로 소분</td></tr>
+<tr><td class="l">설탕</td><td><b>3팩으로 나눔</b></td><td class="l">① 머핀 60g · ② 사과조림 40g · ③ 애플잼 80g</td></tr>
+<tr><td class="l">버터</td><td>100g 1개 지급</td><td class="l">무염 · 레시피는 80g → 수강생이 잘라 씀 (가염 서울버터 제외)</td></tr>
+<tr><td class="l">시나몬</td><td>1팩 7g</td><td class="l">조림 5g + 잼 2g — 나눠 넣도록 안내</td></tr>
+<tr><td class="l">우유</td><td>120ml 1팩</td><td class="l">레시피 30g 사용</td></tr>
+<tr><td class="l">사과</td><td><b>두 종 구분 포장</b></td><td class="l">머핀용(당도선별) · 잼용(못난이) — 라벨 필수</td></tr>
+<tr><td class="l">머핀컵</td><td>6개</td><td class="l">높이 확인 중 — 6개/5개 분량은 선생님 확인</td></tr>
+</tbody></table></div>
+</section>
+</div>
+<div class="panel" id="tR"><p class="note" style="margin-top:14px">아래 문구가 <b>레시피카드</b>에 들어갑니다. 각 블록의 <b>복사</b>를 눌러 망고보드에 붙여넣으세요.</p><div class="cbx"><div class="cbh"><h3>키트 구성품</h3><button class="cbtn" data-c="c_ing">복사</button></div><p class="note">콘텐츠 시트 「키트구성품」과 같은 내용입니다.</p><pre id="c_ing">[키트 구성품]
+
+■ 머핀 반죽
+  버터(무염) 100g 1개 — 80g만 잘라 사용
+  설탕 ① 60g
+  계란 1개
+  박력분 80g
+  베이킹파우더 2g
+  우유 120ml 1팩 — 30g 사용
+
+■ 머핀용 사과조림
+  사과(머핀용) 1개 — 손질 후 150g
+  설탕 ② 40g
+  시나몬가루 5g — 시나몬 팩에서 덜어 사용
+
+■ 못난이 사과잼
+  못난이 사과(잼용) 1개 — 200g
+  설탕 ③ 80g
+  레몬즙 10ml
+  시나몬가루 2g — 시나몬 팩에 남은 양
+
+■ 도구
+  머핀컵 6개</pre></div><div class="cbx"><div class="cbh"><h3>집에서 준비해 주세요</h3><button class="cbtn" data-c="c_home">복사</button></div><p class="note"><b>오븐/에어프라이어·도구는 선생님 레시피로 확인</b> 후 고칩니다.</p><pre id="c_home">[집에서 준비해 주세요]
+
+  · 오븐 또는 에어프라이어 (선생님 레시피 확인)
+  · 볼 2개 · 거품기 · 주걱
+  · 작은 냄비 2개 (사과조림 · 잼)
+  · 칼 · 도마
+  · 숟가락 (시나몬 나눌 때)
+  · 잼 담을 병 또는 밀폐용기
+
+※ 저울은 없어도 됩니다. 설탕은 용도별로 ①②③ 세 팩에 나눠 보냈습니다.
+※ 시나몬은 한 팩입니다. 조림에 대부분(5g), 잼에 조금(2g) 넣습니다.</pre></div><div class="cbx"><div class="cbh"><h3>만드는 법</h3></div><div class="empty-tab" style="padding:22px 0">선생님(이민영) 레시피를 받으면 채웁니다.</div></div></div>
+<div class="panel" id="t2"><div class="empty-tab">이번 수업은 <b>해당 없음</b>입니다.<br>
+사과조림·잼은 수강생이 수업 중 직접 만듭니다. 우리가 배합해 보내는 소스가 없습니다.</div></div>
+<div class="panel" id="t3">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>1인 구성 — 13품목</h2><span class="s">소분팩 7 + 원물 5 + 머핀컵</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>구분</th><th class="l">내용물</th><th>1인</th><th>보관</th><th class="l">쓰임</th></tr></thead>
+<tbody id="pkBody"></tbody>
+</table></div>
+<p class="note">보관 — <span class="zc">실온</span> <span class="zc cold">보냉</span> <span class="zc chk">확인</span> · 우유는 멸균 여부 확인 후 실온/보냉을 정합니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>재료별 소분 총량</h2>
+<span class="s">인원 <input type="number" id="ipax" value="31" min="1" style="width:56px"> 세트</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th class="l">재료</th><th>1인</th><th>총 필요량</th><th>확보량</th><th>남는 양</th><th class="l">메모</th></tr></thead>
+<tbody id="matBody"></tbody>
+</table></div>
+<p class="note">설탕·계란은 <b>여유 0</b>입니다. 소분 중 흘리거나 깨지면 바로 부족합니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">03</span><h2>소분 시 주의</h2></div>
+<ul class="chk">
+<li><b>설탕 ①②③ 번호와 용도를 봉투에 표기</b> — ① 머핀 60g · ② 조림 40g · ③ 잼 80g. 수강생은 저울이 없어 봉투가 곧 계량입니다.</li>
+<li><b>사과 두 종 라벨</b> — 「머핀용」「잼용」 스티커. 섞이면 수업 중 구분이 안 됩니다.</li>
+<li><b>레몬즙은 액체</b> — 소분봉투 입구를 깨끗이 닦고 이중 봉합. 새면 가루팩이 젖습니다.</li>
+<li><b>베이킹파우더 2g</b>은 양이 적어 봉투 안쪽에 붙습니다. 털어 넣고 확인합니다.</li>
+<li><b>박력분·BP·시나몬은 가루끼리 비슷해 보입니다</b> — 이름 라벨을 붙입니다.</li>
+<li><b>버터는 냉동 상태로 입고</b> — 패킹 직전까지 냉동, 박스에는 아이스팩과 함께.</li>
+<li><b>계란은 보호재</b>(계란 트레이 조각·에어캡)로 하나씩 감쌉니다. 여분이 없습니다.</li>
+</ul>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">04</span><h2>박스 적재 순서</h2></div>
+<ol class="steps">
+<li><b>바닥 — 보냉 구역</b><span>아이스팩 → 버터 100g → 레몬즙팩 (우유가 냉장이면 함께) · 보냉 봉투에 묶음</span></li>
+<li><b>가운데 — 사과</b><span>머핀용 · 잼용 각 1개 · 아이스팩에 직접 닿지 않게 칸막이</span></li>
+<li><b>위 — 가루팩</b><span>설탕 ①②③ · 박력분 · BP · 시나몬 — 눌려도 되는 순서로</span></li>
+<li><b>맨 위 — 깨지는 것</b><span>계란(보호재) · 머핀컵 · 레시피카드</span></li>
+</ol>
+<p class="note">빈 공간은 완충재로 채워 사과가 굴러 계란에 부딪히지 않게 합니다.</p>
+</section>
+</div>
+<div class="panel" id="t4">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>포장 소모품 소요량</h2><span class="s">31세트 기준</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th class="l">품목</th><th>1인</th><th>총 필요</th><th>재고</th><th>판정</th><th class="l">비고</th></tr></thead>
+<tbody>
+<tr><td class="l">소분봉투</td><td>7</td><td><b>217</b></td><td>확인</td><td><span class="wait">확인</span></td><td class="l">설탕 3 + 박력분 + BP + 시나몬 + 레몬즙</td></tr>
+<tr><td class="l">보냉박스 (또는 박스+보냉봉투)</td><td>1</td><td><b>31</b></td><td>확인</td><td><span class="wait">확인</span></td><td class="l">버터·계란·레몬즙 보냉</td></tr>
+<tr><td class="l">아이스팩</td><td>—</td><td>박스별</td><td>확인</td><td><span class="wait">확인</span></td><td class="l">수량은 박스 크기 보고 결정</td></tr>
+<tr><td class="l">계란 보호재</td><td>1</td><td><b>31</b></td><td>확인</td><td><span class="wait">확인</span></td><td class="l">에어캡 또는 트레이 조각</td></tr>
+<tr><td class="l">라벨 스티커</td><td>—</td><td>—</td><td>확인</td><td><span class="wait">확인</span></td><td class="l">설탕 ①②③ · 머핀용/잼용 사과 · 가루 이름</td></tr>
+<tr><td class="l">완충재</td><td>—</td><td>박스별</td><td>확인</td><td><span class="wait">확인</span></td><td class="l">사과 굴림 방지</td></tr>
+<tr><td class="l">송장</td><td>1</td><td><b>31</b></td><td>—</td><td><span class="wait">대기</span></td><td class="l">명단 확정 후 출력</td></tr>
+<tr><td class="l">레시피카드</td><td>1</td><td><b>31</b></td><td>—</td><td><span class="warn">제작 전</span></td><td class="l">선생님 레시피 대기</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>패킹 전날 확인</h2></div>
+<ul class="chk">
+<li>입고 전 품목 확인 — 특히 <b>머핀컵</b>(네이버, 도착일 미정)</li>
+<li>사과 개수 — 머핀용 31 · 잼용 31 이상인지</li>
+<li>우유 — <b>멸균 여부</b> 확인 (실온/보냉 결정)</li>
+<li>소분봉투 217 · 보냉박스 31 · 아이스팩 · 계란 보호재 확인</li>
+<li>수강생 명단·주소 확정 (경기도지식) · 선생님 주소</li>
+<li>레시피카드 제작·출력 31장</li>
+</ul>
+</section>
+</div>
+<div class="panel" id="t6">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>송장</h2><span class="s">31건 · 선생님 포함</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th class="l">항목</th><th class="l">내용</th></tr></thead>
+<tbody>
+<tr><td class="l">발송일</td><td class="l"><b>10/14 (수)</b> 예정 — 수업 D-2</td></tr>
+<tr><td class="l">도착</td><td class="l">10/15 (목) 새벽 예정</td></tr>
+<tr><td class="l">건수</td><td class="l">31건 (수강생 30 + 선생님 1)</td></tr>
+<tr><td class="l">보관</td><td class="l"><b>보냉</b> — 버터·계란·레몬즙 · 아이스팩</td></tr>
+<tr><td class="l">명단 출처</td><td class="l">경기도지식 제공</td></tr>
+</tbody></table></div>
+<p class="note">명단·주소·연락처는 이 화면에 적지 않습니다. 드롭박스 「02 신청명단」에서 봅니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>수령 안내 문자</h2></div>
+<div class="cbx"><div class="cbh"><h3>도착일 발송</h3><button class="cbtn" data-c="c_sms">복사</button></div>
+<pre id="c_sms">[아카이빗] 애플 시나몬 머핀 + 못난이 사과잼 키트가 도착했습니다.
+
+· 버터 · 계란 · 레몬즙은 받으신 즉시 냉장고에 넣어 주세요.
+· 사과 두 개는 「머핀용」「잼용」 라벨이 붙어 있습니다. 섞이지 않게 두세요.
+· 설탕은 ①머핀 ②사과조림 ③애플잼 세 봉으로 나눠 보냈습니다. 저울 없이 봉투째 쓰시면 됩니다.
+· 시나몬은 한 봉입니다. 조림과 잼에 나눠 넣습니다.
+
+수업 10월 16일(금) 16:00 · 줌 링크는 경기도지식에서 안내드립니다.</pre></div>
+<p class="note">우유가 냉장 우유로 확인되면 첫 줄에 「우유」를 더합니다.</p>
+</section>
+</div>
+<div class="panel" id="t7">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>수업 개요</h2></div>
+<div class="meta">
+<span>일시 <b>2026.10.16 (금) 16:00</b></span>
+<span>선생님 <b>이민영</b></span>
+<span>인원 <b>30명</b></span>
+</div>
+<p class="note"><b>줌 진행은 경기도지식(주최)이 합니다.</b> 우리는 키트 발송까지입니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>수업 전 확인</h2></div>
+<ul class="chk">
+<li>배송 도착 확인 (10/15 새벽) · 미도착·파손(계란) 건 대응</li>
+<li>선생님께 키트 도착 확인</li>
+<li>머핀컵 높이 — 6개/5개 분량 선생님 확인</li>
+</ul>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">03</span><h2>수업 중 안전 안내</h2></div>
+<ul class="chk">
+<li><b>사과조림·잼은 끓는 당액</b>입니다 — 튀거나 손에 닿지 않게</li>
+<li><b>오븐·에어프라이어</b> 꺼낼 때 장갑</li>
+<li>칼 사용 — 사과 손질</li>
+<li>알레르기 — <b>밀 · 우유 · 계란</b> 포함 (박력분 · 버터·우유 · 계란)</li>
+</ul>
+</section>
+</div>
+<div class="panel" id="tP">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>패킹 당일 순서</h2><span class="s">10/14 (수) 예정</span></div>
+<ol class="steps">
+<li><b>1. 실온 소분팩 확인</b><span>전날 소분한 설탕 ①②③ · 박력분 · BP · 시나몬 — 31세트씩 맞는지</span></li>
+<li><b>2. 레몬즙 소분</b><span>10ml × 31 · 이중 봉합 · 냉장</span></li>
+<li><b>3. 사과 라벨</b><span>머핀용 31 · 잼용 31 — 스티커 부착</span></li>
+<li><b>4. 계란 포장</b><span>보호재로 하나씩</span></li>
+<li><b>5. 박싱</b><span>아이스팩 → 버터·레몬즙 → 사과 → 가루팩 → 계란·머핀컵·레시피카드 (버터는 마지막에 냉동에서 꺼냄)</span></li>
+<li><b>6. 사진 촬영</b><span>구성품 전체 · 라벨 · 박스 적재 상태</span></li>
+<li><b>7. 송장 부착·출발</b></li>
+</ol>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>바로가기</h2></div>
+<div class="links">
+<a class="lk" href="class.html">클래스 홈</a>
+<a class="lk" href="class-chat.html" target="_blank" rel="noopener">작업 대화</a>
+</div>
+</section>
+</div>
+
+<div class="foot" id="foot"></div>
+</div>
+<script>
+(function(){
+  var u=document.querySelector('meta[name=updated]').content,v=document.querySelector('meta[name=version]').content;
+  var t='업데이트 '+u+' · '+v;
+  document.getElementById('upd').textContent=t;
+  document.getElementById('foot').textContent='패킹 운영 · GS-2610-01 · '+t;
+})();
+
+document.querySelectorAll('.tab').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});
+    document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');
+    document.getElementById(b.dataset.t).classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+var KIT=[{"bag": "소분팩 ①", "nm": "설탕", "q": 60, "u": "g", "zone": "실온", "use": "머핀 반죽"}, {"bag": "소분팩 ②", "nm": "설탕", "q": 40, "u": "g", "zone": "실온", "use": "사과조림"}, {"bag": "소분팩 ③", "nm": "설탕", "q": 80, "u": "g", "zone": "실온", "use": "애플잼"}, {"bag": "소분팩", "nm": "박력분", "q": 80, "u": "g", "zone": "실온", "use": "머핀 반죽"}, {"bag": "소분팩", "nm": "베이킹파우더", "q": 2, "u": "g", "zone": "실온", "use": "머핀 반죽"}, {"bag": "소분팩", "nm": "시나몬가루", "q": 7, "u": "g", "zone": "실온", "use": "조림 5g + 잼 2g 나눠 사용"}, {"bag": "소분팩", "nm": "레몬즙", "q": 10, "u": "ml", "zone": "보냉", "use": "애플잼 · 액체 이중 봉합"}, {"bag": "원물", "nm": "버터(무염) 100g", "q": 1, "u": "개", "zone": "보냉", "use": "머핀 반죽 · 80g만 잘라 사용"}, {"bag": "원물", "nm": "계란", "q": 1, "u": "개", "zone": "보냉", "use": "머핀 반죽 · 파손 주의"}, {"bag": "원물", "nm": "우유 120ml", "q": 1, "u": "팩", "zone": "확인", "use": "머핀 반죽 30g · 멸균이면 실온"}, {"bag": "원물", "nm": "사과 — 머핀용", "q": 1, "u": "개", "zone": "실온", "use": "손질 후 150g · 라벨 「머핀용」"}, {"bag": "원물", "nm": "못난이 사과 — 잼용", "q": 1, "u": "개", "zone": "실온", "use": "200g · 라벨 「잼용」"}, {"bag": "도구", "nm": "머핀컵", "q": 6, "u": "개", "zone": "실온", "use": "반죽 6등분"}], HAVE={"설탕": 5580, "박력분": 2500, "베이킹파우더": 170, "시나몬가루": 400, "레몬즙": 1000, "버터(무염) 100g": 31, "계란": 31, "우유 120ml": 32, "사과 — 머핀용": null, "못난이 사과 — 잼용": null, "머핀컵": 190}, NOTE={"설탕": "5kg 구입 + 재고 580g", "계란": "30구 + 집 재고 1개", "사과 — 머핀용": "3kg × 3봉 · 입고 후 개수 확인", "못난이 사과 — 잼용": "2kg × 3봉 · 입고 후 개수 확인", "머핀컵": "10개 × 19묶음"};
+function fmt(n){return Math.round(n).toLocaleString();}
+function zc(z){return '<span class="zc'+(z==='보냉'?' cold':z==='확인'?' chk':'')+'">'+z+'</span>';}
+
+function render(){
+  var pax=Math.max(1,parseInt(document.getElementById('ipax').value)||31);
+  var h='';
+  KIT.forEach(function(k){
+    h+='<tr><td>'+k.bag+'</td><td class="l"><b>'+k.nm+'</b></td><td class="num">'+k.q+k.u+'</td>'
+      +'<td>'+zc(k.zone)+'</td><td class="l">'+k.use+'</td></tr>';
+  });
+  document.getElementById('pkBody').innerHTML=h;
+
+  var need={},unit={},order=[];
+  KIT.forEach(function(k){ if(!(k.nm in need)){need[k.nm]=0;order.push(k.nm);} need[k.nm]+=k.q; unit[k.nm]=k.u; });
+  var m='';
+  order.forEach(function(nm){
+    var per=need[nm],u=unit[nm],tot=per*pax,have=HAVE[nm];
+    var haveS=(have==null)?'<span class="wait">확인</span>':fmt(have)+u;
+    var left=(have==null)?null:have-tot;
+    var leftS=(left==null)?'<span class="wait">—</span>':(left<0?'⚠️ '+fmt(-left)+u+' 부족':(left===0?'<span class="warn">0 (여유 없음)</span>':fmt(left)+u));
+    m+='<tr><td class="l">'+nm+'</td><td class="num">'+per+u+'</td>'
+      +'<td class="num"><b>'+fmt(tot)+u+'</b></td><td class="num">'+haveS+'</td>'
+      +'<td class="num '+(left!=null&&left<0?'bad':'')+'">'+leftS+'</td>'
+      +'<td class="l">'+(NOTE[nm]||'')+'</td></tr>';
+  });
+  document.getElementById('matBody').innerHTML=m;
+}
+var ip=document.getElementById('ipax'); if(ip) ip.addEventListener('input',render);
+render();
+
+document.querySelectorAll('.cbtn').forEach(function(b){
+  b.addEventListener('click',function(){
+    var el=document.getElementById(b.dataset.c); if(!el)return;
+    navigator.clipboard.writeText(el.textContent).then(function(){
+      var o=b.textContent; b.textContent='복사됨'; setTimeout(function(){b.textContent=o;},1200);
+    });
+  });
+});
+function printTab(){ window.print(); }
+</script>
+</body></html>
