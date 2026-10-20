@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>선한목자교회 · 1층 성전보수 오픈 진도표</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --g:#07913B; --gl:#F1F8F3; --gd:#056B2C;
+    --ink:#2c2a26; --soft:#55534e; --mut:#8a847a;
+    --line:#dcd9d1; --line2:#eeece6; --bg:#faf9f5; --card:#fff;
+    --warn:#B3382A; --warnbg:#FDF3F0; --amber:#9A6414; --amberbg:#FBF3E6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:16px;background:var(--bg);color:var(--ink);
+    font-family:'IBM Plex Sans KR',sans-serif;font-size:13.5px;line-height:1.7}
+  .wrap{max-width:1000px;margin:0 auto}
+  a{color:inherit;text-decoration:none}
+
+  .navrow{font-size:11.5px;color:var(--mut);padding-bottom:8px;border-bottom:1px solid var(--line2);
+    display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .navrow a.back{color:var(--gd);font-weight:600}
+  .head{padding:18px 0 4px}
+  h1{font-family:'Gowun Batang',serif;font-size:26px;font-weight:700;margin:0;letter-spacing:-.6px}
+  .lead{font-size:13px;color:var(--soft);margin-top:6px}
+
+  /* 요약 바 */
+  .sum{margin-top:16px;background:var(--card);border:1px solid #e6e1d7;border-radius:13px;
+    padding:15px 18px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+  .dday{flex:none;text-align:center;padding-right:20px;border-right:1px solid var(--line2)}
+  .dday b{display:block;font-family:'Gowun Batang',serif;font-size:34px;font-weight:700;
+    color:var(--gd);line-height:1.1;letter-spacing:-1px}
+  .dday span{font-size:11.5px;color:var(--mut)}
+  .sumg{flex:1;min-width:230px}
+  .sumg .t{font-size:12px;color:var(--soft);display:flex;justify-content:space-between;margin-bottom:6px}
+  .sumg .t b{color:var(--ink);font-weight:700}
+  .bar{height:7px;background:#ece7dd;border-radius:4px;overflow:hidden}
+  .bar i{display:block;height:7px;background:var(--g);border-radius:4px}
+  .stt{display:flex;gap:7px;flex-wrap:wrap}
+  .stt span{font-size:11.5px;font-weight:600;border-radius:9px;padding:3px 10px;background:#f2f0e9;color:#6e6860}
+
+  /* 필터 */
+  .ctl{margin:16px 0 12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .chip{font-family:inherit;font-size:12.5px;font-weight:600;color:var(--mut);background:var(--card);
+    border:1px solid var(--line);border-radius:999px;padding:5px 13px;cursor:pointer}
+  .chip:hover{color:var(--ink)}
+  .chip.on{color:#fff;background:var(--gd);border-color:var(--gd)}
+  .ctl .sp{margin-left:auto;font-size:11.5px;color:var(--mut)}
+
+
+  /* 보기 전환 */
+  .vsw{display:inline-flex;background:#ece9e1;border-radius:999px;padding:3px;margin-right:6px}
+  .vb{font-family:inherit;font-size:12.5px;font-weight:700;color:var(--mut);background:none;
+    border:none;border-radius:999px;padding:5px 14px;cursor:pointer}
+  .vb.on{color:var(--gd);background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+
+  /* 전체 일정 (간트) */
+  .gt{background:var(--card);border:1px solid #e6e1d7;border-radius:13px;padding:0 0 10px;overflow:hidden}
+  .gwrap{overflow-x:auto}
+  .grid{min-width:860px}
+  .ghead{display:grid;grid-template-columns:132px repeat(9,1fr);position:sticky;top:0;z-index:3;
+    background:var(--card);border-bottom:2px solid var(--line)}
+  .ghead .gh{padding:9px 4px 8px;text-align:center;font-size:11.5px;color:var(--mut);
+    border-left:1px solid var(--line2)}
+  .ghead .gh b{display:block;font-size:13px;font-weight:700;color:var(--ink);letter-spacing:-.3px}
+  .ghead .gh.now{background:#eef6f0}
+  .ghead .gh.now b{color:var(--gd)}
+  .ghead .gh.op b{color:var(--amber)}
+  .ghead .gc{padding:9px 12px 8px;font-size:11.5px;color:var(--mut)}
+
+  .gband{display:flex;align-items:center;gap:9px;padding:9px 13px 8px;background:#f2f0e9;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line2)}
+  .gband b{font-family:'Gowun Batang',serif;font-size:17px;font-weight:700;letter-spacing:-.5px}
+  .gband em{font-style:normal;font-size:11.5px;color:var(--mut)}
+  .gband span{margin-left:auto;font-size:11.5px;color:var(--mut)}
+  .gband.선지서점{background:#eef5f0}.gband.선지서점 b{color:var(--gd)}
+  .gband.로뎀카페{background:#faf2e4}.gband.로뎀카페 b{color:#8a5a14}
+
+  .grow{display:grid;grid-template-columns:132px repeat(9,1fr);border-bottom:1px solid #f3f1ea}
+  .grow:last-child{border-bottom:none}
+  .gname{padding:7px 10px;font-size:12px;font-weight:700;color:var(--soft);
+    border-right:1px solid var(--line2);display:flex;align-items:center}
+  .glanes{grid-column:2/-1;display:flex;flex-direction:column;gap:3px;padding:5px 0}
+  .glane{display:grid;grid-template-columns:repeat(9,1fr);align-items:center}
+  .gcell{height:100%;border-left:1px solid #f3f1ea}
+  .gbar{margin:0 3px;border-radius:6px;padding:4px 8px 5px;font-size:11.5px;font-weight:600;
+    line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;
+    border:1px solid transparent;display:block;color:var(--ink)}
+  .gbar:hover{filter:brightness(.96)}
+  .gbar.주문결제{background:#e8f0fa;border-color:#c2d6ee;color:#1d5fa8}
+  .gbar.선지서점{background:#e6f2ea;border-color:#bcd9c3;color:var(--gd)}
+  .gbar.로뎀카페{background:#fbf0dd;border-color:#e6d2a8;color:#8a5a14}
+  .gbar.제작물{background:#FBF3E6;border-color:#e3d6bb;color:#9A6414}
+  .gbar.공사현장{background:#eeece6;border-color:#dcd6c8;color:#55534e}
+  .gbar.행정{background:#f2eafa;border-color:#ddcdee;color:#7a3fa0}
+  .gbar.dec{box-shadow:inset 3px 0 0 var(--warn)}
+  .gbar.now2{box-shadow:inset 3px 0 0 var(--g)}
+
+  @media(max-width:760px){ .grid{min-width:760px} .ghead,.grow{grid-template-columns:104px repeat(9,1fr)} }
+
+  /* 큰 구간 */
+  .ph{display:flex;align-items:baseline;gap:12px;margin:26px 0 11px;padding-bottom:9px;
+    border-bottom:3px solid var(--gd)}
+  .ph b{font-family:'Gowun Batang',serif;font-size:26px;font-weight:700;letter-spacing:-.8px;color:var(--gd)}
+  .ph em{font-style:normal;font-size:13px;color:var(--mut)}
+  .ph span{margin-left:auto;font-size:12.5px;color:var(--mut)}
+  .ph.open{border-bottom-color:var(--amber)}
+  .ph.open b{color:var(--amber)}
+  .ph.after{border-bottom-color:#6e6860}
+  .ph.after b{color:#55534e}
+
+  /* 주차 */
+  .wk{background:var(--card);border:1px solid #e6e1d7;border-radius:13px;margin-bottom:12px;overflow:hidden}
+  .wk.now{border-color:var(--g);box-shadow:0 0 0 2px #e4f1e8}
+  .wk.past{background:#f7f6f2}
+  .wkh{display:flex;align-items:center;gap:11px;padding:13px 17px;cursor:pointer;flex-wrap:wrap}
+  .wkh .lb{font-family:'Gowun Batang',serif;font-size:19px;font-weight:700;letter-spacing:-.5px}
+  .wk.past .wkh .lb{color:var(--mut)}
+  .wkh .sb{font-size:12px;color:var(--mut)}
+  .wkh .tag{font-size:10.5px;font-weight:700;color:#fff;background:var(--g);border-radius:9px;padding:2px 9px}
+  .wkh .tag.op{background:var(--amber)}
+  .wkh .ct{margin-left:auto;font-size:12px;color:var(--mut)}
+  .wkh .ar{font-size:14px;color:var(--mut);transition:transform .15s}
+  .wk.open .wkh .ar{transform:rotate(90deg)}
+  .wkb{display:none;padding:0 13px 13px}
+  .wk.open .wkb{display:block}
+
+  /* 항목 */
+  .it{border:1px solid var(--line2);border-radius:10px;background:#fdfcfa;margin-bottom:6px;overflow:hidden}
+.it.tsep{margin-top:13px}
+  .it:last-child{margin-bottom:0}
+  .it.hit{border-color:var(--g);box-shadow:0 0 0 2px #e4f1e8}
+  .ith{display:grid;grid-template-columns:78px minmax(140px,1fr) minmax(0,1.3fr) 66px 62px 92px;align-items:center;
+ gap:12px;padding:10px 14px;cursor:pointer}
+  .ith:hover{background:#f7f6f2}
+  .ar2{font-size:10.5px;font-weight:700;border-radius:7px;padding:2px 0;text-align:center;display:block}
+  .ar2.주문결제{color:#1d5fa8;background:#e8f0fa}
+  .ar2.선지서점{color:var(--gd);background:#e6f2ea}
+  .ar2.로뎀카페{color:#8a5a14;background:#fbf0dd}
+  .ar2.제작물{color:#9A6414;background:#FBF3E6}
+  .ar2.공사현장{color:#6e6860;background:#eeece6}
+  .ar2.행정{color:#7a3fa0;background:#f2eafa}
+  .ith .ti{font-size:14px;font-weight:700;letter-spacing:-.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ith .sb2{font-size:12px;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .st{font-size:10.5px;font-weight:700;border-radius:9px;padding:2px 0;text-align:center;display:block}
+  .st.확인{color:#6e6860;background:#ece7dd}
+  .st.결정{color:#fff;background:var(--warn)}
+  .st.준비{color:#fff;background:var(--g)}
+  .st.완료{color:#8a847a;background:#f2f0e9}
+  .ith .du{font-size:11.5px;color:var(--mut);font-variant-numeric:tabular-nums;text-align:right}
+  .pg{display:flex;align-items:center;justify-content:flex-end;gap:7px;font-size:11px;color:var(--mut);font-variant-numeric:tabular-nums}
+  .pg .b{width:46px;height:5px;background:#ece7dd;border-radius:3px;overflow:hidden}
+  .pg .b i{display:block;height:5px;background:var(--g)}
+
+  .itb{display:none;padding:2px 14px 14px;border-top:1px dashed var(--line2);margin-top:-1px}
+  .it.open .itb{display:block}
+  .td{margin:11px 0 0;padding:0;list-style:none}
+  .td li{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--soft);padding:3px 0}
+  .td li i{flex:none;width:16px;height:16px;border:1.5px solid #cfc9bd;border-radius:4px;margin-top:4px}
+  .td li.ok i{background:var(--g);border-color:var(--g);position:relative}
+  .td li.ok i::after{content:"";position:absolute;left:4.5px;top:1px;width:4px;height:9px;
+    border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+  .td li.ok{color:var(--mut);text-decoration:line-through;text-decoration-color:#d6d0c4}
+  .ask{margin-top:11px;background:#FBF3E6;border:1px solid #e3d6bb;border-radius:9px;padding:9px 13px}
+  .ask b{display:block;font-size:12px;font-weight:700;color:#9A6414;margin-bottom:4px}
+  .ask ul{margin:0;padding-left:16px}
+  .ask li{font-size:12.5px;color:#6e6860;line-height:1.65}
+  .nt{margin-top:11px;background:var(--gl);border-left:4px solid var(--g);border-radius:0 8px 8px 0;
+    padding:9px 13px;font-size:12.5px;color:var(--soft);line-height:1.65}
+  .nt.w{background:var(--warnbg);border-color:var(--warn)}
+  .mt{margin-top:10px;display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+  .mt .ow{font-size:11.5px;color:var(--mut)}
+  .dl{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--gd);
+    background:var(--gl);border:1px solid #c8e0d0;border-radius:8px;padding:5px 12px}
+  .dl:hover{background:#e4f1e8}
+
+  .err{background:var(--warnbg);border:1px solid var(--warn);border-radius:11px;padding:14px 17px;
+    font-size:13px;color:var(--warn);line-height:1.7}
+  .foot{margin:26px 0 10px;padding-top:13px;border-top:1px solid var(--line2);
+    display:flex;justify-content:space-between;font-size:11.5px;color:var(--mut);flex-wrap:wrap;gap:6px}
+
+  @media(max-width:760px){
+    body{padding:12px}
+    h1{font-size:22px}
+    .dday{padding-right:14px}
+    .dday b{font-size:28px}
+    .ith{grid-template-columns:72px 1fr 64px;grid-auto-rows:auto;gap:8px 10px;padding:10px 12px}
+    .ith .ti{grid-column:1/-1;grid-row:2;white-space:normal;font-size:14.5px}
+    .ith .sb2{display:none}
+    .ith .du{grid-column:1/3;grid-row:3;text-align:left}
+    .pg{grid-column:3/4;grid-row:3}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="navrow">
+    <a class="back" href="gsmch-1f.html">← 1층 성전보수</a>
+    <span>총여선교회 사업단 &nbsp;|&nbsp; 업데이트 <b id="upd">—</b></span>
+  </div>
+
+  <div class="head">
+    <h1>오픈 진도표</h1>
+    <div class="lead">오픈까지 주차별로 무엇을 확인하고 정하고 실행할지 한곳에서 봅니다.</div>
+  </div>
+
+  <div class="sum" id="sum"></div>
+
+  <div class="ctl" id="ctl"></div>
+
+  <div id="list"></div>
+
+  <div class="foot">
+    <span>선한목자교회 총여선교회 사업단</span>
+    <span>1층 성전보수 사업단 PM 안상미</span>
+  </div>
+</div>
+
+<!--PLANDATA-->
+<script id="planData" type="application/json">{
+  "updated": "2026-10-19",
+  "open": "2026-11-22",
+  "weeks": [
+    {
+      "id": "w1",
+      "label": "10/18 ~ 24",
+      "sub": "결정 · 계약",
+      "from": "2026-10-18",
+      "to": "2026-10-24",
+      "phase": "오픈 준비"
+    },
+    {
+      "id": "w2",
+      "label": "10/25 ~ 31",
+      "sub": "서점 셋업 주간",
+      "from": "2026-10-25",
+      "to": "2026-10-31",
+      "phase": "오픈 준비"
+    },
+    {
+      "id": "w3",
+      "label": "11/1 ~ 7",
+      "sub": "카페 셋업 주간",
+      "from": "2026-11-01",
+      "to": "2026-11-07",
+      "phase": "오픈 준비"
+    },
+    {
+      "id": "w4",
+      "label": "11/8 ~ 14",
+      "sub": "집기 · 준공",
+      "from": "2026-11-08",
+      "to": "2026-11-14",
+      "phase": "오픈 준비"
+    },
+    {
+      "id": "w5",
+      "label": "11/15 ~ 21",
+      "sub": "이설 · 테스트",
+      "from": "2026-11-15",
+      "to": "2026-11-21",
+      "phase": "오픈 준비"
+    },
+    {
+      "id": "w6",
+      "label": "11/22 (주일)",
+      "sub": "오픈",
+      "from": "2026-11-22",
+      "to": "2026-11-22",
+      "phase": "오픈"
+    },
+    {
+      "id": "w7",
+      "label": "11/23 ~ 30",
+      "sub": "안정화 · 운영 매뉴얼",
+      "from": "2026-11-23",
+      "to": "2026-11-30",
+      "phase": "오픈 이후"
+    },
+    {
+      "id": "w8",
+      "label": "12/1 ~ 7",
+      "sub": "사업단 신구 미팅",
+      "from": "2026-12-01",
+      "to": "2026-12-07",
+      "phase": "오픈 이후"
+    },
+    {
+      "id": "w9",
+      "label": "12/8 ~ 당회",
+      "sub": "인수인계",
+      "from": "2026-12-08",
+      "to": "2026-12-31",
+      "phase": "오픈 이후"
+    }
+  ],
+  "items": [
+    {
+      "id": "a-decision",
+      "week": "w1",
+      "area": "주문결제",
+      "title": "주문 · 결제 시스템 도입안 상정",
+      "state": "결정",
+      "due": "10/21",
+      "owner": "PM",
+      "todo": [
+        {
+          "t": "도입안 작성 · 서점 · 카페 비용 산출",
+          "done": true
+        },
+        {
+          "t": "하드웨어 비용 확정 — 카페 태블릿 2대 · 서점 노트북 1대 · 43˝ 디스플레이 2대",
+          "done": false
+        },
+        {
+          "t": "소프트웨어 월 비용 확정 — 카페 포스 사용자 요금",
+          "done": false
+        },
+        {
+          "t": "사업단 의사결정 — 10/20~21 예정",
+          "done": false
+        },
+        {
+          "t": "결정 결과 회신 · 집행 근거 보관",
+          "done": false
+        }
+      ],
+      "note": "10/20~21 사업단 의사결정 예정입니다. 하드웨어 세 항목과 소프트웨어 한 항목이 아직 추정가라, 확정되면 도입안의 비용 장을 갱신해야 합니다. 이 건이 먼저 결정되어야 계약 · 발주로 넘어갑니다.",
+      "doc": "gsmch-1f-pos-committee.html",
+      "docLabel": "도입안 보기",
+      "stream": "주문 · 결제 시스템",
+      "group": "공통",
+      "ask": [
+        "사업단 의사결정 미팅 일정 — 사업단장 협의"
+      ]
+    },
+    {
+      "id": "s-contract",
+      "week": "w1",
+      "area": "주문결제",
+      "title": "계약 · 발주 (잇다 플랫폼)",
+      "state": "준비",
+      "due": "10/24",
+      "owner": "PM",
+      "todo": [
+        {
+          "t": "계약서 조건 확인 (약정 없음 · 무상 A/S)",
+          "done": false
+        },
+        {
+          "t": "하드웨어 발주",
+          "done": false
+        },
+        {
+          "t": "납기 확인",
+          "done": false
+        },
+        {
+          "t": "설치일 확정",
+          "done": false
+        }
+      ],
+      "note": "도입안 결정 이후 진행합니다. 견적 유효기간은 11. 12.까지입니다.",
+      "stream": "주문 · 결제 시스템",
+      "group": "공통"
+    },
+    {
+      "id": "c-entry",
+      "week": "w1",
+      "area": "공사현장",
+      "title": "현장 진입 시점 확인",
+      "state": "확인",
+      "due": "10/24",
+      "owner": "PM",
+      "todo": [
+        {
+          "t": "현장 진입 가능 시점 회신",
+          "done": false
+        },
+        {
+          "t": "공사 중 부분 진입 가능 여부",
+          "done": false
+        }
+      ],
+      "note": "준공 11/14 → 오픈 11/22, 준비 기간이 8일뿐입니다. 공사 중 일부라도 진입할 수 있으면 셋팅을 앞당길 수 있습니다.",
+      "stream": "공사 · 현장",
+      "group": "공통"
+    },
+    {
+      "id": "cafe-equip",
+      "week": "w1",
+      "area": "로뎀카페",
+      "title": "카페 기물 선정 · 계약",
+      "state": "확인",
+      "due": "",
+      "owner": "",
+      "todo": [
+        {
+          "t": "기물 리스트 확정",
+          "done": true
+        },
+        {
+          "t": "업체 비교 및 선정",
+          "done": false
+        },
+        {
+          "t": "계약서 작성",
+          "done": false
+        },
+        {
+          "t": "입금 조건 · 시점 확인",
+          "done": false
+        },
+        {
+          "t": "집행 절차 확인 (견적 · 비교 · 결재 · 근거)",
+          "done": false
+        }
+      ],
+      "note": "기물 리스트는 정해졌습니다. 계약과 입금 조건이 남았습니다.",
+      "stream": "메뉴 · 기물",
+      "group": "로뎀카페",
+      "ask": [
+        "계약서 작성 시점 · 입금 조건 — 사업단장 협의"
+      ]
+    },
+    {
+      "id": "c-sign",
+      "week": "w1",
+      "area": "공사현장",
+      "title": "사인 · 간판 디자인 협의",
+      "state": "결정",
+      "due": "10/24",
+      "owner": "PM",
+      "todo": [
+        {
+          "t": "디자인 시안 협의",
+          "done": false
+        },
+        {
+          "t": "글자 · 로고 확정",
+          "done": false
+        },
+        {
+          "t": "설치 위치 · 전원 확인",
+          "done": false
+        }
+      ],
+      "note": "제작은 공사 범위에 포함됩니다. 디자인만 사업단이 정합니다.",
+      "stream": "제작물 · 사인",
+      "group": "공통"
+    },
+    {
+      "id": "b-mix",
+      "week": "w1",
+      "area": "선지서점",
+      "title": "서점 진열 방식 1차 구상",
+      "state": "결정",
+      "due": "10/24",
+      "owner": "서점 매니저",
+      "todo": [
+        {
+          "t": "재고 리스트 근거로 배치 설계",
+          "done": false
+        },
+        {
+          "t": "신규 면적 기준으로 구성 재검토",
+          "done": false
+        },
+        {
+          "t": "서가 14칸 분류와 맞추기",
+          "done": false
+        },
+        {
+          "t": "진열 집기 목록 · 수량 초안",
+          "done": false
+        }
+      ],
+      "note": "재고 리스트가 나와야 서가 14칸에 무엇을 얼마나 둘지 정해집니다. 1차 구상을 이번 주에 잡고, 차주에 확정합니다.",
+      "doc": "gsmch-1f-book-layout.html",
+      "docLabel": "배치 · 운영안 보기",
+      "stream": "진열 · 도서",
+      "group": "선지서점"
+    },
+    {
+      "id": "c-watch",
+      "week": "w1",
+      "area": "공사현장",
+      "title": "현장 점검 · 설계 변경 기록",
+      "state": "준비",
+      "due": "",
+      "owner": "PM",
+      "todo": [
+        {
+          "t": "정기 현장 점검",
+          "done": false
+        },
+        {
+          "t": "설계 변경 발생 시 협의 · 기록",
+          "done": false
+        }
+      ],
+      "note": "준공까지 계속되는 일입니다.",
+      "stream": "공사 · 현장",
+      "weekTo": "w4",
+      "group": "공통"
+    },
+    {
+      "id": "s-trainplan",
+      "week": "w1",
+      "area": "주문결제",
+      "title": "매니저 교육 · 셋업 일정 확정",
+      "state": "결정",
+      "due": "10/24",
+      "owner": "PM",
+      "todo": [
+        {
+          "t": "업체에 1:1 교육 요청",
+          "done": false
+        },
+        {
+          "t": "서점 매니저 교육일 확정",
+          "done": false
+        },
+        {
+          "t": "카페 매니저 교육일 확정 (11/1 근무 시작)",
+          "done": false
+        },
+        {
+          "t": "교육 장소 확정 (임시서점 포스 활용 여부)",
+          "done": false
+        }
+      ],
+      "note": "카페 매니저님이 11/1부터 근무를 시작합니다. 서점은 임시서점 포스로 먼저 할 수 있습니다.",
+      "stream": "교육 · 인력",
+      "group": "공통"
+    },
+    {
+      "id": "c-book",
+      "week": "w1",
+      "area": "공사현장",
+      "title": "서점 도면 확인 — 키오스크 자리",
+      "state": "결정",
+      "due": "10/24",
+      "owner": "PM",
+      "todo": [
+        {
+          "t": "키오스크 자리 확정 · 가구 위치",
+          "done": false
+        },
+        {
+          "t": "하부장 내부 치수 · 환기 · 배선 구멍",
+          "done": false
+        },
+        {
+          "t": "계산대 상판 치수 · 전원 · 랜",
+          "done": false
+        },
+        {
+          "t": "외벽 디스플레이 위치 · 전원 · 랜",
+          "done": false
+        }
+      ],
+      "note": "자리가 정해져야 발주 사양과 타공 요청이 나갑니다.",
+      "doc": "gsmch-1f-book-layout.html",
+      "docLabel": "서점 배치안 보기",
+      "stream": "도면 · 자리",
+      "group": "선지서점"
+    },
+    {
+      "id": "c-cafe",
+      "week": "w1",
+      "area": "공사현장",
+      "title": "카페 도면 확인 — 메뉴판 자리",
+      "state": "결정",
+      "due": "10/24",
+      "owner": "PM",
+      "todo": [
+        {
+          "t": "메뉴판 프레임 칸 폭 · 깊이",
+          "done": false
+        },
+        {
+          "t": "키오스크 매립 여부 · 타공 치수",
+          "done": false
+        },
+        {
+          "t": "픽업대 위 디스플레이 고정 · 보강",
+          "done": false
+        }
+      ],
+      "note": "메뉴판과 디스플레이는 벽·천장 작업이라 공사 중에 정해야 합니다.",
+      "doc": "gsmch-1f-cafe-layout.html",
+      "docLabel": "카페 배치안 보기",
+      "stream": "도면 · 자리",
+      "group": "로뎀카페"
+    },
+    {
+      "id": "cafe-cup-review",
+      "week": "w1",
+      "group": "로뎀카페",
+      "stream": "다회용컵",
+      "area": "로뎀카페",
+      "title": "다회용컵 운영 방식 · 비용 정리",
+      "state": "결정",
+      "due": "10/24",
+      "owner": "",
+      "todo": [
+        {
+          "t": "운영 방식 정리 (반납 · 세척 · 회수 동선)",
+          "done": false
+        },
+        {
+          "t": "비용 구조 정리 (초기 · 월 비용 · 컵 단가)",
+          "done": false
+        },
+        {
+          "t": "필요 기기 사양 · 수량 (세척기 · 반납 키오스크)",
+          "done": false
+        },
+        {
+          "t": "업체에 물어볼 목록 준비",
+          "done": false
+        },
+        {
+          "t": "10. 27.(화) 미팅 일정 확정",
+          "done": false
+        }
+      ],
+      "note": "도입은 이미 정해졌습니다. 어떻게 운영하고 비용을 어떻게 가져갈지를 이번 주에 정리해, 차주 미팅에서 확정합니다."
+    },
+    {
+      "id": "cafe-bean",
+      "week": "w1",
+      "group": "로뎀카페",
+      "stream": "메뉴 · 기물",
+      "area": "로뎀카페",
+      "title": "커피빈 시음 · 가격 조사",
+      "state": "결정",
+      "due": "10/24",
+      "owner": "",
+      "todo": [
+        {
+          "t": "후보 원두 추리기",
+          "done": false
+        },
+        {
+          "t": "시음",
+          "done": false
+        },
+        {
+          "t": "가격 · 납기 · 최소 주문량 조사",
+          "done": false
+        },
+        {
+          "t": "비교 후 결정",
+          "done": false
+        }
+      ],
+      "note": "원두가 정해져야 메뉴 구성과 가격 정책을 차주에 확정할 수 있습니다."
+    },
+    {
+      "id": "b-list",
+      "week": "w1",
+      "group": "선지서점",
+      "stream": "진열 · 도서",
+      "area": "선지서점",
+      "title": "재고 리스트 정리 (포스 입력용)",
+      "state": "결정",
+      "due": "10/24",
+      "owner": "서점 매니저",
+      "todo": [
+        {
+          "t": "임시서점(5층) 재고",
+          "done": false
+        },
+        {
+          "t": "지하 5층 보관 재고",
+          "done": false
+        },
+        {
+          "t": "도서 외 상품 (상품권 · 선물 등)",
+          "done": false
+        },
+        {
+          "t": "분류 체계에 맞춰 한 파일로 정리",
+          "done": false
+        }
+      ],
+      "note": "이 리스트가 진열 설계의 근거가 되고, 그대로 포스 입력 자료가 됩니다. 두 곳에 나뉜 재고를 합쳐야 합니다."
+    },
+    {
+      "id": "cafe-menu-fix",
+      "week": "w2",
+      "area": "로뎀카페",
+      "title": "카페 메뉴 구성 · 가격 확정",
+      "state": "결정",
+      "due": "10/31",
+      "owner": "",
+      "todo": [
+        {
+          "t": "기존 메뉴 재검토",
+          "done": false
+        },
+        {
+          "t": "신메뉴 도입 여부",
+          "done": false
+        },
+        {
+          "t": "가격 확정",
+          "done": false
+        }
+      ],
+      "note": "차주에 확정합니다. 확정 후 11월 첫 주에 포스 메뉴 셋업으로 이어집니다.",
+      "stream": "메뉴 · 기물",
+      "group": "로뎀카페"
+    },
+    {
+      "id": "m-scope",
+      "week": "w2",
+      "area": "제작물",
+      "title": "오픈 준비 제작물 범위 · 예산 확정",
+      "state": "결정",
+      "due": "10/31",
+      "owner": "PM",
+      "todo": [
+        {
+          "t": "만들 것 목록 확정 (사인 · 유니폼 · 패키지 · 안내물)",
+          "done": false
+        },
+        {
+          "t": "항목별 예산 배정",
+          "done": false
+        },
+        {
+          "t": "금액별 결재선 확인",
+          "done": false
+        }
+      ],
+      "note": "제작은 2~3주가 걸립니다. 10월 안에 정해야 11/22 오픈에 맞출 수 있습니다.",
+      "stream": "제작물 · 사인",
+      "group": "공통"
+    },
+    {
+      "id": "cafe-cup",
+      "week": "w2",
+      "area": "로뎀카페",
+      "title": "다회용컵 업체 미팅 · 조건 확정",
+      "state": "확인",
+      "due": "10/31",
+      "owner": "",
+      "todo": [
+        {
+          "t": "10. 27.(화) 업체 대표 미팅 (+ 지속환경국)",
+          "done": false
+        },
+        {
+          "t": "운영 업체 선정",
+          "done": false
+        },
+        {
+          "t": "월 비용 · 컵 단가 확정",
+          "done": false
+        },
+        {
+          "t": "세척기 · 반납 키오스크 사양 확정",
+          "done": false
+        },
+        {
+          "t": "계약 조건 정리",
+          "done": false
+        }
+      ],
+      "note": "9. 5. 지속환경국 미팅 완료. 10. 27. 업체 대표와 지속환경국이 함께하는 미팅에서 조건을 확정합니다.",
+      "stream": "다회용컵",
+      "group": "로뎀카페"
+    },
+    {
+      "id": "s-temppos",
+      "week": "w2",
+      "area": "주문결제",
+      "title": "임시서점에 포스 먼저 설치",
+      "state": "확인",
+      "due": "10/31",
+      "owner": "",
+      "todo": [
+        {
+          "t": "임시서점(5층) 설치일 확정",
+          "done": false
+        },
+        {
+          "t": "전원 · 인터넷 확인",
+          "done": false
+        },
+        {
+          "t": "서점 기초 자료 등록",
+          "done": false
+        }
+      ],
+      "note": "1층 공사 중에 임시서점에서 먼저 쓰면서 도서 입력과 익히기를 끝내는 구간입니다.",
+      "stream": "주문 · 결제 시스템",
+      "group": "공통"
+    },
+    {
+      "id": "b-stock",
+      "week": "w2",
+      "area": "선지서점",
+      "title": "도서 입력 시작 (PDA)",
+      "state": "확인",
+      "due": "11/8",
+      "owner": "서점 매니저",
+      "todo": [
+        {
+          "t": "서가 14칸 분류 기준 확정",
+          "done": false
+        },
+        {
+          "t": "바코드 없는 도서 목록 뽑기",
+          "done": false
+        },
+        {
+          "t": "아가페 반품분 분리",
+          "done": false
+        },
+        {
+          "t": "PDA 입력 테스트 (10권)",
+          "done": false
+        }
+      ],
+      "note": "50만 권 자료가 있어 바코드를 찍으면 책 정보가 들어옵니다. 분류 기준만 먼저 정하면 됩니다.",
+      "stream": "진열 · 도서",
+      "weekTo": "w3",
+      "group": "선지서점"
+    },
+    {
+      "id": "m-order",
+      "week": "w2",
+      "area": "제작물",
+      "title": "BX · 제작물 발주",
+      "state": "확인",
+      "due": "10/31",
+      "owner": "",
+      "todo": [
+        {
+          "t": "유니폼",
+          "done": false
+        },
+        {
+          "t": "컵 · 홀더 · 포장재 등 패키지",
+          "done": false
+        },
+        {
+          "t": "안내물 · 사인물 디자인 · 제작",
+          "done": false
+        }
+      ],
+      "note": "납기 2~3주 기준으로 이번 주 발주해야 11/14 전에 들어옵니다. 카페 앞치마는 별도 항목입니다.",
+      "stream": "제작물 · 사인",
+      "group": "공통"
+    },
+    {
+      "id": "b-order",
+      "week": "w2",
+      "area": "선지서점",
+      "title": "진열 집기 · 초도 도서 발주",
+      "state": "확인",
+      "due": "10/31",
+      "owner": "서점 매니저",
+      "todo": [
+        {
+          "t": "진열 집기 발주",
+          "done": false
+        },
+        {
+          "t": "초도 발주 계획 (11/14 역산)",
+          "done": false
+        },
+        {
+          "t": "납기 확인",
+          "done": false
+        }
+      ],
+      "note": "",
+      "stream": "진열 · 도서",
+      "group": "선지서점"
+    },
+    {
+      "id": "cafe-order",
+      "week": "w2",
+      "area": "로뎀카페",
+      "title": "가구 · 집기 · 식기 · 소모품 발주",
+      "state": "확인",
+      "due": "10/31",
+      "owner": "",
+      "todo": [
+        {
+          "t": "신규 기물 목록 · 사양 확정",
+          "done": false
+        },
+        {
+          "t": "발주 · 납기 확인",
+          "done": false
+        },
+        {
+          "t": "집행 절차 (견적 · 비교 · 결재 · 근거)",
+          "done": false
+        }
+      ],
+      "note": "기물 업체 선정과 묶어서 진행합니다.",
+      "stream": "메뉴 · 기물",
+      "group": "로뎀카페"
+    },
+    {
+      "id": "b-train",
+      "week": "w2",
+      "area": "선지서점",
+      "title": "서점 매니저 포스 · PDA 교육",
+      "state": "확인",
+      "due": "10/31",
+      "owner": "서점 매니저",
+      "todo": [
+        {
+          "t": "임시서점 포스로 실습",
+          "done": false
+        },
+        {
+          "t": "도서 입력 · 검색 사용법",
+          "done": false
+        },
+        {
+          "t": "PDA 재고조사 · 바코드 등록",
+          "done": false
+        },
+        {
+          "t": "매출 조회 · 마감",
+          "done": false
+        }
+      ],
+      "note": "서점 매니저님은 기존 근무자라 한 주 먼저 시작합니다. 임시서점 포스로 실습합니다.",
+      "stream": "교육 · 준비",
+      "group": "선지서점"
+    },
+    {
+      "id": "b-mix2",
+      "week": "w2",
+      "area": "선지서점",
+      "title": "서점 진열 방식 확정 · 포스 셋업",
+      "state": "확인",
+      "due": "10/31",
+      "owner": "서점 매니저",
+      "todo": [
+        {
+          "t": "진열 방식 최종 확정",
+          "done": false
+        },
+        {
+          "t": "분류 체계를 포스에 등록",
+          "done": false
+        },
+        {
+          "t": "서가 위치 정보 입력",
+          "done": false
+        },
+        {
+          "t": "진열 집기 발주 사양 확정",
+          "done": false
+        }
+      ],
+      "note": "진열 분류가 그대로 포스 분류가 됩니다. 서점을 한 주 먼저 끝내고 카페로 넘어갑니다.",
+      "doc": "gsmch-1f-book-layout.html",
+      "docLabel": "배치 · 운영안 보기",
+      "stream": "진열 · 도서",
+      "group": "선지서점"
+    },
+    {
+      "id": "c-fix",
+      "week": "w2",
+      "area": "공사현장",
+      "title": "서점 · 카페 도면 확정 · 설치 상호 확인",
+      "state": "확인",
+      "due": "10/31",
+      "owner": "PM",
+      "todo": [
+        {
+          "t": "서점 · 카페 도면 최종 확정",
+          "done": false
+        },
+        {
+          "t": "업체와 설치 위치 상호 확인",
+          "done": false
+        },
+        {
+          "t": "전원 · 랜 위치 최종 확정",
+          "done": false
+        },
+        {
+          "t": "타공 · 보강 요청 건축위 전달",
+          "done": false
+        }
+      ],
+      "note": "이번 주 확인한 내용을 차주에 확정하고, 설치 업체와 서로 맞춰 봅니다.",
+      "stream": "공사 · 현장",
+      "group": "공통"
+    },
+    {
+      "id": "b-stock2",
+      "week": "w3",
+      "area": "선지서점",
+      "title": "도서 입력 마무리 · 재고 수량 확정",
+      "state": "확인",
+      "due": "11/7",
+      "owner": "서점 매니저",
+      "todo": [
+        {
+          "t": "전 서가 입력 완료",
+          "done": false
+        },
+        {
+          "t": "수량 대조 · 차이 정리",
+          "done": false
+        }
+      ],
+      "note": "",
+      "stream": "진열 · 도서",
+      "group": "선지서점"
+    },
+    {
+      "id": "s-train",
+      "week": "w3",
+      "area": "주문결제",
+      "title": "봉사자 교육",
+      "state": "확인",
+      "due": "11/7",
+      "owner": "",
+      "todo": [
+        {
+          "t": "봉사자 교육 일정 잡기",
+          "done": false
+        },
+        {
+          "t": "서점 · 카페 각각 진행",
+          "done": false
+        },
+        {
+          "t": "봉사자용 한 장 요약 만들기",
+          "done": false
+        }
+      ],
+      "note": "매니저 교육과 별도입니다. 계산 · 주문 받기 위주로 짧게 진행합니다.",
+      "stream": "교육 · 인력",
+      "group": "공통"
+    },
+    {
+      "id": "cafe-menu",
+      "week": "w3",
+      "area": "로뎀카페",
+      "title": "메뉴 · 디스플레이 콘텐츠 확정",
+      "state": "확인",
+      "due": "11/7",
+      "owner": "",
+      "todo": [
+        {
+          "t": "메뉴 · 가격 최종 확정",
+          "done": false
+        },
+        {
+          "t": "메뉴판 화면 구성",
+          "done": false
+        },
+        {
+          "t": "사이니지 공지 내용 (휴무 · 텀블러 할인)",
+          "done": false
+        }
+      ],
+      "note": "",
+      "stream": "메뉴 · 기물",
+      "group": "로뎀카페"
+    },
+    {
+      "id": "a-ops",
+      "week": "w3",
+      "area": "행정",
+      "title": "운영 체계 정비",
+      "state": "확인",
+      "due": "11/7",
+      "owner": "",
+      "todo": [
+        {
+          "t": "상품권 운영 방식 정비",
+          "done": false
+        },
+        {
+          "t": "오픈 · 마감 절차 정비",
+          "done": false
+        },
+        {
+          "t": "위생 · 안전 관리 기준 정비",
+          "done": false
+        }
+      ],
+      "note": "",
+      "stream": "행정 · 매뉴얼",
+      "group": "공통"
+    },
+    {
+      "id": "cafe-board",
+      "week": "w3",
+      "area": "로뎀카페",
+      "title": "메뉴판 제작",
+      "state": "확인",
+      "due": "11/7",
+      "owner": "",
+      "todo": [
+        {
+          "t": "디지털 메뉴판 화면 구성 (음료 45종)",
+          "done": false
+        },
+        {
+          "t": "뒤 바 상부 천장 설치 확인",
+          "done": false
+        }
+      ],
+      "note": "포스에 등록된 메뉴를 화면 구성으로 옮깁니다.",
+      "doc": "gsmch-1f-cafe-layout.html",
+      "docLabel": "메뉴판 시안 보기",
+      "stream": "메뉴 · 기물",
+      "group": "로뎀카페"
+    },
+    {
+      "id": "cafe-train",
+      "week": "w3",
+      "area": "로뎀카페",
+      "title": "카페 매니저 포스 교육 · 셋업",
+      "state": "확인",
+      "due": "11/7",
+      "owner": "카페 매니저",
+      "todo": [
+        {
+          "t": "11/1 근무 시작",
+          "done": false
+        },
+        {
+          "t": "메뉴 · 가격 등록",
+          "done": false
+        },
+        {
+          "t": "주문현황 디스플레이 · 음성 호출 사용법",
+          "done": false
+        },
+        {
+          "t": "QR 주문 · 온라인몰 확인",
+          "done": false
+        },
+        {
+          "t": "마감 · 정산 절차",
+          "done": false
+        }
+      ],
+      "note": "카페 매니저님 11/1 근무 시작. 서점보다 한 주 뒤에 진행합니다.",
+      "stream": "교육 · 준비",
+      "group": "로뎀카페"
+    },
+    {
+      "id": "cafe-menu-pos",
+      "week": "w3",
+      "area": "로뎀카페",
+      "title": "카페 메뉴 포스 셋업",
+      "state": "확인",
+      "due": "11/7",
+      "owner": "카페 매니저",
+      "todo": [
+        {
+          "t": "메뉴 · 가격 포스 등록",
+          "done": false
+        },
+        {
+          "t": "옵션 · 사이즈 · 할인 설정",
+          "done": false
+        },
+        {
+          "t": "키오스크 · QR · 온라인몰 화면 확인",
+          "done": false
+        },
+        {
+          "t": "메뉴판 화면과 대조",
+          "done": false
+        }
+      ],
+      "note": "서점 셋업을 마친 뒤 한 주 간격을 두고 진행합니다. 확정된 메뉴가 포스 · 키오스크 · QR · 온라인몰에 한 번에 반영됩니다.",
+      "stream": "메뉴 · 기물",
+      "group": "로뎀카페"
+    },
+    {
+      "id": "cafe-apron",
+      "week": "w3",
+      "weekTo": "w4",
+      "group": "로뎀카페",
+      "stream": "제작물",
+      "area": "제작물",
+      "title": "카페 앞치마 주문",
+      "state": "확인",
+      "due": "11/14",
+      "owner": "",
+      "todo": [
+        {
+          "t": "어떤 앞치마로 할지 정하기 (디자인 · 색상 · 원단)",
+          "done": false
+        },
+        {
+          "t": "수량 · 사이즈 확정",
+          "done": false
+        },
+        {
+          "t": "업체 견적 · 발주",
+          "done": false
+        },
+        {
+          "t": "납기 확인 — 11/14 전 입고",
+          "done": false
+        }
+      ],
+      "note": "11월 1~2주에 걸쳐 진행합니다. 정하는 데 한 주, 발주와 납기에 한 주를 봅니다."
+    },
+    {
+      "id": "s-install",
+      "week": "w4",
+      "area": "주문결제",
+      "title": "장비 설치 · 연동",
+      "state": "확인",
+      "due": "11/14",
+      "owner": "",
+      "todo": [
+        {
+          "t": "포스 · 키오스크 설치",
+          "done": false
+        },
+        {
+          "t": "디스플레이 거치 · 배선",
+          "done": false
+        },
+        {
+          "t": "결제 단말 연동 확인",
+          "done": false
+        }
+      ],
+      "note": "준공 전 진입이 가능하면 이 주에 시작합니다.",
+      "stream": "주문 · 결제 시스템",
+      "group": "공통"
+    },
+    {
+      "id": "b-in",
+      "week": "w4",
+      "area": "선지서점",
+      "title": "서적 입고",
+      "state": "확인",
+      "due": "11/13",
+      "owner": "서점 매니저",
+      "todo": [
+        {
+          "t": "임시서점 → 1층 이동 계획",
+          "done": false
+        },
+        {
+          "t": "서가별 배치",
+          "done": false
+        }
+      ],
+      "note": "",
+      "stream": "진열 · 도서",
+      "group": "선지서점"
+    },
+    {
+      "id": "cafe-in",
+      "week": "w4",
+      "area": "로뎀카페",
+      "title": "집기 반입 · 세팅",
+      "state": "확인",
+      "due": "11/13",
+      "owner": "",
+      "todo": [
+        {
+          "t": "기물 반입 일정 조율",
+          "done": false
+        },
+        {
+          "t": "바 세팅 · 동선 확인",
+          "done": false
+        }
+      ],
+      "note": "",
+      "stream": "메뉴 · 기물",
+      "group": "로뎀카페"
+    },
+    {
+      "id": "c-done",
+      "week": "w4",
+      "area": "공사현장",
+      "title": "준공 11/14 (토)",
+      "state": "확인",
+      "due": "11/14",
+      "owner": "건축위",
+      "todo": [
+        {
+          "t": "준공 확인",
+          "done": false
+        },
+        {
+          "t": "하자 목록 정리",
+          "done": false
+        }
+      ],
+      "note": "",
+      "stream": "공사 · 현장",
+      "group": "공통"
+    },
+    {
+      "id": "m-recv",
+      "week": "w4",
+      "area": "제작물",
+      "title": "제작물 납품 · 검수",
+      "state": "확인",
+      "due": "11/13",
+      "owner": "",
+      "todo": [
+        {
+          "t": "유니폼 · 앞치마 검수",
+          "done": false
+        },
+        {
+          "t": "패키지 · 소모품 검수",
+          "done": false
+        },
+        {
+          "t": "안내물 · 사인물 설치",
+          "done": false
+        }
+      ],
+      "note": "",
+      "stream": "제작물 · 사인",
+      "group": "공통"
+    },
+    {
+      "id": "s-test",
+      "week": "w5",
+      "area": "주문결제",
+      "title": "연동 · 영업 테스트",
+      "state": "확인",
+      "due": "11/21",
+      "owner": "",
+      "todo": [
+        {
+          "t": "실제 결제 테스트 (카드 · QR)",
+          "done": false
+        },
+        {
+          "t": "주문현황 디스플레이 · 음성 호출 확인",
+          "done": false
+        },
+        {
+          "t": "재고 연동 확인 (포스 ↔ 키오스크 ↔ 검색대)",
+          "done": false
+        },
+        {
+          "t": "온라인몰 주문 테스트",
+          "done": false
+        }
+      ],
+      "note": "",
+      "stream": "주문 · 결제 시스템",
+      "group": "공통"
+    },
+    {
+      "id": "all-rehearsal",
+      "week": "w5",
+      "area": "선지서점",
+      "title": "리허설 · 오픈 준비",
+      "state": "확인",
+      "due": "11/21",
+      "owner": "",
+      "todo": [
+        {
+          "t": "봉사자 실전 연습",
+          "done": false
+        },
+        {
+          "t": "안내문 · 사인물 부착",
+          "done": false
+        },
+        {
+          "t": "오픈 공지",
+          "done": false
+        }
+      ],
+      "note": "",
+      "stream": "교육 · 준비",
+      "group": "선지서점"
+    },
+    {
+      "id": "a-promo",
+      "week": "w5",
+      "area": "행정",
+      "title": "오픈 홍보",
+      "state": "확인",
+      "due": "11/21",
+      "owner": "",
+      "todo": [
+        {
+          "t": "주보 공지",
+          "done": false
+        },
+        {
+          "t": "현장 안내물",
+          "done": false
+        },
+        {
+          "t": "웹사이트 · QR 갱신",
+          "done": false
+        }
+      ],
+      "note": "",
+      "stream": "오픈",
+      "group": "공통"
+    },
+    {
+      "id": "a-staff",
+      "week": "w5",
+      "area": "행정",
+      "title": "인력 배치 · 운영 교육",
+      "state": "확인",
+      "due": "11/21",
+      "owner": "",
+      "todo": [
+        {
+          "t": "오픈 주 인력 배치표",
+          "done": false
+        },
+        {
+          "t": "봉사자 운영 교육 (접객 · 마감)",
+          "done": false
+        },
+        {
+          "t": "비상 연락 체계",
+          "done": false
+        }
+      ],
+      "note": "시스템 사용 교육은 「매니저 · 봉사자 교육」 항목에 있습니다.",
+      "stream": "교육 · 인력",
+      "group": "공통"
+    },
+    {
+      "id": "a-event",
+      "week": "w5",
+      "area": "행정",
+      "title": "오픈 이벤트 준비",
+      "state": "확인",
+      "due": "11/21",
+      "owner": "",
+      "todo": [
+        {
+          "t": "이벤트 내용 · 기간 확정",
+          "done": false
+        },
+        {
+          "t": "기념품 · 사은품 준비",
+          "done": false
+        },
+        {
+          "t": "안내 · 홍보물 제작",
+          "done": false
+        },
+        {
+          "t": "당일 진행 인원 배치",
+          "done": false
+        }
+      ],
+      "note": "11/22 오픈 당일에 맞춰 준비합니다.",
+      "stream": "오픈",
+      "group": "공통"
+    },
+    {
+      "id": "cafe-cup-set",
+      "week": "w5",
+      "group": "로뎀카페",
+      "stream": "다회용컵",
+      "area": "로뎀카페",
+      "title": "다회용컵 현장 셋팅",
+      "state": "확인",
+      "due": "11/21",
+      "owner": "",
+      "todo": [
+        {
+          "t": "세척기 · 반납 키오스크 설치 위치 확정",
+          "done": false
+        },
+        {
+          "t": "전원 · 급배수 확인",
+          "done": false
+        },
+        {
+          "t": "기기 반입 · 설치",
+          "done": false
+        },
+        {
+          "t": "시운전 · 반납 동선 점검",
+          "done": false
+        },
+        {
+          "t": "운영 방식 안내물",
+          "done": false
+        }
+      ],
+      "note": "준공 11/14 이후 오픈 전까지 진행합니다. 설치 위치와 전원 · 급배수는 공사 쪽과 미리 맞춰야 합니다."
+    },
+    {
+      "id": "open",
+      "week": "w6",
+      "area": "행정",
+      "title": "선지서점 · 로뎀카페 동시 오픈",
+      "state": "확인",
+      "due": "11/22",
+      "owner": "",
+      "todo": [
+        {
+          "t": "오픈 당일 운영 인원 배치",
+          "done": false
+        },
+        {
+          "t": "첫 주 안정화 점검",
+          "done": false
+        }
+      ],
+      "note": "",
+      "stream": "오픈",
+      "group": "공통"
+    },
+    {
+      "id": "a-manual",
+      "week": "w7",
+      "area": "행정",
+      "title": "운영 매뉴얼 제작 (사역매뉴얼 Ⅲ편)",
+      "state": "확인",
+      "due": "11/30",
+      "owner": "PM",
+      "todo": [
+        {
+          "t": "사업장별 운영 편 목차",
+          "done": false
+        },
+        {
+          "t": "선지서점 운영 · 로뎀카페 운영",
+          "done": false
+        },
+        {
+          "t": "주문 · 결제 시스템 사용법 포함",
+          "done": false
+        },
+        {
+          "t": "금액별 결재 기준 (Ⅰ편 4장) 신설",
+          "done": false
+        }
+      ],
+      "note": "11월 말까지 완성해야 12월 첫 주 신구 미팅에서 안내할 수 있습니다.",
+      "doc": "gsmch-manual-v2.html",
+      "docLabel": "사역매뉴얼 보기",
+      "stream": "행정 · 매뉴얼",
+      "group": "공통"
+    },
+    {
+      "id": "a-close",
+      "week": "w7",
+      "area": "행정",
+      "title": "오픈 이후 정리 · 결과 보고",
+      "state": "확인",
+      "due": "11/30",
+      "owner": "PM",
+      "todo": [
+        {
+          "t": "프로모션 시행 (오픈 이벤트 · 기념품)",
+          "done": false
+        },
+        {
+          "t": "초기 운영 점검",
+          "done": false
+        },
+        {
+          "t": "공사 관련 정산 마무리",
+          "done": false
+        },
+        {
+          "t": "결과 보고 (사업단 · 여선교회 · 건축위)",
+          "done": false
+        },
+        {
+          "t": "사역매뉴얼 Ⅲ편 반영",
+          "done": false
+        }
+      ],
+      "note": "",
+      "stream": "오픈",
+      "group": "공통"
+    },
+    {
+      "id": "a-handover1",
+      "week": "w8",
+      "area": "행정",
+      "title": "사업단 신구 미팅",
+      "state": "확인",
+      "due": "12/7",
+      "owner": "",
+      "todo": [
+        {
+          "t": "일정 · 참석자 확정",
+          "done": false
+        },
+        {
+          "t": "신구 인사",
+          "done": false
+        },
+        {
+          "t": "운영 매뉴얼 안내",
+          "done": false
+        },
+        {
+          "t": "현안 · 일정 공유",
+          "done": false
+        }
+      ],
+      "note": "운영 매뉴얼이 나와 있어야 안내가 됩니다.",
+      "stream": "행정 · 매뉴얼",
+      "group": "공통"
+    },
+    {
+      "id": "a-handover2",
+      "week": "w9",
+      "area": "행정",
+      "title": "인수인계",
+      "state": "확인",
+      "due": "",
+      "owner": "",
+      "todo": [
+        {
+          "t": "업무별 인수인계 목록 작성",
+          "done": false
+        },
+        {
+          "t": "계정 · 권한 이관 (포스 · 온라인몰 · 메일)",
+          "done": false
+        },
+        {
+          "t": "거래처 · 계약 · 정기 결제 인계",
+          "done": false
+        },
+        {
+          "t": "회계 · 재고 마감 자료 정리",
+          "done": false
+        },
+        {
+          "t": "당회 보고",
+          "done": false
+        }
+      ],
+      "note": "12월 첫 주 미팅 이후부터 당회까지 진행합니다.",
+      "stream": "행정 · 매뉴얼",
+      "weekTo": "w9",
+      "group": "공통"
+    }
+  ],
+  "streams": {
+    "공통": [
+      "주문 · 결제 시스템",
+      "공사 · 현장",
+      "제작물 · 사인",
+      "교육 · 인력",
+      "행정 · 매뉴얼",
+      "오픈"
+    ],
+    "선지서점": [
+      "도면 · 자리",
+      "진열 · 도서",
+      "교육 · 준비"
+    ],
+    "로뎀카페": [
+      "도면 · 자리",
+      "메뉴 · 기물",
+      "제작물",
+      "교육 · 준비",
+      "다회용컵"
+    ]
+  },
+  "groups": [
+    "공통",
+    "선지서점",
+    "로뎀카페"
+  ]
+}
+</script>
+<script>
+const AREAS = ['공통','선지서점','로뎀카페'];
+const GSUB = {'공통':'시스템 · 공사 · 제작물 · 행정','선지서점':'도면 · 진열 · 도서 · 교육',
+              '로뎀카페':'도면 · 메뉴 · 기물 · 교육'};
+const LABEL = {'확인':'확인 중','결정':'결정 필요','준비':'진행 중','완료':'완료'};
+const trk = it => it.group || '공통';
+let view = 'gantt';
+let DATA = null, filter = '전체';
+
+function esc(s){ return (s||'').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+function dday(to){
+  const t = new Date(to+'T00:00:00+09:00');
+  const n = new Date();
+  const today = new Date(n.getFullYear(), n.getMonth(), n.getDate());
+  return Math.round((t - today) / 86400000);
+}
+function weekState(w){
+  const a = dday(w.from), b = dday(w.to);
+  if (b < 0) return 'past';
+  if (a <= 0 && b >= 0) return 'now';
+  return 'next';
+}
+function prog(it){
+  const t = it.todo || [];
+  return { d: t.filter(x => x.done).length, n: t.length };
+}
+
+function renderSum(){
+  const its = DATA.items;
+  let d = 0, n = 0;
+  its.forEach(it => { const p = prog(it); d += p.d; n += p.n; });
+  const pc = n ? Math.round(d / n * 100) : 0;
+  const cnt = {};
+  its.forEach(it => cnt[it.state] = (cnt[it.state] || 0) + 1);
+  const dd = dday(DATA.open);
+  document.getElementById('sum').innerHTML =
+    '<div class="dday"><b>D-' + dd + '</b><span>오픈 11. 22. (주일)</span></div>' +
+    '<div class="sumg"><div class="t"><span>전체 할 일 <b>' + d + ' / ' + n + '</b></span><span>' + pc + '%</span></div>' +
+    '<div class="bar"><i style="width:' + pc + '%"></i></div></div>' +
+    '<div class="stt">' + ['결정','준비','확인','완료'].filter(s => cnt[s])
+      .map(s => '<span>' + (LABEL[s] || s) + ' ' + cnt[s] + '</span>').join('') + '</div>';
+}
+
+function renderCtl(){
+  const c = document.getElementById('ctl');
+  c.innerHTML =
+    '<span class="vsw">' +
+      '<button class="vb' + (view === 'gantt' ? ' on' : '') + '" data-v="gantt">전체 일정</button>' +
+      '<button class="vb' + (view === 'week' ? ' on' : '') + '" data-v="week">주차별</button>' +
+    '</span>' +
+    ['전체'].concat(AREAS)
+      .map(a => '<button class="chip' + (a === filter ? ' on' : '') + '" data-a="' + a + '">' + a + '</button>').join('') +
+    '<span class="sp">' + (view === 'week' ? '항목을 누르면 할 일이 펼쳐집니다'
+                                           : '가로가 주차입니다 · 막대를 누르면 주차별로 갑니다') + '</span>';
+  c.querySelectorAll('.chip').forEach(b => b.onclick = () => { filter = b.dataset.a; renderCtl(); draw(); });
+  c.querySelectorAll('.vb').forEach(b => b.onclick = () => { view = b.dataset.v; renderCtl(); draw(); });
+}
+
+function itemHTML(it, sep){
+  const p = prog(it);
+  const pc = p.n ? Math.round(p.d / p.n * 100) : 0;
+  const todo = (it.todo || []).map(t =>
+    '<li class="' + (t.done ? 'ok' : '') + '"><i></i><span>' + esc(t.t) + '</span></li>').join('');
+  const note = it.note
+    ? '<div class="nt' + (/미확인|필요/.test(it.note) ? ' w' : '') + '">' + esc(it.note) + '</div>' : '';
+  const ask = (it.ask && it.ask.length)
+    ? '<div class="ask"><b>확인할 내용</b><ul>' +
+      it.ask.map(a => '<li>' + esc(a) + '</li>').join('') + '</ul></div>' : '';
+  const meta = (it.owner || it.doc)
+    ? '<div class="mt">' + (it.owner ? '<span class="ow">담당 ' + esc(it.owner) + '</span>' : '') +
+      (it.doc ? '<a class="dl" href="' + esc(it.doc) + '">📄 ' + esc(it.docLabel || '문서 보기') + '</a>' : '') + '</div>'
+    : '';
+  return '<div class="it" id="' + esc(it.id) + '">' +
+    '<div class="ith">' +
+      '<span class="ar2 ' + esc(it.area) + '">' + esc(it.area) + '</span>' +
+      '<span class="ti">' + esc(it.title) + '</span>' +
+      '<span class="sb2">' + esc((it.todo || []).map(t => t.t).join(' · ')) + '</span>' +
+      '<span class="st ' + esc(it.state) + '">' + esc(LABEL[it.state] || it.state) + '</span>' +
+      '<span class="du">' + (it.due ? '~' + esc(it.due) : '') + '</span>' +
+      '<span class="pg">' + p.d + '/' + p.n + '<span class="b"><i style="width:' + pc + '%"></i></span></span>' +
+    '</div>' +
+    '<div class="itb"><ul class="td">' + todo + '</ul>' + ask + note + meta + '</div>' +
+  '</div>';
+}
+
+
+function renderGantt(){
+  const L = document.getElementById('list');
+  const W = DATA.weeks, idx = {};
+  W.forEach((w,i) => idx[w.id] = i);
+  const nowId = (W.find(w => weekState(w) === 'now') || {}).id;
+
+  let out = '<div class="gt"><div class="gwrap"><div class="grid">';
+  out += '<div class="ghead"><div class="gc">주차 →</div>' + W.map(w =>
+    '<div class="gh' + (w.id === nowId ? ' now' : '') + (w.phase === '오픈' ? ' op' : '') + '">' +
+    '<b>' + w.label.replace(/\s/g,'') + '</b>' + (w.id === nowId ? '이번 주' : w.sub.slice(0,7)) + '</div>').join('') + '</div>';
+
+  AREAS.forEach(g => {
+    if (filter !== '전체' && filter !== g) return;
+    const gi = DATA.items.filter(i => trk(i) === g);
+    if (!gi.length) return;
+    out += '<div class="gband ' + g + '"><b>' + g + '</b><em>' + (GSUB[g]||'') + '</em>' +
+           '<span>' + gi.length + '건</span></div>';
+
+    (DATA.streams[g] || []).forEach(st => {
+      const its = gi.filter(i => i.stream === st);
+      if (!its.length) return;
+      // 겹치지 않는 항목끼리 한 줄에 모음
+      const lanes = [];
+      its.slice().sort((a,b) => idx[a.week] - idx[b.week]).forEach(it => {
+        const a = idx[it.week], b = idx[it.weekTo || it.week];
+        let put = false;
+        for (const ln of lanes) {
+          if (ln.every(x => idx[x.weekTo || x.week] < a || idx[x.week] > b)) { ln.push(it); put = true; break; }
+        }
+        if (!put) lanes.push([it]);
+      });
+      out += '<div class="grow"><div class="gname">' + st + '</div><div class="glanes">' +
+        lanes.map(ln => {
+          let cells = '';
+          for (let c = 0; c < W.length; c++) {
+            const it = ln.find(x => idx[x.week] === c);
+            if (it) {
+              const span = idx[it.weekTo || it.week] - c + 1;
+              const cls = (it.state === '결정' ? ' dec' : it.state === '준비' ? ' now2' : '');
+              cells += '<div class="gcell" style="grid-column:span ' + span + '">' +
+                '<a class="gbar ' + it.area + cls + '" href="#' + it.id + '" title="' +
+                esc(it.title) + ' — ' + (LABEL[it.state]||it.state) + (it.due ? ' · ~' + it.due : '') + '">' +
+                esc(it.title) + '</a></div>';
+              c += span - 1;
+            } else cells += '<div class="gcell"></div>';
+          }
+          return '<div class="glane">' + cells + '</div>';
+        }).join('') + '</div></div>';
+    });
+  });
+  out += '</div></div></div>';
+  L.innerHTML = out;
+}
+
+function renderList(){
+  const L = document.getElementById('list');
+  let curPhase = null, opened = 0;
+  const PHSUB = {'오픈 준비':'10/18 ~ 11/21 · 공사와 나란히 준비합니다',
+                 '오픈':'11/22 (주일)',
+                 '오픈 이후':'11/23 ~ 당회 · 안정화와 인수인계'};
+  const PHCLS = {'오픈 준비':'', '오픈':' open', '오픈 이후':' after'};
+  L.innerHTML = DATA.weeks.map(w => {
+    const SORD = ['결정','준비','확인','완료'];
+    const its = DATA.items.filter(i => i.week === w.id && (filter === '전체' || trk(i) === filter))
+      .slice().sort((a,b) => (AREAS.indexOf(trk(a)) - AREAS.indexOf(trk(b)))
+                          || (SORD.indexOf(a.state) - SORD.indexOf(b.state)));
+    if (!its.length) return '';
+    const ws = weekState(w);
+    let open = '';
+    if (ws === 'now') open = ' open';
+    else if (ws === 'next' && opened < 1) { open = ' open'; opened += 1; }
+    let d = 0, n = 0;
+    its.forEach(i => { const p = prog(i); d += p.d; n += p.n; });
+    let ph = '';
+    if (w.phase && w.phase !== curPhase) {
+      curPhase = w.phase;
+      const g = DATA.items.filter(x => {
+        const ww = DATA.weeks.find(y => y.id === x.week);
+        return ww && ww.phase === curPhase && (filter === '전체' || trk(x) === filter); });
+      ph = '<div class="ph' + (PHCLS[curPhase] || '') + '"><b>' + curPhase + '</b>' +
+           '<em>' + (PHSUB[curPhase] || '') + '</em>' +
+           '<span>' + g.length + '건</span></div>';
+    }
+    return ph + '<div class="wk ' + ws + open + '">' +
+      '<div class="wkh"><span class="ar">›</span><span class="lb">' + w.label + '</span>' +
+        '<span class="sb">' + w.sub + '</span>' +
+        (ws === 'now' ? '<span class="tag">이번 주</span>' : '') +
+        (w.id === 'w6' ? '<span class="tag op">오픈</span>' : '') +
+        '<span class="ct">' + its.length + '건 · 할 일 ' + d + '/' + n + '</span></div>' +
+      '<div class="wkb">' + its.map((it,i) => itemHTML(it, i > 0 && trk(it) !== trk(its[i-1]))).join('') + '</div></div>';
+  }).join('');
+
+  L.querySelectorAll('.wkh').forEach(h => h.onclick = () => h.parentElement.classList.toggle('open'));
+  L.querySelectorAll('.ith').forEach(h => h.onclick = () => h.parentElement.classList.toggle('open'));
+
+  const id = decodeURIComponent(location.hash.slice(1));
+  if (id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.add('open', 'hit');
+      el.closest('.wk').classList.add('open');
+      setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120);
+    }
+  }
+}
+
+function start(j, offline){
+  DATA = j;
+  document.getElementById('upd').textContent = j.updated.replace(/-/g, '. ') + '.'
+    + (offline ? ' (문서 내장본)' : '');
+  renderSum(); renderCtl(); draw();
+}
+function builtIn(){
+  const el = document.getElementById('planData');
+  if (!el) return null;
+  try { return JSON.parse(el.textContent); } catch (e) { return null; }
+}
+fetch('gsmch-1f-plan.json?v=' + Date.now())
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(j => start(j, false))
+  .catch(() => {
+    const j = builtIn();
+    if (j) { start(j, true); return; }
+    document.getElementById('list').innerHTML =
+      '<div class="err"><b>자료를 불러오지 못했습니다.</b><br>' +
+      'gsmch-1f-plan.json 이 같은 폴더에 있어야 합니다.</div>';
+  });
+
+function draw(){ view === 'gantt' ? renderGantt() : renderList(); }
+window.addEventListener('hashchange', () => { if (DATA) { view = 'week'; renderCtl(); renderList(); } });
+</script>
+</body>
+</html>
