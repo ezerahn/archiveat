@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="version" content="v5">
-<meta name="updated" content="2026.10.24 12:50">
+<meta name="version" content="v6">
+<meta name="updated" content="2026.10.24 13:10">
 <title>finance-receipt</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -81,7 +81,7 @@ body{font-family:Pretendard,-apple-system,"Malgun Gothic",system-ui,sans-serif;b
 .info.adj{color:#a8481a}.info.chk{color:#8a6a14}
 .opnote{margin-top:26px;font-size:12px;color:var(--muted);line-height:1.7}
 .foot{margin-top:18px;padding-top:17px;border-top:1px solid var(--line);text-align:center;font-family:"DM Mono",monospace;font-size:11.5px;color:var(--muted)}
-@media print{.back,.btn,.bar-all,.guide,.qtabs,.tabs{display:none}.panel{display:block!important}.row{break-inside:avoid}}
+@media print{.back,.btn,.bar-all,.guide,.qtabs,.tabs,.opnote{display:none}.panel{display:none}.panel.show{display:block}.row{break-inside:avoid}}
 </style>
 </head>
 <body><div class="wrap">
@@ -92,7 +92,7 @@ body{font-family:Pretendard,-apple-system,"Malgun Gothic",system-ui,sans-serif;b
     </div>
     <div class="metaline"><span class="crumb">AI 워크스페이스 › 정산·신고 › 증빙서철</span><span class="bar">|</span><span class="upd">업데이트 <span id="updstamp"></span></span></div>
   </div>
-  <div class="hero"><h1>증빙서철 · 2026</h1><p>1기 211건 · 3분기 85건 — 삼화 확정 자료와 영수증 확인 결과를 반영했습니다. 인쇄하면 전체가 나옵니다.</p></div>
+  <div class="hero"><h1>증빙서철 · 2026</h1><p>1기 211건 · 3분기 85건 — 삼화 확정 자료와 영수증 확인 결과를 반영했습니다. 인쇄는 보고 있는 달(또는 전체)만 나옵니다.</p></div>
 
   <div class="qtabs">
     <button class="qtab" data-q="q1">1분기 <span class="qn">115</span></button>
