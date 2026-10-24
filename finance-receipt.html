@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="version" content="v5">
-<meta name="updated" content="2026.07.31 12:36">
+<meta name="updated" content="2026.10.24 12:50">
 <title>finance-receipt</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -92,16 +92,17 @@ body{font-family:Pretendard,-apple-system,"Malgun Gothic",system-ui,sans-serif;b
     </div>
     <div class="metaline"><span class="crumb">AI 워크스페이스 › 정산·신고 › 증빙서철</span><span class="bar">|</span><span class="upd">업데이트 <span id="updstamp"></span></span></div>
   </div>
-  <div class="hero"><h1>증빙서철 · 2026</h1><p>1기 211건 — 삼화 확정 자료와 영수증 확인 결과를 반영했습니다. 인쇄하면 전체가 나옵니다.</p></div>
+  <div class="hero"><h1>증빙서철 · 2026</h1><p>1기 211건 · 3분기 85건 — 삼화 확정 자료와 영수증 확인 결과를 반영했습니다. 인쇄하면 전체가 나옵니다.</p></div>
 
   <div class="qtabs">
     <button class="qtab" data-q="q1">1분기 <span class="qn">115</span></button>
     <button class="qtab" data-q="q2">2분기 <span class="qn">96</span></button>
-    <button class="qtab dis" disabled>3분기</button>
+    <button class="qtab" data-q="q3">3분기 <span class="qn">85</span></button>
     <button class="qtab dis" disabled>4분기</button>
   </div>
   <div class="tabs sub-tabs" data-q="q1"><button class="tab" data-t="q1-01">1월 <span class="tn">44</span></button><button class="tab" data-t="q1-02">2월 <span class="tn">39</span></button><button class="tab" data-t="q1-03">3월 <span class="tn">32</span></button><button class="tab all" data-t="q1-all">전체</button></div>
   <div class="tabs sub-tabs" data-q="q2"><button class="tab" data-t="q2-04">4월 <span class="tn">34</span></button><button class="tab" data-t="q2-05">5월 <span class="tn">34</span></button><button class="tab" data-t="q2-06">6월 <span class="tn">28</span></button><button class="tab all" data-t="q2-all">전체</button></div>
+<div class="tabs sub-tabs" data-q="q3"><button class="tab" data-t="q3-07">7월 <span class="tn">29</span></button><button class="tab" data-t="q3-08">8월 <span class="tn">30</span></button><button class="tab" data-t="q3-09">9월 <span class="tn">26</span></button><button class="tab all" data-t="q3-all">전체</button></div>
 
   <div class="bar-all">
     <span class="lbl">전체 진행</span><span class="big"><b id="dn">0</b> / <b id="tt">0</b></span>
@@ -113,6 +114,13 @@ body{font-family:Pretendard,-apple-system,"Malgun Gothic",system-ui,sans-serif;b
     <b>🟧 면세 포함</b> — 영수증 기준으로 과세·면세를 나눠 신고한 건입니다. 아랫줄에 금액을 적어두었습니다.<br><b>🟨 판정 근거</b> — 공제·불공제 판단 근거를 적어둔 건입니다.<br>
     <b>영수증 2장짜리</b> — 매출전표(결제 증명) + 영수증(품목·과세/면세)을 둘 다 붙입니다. 쿠팡·PG 경유 건이 해당합니다.<br>
     <b>카드대금 제외</b> — 통장의 카드대금 출금은 위 카드 건의 결제라 중복이므로 뺐습니다.
+  </div>
+
+<div class="guide" style="margin-top:8px">
+    <b>📦 분기 준비물 (서철 만들기 전에 모을 것)</b><br>
+    ① 법인카드 정리본 (삼화 전달본) &nbsp;② 신한은행 421870 통장내역 &nbsp;③ 신한카드 월별 명세서 3개 &nbsp;④ 국민카드 월별 명세서 3개 &nbsp;⑤ 4대보험 고지서 3개 &nbsp;⑥ 홈택스 전자세금계산서 매출·매입 목록<br>
+    <b>월 어긋남 주의</b> — 카드명세서 = <b>이용월 + 1</b> (9월 이용분은 2026.10 명세서) · 고지서 = <b>납부월 − 1</b> (9/10 출금은 8월 고지서).<br>
+    3분기(7~9월)면 명세서 <b>08·09·10월</b>, 고지서 <b>06·07·08월</b>. 카드명세서(③④)는 메일 첨부파일 그대로 쓰면 됩니다.
   </div>
 
 <section class="mon panel" id="q1-01"><div class="mh"><h2>1월</h2><span class="cnt"><b class="done">0</b> / 44건 · 합계 7,308,287원</span></div>
@@ -333,10 +341,10 @@ body{font-family:Pretendard,-apple-system,"Malgun Gothic",system-ui,sans-serif;b
 <label class="row "><input type="checkbox" class="ck" checked><span class="dt">22일</span><span class="cd c신한">신한</span><span class="nm">그룹웨어 하이웍스 (가비아 · 홈택스 표기: NHN케이씨피)</span><span class="amt">57,750</span><span class="vd ok">공제</span></label>
 <label class="row "><input type="checkbox" class="ck" checked><span class="dt">26일</span><span class="cd c신한">신한</span><span class="nm">자비스 사용료 (세무법인에스브이 · 홈택스 표기: 나이스정보통신)</span><span class="amt">36,300</span><span class="vd ok">공제</span></label>
 </div><div class="sub ov">② 법인카드 — 해외결제 4건 <span class="hint">홈택스에 없음 · 부가세 대상 아님</span></div><div class="rows">
-<label class="row ovr"><input type="checkbox" class="ck" checked><span class="dt">02일</span><span class="cd c국민">국민</span><span class="nm">드롭박스 서버비 (USD)<span class="tag ovs">해외</span></span><span class="amt"><span class="miss">금액 확인</span></span><span class="vd no">해당없음</span></label>
-<label class="row ovr"><input type="checkbox" class="ck" checked><span class="dt">02일</span><span class="cd c신한">신한</span><span class="nm">셔터스톡 이용료<span class="tag ovs">해외</span></span><span class="amt"><span class="miss">금액 확인</span></span><span class="vd no">해당없음</span></label>
-<label class="row ovr"><input type="checkbox" class="ck" checked><span class="dt">25일</span><span class="cd c신한">신한</span><span class="nm">줌(Zoom) 이용료<span class="tag ovs">해외</span></span><span class="amt"><span class="miss">금액 확인</span></span><span class="vd no">해당없음</span></label>
-<label class="row ovr"><input type="checkbox" class="ck" checked><span class="dt">27일</span><span class="cd c신한">신한</span><span class="nm">MS 오피스<span class="tag ovs">해외</span></span><span class="amt"><span class="miss">금액 확인</span></span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck" checked><span class="dt">02일</span><span class="cd c국민">국민</span><span class="nm">드롭박스 서버비 (USD 264)<span class="tag ovs">해외</span></span><span class="amt">409,047</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck" checked><span class="dt">02일</span><span class="cd c신한">신한</span><span class="nm">셔터스톡 이용료<span class="tag ovs">해외</span></span><span class="amt">49,371</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck" checked><span class="dt">25일</span><span class="cd c신한">신한</span><span class="nm">줌(Zoom) 이용료<span class="tag ovs">해외</span></span><span class="amt">26,783</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck" checked><span class="dt">27일</span><span class="cd c신한">신한</span><span class="nm">MS 오피스<span class="tag ovs">해외</span></span><span class="amt">12,961</span><span class="vd no">해당없음</span></label>
 </div><div class="sub bk">③ 법인통장 출금 17건 <span class="hint">신한 421870</span></div><div class="rows">
 <label class="row bkr "><input type="checkbox" class="ck" checked><span class="dt">05일</span><span class="cd cbk">통장</span><span class="nm">기보1 대출이자 <span class="mem">311156937546</span></span><span class="amt">824,423</span><span class="vd no">-</span></label>
 <label class="row bkr "><input type="checkbox" class="ck" checked><span class="dt">05일</span><span class="cd cbk">통장</span><span class="nm">기보2 대출이자 <span class="mem">311174350431</span></span><span class="amt">262,067</span><span class="vd no">-</span></label>
@@ -357,8 +365,113 @@ body{font-family:Pretendard,-apple-system,"Malgun Gothic",system-ui,sans-serif;b
 <label class="row bkr "><input type="checkbox" class="ck" checked><span class="dt">30일</span><span class="cd cbk">통장</span><span class="nm">경기도지식 강사료 정산 <span class="mem">이예린(예쿡 쿠</span></span><span class="amt">290,100</span><span class="vd no">-</span></label>
 </div></section>
 
+<section class="mon panel" id="q3-07"><div class="mh"><h2>7월</h2><span class="cnt"><b class="done">0</b> / 29건 · 합계 9,783,533원</span></div>
+<div class="sub">① 법인카드 — 홈택스 공제내역 10건</div><div class="rows">
+<label class="row "><input type="checkbox" class="ck"><span class="dt">01일</span><span class="cd c국민">국민</span><span class="nm">아카이빗몰 1초 회원가입 서비스 (유니드컴즈 · 홈택스 표기: 나이스정보통신)</span><span class="amt">54,890</span><span class="vd ok">공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">13일</span><span class="cd c신한">신한</span><span class="nm">인터넷 사용료 (KT)</span><span class="amt">52,800</span><span class="vd no">불공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">16일</span><span class="cd c신한">신한</span><span class="nm">망고보드 사용료 프로-1개월 자동결제 (리아모어소프트 · 홈택스 표기: 토스페이먼츠)</span><span class="amt">48,000</span><span class="vd ok">공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">16일</span><span class="cd c신한">신한</span><span class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: KG파이낸셜)</span><span class="amt">203,500</span><span class="vd ok">공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">21일</span><span class="cd c신한">신한</span><span class="nm">회사일반전화 (LG유플러스)</span><span class="amt">31,350</span><span class="vd no">불공제</span></label>
+<label class="row star"><input type="checkbox" class="ck"><span class="dt">21일</span><span class="cd c신한">신한</span><span class="nm">온라인클래스 재료 — 로메인 상추 등 8건 (쿠팡 · 홈택스 표기: NHN케이씨피) [영수증기준] 과세 42,009 / 부가세 4,201 / 면세 60,370 (홈택스 세액 9,690과 상이)<span class="tag adj">면세 포함</span></span><span class="amt">106,580</span><span class="vd ok">공제</span><span class="info adj">과세 42,009 / 면세 60,370 · 부가세 4,201 — 영수증 기준</span></label>
+<label class="row star"><input type="checkbox" class="ck"><span class="dt">21일</span><span class="cd c신한">신한</span><span class="nm">온라인클래스 재료 — 천도복숭아 2kg×2 등 (쿠팡 · 홈택스 표기: 한국정보통신) [영수증기준] 전액 면세 61,020 / 부가세 0 (홈택스 세액 5,547과 상이) · 의제매입세액공제 해당 여부 삼화 확인<span class="tag adj">면세 포함</span></span><span class="amt">61,020</span><span class="vd no">세액 0</span><span class="info adj">과세 0 / 면세 61,020 · 부가세 0 — 영수증 기준</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">21일</span><span class="cd c신한">신한</span><span class="nm">법인핸드폰 요금 (SKT)</span><span class="amt">33,000</span><span class="vd no">불공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">22일</span><span class="cd c신한">신한</span><span class="nm">그룹웨어 하이웍스 (가비아 · 홈택스 표기: NHN케이씨피)</span><span class="amt">57,750</span><span class="vd ok">공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">26일</span><span class="cd c신한">신한</span><span class="nm">자비스 사용료 (세무법인에스브이 · 홈택스 표기: 나이스정보통신)</span><span class="amt">36,300</span><span class="vd ok">공제</span></label>
+</div><div class="sub ov">② 법인카드 — 해외결제 4건 <span class="hint">홈택스에 없음 · 부가세 대상 아님</span></div><div class="rows">
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">02일</span><span class="cd c국민">국민</span><span class="nm">드롭박스 서버비 (USD 264)<span class="tag ovs">해외</span></span><span class="amt">415,544</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">02일</span><span class="cd c신한">신한</span><span class="nm">셔터스톡 이용료<span class="tag ovs">해외</span></span><span class="amt">50,156</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">25일</span><span class="cd c신한">신한</span><span class="nm">줌(Zoom) 이용료<span class="tag ovs">해외</span></span><span class="amt">25,432</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">27일</span><span class="cd c신한">신한</span><span class="nm">MS 오피스<span class="tag ovs">해외</span></span><span class="amt">12,914</span><span class="vd no">해당없음</span></label>
+</div><div class="sub bk">③ 법인통장 출금 15건 <span class="hint">신한 421870</span></div><div class="rows">
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">06일</span><span class="cd cbk">통장</span><span class="nm">기보1 대출이자 <span class="mem">311156937546</span></span><span class="amt">802,602</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">06일</span><span class="cd cbk">통장</span><span class="nm">기보2 대출이자 <span class="mem">311174350431</span></span><span class="amt">255,205</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">통장 알림수수료 <span class="mem">SMS100***42187</span></span><span class="amt">1,000</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">4대보험료 <span class="mem">건강보험공단</span></span><span class="amt">70,320</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">원천세 <span class="mem">국세납부</span></span><span class="amt">31,120</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">원천세 <span class="mem">국세납부</span></span><span class="amt">9,000</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">지방소득세 <span class="mem">경기도지방세</span></span><span class="amt">4,010</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">케이터링 정산 <span class="mem">진선옥(파티본)</span></span><span class="amt">2,090,000</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">13일</span><span class="cd cbk">통장</span><span class="nm">월세 (제이케이컴퍼니) <span class="mem">최진옥(제이케</span></span><span class="amt">1,540,000</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">21일</span><span class="cd cbk">통장</span><span class="nm">관리비 (시그니처광교) <span class="mem">시그니처광교관</span></span><span class="amt">384,430</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">21일</span><span class="cd cbk">통장</span><span class="nm">컬리 배송료 <span class="mem">주식회사 컬리</span></span><span class="amt">4,070</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">23일</span><span class="cd cbk">통장</span><span class="nm">차입금 이자 (원천세 차감 후) <span class="mem">주순옥</span></span><span class="amt">90,270</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">27일</span><span class="cd cbk">통장</span><span class="nm">케이터링 정산 <span class="mem">진선옥(파티본)</span></span><span class="amt">2,860,000</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">30일</span><span class="cd cbk">통장</span><span class="nm">급여 (대표) <span class="mem">안상미</span></span><span class="amt">364,270</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">31일</span><span class="cd cbk">통장</span><span class="nm">복합기 (에스지시스템) <span class="mem">안승균(에스지</span></span><span class="amt">88,000</span><span class="vd no">-</span></label>
+</div></section>
+
+<section class="mon panel" id="q3-08"><div class="mh"><h2>8월</h2><span class="cnt"><b class="done">0</b> / 30건 · 합계 6,022,826원</span></div>
+<div class="sub">① 법인카드 — 홈택스 공제내역 8건</div><div class="rows">
+<label class="row "><input type="checkbox" class="ck"><span class="dt">01일</span><span class="cd c국민">국민</span><span class="nm">아카이빗몰 1초 회원가입 서비스 (유니드컴즈 · 홈택스 표기: 나이스정보통신)</span><span class="amt">54,890</span><span class="vd ok">공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">11일</span><span class="cd c신한">신한</span><span class="nm">인터넷 사용료 (KT)</span><span class="amt">52,800</span><span class="vd no">불공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">16일</span><span class="cd c신한">신한</span><span class="nm">망고보드 사용료 프로-1개월 자동결제 (리아모어소프트 · 홈택스 표기: 토스페이먼츠)</span><span class="amt">48,000</span><span class="vd ok">공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">19일</span><span class="cd c신한">신한</span><span class="nm">법인핸드폰 요금 (SKT)</span><span class="amt">33,000</span><span class="vd no">불공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">20일</span><span class="cd c신한">신한</span><span class="nm">회사일반전화 (LG유플러스)</span><span class="amt">31,350</span><span class="vd no">불공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">20일</span><span class="cd c신한">신한</span><span class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: KG파이낸셜)</span><span class="amt">203,500</span><span class="vd ok">공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">22일</span><span class="cd c신한">신한</span><span class="nm">그룹웨어 하이웍스 (가비아 · 홈택스 표기: NHN케이씨피)</span><span class="amt">57,750</span><span class="vd ok">공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">26일</span><span class="cd c신한">신한</span><span class="nm">자비스 사용료 (세무법인에스브이 · 홈택스 표기: 나이스정보통신)</span><span class="amt">36,300</span><span class="vd ok">공제</span></label>
+</div><div class="sub ov">② 법인카드 — 해외결제 4건 <span class="hint">홈택스에 없음 · 부가세 대상 아님</span></div><div class="rows">
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">02일</span><span class="cd c국민">국민</span><span class="nm">드롭박스 서버비 (USD 264)<span class="tag ovs">해외</span></span><span class="amt">385,899</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">02일</span><span class="cd c신한">신한</span><span class="nm">셔터스톡 이용료<span class="tag ovs">해외</span></span><span class="amt">46,580</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">25일</span><span class="cd c신한">신한</span><span class="nm">줌(Zoom) 이용료<span class="tag ovs">해외</span></span><span class="amt">24,014</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">27일</span><span class="cd c신한">신한</span><span class="nm">MS 오피스<span class="tag ovs">해외</span></span><span class="amt">12,821</span><span class="vd no">해당없음</span></label>
+</div><div class="sub bk">③ 법인통장 출금 18건 <span class="hint">신한 421870</span></div><div class="rows">
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">01일</span><span class="cd cbk">통장</span><span class="nm">기장료 <span class="mem">삼화회계법인</span></span><span class="amt">165,000</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">05일</span><span class="cd cbk">통장</span><span class="nm">기보2 대출이자 <span class="mem">311174350431</span></span><span class="amt">263,712</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">05일</span><span class="cd cbk">통장</span><span class="nm">기보1 대출이자 <span class="mem">J311156937546</span></span><span class="amt">829,356</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">통장 알림수수료 <span class="mem">SMS100***42187</span></span><span class="amt">1,000</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">4대보험료 <span class="mem">건강보험공단</span></span><span class="amt">71,260</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">원천세 <span class="mem">국세납부</span></span><span class="amt">31,120</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">지방소득세 <span class="mem">경기도지방세</span></span><span class="amt">3,110</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">주민세 사업소분 <span class="mem">세금납부</span></span><span class="amt">62,500</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">강사료 정산 (원천세 차감 후) <span class="mem">박영정</span></span><span class="amt">247,904</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">강사료 정산 (원천세 차감 후) <span class="mem">최진</span></span><span class="amt">253,850</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">12일</span><span class="cd cbk">통장</span><span class="nm">월세 (제이케이컴퍼니) <span class="mem">최진옥(제이케</span></span><span class="amt">1,540,000</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">26일</span><span class="cd cbk">통장</span><span class="nm">차입금 이자 (원천세 차감 후) <span class="mem">주순옥</span></span><span class="amt">90,270</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">26일</span><span class="cd cbk">통장</span><span class="nm">컬리 배송료 <span class="mem">주식회사 컬리</span></span><span class="amt">126,170</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">26일</span><span class="cd cbk">통장</span><span class="nm">관리비 (시그니처광교) <span class="mem">시그니처광교관</span></span><span class="amt">443,300</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">31일</span><span class="cd cbk">통장</span><span class="nm">기장료 <span class="mem">삼화회계법인</span></span><span class="amt">165,000</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">31일</span><span class="cd cbk">통장</span><span class="nm">복합기 (에스지시스템) <span class="mem">안승균(에스지</span></span><span class="amt">88,000</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">31일</span><span class="cd cbk">통장</span><span class="nm">급여 (대표) <span class="mem">안상미</span></span><span class="amt">364,270</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">31일</span><span class="cd cbk">통장</span><span class="nm">경기도지식 강사료 정산 <span class="mem">이영미</span></span><span class="amt">290,100</span><span class="vd no">-</span></label>
+</div></section>
+
+<section class="mon panel" id="q3-09"><div class="mh"><h2>9월</h2><span class="cnt"><b class="done">0</b> / 26건 · 합계 4,912,798원</span></div>
+<div class="sub">① 법인카드 — 홈택스 공제내역 9건</div><div class="rows">
+<label class="row "><input type="checkbox" class="ck"><span class="dt">01일</span><span class="cd c국민">국민</span><span class="nm">아카이빗몰 1초 회원가입 서비스 (유니드컴즈 · 홈택스 표기: 나이스정보통신)</span><span class="amt">54,890</span><span class="vd ok">공제</span></label>
+<label class="row star"><input type="checkbox" class="ck"><span class="dt">04일</span><span class="cd c신한">신한</span><span class="nm">온라인클래스 재료 — 건조파파야·캐슈너트·해바라기씨 등 견과류 (쿠팡 · 홈택스 표기: 한국정보통신) [영수증기준] 과세 56,045 / 부가세 5,605 / 면세 19,030 (홈택스 세액 7,335과 상이)<span class="tag adj">면세 포함</span></span><span class="amt">80,680</span><span class="vd ok">공제</span><span class="info adj">과세 56,045 / 면세 19,030 · 부가세 5,605 — 영수증 기준</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">11일</span><span class="cd c신한">신한</span><span class="nm">인터넷 사용료 (KT)</span><span class="amt">52,800</span><span class="vd no">불공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">16일</span><span class="cd c신한">신한</span><span class="nm">망고보드 사용료 프로-1개월 자동결제 (리아모어소프트 · 홈택스 표기: 토스페이먼츠)</span><span class="amt">48,000</span><span class="vd ok">공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">18일</span><span class="cd c신한">신한</span><span class="nm">회사일반전화 (LG유플러스)</span><span class="amt">31,350</span><span class="vd no">불공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">18일</span><span class="cd c신한">신한</span><span class="nm">법인핸드폰 요금 (SKT)</span><span class="amt">33,000</span><span class="vd no">불공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">22일</span><span class="cd c신한">신한</span><span class="nm">그룹웨어 하이웍스 (가비아 · 홈택스 표기: NHN케이씨피)</span><span class="amt">57,750</span><span class="vd ok">공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">22일</span><span class="cd c신한">신한</span><span class="nm">아카이빗몰 서버비 (카페24 · 홈택스 표기: KG파이낸셜)</span><span class="amt">203,500</span><span class="vd ok">공제</span></label>
+<label class="row "><input type="checkbox" class="ck"><span class="dt">26일</span><span class="cd c신한">신한</span><span class="nm">자비스 사용료 (세무법인에스브이 · 홈택스 표기: 나이스정보통신)</span><span class="amt">36,300</span><span class="vd ok">공제</span></label>
+</div><div class="sub ov">② 법인카드 — 해외결제 4건 <span class="hint">홈택스에 없음 · 부가세 대상 아님</span></div><div class="rows">
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">02일</span><span class="cd c국민">국민</span><span class="nm">드롭박스 서버비 (USD 264)<span class="tag ovs">해외</span></span><span class="amt">366,894</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">02일</span><span class="cd c신한">신한</span><span class="nm">셔터스톡 이용료<span class="tag ovs">해외</span></span><span class="amt">44,286</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">25일</span><span class="cd c신한">신한</span><span class="nm">줌(Zoom) 이용료<span class="tag ovs">해외</span></span><span class="amt">23,449</span><span class="vd no">해당없음</span></label>
+<label class="row ovr"><input type="checkbox" class="ck"><span class="dt">27일</span><span class="cd c신한">신한</span><span class="nm">MS 오피스<span class="tag ovs">해외</span></span><span class="amt">12,941</span><span class="vd no">해당없음</span></label>
+</div><div class="sub bk">③ 법인통장 출금 13건 <span class="hint">신한 421870</span></div><div class="rows">
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">07일</span><span class="cd cbk">통장</span><span class="nm">기보1 대출이자 <span class="mem">311156937546</span></span><span class="amt">829,356</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">07일</span><span class="cd cbk">통장</span><span class="nm">기보2 대출이자 <span class="mem">311174350431</span></span><span class="amt">263,712</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">통장 알림수수료 <span class="mem">SMS100***42187</span></span><span class="amt">1,000</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">4대보험료 <span class="mem">건강보험공단</span></span><span class="amt">71,260</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">원천세 <span class="mem">국세납부</span></span><span class="amt">24,560</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">원천세 <span class="mem">국세납부</span></span><span class="amt">31,120</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">10일</span><span class="cd cbk">통장</span><span class="nm">지방소득세 <span class="mem">세금납부</span></span><span class="amt">5,550</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">14일</span><span class="cd cbk">통장</span><span class="nm">월세 (제이케이컴퍼니) <span class="mem">최진옥(제이케</span></span><span class="amt">1,540,000</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">30일</span><span class="cd cbk">통장</span><span class="nm">관리비 (시그니처광교) <span class="mem">시그니처광교관</span></span><span class="amt">392,860</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">30일</span><span class="cd cbk">통장</span><span class="nm">기장료 <span class="mem">삼화회계법인</span></span><span class="amt">165,000</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">30일</span><span class="cd cbk">통장</span><span class="nm">복합기 (에스지시스템) <span class="mem">안승균(에스지</span></span><span class="amt">88,000</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">30일</span><span class="cd cbk">통장</span><span class="nm">차입금 이자 (원천세 차감 후) <span class="mem">주순옥</span></span><span class="amt">90,270</span><span class="vd no">-</span></label>
+<label class="row bkr "><input type="checkbox" class="ck"><span class="dt">30일</span><span class="cd cbk">통장</span><span class="nm">급여 (대표) <span class="mem">안상미</span></span><span class="amt">364,270</span><span class="vd no">-</span></label>
+</div></section>
+
+
   <p class="opnote">※ <b>2분기(4·5·6월) 증빙서철 첨부 완료</b>로 기본 체크되어 있습니다. 1분기는 4월에 전달 완료했고, 이후 삼화 확정 자료로 내역을 갱신했습니다.<br>
-  ※ 6월 해외결제 4건은 7월 카드명세서가 나와야 금액이 확정됩니다.<br>
+  ※ 6월 해외결제 4건은 2026.07 카드명세서로 확정했습니다 (10/24).<br>
+  ※ <b>3분기(7·8·9월)</b>는 아직 첨부 전이라 체크가 비어 있습니다. 카드 건은 <b>사업용신용카드_세액공제내역_7월_9월(정리본)</b> 기준(삼화 확정 전).<br>
   ※ 카드 건의 상세내역·공제여부는 <b>사업용신용카드_세액공제내역_1월_6월(공공의주방_판정본)</b> 기준입니다.</p>
   <div class="foot">finance-receipt · <span id="fv">v3</span> · 주식회사 공공의주방 · archiveat.kr</div>
 </div>
@@ -393,6 +506,6 @@ function showM(q,t){
 }
 document.querySelectorAll('.qtab[data-q]').forEach(function(b){b.addEventListener('click',function(){showQ(b.dataset.q);});});
 document.querySelectorAll('.sub-tabs .tab').forEach(function(b){b.addEventListener('click',function(){showM(b.closest('.sub-tabs').dataset.q,b.dataset.t);});});
-showQ('q2');
+showQ('q3');
 </script>
 </body></html>
