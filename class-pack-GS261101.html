@@ -1,0 +1,434 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="version" content="v1">
+<meta name="updated" content="2026.11.06 14:45">
+<title>패킹 운영</title>
+<link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;--point:#B4A032;
+--room:#C2570E;--cold:#2C7BB6;--freeze:#5B5BA6;--ok:#2E7D32;--warn:#B44A1E;--wait:#9A8F7C;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
+.tb-left{display:flex;align-items:center;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:13px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 13px;transition:.12s}
+.pill:hover{border-color:var(--point);color:var(--point)}
+.tb-right{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--wait);text-align:right}
+.tb-sep{color:#CFC5B2}
+.updated{font-family:"DM Mono",monospace;font-size:12px;color:var(--wait)}
+.hero{padding:26px 0 4px}
+.hero h1{font-family:Hahmlet,"Gowun Batang",serif;font-weight:700;font-size:36px;letter-spacing:-.02em}
+.hero .lead{margin-top:6px;color:var(--sub);font-size:14.5px}
+h2{font-family:Hahmlet,"Gowun Batang",serif;font-size:19px;font-weight:700;margin:0}
+h3{font-size:14.5px;font-weight:700;margin:0}
+.tabrow{display:flex;align-items:flex-end;gap:12px;border-bottom:1px solid var(--line);margin-top:18px}
+.tabrow .tabs{flex:1;border-bottom:none;margin-top:0}
+.prbtn{flex:0 0 auto;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--sub);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 13px;cursor:pointer;margin-bottom:7px;white-space:nowrap}
+.prbtn:hover{border-color:var(--point);color:var(--point)}
+.prhead{display:none}
+@media print{
+  @page{size:A4;margin:12mm}
+  body{background:#fff;padding:0}
+  .topbar,.tabrow,.foot,.prbtn{display:none!important}
+  .hero{display:none!important}
+  .prhead{display:block!important;font-size:10pt;color:#241F1B;border-bottom:1.5px solid #241F1B;padding-bottom:5mm;margin-bottom:6mm}
+  .prhead #prTab{display:block;font-size:15pt;font-weight:700;margin-top:2mm}
+  .panel{display:none!important}
+  .panel.on{display:block!important}
+  .block{break-inside:avoid;page-break-inside:avoid;box-shadow:none;border-color:#CFC6B4}
+  table{font-size:9pt}
+  th,td{padding:4px 6px}
+  a{text-decoration:none;color:inherit}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line);margin-top:18px;padding-bottom:0}
+.tab{flex:0 0 auto;font-family:inherit;font-size:14px;font-weight:600;color:var(--sub);background:none;border:none;border-bottom:2px solid transparent;padding:11px 14px;cursor:pointer;white-space:nowrap;transition:.12s}
+.tab:hover{color:var(--ink)}
+.tab.on{color:var(--point);border-bottom-color:var(--point)}
+.tab .star{color:#FF5019}
+.panel{display:none;padding-top:6px}
+.panel.on{display:block}
+.block{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.bh{display:flex;align-items:baseline;gap:9px;margin-bottom:14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.bh .n{font-family:"DM Mono",monospace;font-size:12px;color:var(--point);font-weight:500}
+.bh .s{font-size:12px;color:var(--wait);margin-left:auto;text-align:right}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13.5px;color:var(--sub)}
+.meta b{color:var(--ink);font-weight:600}
+.dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.d{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+.d .k{font-size:12px;color:var(--sub);font-weight:500}
+.d .v{font-family:"DM Mono",monospace;font-size:22px;font-weight:700;margin-top:3px;line-height:1.15}
+.d .u{font-size:11.5px;color:var(--wait);margin-top:2px}
+.tbl-wrap{overflow-x:auto;margin:0 -3px}
+table{border-collapse:collapse;width:100%;min-width:600px;font-size:13px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:center;white-space:nowrap}
+th{background:#F4EFE3;font-size:11.5px;font-weight:700;color:var(--sub)}
+td.l{text-align:left;white-space:normal;min-width:150px}
+td.num{font-family:"DM Mono",monospace;text-align:right}
+tr.tot td{background:#EFE7D4;font-weight:700}
+.alert{background:#FBEAE0;border:1px solid #F0D2C0;border-radius:12px;padding:13px 15px;margin-top:11px}
+.alert h3{color:var(--warn);margin-bottom:4px}
+.alert p{font-size:13px;color:var(--sub);line-height:1.6}
+.tip{background:#EDF3ED;border:1px solid #D5E4D5;border-radius:12px;padding:13px 15px;margin-top:11px}
+.tip h3{color:var(--ok);margin-bottom:4px}
+.tip p{font-size:13px;color:var(--sub);line-height:1.6}
+.note{font-size:12.5px;color:var(--wait);margin-top:9px;line-height:1.65}
+ol.steps{list-style:none;counter-reset:s}
+ol.steps li{counter-increment:s;position:relative;padding:9px 0 9px 40px;border-bottom:1px dashed var(--line);font-size:13.5px}
+ol.steps li:last-child{border-bottom:none}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:24px;height:24px;border-radius:50%;background:var(--point);color:#fff;font-family:"DM Mono",monospace;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+ol.steps li b{display:block;font-size:14px;margin-bottom:1px}
+ol.steps li span{color:var(--sub);font-size:12.5px}
+.chk{list-style:none}
+.chk li{padding:8px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.chk li:last-child{border-bottom:none}
+.foot{margin-top:26px;font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
+@media(max-width:640px){.hero h1{font-size:28px}.tb-right{flex-direction:column;align-items:flex-end;gap:2px}.tb-sep{display:none}}
+
+.cbx{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:12px}
+.cbh{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.cbh h3{font-size:14.5px;font-weight:700}
+.cbtn{font-size:12px;padding:5px 13px;border-radius:16px;border:1px solid var(--line);
+background:#F1EFE9;color:var(--ink);cursor:pointer;font-family:inherit;white-space:nowrap}
+.cbtn:hover{background:#E7E2D6}
+.cbx pre{white-space:pre-wrap;font-family:Pretendard,sans-serif;font-size:13.5px;line-height:1.75;
+color:var(--sub);background:#FBF8F1;border-radius:9px;padding:12px 14px;margin:0}
+.num{text-align:right;font-family:"DM Mono",monospace}
+.bad{color:var(--warn);font-weight:700}
+.ok{color:var(--ok);font-weight:600}
+.warn{color:var(--warn);font-weight:600}
+.wait{color:var(--wait)}
+.links{display:flex;gap:8px;flex-wrap:wrap}
+.lk{font-size:13px;padding:7px 14px;border-radius:9px;background:#F1EFE9;
+border:1px solid var(--line);color:var(--ink);text-decoration:none}
+.empty-tab{padding:44px 0;text-align:center;color:var(--wait);font-size:14px}
+.zc{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:10px;background:#F1EFE9;color:var(--sub);white-space:nowrap}
+.zc.cold{background:#E6EEF5;color:#3D5F7A;font-weight:600}
+.zc.chk{background:#FFF4D6;color:#8A6A12;font-weight:600}
+</style></head><body><div class="wrap">
+
+<div class="topbar">
+<div class="tb-left">
+<a class="pill" href="class.html">← 클래스 홈</a>
+<a class="pill" href="class-chat.html" target="_blank" rel="noopener">💬 작업 대화</a>
+</div>
+<div class="tb-right"><span>AI 워크스페이스 › 클래스 › 패킹 운영</span><span class="tb-sep">|</span><span class="updated" id="upd"></span></div>
+</div>
+
+<header class="hero">
+<h1>패킹 운영</h1>
+<p class="lead">GS-2611-01 · 생강청 &amp; 호두정과 · 경기도지식 온라인</p>
+</header>
+
+<div class="prhead"><b>GS-2611-01</b> 생강청 &amp; 호두정과 · 11/13(금) 16:00 · 31세트<span id="prTab"></span></div>
+<div class="tabrow">
+<div class="tabs">
+<button class="tab on" data-t="t1">개요</button>
+<button class="tab" data-t="tR">레시피</button>
+<button class="tab" data-t="t2">소스 배합</button>
+<button class="tab" data-t="t3">패킹 구성</button>
+<button class="tab" data-t="t4">소모품</button>
+<button class="tab" data-t="t6">송장·배송</button>
+<button class="tab" data-t="t7">수업 준비</button>
+<button class="tab" data-t="tP"><span class="star">★</span> 준비·패킹</button>
+</div>
+<button class="prbtn" onclick="printTab()">🖨 이 탭 인쇄</button>
+</div>
+
+<div class="panel on" id="t1">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>수업 정보</h2><span class="s">31세트 = 수강생 30 + 선생님 1</span></div>
+<div class="meta">
+<span>수업일 <b>2026.11.13 (금) 16:00</b></span>
+<span>형식 <b>줌 온라인 + 사전 배송</b></span>
+<span>선생님 <b>장재우</b></span>
+<span>패킹 <b>11/11 (수)</b> 예정</span>
+<span>배송 도착 <b>11/12 (목)</b> 예정</span>
+</div>
+<p class="note">패킹·도착일은 <b>수업 D-2 패킹 → D-1 도착</b> 기준 예정일입니다. 확정되면 고쳐 주세요.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>타임라인</h2><span class="s">발주 → 수업일</span></div>
+<ol class="steps">
+<li><b>11/6 (금)~11/7 (토) — 발주</b><span>생강 · 설탕 · 유리병 · 레몬즙 · 호두 · 조청 · 계피가루 + 포장재(에어캡 · 지퍼백 · 소스컵)</span></li>
+<li><b>11/9 (월)~11/10 (화) — 입고</b><span>전 품목 수량·상태 확인 · 생강 무른 것 골라내기 · 유리병 깨짐 확인</span></li>
+<li><b>11/10 (화) — 패킹 전날</b><span>설탕 ①② · 호두 · 계피 소분 · 라벨 · 레시피카드 출력 · 명단·주소 확정</span></li>
+<li><b>11/11 (수) — 패킹일</b><span>생강 400g 계량 → 레몬즙·조청 소분 → 유리병 에어캡 → 박싱 → 사진 → 출발</span></li>
+<li><b>11/12 (목) — 배송 도착</b><span>수령 안내 문자 · 「생강은 씻어서 물기 닦아 두기」</span></li>
+<li><b>11/13 (금) 16:00 — 수업</b><span>줌 라이브 (경기도지식 주최) · 장재우 선생님</span></li>
+</ol>
+<div class="tip">
+<h3>이번 키트는 전 품목 실온입니다</h3>
+<p>아이스팩·보냉박스가 필요 없습니다. 대신 <b>유리병 파손</b>과 <b>액체(레몬즙·조청) 새는 것</b>을 막는 데 신경 씁니다.</p>
+</div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">03</span><h2>진행 현황</h2></div>
+<div class="dash">
+<div class="d"><div class="k">재료 발주</div><div class="v" style="color:var(--warn)">발주 전</div><div class="u">7품목 · 계획 251,970원</div></div>
+<div class="d"><div class="k">선생님 확인</div><div class="v" style="color:var(--warn)">대기</div><div class="u">생강 400g · 레몬즙 · 계피 · 설탕 분량</div></div>
+<div class="d"><div class="k">포장재</div><div class="v" style="color:var(--warn)">확인</div><div class="u">에어캡 · 지퍼백 · 소스컵</div></div>
+<div class="d"><div class="k">레시피카드</div><div class="v" style="color:var(--warn)">제작 전</div><div class="u">마스터 레시피 있음</div></div>
+</div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">04</span><h2>확정된 결정</h2></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>항목</th><th>결정</th><th>비고</th></tr></thead>
+<tbody>
+<tr><td class="l">세트 수</td><td>31세트</td><td class="l">수강생 30 + 선생님 1</td></tr>
+<tr><td class="l">보관</td><td><b>전 품목 실온</b></td><td class="l">아이스팩 없음</td></tr>
+<tr><td class="l">생강</td><td>400g 1덩어리</td><td class="l">생강청 350g · 정과 50g — 수강생이 나눠 씀 · 껍질은 수업 중</td></tr>
+<tr><td class="l">설탕</td><td><b>2팩으로 나눔</b></td><td class="l">① 생강청 250g · ② 호두정과 35g (봉 수는 선생님 확인 대기)</td></tr>
+<tr><td class="l">오븐</td><td>사용 안 함</td><td class="l">팬으로 마무리</td></tr>
+</tbody></table></div>
+</section>
+</div>
+<div class="panel" id="tR"><p class="note" style="margin-top:14px">아래 문구가 <b>레시피카드</b>에 들어갑니다.</p><div class="cbx"><div class="cbh"><h3>키트 구성품</h3><button class="cbtn" data-c="c_ing">복사</button></div><p class="note">콘텐츠 시트 「키트구성품」과 같은 내용입니다.</p><pre id="c_ing">[키트 구성품]
+
+■ 공통
+  생강 400g 1덩어리 — 생강청 350g · 호두정과 50g으로 나눠 사용
+
+■ 슬라이스 생강청 (500ml 1병)
+  설탕 ① 250g — 담글 때 200g + 윗면 덮기 50g
+  레몬즙 10ml
+  유리병 500ml 1개
+
+■ 생강호두정과
+  호두 250g
+  조청 70g
+  설탕 ② 35g
+  계피가루 2g
+
+*알레르기 유발물질: 호두(견과류)</pre></div><div class="cbx"><div class="cbh"><h3>집에서 준비해 주세요</h3><button class="cbtn" data-c="c_home">복사</button></div><pre id="c_home">[집에서 준비해 주세요]
+
+  · 냄비 1개 (호두 데치기 · 유리병 열탕 소독)
+  · 팬 1개 (호두 볶기 · 생강 시럽 · 정과 마무리)
+  · 칼 · 도마 · 볼 · 체
+  · 주걱 또는 숟가락 · 계량스푼
+  · 종이호일 (호두정과 펼쳐 식히기용)
+  · 키친타월 · 앞치마
+  · 가스레인지 또는 인덕션
+  · 물 · 소금 약간
+
+※ 생강은 수업 전에 흐르는 물에 깨끗이 씻어 물기를 닦아 두세요.
+※ 오븐 없이 가스레인지 또는 인덕션만으로 진행합니다.</pre></div></div>
+<div class="panel" id="t2"><div class="empty-tab">이번 수업은 <b>해당 없음</b>입니다.<br>
+생강청·호두정과 시럽은 수강생이 수업 중 직접 만듭니다. 우리가 배합해 보내는 소스가 없습니다.</div></div>
+<div class="panel" id="t3">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>1인 구성 — 8품목</h2><span class="s">원물 1 + 소분팩 6 + 유리병</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>구분</th><th class="l">내용물</th><th>1인</th><th>보관</th><th class="l">쓰임</th></tr></thead>
+<tbody id="pkBody"></tbody>
+</table></div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>재료별 소분 총량</h2>
+<span class="s">인원 <input type="number" id="ipax" value="31" min="1" style="width:56px"> 세트</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th class="l">재료</th><th>1인</th><th>총 필요량</th><th>확보(계획)</th><th>남는 양</th><th class="l">메모</th></tr></thead>
+<tbody id="matBody"></tbody>
+</table></div>
+<p class="note">확보량은 <b>발주 계획 수량</b>입니다. 주문·입고 후 실제 수량으로 고칩니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">03</span><h2>소분 시 주의</h2></div>
+<ul class="chk">
+<li><b>설탕 ①② 번호와 용도 표기</b> — ① 생강청 250g · ② 호두정과 35g. 수강생은 봉투째 씁니다.</li>
+<li><b>생강 400g</b> — 덩어리째 저울로 맞춤. 무르거나 곰팡이 핀 것 제외. 흙은 털지 않아도 됨(수강생이 씻음).</li>
+<li><b>레몬즙·조청은 액체</b> — 소스컵 뚜껑을 꼭 닫고 지퍼백에 한 번 더. 새면 호두·설탕이 젖습니다.</li>
+<li><b>계피가루 2g</b>은 양이 적어 봉투 안쪽에 붙습니다. 털어 넣고 확인.</li>
+<li><b>유리병</b> — 에어캡으로 감싸고, 뚜껑 닫힘 확인.</li>
+</ul>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">04</span><h2>박스 적재 순서</h2></div>
+<ol class="steps">
+<li><b>바닥 — 유리병</b><span>에어캡 감싼 유리병 · 박스 가운데</span></li>
+<li><b>옆 — 생강</b><span>종이봉투나 지퍼백(입구 살짝 열기) — 밀봉하면 습기 참</span></li>
+<li><b>위 — 소분팩</b><span>호두 · 설탕 ①② · 계피 → 레몬즙·조청 소스컵 (액체는 세워서)</span></li>
+<li><b>맨 위 — 레시피카드</b></li>
+</ol>
+<p class="note">빈 공간은 완충재로 채워 유리병이 움직이지 않게 합니다.</p>
+</section>
+</div>
+<div class="panel" id="t4">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>포장 소모품 소요량</h2><span class="s">31세트 기준</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th class="l">품목</th><th>1인</th><th>총 필요</th><th>재고</th><th>판정</th><th class="l">비고</th></tr></thead>
+<tbody>
+<tr><td class="l">지퍼백 (소)</td><td>4</td><td><b>124</b></td><td>확인</td><td><span class="wait">확인</span></td><td class="l">설탕 ①② · 호두 · 계피</td></tr>
+<tr><td class="l">소스컵 (뚜껑)</td><td>2</td><td><b>62</b></td><td>확인</td><td><span class="wait">확인</span></td><td class="l">레몬즙 10ml · 조청 70g (조청은 100ml 이상 컵)</td></tr>
+<tr><td class="l">생강 봉투</td><td>1</td><td><b>31</b></td><td>확인</td><td><span class="wait">확인</span></td><td class="l">종이봉투 또는 지퍼백</td></tr>
+<tr><td class="l">에어캡 (뽁뽁이)</td><td>—</td><td>31병분</td><td>확인</td><td><span class="wait">확인</span></td><td class="l">유리병 파손 방지 · 필수</td></tr>
+<tr><td class="l">박스</td><td>1</td><td><b>31</b></td><td>확인</td><td><span class="wait">확인</span></td><td class="l">실온 박스 · 아이스팩 없음</td></tr>
+<tr><td class="l">라벨 스티커</td><td>—</td><td>—</td><td>확인</td><td><span class="wait">확인</span></td><td class="l">설탕 ①② · 품목명</td></tr>
+<tr><td class="l">송장</td><td>1</td><td><b>31</b></td><td>—</td><td><span class="wait">대기</span></td><td class="l">명단 확정 후 출력</td></tr>
+<tr><td class="l">레시피카드</td><td>1</td><td><b>31</b></td><td>—</td><td><span class="warn">제작 전</span></td><td class="l">마스터 레시피로 제작</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>패킹 전날 확인</h2></div>
+<ul class="chk">
+<li>입고 전 품목 확인 — 생강 상태 · 유리병 깨진 것</li>
+<li>지퍼백 124 · 소스컵 62 · 에어캡 · 박스 31 확인</li>
+<li>수강생 명단·주소 확정 (경기도지식) · 선생님 주소</li>
+<li>레시피카드 제작·출력 31장</li>
+</ul>
+</section>
+</div>
+<div class="panel" id="t6">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>송장</h2><span class="s">31건 · 선생님 포함</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th class="l">항목</th><th class="l">내용</th></tr></thead>
+<tbody>
+<tr><td class="l">발송일</td><td class="l"><b>11/11 (수)</b> 예정 — 수업 D-2</td></tr>
+<tr><td class="l">도착</td><td class="l">11/12 (목) 예정</td></tr>
+<tr><td class="l">건수</td><td class="l">31건 (수강생 30 + 선생님 1)</td></tr>
+<tr><td class="l">보관</td><td class="l"><b>실온</b> · 유리병 「취급주의」</td></tr>
+<tr><td class="l">명단 출처</td><td class="l">경기도지식 제공</td></tr>
+</tbody></table></div>
+<p class="note">명단·주소·연락처는 이 화면에 적지 않습니다. 드롭박스 「02 신청명단」에서 봅니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>수령 안내 문자</h2></div>
+<div class="cbx"><div class="cbh"><h3>도착일 발송</h3><button class="cbtn" data-c="c_sms">복사</button></div>
+<pre id="c_sms">[공공의주방] 생강청 &amp; 호두정과 키트가 도착했습니다.
+
+· 키트는 모두 실온 재료입니다. 서늘한 곳에 두세요.
+· 생강은 수업 전에 흐르는 물에 깨끗이 씻어 물기를 닦아 두세요. 비닐에 밀봉한 채 오래 두지 마세요.
+· 설탕은 ①생강청 ②호두정과 두 봉으로 나눠 보냈습니다. 봉투째 쓰시면 됩니다.
+· 유리병이 들어 있으니 꺼낼 때 조심해 주세요.
+
+수업 11월 13일(금) 16:00 · 줌 링크는 경기도지식에서 안내드립니다.</pre></div>
+</section>
+</div>
+<div class="panel" id="t7">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>수업 개요</h2></div>
+<div class="meta">
+<span>일시 <b>2026.11.13 (금) 16:00</b></span>
+<span>선생님 <b>장재우</b></span>
+<span>인원 <b>30명</b></span>
+</div>
+<p class="note"><b>줌 진행은 경기도지식(주최)이 합니다.</b> 우리는 키트 발송까지입니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>수업 전 확인</h2></div>
+<ul class="chk">
+<li>배송 도착 확인 (11/12) · 미도착·유리병 파손 건 대응</li>
+<li>선생님께 키트 도착 확인</li>
+</ul>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">03</span><h2>수업 중 안전 안내</h2></div>
+<ul class="chk">
+<li><b>유리병 열탕 소독</b> — 끓는 물 화상 주의</li>
+<li><b>조청 시럽</b>은 매우 뜨겁습니다 — 튀거나 손에 닿지 않게</li>
+<li>칼 사용 — 생강 얇게 썰기</li>
+<li>알레르기 — <b>호두(견과류)</b></li>
+</ul>
+</section>
+</div>
+<div class="panel" id="tP">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>패킹 당일 순서</h2><span class="s">11/11 (수) 예정</span></div>
+<ol class="steps">
+<li><b>1. 실온 소분팩 확인</b><span>전날 소분한 설탕 ①② · 호두 · 계피 — 31세트씩 맞는지</span></li>
+<li><b>2. 생강 400g 계량</b><span>31덩어리 · 봉투에 담기</span></li>
+<li><b>3. 레몬즙 · 조청 소분</b><span>소스컵 10ml · 70g × 31 · 뚜껑 확인 → 지퍼백</span></li>
+<li><b>4. 유리병 에어캡</b><span>31병</span></li>
+<li><b>5. 박싱</b><span>유리병 → 생강 → 소분팩 → 레시피카드 · 완충재</span></li>
+<li><b>6. 사진 촬영</b><span>구성품 전체 · 박스 적재 상태</span></li>
+<li><b>7. 송장 부착·출발</b><span>「취급주의(유리)」 표시</span></li>
+</ol>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>바로가기</h2></div>
+<div class="links">
+<a class="lk" href="class.html">클래스 홈</a>
+<a class="lk" href="class-chat.html" target="_blank" rel="noopener">작업 대화</a>
+</div>
+</section>
+</div>
+
+<div class="foot" id="foot"></div>
+</div>
+<script>
+(function(){
+  var u=document.querySelector('meta[name=updated]').content,v=document.querySelector('meta[name=version]').content;
+  var t='업데이트 '+u+' · '+v;
+  document.getElementById('upd').textContent=t;
+  document.getElementById('foot').textContent='패킹 운영 · GS-2611-01 · '+t;
+})();
+
+document.querySelectorAll('.tab').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});
+    document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');
+    document.getElementById(b.dataset.t).classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+var KIT=[{"bag": "원물", "nm": "생강 (흙생강)", "q": 400, "u": "g", "zone": "실온", "use": "1덩어리 · 생강청 350g + 호두정과 50g 떼어 사용"}, {"bag": "소분팩 ①", "nm": "설탕", "q": 250, "u": "g", "zone": "실온", "use": "생강청 · 담글 때 200g + 윗면 덮기 50g"}, {"bag": "소분팩 ②", "nm": "설탕", "q": 35, "u": "g", "zone": "실온", "use": "호두정과 시럽"}, {"bag": "소분팩", "nm": "레몬즙", "q": 10, "u": "ml", "zone": "실온", "use": "생강청 · 액체 이중 봉합"}, {"bag": "소분팩", "nm": "호두", "q": 250, "u": "g", "zone": "실온", "use": "호두정과"}, {"bag": "소분팩", "nm": "조청", "q": 70, "u": "g", "zone": "실온", "use": "호두정과 시럽 · 끈적 → 소스컵 또는 이중 봉합"}, {"bag": "소분팩", "nm": "계피가루", "q": 2, "u": "g", "zone": "실온", "use": "호두정과"}, {"bag": "도구", "nm": "유리병 500ml", "q": 1, "u": "개", "zone": "실온", "use": "생강청 담을 병 · 파손 주의(에어캡)"}], HAVE={"생강 (흙생강)": 13000, "설탕": 9000, "레몬즙": 1000, "호두": 8000, "조청": 2500, "계피가루": 400, "유리병 500ml": 36}, NOTE={"생강 (흙생강)": "13kg 1박스 계획 · <b>여유 600g뿐 — 2~3kg 추가 권장</b>", "설탕": "9kg 계획 · <b>여유 165g — 1kg 추가 권장</b>", "호두": "8kg 계획 · <b>여유 250g(1세트) — 1kg 추가 권장</b>", "유리병 500ml": "6개 × 6묶음 = 36개 · 파손 대비 5개 여유", "레몬즙": "1L", "조청": "2.5kg", "계피가루": "400g"};
+function fmt(n){return Math.round(n).toLocaleString();}
+function zc(z){return '<span class="zc'+(z==='보냉'?' cold':z==='확인'?' chk':'')+'">'+z+'</span>';}
+
+function render(){
+  var pax=Math.max(1,parseInt(document.getElementById('ipax').value)||31);
+  var h='';
+  KIT.forEach(function(k){
+    h+='<tr><td>'+k.bag+'</td><td class="l"><b>'+k.nm+'</b></td><td class="num">'+k.q+k.u+'</td>'
+      +'<td>'+zc(k.zone)+'</td><td class="l">'+k.use+'</td></tr>';
+  });
+  document.getElementById('pkBody').innerHTML=h;
+
+  var need={},unit={},order=[];
+  KIT.forEach(function(k){ if(!(k.nm in need)){need[k.nm]=0;order.push(k.nm);} need[k.nm]+=k.q; unit[k.nm]=k.u; });
+  var m='';
+  order.forEach(function(nm){
+    var per=need[nm],u=unit[nm],tot=per*pax,have=HAVE[nm];
+    var haveS=(have==null)?'<span class="wait">확인</span>':fmt(have)+u;
+    var left=(have==null)?null:have-tot;
+    var leftS=(left==null)?'<span class="wait">—</span>':(left<0?'⚠️ '+fmt(-left)+u+' 부족':(left===0?'<span class="warn">0 (여유 없음)</span>':fmt(left)+u));
+    m+='<tr><td class="l">'+nm+'</td><td class="num">'+per+u+'</td>'
+      +'<td class="num"><b>'+fmt(tot)+u+'</b></td><td class="num">'+haveS+'</td>'
+      +'<td class="num '+(left!=null&&left<0?'bad':'')+'">'+leftS+'</td>'
+      +'<td class="l">'+(NOTE[nm]||'')+'</td></tr>';
+  });
+  document.getElementById('matBody').innerHTML=m;
+}
+var ip=document.getElementById('ipax'); if(ip) ip.addEventListener('input',render);
+render();
+
+document.querySelectorAll('.cbtn').forEach(function(b){
+  b.addEventListener('click',function(){
+    var el=document.getElementById(b.dataset.c); if(!el)return;
+    navigator.clipboard.writeText(el.textContent).then(function(){
+      var o=b.textContent; b.textContent='복사됨'; setTimeout(function(){b.textContent=o;},1200);
+    });
+  });
+});
+function printTab(){ window.print(); }
+</script>
+</body></html>
