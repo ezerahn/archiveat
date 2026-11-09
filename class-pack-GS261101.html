@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ko"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="version" content="v3">
-<meta name="updated" content="2026.11.06 15:13">
+<meta name="version" content="v4">
+<meta name="updated" content="2026.11.09 22:31">
 <title>패킹 운영</title>
 <link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
@@ -171,7 +171,7 @@ border:1px solid var(--line);color:var(--ink);text-decoration:none}
 <section class="block">
 <div class="bh"><span class="n">03</span><h2>진행 현황</h2></div>
 <div class="dash">
-<div class="d"><div class="k">재료 발주</div><div class="v" style="color:var(--warn)">2 / 7</div><div class="u">생강 · 유리병 주문완료 134,240원 · 설탕 · 레몬즙 · 호두 · 조청 · 계피 남음</div></div>
+<div class="d"><div class="k">재료 발주</div><div class="v" style="color:var(--warn)">6 / 7</div><div class="u">주문완료 282,870원 · <b>계피가루 미주문</b></div></div>
 <div class="d"><div class="k">선생님 확인</div><div class="v" style="color:var(--warn)">대기</div><div class="u">생강 400g · 레몬즙 · 계피 · 설탕 분량</div></div>
 <div class="d"><div class="k">포장재</div><div class="v" style="color:var(--warn)">확인</div><div class="u">에어캡 · 지퍼백 · 소스컵</div></div>
 <div class="d"><div class="k">레시피카드</div><div class="v" style="color:var(--warn)">제작 전</div><div class="u">마스터 레시피 있음</div></div>
@@ -390,7 +390,7 @@ document.querySelectorAll('.tab').forEach(function(b){
   });
 });
 
-var KIT=[{"bag": "원물", "nm": "생강 (흙생강)", "q": 400, "u": "g", "zone": "실온", "use": "1덩어리 · 생강청 350g + 호두정과 50g 떼어 사용"}, {"bag": "소분팩 ①", "nm": "설탕", "q": 250, "u": "g", "zone": "실온", "use": "생강청 · 담글 때 200g + 윗면 덮기 50g"}, {"bag": "소분팩 ②", "nm": "설탕", "q": 35, "u": "g", "zone": "실온", "use": "호두정과 시럽"}, {"bag": "소분팩", "nm": "레몬즙", "q": 10, "u": "ml", "zone": "실온", "use": "생강청 · 액체 이중 봉합"}, {"bag": "소분팩", "nm": "호두", "q": 250, "u": "g", "zone": "실온", "use": "호두정과"}, {"bag": "소분팩", "nm": "조청", "q": 70, "u": "g", "zone": "실온", "use": "호두정과 시럽 · 끈적 → 소스컵 또는 이중 봉합"}, {"bag": "소분팩", "nm": "계피가루", "q": 2, "u": "g", "zone": "실온", "use": "호두정과"}, {"bag": "도구", "nm": "유리병 500ml", "q": 1, "u": "개", "zone": "실온", "use": "생강청 담을 병 · 파손 주의(에어캡)"}], HAVE={"생강 (흙생강)": 15000, "설탕": 9000, "레몬즙": 1000, "호두": 8000, "조청": 2500, "계피가루": 400, "유리병 500ml": 35}, NOTE={"생강 (흙생강)": "<b>주문완료</b> 5kg + 10kg = 15kg · 99,740원 · 11/10(화) 도착 · 실온 보관(냉장 X · 씻지 않기)", "설탕": "9kg 계획 · <b>여유 165g — 1kg 추가 권장</b>", "호두": "8kg 계획 · <b>여유 250g(1세트) — 1kg 추가 권장</b>", "유리병 500ml": "<b>주문완료</b> 6개 × 5묶음 34,500원 (11/7 새벽) + 재고 5개 = 35개", "레몬즙": "1L", "조청": "2.5kg", "계피가루": "400g"};
+var KIT=[{"bag": "원물", "nm": "생강 (흙생강)", "q": 400, "u": "g", "zone": "실온", "use": "1덩어리 · 생강청 350g + 호두정과 50g 떼어 사용"}, {"bag": "소분팩 ①", "nm": "설탕", "q": 250, "u": "g", "zone": "실온", "use": "생강청 · 담글 때 200g + 윗면 덮기 50g"}, {"bag": "소분팩 ②", "nm": "설탕", "q": 35, "u": "g", "zone": "실온", "use": "호두정과 시럽"}, {"bag": "소분팩", "nm": "레몬즙", "q": 10, "u": "ml", "zone": "실온", "use": "생강청 · 액체 이중 봉합"}, {"bag": "소분팩", "nm": "호두", "q": 250, "u": "g", "zone": "실온", "use": "호두정과"}, {"bag": "소분팩", "nm": "조청", "q": 70, "u": "g", "zone": "실온", "use": "호두정과 시럽 · 끈적 → 소스컵 또는 이중 봉합"}, {"bag": "소분팩", "nm": "계피가루", "q": 2, "u": "g", "zone": "실온", "use": "호두정과"}, {"bag": "도구", "nm": "유리병 500ml", "q": 1, "u": "개", "zone": "실온", "use": "생강청 담을 병 · 파손 주의(에어캡)"}], HAVE={"생강 (흙생강)": 15000, "설탕": 10000, "레몬즙": 1000, "호두": 10000, "조청": 2500, "계피가루": 400, "유리병 500ml": 35}, NOTE={"생강 (흙생강)": "<b>주문완료</b> 5kg + 10kg = 15kg · 99,740원 · 11/10(화) 도착 · 실온 보관(냉장 X · 씻지 않기)", "설탕": "<b>주문완료</b> 백설 5kg × 2 = 10kg · 20,060원 · 11/10 도착", "호두": "<b>주문완료</b> 다맘 햇호두 1kg × 10 = 10kg · 110,800원(할인 반영) · 11/10 도착", "유리병 500ml": "<b>주문완료</b> 6개 × 5묶음 34,500원 (11/7 새벽) + 재고 5개 = 35개", "레몬즙": "<b>주문완료</b> 돈시몬 NFC 1L · 5,780원 · 11/10 도착", "조청": "<b>주문완료</b> 오뚜기옛날 조청 2.5kg · 11,990원 · 11/10 도착", "계피가루": "<b>⚠ 미주문</b> 400g 계획 7,320원"};
 function fmt(n){return Math.round(n).toLocaleString();}
 function zc(z){return '<span class="zc'+(z==='보냉'?' cold':z==='확인'?' chk':'')+'">'+z+'</span>';}
 
