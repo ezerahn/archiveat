@@ -1,0 +1,447 @@
+<!DOCTYPE html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="version" content="v1">
+<meta name="updated" content="2026.11.23 16:34">
+<title>패킹 운영</title>
+<link rel="apple-touch-icon" href="app-icon.png"><link rel="icon" href="app-icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF5EC;--ink:#241F1B;--sub:#6B6256;--line:#E7DCC8;--card:#FFFDF9;--point:#B4A032;
+--room:#C2570E;--cold:#2C7BB6;--freeze:#5B5BA6;--ok:#2E7D32;--warn:#B44A1E;--wait:#9A8F7C;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
+.tb-left{display:flex;align-items:center;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:13px;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 13px;transition:.12s}
+.pill:hover{border-color:var(--point);color:var(--point)}
+.tb-right{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--wait);text-align:right}
+.tb-sep{color:#CFC5B2}
+.updated{font-family:"DM Mono",monospace;font-size:12px;color:var(--wait)}
+.hero{padding:26px 0 4px}
+.hero h1{font-family:Hahmlet,"Gowun Batang",serif;font-weight:700;font-size:36px;letter-spacing:-.02em}
+.hero .lead{margin-top:6px;color:var(--sub);font-size:14.5px}
+h2{font-family:Hahmlet,"Gowun Batang",serif;font-size:19px;font-weight:700;margin:0}
+h3{font-size:14.5px;font-weight:700;margin:0}
+.tabrow{display:flex;align-items:flex-end;gap:12px;border-bottom:1px solid var(--line);margin-top:18px}
+.tabrow .tabs{flex:1;border-bottom:none;margin-top:0}
+.prbtn{flex:0 0 auto;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--sub);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 13px;cursor:pointer;margin-bottom:7px;white-space:nowrap}
+.prbtn:hover{border-color:var(--point);color:var(--point)}
+.prhead{display:none}
+@media print{
+  @page{size:A4;margin:12mm}
+  body{background:#fff;padding:0}
+  .topbar,.tabrow,.foot,.prbtn{display:none!important}
+  .hero{display:none!important}
+  .prhead{display:block!important;font-size:10pt;color:#241F1B;border-bottom:1.5px solid #241F1B;padding-bottom:5mm;margin-bottom:6mm}
+  .prhead #prTab{display:block;font-size:15pt;font-weight:700;margin-top:2mm}
+  .panel{display:none!important}
+  .panel.on{display:block!important}
+  .block{break-inside:avoid;page-break-inside:avoid;box-shadow:none;border-color:#CFC6B4}
+  table{font-size:9pt}
+  th,td{padding:4px 6px}
+  a{text-decoration:none;color:inherit}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+.tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line);margin-top:18px;padding-bottom:0}
+.tab{flex:0 0 auto;font-family:inherit;font-size:14px;font-weight:600;color:var(--sub);background:none;border:none;border-bottom:2px solid transparent;padding:11px 14px;cursor:pointer;white-space:nowrap;transition:.12s}
+.tab:hover{color:var(--ink)}
+.tab.on{color:var(--point);border-bottom-color:var(--point)}
+.tab .star{color:#FF5019}
+.panel{display:none;padding-top:6px}
+.panel.on{display:block}
+.block{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
+.bh{display:flex;align-items:baseline;gap:9px;margin-bottom:14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.bh .n{font-family:"DM Mono",monospace;font-size:12px;color:var(--point);font-weight:500}
+.bh .s{font-size:12px;color:var(--wait);margin-left:auto;text-align:right}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13.5px;color:var(--sub)}
+.meta b{color:var(--ink);font-weight:600}
+.dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.d{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+.d .k{font-size:12px;color:var(--sub);font-weight:500}
+.d .v{font-family:"DM Mono",monospace;font-size:22px;font-weight:700;margin-top:3px;line-height:1.15}
+.d .u{font-size:11.5px;color:var(--wait);margin-top:2px}
+.tbl-wrap{overflow-x:auto;margin:0 -3px}
+table{border-collapse:collapse;width:100%;min-width:600px;font-size:13px}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:center;white-space:nowrap}
+th{background:#F4EFE3;font-size:11.5px;font-weight:700;color:var(--sub)}
+td.l{text-align:left;white-space:normal;min-width:150px}
+td.num{font-family:"DM Mono",monospace;text-align:right}
+tr.tot td{background:#EFE7D4;font-weight:700}
+.alert{background:#FBEAE0;border:1px solid #F0D2C0;border-radius:12px;padding:13px 15px;margin-top:11px}
+.alert h3{color:var(--warn);margin-bottom:4px}
+.alert p{font-size:13px;color:var(--sub);line-height:1.6}
+.tip{background:#EDF3ED;border:1px solid #D5E4D5;border-radius:12px;padding:13px 15px;margin-top:11px}
+.tip h3{color:var(--ok);margin-bottom:4px}
+.tip p{font-size:13px;color:var(--sub);line-height:1.6}
+.note{font-size:12.5px;color:var(--wait);margin-top:9px;line-height:1.65}
+ol.steps{list-style:none;counter-reset:s}
+ol.steps li{counter-increment:s;position:relative;padding:9px 0 9px 40px;border-bottom:1px dashed var(--line);font-size:13.5px}
+ol.steps li:last-child{border-bottom:none}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:24px;height:24px;border-radius:50%;background:var(--point);color:#fff;font-family:"DM Mono",monospace;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+ol.steps li b{display:block;font-size:14px;margin-bottom:1px}
+ol.steps li span{color:var(--sub);font-size:12.5px}
+.chk{list-style:none}
+.chk li{padding:8px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.chk li:last-child{border-bottom:none}
+.foot{margin-top:26px;font-family:"DM Mono",monospace;font-size:11px;color:var(--wait);text-align:center}
+@media(max-width:640px){.hero h1{font-size:28px}.tb-right{flex-direction:column;align-items:flex-end;gap:2px}.tb-sep{display:none}}
+
+.cbx{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:12px}
+.cbh{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.cbh h3{font-size:14.5px;font-weight:700}
+.cbtn{font-size:12px;padding:5px 13px;border-radius:16px;border:1px solid var(--line);
+background:#F1EFE9;color:var(--ink);cursor:pointer;font-family:inherit;white-space:nowrap}
+.cbtn:hover{background:#E7E2D6}
+.cbx pre{white-space:pre-wrap;font-family:Pretendard,sans-serif;font-size:13.5px;line-height:1.75;
+color:var(--sub);background:#FBF8F1;border-radius:9px;padding:12px 14px;margin:0}
+.num{text-align:right;font-family:"DM Mono",monospace}
+.bad{color:var(--warn);font-weight:700}
+.ok{color:var(--ok);font-weight:600}
+.warn{color:var(--warn);font-weight:600}
+.wait{color:var(--wait)}
+.links{display:flex;gap:8px;flex-wrap:wrap}
+.lk{font-size:13px;padding:7px 14px;border-radius:9px;background:#F1EFE9;
+border:1px solid var(--line);color:var(--ink);text-decoration:none}
+.empty-tab{padding:44px 0;text-align:center;color:var(--wait);font-size:14px}
+.zc{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:10px;background:#F1EFE9;color:var(--sub);white-space:nowrap}
+.zc.cold{background:#E6EEF5;color:#3D5F7A;font-weight:600}
+.zc.chk{background:#FFF4D6;color:#8A6A12;font-weight:600}
+</style></head><body><div class="wrap">
+
+<div class="topbar">
+<div class="tb-left">
+<a class="pill" href="class.html">← 클래스 홈</a>
+<a class="pill" href="class-chat.html" target="_blank" rel="noopener">💬 작업 대화</a>
+</div>
+<div class="tb-right"><span>AI 워크스페이스 › 클래스 › 패킹 운영</span><span class="tb-sep">|</span><span class="updated" id="upd"></span></div>
+</div>
+
+<header class="hero">
+<h1>패킹 운영</h1>
+<p class="lead">GS-2611-02 · 반 갈라 먹는 제철 과일 찹쌀떡 · 경기도지식 온라인</p>
+</header>
+
+<div class="prhead"><b>GS-2611-02</b> 반 갈라 먹는 제철 과일 찹쌀떡 · 11/26(목) 16:00 · 31세트<span id="prTab"></span></div>
+<div class="tabrow">
+<div class="tabs">
+<button class="tab on" data-t="t1">개요</button>
+<button class="tab" data-t="tR">레시피</button>
+<button class="tab" data-t="t2">소스 배합</button>
+<button class="tab" data-t="t3">패킹 구성</button>
+<button class="tab" data-t="t4">소모품</button>
+<button class="tab" data-t="t6">송장·배송</button>
+<button class="tab" data-t="t7">수업 준비</button>
+<button class="tab" data-t="tP"><span class="star">★</span> 준비·패킹</button>
+</div>
+<button class="prbtn" onclick="printTab()">🖨 이 탭 인쇄</button>
+</div>
+
+<div class="panel on" id="t1">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>수업 정보</h2><span class="s">31세트 = 수강생 30 + 선생님 1</span></div>
+<div class="meta">
+<span>수업일 <b>2026.11.26 (목) 16:00</b></span>
+<span>형식 <b>줌 온라인 + 사전 배송</b></span>
+<span>선생님 <b>우미선</b></span>
+<span>패킹 <b>11/24 (화)</b></span>
+<span>도착 <b>11/25 (수)</b> 예정</span>
+</div>
+<p class="note">냉장 재료(우유·버터·앙금·과일)가 들어가는 <b>보냉 키트</b>입니다. 패킹 D-2 → 도착 D-1.</p>
+</section>
+
+<div class="alert">
+<h3>⚠️ 패킹 전에 해결할 것</h3>
+<p><b>1. 미주문 — 딸기 31알 · 골드키위 31개 · 맛밤 124알(4알×31)</b> · 내일 패킹이면 오늘 밤 12시 전 로켓프레시 주문 필요<br>
+<b>2. 통팥앙금 100g 부족</b> — 3kg = 100g × 30세트. 선생님 몫(1세트)은 추가 구매 또는 수강생 몫을 97g으로 조정<br>
+<b>3. 소금·설탕 재고</b> — 설탕은 생강청 남은 양(계산상 1,165g, 필요 620g) · 소금 31g 재고 확인<br>
+<b>4. 보냉 박스(또는 은박 보냉백) 31개 · 딸기 개별 컵 31개 · 소스컵(물엿) 31개 · 지퍼백</b> 재고 확인</p>
+</div>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>타임라인</h2><span class="s">발주 → 수업일</span></div>
+<ol class="steps">
+<li><b>11/22 (일)~11/23 (월) — 발주</b><span>찹쌀가루 · 전분 · 물엿 · 앙금 · 우유 · 버터 · 아이스팩 · 꼬마귤 ✅ / 딸기 · 키위 · 맛밤 ⚠️</span></li>
+<li><b>11/23 (월) 밤 — 패킹 전날</b><span>아이스팩 31개 냉동실 · 실온 가루 소분(찹쌀가루 · 전분 ①② · 설탕 · 소금) · 물엿 소스컵 · 라벨</span></li>
+<li><b>11/24 (화) — 패킹일</b><span>입고 확인(우유 · 귤 · 과일) → 앙금 소분 → 과일 선별 → 보냉 박싱 → 사진 → 발송</span></li>
+<li><b>11/25 (수) — 도착</b><span>수령 안내 문자 · 「받으면 바로 냉장」</span></li>
+<li><b>11/26 (목) 16:00 — 수업</b><span>줌 라이브 (경기도지식 주최) · 우미선 선생님</span></li>
+</ol>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">03</span><h2>진행 현황</h2></div>
+<div class="dash">
+<div class="d"><div class="k">재료 발주</div><div class="v" style="color:var(--warn)">3품목 남음</div><div class="u">8품목 주문 · 딸기 · 키위 · 맛밤 미주문</div></div>
+<div class="d"><div class="k">앙금</div><div class="v" style="color:var(--warn)">결정</div><div class="u">100g 부족 (31세트 기준)</div></div>
+<div class="d"><div class="k">포장재</div><div class="v" style="color:var(--warn)">확인</div><div class="u">보냉박스 · 딸기컵 · 소스컵 · 지퍼백</div></div>
+<div class="d"><div class="k">레시피카드</div><div class="v" style="color:var(--warn)">제작 전</div><div class="u">마스터 레시피 있음</div></div>
+</div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">04</span><h2>확정된 결정</h2></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>항목</th><th>결정</th><th>비고</th></tr></thead>
+<tbody>
+<tr><td class="l">세트 수</td><td>31세트</td><td class="l">수강생 30 + 선생님 1</td></tr>
+<tr><td class="l">보관</td><td><b>냉장 키트</b></td><td class="l">아이스팩 1 + 보냉 포장</td></tr>
+<tr><td class="l">과일</td><td>귤 · 딸기 · 맛밤 · 골드키위</td><td class="l">10/29 확정 · 1개씩 통째로</td></tr>
+<tr><td class="l">우유 · 버터</td><td><b>소분 안 함</b></td><td class="l">우유 120ml 개별팩 · 버터 10g 포션 그대로</td></tr>
+<tr><td class="l">타피오카 전분</td><td><b>2팩으로 나눔</b></td><td class="l">① 반죽용 20g · ② 덧가루 15g</td></tr>
+<tr><td class="l">물</td><td>보내지 않음</td><td class="l">수강생이 집에서 50g 준비</td></tr>
+</tbody></table></div>
+</section>
+</div>
+<div class="panel" id="tR"><p class="note" style="margin-top:14px">아래 문구가 <b>레시피카드</b>에 들어갑니다.</p><div class="cbx"><div class="cbh"><h3>키트 구성품</h3><button class="cbtn" data-c="c_ing">복사</button></div><p class="note">콘텐츠 시트 「키트구성품」 기준 · 우유·버터는 실제 주문 상품(개별팩·포션)으로 맞춤</p><pre id="c_ing">[키트 구성품]
+
+■ 찹쌀 반죽
+  건식 찹쌀가루 80g
+  타피오카 전분 ① 20g (반죽용)
+  설탕 20g · 소금 1g
+  물엿 20g
+  우유 120ml 1팩 (110g 사용)
+  무염버터 10g 1개
+
+■ 덧가루
+  타피오카 전분 ② 15g
+
+■ 속
+  통팥앙금 100g — 25g × 4로 나눠 쓰세요
+
+■ 과일·밤 — 1개씩 통째로
+  귤 1개 · 딸기 1알 · 맛밤 4알 · 골드키위 1개
+
+*알레르기 유발물질: 우유, 대두(앙금 제품에 따라)</pre></div><div class="cbx"><div class="cbh"><h3>집에서 준비해 주세요</h3><button class="cbtn" data-c="c_home">복사</button></div><pre id="c_home">[집에서 준비해 주세요]
+
+  · 전자레인지 (700W·1000W 모두 가능)
+  · 전자레인지용 큰 볼 · 실리콘 주걱 · 랩
+  · 니트릴 장갑 · 식용유(또는 참기름) 약간 (반죽 만질 때)
+  · 위생백 (완성한 찹쌀떡 식히기용)
+  · 칼(과도) · 도마 · 키친타월
+  · 쟁반 또는 넓은 접시 (반죽 나누기용)
+  · 밀대 (있으면 좋아요, 없어도 가능)
+  · 물 50g
+
+※ 받으시면 우유·버터·앙금·과일은 바로 냉장 보관해 주세요.
+※ 과일은 수업 전 씻어 물기를 완전히 닦아 두세요.</pre></div></div>
+<div class="panel" id="t2"><div class="empty-tab">이번 수업은 <b>해당 없음</b>입니다.<br>
+반죽은 수강생이 수업 중 직접 만듭니다. 우리가 배합해 보내는 소스가 없습니다.</div></div>
+<div class="panel" id="t3">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>1인 구성 — 14품목</h2><span class="s">실온 소분 6 · 냉장 6 · 아이스팩</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th>구분</th><th class="l">내용물</th><th>1인</th><th>보관</th><th class="l">쓰임</th></tr></thead>
+<tbody id="pkBody"></tbody>
+</table></div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>재료별 소분 총량</h2>
+<span class="s">인원 <input type="number" id="ipax" value="31" min="1" style="width:56px"> 세트</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th class="l">재료</th><th>1인</th><th>총 필요량</th><th>확보</th><th>남는 양</th><th class="l">메모</th></tr></thead>
+<tbody id="matBody"></tbody>
+</table></div>
+<p class="note">확보량은 마스터 발주 시트의 주문량입니다. 귤은 개수를 도착 후 세어 알려 주시면 채웁니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">03</span><h2>소분 시 주의</h2></div>
+<ul class="chk">
+<li><b>타피오카 전분 ①② 번호와 용도 표기</b> — ① 반죽용 20g · ② 덧가루 15g. 헷갈리면 반죽이 질어집니다.</li>
+<li><b>소금 1g</b>은 양이 적어 봉투에 붙습니다 — 작은 지퍼백, 털어 넣고 확인.</li>
+<li><b>물엿 20g</b> — 뚜껑 소스컵 · 꼭 닫고 지퍼백 한 번 더.</li>
+<li><b>앙금 100g</b> — 지퍼백에 납작하게 펴서 담기(수강생이 4등분하기 쉬움) · 냉장.</li>
+<li><b>과일 선별</b> — 귤은 작은 것, 딸기는 무르거나 상처 난 것 제외. <b>과일은 씻지 않고 보냅니다</b>(물기 = 곰팡이·무름).</li>
+<li><b>딸기</b>는 개별 컵에 1알 · 뚜껑 닫기 (눌림 방지).</li>
+</ul>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">04</span><h2>박스 적재 순서</h2></div>
+<ol class="steps">
+<li><b>바닥 — 아이스팩 + 냉장 재료</b><span>아이스팩 위에 우유 · 버터 · 앙금 (차가워야 하는 것부터)</span></li>
+<li><b>가운데 — 과일</b><span>귤 · 키위 · 딸기 컵 — 아이스팩에 직접 닿지 않게 (얼면 무름)</span></li>
+<li><b>위 — 실온 소분팩</b><span>찹쌀가루 · 전분 ①② · 설탕 · 소금 · 맛밤 · 물엿 소스컵(세워서)</span></li>
+<li><b>맨 위 — 레시피카드</b></li>
+</ol>
+<p class="note">빈 공간은 완충재로 채워 딸기 컵이 눌리지 않게 합니다.</p>
+</section>
+</div>
+<div class="panel" id="t4">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>포장 소모품 소요량</h2><span class="s">31세트 기준</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th class="l">품목</th><th>1인</th><th>총 필요</th><th>재고</th><th>판정</th><th class="l">비고</th></tr></thead>
+<tbody>
+<tr><td class="l">지퍼백 (소)</td><td>7</td><td><b>217</b></td><td>확인</td><td><span class="wait">확인</span></td><td class="l">찹쌀가루 · 전분 ①② · 설탕 · 소금 · 앙금 · 맛밤</td></tr>
+<tr><td class="l">소스컵 (뚜껑)</td><td>1</td><td><b>31</b></td><td>확인</td><td><span class="wait">확인</span></td><td class="l">물엿 20g</td></tr>
+<tr><td class="l">딸기 개별 컵</td><td>1</td><td><b>31</b></td><td>확인</td><td><span class="wait">확인</span></td><td class="l">미주문 · 소스컵 큰 것으로 대체 가능</td></tr>
+<tr><td class="l">아이스팩 (소형)</td><td>1</td><td><b>31</b></td><td>60</td><td><span class="ok">충족</span></td><td class="l">전날 냉동</td></tr>
+<tr><td class="l">보냉 박스 / 은박 보냉백</td><td>1</td><td><b>31</b></td><td>확인</td><td><span class="wait">확인</span></td><td class="l">냉장 키트 필수</td></tr>
+<tr><td class="l">라벨 스티커</td><td>—</td><td>—</td><td>확인</td><td><span class="wait">확인</span></td><td class="l">전분 ①반죽용 ②덧가루 · 품목명</td></tr>
+<tr><td class="l">송장</td><td>1</td><td><b>31</b></td><td>—</td><td><span class="wait">대기</span></td><td class="l">명단 확정 후 출력</td></tr>
+<tr><td class="l">레시피카드</td><td>1</td><td><b>31</b></td><td>—</td><td><span class="warn">제작 전</span></td><td class="l">마스터 레시피로 제작</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>패킹 전날 확인 (11/23 밤)</h2></div>
+<ul class="chk">
+<li>아이스팩 31개 이상 <b>냉동실</b>에 넣기</li>
+<li>딸기 · 골드키위 · 맛밤 주문 (밤 12시 전)</li>
+<li>입고 확인 — 찹쌀가루 · 전분 · 물엿 · 앙금 · 버터 · 아이스팩</li>
+<li>실온 가루 소분 31세트 — 찹쌀가루 80 · 전분 ①20 ②15 · 설탕 20 · 소금 1</li>
+<li>보냉 박스 · 지퍼백 217 · 소스컵 31 · 딸기컵 31 확인</li>
+<li>수강생 명단·주소 확정 (경기도지식) · 선생님 주소</li>
+<li>레시피카드 출력 31장</li>
+</ul>
+</section>
+</div>
+<div class="panel" id="t6">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>송장</h2><span class="s">31건 · 선생님 포함</span></div>
+<div class="tbl-wrap"><table>
+<thead><tr><th class="l">항목</th><th class="l">내용</th></tr></thead>
+<tbody>
+<tr><td class="l">발송일</td><td class="l"><b>11/24 (화)</b> — 수업 D-2</td></tr>
+<tr><td class="l">도착</td><td class="l">11/25 (수) 예정</td></tr>
+<tr><td class="l">건수</td><td class="l">31건 (수강생 30 + 선생님 1)</td></tr>
+<tr><td class="l">보관</td><td class="l"><b>냉장</b> · 「냉장 · 과일 눌림 주의」 표시</td></tr>
+<tr><td class="l">배송</td><td class="l">새벽배송 가능 지역 (과정개요서 안내 기준)</td></tr>
+<tr><td class="l">명단 출처</td><td class="l">경기도지식 제공</td></tr>
+</tbody></table></div>
+<p class="note">명단·주소·연락처는 이 화면에 적지 않습니다. 드롭박스 「02 신청명단」에서 봅니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>수령 안내 문자</h2></div>
+<div class="cbx"><div class="cbh"><h3>도착일 발송</h3><button class="cbtn" data-c="c_sms">복사</button></div>
+<pre id="c_sms">[공공의주방] 과일 찹쌀떡 키트가 도착했습니다.
+
+· 우유 · 버터 · 팥앙금 · 과일은 받으시면 바로 냉장 보관해 주세요.
+· 과일은 수업 전에 씻어 물기를 완전히 닦아 두세요.
+· 타피오카 전분은 ①반죽용 ②덧가루 두 봉으로 나눠 보냈습니다. 번호를 확인해 주세요.
+· 물 50g은 집에서 준비해 주세요.
+
+수업 11월 26일(목) 16:00 · 줌 링크는 경기도지식에서 안내드립니다.</pre></div>
+</section>
+</div>
+<div class="panel" id="t7">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>수업 개요</h2></div>
+<div class="meta">
+<span>일시 <b>2026.11.26 (목) 16:00</b></span>
+<span>선생님 <b>우미선</b></span>
+<span>인원 <b>30명</b></span>
+</div>
+<p class="note"><b>줌 진행은 경기도지식(주최)이 합니다.</b> 우리는 키트 발송까지입니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>수업 전 확인</h2></div>
+<ul class="chk">
+<li>배송 도착 확인 (11/25) · 미도착 · 과일 무름 건 대응</li>
+<li>선생님께 키트 도착 확인</li>
+</ul>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">03</span><h2>수업 중 안전 안내</h2></div>
+<ul class="chk">
+<li><b>전자레인지에서 꺼낸 반죽은 뜨겁습니다</b> — 실리콘 주걱 · 니트릴 장갑</li>
+<li>전자레인지 출력(W)에 따라 가열 시간 조정</li>
+<li>칼 사용 — 반으로 가르기</li>
+<li>알레르기 — <b>우유, 대두(앙금 제품에 따라)</b></li>
+</ul>
+</section>
+</div>
+<div class="panel" id="tP">
+<section class="block">
+<div class="bh"><span class="n">01</span><h2>패킹 당일 순서</h2><span class="s">11/24 (화)</span></div>
+<ol class="steps">
+<li><b>1. 실온 소분팩 확인</b><span>전날 소분한 찹쌀가루 · 전분 ①② · 설탕 · 소금 · 물엿 — 31세트씩 맞는지</span></li>
+<li><b>2. 입고 확인</b><span>우유 32 · 귤(꼬마과 개수) · 딸기 · 키위 · 맛밤</span></li>
+<li><b>3. 앙금 100g 소분</b><span>31세트 (부족분 결정대로) · 지퍼백에 납작하게</span></li>
+<li><b>4. 과일 선별·소분</b><span>귤 작은 것 · 딸기 컵 1알 · 키위 1 · 맛밤 4알</span></li>
+<li><b>5. 보냉 박싱</b><span>아이스팩 → 우유·버터·앙금 → 과일 → 실온 소분팩 → 레시피카드 · 완충재</span></li>
+<li><b>6. 사진 촬영</b><span>구성품 전체 · 박스 적재 상태</span></li>
+<li><b>7. 송장 부착·출발</b><span>「냉장」 표시</span></li>
+</ol>
+<p class="note">냉장 재료는 <b>박싱 직전까지 냉장고</b>에 두고, 마지막에 꺼내 바로 담습니다.</p>
+</section>
+
+<section class="block">
+<div class="bh"><span class="n">02</span><h2>바로가기</h2></div>
+<div class="links">
+<a class="lk" href="class.html">클래스 홈</a>
+<a class="lk" href="class-chat.html" target="_blank" rel="noopener">작업 대화</a>
+</div>
+</section>
+</div>
+
+<div class="foot" id="foot"></div>
+</div>
+<script>
+(function(){
+  var u=document.querySelector('meta[name=updated]').content,v=document.querySelector('meta[name=version]').content;
+  var t='업데이트 '+u+' · '+v;
+  document.getElementById('upd').textContent=t;
+  document.getElementById('foot').textContent='패킹 운영 · GS-2611-02 · '+t;
+})();
+
+document.querySelectorAll('.tab').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});
+    document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');
+    document.getElementById(b.dataset.t).classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+var KIT=[{"bag": "소분팩", "nm": "건식 찹쌀가루", "q": 80, "u": "g", "zone": "실온", "use": "찹쌀 반죽"}, {"bag": "소분팩 ①", "nm": "타피오카 전분", "q": 20, "u": "g", "zone": "실온", "use": "① 반죽용 — 찹쌀가루와 섞음"}, {"bag": "소분팩 ②", "nm": "타피오카 전분", "q": 15, "u": "g", "zone": "실온", "use": "② 덧가루 — 반죽 나눌 때 뿌림"}, {"bag": "소분팩", "nm": "설탕", "q": 20, "u": "g", "zone": "실온", "use": "찹쌀 반죽"}, {"bag": "소분팩", "nm": "소금", "q": 1, "u": "g", "zone": "실온", "use": "찹쌀 반죽"}, {"bag": "소스컵", "nm": "물엿", "q": 20, "u": "g", "zone": "실온", "use": "찹쌀 반죽 · 끈적 → 뚜껑 소스컵"}, {"bag": "소분팩", "nm": "통팥앙금", "q": 100, "u": "g", "zone": "냉장", "use": "속 · 25g × 4로 나눠 씀"}, {"bag": "완제품", "nm": "우유 120ml", "q": 1, "u": "개", "zone": "냉장", "use": "개별팩 그대로 · 레시피 110g"}, {"bag": "완제품", "nm": "무염버터 포션 10g", "q": 1, "u": "개", "zone": "냉장", "use": "포션 그대로"}, {"bag": "원물", "nm": "귤 (꼬마과)", "q": 1, "u": "개", "zone": "냉장", "use": "작은 것 골라 담기"}, {"bag": "원물", "nm": "딸기 (대과)", "q": 1, "u": "알", "zone": "냉장", "use": "개별 컵에 담기 · 무른 것 제외"}, {"bag": "소분팩", "nm": "맛밤", "q": 4, "u": "알", "zone": "실온", "use": "4알 소분"}, {"bag": "원물", "nm": "골드키위 (소과)", "q": 1, "u": "개", "zone": "냉장", "use": "작은 것"}, {"bag": "포장", "nm": "아이스팩", "q": 1, "u": "개", "zone": "냉동", "use": "전날 냉동실 · 과일에 직접 닿지 않게"}], HAVE={"건식 찹쌀가루": 2600, "타피오카 전분": 2000, "설탕": 1165, "물엿": 1200, "통팥앙금": 3000, "우유 120ml": 32, "무염버터 포션 10g": 40, "아이스팩": 60}, NOTE={"건식 찹쌀가루": "<b>입고</b> 배대감 국산 찹쌀가루 1.3kg × 2 · 19,980원 · 11/23", "타피오카 전분": "<b>입고</b> 배대감 타피오카전분 1kg × 2 · 9,880원 · 11/23 · ①20g + ②15g 합산", "설탕": "<b>재고</b> 생강청(GS-2611-01) 10kg − 사용 8,835g = <b>1,165g (계산상)</b> · 실제 남은 양 저울 확인", "소금": "<b>재고 확인</b> · 미주문", "물엿": "<b>입고</b> 청정원 물엿 1.2kg · 3,700원 · 11/23", "통팥앙금": "<b>입고</b> 통팥앙금 1kg × 3 · 11/23 · ⚠️ 31세트에 100g 부족 → 결정 필요", "우유 120ml": "<b>주문</b> 덴마크 무항생제 우유 120ml × 32 · 18,160원 · 11/24 도착 예정", "무염버터 포션 10g": "<b>주문</b> 컬리 프레지덩 포션 무염 10g×20입 × 2 · 22,960원 · 11/23 밤 도착", "귤 (꼬마과)": "<b>주문</b> 올레길 쪼꼴락 꼬마과 3kg · 14,010원 · 11/24 새벽 · 개수 도착 후 확인", "딸기 (대과)": "<b>⚠️ 미주문</b>", "맛밤": "<b>⚠️ 미주문</b>", "골드키위 (소과)": "<b>⚠️ 미주문</b>", "아이스팩": "<b>주문</b> 우림 젤 아이스팩 소형 60개 · 9,830원 · 11/23 도착"};
+function fmt(n){return Math.round(n).toLocaleString();}
+function zc(z){return '<span class="zc'+((z==='냉장'||z==='냉동')?' cold':z==='확인'?' chk':'')+'">'+z+'</span>';}
+
+function render(){
+  var pax=Math.max(1,parseInt(document.getElementById('ipax').value)||31);
+  var h='';
+  KIT.forEach(function(k){
+    h+='<tr><td>'+k.bag+'</td><td class="l"><b>'+k.nm+'</b></td><td class="num">'+k.q+k.u+'</td>'
+      +'<td>'+zc(k.zone)+'</td><td class="l">'+k.use+'</td></tr>';
+  });
+  document.getElementById('pkBody').innerHTML=h;
+
+  var need={},unit={},order=[];
+  KIT.forEach(function(k){ if(!(k.nm in need)){need[k.nm]=0;order.push(k.nm);} need[k.nm]+=k.q; unit[k.nm]=k.u; });
+  var m='';
+  order.forEach(function(nm){
+    var per=need[nm],u=unit[nm],tot=per*pax,have=HAVE[nm];
+    var haveS=(have==null)?'<span class="wait">확인</span>':fmt(have)+u;
+    var left=(have==null)?null:have-tot;
+    var leftS=(left==null)?'<span class="wait">—</span>':(left<0?'⚠️ '+fmt(-left)+u+' 부족':(left===0?'<span class="warn">0 (여유 없음)</span>':fmt(left)+u));
+    m+='<tr><td class="l">'+nm+'</td><td class="num">'+per+u+'</td>'
+      +'<td class="num"><b>'+fmt(tot)+u+'</b></td><td class="num">'+haveS+'</td>'
+      +'<td class="num '+(left!=null&&left<0?'bad':'')+'">'+leftS+'</td>'
+      +'<td class="l">'+(NOTE[nm]||'')+'</td></tr>';
+  });
+  document.getElementById('matBody').innerHTML=m;
+}
+var ip=document.getElementById('ipax'); if(ip) ip.addEventListener('input',render);
+render();
+
+document.querySelectorAll('.cbtn').forEach(function(b){
+  b.addEventListener('click',function(){
+    var el=document.getElementById(b.dataset.c); if(!el)return;
+    navigator.clipboard.writeText(el.textContent).then(function(){
+      var o=b.textContent; b.textContent='복사됨'; setTimeout(function(){b.textContent=o;},1200);
+    });
+  });
+});
+function printTab(){ window.print(); }
+</script>
+</body></html>
